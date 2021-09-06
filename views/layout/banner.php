@@ -4,7 +4,7 @@
     <div class="container-fluid">
       <div class="row main-top-w3l py-2">
         <div class="col-lg-4 header-most-top">
-          <p class="text-white text-lg-left text-center">Offer Zone Top Deals & Discounts
+          <p class="text-white text-lg-left text-center">Las Mejores Ofertas y Descuentos en Verano
             <i class="fas fa-shopping-cart ml-1"></i>
           </p>
         </div>
@@ -13,22 +13,22 @@
           <ul>
             <li class="text-center border-right text-white">
               <a class="play-icon popup-with-zoom-anim text-white" href="#small-dialog1">
-                <i class="fas fa-map-marker mr-2"></i>Select Location</a>
+                <!-- <i class="fas fa-map-marker mr-2"></i>Seleccionar ubicación</a> -->
             </li>
             <li class="text-center border-right text-white">
               <a href="#" data-toggle="modal" data-target="#exampleModal" class="text-white">
-                <i class="fas fa-truck mr-2"></i>Track Order</a>
+                <!-- <i class="fas fa-truck mr-2"></i>Track Order</a> -->
             </li>
             <li class="text-center border-right text-white">
               <i class="fas fa-phone mr-2"></i> 001 234 5678
             </li>
             <li class="text-center border-right text-white">
               <a href="#" data-toggle="modal" data-target="#exampleModal" class="text-white">
-                <i class="fas fa-sign-in-alt mr-2"></i> Log In </a>
+                <i class="fas fa-sign-in-alt mr-2"></i> Hola, Identificate </a>
             </li>
             <li class="text-center text-white">
               <a href="#" data-toggle="modal" data-target="#exampleModal2" class="text-white">
-                <i class="fas fa-sign-out-alt mr-2"></i>Register </a>
+                <i class="fas fa-sign-out-alt mr-2"></i>Registro </a>
             </li>
           </ul>
           <!-- //header lists -->
@@ -424,33 +424,33 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title text-center">Log In</h5>
+          <h5 class="modal-title text-center">Inicia sesión</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          <form action="#" method="post">
+          <form action="<?= base_url ?>Home/panelAdministrativo" method="post">
             <div class="form-group">
-              <label class="col-form-label">Username</label>
+              <label class="col-form-label">Dirección de e-mail</label>
               <input type="text" class="form-control" placeholder=" " name="Name" required="">
             </div>
             <div class="form-group">
-              <label class="col-form-label">Password</label>
+              <label class="col-form-label">Contraseña</label>
               <input type="password" class="form-control" placeholder=" " name="Password" required="">
             </div>
             <div class="right-w3l">
-              <input type="submit" class="form-control" value="Log in">
+              <input type="submit" class="form-control" value="Continuar">
             </div>
-            <div class="sub-w3l">
+            <!-- <div class="sub-w3l">
               <div class="custom-control custom-checkbox mr-sm-2">
                 <input type="checkbox" class="custom-control-input" id="customControlAutosizing">
-                <label class="custom-control-label" for="customControlAutosizing">Remember me?</label>
+                <label class="custom-control-label" for="customControlAutosizing">Recordar Contraseña</label>
               </div>
-            </div>
-            <p class="text-center dont-do mt-3">Don't have an account?
+            </div> -->
+            <p class="text-center dont-do mt-3">¿No tienes una cuenta?
               <a href="#" data-toggle="modal" data-target="#exampleModal2">
-                Register Now</a>
+                Regístrate ahora</a>
             </p>
           </form>
         </div>
@@ -462,7 +462,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Register</h5>
+          <h5 class="modal-title">Registro</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -470,7 +470,7 @@
         <div class="modal-body">
           <form action="#" method="post">
             <div class="form-group">
-              <label class="col-form-label">Your Name</label>
+              <label class="col-form-label">Nombre</label>
               <input type="text" class="form-control" placeholder=" " name="Name" required="">
             </div>
             <div class="form-group">
@@ -478,20 +478,20 @@
               <input type="email" class="form-control" placeholder=" " name="Email" required="">
             </div>
             <div class="form-group">
-              <label class="col-form-label">Password</label>
+              <label class="col-form-label">Contraseña</label>
               <input type="password" class="form-control" placeholder=" " name="Password" id="password1" required="">
             </div>
             <div class="form-group">
-              <label class="col-form-label">Confirm Password</label>
+              <label class="col-form-label">Confirma Contraseña</label>
               <input type="password" class="form-control" placeholder=" " name="Confirm Password" id="password2" required="">
             </div>
             <div class="right-w3l">
-              <input type="submit" class="form-control" value="Register">
+              <input type="submit" class="form-control" value="Aceptar">
             </div>
             <div class="sub-w3l">
               <div class="custom-control custom-checkbox mr-sm-2">
                 <input type="checkbox" class="custom-control-input" id="customControlAutosizing2">
-                <label class="custom-control-label" for="customControlAutosizing2">I Accept to the Terms & Conditions</label>
+                <label class="custom-control-label" for="customControlAutosizing2">Acepto los Términos y Condiciones</label>
               </div>
             </div>
           </form>

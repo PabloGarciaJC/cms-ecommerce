@@ -5,7 +5,7 @@
 				<div class="agileits-navi_search">
 					<form action="#" method="post">
 						<select id="agileinfo-nav_search" name="agileinfo_search" class="border" required="">
-							<option value="">All Categories</option>
+							<option value="">Categorias</option>
 							<option value="Televisions">Televisions</option>
 							<option value="Headphones">Headphones</option>
 							<option value="Computers">Computers</option>

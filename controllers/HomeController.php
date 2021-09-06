@@ -25,5 +25,9 @@ class HomeController{
         require_once 'views/home/contactUs.php';
     }
 
+    public function panelAdministrativo(){
+        require_once 'views/home/panelAdministrativo.php';
+    
+    }
 
 }
