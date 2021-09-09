@@ -430,14 +430,14 @@
           </button>
         </div>
         <div class="modal-body">
-          <form action="<?= base_url ?>Home/panelAdministrativo" method="post">
+          <form action="<?= base_url ?>Usuario/perfil" method="POST">
             <div class="form-group">
               <label class="col-form-label">Dirección de e-mail</label>
-              <input type="text" class="form-control" placeholder=" " name="Name" required="">
+              <input type="text" class="form-control" name="Name" required="">
             </div>
             <div class="form-group">
               <label class="col-form-label">Contraseña</label>
-              <input type="password" class="form-control" placeholder=" " name="Password" required="">
+              <input type="password" class="form-control" name="Password" required="">
             </div>
             <div class="right-w3l">
               <input type="submit" class="form-control" value="Continuar">
@@ -468,32 +468,42 @@
           </button>
         </div>
         <div class="modal-body">
-          <form action="#" method="post">
-            <div class="form-group">
-              <label class="col-form-label">Nombre</label>
-              <input type="text" class="form-control" placeholder=" " name="Name" required="">
+          <form action="" method="POST" id="mdFormularioRegistro">
+            <div class="form-group cErrorUsuario">
+              <label class="col-form-label ">Alias</label>
+              <input type="text" class="form-control" id="mdUsuarioRegistro" name="usuario">
+              <label id="mdErrorRegistro" style="color: red;"></label>
             </div>
-            <div class="form-group">
+            <div class="form-group cErrorEmail">
               <label class="col-form-label">Email</label>
-              <input type="email" class="form-control" placeholder=" " name="Email" required="">
+              <input type="text" class="form-control" id="mdEmailRegistro" name="email">
+              <label id="mdErrorRegistro" style="color: red;"></label>
             </div>
-            <div class="form-group">
-              <label class="col-form-label">Contraseña</label>
-              <input type="password" class="form-control" placeholder=" " name="Password" id="password1" required="">
+            <div class="form-group cErrorPassword">
+              <label class="col-form-label ">Contraseña</label>
+              <input type="password" class="form-control" id="mdPasswordRegistro" name="password">
+              <label id="mdErrorRegistro" style="color: red;"></label>
             </div>
-            <div class="form-group">
-              <label class="col-form-label">Confirma Contraseña</label>
-              <input type="password" class="form-control" placeholder=" " name="Confirm Password" id="password2" required="">
+            <div class="form-group cErrorConfirmarPassword">
+              <label class="col-form-label ">Confirma Contraseña</label>
+              <input type="password" class="form-control" id="mdConfirmarPasswordRegistro" name="confirmarPassword">
+              <label id="mdErrorRegistro" style="color: red;"></label>
             </div>
-            <div class="right-w3l">
-              <input type="submit" class="form-control" value="Aceptar">
-            </div>
+
+            
             <div class="sub-w3l">
-              <div class="custom-control custom-checkbox mr-sm-2">
-                <input type="checkbox" class="custom-control-input" id="customControlAutosizing2">
-                <label class="custom-control-label" for="customControlAutosizing2">Acepto los Términos y Condiciones</label>
+              <div class="custom-control custom-checkbox mr-sm-2 cErrorChecked">
+                <input type="checkbox" class="custom-control-input" id="mdCheckedRegistro">
+                <label class="custom-control-label" for="mdCheckedRegistro">Acepto los Términos y Condiciones</label>
+                <label id="mdErrorRegistro" style="color: red;"></label>
               </div>
             </div>
+
+            <div class="right-w3l">
+              <input type="submit" class="form-control" id="mdAceptarRegistro" value="Aceptar">
+            </div>
+            
+
           </form>
         </div>
       </div>

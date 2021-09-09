@@ -4,10 +4,8 @@ require_once 'config/db.php';
 require_once 'autoload.php';
 require_once 'config/parameters.php';
 require_once 'helpers/utils.php';
-require_once 'views/layout/header.php';
-require_once 'views/layout/banner.php';
-require_once 'views/layout/nav.php';
-require_once 'views/layout/search.php';
+
+
 
 
 
@@ -53,6 +51,6 @@ if(class_exists($nombre_controlador)){
    $error->index();
 }
 
-require_once 'views/layout/footer.php';
+
 ?>
 	

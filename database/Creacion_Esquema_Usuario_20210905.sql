@@ -36,6 +36,7 @@ NumeroDocumento varchar(20),
 Nombres varchar(100),
 Apellidos varchar(100),
 Email varchar(100),
+NroTelefono varchar (30),
 Direccion varchar(250),
 CodigoPostal varchar(10),
 Id_Pais int,
@@ -71,8 +72,8 @@ insert into Ciudades values (null, 'Caracas', 3);
 
 insert into Ciudades values (null, 'Andaluz', 4);
 insert into Ciudades values (null, 'Madrid', 5);
-
 insert into Ciudades values (null, 'Lima', 6);
 insert into Ciudades values (null, 'Arequipa', 7);
 
-
+select * from usuarios; 
+insert into usuarios values (null,'Aliass', '4567', 'v-document', 'pablo', 'garci', 'emdail@hotmail.com', 'numeroTelefono','direccion', 'postal', null, null, null, 'urlAvatar', 'urlDocumento');

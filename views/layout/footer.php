@@ -1,46 +1,46 @@
   <!-- footer -->
-  <footer>  
-  <div class="footer-top-first">
-			<div class="container py-md-5 py-sm-4 py-3">
-							<!-- footer second section -->
-				<div class="row w3l-grids-footer border-top border-bottom py-sm-4 py-3">
-					<div class="col-md-4 offer-footer">
-						<div class="row">
-							<div class="col-4 icon-fot">
-								<i class="fas fa-dolly"></i>
-							</div>
-							<div class="col-8 text-form-footer">
-								<h3>Free Shipping</h3>
-								<p>on orders over $100</p>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4 offer-footer my-md-0 my-4">
-						<div class="row">
-							<div class="col-4 icon-fot">
-								<i class="fas fa-shipping-fast"></i>
-							</div>
-							<div class="col-8 text-form-footer">
-								<h3>Fast Delivery</h3>
-								<p>World Wide</p>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4 offer-footer">
-						<div class="row">
-							<div class="col-4 icon-fot">
-								<i class="far fa-thumbs-up"></i>
-							</div>
-							<div class="col-8 text-form-footer">
-								<h3>Big Choice</h3>
-								<p>of Products</p>
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- //footer second section -->
-			</div>
-		</div>
+  <footer>
+    <div class="footer-top-first">
+      <div class="container py-md-5 py-sm-4 py-3">
+        <!-- footer second section -->
+        <div class="row w3l-grids-footer border-top border-bottom py-sm-4 py-3">
+          <div class="col-md-4 offer-footer">
+            <div class="row">
+              <div class="col-4 icon-fot">
+                <i class="fas fa-dolly"></i>
+              </div>
+              <div class="col-8 text-form-footer">
+                <h3>Free Shipping</h3>
+                <p>on orders over $100</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 offer-footer my-md-0 my-4">
+            <div class="row">
+              <div class="col-4 icon-fot">
+                <i class="fas fa-shipping-fast"></i>
+              </div>
+              <div class="col-8 text-form-footer">
+                <h3>Fast Delivery</h3>
+                <p>World Wide</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 offer-footer">
+            <div class="row">
+              <div class="col-4 icon-fot">
+                <i class="far fa-thumbs-up"></i>
+              </div>
+              <div class="col-8 text-form-footer">
+                <h3>Big Choice</h3>
+                <p>of Products</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- //footer second section -->
+      </div>
+    </div>
     <!-- footer third section -->
     <div class="w3l-middlefooter-sec">
       <div class="container py-md-5 py-sm-4 py-3">
@@ -159,15 +159,15 @@
     <!-- //footer third section -->
   </footer>
   <!-- //footer -->
-	<!-- copyright -->
-	<div class="copy-right py-3">
-		<div class="container">
-			<p class="text-center text-white">© 2018 Electro Store. All rights reserved | Design by
-				<a href="http://w3layouts.com"> W3layouts.</a>
-			</p>
-		</div>
-	</div>
-	<!-- //copyright -->
+  <!-- copyright -->
+  <div class="copy-right py-3">
+    <div class="container">
+      <p class="text-center text-white">© 2018 Electro Store. All rights reserved | Design by
+        <a href="http://w3layouts.com"> W3layouts.</a>
+      </p>
+    </div>
+  </div>
+  <!-- //copyright -->
 
 
 
@@ -238,7 +238,7 @@
 
   <!-- password-script -->
   <script>
-    window.onload = function() {
+/*     window.onload = function() {
       document.getElementById("password1").onchange = validatePassword;
       document.getElementById("password2").onchange = validatePassword;
     }
@@ -251,7 +251,7 @@
       else
         document.getElementById("password2").setCustomValidity('');
       //empty string means no validation error
-    }
+    } */
   </script>
   <!-- //password-script -->
 
@@ -303,4 +303,37 @@
   <!-- //for bootstrap working -->
   <!-- //js-files -->
 
-</html>
+  <script src="<?= base_url ?>assets/js/validacion/usuario.js"></script>
+
+  <!--  AJAX  -->
+  <script>
+    // var mdFormularioRegistro = document.getElementById('mdFormularioRegistro');
+
+    // var mdUsuarioR = document.getElementById('mdUsuarioRegistro').value;
+    // var mdEmailR = document.getElementById('mdEmailRegistro').value;
+    // var mdPasswordR = document.getElementById('mdPasswordRegistro').value;
+    // var mdConfirmarPasswordR = document.getElementById('mdConfirmarPasswordRegistro').value;
+
+    // mdFormularioRegistro.addEventListener('submit', (e) => {
+    //   e.preventDefault();
+
+    //   var ruta = "usuario=" + mdUsuarioR + "&email=" + mdEmailR + "&password=" + mdPasswordR + "&confirmarPassword=" + mdConfirmarPasswordR;
+
+    //   $.ajax({
+    //       url: '<?= base_url ?>Usuario/pruebaajax',
+    //       type: 'POST',
+    //       data: ruta,
+    //     })
+    //     .done(function(res) {
+    //       $('#respuesta').html(res);
+    //     })
+    //     .fail(function() {
+    //       console.log("error");
+    //     })
+    //     .always(function() {
+    //       console.log("completo");
+    //     });
+    // });
+  </script>
+  <!-- // AJAX  -->
+  </html>
