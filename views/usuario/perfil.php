@@ -9,9 +9,9 @@
               <form action="<?= base_url ?>Usuario/actualizar" method="POST" enctype="multipart/form-data">
                 <div class="row">
                   <div class="col-md-8">
-                    <div class="form-group">
+                    <div class="form-group">                     
                       <label for="inputUsername">Alias</label>
-                      <input type="text" class="form-control" name="usuario">
+                      <input type="text" class="form-control" value= "<?=$form["usuario"];?>"name="usuario">
                     </div>
                     <div class="form-group">
                       <label for="inputUsername">Nro. de Documentación</label>

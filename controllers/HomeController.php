@@ -53,4 +53,5 @@ class HomeController
         require_once 'views/home/contactUs.php';
         require_once 'views/layout/footer.php';
     }
+
 }

@@ -10,13 +10,12 @@ let expresion = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
 mdFormularioRegistro.addEventListener('submit', (e) => {
 
   // Mostrar Errores Generales
-
   // Usuario:
   if (mdUsuarioR.value == null || mdUsuarioR.value == '') {
     mostrarMensajeError('cErrorUsuario', 'Ingrese Alias');
     e.preventDefault();
-  } else if (mdUsuarioR.value.length > 10) {
-    mostrarMensajeError('cErrorUsuario', 'El Alias debe de Tener Max. 10 Caracteres');
+  } else if (mdUsuarioR.value.length > 12) {
+    mostrarMensajeError('cErrorUsuario', 'El Alias debe de Tener Max. 12 Caracteres');
     e.preventDefault();
   }
 
@@ -49,6 +48,9 @@ mdFormularioRegistro.addEventListener('submit', (e) => {
   if (!mdCheckedR) {
     mostrarMensajeError('cErrorChecked', 'Debes Aceptar los Términos y Condiciones');
     e.preventDefault();
+  } else {
+    // Borro el Mensaje de Cheked
+    mostrarMensajeError('cErrorChecked', '');    
   }
 
   // Funcion para No escribir tanto codigo.
@@ -58,7 +60,6 @@ mdFormularioRegistro.addEventListener('submit', (e) => {
   }
 
   // Borrar Errores Generales
-
   // Usuario:
   mdUsuarioR.addEventListener('keypress', (e) => {
     let mdUsuarioR = document.querySelector('.cErrorUsuario');

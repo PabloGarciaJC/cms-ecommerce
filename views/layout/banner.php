@@ -430,7 +430,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <form action="<?= base_url ?>Usuario/perfil" method="POST">
+          <form action="<?= base_url ?>Home/perfil" method="POST">
             <div class="form-group">
               <label class="col-form-label">Dirección de e-mail</label>
               <input type="text" class="form-control" name="Name" required="">
@@ -468,7 +468,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <form action="" method="POST" id="mdFormularioRegistro">
+          <form action="<?= base_url ?>Usuario/panelAministrativo" method="POST" id="mdFormularioRegistro">
             <div class="form-group cErrorUsuario">
               <label class="col-form-label ">Alias</label>
               <input type="text" class="form-control" id="mdUsuarioRegistro" name="usuario">
@@ -489,21 +489,17 @@
               <input type="password" class="form-control" id="mdConfirmarPasswordRegistro" name="confirmarPassword">
               <label id="mdErrorRegistro" style="color: red;"></label>
             </div>
-
-            
-            <div class="sub-w3l">
-              <div class="custom-control custom-checkbox mr-sm-2 cErrorChecked">
+            <div class="sub-w3l cErrorChecked">
+              <div class="custom-control custom-checkbox mr-sm-2 ">
                 <input type="checkbox" class="custom-control-input" id="mdCheckedRegistro">
                 <label class="custom-control-label" for="mdCheckedRegistro">Acepto los Términos y Condiciones</label>
-                <label id="mdErrorRegistro" style="color: red;"></label>
               </div>
+              <label id="mdErrorRegistro" style="color: red;"></label>
             </div>
 
             <div class="right-w3l">
               <input type="submit" class="form-control" id="mdAceptarRegistro" value="Aceptar">
             </div>
-            
-
           </form>
         </div>
       </div>
