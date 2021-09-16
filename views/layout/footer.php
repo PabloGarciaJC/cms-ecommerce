@@ -303,7 +303,7 @@
   <!-- //for bootstrap working -->
   <!-- //js-files -->
 
-  <script src="<?= base_url ?>assets/js/validacion/usuario.js"></script>
+  <!-- <script src="<?= base_url ?>assets/js/validacion/usuario.js"></script> -->
 
   <!--  AJAX  -->
   <script>

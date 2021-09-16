@@ -40,4 +40,4 @@ if (class_exists($nombre_controlador)) {
    $error->index();
 }
 
-require_once 'views/layout/footer.php';
+// require_once 'views/layout/footer.php';

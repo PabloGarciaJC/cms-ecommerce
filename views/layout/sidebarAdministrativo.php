@@ -7,7 +7,7 @@
           <h5 class="card-title mb-0">Panel Administrativo</h5>
         </div>
         <div class="list-group list-group-flush">
-          <a class="list-group-item list-group-item-action"  href="<?=base_url?>Usuario/panelAministrativo">
+          <a class="list-group-item list-group-item-action"  href="<?=base_url?>Usuario/panelAdministrativo">
             Mi Perfil
           </a>
           <a class="list-group-item list-group-item-action"  href="<?=base_url?>Usuario/cambioPassword">

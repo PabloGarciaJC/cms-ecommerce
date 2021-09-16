@@ -11,7 +11,7 @@
                   <div class="col-md-8">
                     <div class="form-group">                     
                       <label for="inputUsername">Alias</label>
-                      <input type="text" class="form-control" value= "<?=$form["usuario"];?>"name="usuario">
+                      <input type="text" class="form-control" name="usuario">
                     </div>
                     <div class="form-group">
                       <label for="inputUsername">Nro. de Documentación</label>

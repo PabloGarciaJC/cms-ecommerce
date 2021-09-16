@@ -430,7 +430,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <form action="<?= base_url ?>Home/perfil" method="POST">
+          <form action="<?= base_url ?>Usuario/panelAdministrativo" method="POST">
             <div class="form-group">
               <label class="col-form-label">Dirección de e-mail</label>
               <input type="text" class="form-control" name="Name" required="">
@@ -442,12 +442,6 @@
             <div class="right-w3l">
               <input type="submit" class="form-control" value="Continuar">
             </div>
-            <!-- <div class="sub-w3l">
-              <div class="custom-control custom-checkbox mr-sm-2">
-                <input type="checkbox" class="custom-control-input" id="customControlAutosizing">
-                <label class="custom-control-label" for="customControlAutosizing">Recordar Contraseña</label>
-              </div>
-            </div> -->
             <p class="text-center dont-do mt-3">¿No tienes una cuenta?
               <a href="#" data-toggle="modal" data-target="#exampleModal2">
                 Regístrate ahora</a>
@@ -468,27 +462,36 @@
           </button>
         </div>
         <div class="modal-body">
-          <form action="<?= base_url ?>Usuario/panelAministrativo" method="POST" id="mdFormularioRegistro">
+          <form action="" method="POST" id="mdFormularioRegistro">
             <div class="form-group cErrorUsuario">
               <label class="col-form-label ">Alias</label>
-              <input type="text" class="form-control" id="mdUsuarioRegistro" name="usuario">
+              <input type="text" class="form-control" id="mdUsuarioRegistro">
               <label id="mdErrorRegistro" style="color: red;"></label>
             </div>
             <div class="form-group cErrorEmail">
               <label class="col-form-label">Email</label>
-              <input type="text" class="form-control" id="mdEmailRegistro" name="email">
+              <input type="text" class="form-control" id="mdEmailRegistro">
               <label id="mdErrorRegistro" style="color: red;"></label>
             </div>
             <div class="form-group cErrorPassword">
               <label class="col-form-label ">Contraseña</label>
-              <input type="password" class="form-control" id="mdPasswordRegistro" name="password">
+              <input type="password" class="form-control" id="mdPasswordRegistro">
               <label id="mdErrorRegistro" style="color: red;"></label>
             </div>
             <div class="form-group cErrorConfirmarPassword">
               <label class="col-form-label ">Confirma Contraseña</label>
-              <input type="password" class="form-control" id="mdConfirmarPasswordRegistro" name="confirmarPassword">
+              <input type="password" class="form-control" id="mdConfirmarPasswordRegistro">
               <label id="mdErrorRegistro" style="color: red;"></label>
             </div>
+
+
+            <!-- Respuesta Ajax Con PHP-->
+            <div id="mensaje" style="color: red;"></div>
+            <div id="mensajeT" style="color: red;"></div>
+
+
+
+
             <div class="sub-w3l cErrorChecked">
               <div class="custom-control custom-checkbox mr-sm-2 ">
                 <input type="checkbox" class="custom-control-input" id="mdCheckedRegistro">
@@ -496,9 +499,9 @@
               </div>
               <label id="mdErrorRegistro" style="color: red;"></label>
             </div>
-
+            <div id="respuest"></div>
             <div class="right-w3l">
-              <input type="submit" class="form-control" id="mdAceptarRegistro" value="Aceptar">
+              <input type="submit" class="form-control" value="Aceptar">
             </div>
           </form>
         </div>
@@ -507,3 +510,95 @@
   </div>
   <!-- //modal -->
   <!-- //top-header -->
+
+  <!--  VALIDACION Y AJAX  -->
+  <script>
+    let mdFormularioRegistro = document.getElementById('mdFormularioRegistro');
+
+    mdFormularioRegistro.addEventListener('submit', (e) => {
+
+      e.preventDefault(); // Freno el Submit o Envío
+
+      let expresion = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
+      let mdUsuarioR = $('#mdUsuarioRegistro').val();
+      let mdEmailR = $('#mdEmailRegistro').val();
+      let mdPasswordR = $('#mdPasswordRegistro').val();
+      let mdConfirmarPasswordR = $('#mdConfirmarPasswordRegistro').val();
+      let mdCheckedR = document.getElementById('mdCheckedRegistro').checked;
+
+
+      // Mostrar Errores Generales:
+
+      // Usuario:      
+      if (mdUsuarioR == null || mdUsuarioR == '') {
+        mostrarMensajeError('cErrorUsuario', 'Ingrese Alias');
+      } else if (mdUsuarioR.length > 12) {
+        mostrarMensajeError('cErrorUsuario', 'El Alias debe de Tener Max. 12 Caracteres');
+      } else {
+        // Borro el Mensaje de Usuario
+        mostrarMensajeError('cErrorUsuario', '');
+      }
+
+      // Email:
+      if (mdEmailR == null || mdEmailR == '') {
+        mostrarMensajeError('cErrorEmail', 'Ingrese Email');
+      } else if (!expresion.test(mdEmailR)) {
+        mostrarMensajeError('cErrorEmail', 'El Email No es Valido');
+      } else {
+        // Borro el Mensaje de Email
+        mostrarMensajeError('cErrorEmail', '');
+      }
+
+      // Password
+      if (mdPasswordR == null || mdPasswordR == '') {
+        mostrarMensajeError('cErrorPassword', 'Ingrese Password');
+      } else {
+        // Borro el Mensaje de Password
+        mostrarMensajeError('cErrorPassword', '');
+      }
+
+      // Confirmar Password
+      if (mdConfirmarPasswordR == null || mdConfirmarPasswordR == '') {
+        mostrarMensajeError('cErrorConfirmarPassword', 'Ingrese Confirmar Password');
+      } else if (mdConfirmarPasswordR != mdPasswordR) {
+        mostrarMensajeError('cErrorConfirmarPassword', 'Las Password deben de coincidir');
+      } else {
+        // Borro el Mensaje de Confirmar Password
+        mostrarMensajeError('cErrorConfirmarPassword', '');
+      }
+
+      // Validar Checked      
+      if (!mdCheckedR) {
+        mostrarMensajeError('cErrorChecked', 'Debes Aceptar los Términos y Condiciones');
+      } else {
+        // Borro el Mensaje de Cheked
+        mostrarMensajeError('cErrorChecked', '');
+      }
+
+      // Funcion para Mostrar Mensajes:
+      function mostrarMensajeError(claseInput, mensaje) {
+        let elemento = document.querySelector(`.${claseInput}`);
+        elemento.lastElementChild.innerHTML = mensaje;
+      }
+
+      // Ajax con PHP
+      $.ajax({
+          type: 'POST',
+          url: '<?= base_url ?>Usuario/crear',
+          data: 'usuario=' + mdUsuarioR + '&email=' + mdEmailR + '&password=' + mdPasswordR + '&confirmarPassword=' + mdConfirmarPasswordR + '&checked=' + mdCheckedR,
+        })
+        .done(function(resRegistro) {         
+       $('#mensaje').html(resRegistro);
+         
+         
+        })
+        .fail(function() {
+          console.log("error");
+        })
+        .always(function() {
+          console.log("completo");
+        });
+      // Ajax con PHP - FIN
+    });
+  </script>
+  <!--  VALIDACION Y AJAX  -->
