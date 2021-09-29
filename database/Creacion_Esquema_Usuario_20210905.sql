@@ -1,6 +1,6 @@
-create database db_ecommerce;
+create database pablogarciajc_ecommerce;
 
-use db_ecommerce;
+use pablogarciajc_ecommerce;
 
 create table Paises(
 Id int auto_increment,
@@ -26,7 +26,6 @@ constraint PK_CIUDADES PRIMARY KEY (Id),
 constraint FK_CIUDADES_ESTADOS FOREIGN KEY (Id_Estado) REFERENCES Estados(Id),
 constraint UQ_CIUDADES UNIQUE (Nombre)
 )Engine=InnoDB;;
-
 
 create table Usuarios(
 Id int auto_increment,

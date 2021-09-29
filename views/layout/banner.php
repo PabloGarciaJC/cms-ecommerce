@@ -417,7 +417,6 @@
   </div>
   <!-- //shop locator (popup) -->
 
-
   <!-- modals -->
   <!-- log in -->
   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -451,6 +450,7 @@
       </div>
     </div>
   </div>
+
   <!-- register -->
   <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -463,43 +463,46 @@
         </div>
         <div class="modal-body">
           <form action="" method="POST" id="mdFormularioRegistro">
+
+            <div id="idRegistroCompletado" style="text-align: center;"></div>
+
             <div class="form-group cErrorUsuario">
               <label class="col-form-label ">Alias</label>
               <input type="text" class="form-control" id="mdUsuarioRegistro">
-              <label id="mdErrorRegistro" style="color: red;"></label>
+              <div id="mdErrorUsuarioPhp" style="color: red;"></div>
+              <!-- <label id="mdErrorRegistro" style="color: red;"></label> -->
             </div>
+
             <div class="form-group cErrorEmail">
               <label class="col-form-label">Email</label>
               <input type="text" class="form-control" id="mdEmailRegistro">
-              <label id="mdErrorRegistro" style="color: red;"></label>
+              <div id="mdErrorEmailPhp" style="color: red;"></div>
+              <!-- <label id="mdErrorRegistro" style="color: red;"></label> -->
             </div>
+
             <div class="form-group cErrorPassword">
               <label class="col-form-label ">Contraseña</label>
               <input type="password" class="form-control" id="mdPasswordRegistro">
-              <label id="mdErrorRegistro" style="color: red;"></label>
+              <div id="mdErrorPasswordPhp" style="color: red;"></div>
+              <!-- <label id="mdErrorRegistro" style="color: red;"></label> -->
             </div>
+
             <div class="form-group cErrorConfirmarPassword">
               <label class="col-form-label ">Confirma Contraseña</label>
               <input type="password" class="form-control" id="mdConfirmarPasswordRegistro">
-              <label id="mdErrorRegistro" style="color: red;"></label>
+              <div id="mdErrorConfirmarPasswordPhp" style="color: red;"></div>
+              <!-- <label id="mdErrorRegistro" style="color: red;"></label> -->
             </div>
-
-
-            <!-- Respuesta Ajax Con PHP-->
-            <div id="mensaje" style="color: red;"></div>
-            <div id="mensajeT" style="color: red;"></div>
-
-
-
 
             <div class="sub-w3l cErrorChecked">
               <div class="custom-control custom-checkbox mr-sm-2 ">
                 <input type="checkbox" class="custom-control-input" id="mdCheckedRegistro">
                 <label class="custom-control-label" for="mdCheckedRegistro">Acepto los Términos y Condiciones</label>
               </div>
-              <label id="mdErrorRegistro" style="color: red;"></label>
+              <div id="mdErrorChekedPhp" style="color: red;"></div>
+              <!-- <label id="mdErrorRegistro" style="color: red;"></label> -->
             </div>
-            <div id="respuest"></div>
+
             <div class="right-w3l">
               <input type="submit" class="form-control" value="Aceptar">
             </div>
@@ -514,10 +517,8 @@
   <!--  VALIDACION Y AJAX  -->
   <script>
     let mdFormularioRegistro = document.getElementById('mdFormularioRegistro');
-
     mdFormularioRegistro.addEventListener('submit', (e) => {
-
-      e.preventDefault(); // Freno el Submit o Envío
+      e.preventDefault(); // Freno Submit o Envío;
 
       let expresion = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
       let mdUsuarioR = $('#mdUsuarioRegistro').val();
@@ -526,71 +527,25 @@
       let mdConfirmarPasswordR = $('#mdConfirmarPasswordRegistro').val();
       let mdCheckedR = document.getElementById('mdCheckedRegistro').checked;
 
-
-      // Mostrar Errores Generales:
-
-      // Usuario:      
-      if (mdUsuarioR == null || mdUsuarioR == '') {
-        mostrarMensajeError('cErrorUsuario', 'Ingrese Alias');
-      } else if (mdUsuarioR.length > 12) {
-        mostrarMensajeError('cErrorUsuario', 'El Alias debe de Tener Max. 12 Caracteres');
-      } else {
-        // Borro el Mensaje de Usuario
-        mostrarMensajeError('cErrorUsuario', '');
-      }
-
-      // Email:
-      if (mdEmailR == null || mdEmailR == '') {
-        mostrarMensajeError('cErrorEmail', 'Ingrese Email');
-      } else if (!expresion.test(mdEmailR)) {
-        mostrarMensajeError('cErrorEmail', 'El Email No es Valido');
-      } else {
-        // Borro el Mensaje de Email
-        mostrarMensajeError('cErrorEmail', '');
-      }
-
-      // Password
-      if (mdPasswordR == null || mdPasswordR == '') {
-        mostrarMensajeError('cErrorPassword', 'Ingrese Password');
-      } else {
-        // Borro el Mensaje de Password
-        mostrarMensajeError('cErrorPassword', '');
-      }
-
-      // Confirmar Password
-      if (mdConfirmarPasswordR == null || mdConfirmarPasswordR == '') {
-        mostrarMensajeError('cErrorConfirmarPassword', 'Ingrese Confirmar Password');
-      } else if (mdConfirmarPasswordR != mdPasswordR) {
-        mostrarMensajeError('cErrorConfirmarPassword', 'Las Password deben de coincidir');
-      } else {
-        // Borro el Mensaje de Confirmar Password
-        mostrarMensajeError('cErrorConfirmarPassword', '');
-      }
-
-      // Validar Checked      
-      if (!mdCheckedR) {
-        mostrarMensajeError('cErrorChecked', 'Debes Aceptar los Términos y Condiciones');
-      } else {
-        // Borro el Mensaje de Cheked
-        mostrarMensajeError('cErrorChecked', '');
-      }
-
-      // Funcion para Mostrar Mensajes:
-      function mostrarMensajeError(claseInput, mensaje) {
-        let elemento = document.querySelector(`.${claseInput}`);
-        elemento.lastElementChild.innerHTML = mensaje;
-      }
-
-      // Ajax con PHP
+      // Crear Usuario Ajax
       $.ajax({
           type: 'POST',
           url: '<?= base_url ?>Usuario/crear',
           data: 'usuario=' + mdUsuarioR + '&email=' + mdEmailR + '&password=' + mdPasswordR + '&confirmarPassword=' + mdConfirmarPasswordR + '&checked=' + mdCheckedR,
         })
-        .done(function(resRegistro) {         
-       $('#mensaje').html(resRegistro);
-         
-         
+        .done(function(respuestaPhpCreado) {
+          $('#mdErrorUsuarioPhp').html('');
+          $('#mdErrorEmailPhp').html('');
+          $('#mdErrorPasswordPhp').html('');
+          $('#mdErrorConfirmarPasswordPhp').html('');
+          $('#mdErrorChekedPhp').html('');
+          $("#idRegistroCompletado").html(respuestaPhpCreado);
+          if (respuestaPhpCreado == 1) {
+            $('#idRegistroCompletado').html('<div class="alert alert-success" role="alert"><strong>Registro</strong>, Completado </div>');
+            $('#mdFormularioRegistro').trigger('reset');
+          } else {
+            $('#idRegistroCompletado').html('');
+          }
         })
         .fail(function() {
           console.log("error");
@@ -598,7 +553,5 @@
         .always(function() {
           console.log("completo");
         });
-      // Ajax con PHP - FIN
     });
   </script>
-  <!--  VALIDACION Y AJAX  -->

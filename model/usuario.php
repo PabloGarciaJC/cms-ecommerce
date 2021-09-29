@@ -38,7 +38,7 @@ class Usuario
 
   public function getPassword()
   {
-    return password_hash($this->db->real_escape_string($this->password),PASSWORD_BCRYPT,['cost'=>4]);
+    return password_hash($this->db->real_escape_string($this->password), PASSWORD_BCRYPT, ['cost' => 4]);
   }
 
   public function getNumeroDocumento()
@@ -178,9 +178,34 @@ class Usuario
   }
 
   // Consultas
+
+  public function repetidosUsuario()
+  {
+    $resultado = false;
+    $sql = "SELECT Usuario FROM Usuarios where Usuario ='{$this->getUsuario()}'";
+    $repetidos = $this->db->query($sql);
+    if ($repetidos) {
+      $resultado = true;
+    }
+    return $repetidos;
+  }
+
+  public function repetidosEmail()
+  {
+    $resultado = false;
+    $sql = "SELECT Email FROM Usuarios where Email ='{$this->getEmail()}'";
+    $repetidos = $this->db->query($sql);
+    if ($repetidos) {
+      $resultado = true;
+    }
+    return $repetidos;
+  }
+
+
   public function crear()
   {
     $result = false;
+
     $sql = "INSERT INTO usuarios (Usuario,
                                   Password, 
                                   NumeroDocumento,                                  

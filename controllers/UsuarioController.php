@@ -10,52 +10,38 @@ class UsuarioController
         $password = isset($_POST['password']) ? $_POST['password'] : false;
         $confirmarPassword = isset($_POST['confirmarPassword']) ? $_POST['confirmarPassword'] : false;
         $checked = isset($_POST['checked']) ? $_POST['checked'] : false;
-
-
-        //Repoblar Formulario
-        $form = array();
-        $form["usuario"] = $usuario;
-        $form["email"] = $email;
-        $form["password"] = $password;
-        $form["confirmarPassword"] = $confirmarPassword;
-        //Reclutar Errores 
-        $errores = array();
-
-        //Validar los datos
-        if (empty(trim($usuario)) || is_numeric($usuario) || preg_match("/[0-9]/", $usuario)) {
-            $errores["usuario"] = "el formato de Usuario es incorrecto";
-        }
-
-        if (empty(trim($email)) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $errores["email"] = "Error, el formato de Email es incorrecto";
-        }
-
-        if (empty(trim($password))) {
-            $errores["password"] = "Error, el formato de Password es incorrecto";
-        }
-
-        if (empty(trim($confirmarPassword)) || $confirmarPassword != $password) {
-            $errores["confirmarPassword"] = "Error, Las Contraseñas deben de Coincidir";
-        }
-        if ($checked == 'false') {
-            $errores["checked"] = "Error, checked no selecionado";
-        }
-
+        $errores = null;
         // Instancio 
         $crear = new Usuario();
         $crear->setUsuario($usuario);
         $crear->setEmail($email);
         $crear->setPassword($confirmarPassword);
-
-        if (count($errores) == 0) {
-            $guardar = $crear->crear();
-        } else {            
-            if ($errores['usuario'] == 'el formato de Usuario es incorrecto') {
-                echo $errores['usuario'];
-            } else {
-                echo $errores['email'];
-            }
+        $comprobarUsuario = $crear->repetidosUsuario();
+        $comprobandoEmail = $crear->repetidosEmail();
+        //validacion
+        if (empty(trim($usuario))) {
+            $errores =  "<script>document.getElementById('mdErrorUsuarioPhp').innerHTML='<strong>Error</strong>, Ingrese Alias';</script>";
+        } elseif (strlen($usuario) > 12) {
+            $errores =  "<script>document.getElementById('mdErrorUsuarioPhp').innerHTML='<strong>Error</strong>, El Alias debe de Tener Max. 12 Caracteres';</script>";
+        } elseif ($comprobarUsuario->num_rows > 0) {
+            $errores =  "<script>document.getElementById('mdErrorUsuarioPhp').innerHTML='<strong>Error</strong>, Alias Repetido';</script>";
+        } else if (empty(trim($email))) {
+            $errores =  "<script>document.getElementById('mdErrorEmailPhp').innerHTML='<strong>Error</strong>, Ingrese email';</script>";
+        } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $errores =  "<script>document.getElementById('mdErrorEmailPhp').innerHTML='<strong>Error</strong>, Ingrese Email Valido';</script>";
+        } elseif ($comprobandoEmail->num_rows > 0) {
+            $errores =  "<script>document.getElementById('mdErrorEmailPhp').innerHTML='<strong>Error</strong>, Email Repetido';</script>";
+        } else  if (empty(trim($password))) {
+            $errores =  "<script>document.getElementById('mdErrorPasswordPhp').innerHTML='<strong>Error</strong>, Ingrese Contraseña';</script>";
+        } else if (empty(trim($confirmarPassword)) || $confirmarPassword != $password) {
+            $errores =  "<script>document.getElementById('mdErrorConfirmarPasswordPhp').innerHTML='<strong>Error</strong>, Las Contraseñas deben de coincidir';</script>";
+        } else  if ($checked == 'false') {
+            $errores =  "<script>document.getElementById('mdErrorChekedPhp').innerHTML='<strong>Error</strong>, checked no selecionado';</script>";
+        } else {
+            $crear->crear();
+            $errores = 1;
         }
+        echo $errores;
     }
 
     public function actualizar()
