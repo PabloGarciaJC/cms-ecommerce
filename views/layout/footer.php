@@ -238,7 +238,7 @@
 
   <!-- password-script -->
   <script>
-/*     window.onload = function() {
+    /*     window.onload = function() {
       document.getElementById("password1").onchange = validatePassword;
       document.getElementById("password2").onchange = validatePassword;
     }
@@ -303,37 +303,9 @@
   <!-- //for bootstrap working -->
   <!-- //js-files -->
 
-  <!-- <script src="<?= base_url ?>assets/js/validacion/usuario.js"></script> -->
-
-  <!--  AJAX  -->
-  <script>
-    // var mdFormularioRegistro = document.getElementById('mdFormularioRegistro');
-
-    // var mdUsuarioR = document.getElementById('mdUsuarioRegistro').value;
-    // var mdEmailR = document.getElementById('mdEmailRegistro').value;
-    // var mdPasswordR = document.getElementById('mdPasswordRegistro').value;
-    // var mdConfirmarPasswordR = document.getElementById('mdConfirmarPasswordRegistro').value;
-
-    // mdFormularioRegistro.addEventListener('submit', (e) => {
-    //   e.preventDefault();
-
-    //   var ruta = "usuario=" + mdUsuarioR + "&email=" + mdEmailR + "&password=" + mdPasswordR + "&confirmarPassword=" + mdConfirmarPasswordR;
-
-    //   $.ajax({
-    //       url: '<?= base_url ?>Usuario/pruebaajax',
-    //       type: 'POST',
-    //       data: ruta,
-    //     })
-    //     .done(function(res) {
-    //       $('#respuesta').html(res);
-    //     })
-    //     .fail(function() {
-    //       console.log("error");
-    //     })
-    //     .always(function() {
-    //       console.log("completo");
-    //     });
-    // });
-  </script>
-  <!-- // AJAX  -->
+  <!-- ajax iniciar sesion -->
+  <script src="<?= base_url ?>assets/js/config/parameters.js"></script>
+  <script src="<?= base_url ?>assets/js/ajax/iniciarSesion.js"></script>
+  <script src="<?= base_url ?>assets/js/ajax/registroUsuarios.js"></script>
+  
   </html>

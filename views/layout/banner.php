@@ -429,17 +429,21 @@
           </button>
         </div>
         <div class="modal-body">
-          <form action="<?= base_url ?>Usuario/panelAdministrativo" method="POST">
+          <form action="" method="POST" id="mdFormularioIniciarSesion">
+
+            <div id="idIniciarSesionCompletado"></div>
             <div class="form-group">
               <label class="col-form-label">Dirección de e-mail</label>
-              <input type="text" class="form-control" name="Name" required="">
+              <input type="text" class="form-control" id="mdEmailPhpIniciarSesion">
+              <div id="mdErrorEmailPhpIniciarSesion" style="color: red;"></div>
             </div>
             <div class="form-group">
               <label class="col-form-label">Contraseña</label>
-              <input type="password" class="form-control" name="Password" required="">
+              <input type="password" class="form-control" id="mdPasswordPhpIniciarSesion">
+              <div id="mdErrorPasswordPhpIniciarSesion" style="color: red;"></div>
             </div>
             <div class="right-w3l">
-              <input type="submit" class="form-control" value="Continuar">
+              <input type="submit" onclick="return mdFormularioIniciarSesion()" class="form-control" value="Continuar">
             </div>
             <p class="text-center dont-do mt-3">¿No tienes una cuenta?
               <a href="#" data-toggle="modal" data-target="#exampleModal2">
@@ -464,6 +468,8 @@
         <div class="modal-body">
           <form action="" method="POST" id="mdFormularioRegistro">
 
+            <!-- <input id="idRegistroCompletado" type="hidden"></input> -->
+          
             <div id="idRegistroCompletado" style="text-align: center;"></div>
 
             <div class="form-group cErrorUsuario">
@@ -504,7 +510,7 @@
             </div>
 
             <div class="right-w3l">
-              <input type="submit" class="form-control" value="Aceptar">
+              <input type="submit" onclick="return mdFormularioRegistro()" class="form-control" value="Aceptar">
             </div>
           </form>
         </div>
@@ -513,45 +519,3 @@
   </div>
   <!-- //modal -->
   <!-- //top-header -->
-
-  <!--  VALIDACION Y AJAX  -->
-  <script>
-    let mdFormularioRegistro = document.getElementById('mdFormularioRegistro');
-    mdFormularioRegistro.addEventListener('submit', (e) => {
-      e.preventDefault(); // Freno Submit o Envío;
-
-      let expresion = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
-      let mdUsuarioR = $('#mdUsuarioRegistro').val();
-      let mdEmailR = $('#mdEmailRegistro').val();
-      let mdPasswordR = $('#mdPasswordRegistro').val();
-      let mdConfirmarPasswordR = $('#mdConfirmarPasswordRegistro').val();
-      let mdCheckedR = document.getElementById('mdCheckedRegistro').checked;
-
-      // Crear Usuario Ajax
-      $.ajax({
-          type: 'POST',
-          url: '<?= base_url ?>Usuario/crear',
-          data: 'usuario=' + mdUsuarioR + '&email=' + mdEmailR + '&password=' + mdPasswordR + '&confirmarPassword=' + mdConfirmarPasswordR + '&checked=' + mdCheckedR,
-        })
-        .done(function(respuestaPhpCreado) {
-          $('#mdErrorUsuarioPhp').html('');
-          $('#mdErrorEmailPhp').html('');
-          $('#mdErrorPasswordPhp').html('');
-          $('#mdErrorConfirmarPasswordPhp').html('');
-          $('#mdErrorChekedPhp').html('');
-          $("#idRegistroCompletado").html(respuestaPhpCreado);
-          if (respuestaPhpCreado == 1) {
-            $('#idRegistroCompletado').html('<div class="alert alert-success" role="alert"><strong>Registro</strong>, Completado </div>');
-            $('#mdFormularioRegistro').trigger('reset');
-          } else {
-            $('#idRegistroCompletado').html('');
-          }
-        })
-        .fail(function() {
-          console.log("error");
-        })
-        .always(function() {
-          console.log("completo");
-        });
-    });
-  </script>

@@ -181,70 +181,68 @@ class Usuario
 
   public function repetidosUsuario()
   {
-    $resultado = false;
     $sql = "SELECT Usuario FROM Usuarios where Usuario ='{$this->getUsuario()}'";
     $repetidos = $this->db->query($sql);
-    if ($repetidos) {
-      $resultado = true;
+
+    if ($repetidos->num_rows == 1) {
+      return true;
     }
-    return $repetidos;
+    return false;
   }
 
   public function repetidosEmail()
   {
-    $resultado = false;
     $sql = "SELECT Email FROM Usuarios where Email ='{$this->getEmail()}'";
     $repetidos = $this->db->query($sql);
-    if ($repetidos) {
-      $resultado = true;
+   
+    if ($repetidos->num_rows == 1) {
+      return true;
     }
-    return $repetidos;
+    return false;
   }
 
 
   public function crear()
   {
-    $result = false;
+    $idUsuario = 0;
 
     $sql = "INSERT INTO usuarios (Usuario,
                                   Password, 
-                                  NumeroDocumento,                                  
-                                  Nombres,
-                                  Apellidos,
-                                  Email,
-                                  NroTelefono,
-                                  Direccion,
-                                  CodigoPostal,
-                                  Id_Pais,
-                                  Id_Estado,
-                                  Id_Ciudad,
-                                  Url_Avatar,
-                                  Url_Documento)";
+                                  Email)";
 
     $sql .= "VALUES ('{$this->usuario}',
                     '{$this->getPassword()}',
-                    'null',
-                    'null',
-                    'null',
-                    '{$this->email}',
-                    'null',
-                    'null',
-                    'null',
-                    null,
-                    null,
-                    null,
-                    'null',                    
-                    'null')";
+                    '{$this->email}');";
 
-    $save = $this->db->query($sql);
+    $saved = $this->db->query($sql);
 
+    if ($saved) {
+      $sql = "SELECT MAX(Id) as id FROM usuarios";
+      $saved = $this->db->query($sql);
+      $idUsuario = ($saved->fetch_object())->id;
+    }
+
+    return $idUsuario;
+  }
+
+  public function iniciarSesion()
+  {
+    $resultado = false;
+    $sql = "SELECT Email FROM Usuarios where Email ='{$this->getEmail()}'";
+    $login = $this->db->query($sql);
+
+    if ($login && $login->num_rows == 1) {
+      $usuario = $login->fetch_object();
+      $vericacion = password_verify($this->getPassword, $usuario->Password);
+    }
     // echo $sql;
     // echo "</br>";
     // echo $this->db->error;
     // die();
-    // if ($save) {
-    //   $result = true;
-    // }
-    return $result;
+
+    if ($vericacion) {
+      $resultado = true;
+    }
+    return $login;
   }
 }

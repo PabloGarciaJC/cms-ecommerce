@@ -10,39 +10,79 @@ class UsuarioController
         $password = isset($_POST['password']) ? $_POST['password'] : false;
         $confirmarPassword = isset($_POST['confirmarPassword']) ? $_POST['confirmarPassword'] : false;
         $checked = isset($_POST['checked']) ? $_POST['checked'] : false;
+
         $errores = null;
+
         // Instancio 
-        $crear = new Usuario();
-        $crear->setUsuario($usuario);
-        $crear->setEmail($email);
-        $crear->setPassword($confirmarPassword);
-        $comprobarUsuario = $crear->repetidosUsuario();
-        $comprobandoEmail = $crear->repetidosEmail();
+        $repositorioUsuario = new Usuario();
+        $repositorioUsuario->setUsuario($usuario);
+        $repositorioUsuario->setEmail($email);
+        $repositorioUsuario->setPassword($confirmarPassword);
+
+     
         //validacion
         if (empty(trim($usuario))) {
-            $errores =  "<script>document.getElementById('mdErrorUsuarioPhp').innerHTML='<strong>Error</strong>, Ingrese Alias';</script>";
+            $errores =  "mdErrorUsuarioPhp, Ingrese Alias";
         } elseif (strlen($usuario) > 12) {
-            $errores =  "<script>document.getElementById('mdErrorUsuarioPhp').innerHTML='<strong>Error</strong>, El Alias debe de Tener Max. 12 Caracteres';</script>";
-        } elseif ($comprobarUsuario->num_rows > 0) {
-            $errores =  "<script>document.getElementById('mdErrorUsuarioPhp').innerHTML='<strong>Error</strong>, Alias Repetido';</script>";
+            $errores =  "mdErrorUsuarioPhp, El Alias debe de Tener Max. 12 Caracteres";
+        } elseif ($repositorioUsuario->repetidosUsuario()) {
+            $errores =  "mdErrorUsuarioPhp, Alias Repetido";
         } else if (empty(trim($email))) {
-            $errores =  "<script>document.getElementById('mdErrorEmailPhp').innerHTML='<strong>Error</strong>, Ingrese email';</script>";
+            $errores =  "mdErrorEmailPhp, Ingrese email";
         } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $errores =  "<script>document.getElementById('mdErrorEmailPhp').innerHTML='<strong>Error</strong>, Ingrese Email Valido';</script>";
-        } elseif ($comprobandoEmail->num_rows > 0) {
-            $errores =  "<script>document.getElementById('mdErrorEmailPhp').innerHTML='<strong>Error</strong>, Email Repetido';</script>";
+            $errores =  "mdErrorEmailPhp, Ingrese Email Valido";
+        } elseif ($repositorioUsuario->repetidosEmail()) {
+            $errores =  "mdErrorEmailPhp, Email Repetido";
         } else  if (empty(trim($password))) {
-            $errores =  "<script>document.getElementById('mdErrorPasswordPhp').innerHTML='<strong>Error</strong>, Ingrese Contraseña';</script>";
+            $errores =  "mdErrorPasswordPhp, Ingrese Contraseña";
         } else if (empty(trim($confirmarPassword)) || $confirmarPassword != $password) {
-            $errores =  "<script>document.getElementById('mdErrorConfirmarPasswordPhp').innerHTML='<strong>Error</strong>, Las Contraseñas deben de coincidir';</script>";
+            $errores =  "mdErrorConfirmarPasswordPhp, Las Contraseñas deben de coincidir";
         } else  if ($checked == 'false') {
-            $errores =  "<script>document.getElementById('mdErrorChekedPhp').innerHTML='<strong>Error</strong>, checked no selecionado';</script>";
-        } else {
-            $crear->crear();
-            $errores = 1;
+            $errores =  "mdErrorChekedPhp, checked no selecionado";
         }
+
+        if ($errores != "") {
+            echo $errores;
+            var_dump($errores);
+        } else {
+            $idUsuario = $repositorioUsuario->crear();
+            echo $idUsuario;
+        }
+    }
+
+
+    public function iniciarSesion()
+    {
+        $email = isset($_POST['email']) ? $_POST['email'] : false;
+        $password = isset($_POST['password']) ? $_POST['password'] : false;
+
+        $errores = null;
+
+        //instacio
+        $iniciarSesion = new Usuario();
+        $iniciarSesion->setEmail($email);
+        $iniciarSesion->setPassword($password);
+
+        //validacion
+        if (empty(trim($email))) {
+            $errores = "<script>document.getElementById('mdErrorEmailPhpIniciarSesion').innerHTML='<strong>Error</strong>, Ingrese email';</script>";
+        } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $errores =  "<script>document.getElementById('mdErrorEmailPhpIniciarSesion').innerHTML='<strong>Error</strong>, Ingrese Email Valido';</script>";
+        } else  if (empty(trim($password))) {
+            $errores = "<script>document.getElementById('mdErrorPasswordPhpIniciarSesion').innerHTML='<strong>Error</strong>, Ingrese Contraseña';</script>";
+        } else {
+            echo 'si';
+            echo 1;
+
+
+
+            // $tes = $iniciarSesion->iniciarSesion();
+
+        }
+
         echo $errores;
     }
+
 
     public function actualizar()
     {
