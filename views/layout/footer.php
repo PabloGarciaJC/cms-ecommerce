@@ -162,14 +162,10 @@
   <!-- copyright -->
   <div class="copy-right py-3">
     <div class="container">
-      <p class="text-center text-white">© 2018 Electro Store. All rights reserved | Design by
-        <a href="http://w3layouts.com"> W3layouts.</a>
-      </p>
+      <p class="text-center text-white"> Desarrollado por © <strong>Pablo Garcia JC</strong></p>
     </div>
   </div>
   <!-- //copyright -->
-
-
 
   <!-- js-files -->
   <!-- jquery -->
@@ -215,15 +211,12 @@
   <!-- cart-js -->
   <script src="<?= base_url ?>assets/js/minicart.js"></script>
   <script>
-    paypals.minicarts.render(); //use only unique class names other than paypals.minicarts.Also Replace same class name in css and minicart.min.js
-
+    paypals.minicarts.render();
     paypals.minicarts.cart.on('checkout', function(evt) {
       var items = this.items(),
         len = items.length,
         total = 0,
         i;
-
-      // Count the number of each item in the cart
       for (i = 0; i < len; i++) {
         total += items[i].get('quantity');
       }
@@ -235,25 +228,6 @@
     });
   </script>
   <!-- //cart-js -->
-
-  <!-- password-script -->
-  <script>
-    /*     window.onload = function() {
-      document.getElementById("password1").onchange = validatePassword;
-      document.getElementById("password2").onchange = validatePassword;
-    }
-
-    function validatePassword() {
-      var pass2 = document.getElementById("password2").value;
-      var pass1 = document.getElementById("password1").value;
-      if (pass1 != pass2)
-        document.getElementById("password2").setCustomValidity("Passwords Don't Match");
-      else
-        document.getElementById("password2").setCustomValidity('');
-      //empty string means no validation error
-    } */
-  </script>
-  <!-- //password-script -->
 
   <!-- scroll seller -->
   <script src="<?= base_url ?>assets/js/scroll.js"></script>
@@ -301,11 +275,15 @@
   <!-- for bootstrap working -->
   <script src="<?= base_url ?>assets/js/bootstrap.js"></script>
   <!-- //for bootstrap working -->
-  <!-- //js-files -->
 
-  <!-- ajax iniciar sesion -->
-  <script src="<?= base_url ?>assets/js/config/parameters.js"></script>
-  <script src="<?= base_url ?>assets/js/ajax/iniciarSesion.js"></script>
-  <script src="<?= base_url ?>assets/js/ajax/registroUsuarios.js"></script>
-  
+
+  <!-- libreria de alert sweetAlert2-->
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!-- //libreria de sweetAlert2 -->
+
+  <!-- Avatar Vista Previa -->
+  <script src="<?= base_url ?>assets/js/helpers/avatarVistaPrevia.js"></script>
+  <!-- Avatar Vista Previa -->
+
+
   </html>

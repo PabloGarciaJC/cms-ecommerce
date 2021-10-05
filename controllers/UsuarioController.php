@@ -3,114 +3,206 @@ require_once 'model/usuario.php';
 
 class UsuarioController
 {
-    public function crear()
+    public function registro()
     {
+        $mensaje = null;
         $usuario = isset($_POST['usuario']) ? $_POST['usuario'] : false;
         $email = isset($_POST['email']) ? $_POST['email'] : false;
         $password = isset($_POST['password']) ? $_POST['password'] : false;
         $confirmarPassword = isset($_POST['confirmarPassword']) ? $_POST['confirmarPassword'] : false;
         $checked = isset($_POST['checked']) ? $_POST['checked'] : false;
-
-        $errores = null;
-
         // Instancio 
-        $repositorioUsuario = new Usuario();
-        $repositorioUsuario->setUsuario($usuario);
-        $repositorioUsuario->setEmail($email);
-        $repositorioUsuario->setPassword($confirmarPassword);
-
-     
+        $registro = new Usuario();
+        $registro->setUsuario($usuario);
+        $registro->setEmail($email);
+        $registro->setPassword($confirmarPassword);
+        $comprobarUsuario = $registro->repetidosUsuario();
+        $comprobandoEmail = $registro->repetidosEmail();
         //validacion
         if (empty(trim($usuario))) {
-            $errores =  "mdErrorUsuarioPhp, Ingrese Alias";
+            $mensaje = utils::setearMensajeError('mdErrorUsuarioPhp', 'Ingrese Alias');
         } elseif (strlen($usuario) > 12) {
-            $errores =  "mdErrorUsuarioPhp, El Alias debe de Tener Max. 12 Caracteres";
-        } elseif ($repositorioUsuario->repetidosUsuario()) {
-            $errores =  "mdErrorUsuarioPhp, Alias Repetido";
+            $mensaje = utils::setearMensajeError('mdErrorUsuarioPhp', 'El Alias debe de Tener Max. 12 Caracteres');
+        } elseif ($comprobarUsuario->num_rows > 0) {
+            $mensaje = utils::setearMensajeError('mdErrorUsuarioPhp', 'Alias Repetido');
         } else if (empty(trim($email))) {
-            $errores =  "mdErrorEmailPhp, Ingrese email";
+            $mensaje = utils::setearMensajeError('mdErrorEmailPhp', 'Ingrese email');
         } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $errores =  "mdErrorEmailPhp, Ingrese Email Valido";
-        } elseif ($repositorioUsuario->repetidosEmail()) {
-            $errores =  "mdErrorEmailPhp, Email Repetido";
+            $mensaje = utils::setearMensajeError('mdErrorEmailPhp', 'Ingrese Email Valido');
+        } elseif ($comprobandoEmail->num_rows > 0) {
+            $mensaje = utils::setearMensajeError('mdErrorEmailPhp', 'Email Repetido');
         } else  if (empty(trim($password))) {
-            $errores =  "mdErrorPasswordPhp, Ingrese Contraseña";
+            $mensaje = utils::setearMensajeError('mdErrorPasswordPhp', 'Ingrese Contraseña');
         } else if (empty(trim($confirmarPassword)) || $confirmarPassword != $password) {
-            $errores =  "mdErrorConfirmarPasswordPhp, Las Contraseñas deben de coincidir";
+            $mensaje = utils::setearMensajeError('mdErrorConfirmarPasswordPhp', 'Las Contraseñas deben de coincidir');
         } else  if ($checked == 'false') {
-            $errores =  "mdErrorChekedPhp, checked no selecionado";
-        }
-
-        if ($errores != "") {
-            echo $errores;
-            var_dump($errores);
+            $mensaje = utils::setearMensajeError('mdErrorChekedPhp', 'checked no selecionador');
         } else {
-            $idUsuario = $repositorioUsuario->crear();
-            echo $idUsuario;
+            $registro->crear();
+            $mensaje = 1;
         }
+        echo $mensaje;
     }
 
-
-    public function iniciarSesion()
+    function iniciarSesion()
     {
+        $mensaje = null;
         $email = isset($_POST['email']) ? $_POST['email'] : false;
         $password = isset($_POST['password']) ? $_POST['password'] : false;
-
-        $errores = null;
-
         //instacio
         $iniciarSesion = new Usuario();
         $iniciarSesion->setEmail($email);
         $iniciarSesion->setPassword($password);
-
+        $comprobandoEmail = $iniciarSesion->repetidosEmail();
         //validacion
         if (empty(trim($email))) {
-            $errores = "<script>document.getElementById('mdErrorEmailPhpIniciarSesion').innerHTML='<strong>Error</strong>, Ingrese email';</script>";
+            $mensaje = utils::setearMensajeError('mdErrorEmailIniciarSesionPhp', 'Ingrese email');
         } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $errores =  "<script>document.getElementById('mdErrorEmailPhpIniciarSesion').innerHTML='<strong>Error</strong>, Ingrese Email Valido';</script>";
-        } else  if (empty(trim($password))) {
-            $errores = "<script>document.getElementById('mdErrorPasswordPhpIniciarSesion').innerHTML='<strong>Error</strong>, Ingrese Contraseña';</script>";
+            $mensaje = utils::setearMensajeError('mdErrorEmailIniciarSesionPhp', 'Ingrese Email Valido');
+        } elseif ($comprobandoEmail->num_rows == 0) {
+            $mensaje = utils::setearMensajeError('mdErrorEmailIniciarSesionPhp', 'Email No esta Registrado');
+        } elseif (empty(trim($password))) {
+            $mensaje = utils::setearMensajeError('mdErrorPasswordIniciarSesionPhp', 'Ingrese Contraseña');
         } else {
-            echo 'si';
-            echo 1;
+            $sesionCompletado = $iniciarSesion->iniciarSesion();
 
+            if ($sesionCompletado && is_object($sesionCompletado)) {
 
+                $_SESSION['usuarioRegistrado'] = $sesionCompletado;
 
-            // $tes = $iniciarSesion->iniciarSesion();
-
+                //Administro los Roles
+                if ($_SESSION['usuarioRegistrado']->Rol == 'Admin') {
+                    $_SESSION['Admin'] = true;
+                    $mensaje = 1;
+                }
+                $mensaje = 1;
+            } else {
+                $mensaje = utils::setearMensajeError('mdErrorPasswordIniciarSesionPhp', 'La Contraseña no es correcta');
+            }
         }
-
-        echo $errores;
+        echo $mensaje;
     }
 
-
-    public function actualizar()
+    public function cerrarSesion()
     {
-        $usuario = isset($_POST['usuario']) ? $_POST['usuario'] : 'null';
-        $documentacion = isset($_POST['documentacion']) ? $_POST['documentacion'] : 'null';
-        $telefono = isset($_POST['telefono']) ? $_POST['telefono'] : 'null';
+        if (isset($_SESSION['usuarioRegistrado'])) {
+            unset($_SESSION['usuarioRegistrado']);
+        }
+        header("location:" . base_url);
+    }
 
-        //Capturo el FILES (Avatar).
-        $nombreAvatar = $_FILES['avatar']['name'];
-        $archivoAvatar = $_FILES['avatar']['tmp_name'];
+    public function InformacionPublica()
+    {
+        $id = isset($_POST['id']) ? $_POST['id'] : false;
+        $usuario = isset($_POST['usuario']) ? $_POST['usuario'] : false;
+        $documentacion = isset($_POST['nroDocumentacion']) ? $_POST['nroDocumentacion'] : false;
+        $telefono = isset($_POST['telefono']) ? $_POST['telefono'] : false;
+        $sizeArchivoMax = "1048576"; // 1 MB expresado en bytes //1048576
 
-        //Busco las Ruta en mi fichero del proyecto donde se guarda.
-        $ruta = "uploads/imagenes";
-        $ruta = $ruta . "/" . $nombreAvatar;
-        move_uploaded_file($archivoAvatar, $ruta);
+        //Capturo las Propiedades de FILES.
+        $nombrePropiedades = $_FILES['avatarSelecionado'];
+        $nombreArchivo = $_FILES['avatarSelecionado']['name'];
+        $tipoArchivo = $_FILES['avatarSelecionado']['type'];
+        $rutaTemporal = $_FILES['avatarSelecionado']['tmp_name'];
+        $pesoArchivo = $_FILES['avatarSelecionado']['size'];
 
-        // Inserto en la Base de Datos la Rutas.
-        var_dump($_POST);
+        //Repoblar Campos
+        $repoblarInputs = array();
+        $repoblarInputs['id'] = $id;
+        $repoblarInputs['usuario'] = $usuario;
+        $repoblarInputs['documentacion'] = $documentacion;
+        $repoblarInputs['telefono'] = $telefono;
+
+        $errores = array();
+
+        //validar el tipo de archivo.
+        if (preg_match('/[.](jpg)$/', $nombreArchivo) || preg_match('/[.](jpeg)$/', $nombreArchivo) || preg_match('/[.](png)$/', $nombreArchivo) || $nombreArchivo == '') {
+            true;
+        } else {
+            $errores['formatosAvatar'] = Utils::erroresValidacion('Error', 'solo se acepta formatos: JPG, JPEG y PNG');
+        }
+
+        if ($pesoArchivo > $sizeArchivoMax) {
+            $errores['pesoMaxAvatar'] = Utils::erroresValidacion('Error', 'la imagen NO debe pesar mas de un 1MB');
+        }
+
+        if (empty($usuario)) {
+            $errores['alias'] = Utils::erroresValidacion('Error', 'Ingrese Alias');
+        } elseif (strlen($usuario) > 12) {
+            $errores['alias'] = Utils::erroresValidacion('Error', 'El Alias debe de Tener Max. 12 Caracteres');
+        }
+
+        if (empty(trim($documentacion))) {
+            $errores['documentacion'] = Utils::erroresValidacion('Error', 'Ingrese Documentacion');
+        }
+
+        if (empty(trim($telefono))) {
+            $errores['telefono'] = Utils::erroresValidacion('Error', 'Ingrese Teléfono');
+        }
+
+        if (count($errores) == 0) {
+
+            //Creo el Directorio en el caso de que no exista.
+            if (!is_dir('uploads/images/avatar/')) {
+                mkdir('uploads/images/avatar/', 0777, true);
+            }
+            //Instancio
+            $subirImagen = new Usuario();
+            $subirImagen->setId($id);
+            $subirImagen->setUsuario($usuario);
+            $subirImagen->setNumeroDocumento($documentacion);
+            $subirImagen->setNroTelefono($telefono);
+            $subirImagen->setUrl_Avatar($nombreArchivo);
+
+            //Seleciono Imagen que Existe
+            $obtenerUsuario = $subirImagen->obtenerTodosPorId();
+
+            //url que existe en la base de datos actualmente.
+            $ruta = 'uploads/images/avatar/' . $obtenerUsuario->Url_Avatar;
+
+            if ($_FILES['avatarSelecionado']['tmp_name']) {
+                // echo 'Si Existe Ruta Temporal', "</br>";
+
+                //Guardo la Url en la base de datos la url Nueva y los Datos Nuevos
+                $subirImagen->actualizarInformacionPublica();
+
+                //Para Guardar solo un Avatar por usuario, el cual no se repita
+                if ($obtenerUsuario->Url_Avatar != $nombreArchivo) {
+                    //Borra la imagen anterior.
+                    unlink($ruta);
+                    //Guardo en el Fichero del Proyecto o en su defecto en el servidor
+                    move_uploaded_file($_FILES['avatarSelecionado']['tmp_name'], 'uploads/images/avatar/' . $nombreArchivo);
+                }
+            } else {
+                // echo 'No Existe Ruta Temporal', "</br>";
+
+                //Seteo con la que Existe Actualmente 
+                $subirImagen->setUrl_Avatar($obtenerUsuario->Url_Avatar);
+
+                //Guardo la Url en la base de datos la url Nueva.
+                $subirImagen->actualizarInformacionPublica();
+            }
+        } else {
+            $_SESSION['errores'] = $errores;
+        }
+        header("Location:" . base_url . "usuario/panelAdministrativo");
     }
 
     public function panelAdministrativo()
     {
+        Utils::accesoUsuarioRegistrado();
+
+        if (isset($_SESSION['usuarioRegistrado']->Id)) {
+            $obtenertodos = new usuario;
+            $obtenertodos->setId($_SESSION['usuarioRegistrado']->Id);
+            $usuario = $obtenertodos->obtenerTodosPorId();
+        }
         require_once 'views/layout/header.php';
         require_once 'views/layout/banner.php';
         require_once 'views/layout/nav.php';
         require_once 'views/layout/search.php';
         require_once 'views/layout/sidebarAdministrativo.php';
-        require_once 'views/usuario/perfil.php';
+        require_once 'views/usuario/formPublicaPrivada.php';
         require_once 'views/layout/footer.php';
     }
 

@@ -179,70 +179,101 @@ class Usuario
 
   // Consultas
 
-  public function repetidosUsuario()
-  {
-    $sql = "SELECT Usuario FROM Usuarios where Usuario ='{$this->getUsuario()}'";
-    $repetidos = $this->db->query($sql);
-
-    if ($repetidos->num_rows == 1) {
-      return true;
-    }
-    return false;
-  }
-
-  public function repetidosEmail()
-  {
-    $sql = "SELECT Email FROM Usuarios where Email ='{$this->getEmail()}'";
-    $repetidos = $this->db->query($sql);
-   
-    if ($repetidos->num_rows == 1) {
-      return true;
-    }
-    return false;
-  }
-
-
   public function crear()
   {
-    $idUsuario = 0;
+    $result = false;
 
     $sql = "INSERT INTO usuarios (Usuario,
-                                  Password, 
+                                  Password,
                                   Email)";
 
     $sql .= "VALUES ('{$this->usuario}',
-                    '{$this->getPassword()}',
-                    '{$this->email}');";
+                    '{$this->getPassword()}',    
+                    '{$this->email}')";
 
-    $saved = $this->db->query($sql);
+    $save = $this->db->query($sql);
 
-    if ($saved) {
-      $sql = "SELECT MAX(Id) as id FROM usuarios";
-      $saved = $this->db->query($sql);
-      $idUsuario = ($saved->fetch_object())->id;
-    }
-
-    return $idUsuario;
+    // echo $sql;
+    // echo "</br>";
+    // echo $this->db->error;
+    // die();
+    // if ($save) {
+    //   $result = true;
+    // }
+    return $result;
   }
 
   public function iniciarSesion()
   {
     $resultado = false;
-    $sql = "SELECT Email FROM Usuarios where Email ='{$this->getEmail()}'";
+    $sql = "SELECT * FROM Usuarios where Email ='{$this->getEmail()}'";
     $login = $this->db->query($sql);
 
+    //verificacion que existe ese email en la base de datos 
     if ($login && $login->num_rows == 1) {
       $usuario = $login->fetch_object();
-      $vericacion = password_verify($this->getPassword, $usuario->Password);
-    }
-    // echo $sql;
-    // echo "</br>";
-    // echo $this->db->error;
-    // die();
 
-    if ($vericacion) {
+      // verifcacion que la password coincidan 
+      //($this->password: lo que Obtengo sin cifrar por POST, $usuario->Password: lo que Tengo en la base de datos);
+      $vericacion = password_verify($this->password, $usuario->Password);
+
+      if ($vericacion == 1) {
+        return $usuario;
+        // echo 'Existe la Verificacion del usuario';
+      } else {
+        // echo 'No Existe la Verificacion de Password';
+      }
+    } else {
+      // echo 'No Existe la Verificacion de Email';
+    }
+
+    return $resultado;
+  }
+
+  public function repetidosUsuario()
+  {
+    $resultado = false;
+    $sql = "SELECT Usuario FROM Usuarios where Usuario ='{$this->getUsuario()}'";
+    $repetidos = $this->db->query($sql);
+    if ($repetidos) {
       $resultado = true;
     }
-    return $login;
+    return $repetidos;
   }
+
+  public function repetidosEmail()
+  {
+    $resultado = false;
+    $sql = "SELECT Email FROM Usuarios where Email ='{$this->getEmail()}'";
+    $repetidos = $this->db->query($sql);
+    if ($repetidos) {
+      $resultado = true;
+    }
+    return $repetidos;
+  }
+
+  public function actualizarInformacionPublica()
+  {
+    $resultado = false;    
+    $sql = "UPDATE Usuarios SET Usuario = '{$this->getUsuario()}', NumeroDocumento = '{$this->getNumeroDocumento()}', NroTelefono = '{$this->getNroTelefono()}', Url_Avatar = '{$this->getUrl_Avatar()}'  WHERE Id = {$this->getId()};";
+
+    $imagenSubida = $this->db->query($sql);
+    if ($imagenSubida) {
+      $resultado = true;
+    }
+    return $imagenSubida;
+  }
+
+  public function obtenerTodosPorId()
+  {
+    $resultado = false;
+    $sql = "SELECT * FROM Usuarios WHERE Id = {$this->getId()};";
+    $obtenerTodos = $this->db->query($sql);
+    if ($obtenerTodos) {
+      $resultado = true;
+    }
+    return $obtenerTodos->fetch_object();
+  }
+
+
 }

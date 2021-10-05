@@ -25,7 +25,7 @@ Id_Estado int,
 constraint PK_CIUDADES PRIMARY KEY (Id),
 constraint FK_CIUDADES_ESTADOS FOREIGN KEY (Id_Estado) REFERENCES Estados(Id),
 constraint UQ_CIUDADES UNIQUE (Nombre)
-)Engine=InnoDB;;
+)Engine=InnoDB;
 
 create table Usuarios(
 Id int auto_increment,
@@ -38,6 +38,7 @@ Email varchar(100),
 NroTelefono varchar (30),
 Direccion varchar(250),
 CodigoPostal varchar(10),
+Rol varchar(30),
 Id_Pais int,
 Id_Estado int,
 Id_Ciudad int,
@@ -50,29 +51,3 @@ constraint FK_USUARIOS_CIUDADES FOREIGN KEY (Id_Ciudad) REFERENCES Ciudades(Id),
 constraint UQ_USUARIOS_USUARIO UNIQUE (Usuario),
 constraint UQ_USUARIOS_EMAIL UNIQUE (Email)
 )Engine=InnoDB;
-
-insert into Paises values (null, 'Venezuela');
-insert into Paises values (null, 'España');
-insert into Paises values (null, 'Peru');
-insert into Estados values (null, 'Carabobo', 1);
-insert into Estados values (null, 'Aragua', 1);
-insert into Estados values (null, 'Miranda', 1);
-
-insert into Estados values (null, 'Andaluz', 2);
-insert into Estados values (null, 'Madrid', 2);
-
-insert into Estados values (null, 'Lima', 3);
-insert into Estados values (null, 'Arequipa', 3);
-
-insert into Ciudades values (null, 'Valencia', 1);
-insert into Ciudades values (null, 'Maracay', 2);
-insert into Ciudades values (null, 'La Victoria', 2);
-insert into Ciudades values (null, 'Caracas', 3);
-
-insert into Ciudades values (null, 'Andaluz', 4);
-insert into Ciudades values (null, 'Madrid', 5);
-insert into Ciudades values (null, 'Lima', 6);
-insert into Ciudades values (null, 'Arequipa', 7);
-
-select * from usuarios; 
-insert into usuarios values (null,'Aliass', '4567', 'v-document', 'pablo', 'garci', 'emdail@hotmail.com', 'numeroTelefono','direccion', 'postal', null, null, null, 'urlAvatar', 'urlDocumento');

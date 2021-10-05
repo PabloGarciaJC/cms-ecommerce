@@ -22,9 +22,16 @@
             <li class="text-center border-right text-white">
               <i class="fas fa-phone mr-2"></i> 001 234 5678
             </li>
+
             <li class="text-center border-right text-white">
               <a href="#" data-toggle="modal" data-target="#exampleModal" class="text-white">
-                <i class="fas fa-sign-in-alt mr-2"></i> Hola, Identificate </a>
+
+                <?php if (isset($_SESSION['usuarioRegistrado'])) : ?>
+                  <a href="<?= base_url ?>usuario/panelAdministrativo" class="estilosSesionRegistro">Hola, <?= $usuario->Usuario ?></a>
+                <?php else : ?>
+                  <i class="fas fa-sign-in-alt mr-2"></i> Hola, Identificate </a>
+            <?php endif; ?>
+
             </li>
             <li class="text-center text-white">
               <a href="#" data-toggle="modal" data-target="#exampleModal2" class="text-white">
@@ -429,21 +436,22 @@
           </button>
         </div>
         <div class="modal-body">
-          <form action="" method="POST" id="mdFormularioIniciarSesion">
+          <form action="" id="mdFormularioIniciarSesion" method="POST">
+            <!-- respuesta ajax php -->
+            <div id="respuestaPhpIniciarSesion" style="text-align: center; display: none"></div>
 
-            <div id="idIniciarSesionCompletado"></div>
             <div class="form-group">
               <label class="col-form-label">Dirección de e-mail</label>
-              <input type="text" class="form-control" id="mdEmailPhpIniciarSesion">
-              <div id="mdErrorEmailPhpIniciarSesion" style="color: red;"></div>
+              <input type="text" id="mdEmailIniciarSesion" class="form-control" name="Name">
+              <div id="mdErrorEmailIniciarSesionPhp" style="color: red;"></div>
             </div>
             <div class="form-group">
               <label class="col-form-label">Contraseña</label>
-              <input type="password" class="form-control" id="mdPasswordPhpIniciarSesion">
-              <div id="mdErrorPasswordPhpIniciarSesion" style="color: red;"></div>
+              <input type="password" id="mdPasswordIniciarSesion" class="form-control" name="Password">
+              <div id="mdErrorPasswordIniciarSesionPhp" style="color: red;"></div>
             </div>
             <div class="right-w3l">
-              <input type="submit" onclick="return mdFormularioIniciarSesion()" class="form-control" value="Continuar">
+              <input type="submit" class="form-control" value="Continuar">
             </div>
             <p class="text-center dont-do mt-3">¿No tienes una cuenta?
               <a href="#" data-toggle="modal" data-target="#exampleModal2">
@@ -466,43 +474,43 @@
           </button>
         </div>
         <div class="modal-body">
-          <form action="" method="POST" id="mdFormularioRegistro">
 
-            <!-- <input id="idRegistroCompletado" type="hidden"></input> -->
+          <form action="" method="POST" id="mdFormularioRegistro">
           
-            <div id="idRegistroCompletado" style="text-align: center;"></div>
+            <!-- respuesta ajax php -->
+            <div id="respuestaPhpRegistro" style="text-align: center; display: none"></div>
 
             <div class="form-group cErrorUsuario">
               <label class="col-form-label ">Alias</label>
-              <input type="text" class="form-control" id="mdUsuarioRegistro">
+              <input type="text" class="form-control" id="mdUsuarioRegistro" name ="usuario">
               <div id="mdErrorUsuarioPhp" style="color: red;"></div>
               <!-- <label id="mdErrorRegistro" style="color: red;"></label> -->
             </div>
 
             <div class="form-group cErrorEmail">
               <label class="col-form-label">Email</label>
-              <input type="text" class="form-control" id="mdEmailRegistro">
+              <input type="text" class="form-control" id="mdEmailRegistro" name ="email">
               <div id="mdErrorEmailPhp" style="color: red;"></div>
               <!-- <label id="mdErrorRegistro" style="color: red;"></label> -->
             </div>
 
             <div class="form-group cErrorPassword">
               <label class="col-form-label ">Contraseña</label>
-              <input type="password" class="form-control" id="mdPasswordRegistro">
+              <input type="password" class="form-control" id="mdPasswordRegistro" name ="password">
               <div id="mdErrorPasswordPhp" style="color: red;"></div>
               <!-- <label id="mdErrorRegistro" style="color: red;"></label> -->
             </div>
 
             <div class="form-group cErrorConfirmarPassword">
               <label class="col-form-label ">Confirma Contraseña</label>
-              <input type="password" class="form-control" id="mdConfirmarPasswordRegistro">
+              <input type="password" class="form-control" id="mdConfirmarPasswordRegistro" name ="confirmarPassword">
               <div id="mdErrorConfirmarPasswordPhp" style="color: red;"></div>
               <!-- <label id="mdErrorRegistro" style="color: red;"></label> -->
             </div>
 
             <div class="sub-w3l cErrorChecked">
               <div class="custom-control custom-checkbox mr-sm-2 ">
-                <input type="checkbox" class="custom-control-input" id="mdCheckedRegistro">
+                <input type="checkbox" class="custom-control-input" id="mdCheckedRegistro" name="checked">
                 <label class="custom-control-label" for="mdCheckedRegistro">Acepto los Términos y Condiciones</label>
               </div>
               <div id="mdErrorChekedPhp" style="color: red;"></div>
@@ -510,7 +518,7 @@
             </div>
 
             <div class="right-w3l">
-              <input type="submit" onclick="return mdFormularioRegistro()" class="form-control" value="Aceptar">
+              <input type="submit" class="form-control" value="Aceptar">
             </div>
           </form>
         </div>
@@ -519,3 +527,7 @@
   </div>
   <!-- //modal -->
   <!-- //top-header -->
+
+  <script src="<?= base_url ?>assets/js/config/parameters.js"></script>
+  <script src="<?= base_url ?>assets/js/ajax/registro.js"></script>
+  <script src="<?= base_url ?>assets/js/ajax/iniciarSesion.js"></script>

@@ -7,10 +7,10 @@
           <h5 class="card-title mb-0">Panel Administrativo</h5>
         </div>
         <div class="list-group list-group-flush">
-          <a class="list-group-item list-group-item-action"  href="<?=base_url?>Usuario/panelAdministrativo">
+          <!-- <a class="list-group-item list-group-item-action"  href="<?= base_url ?>Usuario/panelAdministrativo">
             Mi Perfil
           </a>
-          <a class="list-group-item list-group-item-action"  href="<?=base_url?>Usuario/cambioPassword">
+          <a class="list-group-item list-group-item-action"  href="<?= base_url ?>Usuario/cambioPassword">
             Cambio de contraseña
           </a>
           <a class="list-group-item list-group-item-action"  href="#orders">
@@ -18,11 +18,29 @@
           </a>
           <a class="list-group-item list-group-item-action"  href="#localitation">
             Localizador
-          </a>
-          <a class="list-group-item list-group-item-action"  href="#">
-            Cerrar Sesion
-          </a>
+          </a> -->
+
+          <?php if (isset($_SESSION['Admin'])) : ?>
+            <a class="list-group-item list-group-item-action" href="#localitation">
+              PruebaAdmin 1
+            </a>
+            <a class="list-group-item list-group-item-action" href="#localitation">
+              PruebaAdmin 2
+            </a>
+            <a class="list-group-item list-group-item-action" href="#localitation">
+              PruebaAdmin 3
+            </a>
+            <a class="list-group-item list-group-item-action" href="#localitation">
+              PruebaAdmin 4
+            </a>
+          <?php endif; ?>
+
+          <?php if (isset($_SESSION['usuarioRegistrado'])) : ?>
+            <a class="list-group-item list-group-item-action" href="<?= base_url ?>Usuario/cerrarSesion">
+              Cerrar Sesion
+            </a>
+          <?php endif; ?>
+          
         </div>
       </div>
-    </div>    
-    
+    </div>
