@@ -264,6 +264,18 @@ class Usuario
     return $imagenSubida;
   }
 
+  public function actualizarVacio()
+  {
+    $resultado = false;
+    $sql = "UPDATE Usuarios SET Usuario = '' WHERE Id = {$this->getId()};";
+    $actualizarVacio = $this->db->query($sql);
+    if ($actualizarVacio) {
+      $resultado = true;
+    }
+    return $actualizarVacio;
+  }
+
+
   public function obtenerTodosPorId()
   {
     $resultado = false;
@@ -273,6 +285,18 @@ class Usuario
       $resultado = true;
     }
     return $obtenerTodos->fetch_object();
+  }
+
+  
+  public function obtenerTodos()
+  {
+    $resultado = false;
+    $sql = "SELECT * FROM Usuarios;";
+    $obtenerTodos = $this->db->query($sql);
+    if ($obtenerTodos) {
+      $resultado = true;
+    }
+    return $obtenerTodos;
   }
 
 
