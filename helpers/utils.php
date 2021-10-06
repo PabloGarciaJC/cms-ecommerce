@@ -20,8 +20,6 @@ class Utils
   public static function borrarSesionErrores()
   {
     $_SESSION['errores'] = null;
-    $_SESSION['repoblar'] = null;
-    
   }
 
   //mostrar mensajes de errores formulario 
@@ -30,8 +28,4 @@ class Utils
     return "<strong>$error,</strong> " . $mensaje;
   }
 
-  // public static function errorGeneral($error, $mensaje)
-  // {   
-  //   return '<div class="alert alert-danger" role="alert" style="text-align: center;" ><strong>' . $error . ', </strong>' . $mensaje . '</div>';
-  // }
 }

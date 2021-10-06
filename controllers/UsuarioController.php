@@ -113,16 +113,18 @@ class UsuarioController
         $repoblarInputs['documentacion'] = $documentacion;
         $repoblarInputs['telefono'] = $telefono;
 
-        //Instancio
-        $subirImagen = new Usuario();
-        $subirImagen->setId($id);
-        $subirImagen->setUsuario($usuario);
-        $subirImagen->setNumeroDocumento($documentacion);
-        $subirImagen->setNroTelefono($telefono);
-        $subirImagen->setUrl_Avatar($nombreArchivo);
-
-        //valido los files
         $errores = array();
+
+        //validar el tipo de archivo.
+        if (preg_match('/[.](jpg)$/', $nombreArchivo) || preg_match('/[.](jpeg)$/', $nombreArchivo) || preg_match('/[.](png)$/', $nombreArchivo) || $nombreArchivo == '') {
+            true;
+        } else {
+            $errores['formatosAvatar'] = Utils::erroresValidacion('Error', 'solo se acepta formatos: JPG, JPEG y PNG');
+        }
+
+        if ($pesoArchivo > $sizeArchivoMax) {
+            $errores['pesoMaxAvatar'] = Utils::erroresValidacion('Error', 'la imagen NO debe pesar mas de un 1MB');
+        }
 
         if (empty($usuario)) {
             $errores['alias'] = Utils::erroresValidacion('Error', 'Ingrese Alias');
@@ -130,50 +132,61 @@ class UsuarioController
             $errores['alias'] = Utils::erroresValidacion('Error', 'El Alias debe de Tener Max. 12 Caracteres');
         }
 
-        if (empty($documentacion)) {
+        if (empty(trim($documentacion))) {
             $errores['documentacion'] = Utils::erroresValidacion('Error', 'Ingrese Documentacion');
         }
 
-        if (empty($telefono)) {
+        if (empty(trim($telefono))) {
             $errores['telefono'] = Utils::erroresValidacion('Error', 'Ingrese Teléfono');
         }
 
-        if ($pesoArchivo > $sizeArchivoMax) {
-            $errores['pesoMaxAvatar'] = Utils::erroresValidacion('Error', 'la imagen NO debe pesar mas de un 1MB');
-        }
-
         if (count($errores) == 0) {
-
-            // Guardo la Nueva Url en la base de datos.
-            $subirImagen->actualizarInformacionPublica();
 
             //Creo el Directorio en el caso de que no exista.
             if (!is_dir('uploads/images/avatar/')) {
                 mkdir('uploads/images/avatar/', 0777, true);
             }
-
-            // Guardo la Nueva Url en la base de datos.
-            $subirImagen->actualizarInformacionPublica();
+            //Instancio
+            $subirImagen = new Usuario();
+            $subirImagen->setId($id);
+            $subirImagen->setUsuario($usuario);
+            $subirImagen->setNumeroDocumento($documentacion);
+            $subirImagen->setNroTelefono($telefono);
+            $subirImagen->setUrl_Avatar($nombreArchivo);
 
             //Seleciono Imagen que Existe
-            $urlAvatar = $subirImagen->obtenerTodosPorId();
-            $ruta = 'uploads/images/avatar/' . $urlAvatar->Url_Avatar;  //url que existe en la base de datos actualmente.
+            $obtenerUsuario = $subirImagen->obtenerTodosPorId();
 
-            //Para Guardar solo un Avatar por usuario, el cual no se repita.
-            if ($urlAvatar->Url_Avatar != $nombreArchivo) {
-                // Borra la imagen anterior.
-                unlink($ruta);
+            //url que existe en la base de datos actualmente.
+            $ruta = 'uploads/images/avatar/' . $obtenerUsuario->Url_Avatar;
 
-                // Guardo en el Fichero del Proyecto o en su defecto en el servidor
-                move_uploaded_file($_FILES['avatarSelecionado']['tmp_name'], 'uploads/images/avatar/' . $nombreArchivo);
+            if ($_FILES['avatarSelecionado']['tmp_name']) {
+                // echo 'Si Existe Ruta Temporal', "</br>";
+
+                //Guardo la Url en la base de datos la url Nueva y los Datos Nuevos
+                $subirImagen->actualizarInformacionPublica();
+
+                //Para Guardar solo un Avatar por usuario, el cual no se repita
+                if ($obtenerUsuario->Url_Avatar != $nombreArchivo) {
+                    //Borra la imagen anterior.
+                    unlink($ruta);
+                    //Guardo en el Fichero del Proyecto o en su defecto en el servidor
+                    move_uploaded_file($_FILES['avatarSelecionado']['tmp_name'], 'uploads/images/avatar/' . $nombreArchivo);
+                }
+            } else {
+                // echo 'No Existe Ruta Temporal', "</br>";
+
+                //Seteo con la que Existe Actualmente 
+                $subirImagen->setUrl_Avatar($obtenerUsuario->Url_Avatar);
+
+                //Guardo la Url en la base de datos la url Nueva.
+                $subirImagen->actualizarInformacionPublica();
             }
         } else {
             $_SESSION['errores'] = $errores;
-            $_SESSION['repoblar'] = $repoblarInputs;
         }
         header("Location:" . base_url . "usuario/panelAdministrativo");
     }
-
 
     public function panelAdministrativo()
     {

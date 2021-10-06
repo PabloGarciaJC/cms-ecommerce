@@ -12,4 +12,4 @@ UPDATE Usuarios SET Nombres = 'Pablo' WHERE Id = 10;
 
 SELECT Usuario, Email from usuarios where usuario LIKE "%vegeta%" OR Email Like "%vegeta@vegeta.com%";
 
-UPDATE Usuarios SET  Url_Avatar = '' WHERE Id = 5;
+UPDATE Usuarios SET Usuario = '', NumeroDocumento = '', NroTelefono = '', Url_Avatar = '' WHERE Id = 15;

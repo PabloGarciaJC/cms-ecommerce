@@ -23,8 +23,9 @@
         <div class="card-header">
           <h5 class="card-title mb-0">Información pública</h5>
         </div>
-    
+
         <div class="card-body">
+
           <form action="<?= base_url ?>Usuario/InformacionPublica" method="POST" enctype="multipart/form-data">
             <div class="row">
               <div class="col-md-8">
@@ -32,20 +33,20 @@
                 <input type="hidden" value="<?= $_SESSION['usuarioRegistrado']->Id ?>" name="id">
 
                 <div class="form-group">
-                  <label for="inputUsername">Alias</label>
-                  <input type="text" class="form-control" name="usuario" value="<?= isset($_SESSION['repoblar']['usuario']) ? $_SESSION['repoblar']['usuario'] : $usuario->Usuario ?>">
+                  <label for="inputUsername">Alias</label>                 
+                  <input type="text" class="form-control" name="usuario" value="<?=$usuario->Usuario?>">
                   <div class="erroresValidacion"><?= isset($_SESSION['errores']['alias']) ? $_SESSION['errores']['alias'] : false; ?></div>
                 </div>
 
                 <div class="form-group">
                   <label for="inputUsername">Nro. de Documentación</label>
-                  <input type="text" class="form-control" name="nroDocumentacion" value="<?= isset($_SESSION['repoblar']['documentacion']) ? $_SESSION['repoblar']['documentacion'] : $usuario->NumeroDocumento ?>">
+                  <input  type="text" class="form-control" name="nroDocumentacion" value="<?=$usuario->NumeroDocumento?>">
                   <div class="erroresValidacion"><?= isset($_SESSION['errores']['documentacion']) ? $_SESSION['errores']['documentacion'] : false; ?></div>
                 </div>
 
                 <div class="form-group">
                   <label for="inputUsername">Nro. de Telefono</label>
-                  <input type="text" class="form-control" name="telefono" value="<?= isset($_SESSION['repoblar']['telefono']) ? $_SESSION['repoblar']['telefono'] : $usuario->NroTelefono ?>">
+                  <input  type="text" class="form-control" name="telefono" value="<?=$usuario->NroTelefono?>">
                   <div class="erroresValidacion"><?= isset($_SESSION['errores']['telefono']) ? $_SESSION['errores']['telefono'] : false; ?></div>
                 </div>
               </div>
