@@ -1,10 +1,11 @@
 <?php
 
-class Pais
+class Paises
 {
 
   private $id;
   private $pais;
+  private $db;
 
   ///CONSTRUCTOR///
   public function __construct()

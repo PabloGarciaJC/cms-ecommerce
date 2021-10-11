@@ -1,6 +1,6 @@
 <?php
 require_once 'model/usuario.php';
-require_once 'model/pais.php';
+require_once 'model/paises.php';
 
 class HomeController
 {

@@ -1,8 +1,9 @@
 use pablogarciajc_ecommerce;
-
-UPDATE Usuarios SET Url_Avatar = '' WHERE Id = 1;
-
 SELECT * FROM usuarios;
+
+UPDATE Usuarios SET Rol = 'Admin' WHERE Id = 3;
+
+
 
 insert into Usuarios (Rol) values ('Admin');
 

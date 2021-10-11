@@ -151,7 +151,3 @@
 </div>
 </div>
 
-
-<script src="<?= base_url ?>assets/js/ajax/informacionPublica.js"></script>
-<script src="<?= base_url ?>assets/js/ajax/informacionPrivada.js"></script>
-<script src="<?= base_url ?>assets/js/ajax/ciudad.js"></script>

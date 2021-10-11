@@ -1,12 +1,12 @@
 <?php
-require_once 'model/ciudad.php';
+require_once 'model/ciudades.php';
 
 class CiudadController
 {
   public function obtenerTodos()
   {
     $codigoPais = isset($_POST['pais']) ? $_POST['pais'] : false;
-    $ciudad = new Ciudad();
+    $ciudad = new Ciudades();
     $ciudad->setIdPais($codigoPais);
 
     $filas = $ciudad->obtenerTodasCiudades();

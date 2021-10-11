@@ -285,8 +285,14 @@
   <script src="<?= base_url ?>assets/js/helpers/avatarVistaPrevia.js"></script>
   <!-- Avatar Vista Previa -->
 
-<!-- Iniciar Sesion y Registro AJAX y Validaciones con PHP-->
+  <!-- Iniciar Sesion y Registro AJAX y Validaciones con PHP-->
   <script src="<?= base_url ?>assets/js/config/parameters.js"></script>
   <script src="<?= base_url ?>assets/js/ajax/registro.js"></script>
   <script src="<?= base_url ?>assets/js/ajax/iniciarSesion.js"></script>
+
+  <!-- Informacion Publicany Privada Validaciones con Javascript y Php-->
+  <script src="<?= base_url ?>assets/js/ajax/informacionPublica.js"></script>
+  <script src="<?= base_url ?>assets/js/ajax/informacionPrivada.js"></script>
+  <script src="<?= base_url ?>assets/js/ajax/ciudad.js"></script>
+
   </html>

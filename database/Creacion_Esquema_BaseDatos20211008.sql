@@ -39,6 +39,16 @@ constraint UQ_USUARIOS_EMAIL UNIQUE (Email)
 )Engine=InnoDB;
 
 
+use pablogarciajc_ecommerce;
+
+CREATE TABLE categorias(
+id int(255) auto_increment not null,
+categorias varchar(100) not null,
+Fecha_Ingreso date,
+CONSTRAINT pk_categorias PRIMARY KEY(id) 
+)ENGINE=InnoDb;
+
+
 
 
 

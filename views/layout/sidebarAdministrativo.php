@@ -19,19 +19,22 @@
           <a class="list-group-item list-group-item-action"  href="#localitation">
             Localizador
           </a> -->
+          <?php if (isset($_SESSION['usuarioRegistrado'])) : ?>
+            <a class="list-group-item list-group-item-action" href="<?= base_url ?>Usuario/panelAdministrativo">
+              Información General
+            </a>
+          <?php endif; ?>
+
 
           <?php if (isset($_SESSION['Admin'])) : ?>
-            <a class="list-group-item list-group-item-action" href="#localitation">
-              PruebaAdmin 1
+            <a class="list-group-item list-group-item-action" href="<?= base_url ?>Categoria/crear">
+              Gestionar Categorias
             </a>
             <a class="list-group-item list-group-item-action" href="#localitation">
-              PruebaAdmin 2
+              Gestionar Productos
             </a>
             <a class="list-group-item list-group-item-action" href="#localitation">
-              PruebaAdmin 3
-            </a>
-            <a class="list-group-item list-group-item-action" href="#localitation">
-              PruebaAdmin 4
+              Gestionar Pedidos
             </a>
           <?php endif; ?>
 
@@ -40,7 +43,7 @@
               Cerrar Sesion
             </a>
           <?php endif; ?>
-          
+
         </div>
       </div>
     </div>

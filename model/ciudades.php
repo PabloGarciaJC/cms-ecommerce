@@ -1,11 +1,12 @@
 <?php
 
-class Ciudad
+class Ciudades
 {
 
   private $id;
   private $idPais;
   private $ciudad;
+  private $db;
 
   ///CONSTRUCTOR///
   public function __construct()

@@ -1,6 +1,6 @@
 <?php
 require_once 'model/usuario.php';
-require_once 'model/pais.php';
+require_once 'model/paises.php';
 
 class UsuarioController
 {
@@ -16,19 +16,18 @@ class UsuarioController
                 $obtenertodos->setId($_SESSION['usuarioRegistrado']->Id);
                 $usuario = $obtenertodos->obtenerTodosPorId();
             }
-
-            //Obtengo Todos Los Paises
-            $paises = new Pais();
-            $paisesTodos = $paises->obtenerTodosPaises();
-
-            require_once 'views/layout/header.php';
-            require_once 'views/layout/banner.php';
-            require_once 'views/layout/nav.php';
-            require_once 'views/layout/search.php';
-            require_once 'views/layout/sidebarAdministrativo.php';
-            require_once 'views/usuario/formPublicaPrivada.php';
-            require_once 'views/layout/footer.php';
         }
+        //Obtengo Todos Los Paises
+        $paises = new Paises();
+        $paisesTodos = $paises->obtenerTodosPaises();
+
+        require_once 'views/layout/header.php';
+        require_once 'views/layout/banner.php';
+        require_once 'views/layout/nav.php';
+        require_once 'views/layout/search.php';
+        require_once 'views/layout/sidebarAdministrativo.php';
+        require_once 'views/usuario/formPublicaPrivada.php';
+        require_once 'views/layout/footer.php';
     }
 
     public function registro()
