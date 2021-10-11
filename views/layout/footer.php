@@ -169,7 +169,7 @@
 
   <!-- js-files -->
   <!-- jquery -->
-  <script src="<?= base_url ?>assets/js/jquery-2.2.3.min.js"></script>
+  <script src="<?= base_url ?>assets/js/librerias/jquery-2.2.3.min.js"></script>
   <!-- //jquery -->
   <!-- nav smooth scroll -->
   <script>
@@ -189,7 +189,7 @@
   <!-- //nav smooth scroll -->
 
   <!-- popup modal (for location)-->
-  <script src="<?= base_url ?>assets/js/jquery.magnific-popup.js"></script>
+  <script src="<?= base_url ?>assets/js/librerias/jquery.magnific-popup.js"></script>
   <script>
     $(document).ready(function() {
       $('.popup-with-zoom-anim').magnificPopup({
@@ -209,7 +209,7 @@
   <!-- //popup modal (for location)-->
 
   <!-- cart-js -->
-  <script src="<?= base_url ?>assets/js/minicart.js"></script>
+  <script src="<?= base_url ?>assets/js/librerias/minicart.js"></script>
   <script>
     paypals.minicarts.render();
     paypals.minicarts.cart.on('checkout', function(evt) {
@@ -230,16 +230,16 @@
   <!-- //cart-js -->
 
   <!-- scroll seller -->
-  <script src="<?= base_url ?>assets/js/scroll.js"></script>
+  <script src="<?= base_url ?>assets/js/librerias/scroll.js"></script>
   <!-- //scroll seller -->
 
   <!-- smoothscroll -->
-  <script src="<?= base_url ?>assets/js/SmoothScroll.min.js"></script>
+  <script src="<?= base_url ?>assets/js/librerias/SmoothScroll.min.js"></script>
   <!-- //smoothscroll -->
 
   <!-- start-smooth-scrolling -->
-  <script src="<?= base_url ?>assets/js/move-top.js"></script>
-  <script src="<?= base_url ?>assets/js/easing.js"></script>
+  <script src="<?= base_url ?>assets/js/librerias/move-top.js"></script>
+  <script src="<?= base_url ?>assets/js/librerias/easing.js"></script>
   <script>
     jQuery(document).ready(function($) {
       $(".scroll").click(function(event) {
@@ -273,7 +273,7 @@
   <!-- //smooth-scrolling-of-move-up -->
 
   <!-- for bootstrap working -->
-  <script src="<?= base_url ?>assets/js/bootstrap.js"></script>
+  <script src="<?= base_url ?>assets/js/librerias/bootstrap.js"></script>
   <!-- //for bootstrap working -->
 
 
@@ -285,5 +285,8 @@
   <script src="<?= base_url ?>assets/js/helpers/avatarVistaPrevia.js"></script>
   <!-- Avatar Vista Previa -->
 
-
+<!-- Iniciar Sesion y Registro AJAX y Validaciones con PHP-->
+  <script src="<?= base_url ?>assets/js/config/parameters.js"></script>
+  <script src="<?= base_url ?>assets/js/ajax/registro.js"></script>
+  <script src="<?= base_url ?>assets/js/ajax/iniciarSesion.js"></script>
   </html>

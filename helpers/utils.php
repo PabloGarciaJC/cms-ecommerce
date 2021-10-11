@@ -1,5 +1,6 @@
 <?php
 
+
 class Utils
 {
   //muestro errores modal
@@ -20,6 +21,8 @@ class Utils
   public static function borrarSesionErrores()
   {
     $_SESSION['errores'] = null;
+    $_SESSION['repoblarInputs'] = null;
+    $_SESSION['actualizadoCompleto'] = null;
   }
 
   //mostrar mensajes de errores formulario 

@@ -12,9 +12,9 @@ class Usuario
   private $nroTelefono;
   private $direccion;
   private $codigoPostal;
-  private $id_Pais;
-  private $id_Estado;
-  private $id_Ciudad;
+  private $pais;
+  private $idEstado;
+  private $ciudad;
   private $url_Avatar;
   private $url_Documento;
   private $db;
@@ -76,19 +76,19 @@ class Usuario
     return $this->codigoPostal;
   }
 
-  public function getId_Pais()
+  public function getPais()
   {
-    return $this->id_Pais;
+    return $this->pais;
   }
 
-  public function getId_Estado()
+  public function getidEstado()
   {
-    return $this->id_Estado;
+    return $this->idEstado;
   }
 
-  public function getId_Ciudad()
+  public function getCiudad()
   {
-    return $this->id_Ciudad;
+    return $this->ciudad;
   }
 
   public function getUrl_Avatar()
@@ -152,19 +152,19 @@ class Usuario
     $this->codigoPostal = $codigoPostal;
   }
 
-  public function setId_Pais($id_Pais)
+  public function setPais($pais)
   {
-    $this->id_Pais = $id_Pais;
+    $this->pais = $pais;
   }
 
-  public function setId_Estado($id_Estado)
+  public function setidEstado($idEstado)
   {
-    $this->id_Estado = $id_Estado;
+    $this->idEstado = $idEstado;
   }
 
-  public function setId_Ciudad($id_Ciudad)
+  public function setCiudad($ciudad)
   {
-    $this->id_Ciudad = $id_Ciudad;
+    $this->ciudad = $ciudad;
   }
 
   public function setUrl_Avatar($url_Avatar)
@@ -252,17 +252,44 @@ class Usuario
     return $repetidos;
   }
 
-  public function actualizarInformacionPublica()
+  public function subirImagen()
   {
     $resultado = false;    
-    $sql = "UPDATE Usuarios SET Usuario = '{$this->getUsuario()}', NumeroDocumento = '{$this->getNumeroDocumento()}', NroTelefono = '{$this->getNroTelefono()}', Url_Avatar = '{$this->getUrl_Avatar()}'  WHERE Id = {$this->getId()};";
-
+    $sql = "UPDATE Usuarios SET Url_Avatar = '{$this->getUrl_Avatar()}' WHERE Id = {$this->getId()};";
     $imagenSubida = $this->db->query($sql);
     if ($imagenSubida) {
       $resultado = true;
     }
     return $imagenSubida;
   }
+
+
+  public function actualizarInformacionPublica()
+  {
+    $resultado = false;    
+    $sql = "UPDATE Usuarios SET Usuario = '{$this->getUsuario()}', NumeroDocumento = '{$this->getNumeroDocumento()}', NroTelefono = '{$this->getNroTelefono()}' WHERE Id = {$this->getId()};";
+
+    $actualizar = $this->db->query($sql);
+    if ($actualizar) {
+      $resultado = true;
+    }
+    return $actualizar;
+  }
+
+  
+  public function actualizarInformacionPrivada()
+  {
+    $resultado = false;    
+    $sql = "UPDATE Usuarios SET Nombres = '{$this->getNombres()}', Apellidos = '{$this->getApellidos()}', Email = '{$this->getEmail()}', Direccion = '{$this->getDireccion()}', Pais = '{$this->getPais()}', Ciudad = '{$this->getCiudad()}', CodigoPostal = '{$this->getCodigoPostal()}'  WHERE Id = {$this->getId()};";
+
+    $actualizarInformacionPrivada = $this->db->query($sql);
+    if ($actualizarInformacionPrivada) {
+      $resultado = true;
+    }
+    return $actualizarInformacionPrivada;
+  }
+
+
 
   public function obtenerTodosPorId()
   {

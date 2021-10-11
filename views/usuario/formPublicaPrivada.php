@@ -25,29 +25,34 @@
         </div>
 
         <div class="card-body">
-
-          <form action="<?= base_url ?>Usuario/InformacionPublica" method="POST" enctype="multipart/form-data">
+          <form action="" id="informacionPublica" method="POST" enctype="multipart/form-data">
             <div class="row">
               <div class="col-md-8">
+                <input type="hidden" value="<?= $_SESSION['usuarioRegistrado']->Id ?>" id="idInformacionPublica" name="id">
 
-                <input type="hidden" value="<?= $_SESSION['usuarioRegistrado']->Id ?>" name="id">
+                <!-- Respuesta de Informacion Publica -->
+                <div id="respuestaPhpInformacionPublica" style="display: none"></div>
+                
+                <!-- Respuesta de avatarVistaPrevia, Nota: No me Devuelve 1-->
+                <div id="respuestaPhpAvatarVistaPrevia" style="display: none"></div>               
 
-                <div class="form-group">
-                  <label for="inputUsername">Alias</label>                 
-                  <input type="text" class="form-control" name="usuario" value="<?=$usuario->Usuario?>">
-                  <div class="erroresValidacion"><?= isset($_SESSION['errores']['alias']) ? $_SESSION['errores']['alias'] : false; ?></div>
+                <div class="form-group errorUsuario">
+                  <label for="inputUsername">Alias</label>            
+                  <input type="text" class="form-control" placeholder="<?= $usuario->Usuario ?>" disabled>
+                  <input type="hidden" class="form-control" value="<?= $usuario->Usuario ?>" name="usuario" id="usuario">
+                  <label class="erroresValidacion"></label>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group errorDocumentacion">
                   <label for="inputUsername">Nro. de Documentación</label>
-                  <input  type="text" class="form-control" name="nroDocumentacion" value="<?=$usuario->NumeroDocumento?>">
-                  <div class="erroresValidacion"><?= isset($_SESSION['errores']['documentacion']) ? $_SESSION['errores']['documentacion'] : false; ?></div>
+                  <input type="text" class="form-control"  value = "<?= $usuario->NumeroDocumento?>" name="documentacion" id="documentacion">
+                  <label class="erroresValidacion"></label>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group errorTelefono">
                   <label for="inputUsername">Nro. de Telefono</label>
-                  <input  type="text" class="form-control" name="telefono" value="<?=$usuario->NroTelefono?>">
-                  <div class="erroresValidacion"><?= isset($_SESSION['errores']['telefono']) ? $_SESSION['errores']['telefono'] : false; ?></div>
+                  <input type="text" class="form-control" name="telefono" value = "<?= $usuario->NroTelefono?>" id="telefono">
+                  <label class="erroresValidacion"></label>
                 </div>
               </div>
 
@@ -61,20 +66,18 @@
                     <img src="<?= base_url ?>assets/images/avatar.png" class="rounded-circle img-responsive mt-2" id="previe" width="128" height="128">
                   <?php endif; ?>
 
-                  <div class="mt-2">
+                  <div class="mt-2 errorFile">
                     <label class="custom-file-upload">
                       <input type="file" / name="avatarSelecionado" id="file" onchange="vista_preliminar(event)">
                       <span class="btn btn-primary"><i class="fa fa-upload"></i></span>
                       Actualize el Avatar
                     </label>
+                    <label class="erroresValidacion"></label>
                   </div>
-
-                  <small>Use formato de la imagen jpg, jpeg, png y un peso Max de 1 MB, Recomendado 315 x 315</small> <br>
-                  <div class="erroresValidacion"><?= isset($_SESSION['errores']['formatosAvatar']) ? $_SESSION['errores']['formatosAvatar'] : false; ?></div>
-                  <div class="erroresValidacion"><?= isset($_SESSION['errores']['pesoMaxAvatar']) ? $_SESSION['errores']['pesoMaxAvatar'] : false; ?></div>
+                  <small>Use formato de la imagen jpg, jpeg, png y un peso Max de 1 MB, Recomendado 128 x 128</small> <br>
                 </div>
               </div>
-            </div>
+            </div>            
             <button type="submit" class="btn btn-primary">Guardar</button>
           </form>
         </div>
@@ -84,40 +87,58 @@
           <h5 class="card-title mb-0">Información Privada</h5>
         </div>
         <div class="card-body">
-          <form>
-            <div class="form-row">
-              <div class="form-group col-md-6">
+
+          <form action="" id="informacionPrivada" method="">
+            <input type="hidden" value="<?= $_SESSION['usuarioRegistrado']->Id ?>" id="id" name="id">
+
+            <!-- Respuesta de Informacion Privada -->
+            <div id="respuestaPhpInformacionPrivada" style="display: none"></div>
+
+            <div class="form-row ">
+              <div class="form-group col-md-6 errorNombre">
                 <label>Nombres</label>
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" id="nombre" name="nombre" value="<?= $usuario->Nombres ?>">
+                <label class="erroresValidacion"></label>
               </div>
-              <div class="form-group col-md-6">
+              <div class="form-group col-md-6 errorApellido">
                 <label>Apellidos</label>
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" id="apellido" name="apellido" value="<?= $usuario->Apellidos ?>">
+                <label class=" erroresValidacion"></label>
               </div>
             </div>
-            <div class="form-group">
+            <div class="form-group errorEmail">
               <label>Email</label>
-              <input type="email" class="form-control">
+              <input type="text" class="form-control" id="email" name="email" value="<?= $usuario->Email ?>" disabled>
+              <label class="erroresValidacion"></label>
             </div>
-            <div class="form-group">
+            <div class="form-group errorDireccion">
               <label>Dirección</label>
-              <input type="text" class="form-control">
+              <input type="text" class="form-control" id="direccion" name="direccion" value="<?= $usuario->Direccion ?>">
+              <label class="erroresValidacion"></label>
             </div>
+
             <div class="form-row">
-              <div class="form-group col-md-6">
-                <label>País</label>
-                <input type="text" class="form-control">
-              </div>
               <div class="form-group col-md-4">
-                <label for="inputState">Estado</label>
-                <select id="inputState" class="form-control">
+                <label for="inputState">País</label>
+                <select class="form-control" id="pais" name="pais" onchange="mostrarCodigoPaises()">
                   <option selected="">Seleccione...</option>
-                  <option>...</option>
+                  <?php while ($fila = mysqli_fetch_array($paisesTodos)) : ?>
+                    <option value="<?= $fila['Id'] ?>"><?= $fila['Pais'] ?></option>
+                  <?php endwhile; ?>
                 </select>
               </div>
-              <div class="form-group col-md-2">
+
+              <div class="form-group col-md-4">
+                <label for="inputState">Ciudad/Región</label>
+                <select class="form-control" id="ciudad" name="ciudad" disabled>
+                  <option selected="">Seleccione...</option>
+                </select>
+              </div>
+
+              <div class="form-group col-md-4 errorCodigoPostal">
                 <label for="inputZip">Código Postal</label>
-                <input type="text" class="form-control" id="inputZip">
+                <input type="text" class="form-control" id="codigoPostal" name="codigoPostal" value="<?= $usuario->CodigoPostal ?>">
+                <label class="erroresValidacion"></label>
               </div>
             </div>
             <button type="submit" class="btn btn-primary">Guardar</button>
@@ -129,4 +150,8 @@
 </div>
 </div>
 </div>
-<?php Utils::borrarSesionErrores() ?>
+
+
+<script src="<?= base_url ?>assets/js/ajax/informacionPublica.js"></script>
+<script src="<?= base_url ?>assets/js/ajax/informacionPrivada.js"></script>
+<script src="<?= base_url ?>assets/js/ajax/ciudad.js"></script>

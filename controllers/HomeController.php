@@ -1,11 +1,12 @@
 <?php
 require_once 'model/usuario.php';
+require_once 'model/pais.php';
 
 class HomeController
 {
     public function index()
-
     {
+        //El Objeto Usuario Esta  Disponible en toda la Pagina
         if (isset($_SESSION['usuarioRegistrado']->Id)) {
             $obtenertodos = new usuario;
             $obtenertodos->setId($_SESSION['usuarioRegistrado']->Id);
@@ -22,6 +23,7 @@ class HomeController
 
     public function electronica()
     {
+        //El Objeto Usuario Esta  Disponible en toda la Pagina
         if (isset($_SESSION['usuarioRegistrado']->Id)) {
             $obtenertodos = new usuario;
             $obtenertodos->setId($_SESSION['usuarioRegistrado']->Id);
@@ -37,6 +39,7 @@ class HomeController
 
     public function accesorios()
     {
+        //El Objeto Usuario Esta  Disponible en toda la Pagina
         if (isset($_SESSION['usuarioRegistrado']->Id)) {
             $obtenertodos = new usuario;
             $obtenertodos->setId($_SESSION['usuarioRegistrado']->Id);
@@ -52,6 +55,7 @@ class HomeController
 
     public function sobreNosotros()
     {
+        //El Objeto Usuario Esta  Disponible en toda la Pagina
         if (isset($_SESSION['usuarioRegistrado']->Id)) {
             $obtenertodos = new usuario;
             $obtenertodos->setId($_SESSION['usuarioRegistrado']->Id);
@@ -67,6 +71,7 @@ class HomeController
 
     public function contactanos()
     {
+        //El Objeto Usuario Esta  Disponible en toda la Pagina
         if (isset($_SESSION['usuarioRegistrado']->Id)) {
             $obtenertodos = new usuario;
             $obtenertodos->setId($_SESSION['usuarioRegistrado']->Id);

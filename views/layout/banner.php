@@ -483,29 +483,25 @@
             <div class="form-group cErrorUsuario">
               <label class="col-form-label ">Alias</label>
               <input type="text" class="form-control" id="mdUsuarioRegistro" name ="usuario">
-              <div id="mdErrorUsuarioPhp" style="color: red;"></div>
-              <!-- <label id="mdErrorRegistro" style="color: red;"></label> -->
+              <div id="mdErrorUsuarioPhp" style="color: red;"></div>             
             </div>
 
             <div class="form-group cErrorEmail">
               <label class="col-form-label">Email</label>
               <input type="text" class="form-control" id="mdEmailRegistro" name ="email">
-              <div id="mdErrorEmailPhp" style="color: red;"></div>
-              <!-- <label id="mdErrorRegistro" style="color: red;"></label> -->
+              <div id="mdErrorEmailPhp" style="color: red;"></div>              
             </div>
 
             <div class="form-group cErrorPassword">
               <label class="col-form-label ">Contraseña</label>
               <input type="password" class="form-control" id="mdPasswordRegistro" name ="password">
-              <div id="mdErrorPasswordPhp" style="color: red;"></div>
-              <!-- <label id="mdErrorRegistro" style="color: red;"></label> -->
+              <div id="mdErrorPasswordPhp" style="color: red;"></div>             
             </div>
 
             <div class="form-group cErrorConfirmarPassword">
               <label class="col-form-label ">Confirma Contraseña</label>
               <input type="password" class="form-control" id="mdConfirmarPasswordRegistro" name ="confirmarPassword">
-              <div id="mdErrorConfirmarPasswordPhp" style="color: red;"></div>
-              <!-- <label id="mdErrorRegistro" style="color: red;"></label> -->
+              <div id="mdErrorConfirmarPasswordPhp" style="color: red;"></div>              
             </div>
 
             <div class="sub-w3l cErrorChecked">
@@ -513,12 +509,11 @@
                 <input type="checkbox" class="custom-control-input" id="mdCheckedRegistro" name="checked">
                 <label class="custom-control-label" for="mdCheckedRegistro">Acepto los Términos y Condiciones</label>
               </div>
-              <div id="mdErrorChekedPhp" style="color: red;"></div>
-              <!-- <label id="mdErrorRegistro" style="color: red;"></label> -->
+              <div id="mdErrorChekedPhp" style="color: red;"></div>              
             </div>
 
             <div class="right-w3l">
-              <input type="submit" class="form-control" value="Aceptar">
+              <input type="submit"  class="form-control" value="Aceptar">
             </div>
           </form>
         </div>
@@ -528,6 +523,5 @@
   <!-- //modal -->
   <!-- //top-header -->
 
-  <script src="<?= base_url ?>assets/js/config/parameters.js"></script>
-  <script src="<?= base_url ?>assets/js/ajax/registro.js"></script>
-  <script src="<?= base_url ?>assets/js/ajax/iniciarSesion.js"></script>
+
+  

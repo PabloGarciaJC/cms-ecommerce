@@ -1,8 +1,36 @@
 <?php
 require_once 'model/usuario.php';
+require_once 'model/pais.php';
 
 class UsuarioController
 {
+    public function panelAdministrativo()
+    {
+        //Acceso Usuario Registrado
+        Utils::accesoUsuarioRegistrado();
+
+        //El Objeto Usuario Esta Disponible en toda la Pagina
+        if (isset($_SESSION['usuarioRegistrado']->Id)) {
+            if (isset($_SESSION['usuarioRegistrado']->Id)) {
+                $obtenertodos = new usuario;
+                $obtenertodos->setId($_SESSION['usuarioRegistrado']->Id);
+                $usuario = $obtenertodos->obtenerTodosPorId();
+            }
+
+            //Obtengo Todos Los Paises
+            $paises = new Pais();
+            $paisesTodos = $paises->obtenerTodosPaises();
+
+            require_once 'views/layout/header.php';
+            require_once 'views/layout/banner.php';
+            require_once 'views/layout/nav.php';
+            require_once 'views/layout/search.php';
+            require_once 'views/layout/sidebarAdministrativo.php';
+            require_once 'views/usuario/formPublicaPrivada.php';
+            require_once 'views/layout/footer.php';
+        }
+    }
+
     public function registro()
     {
         $mensaje = null;
@@ -91,40 +119,69 @@ class UsuarioController
         header("location:" . base_url);
     }
 
-    public function InformacionPublica()
+
+    public function subirImagen()
+    {
+        $id = isset($_POST['id']) ? $_POST['id'] : false;
+        $nombreArchivo = isset($_FILES['file']['name']) ? $_FILES['file']['name'] : false;
+        $tipoArchivo = isset($_FILES['file']['type']) ? $_FILES['file']['type'] : false;
+        $rutaTemporal = isset($_FILES['file']['tmp_name']) ? $_FILES['file']['tmp_name'] : false;
+        $pesoArchivo = isset($_FILES['file']['size']) ? $_FILES['file']['size'] : false;
+        $sizeArchivoMax = "1048576"; // 1 MB expresado en bytes //1048576
+
+        if (!is_dir('uploads/images/avatar/')) {
+            mkdir('uploads/images/avatar/', 0777, true);
+        }
+        //Instancio
+        $subirImagen = new Usuario();
+        $subirImagen->setId($id);
+        $subirImagen->setUrl_Avatar($nombreArchivo);
+
+        //Seleciono Imagen que Existe
+        $obtenerUsuario = $subirImagen->obtenerTodosPorId();
+
+        //url que existe en la base de datos actualmente.
+        $ruta = 'uploads/images/avatar/' . $obtenerUsuario->Url_Avatar;
+
+        if ($rutaTemporal) { // Si Existe Ruta Temporal
+
+            //Guardo la Url en la base de datos la url Nueva y los Datos Nuevos
+            $subirImagen->subirImagen();
+
+            //Para Guardar solo un Avatar por usuario, el cual no se repita
+            if ($obtenerUsuario->Url_Avatar != $nombreArchivo) {
+                if (is_file($ruta)) {
+                    //Borra la imagen anterior.
+                    unlink($ruta);
+                }
+                //Guardo en el Fichero del Proyecto o en su defecto en el servidor
+                move_uploaded_file($rutaTemporal, 'uploads/images/avatar/' . $nombreArchivo);
+            }
+        } else { // No Existe Ruta Temporal
+
+            //Seteo con la que Existe Actualmente 
+            $subirImagen->setUrl_Avatar($obtenerUsuario->Url_Avatar);
+
+            //Guardo la Url en la base de datos la url Nueva.
+            $subirImagen->subirImagen();
+        }
+    }
+
+    public function informacionPublica()
     {
         $id = isset($_POST['id']) ? $_POST['id'] : false;
         $usuario = isset($_POST['usuario']) ? $_POST['usuario'] : false;
-        $documentacion = isset($_POST['nroDocumentacion']) ? $_POST['nroDocumentacion'] : false;
+        $documentacion = isset($_POST['documentacion']) ? $_POST['documentacion'] : false;
         $telefono = isset($_POST['telefono']) ? $_POST['telefono'] : false;
-        $sizeArchivoMax = "1048576"; // 1 MB expresado en bytes //1048576
 
-        //Capturo las Propiedades de FILES.
-        $nombrePropiedades = $_FILES['avatarSelecionado'];
-        $nombreArchivo = $_FILES['avatarSelecionado']['name'];
-        $tipoArchivo = $_FILES['avatarSelecionado']['type'];
-        $rutaTemporal = $_FILES['avatarSelecionado']['tmp_name'];
-        $pesoArchivo = $_FILES['avatarSelecionado']['size'];
-
-        //Repoblar Campos
-        $repoblarInputs = array();
-        $repoblarInputs['id'] = $id;
-        $repoblarInputs['usuario'] = $usuario;
-        $repoblarInputs['documentacion'] = $documentacion;
-        $repoblarInputs['telefono'] = $telefono;
+        //Instancio
+        $actualizarInformacionPublica = new Usuario();
+        $actualizarInformacionPublica->setId($id);
+        $actualizarInformacionPublica->setUsuario($usuario);
+        $actualizarInformacionPublica->setNumeroDocumento($documentacion);
+        $actualizarInformacionPublica->setNroTelefono($telefono);
 
         $errores = array();
-
-        //validar el tipo de archivo.
-        if (preg_match('/[.](jpg)$/', $nombreArchivo) || preg_match('/[.](jpeg)$/', $nombreArchivo) || preg_match('/[.](png)$/', $nombreArchivo) || $nombreArchivo == '') {
-            true;
-        } else {
-            $errores['formatosAvatar'] = Utils::erroresValidacion('Error', 'solo se acepta formatos: JPG, JPEG y PNG');
-        }
-
-        if ($pesoArchivo > $sizeArchivoMax) {
-            $errores['pesoMaxAvatar'] = Utils::erroresValidacion('Error', 'la imagen NO debe pesar mas de un 1MB');
-        }
 
         if (empty($usuario)) {
             $errores['alias'] = Utils::erroresValidacion('Error', 'Ingrese Alias');
@@ -141,70 +198,85 @@ class UsuarioController
         }
 
         if (count($errores) == 0) {
-
-            //Creo el Directorio en el caso de que no exista.
-            if (!is_dir('uploads/images/avatar/')) {
-                mkdir('uploads/images/avatar/', 0777, true);
-            }
-            //Instancio
-            $subirImagen = new Usuario();
-            $subirImagen->setId($id);
-            $subirImagen->setUsuario($usuario);
-            $subirImagen->setNumeroDocumento($documentacion);
-            $subirImagen->setNroTelefono($telefono);
-            $subirImagen->setUrl_Avatar($nombreArchivo);
-
-            //Seleciono Imagen que Existe
-            $obtenerUsuario = $subirImagen->obtenerTodosPorId();
-
-            //url que existe en la base de datos actualmente.
-            $ruta = 'uploads/images/avatar/' . $obtenerUsuario->Url_Avatar;
-
-            if ($_FILES['avatarSelecionado']['tmp_name']) {
-                // echo 'Si Existe Ruta Temporal', "</br>";
-
-                //Guardo la Url en la base de datos la url Nueva y los Datos Nuevos
-                $subirImagen->actualizarInformacionPublica();
-
-                //Para Guardar solo un Avatar por usuario, el cual no se repita
-                if ($obtenerUsuario->Url_Avatar != $nombreArchivo) {
-                    //Borra la imagen anterior.
-                    unlink($ruta);
-                    //Guardo en el Fichero del Proyecto o en su defecto en el servidor
-                    move_uploaded_file($_FILES['avatarSelecionado']['tmp_name'], 'uploads/images/avatar/' . $nombreArchivo);
-                }
-            } else {
-                // echo 'No Existe Ruta Temporal', "</br>";
-
-                //Seteo con la que Existe Actualmente 
-                $subirImagen->setUrl_Avatar($obtenerUsuario->Url_Avatar);
-
-                //Guardo la Url en la base de datos la url Nueva.
-                $subirImagen->actualizarInformacionPublica();
-            }
-        } else {
-            $_SESSION['errores'] = $errores;
+            //Guardo la Url en la base de datos la url Nueva y los Datos Nuevos
+            $actualizarInformacionPublica->actualizarInformacionPublica();
+            echo 1;
         }
-        header("Location:" . base_url . "usuario/panelAdministrativo");
     }
 
-    public function panelAdministrativo()
+    public function informacionPrivada()
     {
-        Utils::accesoUsuarioRegistrado();
+        $id = isset($_POST['id']) ? $_POST['id'] : false;
+        $nombre = isset($_POST['nombre']) ? $_POST['nombre'] : false;
+        $apellido = isset($_POST['apellido']) ? $_POST['apellido'] : false;
+        $email = isset($_POST['email']) ? $_POST['email'] : false;
+        $direccion = isset($_POST['direccion']) ? $_POST['direccion'] : false;
+        $pais = isset($_POST['pais']) ? $_POST['pais'] : false;
+        $ciudad = isset($_POST['ciudad']) ? $_POST['ciudad'] : false;
+        $codigoPostal = isset($_POST['codigoPostal']) ? $_POST['codigoPostal'] : false;
 
-        if (isset($_SESSION['usuarioRegistrado']->Id)) {
-            $obtenertodos = new usuario;
-            $obtenertodos->setId($_SESSION['usuarioRegistrado']->Id);
-            $usuario = $obtenertodos->obtenerTodosPorId();
+        //Repoblar Campos
+        $repoblarInputs = array();
+        $repoblarInputs['id'] = $id;
+        $repoblarInputs['nombre'] = $nombre;
+        $repoblarInputs['apellido'] = $apellido;
+        $repoblarInputs['email'] = $email;
+        $repoblarInputs['direccion'] = $direccion;
+        $repoblarInputs['pais'] = $pais;
+        $repoblarInputs['ciudad'] = $ciudad;
+        $repoblarInputs['codigoPostal'] = $codigoPostal;
+
+        //instancio
+        $usuario = new usuario();
+        $usuario->setId($id);
+        $usuario->setNombres($nombre);
+        $usuario->setApellidos($apellido);
+        $usuario->setEmail($email);
+        $usuario->setDireccion($direccion);
+        $usuario->setPais($pais);
+        $usuario->setCiudad($ciudad);
+        $usuario->setCodigoPostal($codigoPostal);
+
+        //errores 
+        $errores = array();
+
+        if (empty(trim($nombre))) {
+            $errores['documentacion'] = Utils::erroresValidacion('Error', 'Ingresé Nombre');
         }
-        require_once 'views/layout/header.php';
-        require_once 'views/layout/banner.php';
-        require_once 'views/layout/nav.php';
-        require_once 'views/layout/search.php';
-        require_once 'views/layout/sidebarAdministrativo.php';
-        require_once 'views/usuario/formPublicaPrivada.php';
-        require_once 'views/layout/footer.php';
+
+        if (empty(trim($apellido))) {
+            $errores['documentacion'] = Utils::erroresValidacion('Error', 'Ingresé Aplellidos');
+        }
+
+        if (empty(trim($email))) {
+            $errores['documentacion'] = Utils::erroresValidacion('Error', 'Ingresé Email');
+        } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $errores['documentacion'] = Utils::erroresValidacion('Error', 'Email No Válido');
+        }
+
+        if (empty(trim($direccion))) {
+            $errores['documentacion'] = Utils::erroresValidacion('Error', 'Ingresé Dirección');
+        }
+
+        if (empty(trim($pais))) {
+            $errores['documentacion'] = Utils::erroresValidacion('Error', 'Ingresé País');
+        }
+
+        if (empty(trim($ciudad))) {
+            $errores['documentacion'] = Utils::erroresValidacion('Error', 'Ingresé Ciudad');
+        }
+
+        if (empty(trim($codigoPostal))) {
+            $errores['documentacion'] = Utils::erroresValidacion('Error', 'Ingrese Código Postal');
+        }
+
+        if (count($errores) == 0) {
+            //consulta
+            $usuario->actualizarInformacionPrivada();
+            echo 1;
+        }
     }
+
 
     public function cambioPassword()
     {
