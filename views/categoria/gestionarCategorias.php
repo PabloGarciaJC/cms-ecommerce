@@ -1,16 +1,5 @@
 <!-- Estilos de Input File  -->
 <style>
-  input[type="file"] {
-    display: none;
-  }
-
-  .custom-file-upload {
-    border: 1px solid #ccc;
-    display: inline-block;
-    padding: 6px 12px;
-    cursor: pointer;
-  }
-
   .erroresValidacion {
     color: red;
   }
@@ -24,7 +13,7 @@
           <h5 class="card-title mb-0">Gestionar Categorías</h5>
         </div>
         <div class="card-body">
-          <!-- Tes -->
+          <!-- Categorias -->
           <div class="container">
             <div class="row">
               <div class="col-md-12">
@@ -36,61 +25,49 @@
                         </div>
                         <div class="col-sm-12 col-md-10">
                           <ul class="list-inline dl mb-0 float-left float-md-right">
-
                             <li class="list-inline-item text-info mr-3">
                               <a href="#" data-toggle="modal" data-target="#modalCrearCategoria" class="text-white">
                                 <button class="btn btn-circle btn-success text-white">
                                   <i class="fa fa-plus"></i>
                                 </button>
-                                <span class="ml-2 font-normal text-dark">Crear</span>
-                              </a>
-                            </li>
-
-                            <li class="list-inline-item text-info mr-3">
-                              <a href="#" data-toggle="modal" data-target="#modalActualizarCategoria" class="text-white">
-                                <button class="btn btn-circle btn-info text-white">
-                                  <i class="fa fa-pencil"></i>
-                                </button>
-                                <span class="ml-2 font-normal text-dark">Actualizar</span>
-                              </a>
-                            </li>
-
-                            <li class="list-inline-item text-danger">
-                              <a href="#">
-                                <button class="btn btn-circle btn-danger text-white">
-                                  <i class="fa fa-trash"></i>
-                                </button>
-                                <span class="ml-2 font-normal text-dark">Borrar</span>
+                                <span class="ml-2 font-normal text-dark">Crear Categoria</span>
                               </a>
                             </li>
                           </ul>
                         </div>
                       </div>
+
                       <div class="table-responsive">
                         <table class="table email-table no-wrap table-hover v-middle mb-0 font-14">
                           <tbody>
                             <thead>
                               <tr>
-                                <th scope="col">Id</th>
                                 <th scope="col">Categoría</th>
                                 <th scope="col">Subcategoría</th>
-                                <th scope="col">Fecha de Creación</th>
+                                <th scope="col">Editar</th>
+                                <th scope="col">Borrar</th>
                               </tr>
                             </thead>
                           <tbody>
-                            <tr>
-                              <th scope="row">
-                                <div class="custom-control custom-checkbox">
-                                  <input type="checkbox" class="custom-control-input" id="cst1" />
-                                  <label class="custom-control-label" for="cst1">&nbsp;</label>
-                                </div>
-                              </th>
-                              <td>
-                                "Ikki"
-                              </td>
-                              <td>Desactivado</td>
-                              <td><i class="fa fa-paperclip text-muted"></i> @mdo</td>
-                            </tr>
+                            <?php while ($listaCategorias = $categoria->fetch_object()) : ?>
+                              <tr>
+                                <td><?= $listaCategorias->categorias ?></td>
+                                <td>Desactivado</td>
+                                <td>
+                                  <a href="#" data-toggle="modal" data-target="#modalEditarCategoria">
+                                    <button class="btn btn-circle btn-info text-white" class="text-white" onclick="obtenerDatosEditar(<?= $listaCategorias->id ?>, '<?= $listaCategorias->categorias ?>')">
+                                      <i class="fa fa-pencil"></i>
+                                    </button>
+                                  </a>
+                                </td>
+                                <td>
+                                   <!-- <div id="respuestaPhpEliminarCategoria"></div>   -->
+                                  <button class="btn btn-circle btn-danger text-white" onclick="eliminarDatoss(<?= $listaCategorias->id ?>, '<?= $listaCategorias->categorias ?>');">
+                                    <i class="fa fa-trash"></i>
+                                  </button>
+                                </td>
+                              </tr>
+                            <?php endwhile; ?>
                           </tbody>
                         </table>
                       </div>
@@ -100,7 +77,7 @@
               </div>
             </div>
           </div>
-          <!-- //Tes -->
+          <!-- //Categorias -->
         </div>
       </div>
     </div>
@@ -109,30 +86,72 @@
 </div>
 </div>
 
-<!-- crear Categorias -->
+<!-- Listar Categorias -->
 <div class="modal fade" id="modalCrearCategoria" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Añadir Categorias</h5>
+        <h5 class="modal-title">Crear Categorias</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
 
-        <form action="" method="POST" id="mdFormularioCrearCategoria">
+        <form action="" method="POST" id="mdFormularioListarCategoria">
 
           <!-- respuesta ajax php -->
-          <div id="respuestaPhpCrearCategoria" style="text-align: center; display: none"></div>
+          <div id="respuestaPhplistarCategoria" style="text-align: center; display: none"></div>
+          
+          <div class="form-group errorListarCategoria">
+            <label class="col-form-label ">Crear Categorías</label>
+            <input type="text" class="form-control" id="listarCategoria" name="listarCategoria">
+            <label class="erroresValidacion"></label>
+          </div>
 
-          <div class="form-group mdErrorCategoria">
-            <label class="col-form-label ">Añadir Categorías</label>
-            <input type="text" class="form-control" id="crearCategoria" name="crearCategoria">
+          <div class="form-group">
+            <label class="col-form-label">Crear Sub Categorias</label>
+            <input type="text" class="form-control" id="listarSubcategoria" name="listarSubCategorias" disabled>
+            <label class="erroresValidacion"></label>
+          </div>
+
+          <div class="right-w3l">
+            <input type="submit" class="form-control" value="Aceptar">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- //modal -->
+
+<!-- Editar Categorias -->
+<div class="modal fade" id="modalEditarCategoria" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Gestionar Categoría</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <form action="" method="POST" id="mdFormularioActualizarCategoria">
+
+          <input type="hidden" id="idCategoria">
+
+          <!-- respuesta ajax php -->
+          <div id="respuestaPhpEditarCategoria" style="display: none"></div>
+
+          <div class="form-group mdErrorCategoria errorCategoria">
+            <label class="col-form-label ">Editar Categoría</label>
+            <input type="text" class="form-control" id="editarCategoria" name="actualizarCategoria">
+            <label class="erroresValidacion"></label>
           </div>
 
           <div class="form-group mdErrorSubCategorias">
-            <label class="col-form-label">Añadir Sub Categorias</label>
+            <label class="col-form-label">Editar Sub Categoría</label>
             <input type="text" class="form-control" id="crearSubcategoria" name="crearSubCategorias" disabled>
           </div>
 
@@ -146,39 +165,7 @@
 </div>
 <!-- //modal -->
 
-<!-- Actualizar Categorias -->
-<div class="modal fade" id="modalActualizarCategoria" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Actualizar Categorias</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
 
-        <form action="" method="POST" id="mdFormularioActualizarCategoria">
+<!-- Eliminar Categorias -->
 
-          <!-- respuesta ajax php -->
-          <div id="respuestaPhpActualizarCategoria" style="text-align: center; display: none"></div>
-
-          <div class="form-group mdErrorCategoria">
-            <label class="col-form-label ">Actualizar Categorías</label>
-            <input type="text" class="form-control" id="actualizarCategoria" name="actualizarCategoria">
-          </div>
-
-          <div class="form-group mdErrorSubCategorias">
-            <label class="col-form-label">Añadir Sub Categorias</label>
-            <input type="text" class="form-control" id="crearSubcategoria" name="crearSubCategorias" disabled>
-          </div>
-
-          <div class="right-w3l">
-            <input type="submit" class="form-control" value="Aceptar">
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
 <!-- //modal -->

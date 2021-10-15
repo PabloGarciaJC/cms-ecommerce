@@ -21,7 +21,7 @@ mdFormularioIniciarSesion.addEventListener('submit', (e) => {
           title: 'Completado',
           icon: 'success'
         }).then(function () {
-          window.location = baseUrl + "usuario/panelAdministrativo";
+          window.location = baseUrl + "usuario/informacionGeneral";
         });
         $('#mdFormularioIniciarSesion').trigger('reset');
       } else {

@@ -2,31 +2,26 @@
 require_once 'model/usuario.php';
 require_once 'model/paises.php';
 
+
 class UsuarioController
 {
-    public function panelAdministrativo()
+    public function informacionGeneral()
     {
         //Acceso Usuario Registrado
         Utils::accesoUsuarioRegistrado();
-
-        //El Objeto Usuario Esta Disponible en toda la Pagina
-        if (isset($_SESSION['usuarioRegistrado']->Id)) {
-            if (isset($_SESSION['usuarioRegistrado']->Id)) {
-                $obtenertodos = new usuario;
-                $obtenertodos->setId($_SESSION['usuarioRegistrado']->Id);
-                $usuario = $obtenertodos->obtenerTodosPorId();
-            }
-        }
+        //El Objeto Usuario Esta Disponible en toda la Pagina Sin Modelo
+        $usuario = Utils::obtenerUsuarioSinModelo();
+        //Obtengo Categorias en la Barra de Navegacion
+        $categorianBarraNavegacion = Utils::obtenerCategoriasTodasNav();
         //Obtengo Todos Los Paises
         $paises = new Paises();
         $paisesTodos = $paises->obtenerTodosPaises();
-
         require_once 'views/layout/header.php';
         require_once 'views/layout/banner.php';
         require_once 'views/layout/nav.php';
         require_once 'views/layout/search.php';
         require_once 'views/layout/sidebarAdministrativo.php';
-        require_once 'views/usuario/formPublicaPrivada.php';
+        require_once 'views/usuario/informacionGeneral.php';
         require_once 'views/layout/footer.php';
     }
 

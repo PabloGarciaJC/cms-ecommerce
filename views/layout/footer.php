@@ -282,17 +282,23 @@
   <!-- //libreria de sweetAlert2 -->
 
   <!-- Avatar Vista Previa -->
-  <script src="<?= base_url ?>assets/js/helpers/avatarVistaPrevia.js"></script>
+  <!-- <script src="<?= base_url ?>assets/js/helpers/avatarVistaPrevia.js"></script> -->
   <!-- Avatar Vista Previa -->
 
   <!-- Iniciar Sesion y Registro AJAX y Validaciones con PHP-->
   <script src="<?= base_url ?>assets/js/config/parameters.js"></script>
-  <script src="<?= base_url ?>assets/js/ajax/registro.js"></script>
-  <script src="<?= base_url ?>assets/js/ajax/iniciarSesion.js"></script>
+  <script src="<?= base_url ?>assets/js/utilitarios/usuario/registro.js"></script>
+  <script src="<?= base_url ?>assets/js/utilitarios/usuario/iniciarSesion.js"></script>
 
-  <!-- Informacion Publicany Privada Validaciones con Javascript y Php-->
-  <script src="<?= base_url ?>assets/js/ajax/informacionPublica.js"></script>
-  <script src="<?= base_url ?>assets/js/ajax/informacionPrivada.js"></script>
-  <script src="<?= base_url ?>assets/js/ajax/ciudad.js"></script>
+  <!-- Informacion vistaPreviaAvatar, Publican, Privada Validaciones con Javascript y Php-->
+  <script src="<?= base_url ?>assets/js/utilitarios/usuario/funciones/avatarVistaPrevia.js"></script>
+  <script src="<?= base_url ?>assets/js/utilitarios/usuario/informacionPublica.js"></script>
+  <script src="<?= base_url ?>assets/js/utilitarios/usuario/informacionPrivada.js"></script>
+  <script src="<?= base_url ?>assets/js/utilitarios/usuario/ciudad.js"></script>
 
+  <!-- Editar, Eliminar, Crear  Categorias -->
+  <script src="<?= base_url ?>assets/js/utilitarios/categoria/funciones/obtenerDatosEditar.js"></script>
+  <script src="<?= base_url ?>assets/js/utilitarios/categoria/editar.js"></script>
+  <script src="<?= base_url ?>assets/js/utilitarios/categoria/eliminar.js"></script>
+  <script src="<?= base_url ?>assets/js/utilitarios/categoria/listar.js"></script>
   </html>

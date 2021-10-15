@@ -1,17 +1,12 @@
 <?php
-require_once 'model/usuario.php';
-require_once 'model/paises.php';
 
 class HomeController
 {
     public function index()
-    {
-        //El Objeto Usuario Esta  Disponible en toda la Pagina
-        if (isset($_SESSION['usuarioRegistrado']->Id)) {
-            $obtenertodos = new usuario;
-            $obtenertodos->setId($_SESSION['usuarioRegistrado']->Id);
-            $usuario = $obtenertodos->obtenerTodosPorId();
-        }
+    {        
+        $usuario = Utils::obtenerUsuario();
+        //Obtengo Categorias en la Barra de Navegacion
+        $categorianBarraNavegacion = Utils::obtenerCategoriasTodasNav();       
         require_once 'views/layout/header.php';
         require_once 'views/layout/banner.php';
         require_once 'views/layout/nav.php';
@@ -22,13 +17,10 @@ class HomeController
     }
 
     public function electronica()
-    {
-        //El Objeto Usuario Esta  Disponible en toda la Pagina
-        if (isset($_SESSION['usuarioRegistrado']->Id)) {
-            $obtenertodos = new usuario;
-            $obtenertodos->setId($_SESSION['usuarioRegistrado']->Id);
-            $usuario = $obtenertodos->obtenerTodosPorId();
-        }
+    {        
+        $usuario = Utils::obtenerUsuario();
+        //Obtengo Categorias en la Barra de Navegacion
+        $categorianBarraNavegacion = Utils::obtenerCategoriasTodasNav();
         require_once 'views/layout/header.php';
         require_once 'views/layout/banner.php';
         require_once 'views/layout/nav.php';
@@ -38,13 +30,10 @@ class HomeController
     }
 
     public function accesorios()
-    {
-        //El Objeto Usuario Esta  Disponible en toda la Pagina
-        if (isset($_SESSION['usuarioRegistrado']->Id)) {
-            $obtenertodos = new usuario;
-            $obtenertodos->setId($_SESSION['usuarioRegistrado']->Id);
-            $usuario = $obtenertodos->obtenerTodosPorId();
-        }
+    {        
+        $usuario = Utils::obtenerUsuario();
+        //Obtengo Categorias en la Barra de Navegacion
+        $categorianBarraNavegacion = Utils::obtenerCategoriasTodasNav();  
         require_once 'views/layout/header.php';
         require_once 'views/layout/banner.php';
         require_once 'views/layout/nav.php';
@@ -54,13 +43,10 @@ class HomeController
     }
 
     public function sobreNosotros()
-    {
-        //El Objeto Usuario Esta  Disponible en toda la Pagina
-        if (isset($_SESSION['usuarioRegistrado']->Id)) {
-            $obtenertodos = new usuario;
-            $obtenertodos->setId($_SESSION['usuarioRegistrado']->Id);
-            $usuario = $obtenertodos->obtenerTodosPorId();
-        }
+    {        
+        $usuario = Utils::obtenerUsuario();
+        //Obtengo Categorias en la Barra de Navegacion
+        $categorianBarraNavegacion = Utils::obtenerCategoriasTodasNav();
         require_once 'views/layout/header.php';
         require_once 'views/layout/banner.php';
         require_once 'views/layout/nav.php';
@@ -70,13 +56,10 @@ class HomeController
     }
 
     public function contactanos()
-    {
-        //El Objeto Usuario Esta  Disponible en toda la Pagina
-        if (isset($_SESSION['usuarioRegistrado']->Id)) {
-            $obtenertodos = new usuario;
-            $obtenertodos->setId($_SESSION['usuarioRegistrado']->Id);
-            $usuario = $obtenertodos->obtenerTodosPorId();
-        }
+    {        
+        $usuario = Utils::obtenerUsuario();
+        //Obtengo Categorias en la Barra de Navegacion
+        $categorianBarraNavegacion = Utils::obtenerCategoriasTodasNav();  
         require_once 'views/layout/header.php';
         require_once 'views/layout/banner.php';
         require_once 'views/layout/nav.php';

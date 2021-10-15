@@ -20,14 +20,14 @@
             Localizador
           </a> -->
           <?php if (isset($_SESSION['usuarioRegistrado'])) : ?>
-            <a class="list-group-item list-group-item-action" href="<?= base_url ?>Usuario/panelAdministrativo">
+            <a class="list-group-item list-group-item-action" href="<?= base_url ?>Usuario/informacionGeneral">
               Información General
             </a>
           <?php endif; ?>
 
 
           <?php if (isset($_SESSION['Admin'])) : ?>
-            <a class="list-group-item list-group-item-action" href="<?= base_url ?>Categoria/crear">
+            <a class="list-group-item list-group-item-action" href="<?= base_url ?>Categoria/gestionarCategorias">
               Gestionar Categorias
             </a>
             <a class="list-group-item list-group-item-action" href="#localitation">

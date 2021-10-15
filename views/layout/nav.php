@@ -28,15 +28,24 @@
 								<span class="sr-only">(current)</span>
 							</a>
 						</li>
-						<li class="nav-item dropdown mr-lg-2 mb-lg-0 mb-2">
-							<a class="nav-link dropdown" href="<?= base_url ?>Home/electronica">Electronica</a>
+						<?php while ($categoriaNav = $categorianBarraNavegacion->fetch_object()) : ?>
+
+							<li class="nav-item dropdown mr-lg-2 mb-lg-0 mb-2">
+							<a class="nav-link dropdown" href="<?= base_url ?>Home/electronica"><?= $categoriaNav->categorias ?></a>
 						</li>
+
+							
+						<?php endwhile; ?>
+
+						<!-- <li class="nav-item dropdown mr-lg-2 mb-lg-0 mb-2">
+							<a class="nav-link dropdown" href="<?= base_url ?>Home/electronica">Electronica</a>
+						</li> -->
 						<li class="nav-item dropdown mr-lg-2 mb-lg-0 mb-2">
 							<a class="nav-link dropdown" href="<?= base_url ?>Home/accesorios">Accesorios</a>
 						</li>
 						<li class="nav-item mr-lg-2 mb-lg-0 mb-2">
 							<a class="nav-link" href="<?= base_url ?>Home/sobreNosotros">Sobre Nosotros</a>
-						</li>					
+						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="<?= base_url ?>Home/contactanos">Contáctanos</a>
 						</li>

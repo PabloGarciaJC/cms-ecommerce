@@ -1,6 +1,5 @@
 <?php
 
-
 class Utils
 {
   //muestro errores modal
@@ -31,4 +30,37 @@ class Utils
     return "<strong>$error,</strong> " . $mensaje;
   }
 
+
+  //El Objeto Usuario Esta  Disponible en toda la Pagina
+  public static function obtenerUsuario()
+  {
+    require_once 'model/usuario.php';
+    if (isset($_SESSION['usuarioRegistrado']->Id)) {
+      $obtenertodos = new usuario;
+      $obtenertodos->setId($_SESSION['usuarioRegistrado']->Id);
+      $usuarioPorId = $obtenertodos->obtenerTodosPorId();
+      return $usuarioPorId;
+    }
+  }
+
+  public static function obtenerUsuarioSinModelo()
+  {
+    if (isset($_SESSION['usuarioRegistrado']->Id)) {
+      if (isset($_SESSION['usuarioRegistrado']->Id)) {
+        $obtenertodos = new usuario;
+        $obtenertodos->setId($_SESSION['usuarioRegistrado']->Id);
+        $usuario = $obtenertodos->obtenerTodosPorId();
+        return $usuario;
+      }
+    }
+  }
+
+
+  public static function obtenerCategoriasTodasNav()
+  {
+    require_once 'model/categorias.php';
+    $categorias = new categorias;
+    $listarCategoria = $categorias->obtenerCategorias();
+    return $listarCategoria;
+  }
 }

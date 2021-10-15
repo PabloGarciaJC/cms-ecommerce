@@ -3,11 +3,11 @@ SELECT * FROM usuarios;
 
 UPDATE Usuarios SET Rol = 'Admin' WHERE Id = 3;
 
-
+UPDATE Usuarios SET Rol = 'Admin' WHERE Id = 2;
 
 insert into Usuarios (Rol) values ('Admin');
 
-UPDATE Usuarios SET Rol = 'Admin' WHERE Id = 5;
+UPDATE Usuarios SET Rol = 'Admin' WHERE Id = 2;
 
 UPDATE Usuarios SET Nombres = 'Pepito' WHERE Id = 6;
 
