@@ -1,3 +1,9 @@
+<style>
+  select {
+    outline: none;
+  }
+</style>
+
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 <div class="container p-0">
   <div class="row">
@@ -30,12 +36,38 @@
             <a class="list-group-item list-group-item-action" href="<?= base_url ?>Categoria/gestionarCategorias">
               Gestionar Categorias
             </a>
-            <a class="list-group-item list-group-item-action" href="#localitation">
-              Gestionar Productos
-            </a>
-            <a class="list-group-item list-group-item-action" href="#localitation">
-              Gestionar Pedidos
-            </a>
+
+
+            <!-- <select class="list-group-item list-group-item-action">
+              <option>Gestionar Productos</option>
+              <a href="">
+                <option>Crear</option>
+              </a>
+              <a href="">
+                <option>Listar</option>
+              </a>
+            </select> -->
+
+
+            <!-- tes -->
+
+            <!--    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Dashboard</a> -->
+            <div class="list-group-item list-group-item-action">
+              <a data-toggle="collapse" href="#homeSubmenu" aria-expanded="false" aria-controls="dateposted" class="dropdown-toggle" style="color: #495057;">Gestión Productos </a>
+            </div>
+            <div class="collapse" id="homeSubmenu">
+                <div class="custom-control custom-checkbox" style="padding-top: 10px;">
+                &#x23f5; <a href="<?= base_url ?>Producto/crear" style="color: #495057;">Crear</a>                 
+                </div>
+               
+                <div class="custom-control custom-checkbox">
+                &#x23f5; <a href="<?= base_url ?>Producto/listar" style="color: #495057;">Lista</a> 
+                </div>         
+            </div>
+
+
+            <!-- tes -->
+
           <?php endif; ?>
 
           <?php if (isset($_SESSION['usuarioRegistrado'])) : ?>

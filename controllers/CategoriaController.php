@@ -5,15 +5,18 @@ class CategoriaController
 {
   public function gestionarCategorias()
   {
-    //Acceso Usuario Registrado
+   //Acceso Usuario Registrado a esta Pagina
     Utils::accesoUsuarioRegistrado();
-    //El Objeto Usuario Esta  Disponible en toda la Pagina
+
+   //Obtengo Ususario en el Banner
     $usuario = Utils::obtenerUsuario();
+
     //Imprimo Lista Categoria
     $categorias = new categorias;
     $categoria = $categorias->obtenerCategorias();
+
     //Obtengo Categorias en la Barra de Navegacion
-    $categorianBarraNavegacion = $categorias->obtenerCategoriasNav();
+    $categoriaBarraNavegacion = $categorias->obtenerCategoriasNav();    
     require_once 'views/layout/header.php';
     require_once 'views/layout/banner.php';
     require_once 'views/layout/nav.php';

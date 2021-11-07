@@ -1,21 +1,22 @@
 <?php
 require_once 'model/usuario.php';
-require_once 'model/paises.php';
-
 
 class UsuarioController
 {
     public function informacionGeneral()
     {
-        //Acceso Usuario Registrado
+        //Acceso Usuario Registrado a esta Pagina
         Utils::accesoUsuarioRegistrado();
-        //El Objeto Usuario Esta Disponible en toda la Pagina Sin Modelo
+
+        //Obtengo Ususario en el Banner sin Modelo
         $usuario = Utils::obtenerUsuarioSinModelo();
+
         //Obtengo Categorias en la Barra de Navegacion
-        $categorianBarraNavegacion = Utils::obtenerCategoriasTodasNav();
+        $categoriaBarraNavegacion = Utils::listaCategorias();
+
         //Obtengo Todos Los Paises
-        $paises = new Paises();
-        $paisesTodos = $paises->obtenerTodosPaises();
+        $paisesTodos = Utils::obtenerPaises();
+
         require_once 'views/layout/header.php';
         require_once 'views/layout/banner.php';
         require_once 'views/layout/nav.php';
@@ -145,7 +146,7 @@ class UsuarioController
             //Para Guardar solo un Avatar por usuario, el cual no se repita
             if ($obtenerUsuario->Url_Avatar != $nombreArchivo) {
                 if (is_file($ruta)) {
-                    //Borra la imagen anterior.
+                    //Borra la imagen anterior para que no quede Guardada en el Fichero
                     unlink($ruta);
                 }
                 //Guardo en el Fichero del Proyecto o en su defecto en el servidor

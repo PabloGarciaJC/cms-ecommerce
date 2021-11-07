@@ -1,9 +1,9 @@
 use pablogarciajc_ecommerce;
 SELECT * FROM usuarios;
 
-UPDATE Usuarios SET Rol = 'Admin' WHERE Id = 3;
-
 UPDATE Usuarios SET Rol = 'Admin' WHERE Id = 2;
+
+UPDATE Usuarios SET Rol = 'Admin' WHERE Id = 1;
 
 insert into Usuarios (Rol) values ('Admin');
 

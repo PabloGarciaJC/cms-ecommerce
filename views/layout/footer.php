@@ -287,18 +287,26 @@
 
   <!-- Iniciar Sesion y Registro AJAX y Validaciones con PHP-->
   <script src="<?= base_url ?>assets/js/config/parameters.js"></script>
-  <script src="<?= base_url ?>assets/js/utilitarios/usuario/registro.js"></script>
-  <script src="<?= base_url ?>assets/js/utilitarios/usuario/iniciarSesion.js"></script>
+  <script src="<?= base_url ?>assets/js/repositorio/usuario/registro.js"></script>
+  <script src="<?= base_url ?>assets/js/repositorio/usuario/iniciarSesion.js"></script>
 
   <!-- Informacion vistaPreviaAvatar, Publican, Privada Validaciones con Javascript y Php-->
-  <script src="<?= base_url ?>assets/js/utilitarios/usuario/funciones/avatarVistaPrevia.js"></script>
-  <script src="<?= base_url ?>assets/js/utilitarios/usuario/informacionPublica.js"></script>
-  <script src="<?= base_url ?>assets/js/utilitarios/usuario/informacionPrivada.js"></script>
-  <script src="<?= base_url ?>assets/js/utilitarios/usuario/ciudad.js"></script>
+  <script src="<?= base_url ?>assets/js/repositorio/usuario/funciones/avatarVistaPrevia.js"></script>
+  <script src="<?= base_url ?>assets/js/repositorio/usuario/informacionPublica.js"></script>
+  <script src="<?= base_url ?>assets/js/repositorio/usuario/informacionPrivada.js"></script>
+  <script src="<?= base_url ?>assets/js/repositorio/usuario/ciudad.js"></script>
 
   <!-- Editar, Eliminar, Crear  Categorias -->
-  <script src="<?= base_url ?>assets/js/utilitarios/categoria/funciones/obtenerDatosEditar.js"></script>
-  <script src="<?= base_url ?>assets/js/utilitarios/categoria/editar.js"></script>
-  <script src="<?= base_url ?>assets/js/utilitarios/categoria/eliminar.js"></script>
-  <script src="<?= base_url ?>assets/js/utilitarios/categoria/listar.js"></script>
+  <script src="<?= base_url ?>assets/js/repositorio/categoria/funciones/obtenerDatosEditar.js"></script>
+  <script src="<?= base_url ?>assets/js/repositorio/categoria/editar.js"></script>
+  <script src="<?= base_url ?>assets/js/repositorio/categoria/eliminar.js"></script>
+  <script src="<?= base_url ?>assets/js/repositorio/categoria/listar.js"></script>
+
+  <!-- Formulario Producto -->
+  <script src="<?= base_url ?>assets/js/repositorio/producto/crear.js"></script>
+  <script src="<?= base_url ?>assets/js/repositorio/producto/funciones/imagenProducto.js"></script>
+  <script src="<?= base_url ?>assets/js/repositorio/producto/eliminarDatos.js"></script>
+
+    <!-- Listar Producto Buscador -->
+    <!-- <script src="<?= base_url ?>assets/js/utilitarios/producto/buscador.js"></script> -->
   </html>

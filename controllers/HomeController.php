@@ -3,10 +3,11 @@
 class HomeController
 {
     public function index()
-    {        
+    {
+        //Obtengo Ususario en el Banner
         $usuario = Utils::obtenerUsuario();
         //Obtengo Categorias en la Barra de Navegacion
-        $categorianBarraNavegacion = Utils::obtenerCategoriasTodasNav();       
+        $categoriaBarraNavegacion = Utils::listaCategorias();
         require_once 'views/layout/header.php';
         require_once 'views/layout/banner.php';
         require_once 'views/layout/nav.php';
@@ -17,10 +18,11 @@ class HomeController
     }
 
     public function electronica()
-    {        
+    {
+        //Obtengo Ususario en el Banner
         $usuario = Utils::obtenerUsuario();
         //Obtengo Categorias en la Barra de Navegacion
-        $categorianBarraNavegacion = Utils::obtenerCategoriasTodasNav();
+        $categoriaBarraNavegacion = Utils::listaCategorias();
         require_once 'views/layout/header.php';
         require_once 'views/layout/banner.php';
         require_once 'views/layout/nav.php';
@@ -30,10 +32,11 @@ class HomeController
     }
 
     public function accesorios()
-    {        
+    {
+        //Obtengo Ususario en el Banner
         $usuario = Utils::obtenerUsuario();
         //Obtengo Categorias en la Barra de Navegacion
-        $categorianBarraNavegacion = Utils::obtenerCategoriasTodasNav();  
+        $categoriaBarraNavegacion = Utils::listaCategorias();
         require_once 'views/layout/header.php';
         require_once 'views/layout/banner.php';
         require_once 'views/layout/nav.php';
@@ -43,10 +46,11 @@ class HomeController
     }
 
     public function sobreNosotros()
-    {        
+    {
+        //Obtengo Ususario en el Banner
         $usuario = Utils::obtenerUsuario();
         //Obtengo Categorias en la Barra de Navegacion
-        $categorianBarraNavegacion = Utils::obtenerCategoriasTodasNav();
+        $categoriaBarraNavegacion = Utils::listaCategorias();
         require_once 'views/layout/header.php';
         require_once 'views/layout/banner.php';
         require_once 'views/layout/nav.php';
@@ -56,10 +60,11 @@ class HomeController
     }
 
     public function contactanos()
-    {        
+    {
+        //Obtengo Ususario en el Banner
         $usuario = Utils::obtenerUsuario();
         //Obtengo Categorias en la Barra de Navegacion
-        $categorianBarraNavegacion = Utils::obtenerCategoriasTodasNav();  
+        $categoriaBarraNavegacion = Utils::listaCategorias();
         require_once 'views/layout/header.php';
         require_once 'views/layout/banner.php';
         require_once 'views/layout/nav.php';

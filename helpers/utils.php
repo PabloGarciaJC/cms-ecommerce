@@ -31,7 +31,8 @@ class Utils
   }
 
 
-  //El Objeto Usuario Esta  Disponible en toda la Pagina
+  //El Objeto Usuario Esta  Disponible en toda la Pagina 
+  //"Lo Necesito para Mostrar el Nombre en el Banner"
   public static function obtenerUsuario()
   {
     require_once 'model/usuario.php';
@@ -43,6 +44,8 @@ class Utils
     }
   }
 
+  //El Objeto Usuario Esta  Disponible en toda la Pagina 
+  //"Lo Necesito para Mostrar el Nombre en el Banner"
   public static function obtenerUsuarioSinModelo()
   {
     if (isset($_SESSION['usuarioRegistrado']->Id)) {
@@ -55,12 +58,68 @@ class Utils
     }
   }
 
-
-  public static function obtenerCategoriasTodasNav()
+  public static function listaCategorias()
   {
     require_once 'model/categorias.php';
     $categorias = new categorias;
-    $listarCategoria = $categorias->obtenerCategorias();
-    return $listarCategoria;
+    $categoria = $categorias->obtenerCategorias();
+    return $categoria;
   }
+
+  public static function obtenerProductos()
+  {
+    $productos = new productos;
+    $mostrar = $productos->obtenerTodos();
+    return $mostrar;
+  }
+
+  public static function obtenerProductosyBuscador($buscador)
+  {
+    $productos = new productos;
+    $productos->setBuscador($buscador);
+    $mostrar = $productos->obtenerProductosyBuscador();
+    return $mostrar;
+  }
+
+  public static function obtenerProductosYPaginador($ultimoRegistro,$mostrarRegistros)
+  {
+    $productos = new productos;
+    $mostrar = $productos->obtenerTodosYPaginacion($ultimoRegistro, $mostrarRegistros);
+    return $mostrar;
+  }
+
+  public static function obtenerProductosPorId($id)
+  {
+    $productos = new productos;
+    $productos->setId($id);
+    $mostrar = $productos->productosPorId();
+    return $mostrar->fetch_object();
+  }
+
+  public static function obtenerImagenProductoPorId()
+  {
+    require_once 'model/productos.php';
+    $productos = new productos;
+    $mostrar = $productos->obtenerTodos();
+    $obtenerImagen = $mostrar->fetch_object();
+    $completado = $obtenerImagen->imagen;
+    return $completado;
+  }
+
+  public static function obtenerPaises()
+  {
+    require_once 'model/paises.php';
+    $paises = new Paises();
+    $paisesTodos = $paises->obtenerTodosPaises();
+    return $paisesTodos;
+  }
+
+  public static function obtenerRegistrosTotales()
+  {
+    require_once 'model/productos.php';
+    $productos = new productos;
+    $mostrarTodos = $productos->obtenerRegistrosTotales();
+    return $mostrarTodos;
+  }
+  
 }

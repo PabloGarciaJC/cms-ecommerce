@@ -28,7 +28,7 @@
           <form action="" id="informacionPublica" method="POST" enctype="multipart/form-data">
             <div class="row">
               <div class="col-md-8">
-                <input type="hidden" value="<?= $_SESSION['usuarioRegistrado']->Id ?>" id="idInformacionPublica" name="id">
+                <input type="hidden" value="<?= $_SESSION['usuarioRegistrado']->Id ?>" id="idUsuarioRegistrado">
 
                 <!-- Respuesta de Informacion Publica -->
                 <div id="respuestaPhpInformacionPublica" style="display: none"></div>

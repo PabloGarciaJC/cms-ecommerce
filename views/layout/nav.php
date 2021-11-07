@@ -28,7 +28,7 @@
 								<span class="sr-only">(current)</span>
 							</a>
 						</li>
-						<?php while ($categoriaNav = $categorianBarraNavegacion->fetch_object()) : ?>
+						<?php while ($categoriaNav = $categoriaBarraNavegacion->fetch_object()) : ?>
 
 							<li class="nav-item dropdown mr-lg-2 mb-lg-0 mb-2">
 							<a class="nav-link dropdown" href="<?= base_url ?>Home/electronica"><?= $categoriaNav->categorias ?></a>
