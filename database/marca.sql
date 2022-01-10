@@ -17,9 +17,18 @@ INNER JOIN categorias c ON p.categoria_id = c.id WHERE (p.nombre LIKE '%raizer%'
 
 SELECT p.marca, COUNT(p.marca) as cuantos from productos p INNER JOIN categorias c ON p.categoria_id = c.id GROUP BY p.marca HAVING COUNT(p.marca) > 1;
 
-SELECT * FROM productos p INNER JOIN categorias c ON p.categoria_id = c.id and c.id = 13;
-
 SELECT * FROM productos p INNER JOIN categorias c ON p.categoria_id = c.id where (p.precio >= 20 and p.precio <= 50) and c.id = 13;
 
 
-SELECT * FROM productos p INNER JOIN categorias c ON p.categoria_id = c.id where (p.precio >= 200 and p.precio <= 1000000) and c.id = 13;
+SELECT precio, marca, memoria_ram FROM productos p INNER JOIN categorias c ON p.categoria_id = c.id and c.id = 13;
+
+SELECT marca, memoria_ram, precio from productos p INNER JOIN categorias c ON p.categoria_id = c.id WHERE (p.precio >= 0 and p.precio <= 20 or p.precio >= 50 and p.precio <= 100 or p.precio >= 100 and p.precio <= 1000000) and c.id = 13;
+
+
+        
+
+
+
+
+
+

@@ -267,7 +267,7 @@ class Productos
     return $registros_totales->fetch_object();
   }
 
-  public function conteoFiltro($arrayMarcaCheckbox, $conteoArrayMarca, $arrayMemoriaRamCheckbox, $conteoArrayMemoriaRam, $arrayPrecioCheckbox, $conteoPrecio)
+  public function conteoFiltro($arrayMarcaCheckbox, $conteoArrayMarca, $arrayMemoriaRamCheckbox, $conteoArrayMemoriaRam, $arrayPrecioCheckbox, $conteoArrayPrecio)
   {
 
     // Muestar el Ultimo checkbox que se ha selecionado del Lado del Cliente
@@ -288,156 +288,98 @@ class Productos
     }
 
     // CONTEO de todos los Arrays de los Checkbox que se ha selecionado
-    $todosconteoCheckbox = $conteoArrayMarca + $conteoArrayMemoriaRam + $conteoPrecio;
+    $todosConteoCheckbox = $conteoArrayMarca + $conteoArrayMemoriaRam + $conteoArrayPrecio;
 
-    // Obtengo TODOS Los Registros con los checkbox SIN SELECCIONAR
-    if ($todosconteoCheckbox === 0) {
-      $sql = "SELECT p.id, p.categoria_id, c.categorias as nombreCategoria, p.nombre, p.marca, p.stock, p.precio, p.oferta, p.memoria_ram, p.imagen from productos p INNER JOIN categorias c ON p.categoria_id = c.id where c.id = {$this->getIdCategoria()}";
-    };
+    if ($todosConteoCheckbox == 0) {
 
-    /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+      $sql = "SELECT p.id, p.categoria_id, c.categorias as nombreCategoria, p.nombre, p.marca, p.stock, p.precio, p.oferta, p.memoria_ram, p.imagen from productos p INNER JOIN categorias c ON p.categoria_id = c.id and c.id = {$this->getIdCategoria()} where c.id = {$this->getIdCategoria()}";
 
-    // PRIMER BLOQUE - MARCA - PARTE I - 1:1 y 1:M
-    if ($conteoArrayMarca === 1) {
-      // Consulta los Registros deL Checkbox Selecionado
-      $sql = "SELECT p.id, p.categoria_id, c.categorias as nombreCategoria, p.nombre, p.marca, p.stock, p.precio, p.oferta, p.memoria_ram, p.imagen from productos p INNER JOIN categorias c ON p.categoria_id = c.id WHERE (p.marca = '$todosCheckboxMarca') and c.id = {$this->getIdCategoria()}";
+    } else {
 
-      // Registros de UN checkbox de => Memoria RAM // 1:1 
-      if ($conteoArrayMemoriaRam === 1) {
-        $sql = "SELECT p.id, p.categoria_id, c.categorias as nombreCategoria, p.nombre, p.marca, p.stock, p.precio, p.oferta, p.memoria_ram, p.imagen from productos p INNER JOIN categorias c ON p.categoria_id = c.id  WHERE (p.marca = '$todosCheckboxMarca') and c.id = {$this->getIdCategoria()} and (p.memoria_ram = '$todosCheckboxMemoriaRam')";
+      // PRIMER BLOQUE - MARCA - PARTE I - 1:1 y 1:M
+      if ($conteoArrayMarca == 1) {
+        $sql = "SELECT p.id, p.categoria_id, c.categorias as nombreCategoria, p.nombre, p.marca, p.stock, p.precio, p.oferta, p.memoria_ram, p.imagen from productos p INNER JOIN categorias c ON p.categoria_id = c.id and c.id = {$this->getIdCategoria()} WHERE (p.marca = '$todosCheckboxMarca')";
       }
-
-      // Registros de Multiples Checkbox de => Memoria RAM // 1:M
-      if ($conteoArrayMemoriaRam >= 2) {
-        $sql = "SELECT p.id, p.categoria_id, c.categorias as nombreCategoria, p.nombre, p.marca, p.stock, p.precio, p.oferta, p.memoria_ram, p.imagen from productos p INNER JOIN categorias c ON p.categoria_id = c.id WHERE (p.marca = '$todosCheckboxMarca') and c.id = {$this->getIdCategoria()} and (p.memoria_ram = '$todosCheckboxMemoriaRam'";
-        foreach ($arrayMemoriaRamCheckbox as $todosCheckboxMemoriaRam) {
-          $sql .= " or p.memoria_ram = '$todosCheckboxMemoriaRam' ";
-        }
-        $sql .= ")";
-      }
-    };
-
-    // PRIMER BLOQUE - MARCA - PARTE II - M:1 - M:M
-    if ($conteoArrayMarca >= 2) {
-      // Consulta los Registros de Checkbox Selecionado Marca
-      $sql = "SELECT p.id, p.categoria_id, c.categorias as nombreCategoria, p.nombre, p.marca, p.stock, p.precio, p.oferta, p.memoria_ram, p.imagen from productos p INNER JOIN categorias c ON p.categoria_id = c.id WHERE (p.marca = '$todosCheckboxMarca'";
-      foreach ($arrayMarcaCheckbox as $todosCheckboxMarca) {
-        $sql .= " or p.marca = '$todosCheckboxMarca' ";
-      }
-      $sql .= ") and c.id = {$this->getIdCategoria()} ";
-
-      // Registros de UN checkbox de => Memoria RAM // M:1 
-      if ($conteoArrayMemoriaRam === 1) {
-
+      // PRIMER BLOQUE - MARCA - PARTE II - M:1 - M:M
+      if ($conteoArrayMarca >= 2) {
         $sql = "SELECT p.id, p.categoria_id, c.categorias as nombreCategoria, p.nombre, p.marca, p.stock, p.precio, p.oferta, p.memoria_ram, p.imagen from productos p INNER JOIN categorias c ON p.categoria_id = c.id WHERE (p.marca = '$todosCheckboxMarca'";
         foreach ($arrayMarcaCheckbox as $todosCheckboxMarca) {
           $sql .= " or p.marca = '$todosCheckboxMarca' ";
         }
-        $sql .= ") and (p.memoria_ram = '$todosCheckboxMemoriaRam') and c.id = {$this->getIdCategoria()}";
-      };
+        $sql .= ") and c.id = {$this->getIdCategoria()} ";
+      }
 
-      // Registros de Multiples Checkbox de => Memoria RAM // M:M 
+      // SEGUNDO BLOQUE - MEMORIA RAM - PARTE I - 1:1 y 1:M
+      if ($conteoArrayMemoriaRam == 1) {       
+        $sql = "SELECT p.id, p.categoria_id, c.categorias as nombreCategoria, p.nombre, p.marca, p.stock, p.precio, p.oferta, p.memoria_ram, p.imagen from productos p INNER JOIN categorias c ON p.categoria_id = c.id WHERE (p.memoria_ram = '$todosCheckboxMemoriaRam') and c.id = {$this->getIdCategoria()}";
+      }
+      // SEGUNDO BLOQUE - MEMORIA RAM - PARTE II - M:1 - M:M
       if ($conteoArrayMemoriaRam >= 2) {
-
-        $sql = "SELECT p.id, p.categoria_id, c.categorias as nombreCategoria, p.nombre, p.marca, p.stock, p.precio, p.oferta, p.memoria_ram, p.imagen from productos p INNER JOIN categorias c ON p.categoria_id = c.id WHERE";
-
-        $sql .= "(p.marca = '$todosCheckboxMarca'";
-        foreach ($arrayMarcaCheckbox as $todosCheckboxMarca) {
-          $sql .= " or p.marca = '$todosCheckboxMarca'";
-        }
-
-        $sql .= ") and (p.memoria_ram = '$todosCheckboxMemoriaRam'";
+        $sql = "SELECT p.id, p.categoria_id, c.categorias as nombreCategoria, p.nombre, p.marca, p.stock, p.precio, p.oferta, p.memoria_ram, p.imagen from productos p INNER JOIN categorias c ON p.categoria_id = c.id and c.id = {$this->getIdCategoria()} WHERE (p.memoria_ram = '$todosCheckboxMemoriaRam'";
         foreach ($arrayMemoriaRamCheckbox as $todosCheckboxMemoriaRam) {
           $sql .= " or p.memoria_ram = '$todosCheckboxMemoriaRam' ";
         }
-
-        $sql .= ") and c.id = {$this->getIdCategoria()}";
+        $sql .= ")";
       }
-    };
-
-    /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
-
-    // PRIMER BLOQUE - MEMORIA RAM - PARTE I - 1:1 y 1:M
-    if ($conteoArrayMemoriaRam === 1) {
-      // Consulta los Registros deL Checkbox Selecionado
-      $sql = "SELECT p.id, p.categoria_id, c.categorias as nombreCategoria, p.nombre, p.marca, p.stock, p.precio, p.oferta, p.memoria_ram, p.imagen from productos p INNER JOIN categorias c ON p.categoria_id = c.id WHERE (p.memoria_ram = '$todosCheckboxMemoriaRam') and c.id = {$this->getIdCategoria()}";
-
-      // Registros de UN checkbox de => Marca // 1:1 
-      if ($conteoArrayMarca === 1) {
-        $sql = "SELECT p.id, p.categoria_id, c.categorias as nombreCategoria, p.nombre, p.marca, p.stock, p.precio, p.oferta, p.memoria_ram, p.imagen from productos p INNER JOIN categorias c ON p.categoria_id = c.id  WHERE (memoria_ram = '$todosCheckboxMemoriaRam') and c.id = {$this->getIdCategoria()} and (p.marca = '$todosCheckboxMarca')";
+      // TERCER BLOQUE - PRECIO - PARTE I - 1:1 y 1:M
+      if ($conteoArrayPrecio == 1) {
+        $sql = "SELECT p.id, p.categoria_id, c.categorias as nombreCategoria, p.nombre, p.marca, p.stock, p.precio, p.oferta, p.memoria_ram, p.imagen from productos p INNER JOIN categorias c ON p.categoria_id = c.id WHERE (p.precio >= $indicesPrecio[0] and p.precio <= $indicesPrecio[1]) and c.id = {$this->getIdCategoria()}";
+      }
+      // TERCER BLOQUE - PRECIO - PARTE II - M:1 y M:M
+      if ($conteoArrayPrecio >= 2) {
+        $sql = "SELECT p.id, p.categoria_id, c.categorias as nombreCategoria, p.nombre, p.marca, p.stock, p.precio, p.oferta, p.memoria_ram, p.imagen from productos p INNER JOIN categorias c ON p.categoria_id = c.id and c.id = {$this->getIdCategoria()} WHERE (p.precio >= $indicesPrecio[0] and p.precio <= $indicesPrecio[1]";
+        foreach ($arrayPrecioCheckbox as $todosCheckboxPrecio) {
+          $indicesPrecio = explode("-", $todosCheckboxPrecio);
+          $sql .= " or p.precio >= $indicesPrecio[0] and p.precio <= $indicesPrecio[1]";
+        }
+        $sql .= ")";
       }
 
+      /********************** CONSULTAS CONCATENADAS *****************************/
+
+      //  Registros de UN checkbox de => Marca // 1:1 
+      if ($conteoArrayMarca == 1) {
+        $sql .= " and (p.marca = '$todosCheckboxMarca')";
+      }
       // Registros de Multiples Checkbox de => Marca // 1:M
       if ($conteoArrayMarca >= 2) {
-        $sql = "SELECT p.id, p.categoria_id, c.categorias as nombreCategoria, p.nombre, p.marca, p.stock, p.precio, p.oferta, p.memoria_ram, p.imagen from productos p INNER JOIN categorias c ON p.categoria_id = c.id WHERE (memoria_ram = '$todosCheckboxMemoriaRam') and c.id = {$this->getIdCategoria()} and (p.marca = '$todosCheckboxMarca'";
+        $sql .= " and (p.marca = '$todosCheckboxMarca'";
         foreach ($arrayMarcaCheckbox as $todosCheckboxMarca) {
           $sql .= " or p.marca = '$todosCheckboxMarca' ";
         }
         $sql .= ")";
       }
-    };
-
-    // PRIMER BLOQUE - MEMORIA RAM - PARTE II - M:1 y M:M
-    if ($conteoArrayMemoriaRam >= 2) {
-      // Consulta los Registros de Checkbox Selecionado Memoria Ram
-      $sql = "SELECT p.id, p.categoria_id, c.categorias as nombreCategoria, p.nombre, p.marca, p.stock, p.precio, p.oferta, p.memoria_ram, p.imagen from productos p INNER JOIN categorias c ON p.categoria_id = c.id and c.id = {$this->getIdCategoria()} WHERE (p.memoria_ram = '$todosCheckboxMemoriaRam'";
-      foreach ($arrayMemoriaRamCheckbox as $todosCheckboxMemoriaRam) {
-        $sql .= " or p.memoria_ram = '$todosCheckboxMemoriaRam' ";
+      /**********************************************************/
+      //  Registros de UN checkbox de => Memoria RAM // 1:1 
+      if ($conteoArrayMemoriaRam == 1) {
+        $sql .= " and (p.memoria_ram = '$todosCheckboxMemoriaRam')";
       }
-      $sql .= ")";
-
-
-      // Registros de UN checkbox de => MARCA // M:1 
-      if ($conteoArrayMarca === 1) {
-
-        $sql = "SELECT p.id, p.categoria_id, c.categorias as nombreCategoria, p.nombre, p.marca, p.stock, p.precio, p.oferta, p.memoria_ram, p.imagen from productos p INNER JOIN categorias c ON p.categoria_id = c.id WHERE (p.memoria_ram  = '$todosCheckboxMemoriaRam'";
+      // Registros de Multiples Checkbox de => Memoria RAM // 1:M
+      if ($conteoArrayMemoriaRam >= 2) {
+        $sql .= " and (p.memoria_ram = '$todosCheckboxMemoriaRam'";
         foreach ($arrayMemoriaRamCheckbox as $todosCheckboxMemoriaRam) {
           $sql .= " or p.memoria_ram = '$todosCheckboxMemoriaRam' ";
         }
-        $sql .= ") and (p.marca = '$todosCheckboxMarca') and c.id = {$this->getIdCategoria()}";
-      };
-
-      // Registros de Multiples Checkbox de => Memoria RAM // M:M 
-      if ($conteoArrayMarca >= 2) {
-
-        $sql = "SELECT p.id, p.categoria_id, c.categorias as nombreCategoria, p.nombre, p.marca, p.stock, p.precio, p.oferta, p.memoria_ram, p.imagen from productos p INNER JOIN categorias c ON p.categoria_id = c.id WHERE";
-
-        $sql .= "(p.memoria_ram = '$todosCheckboxMemoriaRam'";
-        foreach ($arrayMemoriaRamCheckbox as $todosCheckboxMemoriaRam) {
-          $sql .= " or p.memoria_ram = '$todosCheckboxMemoriaRam' ";
-        }
-
-        $sql .= ") and (p.marca = '$todosCheckboxMarca'";
-        foreach ($arrayMarcaCheckbox as $todosCheckboxMarca) {
-          $sql .= " or p.marca = '$todosCheckboxMarca'";
-        }
-        $sql .= ") and c.id = {$this->getIdCategoria()}";
+        $sql .= ")";
       }
+      /**********************************************************/
+      // Registros de UN checkbox de => Precio // 1:1 
+      if ($conteoArrayPrecio == 1) {
+        $sql .= " and (p.precio >= $indicesPrecio[0] and p.precio <= $indicesPrecio[1])";
+      }
+      // Registros de Multiples Checkbox de => Precio // 1:M
+      if ($conteoArrayPrecio >= 2) {
+        $sql .= " and (p.precio >= $indicesPrecio[0] and p.precio <= $indicesPrecio[1]";
+        foreach ($arrayPrecioCheckbox as $todosCheckboxPrecio) {
+          $indicesPrecio = explode("-", $todosCheckboxPrecio);
+          $sql .= " or p.precio >= $indicesPrecio[0] and p.precio <= $indicesPrecio[1]";
+        }
+        $sql .= ")";
+      }
+      /**********************************************************/
     }
 
-    /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
-
-    // PRIMER BLOQUE - PRECIO - PARTE I - 1:1 y 1:M
-    if ($conteoPrecio === 1) {
-      // Consulta los Registros deL Checkbox Selecionado
-      $sql = "SELECT p.id, p.categoria_id, c.categorias as nombreCategoria, p.nombre, p.marca, p.stock, p.precio, p.oferta, p.memoria_ram, p.imagen from productos p INNER JOIN categorias c ON p.categoria_id = c.id WHERE (p.precio >= $indicesPrecio[0] and p.precio <= $indicesPrecio[1]) and c.id = 13";
-
-
-      // Registros de UN checkbox de => Memoria RAM // 1:1 
-      if ($conteoArrayMemoriaRam === 1) {
-        $sql = "SELECT p.id, p.categoria_id, c.categorias as nombreCategoria, p.nombre, p.marca, p.stock, p.precio, p.oferta, p.memoria_ram, p.imagen from productos p INNER JOIN categorias c ON p.categoria_id = c.id  WHERE (p.marca = '$todosCheckboxMarca') and c.id = {$this->getIdCategoria()} and (p.memoria_ram = '$todosCheckboxMemoriaRam')";
-      }
-
-      // Registros de Multiples Checkbox de => Memoria RAM // 1:M
-      // if ($conteoArrayMemoriaRam >= 2) {
-      //   $sql = "SELECT p.id, p.categoria_id, c.categorias as nombreCategoria, p.nombre, p.marca, p.stock, p.precio, p.oferta, p.memoria_ram, p.imagen from productos p INNER JOIN categorias c ON p.categoria_id = c.id WHERE (p.marca = '$todosCheckboxMarca') and c.id = {$this->getIdCategoria()} and (p.memoria_ram = '$todosCheckboxMemoriaRam'";
-      //   foreach ($arrayMemoriaRamCheckbox as $todosCheckboxMemoriaRam) {
-      //     $sql .= " or p.memoria_ram = '$todosCheckboxMemoriaRam' ";
-      //   }
-      //   $sql .= ")";
-      // }
-    };
-
+    var_dump($sql);
     $registros_totales = $this->db->query($sql);
     return $registros_totales;
   }
