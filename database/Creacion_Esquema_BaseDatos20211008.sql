@@ -3,8 +3,10 @@ CREATE TABLE IF NOT EXISTS `Paises` (
   `Pais` varchar(100) NOT NULL,
   PRIMARY KEY (`Codigo`)
 ) Engine = InnoDB;
+
 ALTER TABLE
   Paises CHANGE COLUMN Codigo Id varchar(2) NOT NULL;
+
 CREATE TABLE IF NOT EXISTS `Ciudades` (
     `idCiudades` int(11) NOT NULL AUTO_INCREMENT,
     `Paises_Codigo` varchar(2) NOT NULL,
@@ -13,10 +15,13 @@ CREATE TABLE IF NOT EXISTS `Ciudades` (
     KEY `Paises_Codigo` (`Paises_Codigo`),
     KEY `Ciudad` (`Ciudad`)
   ) Engine = InnoDB;
+
 ALTER TABLE
   ciudades CHANGE COLUMN idCiudades Id int(11) NOT NULL;
+
 ALTER TABLE
   ciudades CHANGE COLUMN Paises_Codigo Id_Pais varchar(2) NOT NULL;
+
 create table Usuarios(
     Id int auto_increment,
     Usuario varchar(55),
@@ -37,6 +42,7 @@ create table Usuarios(
     constraint UQ_USUARIOS_EMAIL UNIQUE (Email)
   ) Engine = InnoDB;
 use pablogarciajc_ecommerce;
+
 CREATE TABLE categorias(
     id int(255) auto_increment not null,
     categorias varchar(100) not null,

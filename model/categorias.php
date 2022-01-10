@@ -56,6 +56,15 @@ class Categorias
     return $listarCategorias;
   }
 
+  
+  // public function obtenerCategoriasPorId($id)
+  // {
+  //   $sql = "SELECT * FROM categorias WHERE id = {$this->getId()};";
+  //   $listarCategorias = $this->db->query($sql);
+  //   return $listarCategorias->fetch_object();
+  // }
+
+
   public function obtenerCategoriasNav()
   {
     $sql = "SELECT * FROM categorias";

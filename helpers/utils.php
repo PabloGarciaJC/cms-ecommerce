@@ -81,10 +81,26 @@ class Utils
     return $mostrar;
   }
 
-  public static function obtenerProductosYPaginador($ultimoRegistro,$mostrarRegistros)
+  public static function mostrarProductosBuscadorLimitar($buscador, $ultimoRegistro, $mostrarRegistros, $productoIdCategoria)
+  {
+    $productos = new productos;
+    $productos->setBuscador($buscador);
+    $mostrar = $productos->mostrarProductosBuscadorLimitar($ultimoRegistro, $mostrarRegistros, $productoIdCategoria);
+    return $mostrar;
+  }
+
+
+  public static function obtenerProductosYPaginador($ultimoRegistro, $mostrarRegistros)
   {
     $productos = new productos;
     $mostrar = $productos->obtenerTodosYPaginacion($ultimoRegistro, $mostrarRegistros);
+    return $mostrar;
+  }
+
+  public static function obtenerProductoPorCategoriaId($ultimoRegistro, $mostrarRegistros, $ProductoIdCategoria)
+  {
+    $productos = new productos;
+    $mostrar = $productos->obtenerProductosPorCategoriaId($ultimoRegistro, $mostrarRegistros, $ProductoIdCategoria);
     return $mostrar;
   }
 
@@ -116,10 +132,73 @@ class Utils
 
   public static function obtenerRegistrosTotales()
   {
-    require_once 'model/productos.php';
     $productos = new productos;
     $mostrarTodos = $productos->obtenerRegistrosTotales();
     return $mostrarTodos;
   }
-  
+
+  public static function conteoRegistrosCategoriaId($categoriaId)
+  {
+    $productos = new productos;
+    $productos->setIdCategoria($categoriaId);
+    $mostrarTodos = $productos->conteoRegistrosPorCategoriaId();
+    return $mostrarTodos;
+  }
+
+  public static function conteoBuscadorRegistrosCategoriaId($buscadorProducto, $productoIdCategoria)
+  {
+    $productos = new productos;
+    $productos->setIdCategoria($productoIdCategoria);
+    $productos->setBuscador($buscadorProducto);
+    $mostrarTodos = $productos->conteoBuscadorRegistrosCategoriaId();
+    return $mostrarTodos;
+  }
+
+  public static function conteoBuscadorRegistrosCategoriaIdFiltros($listaCheckbox, $productoIdCategoria)
+  {
+    $productos = new productos;
+    $productos->setBuscador($listaCheckbox);
+    $productos->setIdCategoria($productoIdCategoria);
+    $mostrarTodos = $productos->conteoBuscadorRegistrosCategoriaIdFiltro();
+
+    return $mostrarTodos;
+  }
+
+  public static function obtenerProductosPorCategoriaId($categoriaId)
+  {
+    $productos = new productos;
+    $productos->setIdCategoria($categoriaId);
+    $mostrarProductosCategoriaId = $productos->productosPorCategoriaId();
+    return $mostrarProductosCategoriaId;
+  }
+
+  public static function mostrarMarcaSinRepetirSidebar($categoriaId)
+  {
+    $productos = new productos;
+    $productos->setIdCategoria($categoriaId);
+    $mostrarProductosCategoriaId = $productos->mostrarMarcaSinRepetirSidebar();
+    return $mostrarProductosCategoriaId;
+  }
+
+
+  public static function extraerRegistros($registros)
+  {
+    return $registros->fetch_object();
+  }
+
+  public static function consultaFragmentadasCheckbox($arrayMarcaCheckbox, $conteoArrayMarca, $productoByIdCategoria, $arrayMemoriaRamCheckbox, $conteoMemoriaRam, $arrayPrecioCheckbox, $conteoPrecio)
+  {
+    $productos = new productos;
+    $productos->setIdCategoria($productoByIdCategoria);
+    $resultado = $productos->conteoFiltro($arrayMarcaCheckbox, $conteoArrayMarca, $arrayMemoriaRamCheckbox, $conteoMemoriaRam, $arrayPrecioCheckbox, $conteoPrecio);
+    return $resultado;
+  }
+
+  // public static function consultaFragmentada($consultaFragmentada)
+  // {
+  //   $productos = new productos;
+  //   $productos->setBuscador($consultaFragmentada);
+  //   $tes = $productos->conteoFiltro($consultaFragmentada);
+  //   return $tes;
+  // }
 }

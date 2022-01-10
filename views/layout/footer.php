@@ -276,7 +276,6 @@
   <script src="<?= base_url ?>assets/js/librerias/bootstrap.js"></script>
   <!-- //for bootstrap working -->
 
-
   <!-- libreria de alert sweetAlert2-->
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <!-- //libreria de sweetAlert2 -->
@@ -307,6 +306,15 @@
   <script src="<?= base_url ?>assets/js/repositorio/producto/funciones/imagenProducto.js"></script>
   <script src="<?= base_url ?>assets/js/repositorio/producto/eliminarDatos.js"></script>
 
-    <!-- Listar Producto Buscador -->
-    <!-- <script src="<?= base_url ?>assets/js/utilitarios/producto/buscador.js"></script> -->
+  <!-- Mostrar ProductosPorCategoriaId -->
+  <script src="<?= base_url ?>assets/js/repositorio/mostrarProducto/mostrar.js"></script>
+
+  <!-- Mostrar ProductosPorMarcaId -->
+  <script src="<?= base_url ?>assets/js/repositorio/mostrarProducto/marca.js"></script>
+
+  <!-- <script src="<?= base_url ?>assets/js/repositorio/mostrarProducto/sidebar/marcas/productos"></script> -->
+
+  <!-- Listar Producto Buscador -->
+  <!-- <script src="<?= base_url ?>assets/js/utilitarios/producto/buscador.js"></script> -->
+
   </html>
