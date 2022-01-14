@@ -211,7 +211,6 @@ class ProductoController
     // Extraer Registros de la Base de Datos con Fetch_Object
     $obtenerProductoPorCategoriaId = Utils::extraerRegistros($mostrarProductoPorCategoria);
 
-
     require_once 'views/layout/header.php';
     require_once 'views/layout/banner.php';
     require_once 'views/layout/nav.php';
@@ -220,33 +219,36 @@ class ProductoController
     require_once 'views/layout/footer.php';
   }
 
-  public function mostrarPorCategoriaId()
+  public function mostrarTodosProductos()
   {
+    // Obtengo los Valores Checkbox
+    $productoByIdCategoria = isset($_POST['productoByIdCategoria']) ? $_POST['productoByIdCategoria'] : false;
+    $arrayMarcaCheckbox = isset($_POST["arrayMarca"]) ? json_decode($_POST["arrayMarca"]) : false;
+    $arrayMemoriaRamCheckbox = isset($_POST["arrayMemoriaRam"]) ? json_decode($_POST["arrayMemoriaRam"]) : false;
+    $arrayPrecioCheckbox = isset($_POST["arrayPrecio"]) ? json_decode($_POST["arrayPrecio"]) : false;
+    $arrayOfertasCheckbox = isset($_POST["arrayOfertas"]) ? json_decode($_POST["arrayOfertas"]) : false;
+
+    // Obtengo los Valores Buscador 
     $buscadorProducto = isset($_POST['buscadorProducto']) ? $_POST['buscadorProducto'] : false;
-    $productosIdCategoria = isset($_POST['productoIdCategoria']) ? $_POST['productoIdCategoria'] : false;
-
-    // Obtengo los Productos por Categoria Id Extrallendo
-    // $productoIdCategorias = Utils::obtenerProductosPorCategoriaId($productosIdCategoria);
-
-    // Extraer el Total de Registros por Categoria Id O por el Buscador
-    $obtenerRegistrosTotales = $buscadorProducto == '' ? Utils::conteoRegistrosCategoriaId($productosIdCategoria) : Utils::conteoBuscadorRegistrosCategoriaId($buscadorProducto, $productosIdCategoria);
-    $conteoRegistroProductoId = $obtenerRegistrosTotales->registros_totales;
 
     // Numero de Registro que voy a mostrar en un Div
     $mostrarRegistros = 3;
 
-    // Total de Div que se van a Crear
-    $crearRegistroPorDiv = ceil($conteoRegistroProductoId / $mostrarRegistros);
+    // Extraer el Conteo Total de Registros Bd =>  Checkbox , buscador 
+    $conteoRegistroProductos  =  Utils::conteoRegistrosPorBuscadoryCheckbox($productoByIdCategoria, $arrayMarcaCheckbox, $arrayMemoriaRamCheckbox, $arrayPrecioCheckbox, $arrayOfertasCheckbox, $buscadorProducto);
 
-    // Creo los Div y dentro de cada Uno de ellos o el Muestros los Registros de la Base de Datos Limitados a 3
+    // Total de Div que se van a Crear
+    $crearRegistroPorDiv = ceil($conteoRegistroProductos / $mostrarRegistros);
+
+    // Creo los Div y dentro de cada Uno de ellos, Muestro los Registros de la Base de Datos Limitados a 3
     for ($conteoIdProducto = 0; $conteoIdProducto < $crearRegistroPorDiv; $conteoIdProducto++) {
 
       echo '<div class="product-sec1 px-sm-4 px-3 py-sm-5  py-3 mb-4">';
 
       $ultimoRegistro = $mostrarRegistros * $conteoIdProducto;
 
-      //Mostrar Producto Todos O Por el Buscador Creando Div y Registros
-      $buscadorProducto == '' ? $mostrarProductos = Utils::obtenerProductoPorCategoriaId($ultimoRegistro, $mostrarRegistros, $productosIdCategoria) : $mostrarProductos = Utils::mostrarProductosBuscadorLimitar($buscadorProducto, $ultimoRegistro, $mostrarRegistros, $productosIdCategoria);
+      // Mostrar Producto Todos O Por el Buscador Creando Div y Registros
+      $mostrarProductos = Utils::obtenerProductosPorBuscadoryCheckbox($productoByIdCategoria, $arrayMarcaCheckbox, $arrayMemoriaRamCheckbox, $arrayPrecioCheckbox, $arrayOfertasCheckbox, $ultimoRegistro, $mostrarRegistros, $buscadorProducto);
 
       echo '<div class="row">';
       while ($mostrarProducto = $mostrarProductos->fetch_object()) {
@@ -289,145 +291,5 @@ class ProductoController
       echo '</div>';
       echo '</div>';
     };
-  }
-
-  public function marca()
-  {
-
-    //Obtengo los Valores por POST
-    $productoByIdCategoria = isset($_POST['productoByIdCategoria']) ? $_POST['productoByIdCategoria'] : false;
-    $arrayMarcaCheckbox = isset($_POST["arrayMarca"]) ? json_decode($_POST["arrayMarca"]) : false;
-    $arrayMemoriaRamCheckbox = isset($_POST["arrayMemoriaRam"]) ? json_decode($_POST["arrayMemoriaRam"]) : false;
-    $arrayPrecioCheckbox = isset($_POST["arrayPrecio"]) ? json_decode($_POST["arrayPrecio"]) : false;
-
-
-    // Counteo de checkbox selecionados
-    $conteoArrayMarca = count($arrayMarcaCheckbox);
-    $conteoMemoriaRam = count($arrayMemoriaRamCheckbox);
-    $conteoPrecio = count($arrayPrecioCheckbox);
-
-    // Numero de Registro que voy a mostrar en un Div
-    $mostrarRegistros = 3;
-
-    // Obtengo Valores de Checkbox Selecionado
-    $consultaFragmentadasCheckbox =  Utils::consultaFragmentadasCheckbox($arrayMarcaCheckbox, $conteoArrayMarca, $productoByIdCategoria, $arrayMemoriaRamCheckbox, $conteoMemoriaRam, $arrayPrecioCheckbox, $conteoPrecio);
-
-  
-      var_dump($consultaFragmentadasCheckbox );
-
-
-    // while ($ExtraerRegistrosCheckbox = Utils::extraerRegistros($consultaFragmentadasCheckbox)){
-
-    //   var_dump($ExtraerRegistrosCheckbox->nombre);
-
-    // };
-
-
-    // $tesB = Utils::consultaTes($tesA);
-
-
-
-
-
-
-
-
-
-    // $conteoRegistroProductoId = 9;
-
-    // // Numero de Div que se van a Crear por Consulta
-    // $crearRegistroPorDiv = ceil($conteoRegistroProductoId / $mostrarRegistros);
-
-
-    // // Creo los Div Por Consulta
-    // for ($conteoIdProducto = 0; $conteoIdProducto < $crearRegistroPorDiv; $conteoIdProducto++) {
-
-    //   $ultimoRegistro = $mostrarRegistros * $conteoIdProducto;
-
-
-    // Muestro Los Registros que van en cada div Creado
-    // foreach ($arrayCheckbox as $listaCheckbox) {
-    //   $mostrarProductos = Utils::mostrarProductosBuscadorLimitar($listaCheckbox, $ultimoRegistro, $mostrarRegistros, $productoByIdCategoria);
-    // }
-
-
-    // };
-
-
-
-
-
-
-
-    // $productoIdCategorias = Utils::obtenerProductosPorCategoriaId($productoByIdCategoria);
-    // var_dump($productoIdCategorias);
-
-
-    // Extraer el Conteo de Registros por Categoria Id O Por Checkbox
-    // foreach ($array as $valor) {
-    //   $obtenerRegistrosTotales = Utils::conteoBuscadorRegistrosCategoriaIdFiltros($valor, $productoByIdCategoria);
-    // }
-    // $conteoRegistroProductoId = $obtenerRegistrosTotales->registros_totales;
-
-    // Numero de Registro que voy a mostrar en un Div
-    // $mostrarRegistros = 3;
-
-    // // Total de Div que se van a Crear.
-    // $crearRegistroPorDiv = ceil($conteoRegistroProductoId / $mostrarRegistros);
-    // var_dump($crearRegistroPorDiv);
-
-    // // Creo los Div y dentro de cada Uno, los Registros de la Base de Datos
-    // for ($conteoIdProducto = 0; $conteoIdProducto < $crearRegistroPorDiv; $conteoIdProducto++) {
-
-    //   echo '<div class="product-sec1 px-sm-4 px-3 py-sm-5  py-3 mb-4">';
-
-    //   $ultimoRegistro = $mostrarRegistros * $conteoIdProducto;
-
-    //   //Mostrar Producto Todos O Por el Buscador Creando Div y Registros
-    //   foreach ($array as $valor) {
-    //     $mostrarProductos = Utils::mostrarProductosBuscadorLimitar($valor, $ultimoRegistro, $mostrarRegistros, $productoByIdCategoria);
-    //   }
-
-    //   echo '<div class="row">';
-    //   while ($mostrarProducto = $mostrarProductos->fetch_object()) {
-    //     echo '<div class="col-md-4 product-men mt-md-0 mt-5">';
-    //     echo '<div class="men-pro-item simpleCart_shelfItem">';
-    //     echo '<div class="men-thumb-item text-center">';
-    //     echo '<img src="' . base_url . 'assets/images/' . $mostrarProducto->imagen . '" alt="">';
-    //     echo '<div class="men-cart-pro">';
-    //     echo '</div>';
-    //     echo '<span class="product-new-top">Newe</span>';
-    //     echo '</div>';
-    //     echo '<div class="item-info-product text-center border-top mt-4">';
-    //     echo '<h4 class="pt-1">';
-    //     echo '<a href="single.html">' . $mostrarProducto->nombre . '</a>';
-    //     echo '</h4>';
-    //     echo '<div class="info-product-price my-2">';
-    //     echo '<span class="item_price">' . $mostrarProducto->precio . '</span> <del>' . $mostrarProducto->oferta . '</del>';
-    //     echo '</div>';
-    //     echo '<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">';
-    //     echo '<form action="#" method="post">';
-    //     echo '<fieldset>';
-    //     echo '<input type="hidden" name="cmd" value="_cart" />';
-    //     echo '<input type="hidden" name="add" value="1" />';
-    //     echo '<input type="hidden" name="business" value=" " />';
-    //     echo '<input type="hidden" name="item_name" value="Apple iPhone X" />';
-    //     echo '<input type="hidden" name="amount" value="280.00" />';
-    //     echo '<input type="hidden" name="discount_amount" value="1.00" />';
-    //     echo '<input type="hidden" name="currency_code" value="USD" />';
-    //     echo '<input type="hidden" name="return" value=" " />';
-    //     echo '<input type="hidden" name="cancel_return" value=" " />';
-    //     echo '<input type="submit" name="submit" value="Add to cart" class="button btn" />';
-    //     echo '</fieldset>';
-    //     echo '</form>';
-    //     echo '</div>';
-    //     echo '</div>';
-    //     echo '</div>';
-    //     echo '</div>';
-    //   };
-    //   echo '</div>';
-    //   echo '</div>';
-    //   echo '</div>';
-    // };
   }
 }

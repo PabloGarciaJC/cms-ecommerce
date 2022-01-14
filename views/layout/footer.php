@@ -307,7 +307,7 @@
   <script src="<?= base_url ?>assets/js/repositorio/producto/eliminarDatos.js"></script>
 
   <!-- Mostrar ProductosPorCategoriaId -->
-  <script src="<?= base_url ?>assets/js/repositorio/mostrarProducto/mostrar.js"></script>
+  <!-- <script src="<?= base_url ?>assets/js/repositorio/mostrarProducto/mostrar.js"></script> -->
 
   <!-- Mostrar ProductosPorMarcaId -->
   <script src="<?= base_url ?>assets/js/repositorio/mostrarProducto/marca.js"></script>

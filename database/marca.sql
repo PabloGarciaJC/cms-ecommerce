@@ -27,8 +27,18 @@ SELECT marca, memoria_ram, precio from productos p INNER JOIN categorias c ON p.
 
         
 
+SELECT p.id, p.categoria_id, c.categorias as nombreCategoria, p.nombre, p.marca, p.stock, p.precio, p.oferta, p.memoria_ram, p.imagen from productos p INNER JOIN categorias c ON p.categoria_id = c.id and c.id = 13;
 
 
+SELECT  p.categoria_id, p.marca, p.memoria_ram, precio from productos p INNER JOIN categorias c ON p.categoria_id = c.id WHERE (p.nombre LIKE '%2 gb%' OR p.marca LIKE '%2 gb%' OR p.stock LIKE '%2 gb%' OR p.precio LIKE '%2 gb%' OR p.oferta LIKE '%2 gb%' OR c.categorias LIKE '%2 gb%') and p.categoria_id  = 13;
+
+
+
+SELECT * from productos p INNER JOIN categorias c ON p.categoria_id = c.id and c.id = 13;
+
+SELECT p.id, p.categoria_id, c.categorias as nombreCategoria, p.nombre, p.marca, p.stock, p.precio, p.oferta, p.memoria_ram, p.imagen from productos p INNER JOIN categorias c ON p.categoria_id = c.id;
+
+SELECT p.id, p.imagen, p.nombre, p.marca, p.stock, p.precio, p.oferta, p.categoria_id, c.categorias as nombreCategoria from productos p INNER JOIN categorias c ON p.categoria_id = c.id WHERE p.categoria_id  = 13 ORDER BY p.id DESC LIMIT 0,3";
 
 
 

@@ -134,7 +134,6 @@ class Productos
     $this->buscador = $buscador;
   }
 
-
   //// CONSULTA //// 
 
   public function crear()
@@ -143,7 +142,6 @@ class Productos
     $crear = $this->db->query($sql);
     return $crear;
   }
-
 
   public function subirImagen()
   {
@@ -166,15 +164,6 @@ class Productos
     $obtenerProductos = $this->db->query($sql);
     return $obtenerProductos;
   }
-
-  public function mostrarProductosBuscadorLimitar($ultimoRegistro, $mostrarRegistros, $productoIdCategoria)
-  {
-    $sql = "SELECT p.id, p.nombre, p.marca, p.stock, p.precio, p.oferta, p.imagen, c.categorias as nombreCategoria from productos p
-    INNER JOIN categorias c ON p.categoria_id = c.id WHERE (p.nombre LIKE '%{$this->getBuscador()}%' OR p.marca LIKE '%{$this->getBuscador()}%' OR p.stock LIKE '%{$this->getBuscador()}%' OR p.precio LIKE '%{$this->getBuscador()}%' OR p.oferta LIKE '%{$this->getBuscador()}%' OR c.categorias LIKE '%{$this->getBuscador()}%' && p.categoria_id  = $productoIdCategoria) LIMIT $ultimoRegistro, $mostrarRegistros;";
-    $obtenerProductos = $this->db->query($sql);
-    return $obtenerProductos;
-  }
-
 
   public function productosPorId()
   {
@@ -233,41 +222,7 @@ class Productos
     return $obtenerProductos;
   }
 
-  public function obtenerProductosPorCategoriaId($ultimoRegistro, $mostrarRegistros, $productoIdCategoria)
-  {
-    $sql = "SELECT p.id, p.imagen, p.nombre, p.marca, p.stock, p.precio, p.oferta, p.categoria_id, c.categorias as nombreCategoria from productos p INNER JOIN categorias c ON p.categoria_id = c.id WHERE p.categoria_id  = $productoIdCategoria ORDER BY p.id DESC LIMIT $ultimoRegistro, $mostrarRegistros;";
-    $obtenerProductos = $this->db->query($sql);
-    return $obtenerProductos;
-  }
-
-  public function conteoRegistrosPorCategoriaId()
-  {
-    $sql = "SELECT count(id) as 'registros_totales' FROM productos WHERE categoria_id = {$this->getIdCategoria()}";
-    $registros_totales = $this->db->query($sql);
-    return $registros_totales->fetch_object();
-  }
-
-  public function conteoBuscadorRegistrosCategoriaId()
-  {
-    $sql = "SELECT count(p.categoria_id) as 'registros_totales' from productos p
-    INNER JOIN categorias c ON p.categoria_id = c.id WHERE (p.nombre LIKE '%{$this->getBuscador()}%' OR p.marca LIKE '%{$this->getBuscador()}%' OR p.stock LIKE '%{$this->getBuscador()}%' OR p.precio LIKE '%{$this->getBuscador()}%' OR p.oferta LIKE '%{$this->getBuscador()}%' OR c.categorias LIKE '%{$this->getBuscador()}%' && p.categoria_id  = {$this->getIdCategoria()})";
-
-    $registros_totales = $this->db->query($sql);
-    return $registros_totales->fetch_object();
-  }
-
-  public function conteoBuscadorRegistrosCategoriaIdFiltro()
-  {
-
-    $sql = "SELECT count(p.categoria_id) as 'registros_totaless' from productos p INNER JOIN categorias c ON p.categoria_id = c.id WHERE (p.nombre LIKE '{$this->getBuscador()}' OR p.marca LIKE '{$this->getBuscador()}' OR p.stock LIKE '{$this->getBuscador()}' OR p.precio LIKE '{$this->getBuscador()}' OR p.oferta LIKE '{$this->getBuscador()}' OR c.categorias LIKE '{$this->getBuscador()}') AND p.categoria_id = {$this->getIdCategoria()};";
-
-    // $sql = "SELECT p.id, p.categoria_id, c.categorias as nombreCategoria, p.nombre, p.marca, p.stock, p.precio, p.oferta, p.imagen from productos p INNER JOIN categorias c ON p.categoria_id = c.id WHERE (p.nombre LIKE '{$this->getBuscador()}' OR p.marca LIKE '{$this->getBuscador()}' OR p.stock LIKE '{$this->getBuscador()}' OR p.precio LIKE '{$this->getBuscador()}' OR p.oferta LIKE '{$this->getBuscador()}' OR c.categorias LIKE '{$this->getBuscador()}') AND p.categoria_id = {$this->getIdCategoria()};";
-
-    $registros_totales = $this->db->query($sql);
-    return $registros_totales->fetch_object();
-  }
-
-  public function conteoFiltro($arrayMarcaCheckbox, $conteoArrayMarca, $arrayMemoriaRamCheckbox, $conteoArrayMemoriaRam, $arrayPrecioCheckbox, $conteoArrayPrecio)
+  public function productosPorBuscadoryCheckbox($arrayMarcaCheckbox, $conteoArrayMarca, $arrayMemoriaRamCheckbox, $conteoArrayMemoriaRam, $arrayPrecioCheckbox, $conteoArrayPrecio, $arrayOfertasCheckbox, $conteoArrayOfertas, $ultimoRegistro, $mostrarRegistros)
   {
 
     // Muestar el Ultimo checkbox que se ha selecionado del Lado del Cliente
@@ -287,14 +242,20 @@ class Productos
       $indicesPrecio[1];
     }
 
+    // Muestar el Ultimo checkbox que se ha selecionado del Lado del Cliente
+    foreach ($arrayOfertasCheckbox as $todosCheckboxOfertas) {
+      $todosCheckboxOfertas;
+    }
+
     // CONTEO de todos los Arrays de los Checkbox que se ha selecionado
-    $todosConteoCheckbox = $conteoArrayMarca + $conteoArrayMemoriaRam + $conteoArrayPrecio;
+    $todosConteoCheckbox = $conteoArrayMarca + $conteoArrayMemoriaRam + $conteoArrayPrecio + $conteoArrayOfertas;
 
-    if ($todosConteoCheckbox == 0) {
+    if ($todosConteoCheckbox == 0 || $this->getBuscador() != '') {
 
-      $sql = "SELECT p.id, p.categoria_id, c.categorias as nombreCategoria, p.nombre, p.marca, p.stock, p.precio, p.oferta, p.memoria_ram, p.imagen from productos p INNER JOIN categorias c ON p.categoria_id = c.id and c.id = {$this->getIdCategoria()} where c.id = {$this->getIdCategoria()}";
-
+      $sql = "SELECT p.id, p.categoria_id, c.categorias as nombreCategoria, p.nombre, p.marca, p.stock, p.precio, p.oferta, p.memoria_ram, p.imagen from productos p INNER JOIN categorias c ON p.categoria_id = c.id WHERE (p.nombre LIKE '%{$this->getBuscador()}%' OR p.marca LIKE '%{$this->getBuscador()}%' OR p.stock LIKE '%{$this->getBuscador()}%' OR p.precio LIKE '%{$this->getBuscador()}%' OR p.oferta LIKE '%{$this->getBuscador()}%' OR c.categorias LIKE '%{$this->getBuscador()}%') and p.categoria_id  = {$this->getIdCategoria()} ORDER BY p.id DESC LIMIT $ultimoRegistro, $mostrarRegistros";
     } else {
+
+      /********************** VALIDACION DE TODOS LOS CHECKBOX ***********************/
 
       // PRIMER BLOQUE - MARCA - PARTE I - 1:1 y 1:M
       if ($conteoArrayMarca == 1) {
@@ -306,11 +267,11 @@ class Productos
         foreach ($arrayMarcaCheckbox as $todosCheckboxMarca) {
           $sql .= " or p.marca = '$todosCheckboxMarca' ";
         }
-        $sql .= ") and c.id = {$this->getIdCategoria()} ";
+        $sql .= ") and c.id = {$this->getIdCategoria()}";
       }
 
       // SEGUNDO BLOQUE - MEMORIA RAM - PARTE I - 1:1 y 1:M
-      if ($conteoArrayMemoriaRam == 1) {       
+      if ($conteoArrayMemoriaRam == 1) {
         $sql = "SELECT p.id, p.categoria_id, c.categorias as nombreCategoria, p.nombre, p.marca, p.stock, p.precio, p.oferta, p.memoria_ram, p.imagen from productos p INNER JOIN categorias c ON p.categoria_id = c.id WHERE (p.memoria_ram = '$todosCheckboxMemoriaRam') and c.id = {$this->getIdCategoria()}";
       }
       // SEGUNDO BLOQUE - MEMORIA RAM - PARTE II - M:1 - M:M
@@ -334,6 +295,172 @@ class Productos
         }
         $sql .= ")";
       }
+
+      // CUARTO BLOQUE - OFERTAS - PARTE I - 1:1 y 1:M
+      if ($conteoArrayOfertas == 1) {
+        $sql = "SELECT p.id, p.categoria_id, c.categorias as nombreCategoria, p.nombre, p.marca, p.stock, p.precio, p.oferta, p.memoria_ram, p.imagen from productos p INNER JOIN categorias c ON p.categoria_id = c.id WHERE (p.oferta = '$todosCheckboxOfertas') and c.id = {$this->getIdCategoria()}";
+      }
+      // CUARTO BLOQUE - OFERTAS - PARTE II - M:1 - M:M
+      if ($conteoArrayOfertas >= 2) {
+        $sql = "SELECT p.id, p.categoria_id, c.categorias as nombreCategoria, p.nombre, p.marca, p.stock, p.precio, p.oferta, p.memoria_ram, p.imagen from productos p INNER JOIN categorias c ON p.categoria_id = c.id and c.id = {$this->getIdCategoria()} WHERE (p.oferta = '$todosCheckboxOfertas'";
+        foreach ($arrayOfertasCheckbox as $todosCheckboxOfertas) {
+          $sql .= " or p.oferta = '$todosCheckboxOfertas' ";
+        }
+        $sql .= ")";
+      }
+
+      /********************** CONSULTAS CONCATENADAS *****************************/
+
+      //  Registros de UN checkbox de => Marca // 1:1 
+      if ($conteoArrayMarca == 1) {
+        $sql .= " and (p.marca = '$todosCheckboxMarca')";
+      }
+      // Registros de Multiples Checkbox de => Marca // 1:M
+      if ($conteoArrayMarca >= 2) {
+        $sql .= " and (p.marca = '$todosCheckboxMarca'";
+        foreach ($arrayMarcaCheckbox as $todosCheckboxMarca) {
+          $sql .= " or p.marca = '$todosCheckboxMarca'";
+        }
+        $sql .= ")";
+      }
+      /**********************************************************/
+      //  Registros de UN checkbox de => Memoria RAM // 1:1 
+      if ($conteoArrayMemoriaRam == 1) {
+        $sql .= " and (p.memoria_ram = '$todosCheckboxMemoriaRam')";
+      }
+      // Registros de Multiples Checkbox de => Memoria RAM // 1:M
+      if ($conteoArrayMemoriaRam >= 2) {
+        $sql .= " and (p.memoria_ram = '$todosCheckboxMemoriaRam'";
+        foreach ($arrayMemoriaRamCheckbox as $todosCheckboxMemoriaRam) {
+          $sql .= " or p.memoria_ram = '$todosCheckboxMemoriaRam' ";
+        }
+        $sql .= ")";
+      }
+      /**********************************************************/
+      // Registros de UN checkbox de => Precio // 1:1 
+      if ($conteoArrayPrecio == 1) {
+        $sql .= " and (p.precio >= $indicesPrecio[0] and p.precio <= $indicesPrecio[1])";
+      }
+      // Registros de Multiples Checkbox de => Precio // 1:M
+      if ($conteoArrayPrecio >= 2) {
+        $sql .= " and (p.precio >= $indicesPrecio[0] and p.precio <= $indicesPrecio[1]";
+        foreach ($arrayPrecioCheckbox as $todosCheckboxPrecio) {
+          $indicesPrecio = explode("-", $todosCheckboxPrecio);
+          $sql .= " or p.precio >= $indicesPrecio[0] and p.precio <= $indicesPrecio[1]";
+        }
+        $sql .= ")";
+      }
+
+      //  Registros de UN checkbox de => Ofertas // 1:1 
+      if ($conteoArrayOfertas == 1) {
+        $sql .= " and (p.oferta = '$todosCheckboxOfertas')";
+      }
+      // Registros de Multiples Checkbox de => Ofertas // 1:M
+      if ($conteoArrayOfertas >= 2) {
+        $sql .= " and (p.oferta = '$todosCheckboxOfertas'";
+        foreach ($arrayOfertasCheckbox as $todosCheckboxOfertas) {
+          $sql .= " or p.oferta = '$todosCheckboxOfertas' ";
+        }
+        $sql .= ")";
+      }
+
+      /**********************************************************/
+      $sql .= " ORDER BY p.id DESC LIMIT $ultimoRegistro, $mostrarRegistros";
+    }
+
+    $registros_totales = $this->db->query($sql);
+    return $registros_totales;
+  }
+
+  public function conteoPorBuscadoryCheckbox($arrayMarcaCheckbox, $conteoArrayMarca, $arrayMemoriaRamCheckbox, $conteoArrayMemoriaRam, $arrayPrecioCheckbox, $conteoArrayPrecio, $arrayOfertasCheckbox, $conteoArrayOfertas)
+  {
+
+    // Muestar el Ultimo checkbox que se ha selecionado del Lado del Cliente
+    foreach ($arrayMarcaCheckbox as $todosCheckboxMarca) {
+      $todosCheckboxMarca;
+    }
+
+    // Muestar el Ultimo checkbox que se ha selecionado del Lado del Cliente
+    foreach ($arrayMemoriaRamCheckbox as $todosCheckboxMemoriaRam) {
+      $todosCheckboxMemoriaRam;
+    }
+
+    // Muestar el Ultimo checkbox que se ha selecionado del Lado del Cliente
+    foreach ($arrayPrecioCheckbox as $todosCheckboxPrecio) {
+      $indicesPrecio = explode("-", $todosCheckboxPrecio);
+      $indicesPrecio[0];
+      $indicesPrecio[1];
+    }
+
+    // Muestar el Ultimo checkbox que se ha selecionado del Lado del Cliente
+    foreach ($arrayOfertasCheckbox as $todosCheckboxOfertas) {
+      $todosCheckboxOfertas;
+    }
+
+    // CONTEO de todos los Arrays de los Checkbox que se ha selecionado
+    $todosConteoCheckbox = $conteoArrayMarca + $conteoArrayMemoriaRam + $conteoArrayPrecio + $conteoArrayOfertas;
+
+    if ($todosConteoCheckbox == 0 || $this->getBuscador() != '') {
+
+      $sql = "SELECT count(p.categoria_id) as 'registros_totales' from productos p
+      INNER JOIN categorias c ON p.categoria_id = c.id WHERE (p.nombre LIKE '%{$this->getBuscador()}%' OR p.marca LIKE '%{$this->getBuscador()}%' OR p.stock LIKE '%{$this->getBuscador()}%' OR p.precio LIKE '%{$this->getBuscador()}%' OR p.oferta LIKE '%{$this->getBuscador()}%' OR c.categorias LIKE '%{$this->getBuscador()}%') and p.categoria_id  = {$this->getIdCategoria()}";
+    } else {
+
+      /********************** VALIDACION DE TODOS LOS CHECKBOX ***********************/
+
+      // PRIMER BLOQUE - MARCA - PARTE I - 1:1 y 1:M
+      if ($conteoArrayMarca == 1) {
+        $sql = "SELECT count(p.categoria_id) as 'registros_totales' from productos p INNER JOIN categorias c ON p.categoria_id = c.id and c.id = {$this->getIdCategoria()} WHERE (p.marca = '$todosCheckboxMarca')";
+      }
+      // PRIMER BLOQUE - MARCA - PARTE II - M:1 - M:M
+      if ($conteoArrayMarca >= 2) {
+        $sql = "SELECT count(p.categoria_id) as 'registros_totales' from productos p INNER JOIN categorias c ON p.categoria_id = c.id WHERE (p.marca = '$todosCheckboxMarca'";
+        foreach ($arrayMarcaCheckbox as $todosCheckboxMarca) {
+          $sql .= " or p.marca = '$todosCheckboxMarca' ";
+        }
+        $sql .= ") and c.id = {$this->getIdCategoria()} ";
+      }
+
+      // SEGUNDO BLOQUE - MEMORIA RAM - PARTE I - 1:1 y 1:M
+      if ($conteoArrayMemoriaRam == 1) {
+        $sql = "SELECT count(p.categoria_id) as 'registros_totales' from productos p INNER JOIN categorias c ON p.categoria_id = c.id WHERE (p.memoria_ram = '$todosCheckboxMemoriaRam') and c.id = {$this->getIdCategoria()}";
+      }
+      // SEGUNDO BLOQUE - MEMORIA RAM - PARTE II - M:1 - M:M
+      if ($conteoArrayMemoriaRam >= 2) {
+        $sql = "SELECT count(p.categoria_id) as 'registros_totales' from productos p INNER JOIN categorias c ON p.categoria_id = c.id and c.id = {$this->getIdCategoria()} WHERE (p.memoria_ram = '$todosCheckboxMemoriaRam'";
+        foreach ($arrayMemoriaRamCheckbox as $todosCheckboxMemoriaRam) {
+          $sql .= " or p.memoria_ram = '$todosCheckboxMemoriaRam' ";
+        }
+        $sql .= ")";
+      }
+
+      // TERCER BLOQUE - PRECIO - PARTE I - 1:1 y 1:M
+      if ($conteoArrayPrecio == 1) {
+        $sql = "SELECT count(p.categoria_id) as 'registros_totales' from productos p INNER JOIN categorias c ON p.categoria_id = c.id WHERE (p.precio >= $indicesPrecio[0] and p.precio <= $indicesPrecio[1]) and c.id = {$this->getIdCategoria()}";
+      }
+      // TERCER BLOQUE - PRECIO - PARTE II - M:1 y M:M
+      if ($conteoArrayPrecio >= 2) {
+        $sql = "SELECT count(p.categoria_id) as 'registros_totales' from productos p INNER JOIN categorias c ON p.categoria_id = c.id and c.id = {$this->getIdCategoria()} WHERE (p.precio >= $indicesPrecio[0] and p.precio <= $indicesPrecio[1]";
+        foreach ($arrayPrecioCheckbox as $todosCheckboxPrecio) {
+          $indicesPrecio = explode("-", $todosCheckboxPrecio);
+          $sql .= " or p.precio >= $indicesPrecio[0] and p.precio <= $indicesPrecio[1]";
+        }
+        $sql .= ")";
+      }
+
+      // CUARTO BLOQUE - OFERTAS - PARTE I - 1:1 y 1:M
+      if ($conteoArrayOfertas == 1) {
+        $sql = "SELECT count(p.categoria_id) as 'registros_totales' from productos p INNER JOIN categorias c ON p.categoria_id = c.id WHERE (p.oferta = '$todosCheckboxOfertas') and c.id = {$this->getIdCategoria()}";
+      }
+      // CUARTO BLOQUE - OFERTAS - PARTE II - M:1 - M:M
+      if ($conteoArrayOfertas >= 2) {
+        $sql = "SELECT count(p.categoria_id) as 'registros_totales' from productos p INNER JOIN categorias c ON p.categoria_id = c.id and c.id = {$this->getIdCategoria()} WHERE (p.oferta = '$todosCheckboxOfertas'";
+        foreach ($arrayOfertasCheckbox as $todosCheckboxOfertas) {
+          $sql .= " or p.oferta = '$todosCheckboxOfertas' ";
+        }
+        $sql .= ")";
+      }
+
 
       /********************** CONSULTAS CONCATENADAS *****************************/
 
@@ -377,10 +504,22 @@ class Productos
         $sql .= ")";
       }
       /**********************************************************/
+
+      //  Registros de UN checkbox de => Ofertas // 1:1 
+      if ($conteoArrayOfertas == 1) {
+        $sql .= " and (p.oferta = '$todosCheckboxOfertas')";
+      }
+      // Registros de Multiples Checkbox de => Ofertas // 1:M
+      if ($conteoArrayOfertas >= 2) {
+        $sql .= " and (p.oferta = '$todosCheckboxOfertas'";
+        foreach ($arrayOfertasCheckbox as $todosCheckboxOfertas) {
+          $sql .= " or p.oferta = '$todosCheckboxOfertas' ";
+        }
+        $sql .= ")";
+      }
     }
 
-    var_dump($sql);
     $registros_totales = $this->db->query($sql);
-    return $registros_totales;
+    return $registros_totales->fetch_object();
   }
 }

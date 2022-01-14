@@ -81,26 +81,10 @@ class Utils
     return $mostrar;
   }
 
-  public static function mostrarProductosBuscadorLimitar($buscador, $ultimoRegistro, $mostrarRegistros, $productoIdCategoria)
-  {
-    $productos = new productos;
-    $productos->setBuscador($buscador);
-    $mostrar = $productos->mostrarProductosBuscadorLimitar($ultimoRegistro, $mostrarRegistros, $productoIdCategoria);
-    return $mostrar;
-  }
-
-
   public static function obtenerProductosYPaginador($ultimoRegistro, $mostrarRegistros)
   {
     $productos = new productos;
     $mostrar = $productos->obtenerTodosYPaginacion($ultimoRegistro, $mostrarRegistros);
-    return $mostrar;
-  }
-
-  public static function obtenerProductoPorCategoriaId($ultimoRegistro, $mostrarRegistros, $ProductoIdCategoria)
-  {
-    $productos = new productos;
-    $mostrar = $productos->obtenerProductosPorCategoriaId($ultimoRegistro, $mostrarRegistros, $ProductoIdCategoria);
     return $mostrar;
   }
 
@@ -137,31 +121,17 @@ class Utils
     return $mostrarTodos;
   }
 
-  public static function conteoRegistrosCategoriaId($categoriaId)
+  public static function mostrarMarcaSinRepetirSidebar($categoriaId)
   {
     $productos = new productos;
     $productos->setIdCategoria($categoriaId);
-    $mostrarTodos = $productos->conteoRegistrosPorCategoriaId();
-    return $mostrarTodos;
+    $mostrarProductosCategoriaId = $productos->mostrarMarcaSinRepetirSidebar();
+    return $mostrarProductosCategoriaId;
   }
 
-  public static function conteoBuscadorRegistrosCategoriaId($buscadorProducto, $productoIdCategoria)
+  public static function extraerRegistros($registros)
   {
-    $productos = new productos;
-    $productos->setIdCategoria($productoIdCategoria);
-    $productos->setBuscador($buscadorProducto);
-    $mostrarTodos = $productos->conteoBuscadorRegistrosCategoriaId();
-    return $mostrarTodos;
-  }
-
-  public static function conteoBuscadorRegistrosCategoriaIdFiltros($listaCheckbox, $productoIdCategoria)
-  {
-    $productos = new productos;
-    $productos->setBuscador($listaCheckbox);
-    $productos->setIdCategoria($productoIdCategoria);
-    $mostrarTodos = $productos->conteoBuscadorRegistrosCategoriaIdFiltro();
-
-    return $mostrarTodos;
+    return $registros->fetch_object();
   }
 
   public static function obtenerProductosPorCategoriaId($categoriaId)
@@ -172,33 +142,38 @@ class Utils
     return $mostrarProductosCategoriaId;
   }
 
-  public static function mostrarMarcaSinRepetirSidebar($categoriaId)
+  public static function obtenerProductosPorBuscadoryCheckbox($productoByIdCategoria, $arrayMarcaCheckbox, $arrayMemoriaRamCheckbox, $arrayPrecioCheckbox, $arrayOfertasCheckbox, $ultimoRegistro, $mostrarRegistros, $buscadorProducto)
   {
-    $productos = new productos;
-    $productos->setIdCategoria($categoriaId);
-    $mostrarProductosCategoriaId = $productos->mostrarMarcaSinRepetirSidebar();
-    return $mostrarProductosCategoriaId;
-  }
 
+    // Counteo de checkbox selecionados
+    $conteoArrayMarca = count($arrayMarcaCheckbox);
+    $conteoArrayMemoriaRam = count($arrayMemoriaRamCheckbox);
+    $conteoArrayPrecio = count($arrayPrecioCheckbox);
+    $conteoArrayOfertas = count($arrayOfertasCheckbox);
 
-  public static function extraerRegistros($registros)
-  {
-    return $registros->fetch_object();
-  }
-
-  public static function consultaFragmentadasCheckbox($arrayMarcaCheckbox, $conteoArrayMarca, $productoByIdCategoria, $arrayMemoriaRamCheckbox, $conteoMemoriaRam, $arrayPrecioCheckbox, $conteoPrecio)
-  {
+    //Instancio Objeto y Consulta
     $productos = new productos;
     $productos->setIdCategoria($productoByIdCategoria);
-    $resultado = $productos->conteoFiltro($arrayMarcaCheckbox, $conteoArrayMarca, $arrayMemoriaRamCheckbox, $conteoMemoriaRam, $arrayPrecioCheckbox, $conteoPrecio);
-    return $resultado;
+    $productos->setBuscador($buscadorProducto);
+
+    $mostrar = $productos->productosPorBuscadoryCheckbox($arrayMarcaCheckbox, $conteoArrayMarca, $arrayMemoriaRamCheckbox, $conteoArrayMemoriaRam, $arrayPrecioCheckbox, $conteoArrayPrecio, $arrayOfertasCheckbox, $conteoArrayOfertas, $ultimoRegistro, $mostrarRegistros);
+
+    return $mostrar;
   }
 
-  // public static function consultaFragmentada($consultaFragmentada)
-  // {
-  //   $productos = new productos;
-  //   $productos->setBuscador($consultaFragmentada);
-  //   $tes = $productos->conteoFiltro($consultaFragmentada);
-  //   return $tes;
-  // }
+  public static function conteoRegistrosPorBuscadoryCheckbox($productoByIdCategoria, $arrayMarcaCheckbox, $arrayMemoriaRamCheckbox, $arrayPrecioCheckbox, $arrayOfertasCheckbox, $buscadorProducto)
+  {
+    // Counteo de checkbox selecionados
+    $conteoArrayMarca = count($arrayMarcaCheckbox);
+    $conteoArrayMemoriaRam = count($arrayMemoriaRamCheckbox);
+    $conteoArrayPrecio = count($arrayPrecioCheckbox);
+    $conteoArrayOfertas = count($arrayOfertasCheckbox);
+   
+    //Instancio Objeto y Consulta
+    $productos = new productos;
+    $productos->setIdCategoria($productoByIdCategoria);
+    $productos->setBuscador($buscadorProducto);
+    $resultado = $productos->conteoPorBuscadoryCheckbox($arrayMarcaCheckbox, $conteoArrayMarca, $arrayMemoriaRamCheckbox, $conteoArrayMemoriaRam, $arrayPrecioCheckbox, $conteoArrayPrecio, $arrayOfertasCheckbox, $conteoArrayOfertas);
+    return $resultado->registros_totales;
+  }
 }

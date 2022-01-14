@@ -38,6 +38,8 @@
 					<input type="hidden" id="productoIdCategoria" value="<?= $obtenerProductoPorCategoriaId->categoria_id ?>">
 
 					<!-- Respuesta Ajax y PHP -->
+					<!-- <div id="respuestaPhpMostrarProductos"></div> -->
+
 					<div id="respuestaPhpMostrarProductos"></div>
 
 				</div>
@@ -47,15 +49,13 @@
 			<div class="col-lg-3 mt-lg-0 mt-4 p-lg-0">
 				<div class="side-bar p-sm-4 p-3">
 					<div class="search-hotel border-bottom py-2">
-
-						<form action="" id="buscadorMostrarProducto" method="POST">
-							<input type="search" placeholder="Buscador..." id="buscadorProducto" name="">
-							<input type="submit" id="btn" value=" ">
-						</form>
+						
+						<!-- Buscador -->
+						<input type="text" class="form-control" placeholder=" Buscador..." id="buscadorProducto">
+						<!-- //Buscador -->
 
 						<div class="left-side py-2">
 							<h3 class="agileits-sear-head mb-3">Marca</h3>
-							<div id="respuestaPhpMostrarMarca"></div>
 							<ul>
 								<?php while ($obtenerMarcaSinRepetirSidebar = Utils::extraerRegistros($mostrarMarcaSinRepetirSidebar)) : ?>
 									<li>
@@ -125,24 +125,24 @@
 						<h3 class="agileits-sear-head mb-3">Ofertas</h3>
 						<ul>
 							<li>
-								<input type="checkbox" class="checked">
-								<span class="span">5% or More</span>
+								<input type="checkbox" value="5%" class="checkedOfertas">
+								<span class="span">5% de descuento</span>
 							</li>
 							<li>
-								<input type="checkbox" class="checked">
-								<span class="span">10% or More</span>
+								<input type="checkbox" value="10%" class="checkedOfertas">
+								<span class="span">10% de descuento</span>
 							</li>
 							<li>
-								<input type="checkbox" class="checked">
-								<span class="span">20% or More</span>
+								<input type="checkbox" value="20%" class="checkedOfertas">
+								<span class="span">20% de descuento</span>
 							</li>
 							<li>
-								<input type="checkbox" class="checked">
-								<span class="span">30% or More</span>
+								<input type="checkbox" value="30%" class="checkedOfertas">
+								<span class="span">30% de descuento</span>
 							</li>
 							<li>
-								<input type="checkbox" class="checked">
-								<span class="span">50% or More</span>
+								<input type="checkbox" value="40%" class="checkedOfertas">
+								<span class="span">40% de descuento</span>
 							</li>
 						</ul>
 
