@@ -203,13 +203,10 @@ class ProductoController
     $categoriaBarraNavegacion = Utils::listaCategorias();
 
     // Obtengo los Productos por Categoria Id
-    $mostrarProductoPorCategoria = Utils::obtenerProductosPorCategoriaId($idProductoCategoria);
+    $mostrarProductoPorCategoria = Utils::obtenerCategoriaPorId($idProductoCategoria);
 
     // Obtengo Marca Sin Repetir en el Sidebar
     $mostrarMarcaSinRepetirSidebar = Utils::mostrarMarcaSinRepetirSidebar($idProductoCategoria);
-
-    // Extraer Registros de la Base de Datos con Fetch_Object
-    $obtenerProductoPorCategoriaId = Utils::extraerRegistros($mostrarProductoPorCategoria);
 
     require_once 'views/layout/header.php';
     require_once 'views/layout/banner.php';
@@ -218,6 +215,7 @@ class ProductoController
     require_once 'views/producto/mostrarProducto.php';
     require_once 'views/layout/footer.php';
   }
+
 
   public function mostrarTodosProductos()
   {
@@ -250,12 +248,13 @@ class ProductoController
       // Mostrar Producto Todos O Por el Buscador Creando Div y Registros
       $mostrarProductos = Utils::obtenerProductosPorBuscadoryCheckbox($productoByIdCategoria, $arrayMarcaCheckbox, $arrayMemoriaRamCheckbox, $arrayPrecioCheckbox, $arrayOfertasCheckbox, $ultimoRegistro, $mostrarRegistros, $buscadorProducto);
 
+      
       echo '<div class="row">';
-      while ($mostrarProducto = $mostrarProductos->fetch_object()) {
+      while ($mostrarProducto = $mostrarProductos->fetch_object()) {        
         echo '<div class="col-md-4 product-men mt-md-0 mt-5">';
         echo '<div class="men-pro-item simpleCart_shelfItem">';
         echo '<div class="men-thumb-item text-center">';
-        echo '<img src="' . base_url . 'assets/images/' . $mostrarProducto->imagen . '" alt="">';
+        echo '<img src="' . base_url . 'uploads/images/productos/'. $mostrarProducto->imagen . '" alt="">';
         echo '<div class="men-cart-pro">';
         echo '</div>';
         echo '<span class="product-new-top">Newe</span>';

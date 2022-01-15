@@ -66,6 +66,16 @@ class Utils
     return $categoria;
   }
 
+  public static function obtenerCategoriaPorId($idProductoCategoria)
+  {
+    require_once 'model/categorias.php';
+    $categorias = new categorias;
+    $categorias->setId($idProductoCategoria);
+    $categoria = $categorias->obtenerCategoriasPorId();
+    return $categoria;
+  }
+
+
   public static function obtenerProductos()
   {
     $productos = new productos;
@@ -134,6 +144,7 @@ class Utils
     return $registros->fetch_object();
   }
 
+  /* Puedo usarla en otro Momento */
   public static function obtenerProductosPorCategoriaId($categoriaId)
   {
     $productos = new productos;

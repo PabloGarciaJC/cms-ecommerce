@@ -12,7 +12,7 @@
 					<a href="<?= base_url ?>">Home</a>
 					<i>|</i>
 				</li>
-				<li><?= $obtenerProductoPorCategoriaId->nombreCategoria ?></li>
+				<li><?=$mostrarProductoPorCategoria->categorias?></li>
 			</ul>
 		</div>
 	</div>
@@ -35,7 +35,7 @@
 				<div class="wrapper">
 
 					<!-- Id Categoria Para Obtener el Producto -->
-					<input type="hidden" id="productoIdCategoria" value="<?= $obtenerProductoPorCategoriaId->categoria_id ?>">
+					<input type="hidden" id="productoIdCategoria" value="<?=$mostrarProductoPorCategoria->id?>">
 
 					<!-- Respuesta Ajax y PHP -->
 					<!-- <div id="respuestaPhpMostrarProductos"></div> -->
@@ -61,6 +61,7 @@
 									<li>
 										<input type="checkbox" value="<?= $obtenerMarcaSinRepetirSidebar->marca ?>" class="checkedMarca">
 										<span class="span"><?= $obtenerMarcaSinRepetirSidebar->marca ?></span>
+										
 									</li>
 								<?php endwhile; ?>
 							</ul>
@@ -69,7 +70,7 @@
 
 					<!-- Memoria Ram -->
 					<div class="left-side border-bottom py-2">
-						<h3 class="agileits-sear-head mb-3">Ram</h3>
+						<h3 class="agileits-sear-head mb-3">Capacidad</h3>
 						<ul>
 							<li>
 								<input type="checkbox" value="2 GB" class="checkedMemoriaRam">
