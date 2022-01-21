@@ -306,15 +306,9 @@
   <script src="<?= base_url ?>assets/js/repositorio/producto/funciones/imagenProducto.js"></script>
   <script src="<?= base_url ?>assets/js/repositorio/producto/eliminarDatos.js"></script>
 
-  <!-- Mostrar ProductosPorCategoriaId -->
-  <!-- <script src="<?= base_url ?>assets/js/repositorio/mostrarProducto/mostrar.js"></script> -->
-
-  <!-- Mostrar ProductosPorMarcaId -->
-  <script src="<?= base_url ?>assets/js/repositorio/mostrarProducto/marca.js"></script>
+  <!-- Mostrar Productos -->
+  <script src="<?= base_url ?>assets/js/repositorio/producto/mostrar.js"></script>
 
   <!-- <script src="<?= base_url ?>assets/js/repositorio/mostrarProducto/sidebar/marcas/productos"></script> -->
-
-  <!-- Listar Producto Buscador -->
-  <!-- <script src="<?= base_url ?>assets/js/utilitarios/producto/buscador.js"></script> -->
 
   </html>

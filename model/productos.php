@@ -138,7 +138,7 @@ class Productos
 
   public function crear()
   {
-    $sql = "INSERT INTO productos (nombre, categoria_id, precio, stock, oferta, marca, memoria_ram,descripcion, imagen ) VALUES ('{$this->getNombre()}' , {$this->getIdCategoria()}, {$this->getPrecio()}, {$this->getStock()}, '{$this->getOferta()}', '{$this->getMarca()}', '{$this->getMemoriaRam()}', '{$this->getDescripcion()}', '{$this->getImagen()}') ";
+    $sql = "INSERT INTO productos (nombre, categoria_id, precio, stock, oferta, marca, memoria_ram,descripcion, imagen ) VALUES ('{$this->getNombre()}' , {$this->getIdCategoria()}, {$this->getPrecio()}, {$this->getStock()}, '{$this->getOferta()}', '{$this->getMarca()}', {$this->getMemoriaRam()}, '{$this->getDescripcion()}', '{$this->getImagen()}') ";
     $crear = $this->db->query($sql);
     return $crear;
   }
@@ -166,8 +166,8 @@ class Productos
   }
 
   public function productosPorId()
-  {
-    $sql = "SELECT * FROM productos WHERE id = {$this->getId()}";
+  {   
+    $sql = "SELECT p.id, p.imagen, p.nombre, p.marca, p.stock, p.precio, p.oferta, p.categoria_id, p.memoria_ram, p.descripcion, c.categorias as nombreCategoria from productos p INNER JOIN categorias c ON p.categoria_id = c.id WHERE p.id = {$this->getId()};";
     $obtenerProductos = $this->db->query($sql);
     return $obtenerProductos;
   }
@@ -186,10 +186,21 @@ class Productos
     return $obtenerProductos;
   }
 
+  public function mostrarMemoriaRamSinRepetirSidebar()
+  {
+    $sql = "SELECT DISTINCT p.memoria_ram from productos p INNER JOIN categorias c ON p.categoria_id = c.id and c.id = {$this->getIdCategoria()} ORDER BY p.memoria_ram asc;";
+    $obtenerProductos = $this->db->query($sql);
+    return $obtenerProductos;
+  }
+
+
   public function actualizar()
   {
     $resultado = false;
-    $sql = "UPDATE productos SET nombre = '{$this->getNombre()}', descripcion = '{$this->getDescripcion()}', precio = {$this->getPrecio()}, stock = {$this->getStock()}, oferta = '{$this->getOferta()}', marca = '{$this->getMarca()}', memoria_ram = '{$this->getMemoriaRam()}', imagen = '{$this->getImagen()}' WHERE id = {$this->getId()};";
+
+    $sql = "UPDATE productos SET categoria_id = {$this->getIdCategoria()}, nombre = '{$this->getNombre()}', descripcion = '{$this->getDescripcion()}', precio = {$this->getPrecio()}, stock = {$this->getStock()}, oferta = '{$this->getOferta()}', marca = '{$this->getMarca()}', memoria_ram = {$this->getMemoriaRam()}, imagen = '{$this->getImagen()}' WHERE id = {$this->getId()};";
+
+
     $actualizar = $this->db->query($sql);
     if ($actualizar) {
       $resultado = true;

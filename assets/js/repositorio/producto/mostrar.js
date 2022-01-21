@@ -1,7 +1,6 @@
 
 $(document).ready(function () {
 
-
   // Obtengo los Checked Selecionados 
   let checkedMarca = document.querySelectorAll('.checkedMarca');
   let checkedboxMemoriaRam = document.querySelectorAll('.checkedMemoriaRam');
@@ -25,7 +24,6 @@ $(document).ready(function () {
   /******************* Primero en Cargar  *************/
   //Ajax 
   AjaxMarca(arrayCheckMarca, productoIdCategoriaMarca, arrayCheckMemoriaRam, arrayCheckedPrecio, arrayCheckedOfertas, valorBuscador);
-
 
   /****************** Obtener Tiempo Real Datos Buscador *************/
   buscadorMostrarProducto.addEventListener('keyup', (event) => {

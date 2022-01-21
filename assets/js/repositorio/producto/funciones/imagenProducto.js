@@ -13,22 +13,21 @@ function vistaPreliminarImagenProducto(event) {
   leerImagenProducto.readAsDataURL(event.target.files[0]);
 
   //validacion
-  let archivoImagenProducto = document.getElementById('archivoImagenProducto').value;
-  var extensionesArchivo = /(\.jpg|\.jpeg|\.png)$/i;
+  // let archivoImagenProducto = document.getElementById('archivoImagenProducto').value;
+  // var extensionesArchivo = /(\.jpg|\.jpeg|\.png)$/i;
 
-  if (archivoImagenProducto == '') {
-    mostrarMensajeError('errorFileProducto', '<strong>Error</strong>, Ingrese Imagen del Producto');
-  } else if (!extensionesArchivo.exec(archivoImagenProducto)) {
-    mostrarMensajeError('errorFileProducto', '<strong>Error</strong>, Formatos Inválido, Recomendados : JPG, JPEG, PNG');
-    return false;
-  } else {
-    mostrarMensajeError('errorFileProducto', '');
-  }
+  // if (archivoImagenProducto == '') {
+  //   mostrarMensajeError('errorFileProducto', '<strong>Error</strong>, Ingrese Imagen del Producto');
+  // } else if (!extensionesArchivo.exec(archivoImagenProducto)) {
+  //   mostrarMensajeError('errorFileProducto', '<strong>Error</strong>, Formatos Inválido, Recomendados : JPG, JPEG, PNG');
+  //   return false;
+  // } else {
+  //   mostrarMensajeError('errorFileProducto', '');
+  // }
 
-  // Funcion para Mostrar y Borrar los Mensajes:
-  function mostrarMensajeError(claseInput, mensaje) {
-    let elemento = document.querySelector(`.${claseInput}`);
-    elemento.lastElementChild.innerHTML = mensaje;
-  }
-
+  // // Funcion para Mostrar y Borrar los Mensajes:
+  // function mostrarMensajeError(claseInput, mensaje) {
+  //   let elemento = document.querySelector(`.${claseInput}`);
+  //   elemento.lastElementChild.innerHTML = mensaje;
+  // }
 }

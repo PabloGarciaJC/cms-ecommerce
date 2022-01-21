@@ -66,11 +66,11 @@ class Utils
     return $categoria;
   }
 
-  public static function obtenerCategoriaPorId($idProductoCategoria)
+  public static function obtenerCategoriaPorId($idCategoria)
   {
     require_once 'model/categorias.php';
     $categorias = new categorias;
-    $categorias->setId($idProductoCategoria);
+    $categorias->setId($idCategoria);
     $categoria = $categorias->obtenerCategoriasPorId();
     return $categoria;
   }
@@ -131,11 +131,19 @@ class Utils
     return $mostrarTodos;
   }
 
-  public static function mostrarMarcaSinRepetirSidebar($categoriaId)
+  public static function mostrarMarcaSinRepetirSidebar($idCategoria)
   {
     $productos = new productos;
-    $productos->setIdCategoria($categoriaId);
+    $productos->setIdCategoria($idCategoria);
     $mostrarProductosCategoriaId = $productos->mostrarMarcaSinRepetirSidebar();
+    return $mostrarProductosCategoriaId;
+  }
+
+  public static function mostrarMemoriaRamSinRepetirSidebar($idCategoria)
+  {
+    $productos = new productos;
+    $productos->setIdCategoria($idCategoria);
+    $mostrarProductosCategoriaId = $productos->mostrarMemoriaRamSinRepetirSidebar();
     return $mostrarProductosCategoriaId;
   }
 

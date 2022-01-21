@@ -6,21 +6,20 @@ class ProductoController
 {
   public function crear()
   {
-    //Acceso Usuario Registrado a esta Pagina
+    // Acceso Usuario Registrado a esta Pagina
     Utils::accesoUsuarioRegistrado();
 
-    //Obtengo Ususario en el Banner
+    // Obtengo Ususario en el Banner
     $usuario = Utils::obtenerUsuario();
 
-    //Imprimo Lista Categoria   
+    // Imprimo Lista Categoria   
     $categoria = Utils::listaCategorias();
 
-    //Obtengo Categorias en la Barra de Navegacion
+    // Obtengo Categorias en la Barra de Navegacion
     $categoriaBarraNavegacion = Utils::listaCategorias();
 
-    if (isset($_GET['id'])) {
-      $obtenerProductosPorId = Utils::obtenerProductosPorId($_GET['id']);
-    }
+    // Obtengo Producto por Id => Repoblar Formulario   
+    isset($_GET['id']) ? $obtenerProductosPorId = Utils::obtenerProductosPorId($_GET['id']) : false;
 
     require_once 'views/layout/header.php';
     require_once 'views/layout/banner.php';
@@ -66,16 +65,8 @@ class ProductoController
       $errores["stockProducto"] = "Debe completar Stock";
     }
 
-    if (empty($ofertaProducto)) {
-      $errores["ofertaProducto"] = "Debe completar Oferta";
-    }
-
     if (empty($marcaProducto)) {
       $errores["marcaProducto"] = "Debe completar Marca";
-    }
-
-    if (empty($descripcionProducto)) {
-      $errores["descripcionProducto"] = "Debe completar Descripcion";
     }
 
     if ($tipoArchivo == "image/gif") {
@@ -193,8 +184,9 @@ class ProductoController
 
   public function mostrar()
   {
+    
     // Obtengo el Id de Producto por Categoria
-    $idProductoCategoria = isset($_GET['producto']) ? $_GET['producto'] : false;
+    $idCategoria = isset($_GET['producto']) ? $_GET['producto'] : false;
 
     // Obtengo Usuario en el Banner
     $usuario = Utils::obtenerUsuario();
@@ -203,16 +195,19 @@ class ProductoController
     $categoriaBarraNavegacion = Utils::listaCategorias();
 
     // Obtengo los Productos por Categoria Id
-    $mostrarProductoPorCategoria = Utils::obtenerCategoriaPorId($idProductoCategoria);
+    $mostrarProductoPorCategoria = Utils::obtenerCategoriaPorId($idCategoria);
 
     // Obtengo Marca Sin Repetir en el Sidebar
-    $mostrarMarcaSinRepetirSidebar = Utils::mostrarMarcaSinRepetirSidebar($idProductoCategoria);
+    $mostrarMarcaSinRepetirSidebar = Utils::mostrarMarcaSinRepetirSidebar($idCategoria);
+
+    // Obtengo Mmemoria Ram Sin Repetir en el Sidebar
+    $mostrarMemoriaRamSinRepetirSidebar = Utils::mostrarMemoriaRamSinRepetirSidebar($idCategoria);
 
     require_once 'views/layout/header.php';
     require_once 'views/layout/banner.php';
     require_once 'views/layout/nav.php';
     require_once 'views/layout/search.php';
-    require_once 'views/producto/mostrarProducto.php';
+    require_once 'views/producto/mostrar.php';
     require_once 'views/layout/footer.php';
   }
 
@@ -246,22 +241,22 @@ class ProductoController
       $ultimoRegistro = $mostrarRegistros * $conteoIdProducto;
 
       // Mostrar Producto Todos O Por el Buscador Creando Div y Registros
-      $mostrarProductos = Utils::obtenerProductosPorBuscadoryCheckbox($productoByIdCategoria, $arrayMarcaCheckbox, $arrayMemoriaRamCheckbox, $arrayPrecioCheckbox, $arrayOfertasCheckbox, $ultimoRegistro, $mostrarRegistros, $buscadorProducto);
+      $mostrarProductos = Utils::obtenerProductosPorBuscadoryCheckbox($productoByIdCategoria, $arrayMarcaCheckbox, $arrayMemoriaRamCheckbox, $arrayPrecioCheckbox, $arrayOfertasCheckbox, $ultimoRegistro, $mostrarRegistros, $buscadorProducto);     
 
-      
       echo '<div class="row">';
-      while ($mostrarProducto = $mostrarProductos->fetch_object()) {        
+      while ($mostrarProducto = $mostrarProductos->fetch_object()) {
         echo '<div class="col-md-4 product-men mt-md-0 mt-5">';
         echo '<div class="men-pro-item simpleCart_shelfItem">';
         echo '<div class="men-thumb-item text-center">';
-        echo '<img src="' . base_url . 'uploads/images/productos/'. $mostrarProducto->imagen . '" alt="">';
+        echo '<img src="' . base_url . 'uploads/images/productos/' . $mostrarProducto->imagen . '" alt="">';
         echo '<div class="men-cart-pro">';
         echo '</div>';
         echo '<span class="product-new-top">Newe</span>';
         echo '</div>';
         echo '<div class="item-info-product text-center border-top mt-4">';
         echo '<h4 class="pt-1">';
-        echo '<a href="single.html">' . $mostrarProducto->nombre . '</a>';
+        echo '<a href="single.html">' . $mostrarProducto->nombre . '</a>'.'</br>';
+        echo '<a href="single.html">' . $mostrarProducto->marca . '</a>';
         echo '</h4>';
         echo '<div class="info-product-price my-2">';
         echo '<span class="item_price">' . $mostrarProducto->precio . '</span> <del>' . $mostrarProducto->oferta . '</del>';

@@ -1,115 +1,119 @@
-let formularioProducto = document.getElementById('formularioProducto');
+$(document).ready(function () {
 
-formularioProducto.addEventListener('submit', (e) => {
-  e.preventDefault(); // Freno Submit o Envío;
+  let formularioProducto = document.getElementById('formularioProducto');
 
-  //valores Capturados
-  let nombreProducto = $('#nombreProducto').val();
-  let idProducto = $('#idProducto').val();
-  let categoria = document.getElementById('categoria').value;
-  let precioProducto = $('#precioProducto').val();
-  let stockProducto = $('#stockProducto').val();
-  let ofertaProducto = $('#ofertaProducto').val();
-  let marcaProducto = $('#marcaProducto').val();
-  let memoriaRamProducto = $('#memoriaRamProducto').val();
-  let descripcionProducto = $('#descripcionProducto').val();
-  let guardarImagenProducto = document.getElementById('archivoImagenProducto').value;
+  formularioProducto.addEventListener('submit', (e) => {
+    e.preventDefault(); // Freno Submit o Envío;
 
-  // instacio
-  let datosFormularioProducto = new FormData();
+    // Valores Capturados
+    let nombreProducto = $('#nombreProducto').val();
+    let idProducto = $('#idProducto').val();
+    let categoria = document.getElementById('categoria').value;
+    let precioProducto = $('#precioProducto').val();
+    let stockProducto = $('#stockProducto').val();
+    let ofertaProducto = document.getElementById('ofertaProducto').value;
+    let marcaProducto = $('#marcaProducto').val();
+    let memoriaRamProducto = $('#memoriaRamProducto').val();
+    let descripcionProducto = $('#descripcionProducto').val();
+    let guardarImagenProducto = document.getElementById('archivoImagenProducto').value;
+    let extensionesArchivo = /(\.jpg|\.jpeg|\.png)$/i;
 
-  //Capturo Propiedades File
-  let imagenPropiedadesProducto = $('#archivoImagenProducto')[0].files[0];
+    // Instacio
+    let datosFormularioProducto = new FormData();
 
-  //Setear el Objeto
-  datosFormularioProducto.append('nombreProducto', nombreProducto);
-  datosFormularioProducto.append('idProducto', idProducto);
-  datosFormularioProducto.append('categoria', categoria);
-  datosFormularioProducto.append('precioProducto', precioProducto);
-  datosFormularioProducto.append('stockProducto', stockProducto);
-  datosFormularioProducto.append('ofertaProducto', ofertaProducto);
-  datosFormularioProducto.append('marcaProducto', marcaProducto);
-  datosFormularioProducto.append('memoriaRamProducto', memoriaRamProducto);
-  datosFormularioProducto.append('descripcionProducto', descripcionProducto);
-  datosFormularioProducto.append('guardarImagenProducto', imagenPropiedadesProducto);
-  // datosFormularioProducto.append('idHTML', valor capturado en Javascript);
+    // Capturo Propiedades File
+    let imagenPropiedadesProducto = $('#archivoImagenProducto')[0].files[0];
 
-  // Validacion
-  if (nombreProducto == null || nombreProducto == '') {
-    mostrarMensajeError('errorNombreProducto', 'Ingrese Nombre del Producto');
-  } else {
-    mostrarMensajeError('errorNombreProducto', '');
-  }
+    // Setear el Objeto
+    datosFormularioProducto.append('nombreProducto', nombreProducto);
+    datosFormularioProducto.append('idProducto', idProducto);
+    datosFormularioProducto.append('categoria', categoria);
+    datosFormularioProducto.append('precioProducto', precioProducto);
+    datosFormularioProducto.append('stockProducto', stockProducto);
+    datosFormularioProducto.append('ofertaProducto', ofertaProducto);
+    datosFormularioProducto.append('marcaProducto', marcaProducto);
+    datosFormularioProducto.append('memoriaRamProducto', memoriaRamProducto);
+    datosFormularioProducto.append('descripcionProducto', descripcionProducto);
+    datosFormularioProducto.append('guardarImagenProducto', imagenPropiedadesProducto); 
+    // datosFormularioProducto.append('idHTML', valor capturado en Javascript);
 
-  if (precioProducto == null || precioProducto == '') {
-    mostrarMensajeError('errorPrecioProducto', 'Ingrese el Precio');
-  } else if (isNaN(precioProducto)) {
-    mostrarMensajeError('errorPrecioProducto', 'Precio No es Válido');
-  } else {
-    mostrarMensajeError('errorPrecioProducto', '');
-  }
+    // // Validacion
+    if (nombreProducto == null || nombreProducto == '') {
+      mostrarMensajeError('errorNombreProducto', '<strong>Error</strong>, Ingrese Nombre');
+    } else {
+      mostrarMensajeError('errorNombreProducto', '');
+    }
 
-  if (stockProducto == null || stockProducto == '') {
-    mostrarMensajeError('errorStockProducto', 'Ingrese el Stock');
-  } else if (isNaN(stockProducto)) {
-    mostrarMensajeError('errorStockProducto', 'Stock No es Válido');
-  } else {
-    mostrarMensajeError('errorStockProducto', '');
-  }
+    if (precioProducto == null || precioProducto == '') {
+      mostrarMensajeError('errorPrecioProducto', '<strong>Error</strong>, Ingrese Precio');
+    } else if (isNaN(precioProducto)) {
+      mostrarMensajeError('errorPrecioProducto', '<strong>Error</strong>, Precio No es Válido');
+    } else {
+      mostrarMensajeError('errorPrecioProducto', '');
+    }
 
-  if (ofertaProducto == null || ofertaProducto == '') {
-    mostrarMensajeError('errorOfertaProducto', 'Ingrese la Oferta');
-  } else {
-    mostrarMensajeError('errorOfertaProducto', '');
-  }
+    if (stockProducto == null || stockProducto == '') {
+      mostrarMensajeError('errorStockProducto', '<strong>Error</strong>, Ingrese Stock');
+    } else if (isNaN(stockProducto)) {
+      mostrarMensajeError('errorStockProducto', '<strong>Error</strong>, Stock No es Válido');
+    } else {
+      mostrarMensajeError('errorStockProducto', '');
+    }
 
-  if (marcaProducto == null || marcaProducto == '') {
-    mostrarMensajeError('errorMarcaProducto', 'Ingrese la Marca');
-  } else {
-    mostrarMensajeError('errorMarcaProducto', '');
-  }
+    if (marcaProducto == null || marcaProducto == '') {
+      mostrarMensajeError('errorMarcaProducto', '<strong>Error</strong>, Ingrese Marca');
+    } else {
+      mostrarMensajeError('errorMarcaProducto', '');
+    }
 
-  if (memoriaRamProducto == null || memoriaRamProducto == '') {
-    mostrarMensajeError('errorMemoriaRamProducto', 'Ingrese Memoria Ram');
-  } else {
-    mostrarMensajeError('errorMemoriaRamProducto', '');
-  }
+    if (memoriaRamProducto == null || memoriaRamProducto == '') {
+      mostrarMensajeError('errorMemoriaRamProducto', '<strong>Error</strong>, Ingrese Capacidad');
+    } else if (isNaN(memoriaRamProducto)) {
+      mostrarMensajeError('errorMemoriaRamProducto', '<strong>Error</strong>, Capacidad No es Válido');
+    } else {
+      mostrarMensajeError('errorMemoriaRamProducto', '');
+    }
 
-  if (descripcionProducto == null || descripcionProducto == '') {
-    mostrarMensajeError('errorDescripcionProducto', 'Ingrese Descripción');
-  } else {
-    mostrarMensajeError('errorDescripcionProducto', '');
-  }
+    // if (guardarImagenProducto == '') {
+    //   mostrarMensajeError('errorFileProducto', '<strong>Error</strong>, Ingrese Imagen');
+    // } else if (!extensionesArchivo.exec(guardarImagenProducto)) {
+    //   mostrarMensajeError('errorFileProducto', '<strong>Error</strong>, Formatos Inválido, Recomendados : JPG, JPEG, PNG');
+    //   return false;
+    // } else {
+    //   mostrarMensajeError('errorFileProducto', '');
+    // }
 
-  // Funcion para Mostrar y Borrar los Mensajes:
-  function mostrarMensajeError(claseInput, mensaje) {
-    let elemento = document.querySelector(`.${claseInput}`);
-    elemento.lastElementChild.innerHTML = mensaje;
-  }
+    // Funcion para Mostrar y Borrar los Mensajes:
+    function mostrarMensajeError(claseInput, mensaje) {
+      let elemento = document.querySelector(`.${claseInput}`);
+      elemento.lastElementChild.innerHTML = mensaje;
+    }
 
-  // Ajax Vista Previa 
-  $.ajax({
-    type: 'POST',
-    url: baseUrl + 'Producto/guardar',
-    data: datosFormularioProducto,
-    contentType: false,
-    processData: false,
-  })
-    .done(function (respuestaPhpGuardar) {
-      $("#respuestaPhpGuardar").html(respuestaPhpGuardar);
-      if (respuestaPhpGuardar == 1) {
-        Swal.fire({
-          title: 'Completado',
-          icon: 'success'
-        }).then(function () {
-          window.location = baseUrl + "producto/listar";
-        });
-      }
+    // Ajax Vista Previa 
+    $.ajax({
+      type: 'POST',
+      url: baseUrl + 'Producto/guardar',
+      data: datosFormularioProducto,
+      contentType: false,
+      processData: false,
     })
-    .fail(function () {
-      console.log("error");
-    })
-    .always(function () {
-      console.log("completo");
-    });
-});
+      .done(function (respuestaPhpGuardar) {
+        $("#respuestaPhpGuardar").html(respuestaPhpGuardar);
+        if (respuestaPhpGuardar == 1) {
+          Swal.fire({
+            title: 'Completado',
+            icon: 'success'
+          }).then(function () {
+            window.location = baseUrl + "producto/listar";
+          });
+        }
+      })
+      .fail(function () {
+        console.log("error");
+      })
+      .always(function () {
+        console.log("completo");
+      });
+  });
+
+}); // Fin del Documento Ready
