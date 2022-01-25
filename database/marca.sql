@@ -6,30 +6,11 @@ SELECT p.marca, COUNT(p.marca) as cuantos from productos p INNER JOIN categorias
 SELECT marca, memoria_ram, precio from productos p INNER JOIN categorias c ON p.categoria_id = c.id WHERE (p.precio >= 0 and p.precio <= 20 or p.precio >= 50 and p.precio <= 100 or p.precio >= 100 and p.precio <= 1000000) and c.id = 13;
 
 
-SELECT p.id, p.categoria_id, p.marca, p.memoria_ram, precio FROM productos p INNER JOIN categorias c ON p.categoria_id = c.id and c.id = 15 ORDER BY id, memoria_ram ASC;
+SELECT p.categoria_id, p.marca, p.memoria_ram, precio FROM productos p INNER JOIN categorias c ON p.categoria_id = c.id and c.id = 15;
 
 
+UPDATE productos SET p.categoria_id = 5, p.nombre = 'Xiaomiff', p.descripcion = 'dd', p.precio =  0, p.stock =  0, p.oferta = 5, p.marca = 'xiamo3.0', p.memoria_ram =  0, p.imagen = 'a.jpg' INNER JOIN categorias c ON p.categoria_id = c.id WHERE p.id = 5;
+
+UPDATE productos SET categoria_id = 5, nombre = 'Xiaomiffhhh', descripcion = 'dd', precio =  0, stock =  0, oferta = 5, marca = 'xiamo3.0', memoria_ram =  0, imagen = 'a.jpg' WHERE id = 5;
 
 
-SELECT DISTINCT p.memoria_ram FROM productos p INNER JOIN categorias c ON p.categoria_id = c.id and c.id = 15 ORDER BY p.id asc; 
-
-
-
-
-SELECT p.categoria_id, p.marca, p.memoria_ram, precio FROM productos p INNER JOIN categorias c ON p.categoria_id = c.id where (p.marca = 'Apple') ;
-
-SELECT p.memoria_ram from productos p INNER JOIN categorias c ON p.categoria_id = c.id and c.id = 15;
-
-
-SELECT p.marca, p.memoria_ram from productos p INNER JOIN categorias c ON p.categoria_id = c.id and c.id = 15 GROUP BY p.memoria_ram ORDER BY memoria_ram + 0 asc;
-
-SELECT p.id, p.marca, p.memoria_ram from productos p ORDER BY p.id asc;
-
-SELECT * from productos p INNER JOIN categorias c ON p.categoria_id = c.id and c.id = 15 GROUP BY p.memoria_ram ORDER BY p.memoria_ram DESC;
-
-SELECT COUNT(precio) FROM PRODUCTOS GROUP BY precio ORDER BY precio + 0 ASC;
-
-SELECT * FROM PRODUCTOS;
-
-
-SELECT p.id, p.imagen, p.nombre, p.marca, p.stock, p.precio, p.oferta, p.categoria_id, c.categorias as nombreCategoria from productos p INNER JOIN categorias c ON p.categoria_id = c.id WHERE categoria_id = 15

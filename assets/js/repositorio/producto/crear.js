@@ -1,30 +1,29 @@
-$(document).ready(function () {
+let formularioProducto = document.getElementById('formularioProducto');
 
-  let formularioProducto = document.getElementById('formularioProducto');
+if (formularioProducto) {
 
   formularioProducto.addEventListener('submit', (e) => {
     e.preventDefault(); // Freno Submit o Envío;
 
-    // Valores Capturados
+    //valores Capturados
     let nombreProducto = $('#nombreProducto').val();
     let idProducto = $('#idProducto').val();
     let categoria = document.getElementById('categoria').value;
     let precioProducto = $('#precioProducto').val();
     let stockProducto = $('#stockProducto').val();
-    let ofertaProducto = document.getElementById('ofertaProducto').value;
+    let ofertaProducto = $('#ofertaProducto').val();
     let marcaProducto = $('#marcaProducto').val();
     let memoriaRamProducto = $('#memoriaRamProducto').val();
     let descripcionProducto = $('#descripcionProducto').val();
     let guardarImagenProducto = document.getElementById('archivoImagenProducto').value;
-    let extensionesArchivo = /(\.jpg|\.jpeg|\.png)$/i;
 
-    // Instacio
+    // instacio
     let datosFormularioProducto = new FormData();
 
-    // Capturo Propiedades File
+    //Capturo Propiedades File
     let imagenPropiedadesProducto = $('#archivoImagenProducto')[0].files[0];
 
-    // Setear el Objeto
+    //Setear el Objeto
     datosFormularioProducto.append('nombreProducto', nombreProducto);
     datosFormularioProducto.append('idProducto', idProducto);
     datosFormularioProducto.append('categoria', categoria);
@@ -34,54 +33,45 @@ $(document).ready(function () {
     datosFormularioProducto.append('marcaProducto', marcaProducto);
     datosFormularioProducto.append('memoriaRamProducto', memoriaRamProducto);
     datosFormularioProducto.append('descripcionProducto', descripcionProducto);
-    datosFormularioProducto.append('guardarImagenProducto', imagenPropiedadesProducto); 
+    datosFormularioProducto.append('guardarImagenProducto', imagenPropiedadesProducto);
     // datosFormularioProducto.append('idHTML', valor capturado en Javascript);
 
-    // // Validacion
+    // Validacion
     if (nombreProducto == null || nombreProducto == '') {
-      mostrarMensajeError('errorNombreProducto', '<strong>Error</strong>, Ingrese Nombre');
+      mostrarMensajeError('errorNombreProducto', 'Ingrese Nombre');
     } else {
       mostrarMensajeError('errorNombreProducto', '');
     }
 
     if (precioProducto == null || precioProducto == '') {
-      mostrarMensajeError('errorPrecioProducto', '<strong>Error</strong>, Ingrese Precio');
+      mostrarMensajeError('errorPrecioProducto', 'Ingrese Precio');
     } else if (isNaN(precioProducto)) {
-      mostrarMensajeError('errorPrecioProducto', '<strong>Error</strong>, Precio No es Válido');
+      mostrarMensajeError('errorPrecioProducto', 'Precio No es Válido');
     } else {
       mostrarMensajeError('errorPrecioProducto', '');
     }
 
     if (stockProducto == null || stockProducto == '') {
-      mostrarMensajeError('errorStockProducto', '<strong>Error</strong>, Ingrese Stock');
+      mostrarMensajeError('errorStockProducto', 'Ingrese Stock');
     } else if (isNaN(stockProducto)) {
-      mostrarMensajeError('errorStockProducto', '<strong>Error</strong>, Stock No es Válido');
+      mostrarMensajeError('errorStockProducto', 'Stock No es Válido');
     } else {
       mostrarMensajeError('errorStockProducto', '');
     }
 
     if (marcaProducto == null || marcaProducto == '') {
-      mostrarMensajeError('errorMarcaProducto', '<strong>Error</strong>, Ingrese Marca');
+      mostrarMensajeError('errorMarcaProducto', 'Ingrese la Marca');
     } else {
       mostrarMensajeError('errorMarcaProducto', '');
     }
 
     if (memoriaRamProducto == null || memoriaRamProducto == '') {
-      mostrarMensajeError('errorMemoriaRamProducto', '<strong>Error</strong>, Ingrese Capacidad');
+      mostrarMensajeError('errorMemoriaRamProducto', 'Ingrese Capacidad');
     } else if (isNaN(memoriaRamProducto)) {
-      mostrarMensajeError('errorMemoriaRamProducto', '<strong>Error</strong>, Capacidad No es Válido');
+      mostrarMensajeError('errorMemoriaRamProducto', 'Capacidad No es Válido');
     } else {
       mostrarMensajeError('errorMemoriaRamProducto', '');
     }
-
-    // if (guardarImagenProducto == '') {
-    //   mostrarMensajeError('errorFileProducto', '<strong>Error</strong>, Ingrese Imagen');
-    // } else if (!extensionesArchivo.exec(guardarImagenProducto)) {
-    //   mostrarMensajeError('errorFileProducto', '<strong>Error</strong>, Formatos Inválido, Recomendados : JPG, JPEG, PNG');
-    //   return false;
-    // } else {
-    //   mostrarMensajeError('errorFileProducto', '');
-    // }
 
     // Funcion para Mostrar y Borrar los Mensajes:
     function mostrarMensajeError(claseInput, mensaje) {
@@ -115,5 +105,4 @@ $(document).ready(function () {
         console.log("completo");
       });
   });
-
-}); // Fin del Documento Ready
+}

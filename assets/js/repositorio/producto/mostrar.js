@@ -1,29 +1,32 @@
 
-$(document).ready(function () {
 
-  // Obtengo los Checked Selecionados 
-  let checkedMarca = document.querySelectorAll('.checkedMarca');
-  let checkedboxMemoriaRam = document.querySelectorAll('.checkedMemoriaRam');
-  let checkedPrecio = document.querySelectorAll('.checkedPrecio');
-  let checkedOfertas = document.querySelectorAll('.checkedOfertas');
 
-  // Obtengo Valor de Buscador 
-  let buscadorMostrarProducto = document.getElementById('buscadorProducto');
-  // let valorBuscadordd = $('#buscadorProducto').val();
+// Obtengo los Checked Selecionados 
+let checkedMarca = document.querySelectorAll('.checkedMarca');
+let checkedboxMemoriaRam = document.querySelectorAll('.checkedMemoriaRam');
+let checkedPrecio = document.querySelectorAll('.checkedPrecio');
+let checkedOfertas = document.querySelectorAll('.checkedOfertas');
 
-  // Obtengo IdCategoria
-  let productoIdCategoriaMarca = $('#productoIdCategoria').val();
+// Obtengo Valor de Buscador 
+let buscadorMostrarProducto = document.getElementById('buscadorProducto');
+// let valorBuscadordd = $('#buscadorProducto').val();
 
-  // Array Checkbox
-  let arrayCheckMarca = [];
-  let arrayCheckMemoriaRam = [];
-  let arrayCheckedPrecio = [];
-  let arrayCheckedOfertas = [];
-  let valorBuscador = '';
+// Obtengo IdCategoria
+let productoIdCategoriaMarca = $('#productoIdCategoria').val();
+
+// Array Checkbox
+let arrayCheckMarca = [];
+let arrayCheckMemoriaRam = [];
+let arrayCheckedPrecio = [];
+let arrayCheckedOfertas = [];
+let valorBuscador = '';
+
+if (buscadorMostrarProducto) {
 
   /******************* Primero en Cargar  *************/
   //Ajax 
   AjaxMarca(arrayCheckMarca, productoIdCategoriaMarca, arrayCheckMemoriaRam, arrayCheckedPrecio, arrayCheckedOfertas, valorBuscador);
+
 
   /****************** Obtener Tiempo Real Datos Buscador *************/
   buscadorMostrarProducto.addEventListener('keyup', (event) => {
@@ -50,7 +53,6 @@ $(document).ready(function () {
     }); //Fin del click
   }//Fin del for
 
-
   // Checkedbox => Memoria Ram Selecionados
   for (var checkedboxTodosMemoriaRam of checkedboxMemoriaRam) {
     checkedboxTodosMemoriaRam.addEventListener('click', function () {
@@ -66,7 +68,6 @@ $(document).ready(function () {
       AjaxMarca(arrayCheckMarca, productoIdCategoriaMarca, arrayCheckMemoriaRam, arrayCheckedPrecio, arrayCheckedOfertas, valorBuscador);
     }); //Fin del click
   }//Fin del for
-
 
   // Checkedbox => Precio Selecionados
   for (var checkedTodosPrecio of checkedPrecio) {
@@ -108,7 +109,7 @@ $(document).ready(function () {
     $.ajax({
       type: 'POST',
       url: baseUrl + 'Producto/mostrarTodosProductos',
-      data: { arrayMarca: JSON.stringify(arrayCheckMarca), productoByIdCategoria: productoIdCategoriaMarca, arrayMemoriaRam: JSON.stringify(arrayCheckMemoriaRam), arrayPrecio: JSON.stringify(arrayCheckedPrecio), arrayOfertas: JSON.stringify(arrayCheckedOfertas),  buscadorProducto: valorBuscador },
+      data: { arrayMarca: JSON.stringify(arrayCheckMarca), productoByIdCategoria: productoIdCategoriaMarca, arrayMemoriaRam: JSON.stringify(arrayCheckMemoriaRam), arrayPrecio: JSON.stringify(arrayCheckedPrecio), arrayOfertas: JSON.stringify(arrayCheckedOfertas), buscadorProducto: valorBuscador },
     })
       .done(function (respuestaPhpMostrarProductos) {
         $("#respuestaPhpMostrarProductos").html(respuestaPhpMostrarProductos);
@@ -121,9 +122,4 @@ $(document).ready(function () {
       });
   } // Fin Funcion Ajax
 
-}); // Fin del Documento Ready
-
-
-
-
-
+}

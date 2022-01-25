@@ -6,5 +6,4 @@ function obtenerDatosEditar(id, Categoria) {
   //caturo el valor de los inputs
   var id = idCategoria.val();
   var categoria = editarCategoria.val();
-
 }

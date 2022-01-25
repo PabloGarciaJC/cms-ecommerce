@@ -1,75 +1,79 @@
 let infromacionPrivada = document.getElementById('informacionPrivada');
-infromacionPrivada.addEventListener('submit', (e) => {
-  e.preventDefault(); // Freno Submit o Envío;
 
-  let id = $('#id').val();
-  let nombre = $('#nombre').val();
-  let apellido = $('#apellido').val();
-  let email = $('#email').val();
-  let direccion = $('#direccion').val();
-  let ciudad = $('#ciudad').val();
-  let codigoPostal = $('#codigoPostal').val();
+if (infromacionPrivada) {
 
-  // Validacion
-  if (nombre == null || nombre == '') {
-    mostrarMensajeError('errorNombre', 'Ingrese Nombre');
-  } else {
-    mostrarMensajeError('errorNombre', '');
-  }
+  infromacionPrivada.addEventListener('submit', (e) => {
+    e.preventDefault(); // Freno Submit o Envío;
 
-  if (apellido == null || apellido == '') {
-    mostrarMensajeError('errorApellido', 'Ingrese Apellidos');
-  } else {
-    mostrarMensajeError('errorApellido', '');
-  }
+    let id = $('#id').val();
+    let nombre = $('#nombre').val();
+    let apellido = $('#apellido').val();
+    let email = $('#email').val();
+    let direccion = $('#direccion').val();
+    let ciudad = $('#ciudad').val();
+    let codigoPostal = $('#codigoPostal').val();
 
-  if (email == null || email == '') {
-    mostrarMensajeError('errorEmail', 'Ingrese Email');
-  } else {
-    mostrarMensajeError('errorEmail', '');
-  }
+    // Validacion
+    if (nombre == null || nombre == '') {
+      mostrarMensajeError('errorNombre', 'Ingrese Nombre');
+    } else {
+      mostrarMensajeError('errorNombre', '');
+    }
 
-  if (direccion == null || direccion == '') {
-    mostrarMensajeError('errorDireccion', 'Ingrese Dirección');
-  } else {
-    mostrarMensajeError('errorDireccion', '');
-  }
+    if (apellido == null || apellido == '') {
+      mostrarMensajeError('errorApellido', 'Ingrese Apellidos');
+    } else {
+      mostrarMensajeError('errorApellido', '');
+    }
 
-  if (codigoPostal == null || codigoPostal == '') {
-    mostrarMensajeError('errorCodigoPostal', 'Ingrese Codigo Postal');
-  } else {
-    mostrarMensajeError('errorCodigoPostal', '');
-  }
+    if (email == null || email == '') {
+      mostrarMensajeError('errorEmail', 'Ingrese Email');
+    } else {
+      mostrarMensajeError('errorEmail', '');
+    }
 
-  // Funcion para Mostrar y Borrar los Mensajes:
-  function mostrarMensajeError(claseInput, mensaje) {
-    let elemento = document.querySelector(`.${claseInput}`);
-    elemento.lastElementChild.innerHTML = mensaje;
-  }
+    if (direccion == null || direccion == '') {
+      mostrarMensajeError('errorDireccion', 'Ingrese Dirección');
+    } else {
+      mostrarMensajeError('errorDireccion', '');
+    }
 
-  //Para obtener el texto del Select
-  let paises = document.getElementById("pais");
-  let pais = paises.options[paises.selectedIndex].text;
+    if (codigoPostal == null || codigoPostal == '') {
+      mostrarMensajeError('errorCodigoPostal', 'Ingrese Codigo Postal');
+    } else {
+      mostrarMensajeError('errorCodigoPostal', '');
+    }
 
-  //Informacion Privada Ajax
-  $.ajax({
-    type: 'POST',
-    url: baseUrl + 'Usuario/informacionPrivada',
-    data: 'id=' + id + '&nombre=' + nombre + '&apellido=' + apellido + '&email=' + email + '&direccion=' + direccion + '&pais=' + pais + '&ciudad=' + ciudad + '&codigoPostal=' + codigoPostal,
-  })
-    .done(function (respuestaPhpInformacionPrivada) {
-      $("#respuestaPhpInformacionPrivada").html(respuestaPhpInformacionPrivada);
-      if (respuestaPhpInformacionPrivada == 1) {
-        Swal.fire({
-          title: 'Completado',
-          icon: 'success'
-        })
-      }
+    // Funcion para Mostrar y Borrar los Mensajes:
+    function mostrarMensajeError(claseInput, mensaje) {
+      let elemento = document.querySelector(`.${claseInput}`);
+      elemento.lastElementChild.innerHTML = mensaje;
+    }
+
+    //Para obtener el texto del Select
+    let paises = document.getElementById("pais");
+    let pais = paises.options[paises.selectedIndex].text;
+
+    //Informacion Privada Ajax
+    $.ajax({
+      type: 'POST',
+      url: baseUrl + 'Usuario/informacionPrivada',
+      data: 'id=' + id + '&nombre=' + nombre + '&apellido=' + apellido + '&email=' + email + '&direccion=' + direccion + '&pais=' + pais + '&ciudad=' + ciudad + '&codigoPostal=' + codigoPostal,
     })
-    .fail(function () {
-      console.log("error");
-    })
-    .always(function () {
-      console.log("completo");
-    });
-});
+      .done(function (respuestaPhpInformacionPrivada) {
+        $("#respuestaPhpInformacionPrivada").html(respuestaPhpInformacionPrivada);
+        if (respuestaPhpInformacionPrivada == 1) {
+          Swal.fire({
+            title: 'Completado',
+            icon: 'success'
+          })
+        }
+      })
+      .fail(function () {
+        console.log("error");
+      })
+      .always(function () {
+        console.log("completo");
+      });
+  });
+}

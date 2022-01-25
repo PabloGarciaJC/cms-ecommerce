@@ -29,34 +29,32 @@
 			<span>C</span>omputers
 		</h3>
 		<!-- //tittle heading -->
-		<div class="row">
-			<!-- product left -->
-			<div class="agileinfo-ads-display col-lg-9">
-				<div class="wrapper">
+		<?php if ($mostrarMarcaSinRepetirSidebar->num_rows > 0) : ?>
+			<div class="row">
+				<!-- product left -->
+				<div class="agileinfo-ads-display col-lg-9">
+					<div class="wrapper">
 
-					<!-- Id Categoria Para Obtener el Producto -->
-					<input type="hidden" id="productoIdCategoria" value="<?= $mostrarProductoPorCategoria->id ?>">
+						<!-- Id Categoria Para Obtener el Producto -->
+						<input type="hidden" id="productoIdCategoria" value="<?= $mostrarProductoPorCategoria->id ?>">
 
-					<!-- Respuesta Ajax y PHP -->
-					<!-- <div id="respuestaPhpMostrarProductos"></div> -->
+						<!-- Respuesta Ajax y PHP -->
+						<div id="respuestaPhpMostrarProductos"></div>
 
-					<div id="respuestaPhpMostrarProductos"></div>
-
+					</div>
 				</div>
-			</div>
-			<!-- //product left -->
-			<!-- product right -->
-			<?php if ($mostrarMarcaSinRepetirSidebar->num_rows > 0) :	?>
+				<!-- //product left -->
+				<!-- product right -->
 
 				<div class="col-lg-3 mt-lg-0 mt-4 p-lg-0">
 					<div class="side-bar p-sm-4 p-3">
+
 						<div class="search-hotel border-bottom py-2">
 
 							<!-- Buscador -->
 							<input type="text" class="form-control" placeholder=" Buscador..." id="buscadorProducto">
 							<!-- //Buscador -->
 
-							<!-- Marca -->
 							<div class="left-side py-2">
 								<h3 class="agileits-sear-head mb-3">Marca</h3>
 								<ul>
@@ -68,10 +66,9 @@
 									<?php endwhile; ?>
 								</ul>
 							</div>
-							<!-- Marca -->
 						</div>
 
-						<!-- Memoria Ram ó Capacidad  -->
+						<!-- Memoria Ram -->
 						<div class="left-side border-bottom py-2">
 							<h3 class="agileits-sear-head mb-3">Capacidad</h3>
 							<ul>
@@ -83,7 +80,7 @@
 								<?php endwhile; ?>
 							</ul>
 						</div>
-						<!-- //Memoria Ram ó Capacidad  -->
+						<!-- //Memoria Ram  -->
 
 						<!-- Precio -->
 						<div class="left-side border-bottom py-2">
@@ -109,7 +106,7 @@
 						</div>
 						<!-- //Precio -->
 
-						<!-- discounts -->
+						<!-- Ofertas -->
 						<div class="left-side border-bottom py-2">
 							<h3 class="agileits-sear-head mb-3">Ofertas</h3>
 							<ul>
@@ -138,15 +135,23 @@
 									<span class="span">50 % de Descuento</span>
 								</li>
 							</ul>
-
 						</div>
-						<!-- offers -->
+						<!-- //Ofertas -->
+
 						<!-- //arrivals -->
 					</div>
 					<!-- //product right -->
 				</div>
-			<?php endif; ?>
-		</div>
+
+			</div>
 	</div>
+<?php else : ?>
+	<div class="alert alert-primary text-center" role="alert">
+		No hay Productos para <strong>Vender</strong>
+	</div>
+<?php endif; ?>
 </div>
 <!-- //top products -->
+
+
+

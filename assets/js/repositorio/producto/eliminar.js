@@ -1,5 +1,6 @@
 
 function eliminarDatosProducto(idProducto, nombreProductoBd) {
+
   Swal.fire({
     title: 'Estas Seguro ?' ,
     text: 'Se borrará de forma permanente : ' + nombreProductoBd,

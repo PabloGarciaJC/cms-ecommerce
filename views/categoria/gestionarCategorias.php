@@ -163,9 +163,5 @@
     </div>
   </div>
 </div>
-<!-- //modal -->
 
 
-<!-- Eliminar Categorias -->
-
-<!-- //modal -->

@@ -23,7 +23,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		}
 	</script>
 	<!-- //Meta tag Keywords -->
-	
+
+	<link rel="icon" type="image/png" sizes="16x16"  href="<?=base_url?>assets/images/favicon.png">
+
+
+
 	<!-- Custom-Files -->
 	<link href="<?= base_url ?>assets/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 	<!-- Bootstrap css -->

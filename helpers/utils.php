@@ -66,11 +66,11 @@ class Utils
     return $categoria;
   }
 
-  public static function obtenerCategoriaPorId($idCategoria)
+  public static function obtenerCategoriaPorId($idProductoCategoria)
   {
     require_once 'model/categorias.php';
     $categorias = new categorias;
-    $categorias->setId($idCategoria);
+    $categorias->setId($idProductoCategoria);
     $categoria = $categorias->obtenerCategoriasPorId();
     return $categoria;
   }
@@ -83,18 +83,12 @@ class Utils
     return $mostrar;
   }
 
-  public static function obtenerProductosyBuscador($buscador)
+  public static function obtenerProductosyBuscadoryPaginador($buscador, $ultimoRegistro, $mostrarRegistros)
   {
-    $productos = new productos;
-    $productos->setBuscador($buscador);
-    $mostrar = $productos->obtenerProductosyBuscador();
-    return $mostrar;
-  }
 
-  public static function obtenerProductosYPaginador($ultimoRegistro, $mostrarRegistros)
-  {
     $productos = new productos;
-    $mostrar = $productos->obtenerTodosYPaginacion($ultimoRegistro, $mostrarRegistros);
+    $productos->setBuscador($buscador);    
+    $mostrar = $productos->obtenerProductosyBuscadoryPaginador($ultimoRegistro, $mostrarRegistros);
     return $mostrar;
   }
 
@@ -124,11 +118,12 @@ class Utils
     return $paisesTodos;
   }
 
-  public static function obtenerRegistrosTotales()
+  public static function obtenerRegistrosTotales($buscadorProductos)
   {
     $productos = new productos;
-    $mostrarTodos = $productos->obtenerRegistrosTotales();
-    return $mostrarTodos;
+    $mostrarTodos = $productos->obtenerRegistrosTotales($buscadorProductos);
+    $obtenerRegistros = $mostrarTodos->registros_totales;
+    return $obtenerRegistros;
   }
 
   public static function mostrarMarcaSinRepetirSidebar($idCategoria)
@@ -146,6 +141,7 @@ class Utils
     $mostrarProductosCategoriaId = $productos->mostrarMemoriaRamSinRepetirSidebar();
     return $mostrarProductosCategoriaId;
   }
+
 
   public static function extraerRegistros($registros)
   {
@@ -187,7 +183,7 @@ class Utils
     $conteoArrayMemoriaRam = count($arrayMemoriaRamCheckbox);
     $conteoArrayPrecio = count($arrayPrecioCheckbox);
     $conteoArrayOfertas = count($arrayOfertasCheckbox);
-   
+
     //Instancio Objeto y Consulta
     $productos = new productos;
     $productos->setIdCategoria($productoByIdCategoria);

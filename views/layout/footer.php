@@ -280,35 +280,28 @@
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <!-- //libreria de sweetAlert2 -->
 
-  <!-- Avatar Vista Previa -->
-  <!-- <script src="<?= base_url ?>assets/js/helpers/avatarVistaPrevia.js"></script> -->
-  <!-- Avatar Vista Previa -->
-
-  <!-- Iniciar Sesion y Registro AJAX y Validaciones con PHP-->
+  <!-- Iniciar Sesion y Registro AJAX y Validaciones con PHP -->
   <script src="<?= base_url ?>assets/js/config/parameters.js"></script>
   <script src="<?= base_url ?>assets/js/repositorio/usuario/registro.js"></script>
   <script src="<?= base_url ?>assets/js/repositorio/usuario/iniciarSesion.js"></script>
 
-  <!-- Informacion vistaPreviaAvatar, Publican, Privada Validaciones con Javascript y Php-->
-  <script src="<?= base_url ?>assets/js/repositorio/usuario/funciones/avatarVistaPrevia.js"></script>
+  <!-- Usuario -->
+  <script src="<?= base_url ?>assets/js/repositorio/usuario/avatarVistaPrevia.js"></script>
   <script src="<?= base_url ?>assets/js/repositorio/usuario/informacionPublica.js"></script>
   <script src="<?= base_url ?>assets/js/repositorio/usuario/informacionPrivada.js"></script>
   <script src="<?= base_url ?>assets/js/repositorio/usuario/ciudad.js"></script>
 
-  <!-- Editar, Eliminar, Crear  Categorias -->
-  <script src="<?= base_url ?>assets/js/repositorio/categoria/funciones/obtenerDatosEditar.js"></script>
+  <!-- Categoria -->
+  <script src="<?= base_url ?>assets/js/repositorio/categoria/obtenerDatosEditar.js"></script>
   <script src="<?= base_url ?>assets/js/repositorio/categoria/editar.js"></script>
   <script src="<?= base_url ?>assets/js/repositorio/categoria/eliminar.js"></script>
   <script src="<?= base_url ?>assets/js/repositorio/categoria/listar.js"></script>
 
-  <!-- Formulario Producto -->
+  <!-- Producto -->
   <script src="<?= base_url ?>assets/js/repositorio/producto/crear.js"></script>
-  <script src="<?= base_url ?>assets/js/repositorio/producto/funciones/imagenProducto.js"></script>
-  <script src="<?= base_url ?>assets/js/repositorio/producto/eliminarDatos.js"></script>
-
-  <!-- Mostrar Productos -->
+  <script src="<?= base_url ?>assets/js/repositorio/producto/eliminar.js"></script>
   <script src="<?= base_url ?>assets/js/repositorio/producto/mostrar.js"></script>
-
-  <!-- <script src="<?= base_url ?>assets/js/repositorio/mostrarProducto/sidebar/marcas/productos"></script> -->
+  <script src="<?= base_url ?>assets/js/repositorio/producto/buscador.js"></script>
+  <script src="<?= base_url ?>assets/js/repositorio/producto/imagen.js"></script>
 
   </html>

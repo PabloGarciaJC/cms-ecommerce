@@ -1,7 +1,8 @@
 
+let informacionPublica = document.getElementById('informacionPublica');
 
+if (informacionPublica) {
 
-  let informacionPublica = document.getElementById('informacionPublica');
   informacionPublica.addEventListener('submit', (e) => {
     e.preventDefault(); // Freno Submit o Envío;
 
@@ -57,3 +58,6 @@
         console.log("completo");
       });
   });
+
+
+}
