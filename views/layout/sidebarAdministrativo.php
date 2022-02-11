@@ -25,6 +25,8 @@
           <a class="list-group-item list-group-item-action"  href="#localitation">
             Localizador
           </a> -->
+
+
           <?php if (isset($_SESSION['usuarioRegistrado'])) : ?>
             <a class="list-group-item list-group-item-action" href="<?= base_url ?>Usuario/informacionGeneral">
               Información General
@@ -36,38 +38,30 @@
             <a class="list-group-item list-group-item-action" href="<?= base_url ?>Categoria/gestionarCategorias">
               Gestionar Categorias
             </a>
-
-
-            <!-- <select class="list-group-item list-group-item-action">
-              <option>Gestionar Productos</option>
-              <a href="">
-                <option>Crear</option>
-              </a>
-              <a href="">
-                <option>Listar</option>
-              </a>
-            </select> -->
-
-
-            <!-- tes -->
-
-            <!--    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Dashboard</a> -->
             <div class="list-group-item list-group-item-action">
               <a data-toggle="collapse" href="#homeSubmenu" aria-expanded="false" aria-controls="dateposted" class="dropdown-toggle" style="color: #495057;">Gestión Productos </a>
             </div>
+
             <div class="collapse" id="homeSubmenu">
-                <div class="custom-control custom-checkbox" style="padding-top: 10px;">
-                &#x23f5; <a href="<?= base_url ?>Producto/crear" style="color: #495057;">Crear</a>                 
-                </div>
-               
-                <div class="custom-control custom-checkbox">
-                &#x23f5; <a href="<?= base_url ?>Producto/listar" style="color: #495057;">Lista</a> 
-                </div>         
+              <div class="custom-control custom-checkbox" style="padding-top: 10px;">
+                &#x23f5; <a href="<?= base_url ?>Producto/crear" style="color: #495057;">Crear</a>
+              </div>
+
+              <div class="custom-control custom-checkbox"> 
+                &#x23f5; <a href="<?= base_url ?>Producto/listar" style="color: #495057;">Lista</a>
+              </div>
             </div>
+          <?php endif; ?>
 
-
-            <!-- tes -->
-
+          <?php if (isset($_SESSION['usuarioRegistrado'])) : ?>
+            <div class="list-group-item list-group-item-action">
+              <a data-toggle="collapse" href="#submenuCarritoCompras" aria-expanded="false" aria-controls="dateposted" class="dropdown-toggle" style="color: #495057;">Carrito de Compras </a>
+            </div>
+            <div class="collapse" id="submenuCarritoCompras">
+              <div class="custom-control custom-checkbox" style="padding-top: 10px;">
+                &#x23f5; <a href="<?= base_url ?>CarritoCompras/listar" style="color: #495057;">Mis Pedidos</a> 
+              </div>
+            </div>
           <?php endif; ?>
 
           <?php if (isset($_SESSION['usuarioRegistrado'])) : ?>

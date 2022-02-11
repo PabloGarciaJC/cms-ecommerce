@@ -1,4 +1,4 @@
-<section class="w3l-index1" id="services">
+<!-- <section class="w3l-index1" id="services">
   <div class="features-with-17_sur py-5">
     <div class="container py-lg-3">
       <div class="header-section text-center">
@@ -84,4 +84,4 @@
       </div>
     </div>
   </div>
-</section>
+</section> -->

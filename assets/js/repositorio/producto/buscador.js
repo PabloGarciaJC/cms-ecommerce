@@ -1,34 +1,34 @@
 
 // Obtengo Valor de Buscador 
-let buscadorAdministrativo = document.getElementById('buscadorAdministrativo');
+let buscadorProductos = document.getElementById('buscadorProductos');
 
-if (buscadorAdministrativo) {
-
-  // Inicia en Vacio
-  let valorBuscadorAdministrativo = '';
+if (buscadorProductos) {
 
   // Inicia en Vacio
-  let paginaActual = 1;
+  let valorBuscadorProductos = '';
+
+  // Inicia en Vacio
+  let paginaActualBuscadorProductos = 1;
 
   // Carga Primero
-  AjaxBuscadorListar(paginaActual, valorBuscadorAdministrativo);
+  ajaxBuscadorProductos(paginaActualBuscadorProductos, valorBuscadorProductos);
 
   // Obtener Tiempo Real Datos Buscador
-  buscadorAdministrativo.addEventListener('keyup', (event) => {
-    valorBuscadorAdministrativo = event.path[0].value;
-    AjaxBuscadorListar(paginaActual, valorBuscadorAdministrativo);
+  buscadorProductos.addEventListener('keyup', (event) => {
+    valorBuscadorProductos = event.path[0].value;
+    ajaxBuscadorProductos(paginaActualBuscadorProductos, valorBuscadorProductos);
   });
 
   // Function  Ajax
-  function AjaxBuscadorListar(paginaActual, valorBuscadorAdministrativo) {
+  function ajaxBuscadorProductos(paginaActualBuscadorProductos, valorBuscadorProductos) {
 
     $.ajax({
       type: 'POST',
-      url: baseUrl + 'Producto/buscardor',
-      data: { paginaActual: paginaActual, buscadorAdmin: valorBuscadorAdministrativo },
+      url: baseUrl + 'Producto/buscador',
+      data: { paginaActualBuscadorProductos: paginaActualBuscadorProductos, buscadorProductos: valorBuscadorProductos },
     })
-      .done(function (respuestaPhpBuscadorAdmin) {
-        $("#respuestaPhpBuscadorAdmin").html(respuestaPhpBuscadorAdmin);
+      .done(function (respuestaPhpBuscadorProductos) {
+        $("#respuestaPhpBuscadorProductos").html(respuestaPhpBuscadorProductos);
       })
       .fail(function () {
         console.log("error");

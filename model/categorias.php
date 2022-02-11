@@ -59,7 +59,13 @@ class Categorias
   
   public function obtenerCategoriasPorId()
   {
-    $sql = "SELECT * FROM categorias WHERE id = {$this->getId()};";
+
+    $sql = "SELECT * FROM categorias";
+
+    if($this->getId() != '') {
+      $sql .= " WHERE id = {$this->getId()}";
+    }
+    
     $listarCategorias = $this->db->query($sql);
     return $listarCategorias->fetch_object();
   }

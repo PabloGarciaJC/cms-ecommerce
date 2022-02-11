@@ -111,6 +111,7 @@ class UsuarioController
     {
         if (isset($_SESSION['usuarioRegistrado'])) {
             unset($_SESSION['usuarioRegistrado']);
+            unset($_SESSION['Admin']);
         }
         header("location:" . base_url);
     }

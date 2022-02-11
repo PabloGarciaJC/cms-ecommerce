@@ -87,7 +87,7 @@ class Utils
   {
 
     $productos = new productos;
-    $productos->setBuscador($buscador);    
+    $productos->setBuscador($buscador);
     $mostrar = $productos->obtenerProductosyBuscadoryPaginador($ultimoRegistro, $mostrarRegistros);
     return $mostrar;
   }
@@ -191,4 +191,31 @@ class Utils
     $resultado = $productos->conteoPorBuscadoryCheckbox($arrayMarcaCheckbox, $conteoArrayMarca, $arrayMemoriaRamCheckbox, $conteoArrayMemoriaRam, $arrayPrecioCheckbox, $conteoArrayPrecio, $arrayOfertasCheckbox, $conteoArrayOfertas);
     return $resultado->registros_totales;
   }
-}
+
+  public static function estadisticasCarrito()
+  {
+    $stats = array(
+      'totalPrecio' => 0,
+      'totalOfertas' => 0,
+      'aplicarDescuento' => 0,
+      'totalBase' => 0,
+      'aplicandoIva' => 0,
+      'total' => 0
+    );
+
+    if (isset($_SESSION['carrito'])) {
+
+      foreach ($_SESSION['carrito'] as $producto) {
+        // Concateno Todos Los Array
+        $stats['totalPrecio'] += $producto['precio'] * $producto['stock'];
+        $stats['totalOfertas'] += $producto['oferta'] * $producto['stock'];
+      }
+
+      $stats['aplicarDescuento'] = $stats['totalPrecio'] * $stats['totalOfertas'] / 100;
+      $stats['totalBase'] = $stats['totalPrecio'] - $stats['aplicarDescuento'];
+      $stats['aplicandoIva'] = $stats['totalBase'] * 21 / 100;
+      $stats['total'] = $stats['totalBase'] - $stats['aplicandoIva'];
+    }
+    return $stats;
+  }
+};

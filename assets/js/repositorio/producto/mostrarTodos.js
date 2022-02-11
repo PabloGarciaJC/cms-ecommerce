@@ -1,6 +1,4 @@
 
-
-
 // Obtengo los Checked Selecionados 
 let checkedMarca = document.querySelectorAll('.checkedMarca');
 let checkedboxMemoriaRam = document.querySelectorAll('.checkedMemoriaRam');
@@ -8,8 +6,7 @@ let checkedPrecio = document.querySelectorAll('.checkedPrecio');
 let checkedOfertas = document.querySelectorAll('.checkedOfertas');
 
 // Obtengo Valor de Buscador 
-let buscadorMostrarProducto = document.getElementById('buscadorProducto');
-// let valorBuscadordd = $('#buscadorProducto').val();
+let buscadorMostrarProducto = document.getElementById('buscadorMostrarProducto');
 
 // Obtengo IdCategoria
 let productoIdCategoriaMarca = $('#productoIdCategoria').val();
@@ -25,13 +22,13 @@ if (buscadorMostrarProducto) {
 
   /******************* Primero en Cargar  *************/
   //Ajax 
-  AjaxMarca(arrayCheckMarca, productoIdCategoriaMarca, arrayCheckMemoriaRam, arrayCheckedPrecio, arrayCheckedOfertas, valorBuscador);
+  ajaxMostrarProductos(arrayCheckMarca, productoIdCategoriaMarca, arrayCheckMemoriaRam, arrayCheckedPrecio, arrayCheckedOfertas, valorBuscador);
 
-
+  
   /****************** Obtener Tiempo Real Datos Buscador *************/
   buscadorMostrarProducto.addEventListener('keyup', (event) => {
     valorBuscador = event.path[0].value;
-    AjaxMarca(arrayCheckMarca, productoIdCategoriaMarca, arrayCheckMemoriaRam, arrayCheckedPrecio, arrayCheckedOfertas, valorBuscador);
+    ajaxMostrarProductos(arrayCheckMarca, productoIdCategoriaMarca, arrayCheckMemoriaRam, arrayCheckedPrecio, arrayCheckedOfertas, valorBuscador);
     //Invocar al ajax y pasar un nuevo parametro con buscador y mandarlo a php
   });
 
@@ -49,7 +46,7 @@ if (buscadorMostrarProducto) {
         arrayCheckMarca = arrayCheckMarca.filter(e => e !== this.value);
       }
       //Ajax 
-      AjaxMarca(arrayCheckMarca, productoIdCategoriaMarca, arrayCheckMemoriaRam, arrayCheckedPrecio, arrayCheckedOfertas, valorBuscador);
+      ajaxMostrarProductos(arrayCheckMarca, productoIdCategoriaMarca, arrayCheckMemoriaRam, arrayCheckedPrecio, arrayCheckedOfertas, valorBuscador);
     }); //Fin del click
   }//Fin del for
 
@@ -65,7 +62,7 @@ if (buscadorMostrarProducto) {
         arrayCheckMemoriaRam = arrayCheckMemoriaRam.filter(e => e !== this.value);
       }
       //Ajax 
-      AjaxMarca(arrayCheckMarca, productoIdCategoriaMarca, arrayCheckMemoriaRam, arrayCheckedPrecio, arrayCheckedOfertas, valorBuscador);
+      ajaxMostrarProductos(arrayCheckMarca, productoIdCategoriaMarca, arrayCheckMemoriaRam, arrayCheckedPrecio, arrayCheckedOfertas, valorBuscador);
     }); //Fin del click
   }//Fin del for
 
@@ -81,7 +78,7 @@ if (buscadorMostrarProducto) {
         arrayCheckedPrecio = arrayCheckedPrecio.filter(e => e !== this.value);
       }
       //Ajax 
-      AjaxMarca(arrayCheckMarca, productoIdCategoriaMarca, arrayCheckMemoriaRam, arrayCheckedPrecio, arrayCheckedOfertas, valorBuscador);
+      ajaxMostrarProductos(arrayCheckMarca, productoIdCategoriaMarca, arrayCheckMemoriaRam, arrayCheckedPrecio, arrayCheckedOfertas, valorBuscador);
     }); //Fin del click
   }//Fin del for
 
@@ -98,17 +95,17 @@ if (buscadorMostrarProducto) {
         arrayCheckedOfertas = arrayCheckedOfertas.filter(e => e !== this.value);
       }
       //Ajax 
-      AjaxMarca(arrayCheckMarca, productoIdCategoriaMarca, arrayCheckMemoriaRam, arrayCheckedPrecio, arrayCheckedOfertas, valorBuscador);
+      ajaxMostrarProductos(arrayCheckMarca, productoIdCategoriaMarca, arrayCheckMemoriaRam, arrayCheckedPrecio, arrayCheckedOfertas, valorBuscador);
     }); //Fin del click
   }//Fin del for
 
 
   // Function  Ajax
-  function AjaxMarca(arrayCheckMarca, productoIdCategoriaMarca, arrayCheckMemoriaRam, arrayCheckedPrecio, arrayCheckedOfertas, valorBuscador) {
+  function ajaxMostrarProductos(arrayCheckMarca, productoIdCategoriaMarca, arrayCheckMemoriaRam, arrayCheckedPrecio, arrayCheckedOfertas, valorBuscador) {
 
     $.ajax({
       type: 'POST',
-      url: baseUrl + 'Producto/mostrarTodosProductos',
+      url: baseUrl + 'Producto/mostrarTodos',
       data: { arrayMarca: JSON.stringify(arrayCheckMarca), productoByIdCategoria: productoIdCategoriaMarca, arrayMemoriaRam: JSON.stringify(arrayCheckMemoriaRam), arrayPrecio: JSON.stringify(arrayCheckedPrecio), arrayOfertas: JSON.stringify(arrayCheckedOfertas), buscadorProducto: valorBuscador },
     })
       .done(function (respuestaPhpMostrarProductos) {

@@ -1,5 +1,8 @@
 <?php
 
+require_once 'model/productos.php';
+
+
 class HomeController
 {
     public function index()
@@ -8,6 +11,19 @@ class HomeController
         $usuario = Utils::obtenerUsuario();
         //Obtengo Categorias en la Barra de Navegacion
         $categoriaBarraNavegacion = Utils::listaCategorias();
+
+        // Obtengo el Id de Producto por Categoria
+        $idCategoria = isset($_GET['producto']) ? $_GET['producto'] : false;
+
+        // // Obtengo los Productos por Categoria Id
+        $mostrarProductoPorCategoria = Utils::obtenerCategoriaPorId($idCategoria);
+
+        // Obtengo Marca, Sin Repetir en el Sidebar
+        $mostrarMarcaSinRepetirSidebar = Utils::mostrarMarcaSinRepetirSidebar($idCategoria);
+
+        // Obtengo Memoria Ram o Capacidad, Sin Repetir en el Sidebar
+        $mostrarMemoriaRamSinRepetirSidebar = Utils::mostrarMemoriaRamSinRepetirSidebar($idCategoria);
+
         require_once 'views/layout/header.php';
         require_once 'views/layout/banner.php';
         require_once 'views/layout/nav.php';
@@ -15,6 +31,7 @@ class HomeController
         require_once 'views/home/slider.php';
         require_once 'views/home/contentIndex.php';
         require_once 'views/layout/footer.php';
+        
     }
 
     // public function electronica()

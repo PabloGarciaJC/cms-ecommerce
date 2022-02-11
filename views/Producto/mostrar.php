@@ -3,7 +3,6 @@
 </div>
 <!-- //banner-2 -->
 
-<!-- page -->
 <div class="services-breadcrumb">
 	<div class="agile_inner_breadcrumb">
 		<div class="container">
@@ -17,44 +16,36 @@
 		</div>
 	</div>
 </div>
-<!-- //page -->
 
-<!-- top Products -->
+
 <div class="ads-grid py-sm-5 py-4">
 	<div class="container py-xl-4 py-lg-2">
-		<!-- tittle heading -->
+
 		<h3 class="tittle-w3l text-center mb-lg-5 mb-sm-4 mb-3">
 			<span>M</span>obiles
 			<span>&</span>
 			<span>C</span>omputers
 		</h3>
-		<!-- //tittle heading -->
+
 		<?php if ($mostrarMarcaSinRepetirSidebar->num_rows > 0) : ?>
+
 			<div class="row">
-				<!-- product left -->
+
 				<div class="agileinfo-ads-display col-lg-9">
 					<div class="wrapper">
-
 						<!-- Id Categoria Para Obtener el Producto -->
 						<input type="hidden" id="productoIdCategoria" value="<?= $mostrarProductoPorCategoria->id ?>">
-
 						<!-- Respuesta Ajax y PHP -->
 						<div id="respuestaPhpMostrarProductos"></div>
-
 					</div>
 				</div>
-				<!-- //product left -->
-				<!-- product right -->
 
 				<div class="col-lg-3 mt-lg-0 mt-4 p-lg-0">
 					<div class="side-bar p-sm-4 p-3">
-
 						<div class="search-hotel border-bottom py-2">
-
 							<!-- Buscador -->
-							<input type="text" class="form-control" placeholder=" Buscador..." id="buscadorProducto">
+							<input type="text" class="form-control" placeholder=" Buscador..." id="buscadorMostrarProducto">
 							<!-- //Buscador -->
-
 							<div class="left-side py-2">
 								<h3 class="agileits-sear-head mb-3">Marca</h3>
 								<ul>
@@ -137,21 +128,13 @@
 							</ul>
 						</div>
 						<!-- //Ofertas -->
-
-						<!-- //arrivals -->
 					</div>
-					<!-- //product right -->
 				</div>
-
 			</div>
+		<?php else : ?>
+			<div class="alert alert-primary text-center" role="alert">
+				No hay Productos para <strong>Vender</strong>
+			</div>
+		<?php endif; ?>
 	</div>
-<?php else : ?>
-	<div class="alert alert-primary text-center" role="alert">
-		No hay Productos para <strong>Vender</strong>
-	</div>
-<?php endif; ?>
 </div>
-<!-- //top products -->
-
-
-

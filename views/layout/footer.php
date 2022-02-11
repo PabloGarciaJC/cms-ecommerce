@@ -10,8 +10,8 @@
                 <i class="fas fa-dolly"></i>
               </div>
               <div class="col-8 text-form-footer">
-                <h3>Free Shipping</h3>
-                <p>on orders over $100</p>
+                <h3>Envío gratis</h3>
+                <p>en pedidos superiores a $ 100</p>
               </div>
             </div>
           </div>
@@ -21,8 +21,8 @@
                 <i class="fas fa-shipping-fast"></i>
               </div>
               <div class="col-8 text-form-footer">
-                <h3>Fast Delivery</h3>
-                <p>World Wide</p>
+                <h3>Entrega rápida</h3>
+                <p>Mundial</p>
               </div>
             </div>
           </div>
@@ -32,8 +32,8 @@
                 <i class="far fa-thumbs-up"></i>
               </div>
               <div class="col-8 text-form-footer">
-                <h3>Big Choice</h3>
-                <p>of Products</p>
+                <h3>Gran Elección</h3>
+                <p>de productos</p>
               </div>
             </div>
           </div>
@@ -210,28 +210,23 @@
 
   <!-- cart-js -->
   <script src="<?= base_url ?>assets/js/librerias/minicart.js"></script>
-  <script>
-    paypals.minicarts.render();
-    paypals.minicarts.cart.on('checkout', function(evt) {
-      var items = this.items(),
-        len = items.length,
-        total = 0,
-        i;
-      for (i = 0; i < len; i++) {
-        total += items[i].get('quantity');
-      }
 
-      if (total < 3) {
-        alert('The minimum order quantity is 3. Please add more to your shopping cart before checking out');
-        evt.preventDefault();
-      }
+  <!-- Descripcion -->
+
+  <!-- flexslider -->
+  <link rel="stylesheet" href="<?= base_url ?>assets/css/flexslider.css" type="text/css" media="screen" />
+  <script src="<?= base_url ?>assets/js/librerias/jquery.flexslider.js"></script>
+  <script>
+    // Can also be used with $(document).ready()
+    $(window).load(function() {
+      $('.flexslider').flexslider({
+        animation: "slide",
+        controlNav: "thumbnails"
+      });
     });
   </script>
-  <!-- //cart-js -->
-
-  <!-- scroll seller -->
-  <script src="<?= base_url ?>assets/js/librerias/scroll.js"></script>
-  <!-- //scroll seller -->
+  <!-- //FlexSlider-->
+  <!-- //Descripcion -->
 
   <!-- smoothscroll -->
   <script src="<?= base_url ?>assets/js/librerias/SmoothScroll.min.js"></script>
@@ -256,14 +251,14 @@
   <!-- smooth-scrolling-of-move-up -->
   <script>
     $(document).ready(function() {
-      /*
+
       var defaults = {
-      	containerID: 'toTop', // fading element id
-      	containerHoverID: 'toTopHover', // fading element hover id
-      	scrollSpeed: 1200,
-      	easingType: 'linear' 
+        containerID: 'toTop', // fading element id
+        containerHoverID: 'toTopHover', // fading element hover id
+        scrollSpeed: 1200,
+        easingType: 'linear'
       };
-      */
+
       $().UItoTop({
         easingType: 'easeOutQuart'
       });
@@ -300,8 +295,15 @@
   <!-- Producto -->
   <script src="<?= base_url ?>assets/js/repositorio/producto/crear.js"></script>
   <script src="<?= base_url ?>assets/js/repositorio/producto/eliminar.js"></script>
-  <script src="<?= base_url ?>assets/js/repositorio/producto/mostrar.js"></script>
+  <script src="<?= base_url ?>assets/js/repositorio/producto/mostrarTodos.js"></script>
   <script src="<?= base_url ?>assets/js/repositorio/producto/buscador.js"></script>
   <script src="<?= base_url ?>assets/js/repositorio/producto/imagen.js"></script>
+
+  <!-- Carrito Compras -->
+  <script src="<?= base_url ?>assets/js/repositorio/carritoCompras/borrar.js"></script> 
+  <script src="<?= base_url ?>assets/js/repositorio/carritoCompras/mostrar.js"></script> 
+  <script src="<?= base_url ?>assets/js/repositorio/carritoCompras/carritoUp.js"></script> 
+   <script src="<?= base_url ?>assets/js/repositorio/carritoCompras/carritoDown.js"></script> 
+ 
 
   </html>

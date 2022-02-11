@@ -22,7 +22,7 @@ class CategoriaController
     require_once 'views/layout/nav.php';
     require_once 'views/layout/search.php';
     require_once 'views/layout/sidebarAdministrativo.php';
-    require_once 'views/categoria/gestionarCategorias.php';
+    require_once 'views/categoria/listar.php';
     require_once 'views/layout/footer.php';
   }
 

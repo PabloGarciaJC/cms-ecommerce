@@ -162,13 +162,13 @@ class ProductoController
     require_once 'views/layout/footer.php';
   }
 
-  public function buscardor()
-  {    
+  public function buscador()
+  {
     // Capturo el buscador 
-    $buscadorProductos = isset($_POST['buscadorAdmin']) ? $_POST['buscadorAdmin'] : false;
+    $buscadorProductos = isset($_POST['buscadorProductos']) ? $_POST['buscadorProductos'] : false;
 
-    // Capturo el Ultimo Registro para Limitar => Iniciando en 0
-    $paginaActual = isset($_POST['paginaActual']) ? $_POST['paginaActual'] : false;
+    // Capturo el Ultimo Registro para Limitar => Iniciando en 1
+    $paginaActual = isset($_POST['paginaActualBuscadorProductos']) ? $_POST['paginaActualBuscadorProductos'] : false;
 
     // Paginador 1: Extraer el Conteo de Registros de la Base de Datos
     $totalRegistrosBd = Utils::obtenerRegistrosTotales($buscadorProductos);
@@ -195,7 +195,7 @@ class ProductoController
     // Anterior
     if ($paginaActual != 1) {
       echo '<li class="page-item">';
-      echo '<a class="page-link" href="#" onclick = "AjaxBuscadorListar(' . $paginaAnterior . ',\'' . $buscadorProductos . '\')"> Anterior </a>';
+      echo '<a class="page-link" href="#" onclick = "ajaxBuscadorProductos(' . $paginaAnterior . ',\'' . $buscadorProductos . '\')"> Anterior </a>';
       echo '</li>';
     } else {
       echo '<li class="page-item disabled">';
@@ -208,14 +208,14 @@ class ProductoController
       if ($i == $paginaActual) {
         echo '<li class="page-item active"><a class="page-link" href="#">' . $i . '</a></li>';
       } else {
-        echo '<li class="page-item"><a class="page-link" href="#" onclick = "AjaxBuscadorListar(' . $i . ',\'' . $buscadorProductos . '\')">' . $i . '</a></li>';
+        echo '<li class="page-item"><a class="page-link" href="#" onclick = "ajaxBuscadorProductos(' . $i . ',\'' . $buscadorProductos . '\')">' . $i . '</a></li>';
       }
     }
 
     // Siguiente 
     if ($paginaActual != $mostrarNumerosdePaginas) {
       echo '<li class="page-item">';
-      echo '<a class="page-link" href="#" onclick = "AjaxBuscadorListar(' . $paginaSiguiente . ',\'' . $buscadorProductos . '\')" >Siguente</a>';
+      echo '<a class="page-link" href="#" onclick = "ajaxBuscadorProductos(' . $paginaSiguiente . ',\'' . $buscadorProductos . '\')" >Siguente</a>';
       echo '</li>';
     } else {
       echo '<li class="page-item disabled">';
@@ -230,9 +230,9 @@ class ProductoController
     // Obtengo Los Productor y el Buscador y Paginador 5: Consulta
     $productos = Utils::obtenerProductosyBuscadoryPaginador($buscadorProductos, $ultimoRegistro, $mostrarRegistros);
 
-    echo '<div class="table-responsive">';
+    echo '<div class="table table-responsive">';
     echo '<table class="table email-table no-wrap table-hover v-middle mb-0 font-14">';
-    echo '<tbody>';
+
     echo '<thead>';
     echo '<tr>';
     echo '<th scope="col" style=" text-align: center;">Imagen</th>';
@@ -241,36 +241,40 @@ class ProductoController
     echo '<th scope="col">Borrar</th>';
     echo '</tr>';
     echo '</thead>';
+
     echo '<tbody>';
-
     if ($productos->num_rows > 0) {
-    while ($mostrarProductos = $productos->fetch_object()) {
+      while ($mostrarProductos = $productos->fetch_object()) {
 
-      echo '<tr>';
-      echo '<td><img class="img-fluid" src="' . base_url . 'uploads/images/productos/' . $mostrarProductos->imagen . '"></td>';
-      echo '<td>';
-      echo '<strong>Nombre:</strong> ' . $mostrarProductos->nombre . '<br>';
-      echo '<strong>Marca:</strong> ' . $mostrarProductos->marca . '<br>';
-      echo '<strong>Precio:</strong> ' . $mostrarProductos->precio . " $" . '<br>';
-      echo '<strong>Oferta:</strong> ' . $mostrarProductos->oferta . " %" . '<br>';
-      echo '<strong>Stock:</strong> ' . $mostrarProductos->stock . " Unidades" . '<br>';
-      echo '<strong>Categoria:</strong> ' . $mostrarProductos->nombreCategoria  . '<br>';
-      echo '<strong>Descripción: <a href=" ' . base_url . 'Producto/crear&id=' . $mostrarProductos->id . '">ver más</a></strong>';
-      echo '</td>';
-      echo '<td>';
-      echo '<a href="' . base_url . 'Producto/crear&id=' . $mostrarProductos->id . '">';
-      echo '<button class="btn btn-circle btn-info text-white" class="text-white">';
-      echo '<i class="fa fa-pencil"></i>';
-      echo '</button>';
-      echo '</a>';
-      echo '</td>';
-      echo '<td> ';
-      echo '<button class="btn btn-circle btn-danger text-white" onclick="eliminarDatosProducto(' . $mostrarProductos->id . ' ,\'' . $mostrarProductos->nombre . '\')">';
-      echo '<i class="fa fa-trash"></i>';
-      echo '</button>';
-      echo '</td>';
-      echo '</tr>';
-    } // Fin While Php
+        echo '<tr>';
+        echo '<td><img class="img-fluid" src="' . base_url . 'uploads/images/productos/' . $mostrarProductos->imagen . '">';
+        echo '</td>';
+
+        echo '<td>';
+        echo '<strong>Nombre:</strong> ' . $mostrarProductos->nombre . '<br>';
+        echo '<strong>Marca:</strong> ' . $mostrarProductos->marca . '<br>';
+        echo '<strong>Precio:</strong> ' . $mostrarProductos->precio . " $" . '<br>';
+        echo '<strong>Oferta:</strong> ' . $mostrarProductos->oferta . " %" . '<br>';
+        echo '<strong>Stock:</strong> ' . $mostrarProductos->stock . " Unidades" . '<br>';
+        echo '<strong>Categoria:</strong> ' . $mostrarProductos->nombreCategoria  . '<br>';
+        echo '<strong>Descripción: <a href=" ' . base_url . 'Producto/crear&id=' . $mostrarProductos->id . '">ver más</a></strong>';
+        echo '</td>';
+
+        echo '<td>';
+        echo '<a href="' . base_url . 'Producto/crear&id=' . $mostrarProductos->id . '">';
+        echo '<button class="btn btn-circle btn-info text-white" class="text-white">';
+        echo '<i class="fa fa-pencil"></i>';
+        echo '</button>';
+        echo '</a>';
+        echo '</td>';
+
+        echo '<td> ';
+        echo '<button class="btn btn-circle btn-danger text-white" onclick="eliminarDatosProducto(' . $mostrarProductos->id . ' ,\'' . $mostrarProductos->nombre . '\')">';
+        echo '<i class="fa fa-trash"></i>';
+        echo '</button>';
+        echo '</td>';
+        echo '</tr>';
+      } // Fin While Php
     } else {
       echo '<td colspan="8">';
       echo '<div class="alert alert-primary" role="alert">';
@@ -282,8 +286,6 @@ class ProductoController
     echo '</table>';
     echo '</div>';
   }
-
-
 
   public function eliminar()
   {
@@ -324,8 +326,7 @@ class ProductoController
     require_once 'views/layout/footer.php';
   }
 
-
-  public function mostrarTodosProductos()
+  public function mostrarTodos()
   {
     // Obtengo los Valores Checkbox
     $productoByIdCategoria = isset($_POST['productoByIdCategoria']) ? $_POST['productoByIdCategoria'] : false;
@@ -371,13 +372,14 @@ class ProductoController
           echo '<div class="item-info-product text-center border-top mt-4">';
           echo '<h4 class="pt-1">';
           echo '<a href="single.html">' . $mostrarProducto->nombre . '</a>' . '</br>';
-          echo '<a href="single.html">' . $mostrarProducto->marca . '</a>';
+          echo '<a href="single.html">' . $mostrarProducto->marca . '</a>' . '</br>';
+          echo '<a href="single.html">' . $mostrarProducto->memoria_ram . ' Gb</a>';
           echo '</h4>';
           echo '<div class="info-product-price my-2">';
-          echo '<span class="item_price">' . $mostrarProducto->precio . '</span> <del>' . $mostrarProducto->oferta . '</del>';
+          echo '<span class="item_price"> $ ' . $mostrarProducto->precio . '</span> <del> ' . $mostrarProducto->oferta . ' %</del>';
           echo '</div>';
           echo '<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">';
-          echo '<form action="#" method="post">';
+          echo '<form action="' . base_url . 'Producto/descripcion&id=' . $mostrarProducto->id . '" method="POST">';
           echo '<fieldset>';
           echo '<input type="hidden" name="cmd" value="_cart" />';
           echo '<input type="hidden" name="add" value="1" />';
@@ -388,7 +390,7 @@ class ProductoController
           echo '<input type="hidden" name="currency_code" value="USD" />';
           echo '<input type="hidden" name="return" value=" " />';
           echo '<input type="hidden" name="cancel_return" value=" " />';
-          echo '<input type="submit" name="submit" value="Add to cart" class="button btn" />';
+          echo '<input type="submit" name="submit" value="ver Producto" class="button btn" />';
           echo '</fieldset>';
           echo '</form>';
           echo '</div>';
@@ -405,5 +407,28 @@ class ProductoController
       echo 'No hay <strong>Productos</strong> con estas Característica';
       echo '</div>';
     };
+  }
+
+  public function descripcion()
+  {
+    // Capturo el Valor de Id  por GET
+    $idProducto = isset($_GET['id']) ? $_GET['id'] : false;
+
+    // Obtengo Ususario en el Banner
+    $usuario = Utils::obtenerUsuario();
+
+    // Obtengo Categorias en la Barra de Navegacion
+    $categoriaBarraNavegacion = Utils::listaCategorias();
+
+    // Obtengo Registro de Productos Por Id
+    $idProducto = Utils::obtenerProductosPorId($idProducto);
+
+    require_once 'views/layout/header.php';
+    require_once 'views/layout/banner.php';
+    require_once 'views/layout/nav.php';
+    require_once 'views/layout/search.php';
+    require_once 'views/producto/descripcion.php';
+    require_once 'views/layout/footer.php';
+
   }
 };

@@ -16,8 +16,7 @@ function eliminarDatosProducto(idProducto, nombreProductoBd) {
         url: baseUrl + 'Producto/eliminar',
         data: { id: idProducto },
       })
-        .done(function (respuestaPhpEliminarProducto) {
-          // $("#respuestaPhpEliminarProducto").html(respuestaPhpEliminarProducto);
+        .done(function (respuestaPhpEliminarProducto) {         
           if (respuestaPhpEliminarProducto == 1) {
             Swal.fire(
               'Eliminado!',
