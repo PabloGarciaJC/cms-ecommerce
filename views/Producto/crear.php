@@ -94,7 +94,7 @@
               </div>
 
               <div class="form-group col-md-6 errorMemoriaRamProducto">
-                <label>Memoria RAM</label>
+                <label>Capacidad</label>
                 <div class="input-group mb-2">
                   <input type="text" class="form-control" id="memoriaRamProducto" value=" <?= isset($_GET['id']) ? $obtenerProductosPorId->memoria_ram : '0' ?>">
                   <div class="input-group-prepend">

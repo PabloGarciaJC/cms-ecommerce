@@ -16,6 +16,14 @@ class Utils
     }
   }
 
+  public static function accesoUsuarioAdmin()
+  {
+    if (isset($_SESSION['Admin'])) {
+      return $_SESSION['Admin'];
+    }
+  }
+
+
   //borrar errores del formulario palen administrativo
   public static function borrarSesionErrores()
   {
@@ -195,6 +203,7 @@ class Utils
   public static function estadisticasCarrito()
   {
     $stats = array(
+      'stockTotales' => 0,
       'totalPrecio' => 0,
       'totalOfertas' => 0,
       'aplicarDescuento' => 0,
@@ -206,16 +215,17 @@ class Utils
     if (isset($_SESSION['carrito'])) {
 
       foreach ($_SESSION['carrito'] as $producto) {
-        // Concateno Todos Los Array
+        // Concateno Todos Los Array de la Session
+        $stats['stockTotales'] += $producto['stock'];
         $stats['totalPrecio'] += $producto['precio'] * $producto['stock'];
-        $stats['totalOfertas'] += $producto['oferta'] * $producto['stock'];
+        $stats['totalOfertas'] += $producto['oferta'];
       }
-
-      $stats['aplicarDescuento'] = $stats['totalPrecio'] * $stats['totalOfertas'] / 100;
+      $stats['aplicarDescuento'] = $stats['totalPrecio'] * $stats['totalOfertas'] / 100;      
       $stats['totalBase'] = $stats['totalPrecio'] - $stats['aplicarDescuento'];
       $stats['aplicandoIva'] = $stats['totalBase'] * 21 / 100;
       $stats['total'] = $stats['totalBase'] - $stats['aplicandoIva'];
     }
+    
     return $stats;
   }
 };

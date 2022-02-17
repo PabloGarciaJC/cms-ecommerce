@@ -21,107 +21,6 @@ class CarritoComprasController
     require_once 'views/layout/footer.php';
   }
 
-  // public function add()
-  // {
-
-  //   // Capturo el Id del Producto Carrito de Compras 
-  //   $id = isset($_GET['id']) ? $_GET['id'] : false;
-
-  //   // Valido de que si Exista Session Carrito
-  //   if (isset($_SESSION['carrito'])) {
-  //     foreach ($_SESSION['carrito'] as $indice => $elemento) {
-  //       $counter = 0;
-  //       // Nota: El array en General, se repite las veces que tenga contenido en el.      
-  //       if ($elemento['idProducto'] == $id) {
-  //         $_SESSION['carrito'][$indice]['stock']++;
-  //         $counter++;
-  //       }
-  //     }
-  //   }
-
-  //   // Valido que No Exista la Session Carrito
-  //   if (!isset($counter) || $counter == 0) {
-  //     // Conseguir producto
-  //     $producto = new Productos();
-  //     $producto->setId($id);
-  //     $obtenerProducto = $producto->productosPorId();
-  //     $mostrarProducto = $obtenerProducto->fetch_object();
-
-  //     // Añadir al carrito
-  //     if (is_object($mostrarProducto)) {
-  //       $_SESSION['carrito'][] = array(
-  //         "idProducto" => $mostrarProducto->id,
-  //         "nombreCategoria" => $mostrarProducto->nombreCategoria,
-  //         "nombre" => $mostrarProducto->nombre,
-  //         "precio" => $mostrarProducto->precio,
-  //         "stock" => 1,
-  //         "oferta" => $mostrarProducto->oferta,
-  //         "marca" => $mostrarProducto->marca,
-  //         "memoria_ram" => $mostrarProducto->memoria_ram,
-  //         "imagen" => $mostrarProducto->imagen
-  //         // "mostrarProducto" => $mostrarProducto
-  //       );
-  //     };
-  //   };
-  //   header("location:" . base_url . "CarritoCompras/listar&id=" . $id);
-  // }
-
-  public function up()
-  {
-    // var_dump($_POST);
-    //     die();
-    // Capturo el Id del Producto Carrito de Compras 
-    $id = isset($_GET['idUp']) ? $_GET['idUp'] : false;
-
-    if (isset($_SESSION['carrito'])) {
-      foreach ($_SESSION['carrito'] as $indice => $elemento) {
-        $counter = 0;
-        // Nota: El array en General, se repite las veces que tenga contenido en el.      
-        if ($elemento['idProducto'] == $id) {
-          $_SESSION['carrito'][$indice]['stock']++;
-        }
-      }
-    }
-    // header("location:" . base_url . "CarritoCompras/listar&id=" . $id);
-  }
-
-  public function down()
-  {
-    // Capturo el Id del Producto Carrito de Compras 
-    $id = isset($_GET['id']) ? $_GET['id'] : false;
-
-    if (isset($_SESSION['carrito'])) {
-      foreach ($_SESSION['carrito'] as $indice => $elemento) {
-        $counter = 0;
-        // Nota: El array en General, se repite las veces que tenga contenido en el.      
-        if ($elemento['idProducto'] == $id) {
-          $_SESSION['carrito'][$indice]['stock']--;
-        }
-      }
-    }
-    header("location:" . base_url . "CarritoCompras/listar&id=" . $id);
-  }
-
-
-  public function borrar()
-  {
-    // Capturo el Id del Producto Carrito de Compras 
-    $id = isset($_POST['id']) ? $_POST['id'] : false;
-
-    if (isset($_SESSION['carrito'])) {
-      foreach ($_SESSION['carrito'] as $indice => $elemento) {
-        $counter = 0;
-        // Nota: El array en General, se repite las veces que tenga contenido en el.      
-        if ($elemento['idProducto'] == $id) {
-          unset($_SESSION['carrito'][$indice]);
-          echo 1;
-        }
-      }
-    }
-  }
-
-
-  /* Prueba */
   public function mostrar()
   {
     // Capturo el Id del Producto Carrito de Compras 
@@ -129,7 +28,7 @@ class CarritoComprasController
     $idUp = isset($_POST['idUp']) ? $_POST['idUp'] : false;
     $idDown = isset($_POST['idDown']) ? $_POST['idDown'] : false;
     $idBorrar = isset($_POST['idBorrar']) ? $_POST['idBorrar'] : false;
-
+    
     // Creacion del Carrito
     $carritoCreacion = 0;
 
@@ -185,7 +84,7 @@ class CarritoComprasController
           "oferta" => $mostrarProducto->oferta,
           "marca" => $mostrarProducto->marca,
           "memoria_ram" => $mostrarProducto->memoria_ram,
-          "imagen" => $mostrarProducto->imagen,         
+          "imagen" => $mostrarProducto->imagen,
         );
       };
     }
@@ -206,15 +105,25 @@ class CarritoComprasController
 
     echo '<div class="col-sm">';
     echo '<strong>Sub-Total:</strong> ' . $stats['totalPrecio'] . ' $ <br>';
-    echo '<strong>Oferta:</strong> ' . $stats['totalOfertas'] . ' % <br>';
-    echo '<strong>Base:</strong> ' . $stats['totalBase'] . ' $ <br>';
+    echo '<strong>Oferta:</strong> ' . $stats['totalOfertas'] . ' % <br>';    
     echo '<strong>Iva 21.00 %: </strong> ' . $stats['aplicandoIva'] . ' $ <br>';
-    echo '<strong>Total: </strong> <u>' . $stats['total'] . '</u> $<br>';
+    echo '<strong>Total Pagar: </strong> <u>' . $stats['total'] . '</u> $<br>';
     echo '</div>';
 
     echo '<div class="col-sm">';
     echo '</br>';
-    echo '<a href=" ' . base_url . 'CarritoCompras/pedido"> <button type="button" class="btn btn-success">Hacer Pedido</button></a> ';
+
+
+    if (!isset($_SESSION['usuarioRegistrado'])) :
+
+      echo '<a href="#" data-toggle="modal" data-target="#exampleModal">';      
+      echo '<button type="button" class="btn btn-success">Hacer Pedido</button></a>';
+      echo '</a>';
+
+    else :
+      echo '<a href=" ' . base_url . 'Pedidos/crear"> <button type="button" class="btn btn-success">Hacer Pedido</button></a> ';
+    endif;
+
     echo '</div>';
 
     echo '<div class="col-sm">';
@@ -271,8 +180,8 @@ class CarritoComprasController
         echo '</ul>';
         echo '</td>';
         echo '<td>';
-        echo '<button class="btn btn-circle btn-danger text-white" onclick="eliminarCarritoProducto(' . $mostrarProducto['idProducto'] . ', \''.$mostrarProducto['nombre'].'\')" text-white">';
-        echo '<i class="fa fa-pencil"></i>';
+        echo '<button class="btn btn-circle btn-danger text-white" onclick="eliminarCarritoProducto(' . $mostrarProducto['idProducto'] . ', \'' . $mostrarProducto['nombre'] . '\')" text-white">';
+        echo '<i class="fa fa-trash"></i>';
         echo '</button>';
         echo '</td>';
         echo '</tr>';
@@ -297,7 +206,6 @@ class CarritoComprasController
 
     echo '</div>';
   }
-
 
   public function borrarTodos()
   {

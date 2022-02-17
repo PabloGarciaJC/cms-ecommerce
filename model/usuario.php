@@ -192,7 +192,7 @@ class Usuario
                     '{$this->email}')";
 
     $save = $this->db->query($sql);
-
+    
     // echo $sql;
     // echo "</br>";
     // echo $this->db->error;

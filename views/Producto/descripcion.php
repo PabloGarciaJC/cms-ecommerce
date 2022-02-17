@@ -77,9 +77,9 @@
 			</div>
 		</div>
 	</div>
-	<!-- //Single Page -->3
+	<!-- //Single Page -->
 
-<!-- Con este Scrip Soluciono el Problema. de caragr la pagina dos veces -->
+<!-- Con este Scrip Soluciono el Problema. de cargar la pagina dos veces -->
 	<script>
 		if (window.history.replaceState) {
 			window.history.replaceState(null, null, window.location.href);

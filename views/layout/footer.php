@@ -300,10 +300,11 @@
   <script src="<?= base_url ?>assets/js/repositorio/producto/imagen.js"></script>
 
   <!-- Carrito Compras -->
-  <script src="<?= base_url ?>assets/js/repositorio/carritoCompras/borrar.js"></script> 
-  <script src="<?= base_url ?>assets/js/repositorio/carritoCompras/mostrar.js"></script> 
-  <script src="<?= base_url ?>assets/js/repositorio/carritoCompras/carritoUp.js"></script> 
-   <script src="<?= base_url ?>assets/js/repositorio/carritoCompras/carritoDown.js"></script> 
- 
+  <script src="<?= base_url ?>assets/js/repositorio/carritoCompras/borrar.js"></script>
+  <script src="<?= base_url ?>assets/js/repositorio/carritoCompras/mostrar.js"></script>
+  <script src="<?= base_url ?>assets/js/repositorio/carritoCompras/carritoUp.js"></script>
+  <script src="<?= base_url ?>assets/js/repositorio/carritoCompras/carritoDown.js"></script>
+  <script src="<?= base_url ?>assets/js/repositorio/carritoCompras/confimarPedido.js"></script>
+
 
   </html>

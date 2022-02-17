@@ -1,13 +1,10 @@
 
-let idUpCarrito = $('#idProductoCarritoCompras').val();
-
 function carritoUp(idProductoUp) {
 
   $.ajax({
     type: 'POST',
     url: baseUrl + 'CarritoCompras/mostrar',
-    data: 'id=' + idUpCarrito + '&idUp=' + idProductoUp,
-
+    data: 'idUp=' + idProductoUp,
   })
     .done(function (respuestaPhpMostrarCarritoCompras) {
       $("#respuestaPhpMostrarCarritoCompras").html(respuestaPhpMostrarCarritoCompras);

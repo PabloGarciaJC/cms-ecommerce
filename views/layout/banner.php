@@ -1,4 +1,5 @@
 <body>
+
   <!-- top-header -->
   <div class="agile-main-top">
     <div class="container-fluid">
@@ -16,7 +17,7 @@
                 <!-- <i class="fas fa-map-marker mr-2"></i>Seleccionar ubicación</a> -->
             </li>
             <li class="text-center border-right text-white">
-              <a href="#" data-toggle="modal" data-target="#exampleModal" class="text-white">
+              <a href="#" data-toggle="modal" data-target="#exampleModal" class="text-white"></a>
                 <!-- <i class="fas fa-truck mr-2"></i>Track Order</a> -->
             </li>
             <li class="text-center border-right text-white">
@@ -25,6 +26,8 @@
 
             <li class="text-center border-right text-white">
               <a href="#" data-toggle="modal" data-target="#exampleModal" class="text-white">
+
+         
 
                 <?php if (isset($_SESSION['usuarioRegistrado'])) : ?>
                   <a href="<?= base_url ?>usuario/informacionGeneral" class="estilosSesionRegistro">Hola, <?= $usuario->Usuario ?></a>
@@ -99,32 +102,32 @@
         <div class="modal-body">
 
           <form action="" method="POST" id="mdFormularioRegistro">
-          
+
             <!-- respuesta ajax php -->
             <div id="respuestaPhpRegistro" style="text-align: center; display: none"></div>
 
             <div class="form-group cErrorUsuario">
               <label class="col-form-label ">Alias</label>
-              <input type="text" class="form-control" id="mdUsuarioRegistro" name ="usuario">
-              <div id="mdErrorUsuarioPhp" style="color: red;"></div>             
+              <input type="text" class="form-control" id="mdUsuarioRegistro" name="usuario">
+              <div id="mdErrorUsuarioPhp" style="color: red;"></div>
             </div>
 
             <div class="form-group cErrorEmail">
               <label class="col-form-label">Email</label>
-              <input type="text" class="form-control" id="mdEmailRegistro" name ="email">
-              <div id="mdErrorEmailPhp" style="color: red;"></div>              
+              <input type="text" class="form-control" id="mdEmailRegistro" name="email">
+              <div id="mdErrorEmailPhp" style="color: red;"></div>
             </div>
 
             <div class="form-group cErrorPassword">
               <label class="col-form-label ">Contraseña</label>
-              <input type="password" class="form-control" id="mdPasswordRegistro" name ="password">
-              <div id="mdErrorPasswordPhp" style="color: red;"></div>             
+              <input type="password" class="form-control" id="mdPasswordRegistro" name="password">
+              <div id="mdErrorPasswordPhp" style="color: red;"></div>
             </div>
 
             <div class="form-group cErrorConfirmarPassword">
               <label class="col-form-label ">Confirma Contraseña</label>
-              <input type="password" class="form-control" id="mdConfirmarPasswordRegistro" name ="confirmarPassword">
-              <div id="mdErrorConfirmarPasswordPhp" style="color: red;"></div>              
+              <input type="password" class="form-control" id="mdConfirmarPasswordRegistro" name="confirmarPassword">
+              <div id="mdErrorConfirmarPasswordPhp" style="color: red;"></div>
             </div>
 
             <div class="sub-w3l cErrorChecked">
@@ -132,11 +135,11 @@
                 <input type="checkbox" class="custom-control-input" id="mdCheckedRegistro" name="checked">
                 <label class="custom-control-label" for="mdCheckedRegistro">Acepto los Términos y Condiciones</label>
               </div>
-              <div id="mdErrorChekedPhp" style="color: red;"></div>              
+              <div id="mdErrorChekedPhp" style="color: red;"></div>
             </div>
 
             <div class="right-w3l">
-              <input type="submit"  class="form-control" value="Aceptar">
+              <input type="submit" class="form-control" value="Aceptar">
             </div>
           </form>
         </div>
@@ -145,6 +148,3 @@
   </div>
   <!-- //modal -->
   <!-- //top-header -->
-
-
-  
