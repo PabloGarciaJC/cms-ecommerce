@@ -143,4 +143,28 @@ class Pedidos
 
     return $result;
   }
+
+  public function guardarLinea()
+  {
+    $result = false;
+
+    $sql = "SELECT LAST_INSERT_ID() as 'pedido';";
+    $query = $this->db->query($sql);
+    $pedido_id = $query->fetch_object()->pedido;
+
+    if (isset($_SESSION['carrito'])) {
+
+      foreach ($_SESSION['carrito'] as $producto) {
+
+        // Guardo en Linea Pedidos
+        $insert = "INSERT INTO lineas_pedidos (pedido_id, producto_id, unidades) VALUES({$pedido_id}, {$producto['idProducto']}, {$producto['stock']})";
+        $save = $this->db->query($insert);
+      }
+
+      if ($save) {
+        $result = true;
+      }
+      return $result;
+    }
+  }
 }

@@ -85,6 +85,7 @@ class CarritoComprasController
           "marca" => $mostrarProducto->marca,
           "memoria_ram" => $mostrarProducto->memoria_ram,
           "imagen" => $mostrarProducto->imagen,
+          "productos" => $producto
         );
       };
     }

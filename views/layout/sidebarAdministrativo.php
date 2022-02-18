@@ -27,6 +27,7 @@
           </a> -->
 
 
+          <!-- Para Ambos -->
           <?php if (isset($_SESSION['usuarioRegistrado'])) : ?>
             <a class="list-group-item list-group-item-action" href="<?= base_url ?>Usuario/informacionGeneral">
               Información General
@@ -34,7 +35,8 @@
           <?php endif; ?>
 
 
-          <?php if(Utils::accesoUsuarioAdmin()) : ?>
+          <!-- Para el Admin  -->
+          <?php if (Utils::accesoUsuarioAdmin()) : ?>
             <a class="list-group-item list-group-item-action" href="<?= base_url ?>Categoria/gestionarCategorias">
               Gestionar Categorias
             </a>
@@ -47,23 +49,32 @@
                 &#x23f5; <a href="<?= base_url ?>Producto/crear" style="color: #495057;">Crear</a>
               </div>
 
-              <div class="custom-control custom-checkbox"> 
+              <div class="custom-control custom-checkbox">
                 &#x23f5; <a href="<?= base_url ?>Producto/listar" style="color: #495057;">Lista</a>
               </div>
             </div>
           <?php endif; ?>
 
+          <!-- Para Cliente Comun -->
           <?php if (isset($_SESSION['usuarioRegistrado']) && Utils::accesoUsuarioAdmin() != true) : ?>
             <div class="list-group-item list-group-item-action">
               <a data-toggle="collapse" href="#submenuCarritoCompras" aria-expanded="false" aria-controls="dateposted" class="dropdown-toggle" style="color: #495057;">Carrito de Compras </a>
             </div>
             <div class="collapse" id="submenuCarritoCompras">
               <div class="custom-control custom-checkbox" style="padding-top: 10px;">
-                &#x23f5; <a href="<?= base_url ?>CarritoCompras/listar" style="color: #495057;">Cesta</a> 
+                &#x23f5; <a href="<?= base_url ?>CarritoCompras/listar" style="color: #495057;">Cesta</a>
               </div>
             </div>
           <?php endif; ?>
 
+          <!-- Para Cliente Comun -->
+          <?php if (isset($_SESSION['usuarioRegistrado']) && Utils::accesoUsuarioAdmin() != true) : ?>
+            <a class="list-group-item list-group-item-action" href="<?= base_url ?>Pedidos/historial">
+              Mis Pedidos
+            </a>
+          <?php endif; ?>
+
+          <!-- Para Ambos -->
           <?php if (isset($_SESSION['usuarioRegistrado'])) : ?>
             <a class="list-group-item list-group-item-action" href="<?= base_url ?>Usuario/cerrarSesion">
               Cerrar Sesion

@@ -34,6 +34,10 @@ class PedidosController
 
   public function guardar()
   {
+
+    //Acceso Usuario Registrado a esta Pagina
+    Utils::accesoUsuarioRegistrado();
+
     // Capturo lo que me llega por Post
     $usuarioId = isset($_POST['usuarioId']) ? $_POST['usuarioId'] : false;
     $alias = isset($_POST['alias']) ? $_POST['alias'] : false;
@@ -56,11 +60,24 @@ class PedidosController
     $pedido->setDireccion($direccion);
     $pedido->setCodigoPostal($codigoPostal);
     $pedido->setCoste($totalPagar);
+
+    // Guardar Pedidos
     $guardar = $pedido->guardar();
 
-    if ($guardar) {
+    // Guardar Linea Pedidos
+    $guardarLinea = $pedido->guardarLinea();
+
+    if ($guardar && $guardarLinea) {
+      $_SESSION['carrito'] = null;
       echo 1;
     }
+  }
 
+  public function historial()
+  {
+    //Acceso Usuario Registrado a esta Pagina
+    Utils::accesoUsuarioRegistrado();
+
+    echo 'hola historial';
   }
 }

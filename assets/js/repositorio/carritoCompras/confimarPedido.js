@@ -44,7 +44,9 @@ if (confimarPedido) {
           Swal.fire({
             title: 'Completado',
             icon: 'success'
-          })
+          }).then(function () {
+            window.location = baseUrl + "Pedidos/historial";
+          });
         }
       })
       .fail(function () {

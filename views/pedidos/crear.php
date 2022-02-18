@@ -88,10 +88,8 @@
                 </div>
               </div>
             </div>
-
+            <button type="submit" class="btn btn-success">Confirmar Pedido</button>
             <a href="<?= base_url ?>CarritoCompras/listar" class="btn btn-danger">ver Cesta</a>
-
-            <button type="submit" class="btn btn-primary">Confirmar Pedido</button>
           </form>
         </div>
 
@@ -109,26 +107,32 @@
               <th scope="col" style="text-align: center;">Unidades</th>
             </tr>
           </thead>
-
-          <tbody>
-            <?php foreach ($_SESSION['carrito'] as $indice => $mostrarProducto) : ?>
-              <tr>
-                <td><img class="img-fluid" style="margin:auto; display:block;" src="<?= base_url ?>uploads/images/productos/<?= $mostrarProducto['imagen'] ?>"></td>
-                <td style="text-align: center;">
-                  <br>
-                  <a href="<?= base_url ?>Producto/descripcion&id=<?= $mostrarProducto['idProducto'] ?>">
-                    <strong>Nombre:</strong> <?= $mostrarProducto['nombre'] ?><br>
-                    <strong>Nombre:</strong> <?= $mostrarProducto['marca'] ?><br>
-                    <strong>Nombre:</strong> <?= $mostrarProducto['precio'] ?><br>
-                    <strong>Nombre:</strong> <?= $mostrarProducto['oferta'] ?><br>
-                    <strong>Nombre:</strong> <?= $mostrarProducto['nombreCategoria'] ?>
-                  </a>
-                </td>
-                <td style="text-align: center;"><br> <br> <br> <?= $mostrarProducto['stock'] ?></td>
-              </tr>
-            <?php endforeach; ?>
-          </tbody>
-
+          <?php if (isset($_SESSION['carrito']) && count($_SESSION['carrito']) != 0) : ?>
+            <tbody>
+              <?php foreach ($_SESSION['carrito'] as $indice => $mostrarProducto) : ?>
+                <tr>
+                  <td><img class="img-fluid" style="margin:auto; display:block;" src="<?= base_url ?>uploads/images/productos/<?= $mostrarProducto['imagen'] ?>"></td>
+                  <td style="text-align: center;">
+                    <br>
+                    <a href="<?= base_url ?>Producto/descripcion&id=<?= $mostrarProducto['idProducto'] ?>">
+                      <strong>Nombre:</strong> <?= $mostrarProducto['nombre'] ?><br>
+                      <strong>Nombre:</strong> <?= $mostrarProducto['marca'] ?><br>
+                      <strong>Nombre:</strong> <?= $mostrarProducto['precio'] ?><br>
+                      <strong>Nombre:</strong> <?= $mostrarProducto['oferta'] ?><br>
+                      <strong>Nombre:</strong> <?= $mostrarProducto['nombreCategoria'] ?>
+                    </a>
+                  </td>
+                  <td><br> <br> <br> <?= $mostrarProducto['stock'] ?></td>
+                </tr>
+              <?php endforeach; ?>
+            <?php else : ?>
+              <td colspan="8">
+                <div class="alert alert-primary" style="text-align: center;" role="alert">
+                  No hay <strong>Productos</strong> en el <strong>Carrito de Compras</strong>
+                </div>
+              </td>
+            <?php endif; ?>
+            </tbody>
         </table>
       </div>
     </div>
