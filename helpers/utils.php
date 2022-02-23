@@ -220,12 +220,50 @@ class Utils
         $stats['totalPrecio'] += $producto['precio'] * $producto['stock'];
         $stats['totalOfertas'] += $producto['oferta'];
       }
-      $stats['aplicarDescuento'] = $stats['totalPrecio'] * $stats['totalOfertas'] / 100;      
+      $stats['aplicarDescuento'] = $stats['totalPrecio'] * $stats['totalOfertas'] / 100;
       $stats['totalBase'] = $stats['totalPrecio'] - $stats['aplicarDescuento'];
       $stats['aplicandoIva'] = $stats['totalBase'] * 21 / 100;
       $stats['total'] = $stats['totalBase'] - $stats['aplicandoIva'];
     }
-    
+
     return $stats;
   }
+
+  public static function obtenerPedidos($usuario)
+  {
+    $pedido = new Pedidos;
+    if ($usuario->Rol != 'Admin') {
+      $pedido->setUsuario_id($usuario->Id);
+      $resultado = $pedido->obtenerTodosPorUsuarios();
+    } else {
+      $resultado = $pedido->obtenerTodos();
+    }
+    return $resultado;
+  }
+
+  public static function cambiarEstado($idPedido, $estadoPedido)
+  {
+    $pedido = new Pedidos;
+    $pedido->setId($idPedido);
+    $pedido->setEstado($estadoPedido);
+    $pedido->actualizarEstado();
+  }
+
+  public static function obtenerProductosbyPedidos($idPedido)
+  {
+    $pedido = new Pedidos;
+    $pedido->setId($idPedido);
+    $productos = $pedido->obtenerProductosbyPedido();
+    return $productos;
+  }
+
+  public static function obtenerUsuarioDelPedido($idPedido)
+  {
+    $pedido = new Pedidos;
+    $pedido->setId($idPedido);
+    $idUsuario = $pedido->obtenerUsuariobyPedido();
+    return $idUsuario;
+  }
+
+
 };

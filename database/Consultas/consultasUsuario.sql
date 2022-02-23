@@ -21,3 +21,9 @@ ALTER TABLE ciudades CHANGE COLUMN idCiudades Id int(11) NOT NULL;
 ALTER TABLE ciudades CHANGE COLUMN Paises_Codigo Id_Pais varchar(2) NOT NULL;
 
 ALTER TABLE ciudades ADD CONSTRAINT FK_CIUDADES_PAISES FOREIGN KEY (Id_Pais) REFERENCES Paises(Id);
+
+
+
+
+
+

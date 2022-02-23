@@ -289,8 +289,6 @@ class Usuario
     return $actualizarInformacionPrivada;
   }
 
-
-
   public function obtenerTodosPorId()
   {
     $resultado = false;
@@ -298,9 +296,8 @@ class Usuario
     $obtenerTodos = $this->db->query($sql);
     if ($obtenerTodos) {
       $resultado = true;
-    }
+    } 
     return $obtenerTodos->fetch_object();
   }
-
 
 }

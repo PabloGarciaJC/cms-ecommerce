@@ -30,7 +30,6 @@
 		<?php if ($mostrarMarcaSinRepetirSidebar->num_rows > 0) : ?>
 
 			<div class="row">
-
 				<div class="agileinfo-ads-display col-lg-9">
 					<div class="wrapper">
 						<!-- Id Categoria Para Obtener el Producto -->

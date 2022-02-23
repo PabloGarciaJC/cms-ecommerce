@@ -45,7 +45,7 @@ if (confimarPedido) {
             title: 'Completado',
             icon: 'success'
           }).then(function () {
-            window.location = baseUrl + "Pedidos/historial";
+            window.location = baseUrl + "Pedidos/listar";
           });
         }
       })

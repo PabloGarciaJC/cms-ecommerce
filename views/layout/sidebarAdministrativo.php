@@ -41,7 +41,7 @@
               Gestionar Categorias
             </a>
             <div class="list-group-item list-group-item-action">
-              <a data-toggle="collapse" href="#homeSubmenu" aria-expanded="false" aria-controls="dateposted" class="dropdown-toggle" style="color: #495057;">Gestión Productos </a>
+              <a data-toggle="collapse" href="#homeSubmenu" aria-expanded="false" aria-controls="dateposted" class="dropdown-toggle" style="color: #495057;">Gestionar Productos </a>
             </div>
 
             <div class="collapse" id="homeSubmenu">
@@ -67,11 +67,17 @@
             </div>
           <?php endif; ?>
 
-          <!-- Para Cliente Comun -->
-          <?php if (isset($_SESSION['usuarioRegistrado']) && Utils::accesoUsuarioAdmin() != true) : ?>
-            <a class="list-group-item list-group-item-action" href="<?= base_url ?>Pedidos/historial">
-              Mis Pedidos
-            </a>
+          <!-- Para Ambos -->
+          <?php if (isset($_SESSION['usuarioRegistrado'])) : ?>
+            <div class="list-group-item list-group-item-action">
+              <a data-toggle="collapse" href="#gestionPedidos" aria-expanded="false" aria-controls="dateposted" class="dropdown-toggle" style="color: #495057;">Gestionar Pedidos </a>
+            </div>
+
+            <div class="collapse" id="gestionPedidos">
+              <div class="custom-control custom-checkbox" style="padding-top: 10px;">
+                &#x23f5; <a href="<?= base_url ?>Pedidos/listar" style="color: #495057;">Listar</a>
+              </div>
+            </div>
           <?php endif; ?>
 
           <!-- Para Ambos -->

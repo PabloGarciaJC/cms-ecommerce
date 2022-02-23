@@ -128,7 +128,7 @@ class Pedidos
   {
     $result = false;
 
-    $sql = "INSERT INTO pedidos (id, usuario_id, pais, ciudad, direccion, codigoPostal, coste, estado, fecha, hora) VALUES (null, {$this->getUsuario_id()}, '{$this->getPais()}', '{$this->getCiudad()}', '{$this->getDireccion()}', '{$this->getCodigoPostal()}', {$this->getCoste()}, 'confirm', CURDATE(), CURTIME());";
+    $sql = "INSERT INTO pedidos (id, usuario_id, pais, ciudad, direccion, codigoPostal, coste, estado, fecha, hora) VALUES (null, {$this->getUsuario_id()}, '{$this->getPais()}', '{$this->getCiudad()}', '{$this->getDireccion()}', '{$this->getCodigoPostal()}', {$this->getCoste()}, 'Pendiente', CURDATE(), CURTIME());";
     $save = $this->db->query($sql);
 
     // echo $sql;
@@ -167,4 +167,57 @@ class Pedidos
       return $result;
     }
   }
+
+  public function obtenerTodosPorUsuarios()
+  {
+    $sql = "SELECT * FROM pedidos p WHERE usuario_id = {$this->getUsuario_id()} ORDER BY id DESC";
+    $pedido = $this->db->query($sql);
+    return $pedido;
+  }
+
+  public function obtenerTodos()
+  {
+    $sql = "SELECT * FROM pedidos p ORDER BY id DESC ";
+    $pedido = $this->db->query($sql);
+    return $pedido;
+  }
+
+  public function actualizarEstado()
+  {
+    $sql = "UPDATE pedidos SET estado='{$this->getEstado()}' WHERE id={$this->getId()}";
+    $save = $this->db->query($sql);
+
+    $result = false;
+    if ($save) {
+      $result = true;
+    }
+    return $result;
+  }
+
+  public function obtenerProductosbyPedido()
+  {
+
+    $sql = "SELECT pr.*, lp.unidades, c.categorias as nombreCategoria FROM productos pr";
+
+    $sql .= " INNER JOIN lineas_pedidos lp";
+    $sql .= " ON pr.id = lp.producto_id ";
+
+    $sql .= " INNER JOIN categorias c";
+    $sql .= " ON pr.categoria_id = c.id";
+
+    $sql .= " WHERE lp.pedido_id = {$this->getId()}";
+ 
+    $productos = $this->db->query($sql);
+    return $productos;
+  }
+
+  public function obtenerUsuariobyPedido()
+  {
+    $sql = "SELECT u.* FROM usuarios u INNER JOIN pedidos p ON u.Id = p.usuario_id WHERE p.id = {$this->getId()}";
+    $productos = $this->db->query($sql);
+    $idUsuario = $productos->fetch_object();
+    return $idUsuario;
+  }
+
+
 }

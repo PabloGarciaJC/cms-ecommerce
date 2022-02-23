@@ -112,6 +112,7 @@ class UsuarioController
         if (isset($_SESSION['usuarioRegistrado'])) {
             unset($_SESSION['usuarioRegistrado']);
             unset($_SESSION['Admin']);
+            unset($_SESSION['carrito']);
         }
         header("location:" . base_url);
     }

@@ -1,13 +1,10 @@
-let idProductoCarritoCompras = $('#idProductoCarritoCompras').val();
+$(document).ready(function () {
 
-// let idProductoUp = $('#idProductoUp').val();
-
-
-
+  let idProductoCarritoCompras = $('#idProductoCarritoCompras').val();
+  
   $.ajax({
     type: 'POST',
     url: baseUrl + 'CarritoCompras/mostrar',
-    // data: 'id=' + idProductoCarritoCompras + '&idUp=' + idProductoUp,
     data: 'id=' + idProductoCarritoCompras,
   })
     .done(function (respuestaPhpMostrarCarritoCompras) {
@@ -19,8 +16,6 @@ let idProductoCarritoCompras = $('#idProductoCarritoCompras').val();
     .always(function () {
       console.log("completo");
     });
-
-
-// Obtengo IdCategoria
+});
 
 

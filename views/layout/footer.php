@@ -306,5 +306,9 @@
   <script src="<?= base_url ?>assets/js/repositorio/carritoCompras/carritoDown.js"></script>
   <script src="<?= base_url ?>assets/js/repositorio/carritoCompras/confimarPedido.js"></script>
 
+  <!-- Pedidos -->
+  <script src="<?= base_url ?>assets/js/repositorio/pedidos/editarPedidos.js"></script>
+  <script src="<?= base_url ?>assets/js/repositorio/pedidos/mostrar.js"></script>
+
 
   </html>

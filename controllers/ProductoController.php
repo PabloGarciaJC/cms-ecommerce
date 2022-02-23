@@ -191,7 +191,6 @@ class ProductoController
     // Paginador => Inicio
     echo '<nav aria-label="Page navigation example">';
     echo '<ul class="pagination justify-content-end">';
-
     // Anterior
     if ($paginaActual != 1) {
       echo '<li class="page-item">';
@@ -226,6 +225,7 @@ class ProductoController
     echo '</nav>';
     echo '</br>';
     // Paginador => Fin
+ 
 
     // Obtengo Los Productor y el Buscador y Paginador 5: Consulta
     $productos = Utils::obtenerProductosyBuscadoryPaginador($buscadorProductos, $ultimoRegistro, $mostrarRegistros);
