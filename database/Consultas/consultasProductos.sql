@@ -22,5 +22,14 @@ SELECT * FROM productos where categoria_id = 10;
 
 
    SELECT p.id, p.imagen, p.nombre, p.marca, p.stock, p.precio, p.oferta, p.categoria_id, c.categorias as nombreCategoria from productos p INNER JOIN categorias c ON p.categoria_id = c.id WHERE p.categoria_id  = 10 ORDER BY p.id DESC LIMIT 1,3;
+
+   SELECT p.nombre, c.categorias  
+   FROM productos p
+   INNER JOIN categorias c ON p.categoria_id = c.id 
+   WHERE p.nombre  LIKE '%Lap%' 
+   or  C.categorias LIKE '%Lap%' 
+   ORDER BY c.id DESC
+   LIMIT 10;
+
   
 

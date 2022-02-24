@@ -174,7 +174,7 @@ class Productos
 
   public function productosPorId()
   {
- 
+
     $sql = "SELECT p.id, p.imagen, p.nombre, p.marca, p.stock, p.precio, p.oferta, p.categoria_id, p.memoria_ram, p.descripcion, c.categorias as nombreCategoria from productos p INNER JOIN categorias c ON p.categoria_id = c.id WHERE p.id = {$this->getId()};";
     $obtenerProductos = $this->db->query($sql);
     return $obtenerProductos;
@@ -280,7 +280,6 @@ class Productos
 
     if ($todosConteoCheckbox == 0 || $this->getBuscador() != '') {
       $sql = "SELECT p.id, p.categoria_id, c.categorias as nombreCategoria, p.nombre, p.marca, p.stock, p.precio, p.oferta, p.memoria_ram, p.imagen from productos p INNER JOIN categorias c ON p.categoria_id = c.id WHERE (p.nombre LIKE '%{$this->getBuscador()}%' OR p.marca LIKE '%{$this->getBuscador()}%' OR p.stock LIKE '%{$this->getBuscador()}%' OR p.precio LIKE '%{$this->getBuscador()}%' OR p.oferta LIKE '%{$this->getBuscador()}%' OR c.categorias LIKE '%{$this->getBuscador()}%')";
-      
     } else {
 
       /********************** VALIDACION DE TODOS LOS CHECKBOX ***********************/
@@ -398,7 +397,7 @@ class Productos
     }
 
     $sql .= " ORDER BY p.id DESC LIMIT $ultimoRegistro, $mostrarRegistros";
-   
+
     $registros_totales = $this->db->query($sql);
     return $registros_totales;
   }
@@ -556,5 +555,12 @@ class Productos
 
     $registros_totales = $this->db->query($sql);
     return $registros_totales->fetch_object();
+  }
+
+  public function ejecutarBuscador()
+  {
+    $sql = "SELECT p.*, c.categorias FROM productos p  INNER JOIN categorias c ON p.categoria_id = c.id ORDER BY c.id DESC LIMIT 10;";
+    $resultado = $this->db->query($sql);
+    return $resultado;
   }
 }

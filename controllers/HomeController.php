@@ -24,6 +24,12 @@ class HomeController
         // Obtengo Memoria Ram o Capacidad, Sin Repetir en el Sidebar
         $mostrarMemoriaRamSinRepetirSidebar = Utils::mostrarMemoriaRamSinRepetirSidebar($idCategoria);
 
+        // Consulta Para Autocompletar
+        $listado  =  Utils::listarAutocompletado();
+
+        // Mosrar listar de Autocompletado
+        $jsonMostrar = Utils::mostrarAutocompletado($listado);
+      
         require_once 'views/layout/header.php';
         require_once 'views/layout/banner.php';
         require_once 'views/layout/nav.php';
@@ -31,7 +37,6 @@ class HomeController
         require_once 'views/home/slider.php';
         require_once 'views/home/contentIndex.php';
         require_once 'views/layout/footer.php';
-        
     }
 
     // public function electronica()

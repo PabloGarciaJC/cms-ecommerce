@@ -1,6 +1,8 @@
 <div class="ads-grid py-sm-5 py-4">
 	<div class="container py-xl-4 py-lg-2">
 
+		<div id="tes"></div>
+
 		<h3 class="tittle-w3l text-center mb-lg-5 mb-sm-4 mb-3">
 			<span>O</span>ure
 			<span>N</span>ew
@@ -14,6 +16,7 @@
 				<div class="agileinfo-ads-display col-lg-9">
 					<div class="wrapper">
 
+			 
 						<!-- Respuesta Ajax -->
 						<div id="respuestaPhpMostrarProductos"></div>
 						<!-- // Respuesta Ajax -->
@@ -24,7 +27,7 @@
 					<div class="side-bar p-sm-4 p-3">
 						<div class="search-hotel border-bottom py-2">
 							<!-- Buscador -->
-							<input type="text" class="form-control" placeholder=" Buscador..." id="buscadorMostrarProducto">
+							<input type="text" class="form-control" placeholder=" Buscador..." id="buscadorMostrarProducto" value="">
 							<!-- //Buscador -->
 							<div class="left-side py-2">
 								<h3 class="agileits-sear-head mb-3">Marca</h3>

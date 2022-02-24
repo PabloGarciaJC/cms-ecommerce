@@ -265,5 +265,25 @@ class Utils
     return $idUsuario;
   }
 
+  public static function listarAutocompletado()
+  {
+    $productos = new productos;
+    // $productos->setBuscador($buscadorProducto);
+    $listado = $productos->ejecutarBuscador();
+    return $listado;
+  }
 
+  public static function mostrarAutocompletado($listado)
+  {
+    $arrayListados = array();
+
+    while ($filas = mysqli_fetch_array($listado)) {
+      $nombre = utf8_decode($filas['nombre']);
+      $marca = utf8_decode($filas['marca']);
+      array_push($arrayListados, $nombre);
+      array_push($arrayListados, $marca);
+    }
+    
+    return $jsonListado = json_encode($arrayListados);
+  }
 };

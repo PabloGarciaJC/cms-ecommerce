@@ -225,7 +225,7 @@ class ProductoController
     echo '</nav>';
     echo '</br>';
     // Paginador => Fin
- 
+
 
     // Obtengo Los Productor y el Buscador y Paginador 5: Consulta
     $productos = Utils::obtenerProductosyBuscadoryPaginador($buscadorProductos, $ultimoRegistro, $mostrarRegistros);
@@ -318,12 +318,34 @@ class ProductoController
     // Obtengo Memoria Ram o Capacidad, Sin Repetir en el Sidebar
     $mostrarMemoriaRamSinRepetirSidebar = Utils::mostrarMemoriaRamSinRepetirSidebar($idCategoria);
 
+    // Consulta Para Autocompletar
+    $listado  =  Utils::listarAutocompletado();
+
+    // Mosrar listar de Autocompletado
+    $jsonMostrar = Utils::mostrarAutocompletado($listado);
+
     require_once 'views/layout/header.php';
     require_once 'views/layout/banner.php';
     require_once 'views/layout/nav.php';
     require_once 'views/layout/search.php';
     require_once 'views/producto/mostrar.php';
     require_once 'views/layout/footer.php';
+  }
+
+
+  public function autocompletarBuscador()
+  {
+    $accionaBuscador = isset($_POST['accionaBuscador']) ? $_POST['accionaBuscador'] : false;
+
+    $listado  =  Utils::listarAutocompletado($accionaBuscador);
+
+    $arrayListados = array();
+
+    while ($filas = $listado->fetch_assoc()) {
+      // array_push($arrayListados, $filas['categorias']);
+      array_push($arrayListados, $filas['nombre']);
+    }
+    echo json_encode($arrayListados);
   }
 
   public function mostrarTodos()
@@ -429,6 +451,5 @@ class ProductoController
     require_once 'views/layout/search.php';
     require_once 'views/producto/descripcion.php';
     require_once 'views/layout/footer.php';
-
   }
 };

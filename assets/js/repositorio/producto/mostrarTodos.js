@@ -6,7 +6,13 @@ let checkedPrecio = document.querySelectorAll('.checkedPrecio');
 let checkedOfertas = document.querySelectorAll('.checkedOfertas');
 
 // Obtengo Valor de Buscador 
-let buscadorMostrarProducto = document.getElementById('buscadorMostrarProducto');
+var buscadorMostrarProducto = document.getElementById('buscadorMostrarProducto');
+
+// Capturo Valores del Buscador a tiempo real y repueblo el otro Buscador
+buscadorMostrarProducto.addEventListener('keyup', (event) => {
+  valorBuscador = event.path[0].value;
+  $('#buscadorGlobal').val(valorBuscador);
+});
 
 // Obtengo IdCategoria
 let productoIdCategoriaMarca = $('#productoIdCategoria').val();
@@ -24,7 +30,7 @@ if (buscadorMostrarProducto) {
   //Ajax 
   ajaxMostrarProductos(arrayCheckMarca, productoIdCategoriaMarca, arrayCheckMemoriaRam, arrayCheckedPrecio, arrayCheckedOfertas, valorBuscador);
 
-  
+
   /****************** Obtener Tiempo Real Datos Buscador *************/
   buscadorMostrarProducto.addEventListener('keyup', (event) => {
     valorBuscador = event.path[0].value;
