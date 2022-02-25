@@ -12,13 +12,6 @@ function autocompletado(jsonBuscador) {
 
 }
 
-// Capturo Valores del Buscador a tiempo real y repueblo el otro Buscador
-buscadorGlobal.addEventListener('keyup', (event) => {
 
-  valorBuscador = event.path[0].value;
-
-  $('#buscadorMostrarProducto').val(valorBuscador);
-
-});
 
 

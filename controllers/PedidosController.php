@@ -82,10 +82,9 @@ class PedidosController
 
     require_once 'views/layout/header.php';
     require_once 'views/layout/banner.php';
-    require_once 'views/layout/nav.php';
-    require_once 'views/layout/search.php';
+    require_once 'views/layout/nav.php';    
     require_once 'views/layout/sidebarAdministrativo.php';
-    require_once 'views/pedidos/gestionar.php';
+    require_once 'views/pedidos/listar.php';
     require_once 'views/layout/footer.php';
   }
 
@@ -168,17 +167,12 @@ class PedidosController
     // Obtener los Productos por id Pedido
     $mostrarProductos = Utils::obtenerProductosbyPedidos($idPedido);
 
-    
-
     // Obtener Usuario del Pedido
     $usuarioPorPedido = Utils::obtenerUsuarioDelPedido($idPedido);
 
-  
-
     require_once 'views/layout/header.php';
     require_once 'views/layout/banner.php';
-    require_once 'views/layout/nav.php';
-    require_once 'views/layout/search.php';
+    require_once 'views/layout/nav.php';    
     require_once 'views/layout/sidebarAdministrativo.php';
     require_once 'views/pedidos/detalles.php';
     require_once 'views/layout/footer.php';

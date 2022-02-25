@@ -33,6 +33,17 @@
         <label class="erroresValidacion"></label>
       </div>
 
+  
+
+      <?php if ($usuario->Pais == '') : ?>
+
+
+      <?php else : ?>
+
+
+      <?php endif; ?>
+
+
       <div class="form-row">
         <div class="form-group col-md-4">
           <label for="inputState">País</label>

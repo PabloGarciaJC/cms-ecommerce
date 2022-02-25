@@ -5,10 +5,10 @@ class CategoriaController
 {
   public function gestionarCategorias()
   {
-   //Acceso Usuario Registrado a esta Pagina
+    //Acceso Usuario Registrado a esta Pagina
     Utils::accesoUsuarioRegistrado();
 
-   //Obtengo Ususario en el Banner
+    //Obtengo Ususario en el Banner
     $usuario = Utils::obtenerUsuario();
 
     //Imprimo Lista Categoria
@@ -16,11 +16,10 @@ class CategoriaController
     $categoria = $categorias->obtenerCategorias();
 
     //Obtengo Categorias en la Barra de Navegacion
-    $categoriaBarraNavegacion = $categorias->obtenerCategoriasNav();    
+    $categoriaBarraNavegacion = $categorias->obtenerCategoriasNav();
     require_once 'views/layout/header.php';
     require_once 'views/layout/banner.php';
     require_once 'views/layout/nav.php';
-    require_once 'views/layout/search.php';
     require_once 'views/layout/sidebarAdministrativo.php';
     require_once 'views/categoria/listar.php';
     require_once 'views/layout/footer.php';
@@ -56,8 +55,13 @@ class CategoriaController
     $categorias->setId($id);
 
     //consulta
-    $categorias->eliminar();
-    echo 1;
+    $eliminar = $categorias->eliminar();
+
+    if ($eliminar) {
+      echo 1;
+    } else {
+      true;
+    }
   }
 
   public function listar()

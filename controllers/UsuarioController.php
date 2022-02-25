@@ -19,8 +19,7 @@ class UsuarioController
 
         require_once 'views/layout/header.php';
         require_once 'views/layout/banner.php';
-        require_once 'views/layout/nav.php';
-        require_once 'views/layout/search.php';
+        require_once 'views/layout/nav.php';      
         require_once 'views/layout/sidebarAdministrativo.php';
         require_once 'views/usuario/informacionPublica.php';
         require_once 'views/usuario/informacionPrivada.php';

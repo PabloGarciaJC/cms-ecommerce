@@ -1,3 +1,4 @@
+
 <div class="col-md-7 col-xl-8">
   <div class="tab-content">
     <div class="tab-pane fade show active" id="account" role="tabpanel">
@@ -90,6 +91,7 @@
             </div>
             <button type="submit" class="btn btn-success">Confirmar Pedido</button>
             <a href="<?= base_url ?>CarritoCompras/listar" class="btn btn-danger">ver Cesta</a>
+            <a href="<?= base_url ?>Usuario/informacionGeneral" class="btn btn-info">ir al Formulario</a>
           </form>
         </div>
 

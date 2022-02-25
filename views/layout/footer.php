@@ -297,24 +297,24 @@
   <script src="<?= base_url ?>assets/js/repositorio/producto/mostrarTodos.js"></script>
   <script src="<?= base_url ?>assets/js/repositorio/producto/buscador.js"></script>
   <script src="<?= base_url ?>assets/js/repositorio/producto/imagen.js"></script>
-  
+
   <!-- Carrito Compras -->
   <script src="<?= base_url ?>assets/js/repositorio/carritoCompras/borrar.js"></script>
   <script src="<?= base_url ?>assets/js/repositorio/carritoCompras/mostrar.js"></script>
   <script src="<?= base_url ?>assets/js/repositorio/carritoCompras/carritoUp.js"></script>
   <script src="<?= base_url ?>assets/js/repositorio/carritoCompras/carritoDown.js"></script>
   <script src="<?= base_url ?>assets/js/repositorio/carritoCompras/confimarPedido.js"></script>
-  
+
   <!-- Pedidos -->
   <script src="<?= base_url ?>assets/js/repositorio/pedidos/editarPedidos.js"></script>
   <script src="<?= base_url ?>assets/js/repositorio/pedidos/mostrar.js"></script>
-  
+
   <!-- Autocompletado Buscador General-->
   <script src="<?= base_url ?>assets/js/librerias/jquery-ui.js"></script>
   <script src="<?= base_url ?>assets/js/repositorio/autocompletado/autocompletado.js"></script>
   <script src="<?= base_url ?>assets/js/repositorio/autocompletado/mostrar.js"></script>
-  <script>autocompletado(<?=$jsonMostrar?>);</script>
-  
-
+  <script>
+    autocompletado(<?= $jsonMostrar ?>);
+  </script>
 
   </html>

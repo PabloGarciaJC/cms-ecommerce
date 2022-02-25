@@ -12,24 +12,26 @@
       </div>
       <!-- //logo -->
       <!-- header-bot -->
-
-   
-
-     
-
+      
       <div class="col-md-9 header mt-4 mb-md-0 mb-4">
         <div class="row">
-          <!-- search -->
+          <!-- search -->    
+          <!-- <form action="">
+            <button type="submit" class="ancla" data-ancla="solicita-informacion">Pusal Aqui</button>
+          </form>  -->
+
           <div class="col-10 agileits_search">
-            <form class="form-inline" action="<?= base_url ?>" id="formBuscadorGlobal" method="post">
+            <form class="form-inline" action="" id="formBuscadorGlobal" method="post">
               <input class="form-control mr-sm-2" type="search" placeholder="¿Qué deseas buscar?" aria-label="Search" name="buscadorGeneral" id="buscadorGlobal">
-              <button class="btn my-2 my-sm-0" type="submit">Buscar</button>
-              <!-- <a class="btn btn-danger" style ="background: #F45C5D;border-color: #F45C5D" href="#mostrarBuscador">Buscar</a>  -->
+              
+              <button type="submit" class="btn my-2 my-sm-0" data-ancla="solicita-informacion">Pusal Aqui</button>
+              
+              <!-- <button class="btn my-2 my-sm-0"  type="submit">Buscar</button> -->
+             
             </form>
           </div>
-
-          <div id="respuestaP"></div>
           <!-- //search -->
+          <?php if (isset($_SESSION['usuarioRegistrado']) && Utils::accesoUsuarioAdmin() != true) : ?>
           <!-- cart details -->
           <div class="col-2 top_nav_right text-center mt-sm-0 mt-2">
             <div class="wthreecartaits wthreecartaits2 cart cart box_1">
@@ -37,6 +39,7 @@
             </div>
           </div>
           <!-- //cart details -->
+          <?php endif ;?>
         </div>
       </div>
     </div>

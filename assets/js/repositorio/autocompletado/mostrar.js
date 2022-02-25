@@ -1,13 +1,13 @@
 
-// Capturo el Id del Formulario 
+
 let formBuscadorGlobal = document.getElementById('formBuscadorGlobal');
 
 if (formBuscadorGlobal) {
-
   formBuscadorGlobal.addEventListener('submit', (e) => {
+
     e.preventDefault(); // Freno Submit o Envío;
 
-    //Capturo id Buscador
+    // Capturo id Buscador
     let valorBuscador = $('#buscadorGlobal').val();
 
     // Repueblo buscador del Envio
@@ -16,8 +16,22 @@ if (formBuscadorGlobal) {
     // Envio a Mostrar Productos
     ajaxBuscadorGeneral(valorBuscador);
 
+    // Redireciono a Mostrar Productos
+    $('html,body').animate({
+      scrollTop: $('#solicita-informacion').offset().top
+    }, 1500);
+
   });
 }
+
+// Capturo Valores del Buscador a tiempo real y repueblo el otro Buscador
+buscadorGlobal.addEventListener('keyup', (event) => {
+
+  valorBuscador = event.path[0].value;
+
+  $('#buscadorMostrarProducto').val(valorBuscador);
+
+});
 
 // Valido de si el Input esta Vacio, haga una consulta
 $('#formBuscadorGlobal').on('keyup', function () {
@@ -32,7 +46,6 @@ $('#formBuscadorGlobal').on('keyup', function () {
     ajaxBuscadorGeneral(valorBuscador);
   }
 })
-
 
 // Ajax Buscador general
 function ajaxBuscadorGeneral(valorBuscador) {
@@ -51,6 +64,8 @@ function ajaxBuscadorGeneral(valorBuscador) {
     .always(function () {
       console.log("completo");
     });
+
+
 }
 
 

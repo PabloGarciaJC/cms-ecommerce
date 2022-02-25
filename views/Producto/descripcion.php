@@ -11,13 +11,11 @@
 				<div class="col-lg-5 col-md-8 single-right-left ">
 					<div class="grid images_3_of_2">
 						<div class="flexslider">
-							<ul class="slides">
-								<li>
-									<div class="thumb-image">
-										<img src="<?= base_url ?>uploads/images/productos/<?= $idProducto->imagen ?>" data-imagezoom="true" class="img-fluid" alt="">
-									</div>
-								</li>
-							</ul>
+						
+								
+										<img src="<?= base_url ?>uploads/images/productos/<?= $idProducto->imagen ?>" width="50%" height="50%"  alt="">
+								
+							
 							<div class="clearfix"></div>
 						</div>
 					</div>

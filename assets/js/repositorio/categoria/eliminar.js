@@ -25,6 +25,12 @@ function eliminarDatoss(idCategoriaBd, nombreCategoriaBd) {
             ).then(function () {
               window.location = baseUrl + "Categoria/gestionarCategorias";
             });
+          }else{
+            Swal.fire({
+              icon: 'error',
+              title: '¡IMPORTANTE!',
+              text: 'Error, no se pueden Eliminar Categorias que tengan productos Incluidos.....',           
+            })
           }
         })
         .fail(function () {

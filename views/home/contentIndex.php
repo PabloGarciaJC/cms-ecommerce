@@ -15,11 +15,12 @@
 
 				<div class="agileinfo-ads-display col-lg-9">
 					<div class="wrapper">
-
-			 
+						
+						<!-- Desplazamiento del Buscador -->
+						<div id="solicita-informacion"></div>
 						<!-- Respuesta Ajax -->
 						<div id="respuestaPhpMostrarProductos"></div>
-						<!-- // Respuesta Ajax -->
+
 					</div>
 				</div>
 
