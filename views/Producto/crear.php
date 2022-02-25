@@ -47,6 +47,7 @@
               <div class="form-group col-md-6">
                 <label for="">Elige Categoría</label>
                 <select class="form-control" id="categoria">
+
                   <?= isset($_GET['id']) ? '<option selected="selected" value="' .  $obtenerProductosPorId->categoria_id . '"> ' .  $obtenerProductosPorId->nombreCategoria . ' </option>' : false ?>
                   <?php while ($categoriaProducto = $categoria->fetch_object()) : ?>
                     <option value="<?= $categoriaProducto->id ?>"><?= $categoriaProducto->categorias ?></option>
@@ -74,15 +75,33 @@
               </div>
 
               <div class="form-group col-md-4 errorOfertaProducto">
+         
                 <label>Oferta</label>
-                <select class="form-control" id="ofertaProducto">
-                  <option value="5">5 % de Descuento</option>
-                  <option value="10">10 % de Descuento</option>
-                  <option value="20">20 % de Descuento</option>
-                  <option value="30">30 % de Descuento</option>
-                  <option value="40">40 % de Descuento</option>
-                  <option value="50">50 % de Descuento</option>
-                </select>
+
+                <?php if (isset($_GET['id'])) : ?>
+
+                  <select class="form-control" id="ofertaProducto">
+                    <option value="5" selected><?= isset($_GET['id']) ? $obtenerProductosPorId->oferta : false ?></option>
+                    <option value="5">5 % de Descuento</option>
+                    <option value="10">10 % de Descuento</option>
+                    <option value="20">20 % de Descuento</option>
+                    <option value="30">30 % de Descuento</option>
+                    <option value="40">40 % de Descuento</option>
+                    <option value="50">50 % de Descuento</option>
+                  </select>
+
+                <?php else : ?>
+
+                  <select class="form-control" id="ofertaProducto">
+                    <option value="5">5 % de Descuento</option>
+                    <option value="10">10 % de Descuento</option>
+                    <option value="20">20 % de Descuento</option>
+                    <option value="30">30 % de Descuento</option>
+                    <option value="40">40 % de Descuento</option>
+                    <option value="50">50 % de Descuento</option>
+                  </select>
+
+                <?php endif; ?>
               </div>
 
             </div>
@@ -120,10 +139,17 @@
                 <div class="col-md-4 product-men">
                   <!-- Vacio -->
                 </div>
+
                 <div class="col-md-4 product-men mt-md-0 mt-5">
                   <div class="men-pro-item simpleCart_shelfItem">
                     <div class="men-thumb-item text-center">
-                      <img class = "img-fluid" src="<?= base_url ?>assets/images/<?= isset($_GET['id']) ? $obtenerProductosPorId->imagen : false ?>" id="imagenProducto" alt="">
+
+                      <?php if (isset($_GET['id'])) : ?>
+                        <img class="img-fluid" src="<?= base_url ?>uploads/images/productos/<?= isset($_GET['id']) ? $obtenerProductosPorId->imagen : false ?>" id="imagenProducto" alt="">
+                      <?php else : ?>
+                        <img class="img-fluid" src="" id="imagenProducto" alt="">
+                      <?php endif; ?>
+
                     </div>
                     <div class="item-info-product text-center mt-4">
                       <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">

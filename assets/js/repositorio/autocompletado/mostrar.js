@@ -19,7 +19,7 @@ if (formBuscadorGlobal) {
     // Redireciono a Mostrar Productos
     $('html,body').animate({
       scrollTop: $('#solicita-informacion').offset().top
-    }, 1500);
+    }, 1000);
 
   });
 }

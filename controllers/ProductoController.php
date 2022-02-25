@@ -18,13 +18,12 @@ class ProductoController
     //Obtengo Categorias en la Barra de Navegacion
     $categoriaBarraNavegacion = Utils::listaCategorias();
 
-    if (isset($_GET['id'])) {
-      $obtenerProductosPorId = Utils::obtenerProductosPorId($_GET['id']);
-    }
+    //Capturo el Id para Editar
+    isset($_GET['id']) ? $obtenerProductosPorId = Utils::obtenerProductosPorId($_GET['id']) : false;
 
     require_once 'views/layout/header.php';
     require_once 'views/layout/banner.php';
-    require_once 'views/layout/nav.php';    
+    require_once 'views/layout/nav.php';
     require_once 'views/layout/sidebarAdministrativo.php';
     require_once 'views/producto/crear.php';
     require_once 'views/layout/footer.php';
@@ -154,7 +153,7 @@ class ProductoController
 
     require_once 'views/layout/header.php';
     require_once 'views/layout/banner.php';
-    require_once 'views/layout/nav.php';    
+    require_once 'views/layout/nav.php';
     require_once 'views/layout/sidebarAdministrativo.php';
     require_once 'views/producto/listar.php';
     require_once 'views/layout/footer.php';
@@ -386,7 +385,7 @@ class ProductoController
           echo '<div class="men-thumb-item text-center">';
           echo '<img class="img-fluid" src="' . base_url . 'uploads/images/productos/' . $mostrarProducto->imagen . '" alt="">';
           echo '<div class="men-cart-pro">';
-          echo '</div>';         
+          echo '</div>';
           echo '</div>';
           echo '<div class="item-info-product text-center border-top mt-4">';
           echo '<h4 class="pt-1">';
@@ -444,7 +443,7 @@ class ProductoController
 
     require_once 'views/layout/header.php';
     require_once 'views/layout/banner.php';
-    require_once 'views/layout/nav.php';    
+    require_once 'views/layout/nav.php';
     require_once 'views/producto/descripcion.php';
     require_once 'views/layout/footer.php';
   }

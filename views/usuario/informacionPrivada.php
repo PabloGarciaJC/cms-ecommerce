@@ -33,32 +33,34 @@
         <label class="erroresValidacion"></label>
       </div>
 
-  
-
-      <?php if ($usuario->Pais == '') : ?>
-
-
-      <?php else : ?>
-
-
-      <?php endif; ?>
-
-
       <div class="form-row">
         <div class="form-group col-md-4">
           <label for="inputState">País</label>
           <select class="form-control" id="pais" name="pais" onchange="mostrarCodigoPaises()">
-            <option selected="">Seleccione...</option>
-            <?php while ($fila = mysqli_fetch_array($paisesTodos)) : ?>
-              <option value="<?= $fila['Id'] ?>"><?= $fila['Pais'] ?></option>
-            <?php endwhile; ?>
+
+            <?php if ($usuario->Pais == "") : ?>
+              <option selected="">Seleccione...</option>
+              <?php while ($fila = mysqli_fetch_array($paisesTodos)) : ?>
+                <option value="<?= $fila['Id'] ?>"><?= $fila['Pais'] ?></option>
+              <?php endwhile; ?>
+            <?php else : ?>
+              <option selected=""><?= $usuario->Pais ?></option>
+              <?php while ($fila = mysqli_fetch_array($paisesTodos)) : ?>
+                <option value="<?= $fila['Id'] ?>"><?= $fila['Pais'] ?></option>
+              <?php endwhile; ?>
+            <?php endif; ?>
           </select>
+
         </div>
 
         <div class="form-group col-md-4">
           <label for="inputState">Ciudad/Región</label>
           <select class="form-control" id="ciudad" name="ciudad" disabled>
-            <option selected="">Seleccione...</option>
+            <?php if ($usuario->Ciudad == "") : ?>
+              <option selected="">Seleccione...</option>
+            <?php else : ?>
+              <option selected=""><?= $usuario->Ciudad ?></option>
+            <?php endif; ?>
           </select>
         </div>
 

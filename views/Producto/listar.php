@@ -25,11 +25,9 @@
               <!-- Original -->
               <div class="col">
                 <input type="text" class="form-control" placeholder=" Buscador..." id="buscadorProductos">
-
                 <br>
                 <!-- Respuesta Ajax  -->
                 <div id="respuestaPhpBuscadorProductos"></div>
-
                 <!-- // Respuesta Ajax  -->
               </div>
               <!-- Original -->
