@@ -17,7 +17,9 @@
       <div class="card">
         <div class="card-header">
           <h5 class="card-title mb-0">Lista de Productos</h5>
-          <div id="respuestaPhpEliminarProducto" style="text-align: center; display: none"></div>
+
+          <!-- <div id="respuestaPhpEliminarProducto"></div> -->
+
         </div>
         <div class="card-body">
           <div class="container">

@@ -1,6 +1,7 @@
 
 function eliminarDatosProducto(idProducto, nombreProductoBd) {
 
+  console.log(idProducto);
   Swal.fire({
     title: 'Estas Seguro ?' ,
     text: 'Se borrará de forma permanente : ' + nombreProductoBd,
@@ -16,7 +17,8 @@ function eliminarDatosProducto(idProducto, nombreProductoBd) {
         url: baseUrl + 'Producto/eliminar',
         data: { id: idProducto },
       })
-        .done(function (respuestaPhpEliminarProducto) {         
+        .done(function (respuestaPhpEliminarProducto) { 
+          // $("#respuestaPhpEliminarProducto").html(respuestaPhpEliminarProducto);        
           if (respuestaPhpEliminarProducto == 1) {
             Swal.fire(
               'Eliminado!',
@@ -25,6 +27,12 @@ function eliminarDatosProducto(idProducto, nombreProductoBd) {
             ).then(function () {
               window.location = baseUrl + "Producto/listar";
             });
+          }else{
+            Swal.fire({
+              icon: 'error',
+              title: '¡IMPORTANTE!',
+              text: 'Error, no se pueden Eliminar Los Productos que Tengan Pedidos Pendiente.....',           
+            })
           }
         })
         .fail(function () {
@@ -33,7 +41,7 @@ function eliminarDatosProducto(idProducto, nombreProductoBd) {
         .always(function () {
           console.log("completo");
         });
-    }
+     }
   })
 }
  

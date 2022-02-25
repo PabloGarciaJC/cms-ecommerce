@@ -9,11 +9,12 @@ let checkedOfertas = document.querySelectorAll('.checkedOfertas');
 var buscadorMostrarProducto = document.getElementById('buscadorMostrarProducto');
 
 // Capturo Valores del Buscador a tiempo real y repueblo el otro Buscador
-buscadorMostrarProducto.addEventListener('keyup', (event) => {
-  valorBuscador = event.path[0].value;
-  $('#buscadorGlobal').val(valorBuscador);
-});
-
+if (buscadorMostrarProducto) {
+  buscadorMostrarProducto.addEventListener('keyup', (event) => {
+    valorBuscador = event.path[0].value;
+    $('#buscadorGlobal').val(valorBuscador);
+  });
+}
 // Obtengo IdCategoria
 let productoIdCategoriaMarca = $('#productoIdCategoria').val();
 

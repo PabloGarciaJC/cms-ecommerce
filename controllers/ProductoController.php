@@ -286,12 +286,14 @@ class ProductoController
 
   public function eliminar()
   {
-    $id = $_POST['id'];
+    $id = isset($_POST['id']) ? $_POST['id'] : false;
     $producto = new Productos();
     $producto->setId($id);
     $eliminado = $producto->eliminar();
     if ($eliminado) {
       echo 1;
+    } else {
+      true;
     }
   }
 

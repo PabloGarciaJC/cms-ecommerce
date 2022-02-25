@@ -25,14 +25,15 @@ if (formBuscadorGlobal) {
 }
 
 // Capturo Valores del Buscador a tiempo real y repueblo el otro Buscador
-buscadorGlobal.addEventListener('keyup', (event) => {
+if (formBuscadorGlobal) {
+  buscadorGlobal.addEventListener('keyup', (event) => {
 
-  valorBuscador = event.path[0].value;
+    valorBuscador = event.path[0].value;
 
-  $('#buscadorMostrarProducto').val(valorBuscador);
+    $('#buscadorMostrarProducto').val(valorBuscador);
 
-});
-
+  });
+}
 // Valido de si el Input esta Vacio, haga una consulta
 $('#formBuscadorGlobal').on('keyup', function () {
 

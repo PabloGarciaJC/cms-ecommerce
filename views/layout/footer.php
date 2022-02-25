@@ -314,7 +314,7 @@
   <script src="<?= base_url ?>assets/js/repositorio/autocompletado/autocompletado.js"></script>
   <script src="<?= base_url ?>assets/js/repositorio/autocompletado/mostrar.js"></script>
   <script>
-    autocompletado(<?= $jsonMostrar ?>);
+    autocompletado(<?= isset($jsonMostrar) ? $jsonMostrar :false ?>);
   </script>
 
   </html>
