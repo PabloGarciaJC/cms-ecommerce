@@ -1,7 +1,8 @@
 
-El Diagrama de Entidad Relación de la Bases de Datos Esta ubicado en la Carpeta database.
+- El Diagrama de Entidad Relación de la Bases de Datos Esta ubicado en la Carpeta database.
 
-Para ver las Imagenes del Proyecto Puedes Ubicarlas en https://www.pablogarciajc.com/es/portafolio
+- Para ver las Imagenes del Proyecto Puedes Ubicarlas en https://www.pablogarciajc.com/es/portafolio
+
 
 Instalación de Paises y Ciudades
 Tabla [1] Paises: 
