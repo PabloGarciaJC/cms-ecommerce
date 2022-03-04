@@ -3,12 +3,6 @@
 
 		<div id="tes"></div>
 
-		<h3 class="tittle-w3l text-center mb-lg-5 mb-sm-4 mb-3">
-			<span>O</span>ure
-			<span>N</span>ew
-			<span>P</span>roducts
-		</h3>
-
 		<?php if ($mostrarMarcaSinRepetirSidebar->num_rows > 0) : ?>
 
 			<div class="row">

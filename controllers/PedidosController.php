@@ -24,8 +24,7 @@ class PedidosController
 
     require_once 'views/layout/header.php';
     require_once 'views/layout/banner.php';
-    require_once 'views/layout/nav.php';
-    require_once 'views/layout/search.php';
+    require_once 'views/layout/nav.php';   
     require_once 'views/layout/sidebarAdministrativo.php';
     require_once 'views/pedidos/crear.php';
     require_once 'views/layout/footer.php';

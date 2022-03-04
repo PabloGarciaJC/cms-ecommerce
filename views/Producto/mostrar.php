@@ -21,18 +21,14 @@
 <div class="ads-grid py-sm-5 py-4">
 	<div class="container py-xl-4 py-lg-2">
 
-		<h3 class="tittle-w3l text-center mb-lg-5 mb-sm-4 mb-3">
-			<span>M</span>obiles
-			<span>&</span>
-			<span>C</span>omputers
-		</h3>
+	
 
 		<?php if ($mostrarMarcaSinRepetirSidebar->num_rows > 0) : ?>
 
 			<div class="row">
 				<div class="agileinfo-ads-display col-lg-9">
 					<div class="wrapper">
-						
+
 						<!-- Id Categoria Para Obtener el Producto -->
 						<input type="hidden" id="productoIdCategoria" value="<?= $mostrarProductoPorCategoria->id ?>">
 

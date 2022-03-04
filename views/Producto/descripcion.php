@@ -1,21 +1,12 @@
 	<!-- Single Page -->
 	<div class="banner-bootom-w3-agileits py-5">
 		<div class="container py-xl-4 py-lg-2">
-			<!-- tittle heading -->
-			<h3 class="tittle-w3l text-center mb-lg-5 mb-sm-4 mb-3">
-				<span>S</span>ingle
-				<span>P</span>age
-			</h3>
-			<!-- //tittle heading -->
+
 			<div class="row">
 				<div class="col-lg-5 col-md-8 single-right-left ">
 					<div class="grid images_3_of_2">
 						<div class="flexslider">
-						
-								
-										<img src="<?= base_url ?>uploads/images/productos/<?= $idProducto->imagen ?>" width="50%" height="50%"  alt="">
-								
-							
+							<img src="<?= base_url ?>uploads/images/productos/<?= $idProducto->imagen ?>" width="50%" height="50%" alt="">
 							<div class="clearfix"></div>
 						</div>
 					</div>
@@ -77,7 +68,7 @@
 	</div>
 	<!-- //Single Page -->
 
-<!-- Con este Scrip Soluciono el Problema. de cargar la pagina dos veces -->
+	<!-- Con este Scrip Soluciono el Problema. de cargar la pagina dos veces -->
 	<script>
 		if (window.history.replaceState) {
 			window.history.replaceState(null, null, window.location.href);

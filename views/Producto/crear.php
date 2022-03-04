@@ -81,8 +81,7 @@
                 <?php if (isset($_GET['id'])) : ?>
 
                   <select class="form-control" id="ofertaProducto">
-                    <option value="5" selected><?= isset($_GET['id']) ? $obtenerProductosPorId->oferta : false ?></option>
-                    <option value="5">5 % de Descuento</option>
+                    <option value="5" selected><?= isset($_GET['id']) ? $obtenerProductosPorId->oferta : false ?> % de Descuento</option>                    
                     <option value="10">10 % de Descuento</option>
                     <option value="20">20 % de Descuento</option>
                     <option value="30">30 % de Descuento</option>
