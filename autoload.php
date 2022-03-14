@@ -1,5 +1,5 @@
 <?php 
-
+/* Cargar clases */
 function controller_autoload($classname){
     require_once 'controllers/'.$classname.".php";
 }

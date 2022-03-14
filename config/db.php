@@ -1,5 +1,5 @@
 <?php
-
+// Conexion
  class Database{
     static public function connect(){
         $db = new mysqli('localhost','root','','pablogarciajc_ecommerce','3306');
