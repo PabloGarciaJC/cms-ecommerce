@@ -2,7 +2,6 @@
 
 class Productos
 {
-
   private $id;
   private $idCategoria;
   private $nombre;

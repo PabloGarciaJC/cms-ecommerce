@@ -23,7 +23,6 @@ class Utils
     }
   }
 
-
   //borrar errores del formulario palen administrativo
   public static function borrarSesionErrores()
   {
@@ -287,3 +286,6 @@ class Utils
     return $jsonListado = json_encode($arrayListados);
   }
 };
+
+
+
