@@ -286,3 +286,5 @@ class UsuarioController
         require_once 'views/layout/footer.php';
     }
 }
+
+

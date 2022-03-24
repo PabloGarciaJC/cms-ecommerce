@@ -58,6 +58,5 @@ if (informacionPublica) {
         console.log("completo");
       });
   });
-
-
 }
+
