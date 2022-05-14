@@ -18,3 +18,14 @@ Nota:
 Tabla [5] Usuarios: 
 Nota: 
 - Crear Usuarios
+
+Tabla [6] table pedidos: 
+Nota: 
+- Crear table pedidos
+
+Tabla [7] lineas_pedidos: 
+Nota: 
+- Crear lineas_pedidos
+
+
+

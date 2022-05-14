@@ -41,6 +41,7 @@ class UsuarioController
         $registro->setPassword($confirmarPassword);
         $comprobarUsuario = $registro->repetidosUsuario();
         $comprobandoEmail = $registro->repetidosEmail();
+        
         //validacion
         if (empty(trim($usuario))) {
             $mensaje = utils::setearMensajeError('mdErrorUsuarioPhp', 'Ingrese Alias');

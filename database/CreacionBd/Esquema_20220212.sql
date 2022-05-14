@@ -1,11 +1,16 @@
+create database pablogarciajc_ecommerce;
+
 use pablogarciajc_ecommerce;
+
 CREATE TABLE IF NOT EXISTS `Paises` (
   `Codigo` varchar(2) NOT NULL,
   `Pais` varchar(100) NOT NULL,
   PRIMARY KEY (`Codigo`)
 ) Engine = InnoDB;
+
 ALTER TABLE
   Paises CHANGE COLUMN Codigo Id varchar(2) NOT NULL;
+
 CREATE TABLE IF NOT EXISTS `Ciudades` (
     `idCiudades` int(11) NOT NULL AUTO_INCREMENT,
     `Paises_Codigo` varchar(2) NOT NULL,
@@ -14,15 +19,19 @@ CREATE TABLE IF NOT EXISTS `Ciudades` (
     KEY `Paises_Codigo` (`Paises_Codigo`),
     KEY `Ciudad` (`Ciudad`)
   ) Engine = InnoDB;
+
 ALTER TABLE
   ciudades CHANGE COLUMN idCiudades Id int(11) NOT NULL;
+  
 ALTER TABLE
   ciudades CHANGE COLUMN Paises_Codigo Id_Pais varchar(2) NOT NULL;
+
 CREATE TABLE categorias(
     id int(255) auto_increment not null,
     categorias varchar(100) not null,
     CONSTRAINT pk_categorias PRIMARY KEY(id)
   ) ENGINE = InnoDb;
+
 CREATE TABLE productos(
     id int(255) auto_increment not null,
     categoria_id int(255),
@@ -37,6 +46,7 @@ CREATE TABLE productos(
     CONSTRAINT pk_categorias PRIMARY KEY(id),
     CONSTRAINT fk_producto_categoria FOREIGN KEY(categoria_id) REFERENCES categorias(id)
   ) ENGINE = InnoDb;
+
 create table Usuarios(
     Id int auto_increment,
     Usuario varchar(55),
@@ -56,6 +66,7 @@ create table Usuarios(
     constraint UQ_USUARIOS_USUARIO UNIQUE (Usuario),
     constraint UQ_USUARIOS_EMAIL UNIQUE (Email)
   ) Engine = InnoDB;
+
 CREATE table pedidos(
     id int(255) auto_increment,
     usuario_id int(255),
@@ -70,6 +81,7 @@ CREATE table pedidos(
     CONSTRAINT pk_pedidos PRIMARY KEY(id),
     CONSTRAINT fk_pedido_usuario FOREIGN KEY(usuario_id) REFERENCES Usuarios(Id)
   ) ENGINE = InnoDb;
+
 CREATE TABLE lineas_pedidos(
     id int(255) auto_increment not null,
     pedido_id int(255) not null,
@@ -79,4 +91,3 @@ CREATE TABLE lineas_pedidos(
     CONSTRAINT fk_linea_pedido FOREIGN KEY(pedido_id) REFERENCES pedidos(id),
     CONSTRAINT fk_linea_producto FOREIGN KEY(producto_id) REFERENCES productos(id)
   ) ENGINE = InnoDb;
-use pablogarciajc_ecommerce;

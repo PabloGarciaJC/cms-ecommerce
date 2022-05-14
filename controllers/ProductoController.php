@@ -191,31 +191,31 @@ class ProductoController
     // Anterior
     if ($paginaActual != 1) {
       echo '<li class="page-item">';
-      echo '<a class="page-link" href="#" onclick = "ajaxBuscadorProductos(' . $paginaAnterior . ',\'' . $buscadorProductos . '\')"> Anterior </a>';
+      echo '<a class="page-link" onclick = "ajaxBuscadorProductos(' . $paginaAnterior . ',\'' . $buscadorProductos . '\')"> Anterior </a>';
       echo '</li>';
     } else {
       echo '<li class="page-item disabled">';
-      echo '<a class="page-link" href="#">Anterior</a>';
+      echo '<a class="page-link" >Anterior</a>';
       echo '</li>';
     }
 
     // Cuerpo 
     for ($i = 1; $i <= $mostrarNumerosdePaginas; $i++) {
       if ($i == $paginaActual) {
-        echo '<li class="page-item active"><a class="page-link" href="#">' . $i . '</a></li>';
+        echo '<li class="page-item active"><a class="page-link" >' . $i . '</a></li>';
       } else {
-        echo '<li class="page-item"><a class="page-link" href="#" onclick = "ajaxBuscadorProductos(' . $i . ',\'' . $buscadorProductos . '\')">' . $i . '</a></li>';
+        echo '<li class="page-item"><a class="page-link"  onclick = "ajaxBuscadorProductos(' . $i . ',\'' . $buscadorProductos . '\')">' . $i . '</a></li>';
       }
     }
 
     // Siguiente 
     if ($paginaActual != $mostrarNumerosdePaginas) {
       echo '<li class="page-item">';
-      echo '<a class="page-link" href="#" onclick = "ajaxBuscadorProductos(' . $paginaSiguiente . ',\'' . $buscadorProductos . '\')" >Siguente</a>';
+      echo '<a class="page-link"  onclick = "ajaxBuscadorProductos(' . $paginaSiguiente . ',\'' . $buscadorProductos . '\')" >Siguente</a>';
       echo '</li>';
     } else {
       echo '<li class="page-item disabled">';
-      echo '<a class="page-link" href="#">Siguente</a>';
+      echo '<a class="page-link" >Siguente</a>';
       echo '</li>';
     }
     echo '</ul>';
