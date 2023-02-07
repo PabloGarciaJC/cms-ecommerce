@@ -22,7 +22,7 @@ La aplicación cuenta con **cuatro módulos** principales: Autenticación y Gest
 
 Además, **la aplicación cuenta con una función de Validación de Datos**, que verifica la validez de los datos ingresados por los usuarios y los productos, para garantizar un proceso de compra correcto y seguro.
 
-* **Objetivo:**
+## Objetivo
 
 Como desarrollador de una aplicación **E-commerce**, mi objetivo es desarrollar un sistema intuitivo, confiable y escalable que proporcione una experiencia agradable tanto para los usuarios como para el negocio. Esto incluye la incorporación de funcionalidades para búsqueda del producto y medidas de seguridad para proteger la información de los usuarios.
 
