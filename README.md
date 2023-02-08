@@ -68,7 +68,7 @@ La aplicación web se desarrolla con un enfoque en mejorar la experiencia de usu
     * Haga clic en el botón "Ir" para iniciar la importación.
     * Después de importar la base de datos, en un navegador, vaya a [http://localhost/portafolios/pablogarciajc_ecommerce/] para acceder a su proyecto.
 
-## Acceder con el rol de administrador
+## Acceder con el Rol de Administrador
 
 * Usuario: admin@admin.com
 * Password: 12345678
