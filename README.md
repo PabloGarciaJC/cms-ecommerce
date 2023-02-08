@@ -33,7 +33,23 @@ La aplicación cuenta con **cuatro módulos:**
 
 ## Tecnologías
 
-La aplicación web se desarrolla con un enfoque en mejorar la experiencia de usuario en el **front-end** con la utilización de una plantilla, Bootstrap v4.0.0, JavaScript, Jquery y Ajax. En el **back-end**, se utiliza PHP 7.3.5 como lenguaje de programación y MySQL como base de datos, y se aplica la programación orientada a objetos y una arquitectura MVC para una gestión eficiente de los datos y la lógica de negocio. En general, la aplicación busca ofrecer una experiencia fluida y eficiente para los usuarios y una gestión organizada y robusta de la información.
+La aplicación web se desarrolla con **PHP 7.3.5 como lenguaje de programación.**
+
+**Front-end:**
+
+* Bootstrap v4.0.0: [plantilla](https://github.com/PabloGarciaJC/pablogarciajc_ecommerce) que mejora la apariencia y la experiencia del usuario.
+* JavaScript: lenguaje de programación que permite agregar funcionalidades dinámicas a la aplicación web.
+* JQuery: biblioteca de JavaScript que facilita la manipulación del DOM y la realización de solicitudes HTTP.
+
+**Back-end:**
+
+* SQL (Structured Query Language) es un lenguaje de programación utilizado para interactuar con bases de datos relacionales. Con SQL, puedes crear, consultar, actualizar y eliminar datos en una base de datos.
+
+* PhpMyAdmin, permite a los usuarios realizar varias tareas de gestión de bases de datos, como la creación, modificación y eliminación de bases de datos, tablas, columnas, índices y usuarios; la ejecución de sentencias SQL y la gestión de usuarios y permisos de la base de datos.
+
+**El patrón de arquitectura:**
+
+* Model-View-Controller (MVC) es un patrón de diseño que se utiliza para separar la lógica de negocios de una aplicación, la representación visual de los datos y la gestión de la entrada del usuario.
 
 ## Instalación
 
