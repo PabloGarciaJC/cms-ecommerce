@@ -20,7 +20,7 @@ La aplicación cuenta con **cuatro módulos** principales: Autenticación y Gest
 
 * **Gestión de Pedidos:** Este módulo permite a los usuarios ver un historial de sus compras y a los administradores gestionar las ordenes realizadas. Los administradores también pueden ver una lista de todas las órdenes realizadas y cambiar su estado.
 
-Además, **la aplicación cuenta con una función de Validación de Datos**, que verifica la validez de los datos ingresados por los usuarios y los productos, para garantizar un proceso de compra correcto y seguro.
+* Además, **la aplicación cuenta con una función de Validación de Datos**, que verifica la validez de los datos ingresados por los usuarios y los productos, para garantizar un proceso de compra correcto y seguro.
 
 ## Tecnologías
 
