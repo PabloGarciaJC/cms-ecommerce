@@ -10,7 +10,7 @@ El objetivo principal del desarrollo de la **aplicación E-commerce** es crear u
 
 ## Funcionaliades
 
-La aplicación cuenta con **cuatro módulos** principales: Autenticación y Gestión de Usuarios, Gestión de Productos y Categorías, Carrito de Compras y Gestión de Pedidos.
+La aplicación cuenta con **cuatro módulos:**
 
 * **Autenticación y Gestión de Usuarios:** Este módulo permite a los usuarios registrarse y iniciar sesión en la plataforma de e-commerce. Además, también permite a los usuarios editar su información personal y configuraciones de cuenta.
 
