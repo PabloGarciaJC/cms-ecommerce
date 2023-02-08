@@ -37,7 +37,7 @@ La aplicación web se desarrolla con **PHP 7.3.5 como lenguaje de programación.
 
 **Front-end:**
 
-* Bootstrap v4.0.0: [plantilla](https://github.com/PabloGarciaJC/pablogarciajc_ecommerce) que mejora la apariencia y la experiencia del usuario.
+* Bootstrap v4.0.0: [plantilla](https://w3layouts.com/template/electro-store-an-ecommerce-theme-bootstrap-template/) que mejora la apariencia y la experiencia del usuario.
 * JavaScript: lenguaje de programación que permite agregar funcionalidades dinámicas a la aplicación web.
 * JQuery: biblioteca de JavaScript que facilita la manipulación del DOM y la realización de solicitudes HTTP.
 
