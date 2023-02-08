@@ -1,8 +1,6 @@
 
 # Aplicación Web Ecommerce
 
-El objetivo principal del desarrollo de la **aplicación E-commerce** es crear un sistema intuitivo, seguro y escalable que brinde una experiencia satisfactoria a compradores y vendedores. Como desarrollador web, mi misión es aplicar esta visión mediante el uso de buenas prácticas de desarrollo para lograr un sistema eficiente. **Mi objetivo** es mantener la relevancia y eficacia del proyecto adaptándolo cuando sea necesario en el mercado.
-
 La **Aplicación Web Ecommerce**, es desarrollado como un sistema intuitivo, seguro y escalable que brinde una experiencia satisfactoria a compradores y vendedores. Como desarrollador web, mi misión es aplicar esta visión mediante el uso de buenas prácticas de desarrollo para lograr un sistema eficiente. **Mi objetivo** es mantener la relevancia y eficacia del proyecto adaptándolo cuando sea necesario en el mercado.
 
 </br>
