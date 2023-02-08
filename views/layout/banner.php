@@ -18,7 +18,7 @@
             </li>
             <li class="text-center border-right text-white">
               <a href="#" data-toggle="modal" data-target="#exampleModal" class="text-white"></a>
-                <!-- <i class="fas fa-truck mr-2"></i>Track Order</a> -->
+              <!-- <i class="fas fa-truck mr-2"></i>Track Order</a> -->
             </li>
             <li class="text-center border-right text-white">
               <i class="fas fa-phone mr-2"></i> 001 234 5678
@@ -26,8 +26,6 @@
 
             <li class="text-center border-right text-white">
               <a href="#" data-toggle="modal" data-target="#exampleModal" class="text-white">
-
-         
 
                 <?php if (isset($_SESSION['usuarioRegistrado'])) : ?>
                   <a href="<?= base_url ?>usuario/informacionGeneral" class="estilosSesionRegistro">Hola, <?= $usuario->Usuario ?></a>

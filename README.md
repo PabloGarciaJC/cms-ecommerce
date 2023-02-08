@@ -32,33 +32,42 @@ La aplicación web se desarrolla con un enfoque en mejorar la experiencia de usu
 
 ## Instalación
 
-### Requisitos
+**Requisitos:**
 
 * Descargar un servidor local, recomiendo (Wampserver64).
-* Descagar el Proyecto en Github.
 
-### Configuración
+**Configuración:**
 
-1. Verifique que WAMP esté instalado y en ejecución en su computadora.
+1. Descargar el proyecto de GitHub:
 
-2. Cree una carpeta en el escritorio llamada «portafolios» y extraiga el proyecto que previamente descargó de Github. Verifique que el nombre de la carpeta sea «pablogarciajc_ecommerce» y copie y pegue dicha carpeta en la carpeta «www» dentro del directorio de instalación de WAMP.
+    * Vaya al repositorio del proyecto en GitHub.
+    * Haga clic en el botón "Clone or download".
+    * Seleccione "Download ZIP" para descargar un archivo ZIP con el proyecto.
 
-3. Para crear las tablas para la base de datos
+2. Mover el proyecto a la carpeta de servidor WAMP:
 
-4. Acceda a PHPMyAdmin.
+    * Abra la carpeta "www" dentro de la carpeta de instalación de WAMP en su equipo.
+    * Cree una carpeta en el escritorio llamada «portafolios».
+    * Descomprima el archivo ZIP descargado en la carpeta "www/portafolios", que previamente descargó de Github.
+    * Verifique que el nombre de la carpeta del proyecto sea «pablogarciajc_ecommerce».
 
-5. Seleccione la base de datos a la que desea importar: el cual esta en  el archivo del proyecto llamado «database», que ha descargado de Github.
+3. Iniciar WAMP:
 
-6. Haga clic en la pestaña «Importar».
+    * Haga clic en el icono de WAMP en la bandeja del sistema (es posible que deba hacer clic con el botón derecho del mouse para ver todas las opciones disponibles).
+    * Seleccione "Start All Services" para iniciar el servidor WAMP.
 
-7. Haga clic en el botón «Examinar» y seleccione el archivo de la base de datos que desea importar.
-Seleccione el formato de la base de datos (SQL, CSV, etc.)
+4. Acceder a phpMyAdmin:
 
-8. Haga clic en el botón «Ejecutar» para comenzar la importación.
+    * Abra un navegador web y escriba "localhost/phpmyadmin" en la barra de direcciones.
+    * Ingrese su nombre de usuario y contraseña de phpMyAdmin.
 
-**Nota:** Si el archivo de la base de datos es muy grande, es posible que deba aumentar los límites de tiempo y memoria en el archivo «php.ini». También puede importar la base de datos a través de la línea de comandos utilizando el comando «mysql».
+5. Importar la base de datos en phpMyAdmin:
 
-En un navegador, vaya a «http://localhost/portafolios/pablogarciajc_ecommerce/» para acceder a su proyecto.
+    * En la pestaña "Importar", haga clic en el botón "Examinar" y seleccione el archivo de la base de datos que desea importar en su equipo, el cual esta en  el archivo del proyecto llamado «database» que ha descargado de Github y tiene como nombre pablogarciajc_ecommerce.sql
+    * Asegúrese de que el formato de la base de datos sea compatible con phpMyAdmin y seleccione la correcta opción de formato (por ejemplo, SQL).
+    * Haga clic en el botón "Ir" para iniciar la importación.
+
+Después de importar la base de datos, en un navegador, vaya a [http://localhost/portafolios/pablogarciajc_ecommerce/] para acceder a su proyecto.
 
 ## Contáctame para más información o preguntas
 
