@@ -12,13 +12,22 @@ La **Aplicación Web Ecommerce**, es desarrollado como un sistema intuitivo, seg
 
 La aplicación cuenta con **cuatro módulos:**
 
-* **Autenticación y Gestión de Usuarios:** Este módulo permite a los usuarios registrarse y iniciar sesión en la plataforma de e-commerce. Además, también permite a los usuarios editar su información personal y configuraciones de cuenta.
+**Autenticación y Gestión de Usuarios:**
 
-* **Gestión de Productos y Categorías:** Este módulo muestra la lista de productos disponibles para la compra, con opciones de filtrado y búsqueda. También muestra información detallada sobre un producto individual para ayudar a los usuarios a tomar una decisión de compra. Además, los administradores pueden gestionar productos y categorías.
+* Este módulo permite a los usuarios registrarse y iniciar sesión en la plataforma de e-commerce. Además, también permite a los usuarios editar su información personal y configuraciones de cuenta.
 
-* **Carrito de Compras:** Este módulo permite a los usuarios agregar productos a su carrito y verificar el total de la compra. También permite a los usuarios confirmar su compra y proporcionar información de envío y pago.
+**Gestión de Productos y Categorías:**
 
-* **Gestión de Pedidos:** Este módulo permite a los usuarios ver un historial de sus compras y a los administradores gestionar las ordenes realizadas. Los administradores también pueden ver una lista de todas las órdenes realizadas y cambiar su estado.
+* Este módulo muestra la lista de productos disponibles para la compra, con opciones de filtrado y búsqueda.
+* También muestra información detallada sobre un producto individual para ayudar a los usuarios a tomar una decisión de compra. Además, los administradores pueden gestionar productos y categorías.
+
+**Carrito de Compras:**
+
+* Este módulo permite a los usuarios agregar productos a su carrito y verificar el total de la compra. También permite a los usuarios confirmar su compra y proporcionar información de envío y pago.
+
+**Gestión de Pedidos:**
+
+* Este módulo permite a los usuarios ver un historial de sus compras y a los administradores gestionar las ordenes realizadas. Los administradores también pueden ver una lista de todas las órdenes realizadas y cambiar su estado.
 
 * Además, **la aplicación cuenta con una función de Validación de Datos**, que verifica la validez de los datos ingresados por los usuarios y los productos, para garantizar un proceso de compra correcto y seguro.
 
