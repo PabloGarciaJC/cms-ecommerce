@@ -1,7 +1,7 @@
 
 # Aplicación Web Ecommerce
 
-**Aplicación Web Ecommerce** es un sistema que permite mediante la compra, venta, pedido y pago de productos o servicios se realiza por internet. En este tipo de transacción comercial online, el vendedor puede comunicarse con el comprador sin que exista un encuentro cara a cara.
+El objetivo principal del desarrollo de la **aplicación E-commerce** es crear un sistema intuitivo, seguro y escalable que brinde una experiencia satisfactoria a compradores y vendedores. Como desarrollador web, mi misión es aplicar esta visión mediante el uso de buenas prácticas de desarrollo para lograr un sistema eficiente. **Mi objetivo** es mantener la relevancia y eficacia del proyecto adaptándolo cuando sea necesario en el mercado.
 
 </br>
 
@@ -21,10 +21,6 @@ La aplicación cuenta con **cuatro módulos** principales: Autenticación y Gest
 * **Gestión de Pedidos:** Este módulo permite a los usuarios ver un historial de sus compras y a los administradores gestionar las ordenes realizadas. Los administradores también pueden ver una lista de todas las órdenes realizadas y cambiar su estado.
 
 Además, **la aplicación cuenta con una función de Validación de Datos**, que verifica la validez de los datos ingresados por los usuarios y los productos, para garantizar un proceso de compra correcto y seguro.
-
-## Objetivo
-
-Como desarrollador de una aplicación **E-commerce**, mi objetivo es desarrollar un sistema intuitivo, confiable y escalable que proporcione una experiencia agradable tanto para los usuarios como para el negocio. Esto incluye la incorporación de funcionalidades para búsqueda del producto y medidas de seguridad para proteger la información de los usuarios.
 
 ## Tecnologías
 
