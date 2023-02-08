@@ -69,6 +69,11 @@ La aplicación web se desarrolla con un enfoque en mejorar la experiencia de usu
 
 Después de importar la base de datos, en un navegador, vaya a [http://localhost/portafolios/pablogarciajc_ecommerce/] para acceder a su proyecto.
 
+## Acceder con el rol de administrador
+
+* Usuario: admin@admin.com
+* Password: 12345678
+
 ## Contáctame para más información o preguntas
 
 | Redes Sociales  | Desarrollador de Aplicaciones Web |
