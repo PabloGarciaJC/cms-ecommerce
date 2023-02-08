@@ -34,7 +34,7 @@ La aplicación web se desarrolla con un enfoque en mejorar la experiencia de usu
 
 **Requisitos:**
 
-* Descargar un servidor local, recomiendo (Wampserver64).
+* Descargar un servidor local, recomiendo [Wampserver64](https://www.wampserver.com/en/download-wampserver-64bits/)
 
 **Instrucciones:**
 
@@ -66,8 +66,7 @@ La aplicación web se desarrolla con un enfoque en mejorar la experiencia de usu
     * En la pestaña "Importar", haga clic en el botón "Examinar" y seleccione el archivo de la base de datos que desea importar en su equipo, el cual esta en  el archivo del proyecto llamado «database» que ha descargado de Github y tiene como nombre pablogarciajc_ecommerce.sql
     * Asegúrese de que el formato de la base de datos sea compatible con phpMyAdmin y seleccione la correcta opción de formato (SQL).
     * Haga clic en el botón "Ir" para iniciar la importación.
-
-Después de importar la base de datos, en un navegador, vaya a [http://localhost/portafolios/pablogarciajc_ecommerce/] para acceder a su proyecto.
+    * Después de importar la base de datos, en un navegador, vaya a [http://localhost/portafolios/pablogarciajc_ecommerce/] para acceder a su proyecto.
 
 ## Acceder con el rol de administrador
 
