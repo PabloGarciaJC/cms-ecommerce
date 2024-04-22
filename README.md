@@ -5,8 +5,9 @@ La **Aplicación Web Ecommerce**, es desarrollado como un sistema intuitivo, seg
 
 </br>
 
-| ![GestionHogar_1](https://pablogarciajc.com/wp-content/uploads/2022/09/Ecoomerce-_1.png) | ![GestionHogar_2](https://pablogarciajc.com/wp-content/uploads/2022/09/Ecoomerce-_2.png)|
+| ![GestionHogar_1](https://pablogarciajc.com/wp-content/uploads/2024/03/pablogarciajc-aplicacion-web-ecommerce-img1.webp) | ![GestionHogar_2](https://pablogarciajc.com/wp-content/uploads/2024/03/pablogarciajc-aplicacion-web-ecommerce-img2.webp) |
 |-----------|-----------|
+
 
 ## Funcionaliades
 
