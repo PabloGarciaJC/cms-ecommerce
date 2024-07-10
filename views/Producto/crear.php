@@ -144,7 +144,7 @@
                     <div class="men-thumb-item text-center">
 
                       <?php if (isset($_GET['id'])) : ?>
-                        <img class="img-fluid" src="<?= base_url ?>uploads/images/productos/<?= isset($_GET['id']) ? $obtenerProductosPorId->imagen : false ?>" id="imagenProducto" alt="">
+                        <img class="img-fluid" src="<?= BASE_URL ?>uploads/images/productos/<?= isset($_GET['id']) ? $obtenerProductosPorId->imagen : false ?>" id="imagenProducto" alt="">
                       <?php else : ?>
                         <img class="img-fluid" src="" id="imagenProducto" alt="">
                       <?php endif; ?>

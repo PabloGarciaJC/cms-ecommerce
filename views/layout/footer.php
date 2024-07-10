@@ -169,7 +169,7 @@
 
   <!-- js-files -->
   <!-- jquery -->
-  <script src="<?= base_url ?>assets/js/librerias/jquery-2.2.3.min.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/librerias/jquery-2.2.3.min.js"></script>
   <!-- //jquery -->
   <!-- nav smooth scroll -->
   <script>
@@ -189,7 +189,7 @@
   <!-- //nav smooth scroll -->
 
   <!-- popup modal (for location)-->
-  <script src="<?= base_url ?>assets/js/librerias/jquery.magnific-popup.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/librerias/jquery.magnific-popup.js"></script>
   <script>
     $(document).ready(function() {
       $('.popup-with-zoom-anim').magnificPopup({
@@ -209,13 +209,13 @@
   <!-- //popup modal (for location)-->
 
   <!-- cart-js -->
-  <script src="<?= base_url ?>assets/js/librerias/minicart.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/librerias/minicart.js"></script>
 
   <!-- Descripcion -->
 
   <!-- flexslider -->
-  <link rel="stylesheet" href="<?= base_url ?>assets/css/flexslider.css" type="text/css" media="screen" />
-  <script src="<?= base_url ?>assets/js/librerias/jquery.flexslider.js"></script>
+  <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/flexslider.css" type="text/css" media="screen" />
+  <script src="<?= BASE_URL ?>assets/js/librerias/jquery.flexslider.js"></script>
   <script>
     // Can also be used with $(document).ready()
     $(window).load(function() {
@@ -229,12 +229,12 @@
   <!-- //Descripcion -->
 
   <!-- smoothscroll -->
-  <script src="<?= base_url ?>assets/js/librerias/SmoothScroll.min.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/librerias/SmoothScroll.min.js"></script>
   <!-- //smoothscroll -->
 
   <!-- start-smooth-scrolling -->
-  <script src="<?= base_url ?>assets/js/librerias/move-top.js"></script>
-  <script src="<?= base_url ?>assets/js/librerias/easing.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/librerias/move-top.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/librerias/easing.js"></script>
   <script>
     jQuery(document).ready(function($) {
       $(".scroll").click(function(event) {
@@ -267,7 +267,7 @@
   </script>
   <!-- //smooth-scrolling-of-move-up -->
   <!-- for bootstrap working -->
-  <script src="<?= base_url ?>assets/js/librerias/bootstrap.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/librerias/bootstrap.js"></script>
   <!-- //for bootstrap working -->
 
   <!-- libreria de alert sweetAlert2-->
@@ -275,44 +275,44 @@
   <!-- //libreria de sweetAlert2 -->
 
   <!-- Iniciar Sesion y Registro AJAX y Validaciones con PHP -->
-  <script src="<?= base_url ?>assets/js/config/parameters.js"></script>
-  <script src="<?= base_url ?>assets/js/repositorio/usuario/registro.js"></script>
-  <script src="<?= base_url ?>assets/js/repositorio/usuario/iniciarSesion.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/config/parameters.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/repositorio/usuario/registro.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/repositorio/usuario/iniciarSesion.js"></script>
 
   <!-- Usuario -->
-  <script src="<?= base_url ?>assets/js/repositorio/usuario/avatarVistaPrevia.js"></script>
-  <script src="<?= base_url ?>assets/js/repositorio/usuario/informacionPublica.js"></script>
-  <script src="<?= base_url ?>assets/js/repositorio/usuario/informacionPrivada.js"></script>
-  <script src="<?= base_url ?>assets/js/repositorio/usuario/ciudad.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/repositorio/usuario/avatarVistaPrevia.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/repositorio/usuario/informacionPublica.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/repositorio/usuario/informacionPrivada.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/repositorio/usuario/ciudad.js"></script>
 
   <!-- Categoria -->
-  <script src="<?= base_url ?>assets/js/repositorio/categoria/obtenerDatosEditar.js"></script>
-  <script src="<?= base_url ?>assets/js/repositorio/categoria/editar.js"></script>
-  <script src="<?= base_url ?>assets/js/repositorio/categoria/eliminar.js"></script>
-  <script src="<?= base_url ?>assets/js/repositorio/categoria/listar.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/repositorio/categoria/obtenerDatosEditar.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/repositorio/categoria/editar.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/repositorio/categoria/eliminar.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/repositorio/categoria/listar.js"></script>
 
   <!-- Producto -->
-  <script src="<?= base_url ?>assets/js/repositorio/producto/crear.js"></script>
-  <script src="<?= base_url ?>assets/js/repositorio/producto/eliminar.js"></script>
-  <script src="<?= base_url ?>assets/js/repositorio/producto/mostrarTodos.js"></script>
-  <script src="<?= base_url ?>assets/js/repositorio/producto/buscador.js"></script>
-  <script src="<?= base_url ?>assets/js/repositorio/producto/imagen.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/repositorio/producto/crear.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/repositorio/producto/eliminar.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/repositorio/producto/mostrarTodos.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/repositorio/producto/buscador.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/repositorio/producto/imagen.js"></script>
 
   <!-- Carrito Compras -->
-  <script src="<?= base_url ?>assets/js/repositorio/carritoCompras/borrar.js"></script>
-  <script src="<?= base_url ?>assets/js/repositorio/carritoCompras/mostrar.js"></script>
-  <script src="<?= base_url ?>assets/js/repositorio/carritoCompras/carritoUp.js"></script>
-  <script src="<?= base_url ?>assets/js/repositorio/carritoCompras/carritoDown.js"></script>
-  <script src="<?= base_url ?>assets/js/repositorio/carritoCompras/confimarPedido.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/repositorio/carritoCompras/borrar.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/repositorio/carritoCompras/mostrar.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/repositorio/carritoCompras/carritoUp.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/repositorio/carritoCompras/carritoDown.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/repositorio/carritoCompras/confimarPedido.js"></script>
 
   <!-- Pedidos -->
-  <script src="<?= base_url ?>assets/js/repositorio/pedidos/editarPedidos.js"></script>
-  <script src="<?= base_url ?>assets/js/repositorio/pedidos/mostrar.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/repositorio/pedidos/editarPedidos.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/repositorio/pedidos/mostrar.js"></script>
 
   <!-- Autocompletado Buscador General-->
-  <script src="<?= base_url ?>assets/js/librerias/jquery-ui.js"></script>
-  <script src="<?= base_url ?>assets/js/repositorio/autocompletado/autocompletado.js"></script>
-  <script src="<?= base_url ?>assets/js/repositorio/autocompletado/mostrar.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/librerias/jquery-ui.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/repositorio/autocompletado/autocompletado.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/repositorio/autocompletado/mostrar.js"></script>
   <script>
     autocompletado(<?= isset($jsonMostrar) ? $jsonMostrar :false ?>);
   </script>

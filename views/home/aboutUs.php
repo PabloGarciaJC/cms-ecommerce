@@ -8,7 +8,7 @@
 	    <div class="container">
 	      <ul class="w3_short">
 	        <li>
-	          <a href="<?= base_url ?>">Home</a>
+	          <a href="<?= BASE_URL ?>">Home</a>
 	          <i>|</i>
 	        </li>
 	        <li>Sobre Nosotros</li>
@@ -35,7 +35,7 @@
 	          libero aliquam. Fusce semper augue ac dolor efficitur, a pretium metus pellentesque.</p>
 	      </div>
 	      <div class="col-lg-6 welcome-right-top mt-lg-0 mt-sm-5 mt-4">
-	        <img src="<?=base_url?>assets/images/ab.jpg" class="img-fluid" alt=" ">
+	        <img src="<?=BASE_URL?>assets/images/ab.jpg" class="img-fluid" alt=" ">
 	      </div>
 	    </div>
 	  </div>

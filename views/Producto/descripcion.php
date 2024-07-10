@@ -6,7 +6,7 @@
 				<div class="col-lg-5 col-md-8 single-right-left ">
 					<div class="grid images_3_of_2">
 						<div class="flexslider">
-							<img src="<?= base_url ?>uploads/images/productos/<?= $idProducto->imagen ?>" width="50%" height="50%" alt="">
+							<img src="<?= BASE_URL ?>uploads/images/productos/<?= $idProducto->imagen ?>" width="50%" height="50%" alt="">
 							<div class="clearfix"></div>
 						</div>
 					</div>
@@ -60,7 +60,7 @@
 						</ul>
 					</div>
 					<div class="occasion-cart">
-						<a class="btn btn-primary" href="<?= base_url ?>CarritoCompras/listar&id=<?= $idProducto->id ?>">Añadir a la cesta</a>
+						<a class="btn btn-primary" href="<?= BASE_URL ?>CarritoCompras/listar&id=<?= $idProducto->id ?>">Añadir a la cesta</a>
 					</div>
 				</div>
 			</div>

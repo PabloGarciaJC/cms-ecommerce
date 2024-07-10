@@ -120,7 +120,7 @@ class PedidosController
       echo '<td style="text-align: center;">' . $mostraPedidos->coste . '</td>';
       echo '<td style="text-align: center;">' . $mostraPedidos->fecha . '</td>';
       echo '<td style="text-align: center;">' . $mostraPedidos->estado . '</td>';
-      echo '<td style="text-align: center;"><a href="' . base_url . 'Pedidos/detalles&idPedido=' . $mostraPedidos->id . '">ver</a> </td>';
+      echo '<td style="text-align: center;"><a href="' . BASE_URL . 'Pedidos/detalles&idPedido=' . $mostraPedidos->id . '">ver</a> </td>';
       if (Utils::accesoUsuarioAdmin()) :
         echo '<td style="text-align: center;">';
         echo '<a href="#" data-toggle="modal" data-target="#gestionarPedido">';

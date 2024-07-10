@@ -12,7 +12,7 @@ class Utils
   public static function accesoUsuarioRegistrado()
   {
     if (!isset($_SESSION['usuarioRegistrado'])) {
-      header("Location:" . base_url);
+      header("Location:" . BASE_URL);
     }
   }
 

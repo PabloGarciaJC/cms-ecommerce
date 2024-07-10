@@ -14,10 +14,10 @@
           <h5 class="card-title mb-0">Panel Administrativo</h5>
         </div>
         <div class="list-group list-group-flush">
-          <!-- <a class="list-group-item list-group-item-action"  href="<?= base_url ?>Usuario/panelAdministrativo">
+          <!-- <a class="list-group-item list-group-item-action"  href="<?= BASE_URL ?>Usuario/panelAdministrativo">
             Mi Perfil
           </a>
-          <a class="list-group-item list-group-item-action"  href="<?= base_url ?>Usuario/cambioPassword">
+          <a class="list-group-item list-group-item-action"  href="<?= BASE_URL ?>Usuario/cambioPassword">
             Cambio de contraseña
           </a>
           <a class="list-group-item list-group-item-action"  href="#orders">
@@ -30,7 +30,7 @@
 
           <!-- Para Ambos -->
           <?php if (isset($_SESSION['usuarioRegistrado'])) : ?>
-            <a class="list-group-item list-group-item-action" href="<?= base_url ?>Usuario/informacionGeneral">
+            <a class="list-group-item list-group-item-action" href="<?= BASE_URL ?>Usuario/informacionGeneral">
               Información General
             </a>
           <?php endif; ?>
@@ -38,7 +38,7 @@
 
           <!-- Para el Admin  -->
           <?php if (Utils::accesoUsuarioAdmin()) : ?>
-            <a class="list-group-item list-group-item-action" href="<?= base_url ?>Categoria/gestionarCategorias">
+            <a class="list-group-item list-group-item-action" href="<?= BASE_URL ?>Categoria/gestionarCategorias">
               Gestionar Categorias
             </a>
             <div class="list-group-item list-group-item-action">
@@ -47,11 +47,11 @@
 
             <div class="collapse" id="homeSubmenu">
               <div class="custom-control custom-checkbox" style="padding-top: 10px;">
-                &#x23f5; <a href="<?= base_url ?>Producto/crear" style="color: #495057;">Crear</a>
+                &#x23f5; <a href="<?= BASE_URL ?>Producto/crear" style="color: #495057;">Crear</a>
               </div>
 
               <div class="custom-control custom-checkbox">
-                &#x23f5; <a href="<?= base_url ?>Producto/listar" style="color: #495057;">Lista</a>
+                &#x23f5; <a href="<?= BASE_URL ?>Producto/listar" style="color: #495057;">Lista</a>
               </div>
             </div>
           <?php endif; ?>
@@ -63,7 +63,7 @@
             </div>
             <div class="collapse" id="submenuCarritoCompras">
               <div class="custom-control custom-checkbox" style="padding-top: 10px;">
-                &#x23f5; <a href="<?= base_url ?>CarritoCompras/listar" style="color: #495057;">Cesta</a>
+                &#x23f5; <a href="<?= BASE_URL ?>CarritoCompras/listar" style="color: #495057;">Cesta</a>
               </div>
             </div>
           <?php endif; ?>
@@ -76,14 +76,14 @@
 
             <div class="collapse" id="gestionPedidos">
               <div class="custom-control custom-checkbox" style="padding-top: 10px;">
-                &#x23f5; <a href="<?= base_url ?>Pedidos/listar" style="color: #495057;">Listar</a>
+                &#x23f5; <a href="<?= BASE_URL ?>Pedidos/listar" style="color: #495057;">Listar</a>
               </div>
             </div>
           <?php endif; ?>
 
           <!-- Para Ambos -->
           <?php if (isset($_SESSION['usuarioRegistrado'])) : ?>
-            <a class="list-group-item list-group-item-action" href="<?= base_url ?>Usuario/cerrarSesion">
+            <a class="list-group-item list-group-item-action" href="<?= BASE_URL ?>Usuario/cerrarSesion">
               Cerrar Sesion
             </a>
           <?php endif; ?>

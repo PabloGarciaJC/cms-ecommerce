@@ -8,7 +8,7 @@
 		<div class="container">
 			<ul class="w3_short">
 				<li>
-					<a href="<?= base_url ?>">Home</a>
+					<a href="<?= BASE_URL ?>">Home</a>
 					<i>|</i>
 				</li>
 				<li><?= $mostrarProductoPorCategoria->categorias ?></li>
@@ -17,24 +17,16 @@
 	</div>
 </div>
 
-
 <div class="ads-grid py-sm-5 py-4">
 	<div class="container py-xl-4 py-lg-2">
-
-	
-
 		<?php if ($mostrarMarcaSinRepetirSidebar->num_rows > 0) : ?>
-
 			<div class="row">
 				<div class="agileinfo-ads-display col-lg-9">
 					<div class="wrapper">
-
 						<!-- Id Categoria Para Obtener el Producto -->
 						<input type="hidden" id="productoIdCategoria" value="<?= $mostrarProductoPorCategoria->id ?>">
-
 						<!-- Desplazamiento del Buscador -->
 						<div id="solicita-informacion"></div>
-
 						<!-- Respuesta Ajax y PHP -->
 						<div id="respuestaPhpMostrarProductos"></div>
 					</div>

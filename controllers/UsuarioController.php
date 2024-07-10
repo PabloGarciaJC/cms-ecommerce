@@ -114,7 +114,7 @@ class UsuarioController
             unset($_SESSION['Admin']);
             unset($_SESSION['carrito']);
         }
-        header("location:" . base_url);
+        header("location:" . BASE_URL);
     }
 
 

@@ -8,7 +8,7 @@
         </div>
 
         <div class="card-body">
-          <!-- <form action="<?= base_url ?>Pedidos/guardar" method="POST"> -->
+          <!-- <form action="<?= BASE_URL ?>Pedidos/guardar" method="POST"> -->
           <form action="" id="confimarPedido" method="POST">
 
             <div class="form-row">
@@ -90,8 +90,8 @@
               </div>
             </div>
             <button type="submit" class="btn btn-success">Confirmar Pedido</button>
-            <a href="<?= base_url ?>CarritoCompras/listar" class="btn btn-danger">ver Cesta</a>
-            <a href="<?= base_url ?>Usuario/informacionGeneral" class="btn btn-info">ir al Formulario</a>
+            <a href="<?= BASE_URL ?>CarritoCompras/listar" class="btn btn-danger">ver Cesta</a>
+            <a href="<?= BASE_URL ?>Usuario/informacionGeneral" class="btn btn-info">ir al Formulario</a>
           </form>
         </div>
 
@@ -113,10 +113,10 @@
             <tbody>
               <?php foreach ($_SESSION['carrito'] as $indice => $mostrarProducto) : ?>
                 <tr>
-                  <td><img class="img-fluid" style="margin:auto; display:block;" src="<?= base_url ?>uploads/images/productos/<?= $mostrarProducto['imagen'] ?>"></td>
+                  <td><img class="img-fluid" style="margin:auto; display:block;" src="<?= BASE_URL ?>uploads/images/productos/<?= $mostrarProducto['imagen'] ?>"></td>
                   <td style="text-align: center;">
                     <br>
-                    <a href="<?= base_url ?>Producto/descripcion&id=<?= $mostrarProducto['idProducto'] ?>">
+                    <a href="<?= BASE_URL ?>Producto/descripcion&id=<?= $mostrarProducto['idProducto'] ?>">
                       <strong>Nombre:</strong> <?= $mostrarProducto['nombre'] ?><br>
                       <strong>Nombre:</strong> <?= $mostrarProducto['marca'] ?><br>
                       <strong>Nombre:</strong> <?= $mostrarProducto['precio'] ?><br>

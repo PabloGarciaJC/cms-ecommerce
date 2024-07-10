@@ -60,10 +60,10 @@
                 <div class="text-center">
                   <?php if ($usuario->Url_Avatar != null) : ?>
                     <!-- Imagen Seleciona con Javascript -->
-                    <img src="<?= base_url ?>uploads/images/avatar/<?= $usuario->Url_Avatar ?>" class="rounded-circle img-responsive mt-2" id="previe" width="128" height="128">
+                    <img src="<?= BASE_URL ?>uploads/images/avatar/<?= $usuario->Url_Avatar ?>" class="rounded-circle img-responsive mt-2" id="previe" width="128" height="128">
                   <?php else : ?>
                     <!-- Imagen Seleciona con Javascript -->
-                    <img src="<?= base_url ?>assets/images/avatar.png" class="rounded-circle img-responsive mt-2" id="previe" width="128" height="128">
+                    <img src="<?= BASE_URL ?>assets/images/avatar.png" class="rounded-circle img-responsive mt-2" id="previe" width="128" height="128">
                   <?php endif; ?>
 
                   <div class="mt-2 errorFile">

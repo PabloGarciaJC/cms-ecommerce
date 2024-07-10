@@ -28,7 +28,7 @@
               <a href="#" data-toggle="modal" data-target="#exampleModal" class="text-white">
 
                 <?php if (isset($_SESSION['usuarioRegistrado'])) : ?>
-                  <a href="<?= base_url ?>usuario/informacionGeneral" class="estilosSesionRegistro">Hola, <?= $usuario->Usuario ?></a>
+                  <a href="<?= BASE_URL ?>usuario/informacionGeneral" class="estilosSesionRegistro">Hola, <?= $usuario->Usuario ?></a>
                 <?php else : ?>
                   <i class="fas fa-sign-in-alt mr-2"></i> Hola, Identificate </a>
             <?php endif; ?>

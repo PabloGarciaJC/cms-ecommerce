@@ -1,4 +1,6 @@
-const baseUrl = 'http://localhost/Portafolios/pablogarciajc_ecommerce/';
+var url = new URL(window.location.href);
+var baseUrl = url.origin + '/';
+
 
 
 

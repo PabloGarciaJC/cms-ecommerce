@@ -121,14 +121,14 @@ class CarritoComprasController
       echo '</a>';
 
     else :
-      echo '<a href=" ' . base_url . 'Pedidos/crear"> <button type="button" class="btn btn-success">Hacer Pedido</button></a> ';
+      echo '<a href=" ' . BASE_URL . 'Pedidos/crear"> <button type="button" class="btn btn-success">Hacer Pedido</button></a> ';
     endif;
 
     echo '</div>';
 
     echo '<div class="col-sm">';
     echo '</br>';
-    echo '<a href=" ' . base_url . 'CarritoCompras/borrarTodos"> <button type="button" class="btn btn-info">Vaciar Carrito</button></a> ';
+    echo '<a href=" ' . BASE_URL . 'CarritoCompras/borrarTodos"> <button type="button" class="btn btn-info">Vaciar Carrito</button></a> ';
     echo '</div>';
 
     echo '</div>';
@@ -152,10 +152,10 @@ class CarritoComprasController
       foreach ($_SESSION['carrito'] as $indice => $mostrarProducto) {
         echo '<tr>';
         echo '<td>';
-        echo '<img class="img-fluid" src="' . base_url . 'uploads/images/productos/' . $mostrarProducto['imagen'] . '">';
+        echo '<img class="img-fluid" src="' . BASE_URL . 'uploads/images/productos/' . $mostrarProducto['imagen'] . '">';
         echo '</td>';
         echo '<td>';
-        echo '<a href="' . base_url . 'Producto/descripcion&id=' . $mostrarProducto['idProducto'] . '">';
+        echo '<a href="' . BASE_URL . 'Producto/descripcion&id=' . $mostrarProducto['idProducto'] . '">';
         echo '<strong>Nombre:</strong> ' . $mostrarProducto['nombre'] . '<br>';
         echo '<strong>Marca:</strong> ' . $mostrarProducto['marca'] . ' <br>';
         echo '<strong>Precio:</strong> ' . $mostrarProducto['precio'] . ' $ <br>';
@@ -210,7 +210,7 @@ class CarritoComprasController
   public function borrarTodos()
   {
     unset($_SESSION['carrito']);
-    header("location:" . base_url . "CarritoCompras/listar");
+    header("location:" . BASE_URL . "CarritoCompras/listar");
   }
 }
 

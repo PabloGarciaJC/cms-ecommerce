@@ -33,7 +33,7 @@
               <h5 class="card-title mb-0">Información pública</h5>
             </div>
             <div class="card-body">
-              <form action="<?= base_url ?>Usuario/actualizar" method="POST" enctype="multipart/form-data">
+              <form action="<?= BASE_URL ?>Usuario/actualizar" method="POST" enctype="multipart/form-data">
                 <div class="row">
                   <div class="col-md-8">
                     <div class="form-group">

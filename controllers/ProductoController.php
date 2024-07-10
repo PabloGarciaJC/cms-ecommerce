@@ -244,7 +244,7 @@ class ProductoController
       while ($mostrarProductos = $productos->fetch_object()) {
 
         echo '<tr>';
-        echo '<td><img class="img-fluid" src="' . base_url . 'uploads/images/productos/' . $mostrarProductos->imagen . '">';
+        echo '<td><img class="img-fluid" src="' . BASE_URL . 'uploads/images/productos/' . $mostrarProductos->imagen . '">';
         echo '</td>';
 
         echo '<td>';
@@ -254,11 +254,11 @@ class ProductoController
         echo '<strong>Oferta:</strong> ' . $mostrarProductos->oferta . " %" . '<br>';
         echo '<strong>Stock:</strong> ' . $mostrarProductos->stock . " Unidades" . '<br>';
         echo '<strong>Categoria:</strong> ' . $mostrarProductos->nombreCategoria  . '<br>';
-        echo '<strong>Descripción: <a href=" ' . base_url . 'Producto/crear&id=' . $mostrarProductos->id . '">ver más</a></strong>';
+        echo '<strong>Descripción: <a href=" ' . BASE_URL . 'Producto/crear&id=' . $mostrarProductos->id . '">ver más</a></strong>';
         echo '</td>';
 
         echo '<td>';
-        echo '<a href="' . base_url . 'Producto/crear&id=' . $mostrarProductos->id . '">';
+        echo '<a href="' . BASE_URL . 'Producto/crear&id=' . $mostrarProductos->id . '">';
         echo '<button class="btn btn-circle btn-info text-white" class="text-white">';
         echo '<i class="fa fa-pencil"></i>';
         echo '</button>';
@@ -327,7 +327,7 @@ class ProductoController
     require_once 'views/layout/banner.php';
     require_once 'views/layout/nav.php';
     require_once 'views/layout/search.php';
-    require_once 'views/producto/mostrar.php';
+    require_once 'views/Producto/mostrar.php';
     require_once 'views/layout/footer.php';
   }
 
@@ -385,7 +385,7 @@ class ProductoController
           echo '<div class="col-md-4 product-men mt-md-0 mt-5">';
           echo '<div class="men-pro-item simpleCart_shelfItem">';
           echo '<div class="men-thumb-item text-center">';
-          echo '<img class="img-fluid" src="' . base_url . 'uploads/images/productos/' . $mostrarProducto->imagen . '" alt="">';
+          echo '<img class="img-fluid" src="' . BASE_URL . 'uploads/images/productos/' . $mostrarProducto->imagen . '" alt="">';
           echo '<div class="men-cart-pro">';
           echo '</div>';
           echo '</div>';
@@ -399,7 +399,7 @@ class ProductoController
           echo '<span class="item_price"> $ ' . $mostrarProducto->precio . '</span> <del> ' . $mostrarProducto->oferta . ' %</del>';
           echo '</div>';
           echo '<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">';
-          echo '<form action="' . base_url . 'Producto/descripcion&id=' . $mostrarProducto->id . '" method="POST">';
+          echo '<form action="' . BASE_URL . 'Producto/descripcion&id=' . $mostrarProducto->id . '" method="POST">';
           echo '<fieldset>';
           echo '<input type="hidden" name="cmd" value="_cart" />';
           echo '<input type="hidden" name="add" value="1" />';

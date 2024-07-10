@@ -1,9 +1,20 @@
 <?php
-// Conexion
- class Database{
+class Database {
+
     static public function connect(){
-        $db = new mysqli('localhost','root','','pablogarciajc_ecommerce','3306');
-        $db->query("SET NAMES 'utf8'");
+        // Conexion a la base de datos usando Docker Compose
+        $db = new mysqli('mysql', DB_USER, DB_PASSWORD, DB_DATABASE);   
+        
+        // Verificar conexion
+        if ($db->connect_error) {
+            die("Error de conexion: " . $db->connect_error);
+        }
+        
+        $db->set_charset("utf8");
+
         return $db;
     }
 }
+
+
+

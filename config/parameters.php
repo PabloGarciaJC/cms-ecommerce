@@ -1,12 +1,19 @@
 <?php
 
-//hosting Heroku
-//  define("base_url", "https://pablogarciajc-ecommerce.herokuapp.com/");
+require_once __DIR__ . '/vendor/autoload.php';
 
-//localhost// 
-define("base_url", "http://localhost/Portafolios/pablogarciajc_ecommerce/");
+use Dotenv\Dotenv;
 
-define("controller_default","HomeController");
-define("action_default", "index");
+$dotenv = Dotenv::createImmutable('./docker/');
+$dotenv->load();
 
+// Bases de Datos
+define("DB_USER", $_ENV['MYSQL_USER']);
+define("DB_PASSWORD", $_ENV['MYSQL_PASSWORD']);
+define("DB_DATABASE", $_ENV['COMPOSE_PROJECT_NAME']);
+// Action es el Metodo de los Controladores
+define("CONTROLLER_DEFAULT", "HomeController");
+define("ACTION_DEFAULT", "index"); 
+define("BASE_URL", $_ENV['BASE_URL_PROJECT']); 
+?>
 

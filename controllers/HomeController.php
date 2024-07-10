@@ -28,7 +28,7 @@ class HomeController
 
         // Mosrar listar de Autocompletado
         $jsonMostrar = Utils::mostrarAutocompletado($listado);
-      
+    
         require_once 'views/layout/header.php';
         require_once 'views/layout/banner.php';
         require_once 'views/layout/nav.php';

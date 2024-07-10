@@ -73,7 +73,7 @@
             <?php while ($mostrarProducto = $mostrarProductos->fetch_object()) : ?>
               <tr>
                 <td style=" text-align: center;">
-                  <img class="img-fluid" src="<?= base_url ?>uploads/images/productos/<?= $mostrarProducto->imagen ?>">
+                  <img class="img-fluid" src="<?= BASE_URL ?>uploads/images/productos/<?= $mostrarProducto->imagen ?>">
                 </td>
                 <td style=" text-align: center;">
                   <strong>Nombre:</strong> <?= $mostrarProducto->nombre ?><br>

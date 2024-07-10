@@ -24,21 +24,21 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	</script>
 	<!-- //Meta tag Keywords -->
 
-	<link rel="icon" type="image/png" sizes="16x16"  href="<?=base_url?>assets/images/favicon.png">
+	<link rel="icon" type="image/png" sizes="16x16"  href="<?=BASE_URL?>assets/images/favicon.png">
 
 	
-	<link href="<?= base_url ?>assets/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="<?= BASE_URL ?>assets/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 
-	<link href="<?= base_url ?>assets/css/style.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="<?= BASE_URL ?>assets/css/style.css" rel="stylesheet" type="text/css" media="all" />
 
-	<link rel="stylesheet" href="<?= base_url ?>assets/css/fontawesome-all.css">
+	<link rel="stylesheet" href="<?= BASE_URL ?>assets/css/fontawesome-all.css">
 
-	<link href="<?= base_url ?>assets/css/popuo-box.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="<?= BASE_URL ?>assets/css/popuo-box.css" rel="stylesheet" type="text/css" media="all" />
 
-	<link href="<?= base_url ?>assets/css/menu.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="<?= BASE_URL ?>assets/css/menu.css" rel="stylesheet" type="text/css" media="all" />
 
 	<!-- Autocompletado -->
-	<link href="<?= base_url ?>assets/css/jquery-ui.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="<?= BASE_URL ?>assets/css/jquery-ui.css" rel="stylesheet" type="text/css" media="all" />
 
 	
 
