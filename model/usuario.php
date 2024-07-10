@@ -206,7 +206,7 @@ class Usuario
   public function iniciarSesion()
   {
     $resultado = false;
-    $sql = "SELECT * FROM Usuarios where Email ='{$this->getEmail()}'";
+    $sql = "SELECT * FROM usuarios where Email ='{$this->getEmail()}'";
     $login = $this->db->query($sql);
 
     //verificacion que existe ese email en la base de datos 
@@ -233,7 +233,7 @@ class Usuario
   public function repetidosUsuario()
   {
     $resultado = false;
-    $sql = "SELECT Usuario FROM Usuarios where Usuario ='{$this->getUsuario()}'";
+    $sql = "SELECT Usuario FROM usuarios where Usuario ='{$this->getUsuario()}'";
     $repetidos = $this->db->query($sql);
     if ($repetidos) {
       $resultado = true;
@@ -244,7 +244,7 @@ class Usuario
   public function repetidosEmail()
   {
     $resultado = false;
-    $sql = "SELECT Email FROM Usuarios where Email ='{$this->getEmail()}'";
+    $sql = "SELECT Email FROM usuarios where Email ='{$this->getEmail()}'";
     $repetidos = $this->db->query($sql);
     if ($repetidos) {
       $resultado = true;
@@ -255,7 +255,7 @@ class Usuario
   public function subirImagen()
   {
     $resultado = false;    
-    $sql = "UPDATE Usuarios SET Url_Avatar = '{$this->getUrl_Avatar()}' WHERE Id = {$this->getId()};";
+    $sql = "UPDATE usuarios SET Url_Avatar = '{$this->getUrl_Avatar()}' WHERE Id = {$this->getId()};";
     $imagenSubida = $this->db->query($sql);
     if ($imagenSubida) {
       $resultado = true;
@@ -267,7 +267,7 @@ class Usuario
   public function actualizarInformacionPublica()
   {
     $resultado = false;    
-    $sql = "UPDATE Usuarios SET Usuario = '{$this->getUsuario()}', NumeroDocumento = '{$this->getNumeroDocumento()}', NroTelefono = '{$this->getNroTelefono()}' WHERE Id = {$this->getId()};";
+    $sql = "UPDATE usuarios SET Usuario = '{$this->getUsuario()}', NumeroDocumento = '{$this->getNumeroDocumento()}', NroTelefono = '{$this->getNroTelefono()}' WHERE Id = {$this->getId()};";
 
     $actualizar = $this->db->query($sql);
     if ($actualizar) {
@@ -280,7 +280,7 @@ class Usuario
   public function actualizarInformacionPrivada()
   {
     $resultado = false;    
-    $sql = "UPDATE Usuarios SET Nombres = '{$this->getNombres()}', Apellidos = '{$this->getApellidos()}', Email = '{$this->getEmail()}', Direccion = '{$this->getDireccion()}', Pais = '{$this->getPais()}', Ciudad = '{$this->getCiudad()}', CodigoPostal = '{$this->getCodigoPostal()}'  WHERE Id = {$this->getId()};";
+    $sql = "UPDATE usuarios SET Nombres = '{$this->getNombres()}', Apellidos = '{$this->getApellidos()}', Email = '{$this->getEmail()}', Direccion = '{$this->getDireccion()}', Pais = '{$this->getPais()}', Ciudad = '{$this->getCiudad()}', CodigoPostal = '{$this->getCodigoPostal()}'  WHERE Id = {$this->getId()};";
 
     $actualizarInformacionPrivada = $this->db->query($sql);
     if ($actualizarInformacionPrivada) {
@@ -292,7 +292,7 @@ class Usuario
   public function obtenerTodosPorId()
   {
     $resultado = false;
-    $sql = "SELECT * FROM Usuarios WHERE Id = {$this->getId()};";
+    $sql = "SELECT * FROM usuarios WHERE Id = {$this->getId()};";
     $obtenerTodos = $this->db->query($sql);
     if ($obtenerTodos) {
       $resultado = true;
