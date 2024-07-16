@@ -41,8 +41,6 @@ function vista_preliminar(event) {
   datosFormulario.append("file", imagenPropiedades);
   datosFormulario.append("id", idUsuarioRegistrado);
 
-
-
   $.ajax({
     type: "POST",
     url: baseUrl + "usuario/subirImagen",
@@ -50,7 +48,6 @@ function vista_preliminar(event) {
     contentType: false,
     processData: false,
   }).done(function (response) {
-    console.log(response);
     $("#respuestaPhpAvatarVistaPrevia").html(response);
   });
 }

@@ -1,7 +1,7 @@
 
 let mdFormularioRegistro = document.getElementById('mdFormularioRegistro');
 mdFormularioRegistro.addEventListener('submit', (e) => {
-  e.preventDefault(); // Freno Submit o Envío;
+  e.preventDefault();
 
   let mdUsuarioR = $('#mdUsuarioRegistro').val();
   let mdEmailR = $('#mdEmailRegistro').val();
@@ -9,7 +9,6 @@ mdFormularioRegistro.addEventListener('submit', (e) => {
   let mdConfirmarPasswordR = $('#mdConfirmarPasswordRegistro').val();
   let mdCheckedR = document.getElementById('mdCheckedRegistro').checked;
 
-  
   // Registro Usuario Ajax
   $.ajax({
     type: 'POST',

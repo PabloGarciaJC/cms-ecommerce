@@ -19,7 +19,7 @@ class UsuarioController
 
         require_once 'views/layout/header.php';
         require_once 'views/layout/banner.php';
-        require_once 'views/layout/nav.php';      
+        require_once 'views/layout/nav.php';
         require_once 'views/layout/sidebarAdministrativo.php';
         require_once 'views/usuario/informacionPublica.php';
         require_once 'views/usuario/informacionPrivada.php';
@@ -41,7 +41,7 @@ class UsuarioController
         $registro->setPassword($confirmarPassword);
         $comprobarUsuario = $registro->repetidosUsuario();
         $comprobandoEmail = $registro->repetidosEmail();
-        
+
         //validacion
         if (empty(trim($usuario))) {
             $mensaje = utils::setearMensajeError('mdErrorUsuarioPhp', 'Ingrese Alias');
@@ -113,10 +113,9 @@ class UsuarioController
             unset($_SESSION['usuarioRegistrado']);
             unset($_SESSION['Admin']);
             unset($_SESSION['carrito']);
-        }
-        // header("location:" . base_url);
+            header("Location: /");
+        } 
     }
-
 
     public function subirImagen()
     {
@@ -141,26 +140,21 @@ class UsuarioController
         //url que existe en la base de datos actualmente.
         $ruta = 'uploads/images/avatar/' . $obtenerUsuario->Url_Avatar;
 
-        if ($rutaTemporal) { // Si Existe Ruta Temporal
-
-            //Guardo la Url en la base de datos la url Nueva y los Datos Nuevos
+        if ($rutaTemporal) {
+            //Guardo la Url en la base de datos
             $subirImagen->subirImagen();
-
             //Para Guardar solo un Avatar por usuario, el cual no se repita
-            // if ($obtenerUsuario->Url_Avatar != $nombreArchivo) {
+            if ($obtenerUsuario->Url_Avatar == $nombreArchivo) {
                 if (is_file($ruta)) {
                     //Borra la imagen anterior para que no quede Guardada en el Fichero
                     unlink($ruta);
                 }
-                //Guardo en el Fichero del Proyecto o en su defecto en el servidor
-               $tes = move_uploaded_file($rutaTemporal, 'uploads/images/avatar/' . $nombreArchivo);
-               var_dump($tes);
-            // }
-        } else { // No Existe Ruta Temporal
-
+            }
+            //Guardo en el Fichero del Proyecto o en su defecto en el servidor
+            move_uploaded_file($rutaTemporal, 'uploads/images/avatar/' . $nombreArchivo);
+        } else {
             //Seteo con la que Existe Actualmente 
             $subirImagen->setUrl_Avatar($obtenerUsuario->Url_Avatar);
-
             //Guardo la Url en la base de datos la url Nueva.
             $subirImagen->subirImagen();
         }
@@ -288,5 +282,3 @@ class UsuarioController
         require_once 'views/layout/footer.php';
     }
 }
-
-
