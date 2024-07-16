@@ -114,7 +114,7 @@ class UsuarioController
             unset($_SESSION['Admin']);
             unset($_SESSION['carrito']);
         }
-        header("location:" . base_url);
+        // header("location:" . base_url);
     }
 
 
@@ -147,14 +147,15 @@ class UsuarioController
             $subirImagen->subirImagen();
 
             //Para Guardar solo un Avatar por usuario, el cual no se repita
-            if ($obtenerUsuario->Url_Avatar != $nombreArchivo) {
+            // if ($obtenerUsuario->Url_Avatar != $nombreArchivo) {
                 if (is_file($ruta)) {
                     //Borra la imagen anterior para que no quede Guardada en el Fichero
                     unlink($ruta);
                 }
                 //Guardo en el Fichero del Proyecto o en su defecto en el servidor
-                move_uploaded_file($rutaTemporal, 'uploads/images/avatar/' . $nombreArchivo);
-            }
+               $tes = move_uploaded_file($rutaTemporal, 'uploads/images/avatar/' . $nombreArchivo);
+               var_dump($tes);
+            // }
         } else { // No Existe Ruta Temporal
 
             //Seteo con la que Existe Actualmente 

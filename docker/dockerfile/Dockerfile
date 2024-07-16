@@ -13,6 +13,10 @@ RUN docker-php-ext-install mysqli \
 # Establecer el directorio de trabajo dentro del contenedor
 WORKDIR /var/www/html
 
+# Otorgar permisos y cambiar el propietario
+RUN chown -R www-data:www-data /var/www/html \
+    && chmod -R 755 /var/www/html
+
 # Exponer el puerto 80 del contenedor
 EXPOSE 80
 

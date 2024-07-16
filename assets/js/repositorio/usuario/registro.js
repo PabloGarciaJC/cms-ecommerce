@@ -24,7 +24,6 @@ mdFormularioRegistro.addEventListener('submit', (e) => {
       $('#mdErrorChekedPhp').html('');      
       $("#respuestaPhpRegistro").html(respuestaPhpRegistro);
       if (respuestaPhpRegistro == 1) {
-      // $('#respuestaPhpRegistro').html('<div class="alert alert-success" role="alert"><strong>Registro</strong>, Completado </div>');
           Swal.fire({
             title: 'Registro Completo',
             icon: 'success'
@@ -36,10 +35,4 @@ mdFormularioRegistro.addEventListener('submit', (e) => {
           $('#respuestaPhpRegistro').html('');
         }
       })
-    .fail(function () {
-      console.log("error");
-    })
-    .always(function () {
-      console.log("completo");
-    });
 });

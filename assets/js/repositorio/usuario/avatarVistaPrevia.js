@@ -1,28 +1,28 @@
-
 function vista_preliminar(event) {
-
-  // Visualizo la Imagen Previa 
+  // Visualizo la Imagen Previa
   let leer_img = new FileReader();
-  let id_img = document.getElementById('previe');
- 
+  let id_img = document.getElementById("previe");
+
   leer_img.onload = () => {
     if (leer_img.readyState == 2) {
       id_img.src = leer_img.result;
     }
-  }
+  };
   leer_img.readAsDataURL(event.target.files[0]);
 
   //Validacion
-  var imagen = document.getElementById('file').value;
-
-  var extensiones = /(\.jpg|\.jpeg|\.png)$/i;
+  let imagen = document.getElementById("file").value;
+  let extensiones = /(\.jpg|\.jpeg|\.png)$/i;
 
   if (!extensiones.exec(imagen)) {
-    mostrarMensajeError('errorFile', '<strong>Error</strong>, Solo son Aceptables Formatos: JPG, JPEG, PNG');
+    mostrarMensajeError(
+      "errorFile",
+      "<strong>Error</strong>, Solo son Aceptables Formatos: JPG, JPEG, PNG"
+    );
     return false;
-  }else{
-    mostrarMensajeError('errorFile', '');
-  } 
+  } else {
+    mostrarMensajeError("errorFile", "");
+  }
 
   // Funcion para Mostrar y Borrar los Mensajes:
   function mostrarMensajeError(claseInput, mensaje) {
@@ -30,84 +30,27 @@ function vista_preliminar(event) {
     elemento.lastElementChild.innerHTML = mensaje;
   }
 
-  // Ajax Vista Previa 
+  // Ajax Vista Previa
   let datosFormulario = new FormData();
 
   //Capturo Propiedades File y el Id del Usuario
-  let imagenPropiedades = $('#file')[0].files[0];
-  let idUsuarioRegistrado = $('#idUsuarioRegistrado').val();
+  let imagenPropiedades = $("#file")[0].files[0];
+  let idUsuarioRegistrado = $("#idUsuarioRegistrado").val();
 
   //Setear el Objeto
-  datosFormulario.append('file', imagenPropiedades);
-  datosFormulario.append('id', idUsuarioRegistrado);
+  datosFormulario.append("file", imagenPropiedades);
+  datosFormulario.append("id", idUsuarioRegistrado);
+
+
 
   $.ajax({
-    type: 'POST',
-    url: baseUrl + 'Usuario/subirImagen',
+    type: "POST",
+    url: baseUrl + "usuario/subirImagen",
     data: datosFormulario,
     contentType: false,
     processData: false,
-  })
-    .done(function (respuestaPhpAvatarVistaPrevia) {
-      $("#respuestaPhpAvatarVistaPrevia").html(respuestaPhpAvatarVistaPrevia);
-
-    })
-    .fail(function () {
-      console.log("error");
-    })
-    .always(function () {
-      console.log("completo");
-    });
-
+  }).done(function (response) {
+    console.log(response);
+    $("#respuestaPhpAvatarVistaPrevia").html(response);
+  });
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  // let id = $('#id').val();
-  //Capturo el Nombre de la Imagen:
-  // let fileTipo = document.getElementById("file").files[0].type;
-  // let fileNombre = document.getElementById("file").files[0].name;
-  // var archivo = $("#file").prop("files")[0];
-
-
-  // // Informacion Publica Ajax
-  // $.ajax({
-  //   type: 'POST',
-  //   url: baseUrl + 'Usuario/subirImagen',
-  //   data: 'archivo=' + archivo,
-  // })
-  //   .done(function (respuesta) {
-  //     $("#respuesta").html(respuesta);
-  //     // if (respuestaPhpInformacionPublica == 1) {
-  //     //   Swal.fire({
-  //     //     title: 'Completado',
-  //     //     icon: 'success'
-  //     //   })        
-  //     // } 
-  //   })
-  //   .fail(function () {
-  //     console.log("error");
-  //   })
-  //   .always(function () {
-  //     console.log("completo");
-  //   });
-
-
-
-
-
-
