@@ -1,8 +1,6 @@
 	<!-- banner-2 -->
 	<div class="page-head_agile_info_w3l">
 	</div>
-	<!-- //banner-2 -->
-	<!-- page -->
 	<div class="services-breadcrumb">
 	  <div class="agile_inner_breadcrumb">
 	    <div class="container">
@@ -16,16 +14,11 @@
 	    </div>
 	  </div>
 	</div>
-	<!-- //page -->
-
-	<!-- contact -->
 	<div class="contact py-sm-5 py-4">
 	  <div class="container py-xl-4 py-lg-2">
-	    <!-- tittle heading -->
 	    <h3 class="tittle-w3l text-center mb-lg-5 mb-sm-4 mb-3">
 	      <span>C</span>ontacto	     
 	    </h3>
-	    <!-- //tittle heading -->
 	    <div class="row contact-grids agile-1 mb-5">
 	      <div class="col-sm-4 contact-grid agileinfo-6 mt-sm-0 mt-2">
 	        <div class="contact-grid1 text-center">
@@ -64,7 +57,6 @@
 	        </div>
 	      </div>
 	    </div>
-	    <!-- form -->
 	    <form action="#" method="post">
 	      <div class="contact-grids1 w3agile-6">
 	        <div class="row">
@@ -86,7 +78,5 @@
 	        </div>
 	      </div>
 	    </form>
-	    <!-- //form -->
 	  </div>
 	</div>
-	<!-- //contact --

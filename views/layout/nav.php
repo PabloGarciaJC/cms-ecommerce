@@ -1,4 +1,3 @@
-	<!-- navigation -->
 	<div class="navbar-inner">
 		<div class="container">
 			<nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -30,4 +29,3 @@
 			</nav>
 		</div>
 	</div>
-	<!-- //navigation -->

@@ -22,11 +22,8 @@
 			<div class="row">
 				<div class="agileinfo-ads-display col-lg-9">
 					<div class="wrapper">
-						<!-- Id Categoria Para Obtener el Producto -->
 						<input type="hidden" id="productoIdCategoria" value="<?= $mostrarProductoPorCategoria->id ?>">
-						<!-- Desplazamiento del Buscador -->
 						<div id="solicita-informacion"></div>
-						<!-- Respuesta Ajax y PHP -->
 						<div id="respuestaPhpMostrarProductos"></div>
 					</div>
 				</div>

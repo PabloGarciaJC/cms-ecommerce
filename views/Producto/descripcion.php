@@ -1,5 +1,4 @@
-	<!-- Single Page -->
-	<div class="banner-bootom-w3-agileits py-5">
+		<div class="banner-bootom-w3-agileits py-5">
 		<div class="container py-xl-4 py-lg-2">
 			<div class="row">
 				<div class="col-lg-5 col-md-8 single-right-left ">
@@ -63,9 +62,6 @@
 			</div>
 		</div>
 	</div>
-	<!-- //Single Page -->
-
-	<!-- Con este Scrip Soluciono el Problema. de cargar la pagina dos veces -->
 	<script>
 		if (window.history.replaceState) {
 			window.history.replaceState(null, null, window.location.href);

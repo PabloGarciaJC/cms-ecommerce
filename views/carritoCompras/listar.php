@@ -17,9 +17,7 @@
       <div class="card">
         <div class="card-header">
           <h5 class="card-title mb-0">Carrito de Compras</h5>        
-          <!-- Respuesta Ajax -->
           <div id="respuestaPhpMostrarCarritoCompras"></div>         
-          <!-- Id Categoria Para Obtener el Producto -->
           <input type="hidden" id="idProductoCarritoCompras" value="<?= isset($_GET['id']) ? $_GET['id'] : false ?>">
         </div>
       </div>
@@ -28,5 +26,3 @@
 </div>
 </div>
 </div>
-<!-- Eliminar Categorias -->
-<!-- //modal -->

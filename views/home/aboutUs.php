@@ -1,8 +1,6 @@
 	<!-- banner-2 -->
 	<div class="page-head_agile_info_w3l">
 	</div>
-	<!-- //banner-2 -->
-	<!-- page -->
 	<div class="services-breadcrumb">
 	  <div class="agile_inner_breadcrumb">
 	    <div class="container">
@@ -16,16 +14,12 @@
 	    </div>
 	  </div>
 	</div>
-	<!-- //page -->
-	<!-- about -->
 	<div class="welcome py-sm-5 py-4">
 	  <div class="container py-xl-4 py-lg-2">
-	    <!-- tittle heading -->
 	    <h3 class="tittle-w3l text-center mb-lg-5 mb-sm-4 mb-3">
 	      <span>S</span>obre
 	      <span>N</span>osotros
 	    </h3>
-	    <!-- //tittle heading -->
 	    <div class="row">
 	      <div class="col-lg-6 welcome-left">
 	        <h3>Bienvenidos</h3>
@@ -40,4 +34,3 @@
 	    </div>
 	  </div>
 	</div>
-	<!-- //about -->

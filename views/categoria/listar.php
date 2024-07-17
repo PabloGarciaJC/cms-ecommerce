@@ -61,7 +61,6 @@
                                   </a>
                                 </td>
                                 <td>
-                                   <!-- <div id="respuestaPhpEliminarCategoria"></div>   -->
                                   <button class="btn btn-circle btn-danger text-white" onclick="eliminarDatoss(<?= $listaCategorias->id ?>, '<?= $listaCategorias->categorias ?>');">
                                     <i class="fa fa-trash"></i>
                                   </button>
@@ -77,7 +76,6 @@
               </div>
             </div>
           </div>
-          <!-- //Categorias -->
         </div>
       </div>
     </div>
@@ -97,24 +95,19 @@
         </button>
       </div>
       <div class="modal-body">
-
         <form action="" method="POST" id="mdFormularioListarCategoria">
-
           <!-- respuesta ajax php -->
           <div id="respuestaPhplistarCategoria" style="text-align: center; display: none"></div>
-          
           <div class="form-group errorListarCategoria">
             <label class="col-form-label ">Crear Categorías</label>
             <input type="text" class="form-control" id="listarCategoria" name="listarCategoria">
             <label class="erroresValidacion"></label>
           </div>
-
           <div class="form-group">
             <label class="col-form-label">Crear Sub Categorias</label>
             <input type="text" class="form-control" id="listarSubcategoria" name="listarSubCategorias" disabled>
             <label class="erroresValidacion"></label>
           </div>
-
           <div class="right-w3l">
             <input type="submit" class="form-control" value="Aceptar">
           </div>
@@ -123,7 +116,6 @@
     </div>
   </div>
 </div>
-<!-- //modal -->
 
 <!-- Editar Categorias -->
 <div class="modal fade" id="modalEditarCategoria" tabindex="-1" role="dialog" aria-hidden="true">
@@ -136,25 +128,18 @@
         </button>
       </div>
       <div class="modal-body">
-
         <form action="" method="POST" id="mdFormularioActualizarCategoria">
-
           <input type="hidden" id="idCategoria">
-
-          <!-- respuesta ajax php -->
           <div id="respuestaPhpEditarCategoria" style="display: none"></div>
-
           <div class="form-group mdErrorCategoria errorCategoria">
             <label class="col-form-label ">Editar Categoría</label>
             <input type="text" class="form-control" id="editarCategoria" name="actualizarCategoria">
             <label class="erroresValidacion"></label>
           </div>
-
           <div class="form-group mdErrorSubCategorias">
             <label class="col-form-label">Editar Sub Categoría</label>
             <input type="text" class="form-control" id="crearSubcategoria" name="crearSubCategorias" disabled>
           </div>
-
           <div class="right-w3l">
             <input type="submit" class="form-control" value="Aceptar">
           </div>
@@ -163,5 +148,3 @@
     </div>
   </div>
 </div>
-
-
