@@ -9,19 +9,14 @@ class PedidosController
   {
     //Acceso Usuario Registrado a esta Pagina
     Utils::accesoUsuarioRegistrado();
-
     //Obtengo Usuario en el Banner
     $usuario = Utils::obtenerUsuario();
-
     //Obtengo Categorias en la Barra de Navegacion
     $categoriaBarraNavegacion = Utils::listaCategorias();
-
     //Obtengo Todos Los Paises
     $paisesTodos = Utils::obtenerPaises();
-
     // Estadisticas del Productos
     $stats = Utils::estadisticasCarrito();
-
     require_once 'views/layout/header.php';
     require_once 'views/layout/banner.php';
     require_once 'views/layout/nav.php';   
@@ -33,10 +28,8 @@ class PedidosController
 
   public function guardar()
   {
-
     //Acceso Usuario Registrado a esta Pagina
     Utils::accesoUsuarioRegistrado();
-
     // Capturo lo que me llega por Post
     $usuarioId = isset($_POST['usuarioId']) ? $_POST['usuarioId'] : false;
     $alias = isset($_POST['alias']) ? $_POST['alias'] : false;
@@ -50,7 +43,6 @@ class PedidosController
     $codigoPostal = isset($_POST['CodigoPostal']) ? $_POST['CodigoPostal'] : false;
     $totalPagar = isset($_POST['totalPagar']) ? $_POST['totalPagar'] : false;
     $stockTotales = isset($_POST['stockTotales']) ? $_POST['stockTotales'] : false;
-
     // Guardo
     $pedido = new Pedidos();
     $pedido->setUsuario_id($usuarioId);
@@ -59,13 +51,10 @@ class PedidosController
     $pedido->setDireccion($direccion);
     $pedido->setCodigoPostal($codigoPostal);
     $pedido->setCoste($totalPagar);
-
     // Guardar Pedidos
     $guardar = $pedido->guardar();
-
     // Guardar Linea Pedidos
     $guardarLinea = $pedido->guardarLinea();
-
     if ($guardar && $guardarLinea) {
       $_SESSION['carrito'] = null;
       echo 1;
@@ -78,7 +67,6 @@ class PedidosController
     $usuario = Utils::obtenerUsuario();
     //Obtengo Categorias en la Barra de Navegacion
     $categoriaBarraNavegacion = Utils::listaCategorias();
-
     require_once 'views/layout/header.php';
     require_once 'views/layout/banner.php';
     require_once 'views/layout/nav.php';    
@@ -91,13 +79,10 @@ class PedidosController
   {
     //Acceso Usuario Registrado a esta Pagina
     Utils::accesoUsuarioRegistrado();
-
     //Obtengo Usuario en el Banner
     $usuario = Utils::obtenerUsuario();
-
     // Obtengo los Pedidos
     $mostrarPedido =  Utils::obtenerPedidos($usuario);
-
     echo '<table class="table email-table no-wrap table-hover v-middle mb-0 font-14">';
     echo '<thead>';
     echo '<tr>';
@@ -111,9 +96,7 @@ class PedidosController
     endif;
     echo '</tr>';
     echo '</thead>';
-
     echo '<tbody>';
-
     while ($mostraPedidos = $mostrarPedido->fetch_object()) :
       echo '<tr>';
       echo '<td style="text-align: center;">' . $mostraPedidos->id . '</td>';
@@ -138,10 +121,8 @@ class PedidosController
   {
     //Acceso Usuario Registrado a esta Pagina
     Utils::accesoUsuarioRegistrado();
-
     $idPedido = isset($_POST['idPedido']) ? $_POST['idPedido'] : false;
     $estadoPedido = isset($_POST['estadoPedido']) ? $_POST['estadoPedido'] : false;
-
     if ($idPedido && $estadoPedido) {
       // Editar el Estado
       Utils::cambiarEstado($idPedido, $estadoPedido);
@@ -153,22 +134,16 @@ class PedidosController
   {
     // Capturo el id por Get
     $idPedido = isset($_GET['idPedido']) ? $_GET['idPedido'] : false;
-
     // Acceso Usuario Registrado a esta Pagina
     Utils::accesoUsuarioRegistrado();
-
     // Obtengo Usuario en el Banner
     $usuario = Utils::obtenerUsuario();
-
     // Obtengo Categorias en la Barra de Navegacion
     $categoriaBarraNavegacion = Utils::listaCategorias();
-
     // Obtener los Productos por id Pedido
     $mostrarProductos = Utils::obtenerProductosbyPedidos($idPedido);
-
     // Obtener Usuario del Pedido
     $usuarioPorPedido = Utils::obtenerUsuarioDelPedido($idPedido);
-
     require_once 'views/layout/header.php';
     require_once 'views/layout/banner.php';
     require_once 'views/layout/nav.php';    

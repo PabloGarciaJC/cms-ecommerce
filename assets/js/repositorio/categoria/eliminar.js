@@ -15,9 +15,8 @@ function eliminarDatoss(idCategoriaBd, nombreCategoriaBd) {
         url: baseUrl + 'Categoria/eliminar',
         data: { id: idCategoriaBd },
       })
-        .done(function (respuestaPhpEliminarCategoria) {
-          // $("#respuestaPhpEliminarCategoria").html(respuestaPhpEliminarCategoria);
-          if (respuestaPhpEliminarCategoria == 1) {
+        .done(function (response) {
+          if (response == 1) {
             Swal.fire(
               'Eliminado!',
               'Su categoria ha sido eliminado.',              
@@ -33,12 +32,6 @@ function eliminarDatoss(idCategoriaBd, nombreCategoriaBd) {
             })
           }
         })
-        .fail(function () {
-          console.log("error");
-        })
-        .always(function () {
-          console.log("completo");
-        });
     }
   })
 }

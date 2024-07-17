@@ -29,9 +29,9 @@ if (mdFormularioActualizarCategoria) {
       url: baseUrl + 'Categoria/editar',
       data: 'id=' + id + '&categoria=' + categoria,
     })
-      .done(function (respuestaPhpEditarCategoria) {
-        $("#respuestaPhpEditarCategoria").html(respuestaPhpEditarCategoria);
-        if (respuestaPhpEditarCategoria == 1) {
+      .done(function (response) {
+        $("#respuestaPhpEditarCategoria").html(response);
+        if (response == 1) {
           Swal.fire({
             title: 'Completado',
             icon: 'success'
@@ -40,12 +40,6 @@ if (mdFormularioActualizarCategoria) {
           });
         }
       })
-      .fail(function () {
-        console.log("error");
-      })
-      .always(function () {
-        console.log("completo");
-      });
   });
 
 }

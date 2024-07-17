@@ -42,21 +42,15 @@ if (informacionPublica) {
       url: baseUrl + 'Usuario/informacionPublica',
       data: 'id=' + id + '&usuario=' + usuario + '&documentacion=' + documentacion + '&telefono=' + telefono,
     })
-      .done(function (respuestaPhpInformacionPublica) {
-        $("#respuestaPhpInformacionPublica").html(respuestaPhpInformacionPublica);
-        if (respuestaPhpInformacionPublica == 1) {
+      .done(function (response) {
+        $("#respuestaPhpInformacionPublica").html(response);
+        if (response == 1) {
           Swal.fire({
             title: 'Completado',
             icon: 'success'
           })
         }
       })
-      .fail(function () {
-        console.log("error");
-      })
-      .always(function () {
-        console.log("completo");
-      });
   });
 }
 

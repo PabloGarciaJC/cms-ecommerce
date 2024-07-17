@@ -27,16 +27,9 @@ if (buscadorProductos) {
       url: baseUrl + 'Producto/buscador',
       data: { paginaActualBuscadorProductos: paginaActualBuscadorProductos, buscadorProductos: valorBuscadorProductos },
     })
-      .done(function (respuestaPhpBuscadorProductos) {
-        $("#respuestaPhpBuscadorProductos").html(respuestaPhpBuscadorProductos);
+      .done(function (response) {
+        $("#respuestaPhpBuscadorProductos").html(response);
       })
-      .fail(function () {
-        console.log("error");
-      })
-      .always(function () {
-        console.log("completo");
-      });
-
   } // Fin Funcion Ajax
 
 }

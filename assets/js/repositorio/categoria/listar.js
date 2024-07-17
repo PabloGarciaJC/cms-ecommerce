@@ -28,9 +28,9 @@ if (mdFormularioListarCategoria) {
       url: baseUrl + 'Categoria/listar',
       data: 'listarCategoria=' + listarCategoria + '&listarSubcategoria=' + listarSubcategoria,
     })
-      .done(function (respuestaPhplistarCategoria) {
-        $("#respuestaPhplistarCategoria").html(respuestaPhplistarCategoria);
-        if (respuestaPhplistarCategoria == 1) {
+      .done(function (response) {
+        $("#respuestaPhplistarCategoria").html(response);
+        if (response == 1) {
           Swal.fire({
             title: 'Registro Completo',
             icon: 'success'
@@ -39,12 +39,6 @@ if (mdFormularioListarCategoria) {
           });
         }
       })
-      .fail(function () {
-        console.log("error");
-      })
-      .always(function () {
-        console.log("completo");
-      });
   });
 
 

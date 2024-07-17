@@ -12,11 +12,11 @@ mdFormularioIniciarSesion.addEventListener('submit', (e) => {
     url: baseUrl + 'Usuario/IniciarSesion',
     data: 'email=' + mdEmailI + '&password=' + mdPasswordI,
   })
-    .done(function (respuestaPhpIniciarSesion) {
+    .done(function (response) {
       $('#mdErrorEmailIniciarSesionPhp').html('');
       $('#mdErrorPasswordIniciarSesionPhp').html('');
-      $("#respuestaPhpIniciarSesion").html(respuestaPhpIniciarSesion);
-      if (respuestaPhpIniciarSesion == 1) {
+      $("#respuestaPhpIniciarSesion").html(response);
+      if (response == 1) {
         Swal.fire({
           title: 'Completado',
           icon: 'success'
@@ -28,10 +28,4 @@ mdFormularioIniciarSesion.addEventListener('submit', (e) => {
         $('#respuestaPhpIniciarSesion').html();
       }
     })
-    .fail(function () {
-      console.log("error");
-    })
-    .always(function () {
-      console.log("completo");
-    });
 });

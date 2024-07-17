@@ -8,10 +8,8 @@ class CarritoComprasController
   {
     // Obtengo Ususario en el Banner
     $usuario = Utils::obtenerUsuario();
-
     // Obtengo Categorias en la Barra de Navegacion    
     $categoriaBarraNavegacion = Utils::listaCategorias();
-
     require_once 'views/layout/header.php';
     require_once 'views/layout/banner.php';
     require_once 'views/layout/nav.php';    
@@ -91,9 +89,7 @@ class CarritoComprasController
 
     // Estadisticas del Productos
     $stats = Utils::estadisticasCarrito();
-
     echo '<div class="card-body">';
-
     echo '<div class="container">';
     echo '<div class="row">';
     echo '<div class="col-md-12">';
@@ -102,42 +98,30 @@ class CarritoComprasController
     echo '<div class="table table-responsive">';
     echo '<div class="container">';
     echo '<div class="row">';
-
     echo '<div class="col-sm">';
     echo '<strong>Sub-Total:</strong> ' . $stats['totalPrecio'] . ' $ <br>';
     echo '<strong>Oferta:</strong> ' . $stats['totalOfertas'] . ' % <br>';    
     echo '<strong>Iva 21.00 %: </strong> ' . $stats['aplicandoIva'] . ' $ <br>';
     echo '<strong>Total Pagar: </strong> <u>' . $stats['total'] . '</u> $<br>';
     echo '</div>';
-
     echo '<div class="col-sm">';
     echo '</br>';
-
-
     if (!isset($_SESSION['usuarioRegistrado'])) :
-
       echo '<a href="#" data-toggle="modal" data-target="#exampleModal">';      
       echo '<button type="button" class="btn btn-success">Hacer Pedido</button></a>';
       echo '</a>';
-
     else :
       echo '<a href=" ' . BASE_URL . 'Pedidos/crear"> <button type="button" class="btn btn-success">Hacer Pedido</button></a> ';
     endif;
-
     echo '</div>';
-
     echo '<div class="col-sm">';
     echo '</br>';
     echo '<a href=" ' . BASE_URL . 'CarritoCompras/borrarTodos"> <button type="button" class="btn btn-info">Vaciar Carrito</button></a> ';
     echo '</div>';
-
     echo '</div>';
     echo '</div>';
-
     echo '</br>';
-
     echo '<table class="table email-table no-wrap table-hover v-middle mb-0 font-14">';
-
     echo '<thead>';
     echo '<tr>';
     echo '<th scope="col" style=" text-align: center;">Imagen</th>';
@@ -166,16 +150,11 @@ class CarritoComprasController
         echo '<td>';
         echo '<ul class="pagination justify-content-center">';
         echo '<li class="page-item">';
-
         echo '<a class="page-link" onclick="carritoDown(' . $mostrarProducto['idProducto'] . ')" "tabindex="-1"> - </a>';
-
         echo '</li>';
-
         echo '<li class="page-item disabled"><a class="page-link" href="#"><strong>' . $mostrarProducto['stock'] . '</strong><br></a></li>';
         echo '<li class="page-item ">';
-
         echo '<a class="page-link" onclick="carritoUp(' . $mostrarProducto['idProducto'] . ')" "tabindex="-1"> + </a>';
-
         echo '</li>';
         echo '</ul>';
         echo '</td>';
@@ -194,16 +173,13 @@ class CarritoComprasController
       echo '</td>';
     };
     echo '</tbody>';
-
     echo '</table>';
-
     echo '</div>';
     echo '</div>';
     echo '</div>';
     echo '</div>';
     echo '</div>';
     echo '</div>';
-
     echo '</div>';
   }
 
@@ -212,6 +188,4 @@ class CarritoComprasController
     unset($_SESSION['carrito']);
     header("location:" . BASE_URL . "CarritoCompras/listar");
   }
-}
-
-;
+};

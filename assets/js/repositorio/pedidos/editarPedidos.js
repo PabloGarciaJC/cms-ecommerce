@@ -30,9 +30,9 @@ function ajax(idPedidos, estadoPedido) {
     data: 'idPedido=' + idPedidos + '&estadoPedido=' + estadoPedido,
     // data: 'estadoPedido=' + estadoPedido,
   })
-    .done(function (respuestaPhpEditarPedidos) {
-      $("#respuestaPhpEditarPedidos").html(respuestaPhpEditarPedidos);
-      if (respuestaPhpEditarPedidos == 1) {
+    .done(function (response) {
+      $("#respuestaPhpEditarPedidos").html(response);
+      if (response == 1) {
         Swal.fire({
           title: 'Completado',
           icon: 'success'
@@ -41,12 +41,6 @@ function ajax(idPedidos, estadoPedido) {
         });
       }
     })
-    .fail(function () {
-      console.log("error");
-    })
-    .always(function () {
-      console.log("completo");
-    });
 }
 
 

@@ -56,17 +56,9 @@ function ajaxBuscadorGeneral(valorBuscador) {
     url: baseUrl + 'Producto/mostrarTodos',
     data: { arrayMarca: JSON.stringify(arrayCheckMarca), productoByIdCategoria: productoIdCategoriaMarca, arrayMemoriaRam: JSON.stringify(arrayCheckMemoriaRam), arrayPrecio: JSON.stringify(arrayCheckedPrecio), arrayOfertas: JSON.stringify(arrayCheckedOfertas), buscadorProducto: valorBuscador },
   })
-    .done(function (respuestaPhpMostrarProductos) {
-      $("#respuestaPhpMostrarProductos").html(respuestaPhpMostrarProductos);
+    .done(function (response) {
+      $("#respuestaPhpMostrarProductos").html(response);
     })
-    .fail(function () {
-      console.log("error");
-    })
-    .always(function () {
-      console.log("completo");
-    });
-
-
 }
 
 

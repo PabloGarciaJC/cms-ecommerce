@@ -158,28 +158,20 @@ class ProductoController
   {
     // Capturo el buscador 
     $buscadorProductos = isset($_POST['buscadorProductos']) ? $_POST['buscadorProductos'] : false;
-
     // Capturo el Ultimo Registro para Limitar => Iniciando en 1
     $paginaActual = isset($_POST['paginaActualBuscadorProductos']) ? $_POST['paginaActualBuscadorProductos'] : false;
-
     // Paginador 1: Extraer el Conteo de Registros de la Base de Datos
     $totalRegistrosBd = Utils::obtenerRegistrosTotales($buscadorProductos);
-
     // Paginador 2: Muestro el total de Registros que se van a Mostrar
     $mostrarRegistros = 3;
-
     // Paginador 3: Capturo la Pagina Actual => Para Limitar Los Registros, Primer Parametro
     $ultimoRegistro = ($paginaActual - 1) * $mostrarRegistros;
-
     // Paginador 4: Total de Registros que voy a Mostrar
     $mostrarNumerosdePaginas = ceil($totalRegistrosBd / $mostrarRegistros);
-
     // Pagina Anterior
     $paginaAnterior = $paginaActual - 1;
-
     // Pagina Siguiente
     $paginaSiguiente = $paginaActual + 1;
-
     // Paginador => Inicio
     echo '<nav aria-label="Page navigation example">';
     echo '<ul class="pagination justify-content-end">';
@@ -193,7 +185,6 @@ class ProductoController
       echo '<a class="page-link" >Anterior</a>';
       echo '</li>';
     }
-
     // Cuerpo 
     for ($i = 1; $i <= $mostrarNumerosdePaginas; $i++) {
       if ($i == $paginaActual) {
@@ -202,7 +193,6 @@ class ProductoController
         echo '<li class="page-item"><a class="page-link"  onclick = "ajaxBuscadorProductos(' . $i . ',\'' . $buscadorProductos . '\')">' . $i . '</a></li>';
       }
     }
-
     // Siguiente 
     if ($paginaActual != $mostrarNumerosdePaginas) {
       echo '<li class="page-item">';
@@ -216,15 +206,11 @@ class ProductoController
     echo '</ul>';
     echo '</nav>';
     echo '</br>';
-    // Paginador => Fin
-
 
     // Obtengo Los Productor y el Buscador y Paginador 5: Consulta
     $productos = Utils::obtenerProductosyBuscadoryPaginador($buscadorProductos, $ultimoRegistro, $mostrarRegistros);
-
     echo '<div class="table table-responsive">';
     echo '<table class="table email-table no-wrap table-hover v-middle mb-0 font-14">';
-
     echo '<thead>';
     echo '<tr>';
     echo '<th scope="col" style=" text-align: center;">Imagen</th>';
@@ -233,40 +219,34 @@ class ProductoController
     echo '<th scope="col">Borrar</th>';
     echo '</tr>';
     echo '</thead>';
-
     echo '<tbody>';
     if ($productos->num_rows > 0) {
       while ($mostrarProductos = $productos->fetch_object()) {
-
         echo '<tr>';
-        echo '<td><img class="img-fluid" src="' . BASE_URL . 'uploads/images/productos/' . $mostrarProductos->imagen . '">';
-        echo '</td>';
-
-        echo '<td>';
-        echo '<strong>Nombre:</strong> ' . $mostrarProductos->nombre . '<br>';
-        echo '<strong>Marca:</strong> ' . $mostrarProductos->marca . '<br>';
-        echo '<strong>Precio:</strong> ' . $mostrarProductos->precio . " $" . '<br>';
-        echo '<strong>Oferta:</strong> ' . $mostrarProductos->oferta . " %" . '<br>';
-        echo '<strong>Stock:</strong> ' . $mostrarProductos->stock . " Unidades" . '<br>';
-        echo '<strong>Categoria:</strong> ' . $mostrarProductos->nombreCategoria  . '<br>';
-        echo '<strong>Descripción: <a href=" ' . BASE_URL . 'Producto/crear&id=' . $mostrarProductos->id . '">ver más</a></strong>';
-        echo '</td>';
-
-        echo '<td>';
-        echo '<a href="' . BASE_URL . 'Producto/crear&id=' . $mostrarProductos->id . '">';
-        echo '<button class="btn btn-circle btn-info text-white" class="text-white">';
-        echo '<i class="fa fa-pencil"></i>';
-        echo '</button>';
-        echo '</a>';
-        echo '</td>';
-
-        echo '<td> ';
-        echo '<button class="btn btn-circle btn-danger text-white" onclick="eliminarDatosProducto(' . $mostrarProductos->id . ' ,\'' . $mostrarProductos->nombre . '\')">';
-        echo '<i class="fa fa-trash"></i>';
-        echo '</button>';
-        echo '</td>';
+          echo '<td><img class="img-fluid" src="' . BASE_URL . 'uploads/images/productos/' . $mostrarProductos->imagen . '"></td>';
+          echo '<td>';
+          echo '<strong>Nombre:</strong> ' . $mostrarProductos->nombre . '<br>';
+          echo '<strong>Marca:</strong> ' . $mostrarProductos->marca . '<br>';
+          echo '<strong>Precio:</strong> ' . $mostrarProductos->precio . " $" . '<br>';
+          echo '<strong>Oferta:</strong> ' . $mostrarProductos->oferta . " %" . '<br>';
+          echo '<strong>Stock:</strong> ' . $mostrarProductos->stock . " Unidades" . '<br>';
+          echo '<strong>Categoria:</strong> ' . $mostrarProductos->nombreCategoria  . '<br>';
+          echo '<strong>Descripción: <a href=" ' . BASE_URL . 'Producto/crear&id=' . $mostrarProductos->id . '">ver más</a></strong>';
+          echo '</td>';
+          echo '<td>';
+            echo '<a href="' . BASE_URL . 'Producto/crear&id=' . $mostrarProductos->id . '">';
+            echo '<button class="btn btn-circle btn-info text-white" class="text-white">';
+            echo '<i class="fa fa-pencil"></i>';
+            echo '</button>';
+            echo '</a>';
+          echo '</td>';
+          echo '<td> ';
+          echo '<button class="btn btn-circle btn-danger text-white" onclick="eliminarDatosProducto(' . $mostrarProductos->id . ' ,\'' . $mostrarProductos->nombre . '\')">';
+          echo '<i class="fa fa-trash"></i>';
+          echo '</button>';
+          echo '</td>';
         echo '</tr>';
-      } // Fin While Php
+      }
     } else {
       echo '<td colspan="8">';
       echo '<div class="alert alert-primary" role="alert">';
@@ -296,28 +276,20 @@ class ProductoController
   {
     // Obtengo el Id de Producto por Categoria
     $idCategoria = isset($_GET['producto']) ? $_GET['producto'] : false;
-
     // Obtengo Usuario en el Banner
     $usuario = Utils::obtenerUsuario();
-
     // Obtengo Categorias en la Barra de Navegacion
     $categoriaBarraNavegacion = Utils::listaCategorias();
-
     // Obtengo los Productos por Categoria Id
     $mostrarProductoPorCategoria = Utils::obtenerCategoriaPorId($idCategoria);
-
     // Obtengo Marca, Sin Repetir en el Sidebar
     $mostrarMarcaSinRepetirSidebar = Utils::mostrarMarcaSinRepetirSidebar($idCategoria);
-
     // Obtengo Memoria Ram o Capacidad, Sin Repetir en el Sidebar
     $mostrarMemoriaRamSinRepetirSidebar = Utils::mostrarMemoriaRamSinRepetirSidebar($idCategoria);
-
     // Consulta Para Autocompletar
     $listado  =  Utils::listarAutocompletado();
-
     // Mosrar listar de Autocompletado
     $jsonMostrar = Utils::mostrarAutocompletado($listado);
-
     require_once 'views/layout/header.php';
     require_once 'views/layout/banner.php';
     require_once 'views/layout/nav.php';
@@ -326,17 +298,12 @@ class ProductoController
     require_once 'views/layout/footer.php';
   }
 
-
   public function autocompletarBuscador()
   {
     $accionaBuscador = isset($_POST['accionaBuscador']) ? $_POST['accionaBuscador'] : false;
-
     $listado  =  Utils::listarAutocompletado($accionaBuscador);
-
     $arrayListados = array();
-
     while ($filas = $listado->fetch_assoc()) {
-      // array_push($arrayListados, $filas['categorias']);
       array_push($arrayListados, $filas['nombre']);
     }
     echo json_encode($arrayListados);
@@ -350,31 +317,21 @@ class ProductoController
     $arrayMemoriaRamCheckbox = isset($_POST["arrayMemoriaRam"]) ? json_decode($_POST["arrayMemoriaRam"]) : false;
     $arrayPrecioCheckbox = isset($_POST["arrayPrecio"]) ? json_decode($_POST["arrayPrecio"]) : false;
     $arrayOfertasCheckbox = isset($_POST["arrayOfertas"]) ? json_decode($_POST["arrayOfertas"]) : false;
-
     // Obtengo los Valores Buscador 
     $buscadorProducto = isset($_POST['buscadorProducto']) ? $_POST['buscadorProducto'] : false;
-
     // Numero de Registro que voy a mostrar en un Div
     $mostrarRegistros = 3;
-
     // Extraer el Conteo Total de Registros Bd =>  Checkbox , buscador 
     $conteoRegistroProductos  =  Utils::conteoRegistrosPorBuscadoryCheckbox($productoByIdCategoria, $arrayMarcaCheckbox, $arrayMemoriaRamCheckbox, $arrayPrecioCheckbox, $arrayOfertasCheckbox, $buscadorProducto);
-
     // Total de Div que se van a Crear
     $crearRegistroPorDiv = ceil($conteoRegistroProductos / $mostrarRegistros);
-
     if ($conteoRegistroProductos > 0) {
-
       // Creo los Div y dentro de cada Uno de ellos, Muestro los Registros de la Base de Datos Limitados a 3
       for ($conteoIdProducto = 0; $conteoIdProducto < $crearRegistroPorDiv; $conteoIdProducto++) {
-
         echo '<div class="product-sec1 px-sm-4 px-3 py-sm-5  py-3 mb-4">';
-
         $ultimoRegistro = $mostrarRegistros * $conteoIdProducto;
-
         // Mostrar Producto Todos O Por el Buscador Creando Div y Registros
         $mostrarProductos = Utils::obtenerProductosPorBuscadoryCheckbox($productoByIdCategoria, $arrayMarcaCheckbox, $arrayMemoriaRamCheckbox, $arrayPrecioCheckbox, $arrayOfertasCheckbox, $ultimoRegistro, $mostrarRegistros, $buscadorProducto);
-
         echo '<div class="row">';
         while ($mostrarProducto = $mostrarProductos->fetch_object()) {
           echo '<div class="col-md-4 product-men mt-md-0 mt-5">';

@@ -7,14 +7,7 @@ function carritoDown(idProductoDown) {
     data: '&idDown=' + idProductoDown,
 
   })
-    .done(function (respuestaPhpMostrarCarritoCompras) {
-      $("#respuestaPhpMostrarCarritoCompras").html(respuestaPhpMostrarCarritoCompras);
+    .done(function (response) {
+      $("#respuestaPhpMostrarCarritoCompras").html(response);
     })
-    .fail(function () {
-      console.log("error");
-    })
-    .always(function () {
-      console.log("completo");
-    });
-
 }

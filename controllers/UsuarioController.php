@@ -125,7 +125,6 @@ class UsuarioController
         $rutaTemporal = isset($_FILES['file']['tmp_name']) ? $_FILES['file']['tmp_name'] : false;
         $pesoArchivo = isset($_FILES['file']['size']) ? $_FILES['file']['size'] : false;
         $sizeArchivoMax = "1048576"; // 1 MB expresado en bytes //1048576
-
         if (!is_dir('uploads/images/avatar/')) {
             mkdir('uploads/images/avatar/', 0777, true);
         }
@@ -133,13 +132,10 @@ class UsuarioController
         $subirImagen = new Usuario();
         $subirImagen->setId($id);
         $subirImagen->setUrl_Avatar($nombreArchivo);
-
         //Seleciono Imagen que Existe
         $obtenerUsuario = $subirImagen->obtenerTodosPorId();
-
         //url que existe en la base de datos actualmente.
         $ruta = 'uploads/images/avatar/' . $obtenerUsuario->Url_Avatar;
-
         if ($rutaTemporal) {
             //Guardo la Url en la base de datos
             $subirImagen->subirImagen();
@@ -166,30 +162,24 @@ class UsuarioController
         $usuario = isset($_POST['usuario']) ? $_POST['usuario'] : false;
         $documentacion = isset($_POST['documentacion']) ? $_POST['documentacion'] : false;
         $telefono = isset($_POST['telefono']) ? $_POST['telefono'] : false;
-
         //Instancio
         $actualizarInformacionPublica = new Usuario();
         $actualizarInformacionPublica->setId($id);
         $actualizarInformacionPublica->setUsuario($usuario);
         $actualizarInformacionPublica->setNumeroDocumento($documentacion);
         $actualizarInformacionPublica->setNroTelefono($telefono);
-
         $errores = array();
-
         if (empty($usuario)) {
             $errores['alias'] = Utils::erroresValidacion('Error', 'Ingrese Alias');
         } elseif (strlen($usuario) > 12) {
             $errores['alias'] = Utils::erroresValidacion('Error', 'El Alias debe de Tener Max. 12 Caracteres');
         }
-
         if (empty(trim($documentacion))) {
             $errores['documentacion'] = Utils::erroresValidacion('Error', 'Ingrese Documentacion');
         }
-
         if (empty(trim($telefono))) {
             $errores['telefono'] = Utils::erroresValidacion('Error', 'Ingrese Teléfono');
         }
-
         if (count($errores) == 0) {
             //Guardo la Url en la base de datos la url Nueva y los Datos Nuevos
             $actualizarInformacionPublica->actualizarInformacionPublica();
@@ -207,7 +197,6 @@ class UsuarioController
         $pais = isset($_POST['pais']) ? $_POST['pais'] : false;
         $ciudad = isset($_POST['ciudad']) ? $_POST['ciudad'] : false;
         $codigoPostal = isset($_POST['codigoPostal']) ? $_POST['codigoPostal'] : false;
-
         //Repoblar Campos
         $repoblarInputs = array();
         $repoblarInputs['id'] = $id;
@@ -218,7 +207,6 @@ class UsuarioController
         $repoblarInputs['pais'] = $pais;
         $repoblarInputs['ciudad'] = $ciudad;
         $repoblarInputs['codigoPostal'] = $codigoPostal;
-
         //instancio
         $usuario = new usuario();
         $usuario->setId($id);
@@ -229,47 +217,37 @@ class UsuarioController
         $usuario->setPais($pais);
         $usuario->setCiudad($ciudad);
         $usuario->setCodigoPostal($codigoPostal);
-
         //errores 
         $errores = array();
-
         if (empty(trim($nombre))) {
             $errores['documentacion'] = Utils::erroresValidacion('Error', 'Ingresé Nombre');
         }
-
         if (empty(trim($apellido))) {
             $errores['documentacion'] = Utils::erroresValidacion('Error', 'Ingresé Aplellidos');
         }
-
         if (empty(trim($email))) {
             $errores['documentacion'] = Utils::erroresValidacion('Error', 'Ingresé Email');
         } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $errores['documentacion'] = Utils::erroresValidacion('Error', 'Email No Válido');
         }
-
         if (empty(trim($direccion))) {
             $errores['documentacion'] = Utils::erroresValidacion('Error', 'Ingresé Dirección');
         }
-
         if (empty(trim($pais))) {
             $errores['documentacion'] = Utils::erroresValidacion('Error', 'Ingresé País');
         }
-
         if (empty(trim($ciudad))) {
             $errores['documentacion'] = Utils::erroresValidacion('Error', 'Ingresé Ciudad');
         }
-
         if (empty(trim($codigoPostal))) {
             $errores['documentacion'] = Utils::erroresValidacion('Error', 'Ingrese Código Postal');
         }
-
         if (count($errores) == 0) {
             //consulta
             $usuario->actualizarInformacionPrivada();
             echo 1;
         }
     }
-
 
     public function cambioPassword()
     {

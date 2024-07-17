@@ -6,15 +6,7 @@ function carritoUp(idProductoUp) {
     url: baseUrl + 'CarritoCompras/mostrar',
     data: 'idUp=' + idProductoUp,
   })
-    .done(function (respuestaPhpMostrarCarritoCompras) {
-      $("#respuestaPhpMostrarCarritoCompras").html(respuestaPhpMostrarCarritoCompras);
+    .done(function (response) {
+      $("#respuestaPhpMostrarCarritoCompras").html(response);
     })
-    .fail(function () {
-      console.log("error");
-    })
-    .always(function () {
-      console.log("completo");
-    });
-
-
 }

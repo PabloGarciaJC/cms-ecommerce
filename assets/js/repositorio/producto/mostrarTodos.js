@@ -28,19 +28,15 @@ let valorBuscador = '';
 if (buscadorMostrarProducto) {
 
   /******************* Primero en Cargar  *************/
-  //Ajax 
   ajaxMostrarProductos(arrayCheckMarca, productoIdCategoriaMarca, arrayCheckMemoriaRam, arrayCheckedPrecio, arrayCheckedOfertas, valorBuscador);
-
 
   /****************** Obtener Tiempo Real Datos Buscador *************/
   buscadorMostrarProducto.addEventListener('keyup', (event) => {
     valorBuscador = event.path[0].value;
     ajaxMostrarProductos(arrayCheckMarca, productoIdCategoriaMarca, arrayCheckMemoriaRam, arrayCheckedPrecio, arrayCheckedOfertas, valorBuscador);
-    //Invocar al ajax y pasar un nuevo parametro con buscador y mandarlo a php
   });
 
   /****************** Ajax Filtro Sidebar ***************************/
-
   // Checkedbox => Marca Selecionados
   for (var checkedTodosMarca of checkedMarca) {
     checkedTodosMarca.addEventListener('click', function () {
@@ -52,10 +48,9 @@ if (buscadorMostrarProducto) {
         //Remuevo valores array
         arrayCheckMarca = arrayCheckMarca.filter(e => e !== this.value);
       }
-      //Ajax 
       ajaxMostrarProductos(arrayCheckMarca, productoIdCategoriaMarca, arrayCheckMemoriaRam, arrayCheckedPrecio, arrayCheckedOfertas, valorBuscador);
-    }); //Fin del click
-  }//Fin del for
+    });
+  }
 
   // Checkedbox => Memoria Ram Selecionados
   for (var checkedboxTodosMemoriaRam of checkedboxMemoriaRam) {
@@ -70,8 +65,8 @@ if (buscadorMostrarProducto) {
       }
       //Ajax 
       ajaxMostrarProductos(arrayCheckMarca, productoIdCategoriaMarca, arrayCheckMemoriaRam, arrayCheckedPrecio, arrayCheckedOfertas, valorBuscador);
-    }); //Fin del click
-  }//Fin del for
+    });
+  }
 
   // Checkedbox => Precio Selecionados
   for (var checkedTodosPrecio of checkedPrecio) {
@@ -86,8 +81,8 @@ if (buscadorMostrarProducto) {
       }
       //Ajax 
       ajaxMostrarProductos(arrayCheckMarca, productoIdCategoriaMarca, arrayCheckMemoriaRam, arrayCheckedPrecio, arrayCheckedOfertas, valorBuscador);
-    }); //Fin del click
-  }//Fin del for
+    });
+  }
 
 
   // Checkedbox => Ofertas Selecionados
@@ -103,28 +98,20 @@ if (buscadorMostrarProducto) {
       }
       //Ajax 
       ajaxMostrarProductos(arrayCheckMarca, productoIdCategoriaMarca, arrayCheckMemoriaRam, arrayCheckedPrecio, arrayCheckedOfertas, valorBuscador);
-    }); //Fin del click
-  }//Fin del for
-
+    });
+  }
 
   // Function  Ajax
   function ajaxMostrarProductos(arrayCheckMarca, productoIdCategoriaMarca, arrayCheckMemoriaRam, arrayCheckedPrecio, arrayCheckedOfertas, valorBuscador) {
-
     $.ajax({
       type: 'POST',
       url: baseUrl + 'Producto/mostrarTodos',
       data: { arrayMarca: JSON.stringify(arrayCheckMarca), productoByIdCategoria: productoIdCategoriaMarca, arrayMemoriaRam: JSON.stringify(arrayCheckMemoriaRam), arrayPrecio: JSON.stringify(arrayCheckedPrecio), arrayOfertas: JSON.stringify(arrayCheckedOfertas), buscadorProducto: valorBuscador },
     })
-      .done(function (respuestaPhpMostrarProductos) {
-        $("#respuestaPhpMostrarProductos").html(respuestaPhpMostrarProductos);
+      .done(function (response) {
+        $("#respuestaPhpMostrarProductos").html(response);
       })
-      .fail(function () {
-        console.log("error");
-      })
-      .always(function () {
-        console.log("completo");
-      });
-  } // Fin Funcion Ajax
+  }
 
 }
 

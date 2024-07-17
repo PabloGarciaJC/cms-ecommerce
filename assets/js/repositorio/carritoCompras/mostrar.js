@@ -7,15 +7,9 @@ $(document).ready(function () {
     url: baseUrl + 'CarritoCompras/mostrar',
     data: 'id=' + idProductoCarritoCompras,
   })
-    .done(function (respuestaPhpMostrarCarritoCompras) {
-      $("#respuestaPhpMostrarCarritoCompras").html(respuestaPhpMostrarCarritoCompras);
+    .done(function (response) {
+      $("#respuestaPhpMostrarCarritoCompras").html(response);
     })
-    .fail(function () {
-      console.log("error");
-    })
-    .always(function () {
-      console.log("completo");
-    });
 });
 
 

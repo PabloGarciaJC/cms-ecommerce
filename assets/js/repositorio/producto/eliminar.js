@@ -17,9 +17,8 @@ function eliminarDatosProducto(idProducto, nombreProductoBd) {
         url: baseUrl + 'Producto/eliminar',
         data: { id: idProducto },
       })
-        .done(function (respuestaPhpEliminarProducto) { 
-          // $("#respuestaPhpEliminarProducto").html(respuestaPhpEliminarProducto);        
-          if (respuestaPhpEliminarProducto == 1) {
+        .done(function (response) {        
+          if (response == 1) {
             Swal.fire(
               'Eliminado!',
               'Su Producto ha sido eliminado.',              
@@ -35,12 +34,6 @@ function eliminarDatosProducto(idProducto, nombreProductoBd) {
             })
           }
         })
-        .fail(function () {
-          console.log("error");
-        })
-        .always(function () {
-          console.log("completo");
-        });
      }
   })
 }

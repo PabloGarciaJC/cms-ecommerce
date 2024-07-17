@@ -18,29 +18,15 @@ if (confimarPedido) {
     let totalPagarCarrito = $('#totalPagarCarrito').val();
     let stockTotalesCarrito = $('#stockTotalesCarrito').val();
 
-
-    // console.log(usuarioIdCarrito);
-    // console.log(aliasCarrito);
-    // console.log(emailCarrito);    
-    // console.log(nombreCarrito);
-    // console.log(apellidosCarrito);
-    // console.log(direccionCarrito);
-    // console.log(telefonoCarrito);
-    // console.log(paisCarrito);
-    // console.log(ciudadCarrito);
-    // console.log(CodigoPostalCarrito);
-    // console.log(totalPagarCarrito);
-    // console.log(stockTotalesCarrito);
-
     // Ajax Confimar Pedido
     $.ajax({
       type: 'POST',
       url: baseUrl + 'Pedidos/guardar',
       data: 'usuarioId=' + usuarioIdCarrito + '&alias=' + aliasCarrito + '&email=' + emailCarrito + '&nombre=' + nombreCarrito + '&apellidos=' + apellidosCarrito + '&direccion=' + direccionCarrito + '&telefono=' + telefonoCarrito + '&pais=' + paisCarrito + '&ciudad=' + ciudadCarrito + '&CodigoPostal=' + CodigoPostalCarrito + '&totalPagar=' + totalPagarCarrito + '&stockTotales=' + stockTotalesCarrito,
     })
-      .done(function (respuestaPhpConfimarPedido) {
-        $("#respuestaPhpConfimarPedido").html(respuestaPhpConfimarPedido);
-        if (respuestaPhpConfimarPedido == 1) {
+      .done(function (response) {
+        $("#respuestaPhpConfimarPedido").html(response);
+        if (response == 1) {
           Swal.fire({
             title: 'Completado',
             icon: 'success'
@@ -49,14 +35,5 @@ if (confimarPedido) {
           });
         }
       })
-      .fail(function () {
-        console.log("error");
-      })
-      .always(function () {
-        console.log("completo");
-      });
-
-
-
   });
 }

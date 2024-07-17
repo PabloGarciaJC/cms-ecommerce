@@ -18,24 +18,16 @@ function eliminarCarritoProducto(idProductoBorrar, nombreProducto) {
         url: baseUrl + 'CarritoCompras/mostrar',       
         data: 'id=' + idBorraCarrito + '&idBorrar=' + idProductoBorrar,
       })
-        .done(function (respuestaPhpMostrarCarritoCompras) {         
-          $("#respuestaPhpMostrarCarritoCompras").html(respuestaPhpMostrarCarritoCompras);
-
-          if (respuestaPhpMostrarCarritoCompras) {
+        .done(function (response) {         
+          $("#respuestaPhpMostrarCarritoCompras").html(response);
+          if (response) {
             Swal.fire(
               'Eliminado!',
               'Su categoria ha sido eliminado.',
               'success'
             )
           }
-
         })
-        .fail(function () {
-          console.log("error");
-        })
-        .always(function () {
-          console.log("completo");
-        });
     }
   })
 

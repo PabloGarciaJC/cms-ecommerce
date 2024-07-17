@@ -60,20 +60,14 @@ if (infromacionPrivada) {
       url: baseUrl + 'Usuario/informacionPrivada',
       data: 'id=' + id + '&nombre=' + nombre + '&apellido=' + apellido + '&email=' + email + '&direccion=' + direccion + '&pais=' + pais + '&ciudad=' + ciudad + '&codigoPostal=' + codigoPostal,
     })
-      .done(function (respuestaPhpInformacionPrivada) {
-        $("#respuestaPhpInformacionPrivada").html(respuestaPhpInformacionPrivada);
-        if (respuestaPhpInformacionPrivada == 1) {
+      .done(function (response) {
+        $("#respuestaPhpInformacionPrivada").html(response);
+        if (response == 1) {
           Swal.fire({
             title: 'Completado',
             icon: 'success'
           })
         }
       })
-      .fail(function () {
-        console.log("error");
-      })
-      .always(function () {
-        console.log("completo");
-      });
   });
 }

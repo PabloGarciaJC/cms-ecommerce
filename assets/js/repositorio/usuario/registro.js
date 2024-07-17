@@ -15,14 +15,14 @@ mdFormularioRegistro.addEventListener('submit', (e) => {
     url: baseUrl + 'Usuario/registro',
     data: 'usuario=' + mdUsuarioR + '&email=' + mdEmailR + '&password=' + mdPasswordR + '&confirmarPassword=' + mdConfirmarPasswordR + '&checked=' + mdCheckedR,
   })
-    .done(function (respuestaPhpRegistro) {
+    .done(function (response) {
       $('#mdErrorUsuarioPhp').html('');
       $('#mdErrorEmailPhp').html('');
       $('#mdErrorPasswordPhp').html('');
       $('#mdErrorConfirmarPasswordPhp').html('');
       $('#mdErrorChekedPhp').html('');      
-      $("#respuestaPhpRegistro").html(respuestaPhpRegistro);
-      if (respuestaPhpRegistro == 1) {
+      $("#respuestaPhpRegistro").html(response);
+      if (response == 1) {
           Swal.fire({
             title: 'Registro Completo',
             icon: 'success'

@@ -34,8 +34,7 @@ if (formularioProducto) {
     datosFormularioProducto.append('memoriaRamProducto', memoriaRamProducto);
     datosFormularioProducto.append('descripcionProducto', descripcionProducto);
     datosFormularioProducto.append('guardarImagenProducto', imagenPropiedadesProducto);
-    // datosFormularioProducto.append('idHTML', valor capturado en Javascript);
-
+   
     // Validacion
     if (nombreProducto == null || nombreProducto == '') {
       mostrarMensajeError('errorNombreProducto', 'Ingrese Nombre');
@@ -87,9 +86,9 @@ if (formularioProducto) {
       contentType: false,
       processData: false,
     })
-      .done(function (respuestaPhpGuardar) {
-        $("#respuestaPhpGuardar").html(respuestaPhpGuardar);
-        if (respuestaPhpGuardar == 1) {
+      .done(function (response) {
+        $("#respuestaPhpGuardar").html(response);
+        if (response == 1) {
           Swal.fire({
             title: 'Completado',
             icon: 'success'
@@ -98,12 +97,6 @@ if (formularioProducto) {
           });
         }
       })
-      .fail(function () {
-        console.log("error");
-      })
-      .always(function () {
-        console.log("completo");
-      });
   });
 }
 
