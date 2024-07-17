@@ -48,17 +48,12 @@
                       <label for="inputUsername">Nro. de Telefono</label>
                       <input type="text" class="form-control" name="telefono">
                     </div>
-                    <!-- <div class="form-group">
-                      <label for="inputUsername">Biografía</label>
-                      <textarea rows="2" class="form-control" id="inputBio"></textarea>
-                    </div> -->
                   </div>                  
                   <div class="col-md-4">
                     <div class="text-center">
                       <img alt="Andrew Jones" src="https://bootdey.com/img/Content/avatar/avatar1.png" class="rounded-circle img-responsive mt-2" width="128" height="128">
                       <div class="mt-2">                       
                         <input type="file" name="avatar">
-                         <!-- <span class="btn btn-primary"><i class="fa fa-upload"></i></span>  -->
                       </div>
                       <small>Use una imagen de al menos 128 px por 128 px en formato .jpg</small>
                     </div>
