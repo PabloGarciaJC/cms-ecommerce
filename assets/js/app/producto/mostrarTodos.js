@@ -8,13 +8,6 @@ let checkedOfertas = document.querySelectorAll('.checkedOfertas');
 // Obtengo Valor de Buscador 
 var buscadorMostrarProducto = document.getElementById('buscadorMostrarProducto');
 
-// Capturo Valores del Buscador a tiempo real y repueblo el otro Buscador
-if (buscadorMostrarProducto) {
-  buscadorMostrarProducto.addEventListener('keyup', (event) => {
-    valorBuscador = event.path[0].value;
-    $('#buscadorGlobal').val(valorBuscador);
-  });
-}
 // Obtengo IdCategoria
 let productoIdCategoriaMarca = $('#productoIdCategoria').val();
 
@@ -26,13 +19,14 @@ let arrayCheckedOfertas = [];
 let valorBuscador = '';
 
 if (buscadorMostrarProducto) {
-
+  
   /******************* Primero en Cargar  *************/
   ajaxMostrarProductos(arrayCheckMarca, productoIdCategoriaMarca, arrayCheckMemoriaRam, arrayCheckedPrecio, arrayCheckedOfertas, valorBuscador);
 
   /****************** Obtener Tiempo Real Datos Buscador *************/
   buscadorMostrarProducto.addEventListener('keyup', (event) => {
-    valorBuscador = event.path[0].value;
+    let valorBuscador = event.target.value;
+    $('#buscadorGlobal').val(valorBuscador);
     ajaxMostrarProductos(arrayCheckMarca, productoIdCategoriaMarca, arrayCheckMemoriaRam, arrayCheckedPrecio, arrayCheckedOfertas, valorBuscador);
   });
 

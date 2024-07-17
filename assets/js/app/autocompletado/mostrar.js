@@ -22,7 +22,7 @@ if (formBuscadorGlobal) {
 // Capturo Valores del Buscador a tiempo real y repueblo el otro Buscador
 if (formBuscadorGlobal) {
   buscadorGlobal.addEventListener("keyup", (event) => {
-    valorBuscador = event.path[0].value;
+    let valorBuscador = event.target.value;
     $("#buscadorMostrarProducto").val(valorBuscador);
   });
 }
