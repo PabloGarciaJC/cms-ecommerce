@@ -17,22 +17,15 @@
       <div class="card">
         <div class="card-header">
           <h5 class="card-title mb-0">Lista de Productos</h5>
-
-          <!-- <div id="respuestaPhpEliminarProducto"></div> -->
-
         </div>
         <div class="card-body">
           <div class="container">
             <div class="row" style="margin: 0 auto">
-              <!-- Original -->
               <div class="col">
                 <input type="text" class="form-control" placeholder=" Buscador..." id="buscadorProductos">
                 <br>
-                <!-- Respuesta Ajax  -->
                 <div id="respuestaPhpBuscadorProductos"></div>
-                <!-- // Respuesta Ajax  -->
               </div>
-              <!-- Original -->
             </div>
           </div>
         </div>
@@ -42,7 +35,6 @@
 </div>
 </div>
 </div>
-<!-- Eliminar Categorias -->
-<!-- //modal -->
+
 
 

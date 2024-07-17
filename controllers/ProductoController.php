@@ -8,24 +8,19 @@ class ProductoController
   {
     //Acceso Usuario Registrado a esta Pagina
     Utils::accesoUsuarioRegistrado();
-
     //Obtengo Ususario en el Banner
     $usuario = Utils::obtenerUsuario();
-
     //Imprimo Lista Categoria   
     $categoria = Utils::listaCategorias();
-
     //Obtengo Categorias en la Barra de Navegacion
     $categoriaBarraNavegacion = Utils::listaCategorias();
-
     //Capturo el Id para Editar
     isset($_GET['id']) ? $obtenerProductosPorId = Utils::obtenerProductosPorId($_GET['id']) : false;
-
     require_once 'views/layout/header.php';
     require_once 'views/layout/banner.php';
     require_once 'views/layout/nav.php';
     require_once 'views/layout/sidebarAdministrativo.php';
-    require_once 'views/producto/crear.php';
+    require_once 'views/Producto/crear.php';
     require_once 'views/layout/footer.php';
   }
 
@@ -155,7 +150,7 @@ class ProductoController
     require_once 'views/layout/banner.php';
     require_once 'views/layout/nav.php';
     require_once 'views/layout/sidebarAdministrativo.php';
-    require_once 'views/producto/listar.php';
+    require_once 'views/Producto/listar.php';
     require_once 'views/layout/footer.php';
   }
 
@@ -383,39 +378,39 @@ class ProductoController
         echo '<div class="row">';
         while ($mostrarProducto = $mostrarProductos->fetch_object()) {
           echo '<div class="col-md-4 product-men mt-md-0 mt-5">';
-          echo '<div class="men-pro-item simpleCart_shelfItem">';
-          echo '<div class="men-thumb-item text-center">';
-          echo '<img class="img-fluid" src="' . BASE_URL . 'uploads/images/productos/' . $mostrarProducto->imagen . '" alt="">';
-          echo '<div class="men-cart-pro">';
-          echo '</div>';
-          echo '</div>';
-          echo '<div class="item-info-product text-center border-top mt-4">';
-          echo '<h4 class="pt-1">';
-          echo '<a href="single.html">' . $mostrarProducto->nombre . '</a>' . '</br>';
-          echo '<a href="single.html">' . $mostrarProducto->marca . '</a>' . '</br>';
-          echo '<a href="single.html">' . $mostrarProducto->memoria_ram . ' Gb</a>';
-          echo '</h4>';
-          echo '<div class="info-product-price my-2">';
-          echo '<span class="item_price"> $ ' . $mostrarProducto->precio . '</span> <del> ' . $mostrarProducto->oferta . ' %</del>';
-          echo '</div>';
-          echo '<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">';
-          echo '<form action="' . BASE_URL . 'Producto/descripcion&id=' . $mostrarProducto->id . '" method="POST">';
-          echo '<fieldset>';
-          echo '<input type="hidden" name="cmd" value="_cart" />';
-          echo '<input type="hidden" name="add" value="1" />';
-          echo '<input type="hidden" name="business" value=" " />';
-          echo '<input type="hidden" name="item_name" value="Apple iPhone X" />';
-          echo '<input type="hidden" name="amount" value="280.00" />';
-          echo '<input type="hidden" name="discount_amount" value="1.00" />';
-          echo '<input type="hidden" name="currency_code" value="USD" />';
-          echo '<input type="hidden" name="return" value=" " />';
-          echo '<input type="hidden" name="cancel_return" value=" " />';
-          echo '<input type="submit" name="submit" value="ver Producto" class="button btn" />';
-          echo '</fieldset>';
-          echo '</form>';
-          echo '</div>';
-          echo '</div>';
-          echo '</div>';
+            echo '<div class="men-pro-item simpleCart_shelfItem">';
+              echo '<div class="men-thumb-item text-center">';
+              echo '<img class="img-fluid" src="' . BASE_URL . 'uploads/images/productos/' . $mostrarProducto->imagen . '" alt="">';
+              echo '<div class="men-cart-pro">';
+              echo '</div>';
+              echo '</div>';
+              echo '<div class="item-info-product text-center border-top mt-4">';
+              echo '<h4 class="pt-1">';
+              echo '<a href="single.html">' . $mostrarProducto->nombre . '</a>' . '</br>';
+              echo '<a href="single.html">' . $mostrarProducto->marca . '</a>' . '</br>';
+              echo '<a href="single.html">' . $mostrarProducto->memoria_ram . ' Gb</a>';
+              echo '</h4>';
+              echo '<div class="info-product-price my-2">';
+              echo '<span class="item_price"> $ ' . $mostrarProducto->precio . '</span> <del> ' . $mostrarProducto->oferta . ' %</del>';
+              echo '</div>';
+              echo '<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">';
+              echo '<form action="' . BASE_URL . 'Producto/descripcion&id=' . $mostrarProducto->id . '" method="POST">';
+              echo '<fieldset>';
+              echo '<input type="hidden" name="cmd" value="_cart" />';
+              echo '<input type="hidden" name="add" value="1" />';
+              echo '<input type="hidden" name="business" value=" " />';
+              echo '<input type="hidden" name="item_name" value="Apple iPhone X" />';
+              echo '<input type="hidden" name="amount" value="280.00" />';
+              echo '<input type="hidden" name="discount_amount" value="1.00" />';
+              echo '<input type="hidden" name="currency_code" value="USD" />';
+              echo '<input type="hidden" name="return" value=" " />';
+              echo '<input type="hidden" name="cancel_return" value=" " />';
+              echo '<input type="submit" name="submit" value="ver Producto" class="button btn" />';
+              echo '</fieldset>';
+              echo '</form>';
+              echo '</div>';
+              echo '</div>';
+            echo '</div>';
           echo '</div>';
         };
         echo '</div>';
@@ -433,20 +428,16 @@ class ProductoController
   {
     // Capturo el Valor de Id  por GET
     $idProducto = isset($_GET['id']) ? $_GET['id'] : false;
-
     // Obtengo Ususario en el Banner
     $usuario = Utils::obtenerUsuario();
-
     // Obtengo Categorias en la Barra de Navegacion
     $categoriaBarraNavegacion = Utils::listaCategorias();
-
     // Obtengo Registro de Productos Por Id
     $idProducto = Utils::obtenerProductosPorId($idProducto);
-
     require_once 'views/layout/header.php';
     require_once 'views/layout/banner.php';
     require_once 'views/layout/nav.php';
-    require_once 'views/producto/descripcion.php';
+    require_once 'views/Producto/descripcion.php';
     require_once 'views/layout/footer.php';
   }
 };
