@@ -193,13 +193,6 @@ class Usuario
 
     $save = $this->db->query($sql);
     
-    // echo $sql;
-    // echo "</br>";
-    // echo $this->db->error;
-    // die();
-    // if ($save) {
-    //   $result = true;
-    // }
     return $result;
   }
 

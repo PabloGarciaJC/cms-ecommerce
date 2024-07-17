@@ -1,7 +1,6 @@
 	<!-- Single Page -->
 	<div class="banner-bootom-w3-agileits py-5">
 		<div class="container py-xl-4 py-lg-2">
-
 			<div class="row">
 				<div class="col-lg-5 col-md-8 single-right-left ">
 					<div class="grid images_3_of_2">
@@ -11,7 +10,6 @@
 						</div>
 					</div>
 				</div>
-
 				<div class="col-lg-7 single-right-left simpleCart_shelfItem">
 					<h3 class="mb-3"><?= $idProducto->nombre ?></h3>
 					<div class="single-infoagile">
@@ -33,7 +31,6 @@
 							<li class="mb-3">
 								<strong> Descripción : </strong><?= $idProducto->descripcion ?>
 							</li>
-
 						</ul>
 					</div>
 					<div class="product-single-w3l">

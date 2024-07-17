@@ -19,13 +19,6 @@
 								<a class="nav-link dropdown" href="<?= BASE_URL ?>Producto/mostrar&producto=<?= $categoriaNav->id ?>"><?= $categoriaNav->categorias ?></a>
 							</li>
 						<?php endwhile; ?>
-
-						<!-- <li class="nav-item dropdown mr-lg-2 mb-lg-0 mb-2">
-							<a class="nav-link dropdown" href="<?= BASE_URL ?>Home/electronica">Electronica</a>
-						</li> -->
-						<!-- <li class="nav-item dropdown mr-lg-2 mb-lg-0 mb-2">
-							<a class="nav-link dropdown" href="<?= BASE_URL ?>Home/accesorios">Accesorios</a>
-						</li> -->
 						<li class="nav-item mr-lg-2 mb-lg-0 mb-2">
 							<a class="nav-link" href="<?= BASE_URL ?>Home/sobreNosotros">Sobre Nosotros</a>
 						</li>

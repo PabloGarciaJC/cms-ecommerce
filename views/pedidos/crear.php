@@ -8,16 +8,10 @@
         </div>
 
         <div class="card-body">
-          <!-- <form action="<?= BASE_URL ?>Pedidos/guardar" method="POST"> -->
           <form action="" id="confimarPedido" method="POST">
-
             <div class="form-row">
               <div class="form-group col-md-6">
-
-                <!-- Usuario Id -->
                 <input type="hidden" class="form-control" id="usuarioIdCarrito" name="usuarioId" value="<?= $usuario->Id ?>">
-                <!-- // Usuario Id -->
-
                 <label>Alias</label>
                 <input type="text" class="form-control" id="aliasCarrito" name="alias" value="<?= $usuario->Usuario ?>" disabled>
               </div>
@@ -67,9 +61,7 @@
             </div>
 
             <div class="form-row">
-
               <div class="form-group col-md-6">
-
                 <label>Total a Pagar</label>
                 <div class="input-group mb-2">
                   <input type="text" class="form-control" id="totalPagarCarrito" name="totalPagar" value="<?= $stats['total'] ?>" disabled>
@@ -78,7 +70,6 @@
                   </div>
                 </div>
               </div>
-
               <div class="form-group col-md-6">
                 <label>Total</label>
                 <div class="input-group mb-2">
@@ -101,7 +92,6 @@
 
         <br>
         <table class="table email-table no-wrap table-hover v-middle mb-0 font-14">
-
           <thead>
             <tr>
               <th scope="col" style="text-align: center;">Imagen</th>
@@ -139,6 +129,6 @@
       </div>
     </div>
   </div>
-</div><!-- Fin Footer -->
-</div> <!-- Fin Footer -->
-</div> <!-- Fin Footer -->
+</div>
+</div> 
+</div>

@@ -282,10 +282,7 @@ class Utils
       array_push($arrayListados, $nombre);
       array_push($arrayListados, $marca);
     }
-    
+
     return $jsonListado = json_encode($arrayListados);
   }
 };
-
-
-

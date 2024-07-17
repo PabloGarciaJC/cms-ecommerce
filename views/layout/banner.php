@@ -14,11 +14,9 @@
           <ul>
             <li class="text-center border-right text-white">
               <a class="play-icon popup-with-zoom-anim text-white" href="#small-dialog1">
-                <!-- <i class="fas fa-map-marker mr-2"></i>Seleccionar ubicación</a> -->
             </li>
             <li class="text-center border-right text-white">
               <a href="#" data-toggle="modal" data-target="#exampleModal" class="text-white"></a>
-              <!-- <i class="fas fa-truck mr-2"></i>Track Order</a> -->
             </li>
             <li class="text-center border-right text-white">
               <i class="fas fa-phone mr-2"></i> 001 234 5678

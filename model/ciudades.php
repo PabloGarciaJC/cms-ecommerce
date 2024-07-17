@@ -52,6 +52,6 @@ class Ciudades
   {
     $sql = "SELECT * FROM CIUDADES WHERE Id_Pais = '{$this->getIdPais()}';";
     $obtenerCiudades = $this->db->query($sql);
-    return $obtenerCiudades; 
+    return $obtenerCiudades;
   }
 }

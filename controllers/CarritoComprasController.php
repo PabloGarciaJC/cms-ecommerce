@@ -12,7 +12,7 @@ class CarritoComprasController
     $categoriaBarraNavegacion = Utils::listaCategorias();
     require_once 'views/layout/header.php';
     require_once 'views/layout/banner.php';
-    require_once 'views/layout/nav.php';    
+    require_once 'views/layout/nav.php';
     require_once 'views/layout/sidebarAdministrativo.php';
     require_once 'views/carritoCompras/listar.php';
     require_once 'views/layout/footer.php';
@@ -25,7 +25,7 @@ class CarritoComprasController
     $idUp = isset($_POST['idUp']) ? $_POST['idUp'] : false;
     $idDown = isset($_POST['idDown']) ? $_POST['idDown'] : false;
     $idBorrar = isset($_POST['idBorrar']) ? $_POST['idBorrar'] : false;
-    
+
     // Creacion del Carrito
     $carritoCreacion = 0;
 
@@ -100,14 +100,14 @@ class CarritoComprasController
     echo '<div class="row">';
     echo '<div class="col-sm">';
     echo '<strong>Sub-Total:</strong> ' . $stats['totalPrecio'] . ' $ <br>';
-    echo '<strong>Oferta:</strong> ' . $stats['totalOfertas'] . ' % <br>';    
+    echo '<strong>Oferta:</strong> ' . $stats['totalOfertas'] . ' % <br>';
     echo '<strong>Iva 21.00 %: </strong> ' . $stats['aplicandoIva'] . ' $ <br>';
     echo '<strong>Total Pagar: </strong> <u>' . $stats['total'] . '</u> $<br>';
     echo '</div>';
     echo '<div class="col-sm">';
     echo '</br>';
     if (!isset($_SESSION['usuarioRegistrado'])) :
-      echo '<a href="#" data-toggle="modal" data-target="#exampleModal">';      
+      echo '<a href="#" data-toggle="modal" data-target="#exampleModal">';
       echo '<button type="button" class="btn btn-success">Hacer Pedido</button></a>';
       echo '</a>';
     else :

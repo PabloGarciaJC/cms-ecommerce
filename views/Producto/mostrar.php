@@ -1,7 +1,6 @@
 <!-- banner-2 -->
 <div class="page-head_agile_info_w3l">
 </div>
-<!-- //banner-2 -->
 
 <div class="services-breadcrumb">
 	<div class="agile_inner_breadcrumb">
@@ -31,13 +30,11 @@
 						<div id="respuestaPhpMostrarProductos"></div>
 					</div>
 				</div>
-
 				<div class="col-lg-3 mt-lg-0 mt-4 p-lg-0">
 					<div class="side-bar p-sm-4 p-3">
 						<div class="search-hotel border-bottom py-2">
 							<!-- Buscador -->
 							<input type="text" class="form-control" placeholder=" Buscador..." id="buscadorMostrarProducto">
-							<!-- //Buscador -->
 							<div class="left-side py-2">
 								<h3 class="agileits-sear-head mb-3">Marca</h3>
 								<ul>
@@ -50,7 +47,6 @@
 								</ul>
 							</div>
 						</div>
-
 						<!-- Memoria Ram -->
 						<div class="left-side border-bottom py-2">
 							<h3 class="agileits-sear-head mb-3">Capacidad</h3>
@@ -63,8 +59,6 @@
 								<?php endwhile; ?>
 							</ul>
 						</div>
-						<!-- //Memoria Ram  -->
-
 						<!-- Precio -->
 						<div class="left-side border-bottom py-2">
 							<h3 class="agileits-sear-head mb-3">Precio</h3>
@@ -87,8 +81,6 @@
 								</li>
 							</ul>
 						</div>
-						<!-- //Precio -->
-
 						<!-- Ofertas -->
 						<div class="left-side border-bottom py-2">
 							<h3 class="agileits-sear-head mb-3">Ofertas</h3>
@@ -119,7 +111,6 @@
 								</li>
 							</ul>
 						</div>
-						<!-- //Ofertas -->
 					</div>
 				</div>
 			</div>
