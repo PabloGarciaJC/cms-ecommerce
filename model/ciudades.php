@@ -50,7 +50,7 @@ class Ciudades
 
   public function obtenerTodasCiudades()
   {
-    $sql = "SELECT * FROM CIUDADES WHERE Id_Pais = '{$this->getIdPais()}';";
+    $sql = "SELECT * FROM ciudades WHERE Id_Pais = '{$this->getIdPais()}';";
     $obtenerCiudades = $this->db->query($sql);
     return $obtenerCiudades;
   }

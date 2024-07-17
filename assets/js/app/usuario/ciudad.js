@@ -5,17 +5,11 @@ function mostrarCodigoPaises() {
   // Informacion Privada Ajax
   $.ajax({
     type: "POST",
-    url: baseUrl + "Ciudad/obtenerTodos",
+    url: baseUrl + "ciudad/obtenerTodos",
     data: "pais=" + pais,
   })
-    .done(function (respuestaPhpCiudad) {
+    .done(function (response) {
       $("#ciudad").attr("disabled", false);
-      $("#ciudad").html(respuestaPhpCiudad);
+      $("#ciudad").html(response);
     })
-    .fail(function () {
-      console.log("error");
-    })
-    .always(function () {
-      console.log("completo");
-    });
 }
