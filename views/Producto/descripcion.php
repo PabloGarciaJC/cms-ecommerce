@@ -5,7 +5,7 @@
 				<div class="col-lg-5 col-md-8 single-right-left ">
 					<div class="grid images_3_of_2">
 						<div class="flexslider">
-							<img src="<?= BASE_URL ?>uploads/images/productos/<?= $idProducto->imagen ?>" width="50%" height="50%" alt="">
+							<img src="<?= BASE_URL ?>uploads/images/productos/<?= $idProducto->imagen ?>" width="100%" height="100%" alt="">
 							<div class="clearfix"></div>
 						</div>
 					</div>
