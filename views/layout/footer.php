@@ -276,43 +276,43 @@
 
   <!-- Iniciar Sesion y Registro AJAX y Validaciones con PHP -->
   <script src="<?= BASE_URL ?>assets/js/config/parameters.js"></script>
-  <script src="<?= BASE_URL ?>assets/js/repositorio/usuario/registro.js"></script>
-  <script src="<?= BASE_URL ?>assets/js/repositorio/usuario/iniciarSesion.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/app/usuario/registro.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/app/usuario/iniciarSesion.js"></script>
 
   <!-- Usuario -->
-  <script src="<?= BASE_URL ?>assets/js/repositorio/usuario/avatarVistaPrevia.js"></script>
-  <script src="<?= BASE_URL ?>assets/js/repositorio/usuario/informacionPublica.js"></script>
-  <script src="<?= BASE_URL ?>assets/js/repositorio/usuario/informacionPrivada.js"></script>
-  <script src="<?= BASE_URL ?>assets/js/repositorio/usuario/ciudad.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/app/usuario/avatarVistaPrevia.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/app/usuario/informacionPublica.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/app/usuario/informacionPrivada.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/app/usuario/ciudad.js"></script>
 
   <!-- Categoria -->
-  <script src="<?= BASE_URL ?>assets/js/repositorio/categoria/obtenerDatosEditar.js"></script>
-  <script src="<?= BASE_URL ?>assets/js/repositorio/categoria/editar.js"></script>
-  <script src="<?= BASE_URL ?>assets/js/repositorio/categoria/eliminar.js"></script>
-  <script src="<?= BASE_URL ?>assets/js/repositorio/categoria/listar.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/app/categoria/obtenerDatosEditar.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/app/categoria/editar.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/app/categoria/eliminar.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/app/categoria/listar.js"></script>
 
   <!-- Producto -->
-  <script src="<?= BASE_URL ?>assets/js/repositorio/producto/crear.js"></script>
-  <script src="<?= BASE_URL ?>assets/js/repositorio/producto/eliminar.js"></script>
-  <script src="<?= BASE_URL ?>assets/js/repositorio/producto/mostrarTodos.js"></script>
-  <script src="<?= BASE_URL ?>assets/js/repositorio/producto/buscador.js"></script>
-  <script src="<?= BASE_URL ?>assets/js/repositorio/producto/imagen.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/app/producto/crear.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/app/producto/eliminar.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/app/producto/mostrarTodos.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/app/producto/buscador.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/app/producto/imagen.js"></script>
 
   <!-- Carrito Compras -->
-  <script src="<?= BASE_URL ?>assets/js/repositorio/carritoCompras/borrar.js"></script>
-  <script src="<?= BASE_URL ?>assets/js/repositorio/carritoCompras/mostrar.js"></script>
-  <script src="<?= BASE_URL ?>assets/js/repositorio/carritoCompras/carritoUp.js"></script>
-  <script src="<?= BASE_URL ?>assets/js/repositorio/carritoCompras/carritoDown.js"></script>
-  <script src="<?= BASE_URL ?>assets/js/repositorio/carritoCompras/confimarPedido.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/app/carritoCompras/borrar.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/app/carritoCompras/mostrar.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/app/carritoCompras/carritoUp.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/app/carritoCompras/carritoDown.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/app/carritoCompras/confimarPedido.js"></script>
 
   <!-- Pedidos -->
-  <script src="<?= BASE_URL ?>assets/js/repositorio/pedidos/editarPedidos.js"></script>
-  <script src="<?= BASE_URL ?>assets/js/repositorio/pedidos/mostrar.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/app/pedidos/editarPedidos.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/app/pedidos/mostrar.js"></script>
 
   <!-- Autocompletado Buscador General-->
   <script src="<?= BASE_URL ?>assets/js/librerias/jquery-ui.js"></script>
-  <script src="<?= BASE_URL ?>assets/js/repositorio/autocompletado/autocompletado.js"></script>
-  <script src="<?= BASE_URL ?>assets/js/repositorio/autocompletado/mostrar.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/app/autocompletado/autocompletado.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/app/autocompletado/mostrar.js"></script>
   <script>
     autocompletado(<?= isset($jsonMostrar) ? $jsonMostrar :false ?>);
   </script>
