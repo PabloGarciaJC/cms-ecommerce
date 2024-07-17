@@ -1,11 +1,9 @@
-
-// Obtengo Valor de Buscador 
-let buscadorProductos = document.getElementById('buscadorProductos');
+// Obtengo Valor de Buscador
+let buscadorProductos = document.getElementById("buscadorProductos");
 
 if (buscadorProductos) {
-
   // Inicia en Vacio
-  let valorBuscadorProductos = '';
+  let valorBuscadorProductos = "";
 
   // Inicia en Vacio
   let paginaActualBuscadorProductos = 1;
@@ -14,23 +12,28 @@ if (buscadorProductos) {
   ajaxBuscadorProductos(paginaActualBuscadorProductos, valorBuscadorProductos);
 
   // Obtener Tiempo Real Datos Buscador
-  buscadorProductos.addEventListener('keyup', (event) => {
+  buscadorProductos.addEventListener("keyup", (event) => {
     valorBuscadorProductos = event.path[0].value;
-    ajaxBuscadorProductos(paginaActualBuscadorProductos, valorBuscadorProductos);
+    ajaxBuscadorProductos(
+      paginaActualBuscadorProductos,
+      valorBuscadorProductos
+    );
   });
 
   // Function  Ajax
-  function ajaxBuscadorProductos(paginaActualBuscadorProductos, valorBuscadorProductos) {
-
+  function ajaxBuscadorProductos(
+    paginaActualBuscadorProductos,
+    valorBuscadorProductos
+  ) {
     $.ajax({
-      type: 'POST',
-      url: baseUrl + 'Producto/buscador',
-      data: { paginaActualBuscadorProductos: paginaActualBuscadorProductos, buscadorProductos: valorBuscadorProductos },
-    })
-      .done(function (response) {
-        $("#respuestaPhpBuscadorProductos").html(response);
-      })
-  } // Fin Funcion Ajax
-
+      type: "POST",
+      url: baseUrl + "Producto/buscador",
+      data: {
+        paginaActualBuscadorProductos: paginaActualBuscadorProductos,
+        buscadorProductos: valorBuscadorProductos,
+      },
+    }).done(function (response) {
+      $("#respuestaPhpBuscadorProductos").html(response);
+    });
+  }
 }
-

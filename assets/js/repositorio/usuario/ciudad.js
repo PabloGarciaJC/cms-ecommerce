@@ -1,18 +1,16 @@
-
 function mostrarCodigoPaises() {
-
   //Capturo los Codigo de los Paises
-  let pais = $('#pais').val();
+  let pais = $("#pais").val();
 
   // Informacion Privada Ajax
   $.ajax({
-    type: 'POST',
-    url: baseUrl + 'Ciudad/obtenerTodos',
-    data: 'pais=' + pais,
+    type: "POST",
+    url: baseUrl + "Ciudad/obtenerTodos",
+    data: "pais=" + pais,
   })
     .done(function (respuestaPhpCiudad) {
-      $('#ciudad').attr('disabled', false);      
-      $('#ciudad').html(respuestaPhpCiudad);
+      $("#ciudad").attr("disabled", false);
+      $("#ciudad").html(respuestaPhpCiudad);
     })
     .fail(function () {
       console.log("error");
@@ -20,4 +18,4 @@ function mostrarCodigoPaises() {
     .always(function () {
       console.log("completo");
     });
-};
+}

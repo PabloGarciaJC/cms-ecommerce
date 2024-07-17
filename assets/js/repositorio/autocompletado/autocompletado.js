@@ -1,13 +1,7 @@
-  
 // Autocompleto el Buscador
 function autocompletado(jsonBuscador) {
-   var items = jsonBuscador;
+  var items = jsonBuscador;
   $("#buscadorGlobal").autocomplete({
-    source: items,    
-  })
-
+    source: items,
+  });
 }
-
-
-
-
