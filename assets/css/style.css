@@ -13,7 +13,6 @@ body {
     font-family: 'Open Sans', sans-serif;
 }
 
-
 body a {
     text-decoration: none;
     transition: 0.5s all;
@@ -3173,16 +3172,5 @@ div#testimonials h4.m-title {
         width: 45%;
     }
 }
+
 /*--//responsive--*/
-
-/* Estilos Nuesvos */
-
-/* Letras de Banner Iniciar Sesion */
-.estilosSesionRegistro {
-    font-size: 13px;
-    color: #fff !important;
-  }
-
-
-
- 

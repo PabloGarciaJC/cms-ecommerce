@@ -153,8 +153,25 @@
   </div>
 
 
-  <script src="<?= BASE_URL ?>assets/js/librerias/jquery-2.2.3.min.js"></script>
+
+    <!-- Librerias -->
   <script src="<?= BASE_URL ?>assets/js/librerias/bootstrap.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/librerias/creditly.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/librerias/creditly2.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/librerias/easing.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/librerias/easyResponsiveTabs.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/librerias/imagezoom.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/librerias/jquery.flexslider.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/librerias/jquery.magnific-popup.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/librerias/jquery-2.2.3.min.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/librerias/minicart.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/librerias/move-top.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/librerias/scroll.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/librerias/SmoothScroll.min.js"></script>
+
+
+  <!-- <script src="<?= BASE_URL ?>assets/js/librerias/jquery-2.2.3.min.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/librerias/bootstrap.js"></script> -->
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
  
   <!-- Iniciar Sesion y Registro AJAX y Validaciones con PHP -->

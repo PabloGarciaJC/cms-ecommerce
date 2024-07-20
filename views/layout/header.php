@@ -23,6 +23,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		}
 	</script>
 	<link rel="icon" type="image/png" sizes="16x16"  href="<?=BASE_URL?>assets/images/favicon.png">
+
 	<link href="<?= BASE_URL ?>assets/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="<?= BASE_URL ?>assets/css/creditly.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="<?= BASE_URL ?>assets/css/easy-responsive-tabs.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="<?= BASE_URL ?>assets/css/flexslider.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="<?= BASE_URL ?>assets/css/fontawesome-all.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="<?= BASE_URL ?>assets/css/menu.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="<?= BASE_URL ?>assets/css/popuo-box.css" rel="stylesheet" type="text/css" media="all" />
 	<link href="<?= BASE_URL ?>assets/css/style.css" rel="stylesheet" type="text/css" media="all" />
+
 </head>
