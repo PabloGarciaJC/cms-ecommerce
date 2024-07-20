@@ -5,6 +5,7 @@
         <div class="card-header">
           <h5 class="card-title mb-0">Gestionar Pedido</h5>
         </div>
+        <!-- Respuesta Ajax mostrar Pedido -->
         <div id="respuestaPhpMostrarPedidos"></div>
       </div>
     </div>
@@ -13,6 +14,7 @@
 </div> 
 </div> 
 
+<!-- Modal Gestionar Pedido -->
 <div class="modal fade" id="gestionarPedido" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -25,6 +27,7 @@
       <div class="modal-body">
         <form action="" id="mdFormularioEstadoPedido" method="POST">
           <input type="hidden" id="idPedidos">
+          <!-- Respuesta Ajax mostrar Pedido -->
           <div id="respuestaPhpEditarPedidos" style ="display: none"></div>
           <div class="form-group">
             <label for="estadoPedido">Estado del Pedido</label>
@@ -40,3 +43,4 @@
     </div>
   </div>
 </div>
+<!-- // Modal Gestionar Pedido -->

@@ -6,6 +6,7 @@
         <div class="card-header">
           <h5 class="card-title mb-0">Confirmar el Pedido</h5>
         </div>
+
         <div class="card-body">
           <form action="" id="confimarPedido" method="POST">
             <div class="form-row">
@@ -19,6 +20,7 @@
                 <input type="text" class="form-control" id="emailCarrito" name="email" value="<?= $usuario->Email ?>" disabled>
               </div>
             </div>
+
             <div class="form-row">
               <div class="form-group col-md-6">
                 <label>Nombre</label>
@@ -29,6 +31,7 @@
                 <input type="text" class="form-control" id="apellidosCarrito" name="apellidos" value="<?= $usuario->Apellidos ?>" disabled>
               </div>
             </div>
+
             <div class="form-row">
               <div class="form-group col-md-6">
                 <label>Dirección</label>
@@ -39,20 +42,24 @@
                 <input type="text" class="form-control" id="telefonoCarrito" name="telefono" value="<?= $usuario->NroTelefono ?>" disabled>
               </div>
             </div>
+
             <div class="form-row">
               <div class="form-group col-md-4">
                 <label>Pais</label>
                 <input type="text" class="form-control" id="paisCarrito" name="pais" value="<?= $usuario->Pais ?>" disabled>
               </div>
+
               <div class="form-group col-md-4">
                 <label for="inputState">Ciudad/Región</label>
                 <input type="text" class="form-control" id="ciudadCarrito" name="ciudad" value="<?= $usuario->Ciudad ?>" disabled>
               </div>
+
               <div class="form-group col-md-4 errorCodigoPostal">
                 <label for="inputZip">Código Postal</label>
                 <input type="text" class="form-control" id="CodigoPostalCarrito" name="CodigoPostal" value="<?= $usuario->CodigoPostal ?>" disabled>
               </div>
             </div>
+
             <div class="form-row">
               <div class="form-group col-md-6">
                 <label>Total a Pagar</label>
@@ -78,7 +85,11 @@
             <a href="<?= BASE_URL ?>Usuario/informacionGeneral" class="btn btn-info">ir al Formulario</a>
           </form>
         </div>
+
+        <!-- Respuesta Ajax Confimar Pedido -->
         <div id="respuestaPhpConfimarPedido" style="display: none;"></div>
+        <!-- // Respuesta Ajax Confimar Pedido -->
+
         <br>
         <table class="table email-table no-wrap table-hover v-middle mb-0 font-14">
           <thead>

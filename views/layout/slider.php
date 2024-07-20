@@ -1,4 +1,5 @@
 <section class="w3l-main-slider">
+  <!-- main-slider -->
   <div class="companies20-content">
     <div class="companies-wrapper">
       <div class="owl-one owl-carousel owl-theme text-center">
@@ -39,4 +40,5 @@
       </div>
     </div>
   </div>
+  <!-- /main-slider -->
 </section>

@@ -1,6 +1,8 @@
+<!-- header-bottom-->
 <div class="header-bot">
   <div class="container">
     <div class="row header-bot_inner_wthreeinfo_header_mid">
+      <!-- logo -->
       <div class="col-md-3 logo_agile">
         <h1 class="text-center">
           <a href="/" class="font-weight-bold font-italic">
@@ -8,8 +10,10 @@
           </a>
         </h1>
       </div>
+      <!-- header-bot -->
       <div class="col-md-9 header mt-4 mb-md-0 mb-4">
         <div class="row">
+          <!-- search -->    
           <div class="col-10 agileits_search">
             <form class="form-inline" action="" id="formBuscadorGlobal" method="post">
               <input class="form-control mr-sm-2" type="search" placeholder="¿Qué deseas buscar?" aria-label="Search" name="buscadorGeneral" id="buscadorGlobal">
@@ -17,6 +21,7 @@
             </form>
           </div>
           <?php if (isset($_SESSION['usuarioRegistrado']) && Utils::accesoUsuarioAdmin() != true) : ?>
+          <!-- cart details -->
           <div class="col-2 top_nav_right text-center mt-sm-0 mt-2">
             <div class="wthreecartaits wthreecartaits2 cart cart box_1">
               <a href="<?= BASE_URL ?>carritoCompras/listar"> <img src="https://img.icons8.com/fluency/48/000000/shopping-cart-loaded.png" /></a>

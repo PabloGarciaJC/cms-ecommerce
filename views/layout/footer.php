@@ -1,6 +1,8 @@
-   <footer>
+  <!-- footer -->
+  <footer>
     <div class="footer-top-first">
       <div class="container py-md-5 py-sm-4 py-3">
+        <!-- footer second section -->
         <div class="row w3l-grids-footer border-top border-bottom py-sm-4 py-3">
           <div class="col-md-4 offer-footer">
             <div class="row">
@@ -36,11 +38,14 @@
             </div>
           </div>
         </div>
+        <!-- //footer second section -->
       </div>
     </div>
+    <!-- footer third section -->
     <div class="w3l-middlefooter-sec">
       <div class="container py-md-5 py-sm-4 py-3">
         <div class="row footer-info w3-agileits-info">
+          <!-- footer categories -->
           <div class="col-md-3 col-sm-6 footer-grids">
             <h3 class="text-white font-weight-bold mb-3">Categories</h3>
             <ul>
@@ -64,6 +69,8 @@
               </li>
             </ul>
           </div>
+          <!-- //footer categories -->
+          <!-- quick links -->
           <div class="col-md-3 col-sm-6 footer-grids mt-sm-0 mt-4">
             <h3 class="text-white font-weight-bold mb-3">Quick Links</h3>
             <ul>
@@ -110,6 +117,7 @@
             </ul>
           </div>
           <div class="col-md-3 col-sm-6 footer-grids w3l-agileits mt-md-0 mt-4">
+            <!-- newsletter -->
             <h3 class="text-white font-weight-bold mb-3">Newsletter</h3>
             <p class="mb-3">Free Delivery on your first order!</p>
             <form action="#" method="post">
@@ -118,6 +126,8 @@
                 <input type="submit" value="Go">
               </div>
             </form>
+            <!-- //newsletter -->
+            <!-- social icons -->
             <div class="footer-grids  w3l-socialmk mt-3">
               <h3 class="text-white font-weight-bold mb-3">Follow Us on</h3>
               <div class="social">
@@ -140,18 +150,22 @@
                 </ul>
               </div>
             </div>
+            <!-- //social icons -->
           </div>
         </div>
+        <!-- //quick links -->
       </div>
     </div>
+    <!-- //footer third section -->
   </footer>
-
+  <!-- //footer -->
+  <!-- copyright -->
   <div class="copy-right py-3">
     <div class="container">
       <p class="text-center text-white"> Desarrollado por © <strong>Pablo Garcia JC</strong></p>
     </div>
   </div>
-
+  <!-- //copyright -->
 
   <!-- js-files -->
   <!-- jquery -->

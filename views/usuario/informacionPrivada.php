@@ -3,9 +3,13 @@
     <h5 class="card-title mb-0">Información Privada</h5>
   </div>
   <div class="card-body">
+
     <form action="" id="informacionPrivada" method="">
       <input type="hidden" value="<?= $_SESSION['usuarioRegistrado']->Id ?>" id="id" name="id">
+
+      <!-- Respuesta de Informacion Privada -->
       <div id="respuestaPhpInformacionPrivada" style="display: none"></div>
+
       <div class="form-row ">
         <div class="form-group col-md-6 errorNombre">
           <label>Nombres</label>
@@ -28,10 +32,12 @@
         <input type="text" class="form-control" id="direccion" name="direccion" value="<?= $usuario->Direccion ?>">
         <label class="erroresValidacion"></label>
       </div>
+
       <div class="form-row">
         <div class="form-group col-md-4">
           <label for="inputState">País</label>
           <select class="form-control" id="pais" name="pais" onchange="mostrarCodigoPaises()">
+
             <?php if ($usuario->Pais == "") : ?>
               <option selected="">Seleccione...</option>
               <?php while ($fila = mysqli_fetch_array($paisesTodos)) : ?>
@@ -44,7 +50,9 @@
               <?php endwhile; ?>
             <?php endif; ?>
           </select>
+
         </div>
+
         <div class="form-group col-md-4">
           <label for="inputState">Ciudad/Región</label>
           <select class="form-control" id="ciudad" name="ciudad" disabled>
@@ -55,6 +63,7 @@
             <?php endif; ?>
           </select>
         </div>
+
         <div class="form-group col-md-4 errorCodigoPostal">
           <label for="inputZip">Código Postal</label>
           <input type="text" class="form-control" id="codigoPostal" name="codigoPostal" value="<?= $usuario->CodigoPostal ?>">
