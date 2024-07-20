@@ -153,27 +153,113 @@
   </div>
 
 
-
-    <!-- Librerias -->
-  <script src="<?= BASE_URL ?>assets/js/librerias/bootstrap.js"></script>
-  <script src="<?= BASE_URL ?>assets/js/librerias/creditly.js"></script>
-  <script src="<?= BASE_URL ?>assets/js/librerias/creditly2.js"></script>
-  <script src="<?= BASE_URL ?>assets/js/librerias/easing.js"></script>
-  <script src="<?= BASE_URL ?>assets/js/librerias/easyResponsiveTabs.js"></script>
-  <script src="<?= BASE_URL ?>assets/js/librerias/imagezoom.js"></script>
-  <script src="<?= BASE_URL ?>assets/js/librerias/jquery.flexslider.js"></script>
-  <script src="<?= BASE_URL ?>assets/js/librerias/jquery.magnific-popup.js"></script>
+  <!-- js-files -->
+  <!-- jquery -->
   <script src="<?= BASE_URL ?>assets/js/librerias/jquery-2.2.3.min.js"></script>
+  <!-- //jquery -->
+  <!-- nav smooth scroll -->
+  <script>
+    $(document).ready(function() {
+      $(".dropdown").hover(
+        function() {
+          $('.dropdown-menu', this).stop(true, true).slideDown("fast");
+          $(this).toggleClass('open');
+        },
+        function() {
+          $('.dropdown-menu', this).stop(true, true).slideUp("fast");
+          $(this).toggleClass('open');
+        }
+      );
+    });
+  </script>
+  <!-- //nav smooth scroll -->
+
+  <!-- popup modal (for location)-->
+  <script src="<?= BASE_URL ?>assets/js/librerias/jquery.magnific-popup.js"></script>
+  <script>
+    $(document).ready(function() {
+      $('.popup-with-zoom-anim').magnificPopup({
+        type: 'inline',
+        fixedContentPos: false,
+        fixedBgPos: true,
+        overflowY: 'auto',
+        closeBtnInside: true,
+        preloader: false,
+        midClick: true,
+        removalDelay: 300,
+        mainClass: 'my-mfp-zoom-in'
+      });
+
+    });
+  </script>
+  <!-- //popup modal (for location)-->
+
+  <!-- cart-js -->
   <script src="<?= BASE_URL ?>assets/js/librerias/minicart.js"></script>
-  <script src="<?= BASE_URL ?>assets/js/librerias/move-top.js"></script>
-  <script src="<?= BASE_URL ?>assets/js/librerias/scroll.js"></script>
+
+  <!-- Descripcion -->
+
+  <!-- flexslider -->
+  <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/flexslider.css" type="text/css" media="screen" />
+  <script src="<?= BASE_URL ?>assets/js/librerias/jquery.flexslider.js"></script>
+  <script>
+    // Can also be used with $(document).ready()
+    $(window).load(function() {
+      $('.flexslider').flexslider({
+        animation: "slide",
+        controlNav: "thumbnails"
+      });
+    });
+  </script>
+  <!-- //FlexSlider-->
+  <!-- //Descripcion -->
+
+  <!-- smoothscroll -->
   <script src="<?= BASE_URL ?>assets/js/librerias/SmoothScroll.min.js"></script>
+  <!-- //smoothscroll -->
 
+  <!-- start-smooth-scrolling -->
+  <script src="<?= BASE_URL ?>assets/js/librerias/move-top.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/librerias/easing.js"></script>
+  <script>
+    jQuery(document).ready(function($) {
+      $(".scroll").click(function(event) {
+        event.preventDefault();
 
-  <!-- <script src="<?= BASE_URL ?>assets/js/librerias/jquery-2.2.3.min.js"></script>
-  <script src="<?= BASE_URL ?>assets/js/librerias/bootstrap.js"></script> -->
+        $('html,body').animate({
+          scrollTop: $(this.hash).offset().top
+        }, 1000);
+      });
+    });
+  </script>
+  <!-- //end-smooth-scrolling -->
+
+  <!-- smooth-scrolling-of-move-up -->
+  <script>
+    $(document).ready(function() {
+
+      var defaults = {
+        containerID: 'toTop', // fading element id
+        containerHoverID: 'toTopHover', // fading element hover id
+        scrollSpeed: 1200,
+        easingType: 'linear'
+      };
+
+      $().UItoTop({
+        easingType: 'easeOutQuart'
+      });
+
+    });
+  </script>
+  <!-- //smooth-scrolling-of-move-up -->
+  <!-- for bootstrap working -->
+  <script src="<?= BASE_URL ?>assets/js/librerias/bootstrap.js"></script>
+  <!-- //for bootstrap working -->
+
+  <!-- libreria de alert sweetAlert2-->
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
- 
+  <!-- //libreria de sweetAlert2 -->
+
   <!-- Iniciar Sesion y Registro AJAX y Validaciones con PHP -->
   <script src="<?= BASE_URL ?>assets/js/config/parameters.js"></script>
   <script src="<?= BASE_URL ?>assets/js/app/usuario/registro.js"></script>
