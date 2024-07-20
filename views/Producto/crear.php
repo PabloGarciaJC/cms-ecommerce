@@ -19,13 +19,11 @@
 <div class="col-md-7 col-xl-8">
   <div class="tab-content">
     <div class="tab-pane fade show active" id="account" role="tabpanel">
-
       <div class="card">
         <div class="card-header">
           <h5 class="card-title mb-0"><?= isset($_GET['id']) ? 'Editar Producto' : 'Crear Producto' ?></h5>
         </div>
         <div class="card-body">
-          <!-- Respuesta AJAX PHP  -->
           <div id="respuestaPhpGuardar"></div>
           <form action="" id="formularioProducto" method="POST" enctype="multipart/form-data">
             <div class="form-row ">
@@ -34,7 +32,6 @@
                 <input type="text" class="form-control" id="nombreProducto" value="<?= isset($_GET['id']) ? $obtenerProductosPorId->nombre : false ?>">
                 <label class="erroresValidacion"></label>
               </div>
-              <!-- Para Actualizar lo Estoy Usando -->
               <input type="hidden" class="form-control" id="idProducto" value="<?= isset($_GET['id']) ? $obtenerProductosPorId->id : false ?>">
               <div class="form-group col-md-6">
                 <label for="">Elige Categoría</label>
@@ -113,9 +110,7 @@
                 <label class="erroresValidacion"></label>
               </div>
               <div class="row">
-                <div class="col-md-4 product-men">
-                  <!-- Vacio -->
-                </div>
+                <div class="col-md-4 product-men"></div>
                 <div class="col-md-4 product-men mt-md-0 mt-5">
                   <div class="men-pro-item simpleCart_shelfItem">
                     <div class="men-thumb-item text-center">
@@ -135,9 +130,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-md-4 product-men">
-                  <!-- Vacio -->
-                </div>
+                <div class="col-md-4 product-men"></div>    
               </div>
             </div>
         </div>

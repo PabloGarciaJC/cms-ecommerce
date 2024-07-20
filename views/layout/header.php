@@ -9,7 +9,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 <head>
 	<title>Ecommerce</title>
-	<!-- Meta tag Keywords -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta charset="UTF-8" />
 	<meta name="keywords" content="Electro Store Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
@@ -22,16 +21,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			window.scrollTo(0, 1);
 		}
 	</script>
-	<!-- //Meta tag Keywords -->
 	<link rel="icon" type="image/png" sizes="16x16"  href="<?=BASE_URL?>assets/images/favicon.png">
 	<link href="<?= BASE_URL ?>assets/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 	<link href="<?= BASE_URL ?>assets/css/style.css" rel="stylesheet" type="text/css" media="all" />
 	<link rel="stylesheet" href="<?= BASE_URL ?>assets/css/fontawesome-all.css">
 	<link href="<?= BASE_URL ?>assets/css/popuo-box.css" rel="stylesheet" type="text/css" media="all" />
 	<link href="<?= BASE_URL ?>assets/css/menu.css" rel="stylesheet" type="text/css" media="all" />
-	<!-- Autocompletado -->
 	<link href="<?= BASE_URL ?>assets/css/jquery-ui.css" rel="stylesheet" type="text/css" media="all" />
-	<!-- web fonts -->
 	<link href="//fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i&amp;subset=latin-ext" rel="stylesheet">
 	<link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese" rel="stylesheet">
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 </head>

@@ -149,7 +149,9 @@ class ProductoController
     require_once 'views/layout/header.php';
     require_once 'views/layout/banner.php';
     require_once 'views/layout/nav.php';
-    require_once 'views/layout/sidebarAdministrativo.php';
+    // require_once 'views/layout/sidebarAdministrativo.php';
+
+    // echo 'max-width: 1140px;';
     require_once 'views/Producto/listar.php';
     require_once 'views/layout/footer.php';
   }
@@ -172,91 +174,94 @@ class ProductoController
     $paginaAnterior = $paginaActual - 1;
     // Pagina Siguiente
     $paginaSiguiente = $paginaActual + 1;
-    // Paginador => Inicio
-    echo '<nav aria-label="Page navigation example">';
-    echo '<ul class="pagination justify-content-end">';
-    // Anterior
-    if ($paginaActual != 1) {
-      echo '<li class="page-item">';
-      echo '<a class="page-link" onclick = "ajaxBuscadorProductos(' . $paginaAnterior . ',\'' . $buscadorProductos . '\')"> Anterior </a>';
-      echo '</li>';
-    } else {
-      echo '<li class="page-item disabled">';
-      echo '<a class="page-link" >Anterior</a>';
-      echo '</li>';
-    }
-    // Cuerpo 
-    for ($i = 1; $i <= $mostrarNumerosdePaginas; $i++) {
-      if ($i == $paginaActual) {
-        echo '<li class="page-item active"><a class="page-link" >' . $i . '</a></li>';
-      } else {
-        echo '<li class="page-item"><a class="page-link"  onclick = "ajaxBuscadorProductos(' . $i . ',\'' . $buscadorProductos . '\')">' . $i . '</a></li>';
-      }
-    }
-    // Siguiente 
-    if ($paginaActual != $mostrarNumerosdePaginas) {
-      echo '<li class="page-item">';
-      echo '<a class="page-link"  onclick = "ajaxBuscadorProductos(' . $paginaSiguiente . ',\'' . $buscadorProductos . '\')" >Siguente</a>';
-      echo '</li>';
-    } else {
-      echo '<li class="page-item disabled">';
-      echo '<a class="page-link" >Siguente</a>';
-      echo '</li>';
-    }
-    echo '</ul>';
-    echo '</nav>';
-    echo '</br>';
 
     // Obtengo Los Productor y el Buscador y Paginador 5: Consulta
     $productos = Utils::obtenerProductosyBuscadoryPaginador($buscadorProductos, $ultimoRegistro, $mostrarRegistros);
     echo '<div class="table table-responsive">';
-    echo '<table class="table email-table no-wrap table-hover v-middle mb-0 font-14">';
-    echo '<thead>';
-    echo '<tr>';
-    echo '<th scope="col" style=" text-align: center;">Imagen</th>';
-    echo '<th scope="col" style=" text-align: center;">Productos</th>';
-    echo '<th scope="col" style=" text-align: center;">Editar</th>';
-    echo '<th scope="col">Borrar</th>';
-    echo '</tr>';
-    echo '</thead>';
-    echo '<tbody>';
-    if ($productos->num_rows > 0) {
-      while ($mostrarProductos = $productos->fetch_object()) {
+      echo '<table class="table email-table no-wrap table-hover v-middle mb-0 font-14">';
+        echo '<thead>';
         echo '<tr>';
-          echo '<td><img class="img-fluid" src="' . BASE_URL . 'uploads/images/productos/' . $mostrarProductos->imagen . '"></td>';
-          echo '<td>';
-          echo '<strong>Nombre:</strong> ' . $mostrarProductos->nombre . '<br>';
-          echo '<strong>Marca:</strong> ' . $mostrarProductos->marca . '<br>';
-          echo '<strong>Precio:</strong> ' . $mostrarProductos->precio . " $" . '<br>';
-          echo '<strong>Oferta:</strong> ' . $mostrarProductos->oferta . " %" . '<br>';
-          echo '<strong>Stock:</strong> ' . $mostrarProductos->stock . " Unidades" . '<br>';
-          echo '<strong>Categoria:</strong> ' . $mostrarProductos->nombreCategoria  . '<br>';
-          echo '<strong>Descripción: <a href=" ' . BASE_URL . 'Producto/crear&id=' . $mostrarProductos->id . '">ver más</a></strong>';
-          echo '</td>';
-          echo '<td>';
-            echo '<a href="' . BASE_URL . 'Producto/crear&id=' . $mostrarProductos->id . '">';
-            echo '<button class="btn btn-circle btn-info text-white" class="text-white">';
-            echo '<i class="fa fa-pencil"></i>';
-            echo '</button>';
-            echo '</a>';
-          echo '</td>';
-          echo '<td> ';
-          echo '<button class="btn btn-circle btn-danger text-white" onclick="eliminarDatosProducto(' . $mostrarProductos->id . ' ,\'' . $mostrarProductos->nombre . '\')">';
-          echo '<i class="fa fa-trash"></i>';
-          echo '</button>';
-          echo '</td>';
+        echo '<th scope="col" style=" text-align: center;">Imagen</th>';
+        echo '<th scope="col" style=" text-align: center;">Productos</th>';
+        echo '<th scope="col" style=" text-align: center;">Editar</th>';
+        echo '<th scope="col">Borrar</th>';
         echo '</tr>';
-      }
-    } else {
-      echo '<td colspan="8">';
-      echo '<div class="alert alert-primary" role="alert">';
-      echo 'No hay <strong>Productos</strong> con estas Característica';
-      echo '</div>';
-      echo '</td>';
-    }
-    echo '</tbody>';
-    echo '</table>';
+        echo '</thead>';
+        echo '<tbody>';
+        if ($productos->num_rows > 0) {
+          while ($mostrarProductos = $productos->fetch_object()) {
+            echo '<tr>';
+              echo '<td><img class="img-fluid" src="' . BASE_URL . 'uploads/images/productos/' . $mostrarProductos->imagen . '"></td>';
+              echo '<td>';
+                echo '<strong>Nombre:</strong> ' . $mostrarProductos->nombre . '<br>';
+                echo '<strong>Marca:</strong> ' . $mostrarProductos->marca . '<br>';
+                echo '<strong>Precio:</strong> ' . $mostrarProductos->precio . " $" . '<br>';
+                echo '<strong>Oferta:</strong> ' . $mostrarProductos->oferta . " %" . '<br>';
+                echo '<strong>Stock:</strong> ' . $mostrarProductos->stock . " Unidades" . '<br>';
+                echo '<strong>Categoria:</strong> ' . $mostrarProductos->nombreCategoria  . '<br>';
+                echo '<strong>Descripción: <a href=" ' . BASE_URL . 'Producto/crear&id=' . $mostrarProductos->id . '">ver más</a></strong>';
+              echo '</td>';
+              echo '<td>';
+                  echo '<a href="' . BASE_URL . 'Producto/crear&id=' . $mostrarProductos->id . '">';
+                  echo '<button class="btn btn-circle btn-info text-white" class="text-white">';
+                  echo '<i class="fa fa-pencil"></i>';
+                  echo '</button>';
+                  echo '</a>';
+              echo '</td>';
+              echo '<td> ';
+                echo '<button class="btn btn-circle btn-danger text-white" onclick="eliminarDatosProducto(' . $mostrarProductos->id . ' ,\'' . $mostrarProductos->nombre . '\')">';
+                echo '<i class="fa fa-trash"></i>';
+                echo '</button>';
+              echo '</td>';
+            echo '</tr>';
+          }
+        } else {
+            echo '<td colspan="8">';
+            echo '<div class="alert alert-primary" role="alert">';
+            echo 'No hay <strong>Productos</strong> con estas Característica';
+            echo '</div>';
+            echo '</td>';
+        }
+        echo '</tbody>';
+      echo '</table>';
     echo '</div>';
+    
+    // Paginador
+    echo '<nav>';
+      echo '<ul class="table-col">';
+        echo '<a href="' . BASE_URL . 'usuario/informacionGeneral" class="table-btn-volver">Volver</a>';
+        echo '<div class="pagination justify-content-end">';
+            // Anterior
+            if ($paginaActual != 1) {
+              echo '<li class="page-item">';
+              echo '<a class="page-link" onclick = "ajaxBuscadorProductos(' . $paginaAnterior . ',\'' . $buscadorProductos . '\')"> Anterior </a>';
+              echo '</li>';
+            } else {
+              echo '<li class="page-item disabled">';
+              echo '<a class="page-link" >Anterior</a>';
+              echo '</li>';
+            }
+            // Cuerpo 
+            for ($i = 1; $i <= $mostrarNumerosdePaginas; $i++) {
+              if ($i == $paginaActual) {
+                echo '<li class="page-item active"><a class="page-link" >' . $i . '</a></li>';
+              } else {
+                echo '<li class="page-item"><a class="page-link"  onclick = "ajaxBuscadorProductos(' . $i . ',\'' . $buscadorProductos . '\')">' . $i . '</a></li>';
+              }
+            }
+            // Siguiente 
+            if ($paginaActual != $mostrarNumerosdePaginas) {
+              echo '<li class="page-item">';
+              echo '<a class="page-link"  onclick = "ajaxBuscadorProductos(' . $paginaSiguiente . ',\'' . $buscadorProductos . '\')" >Siguente</a>';
+              echo '</li>';
+            } else {
+              echo '<li class="page-item disabled">';
+              echo '<a class="page-link" >Siguente</a>';
+              echo '</li>';
+            }
+          echo '</div>';
+      echo '</ul>';
+    echo '</nav>';
   }
 
   public function eliminar()

@@ -28,9 +28,7 @@
             <div class="row">
               <div class="col-md-8">
                 <input type="hidden" value="<?= $_SESSION['usuarioRegistrado']->Id ?>" id="idUsuarioRegistrado">
-                <!-- Respuesta de Informacion Publica -->
                 <div id="respuestaPhpInformacionPublica" style="display: none"></div>
-                <!-- Respuesta de avatarVistaPrevia, Nota: No me Devuelve 1-->
                 <div id="respuestaPhpAvatarVistaPrevia" style="display: none"></div>
                 <div class="form-group errorUsuario">
                   <label for="inputUsername">Alias</label>

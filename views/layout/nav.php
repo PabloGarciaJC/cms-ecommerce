@@ -1,8 +1,6 @@
-	<!-- navigation -->
 	<div class="navbar-inner">
 		<div class="container">
 			<nav class="navbar navbar-expand-lg navbar-light bg-light">
-
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
@@ -14,7 +12,6 @@
 							</a>
 						</li>
 						<?php while ($categoriaNav = $categoriaBarraNavegacion->fetch_object()) : ?>
-
 							<li class="nav-item dropdown mr-lg-2 mb-lg-0 mb-2">
 								<a class="nav-link dropdown" href="<?= BASE_URL ?>Producto/mostrar&producto=<?= $categoriaNav->id ?>"><?= $categoriaNav->categorias ?></a>
 							</li>
@@ -30,4 +27,3 @@
 			</nav>
 		</div>
 	</div>
-	<!-- //navigation -->

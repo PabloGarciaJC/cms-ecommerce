@@ -1,8 +1,6 @@
-  <!-- footer -->
   <footer>
     <div class="footer-top-first">
       <div class="container py-md-5 py-sm-4 py-3">
-        <!-- footer second section -->
         <div class="row w3l-grids-footer border-top border-bottom py-sm-4 py-3">
           <div class="col-md-4 offer-footer">
             <div class="row">
@@ -38,14 +36,11 @@
             </div>
           </div>
         </div>
-        <!-- //footer second section -->
       </div>
     </div>
-    <!-- footer third section -->
     <div class="w3l-middlefooter-sec">
       <div class="container py-md-5 py-sm-4 py-3">
         <div class="row footer-info w3-agileits-info">
-          <!-- footer categories -->
           <div class="col-md-3 col-sm-6 footer-grids">
             <h3 class="text-white font-weight-bold mb-3">Categories</h3>
             <ul>
@@ -69,8 +64,6 @@
               </li>
             </ul>
           </div>
-          <!-- //footer categories -->
-          <!-- quick links -->
           <div class="col-md-3 col-sm-6 footer-grids mt-sm-0 mt-4">
             <h3 class="text-white font-weight-bold mb-3">Quick Links</h3>
             <ul>
@@ -126,8 +119,6 @@
                 <input type="submit" value="Go">
               </div>
             </form>
-            <!-- //newsletter -->
-            <!-- social icons -->
             <div class="footer-grids  w3l-socialmk mt-3">
               <h3 class="text-white font-weight-bold mb-3">Follow Us on</h3>
               <div class="social">
@@ -150,28 +141,17 @@
                 </ul>
               </div>
             </div>
-            <!-- //social icons -->
           </div>
         </div>
-        <!-- //quick links -->
       </div>
     </div>
-    <!-- //footer third section -->
   </footer>
-  <!-- //footer -->
-  <!-- copyright -->
   <div class="copy-right py-3">
     <div class="container">
       <p class="text-center text-white"> Desarrollado por © <strong>Pablo Garcia JC</strong></p>
     </div>
   </div>
-  <!-- //copyright -->
-
-  <!-- js-files -->
-  <!-- jquery -->
   <script src="<?= BASE_URL ?>assets/js/librerias/jquery-2.2.3.min.js"></script>
-  <!-- //jquery -->
-  <!-- nav smooth scroll -->
   <script>
     $(document).ready(function() {
       $(".dropdown").hover(
@@ -186,9 +166,6 @@
       );
     });
   </script>
-  <!-- //nav smooth scroll -->
-
-  <!-- popup modal (for location)-->
   <script src="<?= BASE_URL ?>assets/js/librerias/jquery.magnific-popup.js"></script>
   <script>
     $(document).ready(function() {
@@ -206,14 +183,7 @@
 
     });
   </script>
-  <!-- //popup modal (for location)-->
-
-  <!-- cart-js -->
   <script src="<?= BASE_URL ?>assets/js/librerias/minicart.js"></script>
-
-  <!-- Descripcion -->
-
-  <!-- flexslider -->
   <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/flexslider.css" type="text/css" media="screen" />
   <script src="<?= BASE_URL ?>assets/js/librerias/jquery.flexslider.js"></script>
   <script>
@@ -225,14 +195,7 @@
       });
     });
   </script>
-  <!-- //FlexSlider-->
-  <!-- //Descripcion -->
-
-  <!-- smoothscroll -->
   <script src="<?= BASE_URL ?>assets/js/librerias/SmoothScroll.min.js"></script>
-  <!-- //smoothscroll -->
-
-  <!-- start-smooth-scrolling -->
   <script src="<?= BASE_URL ?>assets/js/librerias/move-top.js"></script>
   <script src="<?= BASE_URL ?>assets/js/librerias/easing.js"></script>
   <script>
@@ -246,9 +209,6 @@
       });
     });
   </script>
-  <!-- //end-smooth-scrolling -->
-
-  <!-- smooth-scrolling-of-move-up -->
   <script>
     $(document).ready(function() {
 
@@ -265,51 +225,31 @@
 
     });
   </script>
-  <!-- //smooth-scrolling-of-move-up -->
-  <!-- for bootstrap working -->
   <script src="<?= BASE_URL ?>assets/js/librerias/bootstrap.js"></script>
-  <!-- //for bootstrap working -->
-
-  <!-- libreria de alert sweetAlert2-->
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <!-- //libreria de sweetAlert2 -->
-
-  <!-- Iniciar Sesion y Registro AJAX y Validaciones con PHP -->
   <script src="<?= BASE_URL ?>assets/js/config/parameters.js"></script>
   <script src="<?= BASE_URL ?>assets/js/app/usuario/registro.js"></script>
   <script src="<?= BASE_URL ?>assets/js/app/usuario/iniciarSesion.js"></script>
-
-  <!-- Usuario -->
   <script src="<?= BASE_URL ?>assets/js/app/usuario/avatarVistaPrevia.js"></script>
   <script src="<?= BASE_URL ?>assets/js/app/usuario/informacionPublica.js"></script>
   <script src="<?= BASE_URL ?>assets/js/app/usuario/informacionPrivada.js"></script>
   <script src="<?= BASE_URL ?>assets/js/app/usuario/ciudad.js"></script>
-
-  <!-- Categoria -->
   <script src="<?= BASE_URL ?>assets/js/app/categoria/obtenerDatosEditar.js"></script>
   <script src="<?= BASE_URL ?>assets/js/app/categoria/editar.js"></script>
   <script src="<?= BASE_URL ?>assets/js/app/categoria/eliminar.js"></script>
   <script src="<?= BASE_URL ?>assets/js/app/categoria/listar.js"></script>
-
-  <!-- Producto -->
   <script src="<?= BASE_URL ?>assets/js/app/producto/crear.js"></script>
   <script src="<?= BASE_URL ?>assets/js/app/producto/eliminar.js"></script>
   <script src="<?= BASE_URL ?>assets/js/app/producto/mostrarTodos.js"></script>
   <script src="<?= BASE_URL ?>assets/js/app/producto/buscador.js"></script>
   <script src="<?= BASE_URL ?>assets/js/app/producto/imagen.js"></script>
-
-  <!-- Carrito Compras -->
   <script src="<?= BASE_URL ?>assets/js/app/carritoCompras/borrar.js"></script>
   <script src="<?= BASE_URL ?>assets/js/app/carritoCompras/mostrar.js"></script>
   <script src="<?= BASE_URL ?>assets/js/app/carritoCompras/carritoUp.js"></script>
   <script src="<?= BASE_URL ?>assets/js/app/carritoCompras/carritoDown.js"></script>
   <script src="<?= BASE_URL ?>assets/js/app/carritoCompras/confimarPedido.js"></script>
-
-  <!-- Pedidos -->
   <script src="<?= BASE_URL ?>assets/js/app/pedidos/editarPedidos.js"></script>
   <script src="<?= BASE_URL ?>assets/js/app/pedidos/mostrar.js"></script>
-
-  <!-- Autocompletado Buscador General-->
   <script src="<?= BASE_URL ?>assets/js/librerias/jquery-ui.js"></script>
   <script src="<?= BASE_URL ?>assets/js/app/autocompletado/autocompletado.js"></script>
   <script src="<?= BASE_URL ?>assets/js/app/autocompletado/mostrar.js"></script>

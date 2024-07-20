@@ -63,9 +63,6 @@
 			</div>
 		</div>
 	</div>
-	<!-- //Single Page -->
-
-	<!-- Con este Scrip Soluciono el Problema. de cargar la pagina dos veces -->
 	<script>
 		if (window.history.replaceState) {
 			window.history.replaceState(null, null, window.location.href);

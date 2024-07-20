@@ -1,17 +1,4 @@
-<!-- Estilos de Input File  -->
-<style>
-  .erroresValidacion {
-    color: red;
-  }
-
-  .table tbody tr td {
-    text-align: center;
-    vertical-align: middle;
-    border-top: 1px solid #e7ebee;
-  }
-</style>
-<br>
-<div class="col-md-7 col-xl-8">
+<div class="col-md-7 col-center">
   <div class="tab-content">
     <div class="tab-pane fade show active" id="account" role="tabpanel">
       <div class="card">

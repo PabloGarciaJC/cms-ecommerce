@@ -22,18 +22,14 @@
 			<div class="row">
 				<div class="agileinfo-ads-display col-lg-9">
 					<div class="wrapper">
-						<!-- Id Categoria Para Obtener el Producto -->
 						<input type="hidden" id="productoIdCategoria" value="<?= $mostrarProductoPorCategoria->id ?>">
-						<!-- Desplazamiento del Buscador -->
 						<div id="solicita-informacion"></div>
-						<!-- Respuesta Ajax y PHP -->
 						<div id="respuestaPhpMostrarProductos"></div>
 					</div>
 				</div>
 				<div class="col-lg-3 mt-lg-0 mt-4 p-lg-0">
 					<div class="side-bar p-sm-4 p-3">
 						<div class="search-hotel border-bottom py-2">
-							<!-- Buscador -->
 							<input type="text" class="form-control" placeholder=" Buscador..." id="buscadorMostrarProducto">
 							<div class="left-side py-2">
 								<h3 class="agileits-sear-head mb-3">Marca</h3>
@@ -47,7 +43,6 @@
 								</ul>
 							</div>
 						</div>
-						<!-- Memoria Ram -->
 						<div class="left-side border-bottom py-2">
 							<h3 class="agileits-sear-head mb-3">Capacidad</h3>
 							<ul>

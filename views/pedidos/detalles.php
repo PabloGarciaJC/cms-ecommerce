@@ -5,7 +5,6 @@
         <div class="card-header">
           <h5 class="card-title mb-0">Detalles del Pedido</h5>
         </div>
-
         <div class="card-body">
           <div class="form-row">
             <div class="form-group col-md-6">
@@ -17,7 +16,6 @@
               <input type="text" class="form-control" id="" name="email" value="<?= $usuarioPorPedido->Email ?>" disabled>
             </div>
           </div>
-
           <div class="form-row">
             <div class="form-group col-md-6">
               <label>Nombre</label>
@@ -28,7 +26,6 @@
               <input type="text" class="form-control" id="" name="apellidos" value="<?= $usuarioPorPedido->Apellidos ?>" disabled>
             </div>
           </div>
-
           <div class="form-row">
             <div class="form-group col-md-6">
               <label>Dirección</label>
@@ -39,28 +36,22 @@
               <input type="text" class="form-control" id="" name="telefono" value="<?= $usuarioPorPedido->NroTelefono ?>" disabled>
             </div>
           </div>
-
           <div class="form-row">
             <div class="form-group col-md-4">
               <label>Pais</label>
               <input type="text" class="form-control" id="" name="pais" value="<?= $usuarioPorPedido->Pais ?>" disabled>
             </div>
-
             <div class="form-group col-md-4">
               <label for="inputState">Ciudad/Región</label>
               <input type="text" class="form-control" id="" name="ciudad" value="<?= $usuarioPorPedido->Ciudad ?>" disabled>
             </div>
-
             <div class="form-group col-md-4 errorCodigoPostal">
               <label for="inputZip">Código Postal</label>
               <input type="text" class="form-control" id="" name="CodigoPostal" value="<?= $usuarioPorPedido->CodigoPostal ?>" disabled>
             </div>
           </div>
         </div>
-
-        <!-- Tabla -->
         <table class="table email-table no-wrap table-hover v-middle mb-0 font-14">
-
           <thead>
             <tr>
               <th scope="col" style=" text-align: center;">Imagen</th>
@@ -68,7 +59,6 @@
               <th scope="col" style=" text-align: center;">Unidades</th>
             </tr>
           </thead>
-
           <tbody>
             <?php while ($mostrarProducto = $mostrarProductos->fetch_object()) : ?>
               <tr>
@@ -86,7 +76,6 @@
               </tr>
             <?php endwhile; ?>
           </tbody>
-
         </table>
       </div>
     </div>
