@@ -965,6 +965,24 @@ h3.heading-tittle {
     letter-spacing: 1px;
 }
 
+.item-info-product a {
+    color: #000;
+}
+
+.item-info-product-title {
+    font-weight: 700;
+    font-size: 22px;
+}
+
+.item-info-product-description span {
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.item-info-product-btn{
+    margin-top: 10px;
+}
+
 span.item_price {
     font-size: 18px;
     color: #d60404;
