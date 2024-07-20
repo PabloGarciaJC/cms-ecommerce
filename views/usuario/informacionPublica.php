@@ -1,21 +1,3 @@
-<!-- Estilos de Input File  -->
-<style>
-  input[type="file"] {
-    display: none;
-  }
-
-  .custom-file-upload {
-    border: 1px solid #ccc;
-    display: inline-block;
-    padding: 6px 12px;
-    cursor: pointer;
-  }
-
-  .erroresValidacion {
-    color: red;
-  }
-</style>
-
 <div class="col-md-7 col-xl-8">
   <div class="tab-content">
     <div class="tab-pane fade show active" id="account" role="tabpanel">

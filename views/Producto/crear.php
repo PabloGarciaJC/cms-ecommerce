@@ -1,21 +1,3 @@
-<!-- Estilos de Input File  -->
-<style>
-  input[type="file"] {
-    display: none;
-  }
-
-  .custom-file-upload {
-    border: 1px solid #ccc;
-    display: inline-block;
-    padding: 6px 12px;
-    cursor: pointer;
-  }
-
-  .erroresValidacion {
-    color: red;
-  }
-</style>
-<br>
 <div class="col-md-7 col-xl-8">
   <div class="tab-content">
     <div class="tab-pane fade show active" id="account" role="tabpanel">
@@ -61,17 +43,7 @@
               </div>
               <div class="form-group col-md-4 errorOfertaProducto">
                 <label>Oferta</label>
-                <?php if (isset($_GET['id'])) : ?>
-                  <select class="form-control" id="ofertaProducto">
-                    <option value="5" selected><?= isset($_GET['id']) ? $obtenerProductosPorId->oferta : false ?> % de Descuento</option>                    
-                    <option value="10">10 % de Descuento</option>
-                    <option value="20">20 % de Descuento</option>
-                    <option value="30">30 % de Descuento</option>
-                    <option value="40">40 % de Descuento</option>
-                    <option value="50">50 % de Descuento</option>
-                  </select>
-                <?php else : ?>
-                  <select class="form-control" id="ofertaProducto">
+                <select class="form-control" id="ofertaProducto">
                     <option value="5">5 % de Descuento</option>
                     <option value="10">10 % de Descuento</option>
                     <option value="20">20 % de Descuento</option>
@@ -79,7 +51,6 @@
                     <option value="40">40 % de Descuento</option>
                     <option value="50">50 % de Descuento</option>
                   </select>
-                <?php endif; ?>
               </div>
             </div>
             <div class="form-row ">
@@ -88,12 +59,22 @@
                 <input type="text" class="form-control" id="marcaProducto" value="<?= isset($_GET['id']) ? $obtenerProductosPorId->marca : false ?>">
                 <label class="erroresValidacion"></label>
               </div>
-              <div class="form-group col-md-6 errorMemoriaRamProducto">
+              <div class="form-group col-md-6 errorMemoriaRamProducto form-capacidad">
                 <label>Capacidad</label>
                 <div class="input-group mb-2">
                   <input type="text" class="form-control" id="memoriaRamProducto" value=" <?= isset($_GET['id']) ? $obtenerProductosPorId->memoria_ram : '0' ?>">
                   <div class="input-group-prepend">
-                    <div class="input-group-text"><strong>Gb</strong></div>
+                    <!-- <div class="input-group-text"><strong>Gb</strong></div> -->
+                    <select class="form-control" id="capacidadProducto">
+                      <option value="KB">Kilobytes (KB)</option>
+                      <option value="MB">Megabytes (MB)</option>
+                      <option value="GB">Gigabytes (GB)</option>
+                      <option value="TB">Terabytes (TB)</option>
+                      <option value="PB">Petabytes (PB)</option>
+                      <option value="EB">Exabytes (EB)</option>
+                      <option value="ZB">Zettabytes (ZB)</option>
+                      <option value="YB">Yottabytes (YB)</option>
+                    </select>
                   </div>
                 </div>
                 <label class="erroresValidacion"></label>

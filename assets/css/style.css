@@ -263,6 +263,8 @@ button.w3view-cart {
     box-shadow: 0px 2px 6px 1px rgba(0, 0, 0, 0.13);
 }
 
+.navbar-inner {margin-bottom: 20px;}
+
 .navbar-light .navbar-nav .nav-link {
     letter-spacing: 1px;
     font-size: 15px;
@@ -3452,8 +3454,12 @@ div#testimonials h4.m-title {
     max-width: 33.33%;
 }
 
-.col-center {
-    margin: 20px auto 0 auto
+.col-center {   
+    margin: 0px auto;
+}
+
+.table tr {
+    text-align: center;
 }
 
 .table-btn-volver {
@@ -3474,3 +3480,27 @@ div#testimonials h4.m-title {
     display: flex;
     justify-content: space-between;
 }
+
+
+/*  */
+
+
+input[type="file"] {
+    display: none;
+  }
+
+  .custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+  }
+
+  .erroresValidacion {
+    color: red;
+  }
+
+  /* Panel Administrativo Producto */
+  .form-capacidad, #memoriaRamProducto {
+    text-align: center;
+  }
