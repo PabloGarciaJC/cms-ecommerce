@@ -13,7 +13,10 @@ if (buscadorProductos) {
 
   // Obtener Tiempo Real Datos Buscador
   buscadorProductos.addEventListener("keyup", (event) => {
-    valorBuscadorProductos = event.path[0].value;
+   
+
+    let valorBuscadorProductos = event.target.value;
+
     ajaxBuscadorProductos(
       paginaActualBuscadorProductos,
       valorBuscadorProductos
