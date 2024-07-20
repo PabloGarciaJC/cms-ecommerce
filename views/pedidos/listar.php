@@ -24,7 +24,7 @@
       </div>
       <div class="modal-body">
         <form action="" id="mdFormularioEstadoPedido" method="POST">
-          <input type="hidden" id="idPedidos">>
+          <input type="hidden" id="idPedidos">
           <div id="respuestaPhpEditarPedidos" style ="display: none"></div>
           <div class="form-group">
             <label for="estadoPedido">Estado del Pedido</label>
