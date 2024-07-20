@@ -63,7 +63,16 @@ class UsuarioController
             $mensaje = utils::setearMensajeError('mdErrorChekedPhp', 'checked no selecionador');
         } else {
             $registro->crear();
-            $mensaje = 1;
+            $sesionCompletado = $registro->iniciarSesion();
+            if ($sesionCompletado && is_object($sesionCompletado)) {
+                $_SESSION['usuarioRegistrado'] = $sesionCompletado;
+                //Administro los Roles
+                if ($_SESSION['usuarioRegistrado']->Rol == 'Admin') {
+                    $_SESSION['Admin'] = true;
+                    $mensaje = 1;
+                }
+                $mensaje = 1;
+            } 
         }
         echo $mensaje;
     }

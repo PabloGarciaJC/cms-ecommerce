@@ -18,7 +18,13 @@ function eliminarCarritoProducto(idProductoBorrar, nombreProducto) {
       }).done(function (response) {
         $("#respuestaPhpMostrarCarritoCompras").html(response);
         if (response) {
-          Swal.fire("Eliminado!", "Su categoria ha sido eliminado.", "success");
+          Swal.fire({
+            title: "Eliminado!",
+            text: "Su categoría ha sido eliminada.",
+            icon: "success",
+            timer: 1500,
+            showConfirmButton: false,
+          });
         }
       });
     }

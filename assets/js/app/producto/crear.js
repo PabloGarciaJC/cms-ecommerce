@@ -94,6 +94,8 @@ if (formularioProducto) {
         Swal.fire({
           title: "Completado",
           icon: "success",
+          timer: 500,
+          showConfirmButton: false
         }).then(function () {
           window.location = baseUrl + "producto/listar";
         });

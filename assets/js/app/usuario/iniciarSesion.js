@@ -20,6 +20,8 @@ mdFormularioIniciarSesion.addEventListener("submit", (e) => {
       Swal.fire({
         title: "Completado",
         icon: "success",
+        timer: 500,
+        showConfirmButton: false
       }).then(function () {
         window.location = baseUrl + "usuario/informacionGeneral";
       });

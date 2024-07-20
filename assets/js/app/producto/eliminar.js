@@ -16,11 +16,13 @@ function eliminarDatosProducto(idProducto, nombreProductoBd) {
         data: { id: idProducto },
       }).done(function (response) {
         if (response == 1) {
-          Swal.fire(
-            "Eliminado!",
-            "Su Producto ha sido eliminado.",
-            "success"
-          ).then(function () {
+          Swal.fire({
+            title: "Eliminado!",
+            text: "Su Producto ha sido eliminado.",
+            icon: "success",
+            timer: 500,
+            showConfirmButton: false
+          }).then(function () {
             window.location = baseUrl + "Producto/listar";
           });
         } else {

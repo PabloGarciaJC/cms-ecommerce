@@ -201,25 +201,16 @@ class Usuario
     $resultado = false;
     $sql = "SELECT * FROM usuarios where Email ='{$this->getEmail()}'";
     $login = $this->db->query($sql);
-
     //verificacion que existe ese email en la base de datos 
     if ($login && $login->num_rows == 1) {
       $usuario = $login->fetch_object();
-
       // verifcacion que la password coincidan 
       //($this->password: lo que Obtengo sin cifrar por POST, $usuario->Password: lo que Tengo en la base de datos);
       $vericacion = password_verify($this->password, $usuario->Password);
-
       if ($vericacion == 1) {
         return $usuario;
-        // echo 'Existe la Verificacion del usuario';
-      } else {
-        // echo 'No Existe la Verificacion de Password';
-      }
-    } else {
-      // echo 'No Existe la Verificacion de Email';
+      } 
     }
-
     return $resultado;
   }
 

@@ -64,8 +64,10 @@ if (infromacionPrivada) {
         $("#respuestaPhpInformacionPrivada").html(response);
         if (response == 1) {
           Swal.fire({
-            title: 'Completado',
-            icon: 'success'
+            title: "Completado",
+            icon: "success",
+            timer: 500,
+            showConfirmButton: false
           })
         }
       })

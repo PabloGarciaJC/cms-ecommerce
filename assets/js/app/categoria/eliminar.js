@@ -15,11 +15,13 @@ function eliminarDatoss(idCategoriaBd, nombreCategoriaBd) {
         data: { id: idCategoriaBd },
       }).done(function (response) {
         if (response == 1) {
-          Swal.fire(
-            "Eliminado!",
-            "Su categoria ha sido eliminado.",
-            "success"
-          ).then(function () {
+          Swal.fire({
+            title: "Eliminado!",
+            text: "Su categoría ha sido eliminada.",
+            icon: "success",
+            timer: 500,
+            showConfirmButton: false
+          }).then(function () {
             window.location = baseUrl + "Categoria/gestionarCategorias";
           });
         } else {

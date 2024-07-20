@@ -11,9 +11,9 @@ class Utils
   //compruebo que el usuario Exista !!, para evitar ingresar a los metodos del controlador.
   public static function accesoUsuarioRegistrado()
   {
-    if (!isset($_SESSION['usuarioRegistrado'])) {
-      header("Location:" . BASE_URL);
-    }
+    // if (!isset($_SESSION['usuarioRegistrado'])) {
+    //   header("Location:" . BASE_URL);
+    // }
   }
 
   public static function accesoUsuarioAdmin()

@@ -33,7 +33,9 @@ if (mdFormularioListarCategoria) {
         if (response == 1) {
           Swal.fire({
             title: 'Registro Completo',
-            icon: 'success'
+            icon: 'success',
+            timer: 500,
+            showConfirmButton: false
           }).then(function () {
             window.location = baseUrl + "Categoria/gestionarCategorias";
           });
