@@ -15,7 +15,7 @@ class Pedidos
   private $hora;
   private $db;
 
-  ///CONSTRUCTOR///
+  /// CONSTRUCTOR ///
   public function __construct()
   {
     $this->db = Database::connect();

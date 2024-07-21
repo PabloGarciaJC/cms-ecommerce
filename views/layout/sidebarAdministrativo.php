@@ -29,7 +29,7 @@
               </div>
             </div>
           <?php endif; ?>
-          <!-- Para Cliente Comun -->
+          <!-- Para Cliente-->
           <?php if (isset($_SESSION['usuarioRegistrado']) && Utils::accesoUsuarioAdmin() != true) : ?>
             <div class="list-group-item list-group-item-action">
               <a data-toggle="collapse" href="#submenuCarritoCompras" aria-expanded="false" aria-controls="dateposted" class="dropdown-toggle" style="color: #495057;">Carrito de Compras </a>

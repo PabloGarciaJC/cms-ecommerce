@@ -3,24 +3,18 @@
     <div class="container-fluid">
       <div class="row main-top-w3l py-2">
         <div class="col-lg-4 header-most-top">
-          <p class="text-white text-lg-left text-center">Las Mejores Ofertas y Descuentos en Verano
+          <p class="text-white text-lg-left">Las Mejores Ofertas y Descuentos en Verano
             <i class="fas fa-shopping-cart ml-1"></i>
           </p>
         </div>
         <div class="col-lg-8 header-right mt-lg-0 mt-2">
           <ul>
-            <li class="text-center border-right text-white">
-              <a class="play-icon popup-with-zoom-anim text-white" href="#small-dialog1">
-            </li>
-            <li class="text-center border-right text-white">
-              <a href="#" data-toggle="modal" data-target="#exampleModal" class="text-white"></a>
-            </li>
+
             <li class="text-center border-right text-white">
               <i class="fas fa-phone mr-2"></i> 001 234 5678
             </li>
             <li class="text-center border-right text-white">
               <a href="#" data-toggle="modal" data-target="#exampleModal" class="text-white">
-
                 <?php if (isset($_SESSION['usuarioRegistrado'])) : ?>
                   <a href="<?= BASE_URL ?>usuario/informacionGeneral" class="estilosSesionRegistro">Hola, <?= $usuario->Usuario ?></a>
                 <?php else : ?>

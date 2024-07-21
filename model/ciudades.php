@@ -8,7 +8,7 @@ class Ciudades
   private $ciudad;
   private $db;
 
-  ///CONSTRUCTOR///
+  /// CONSTRUCTOR ///
   public function __construct()
   {
     $this->db = Database::connect();

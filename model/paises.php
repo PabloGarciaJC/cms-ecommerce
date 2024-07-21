@@ -7,7 +7,7 @@ class Paises
   private $pais;
   private $db;
 
-  ///CONSTRUCTOR///
+  /// CONSTRUCTOR ///
   public function __construct()
   {
     $this->db = Database::connect();
