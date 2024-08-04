@@ -1,10 +1,28 @@
 <?php
+
 ob_start(); 
 session_start();
-require_once 'config/parameters.php';
-require_once 'config/db.php';
+
+## ---------------------------------------------------------
+## Cargar variables de entorno
+## ---------------------------------------------------------
+
+require_once __DIR__ . '/vendor/autoload.php';
+use Dotenv\Dotenv;
+$dotenv = Dotenv::createImmutable(__DIR__ );
+$dotenv->load();
+
+## ---------------------------------------------------------
+## Incluir archivos de configuración y librerías
+## ---------------------------------------------------------
+
 require_once 'autoload.php';
+require_once 'config/includes.php';
 require_once 'helpers/utils.php';
+
+## ---------------------------------------------------------
+## Controlador Frontal
+## ---------------------------------------------------------
 
 if (isset($_GET['controller'])) {
     $nombre_controlador = $_GET['controller'] . 'Controller';  
