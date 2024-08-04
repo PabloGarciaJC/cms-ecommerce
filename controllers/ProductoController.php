@@ -149,9 +149,6 @@ class ProductoController
     require_once 'views/layout/header.php';
     require_once 'views/layout/banner.php';
     require_once 'views/layout/nav.php';
-    // require_once 'views/layout/sidebarAdministrativo.php';
-
-    // echo 'max-width: 1140px;';
     require_once 'views/Producto/listar.php';
     require_once 'views/layout/footer.php';
   }
