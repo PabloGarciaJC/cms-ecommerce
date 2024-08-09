@@ -8,8 +8,8 @@ FROM php:8.2-apache
 ## Argumentos
 ## ---------------------------------------------------------
 
-ARG NEW_UID=1000
-ARG NEW_GID=1000
+ARG NEW_UID
+ARG NEW_GID
 ARG MY_USER
 ARG MY_GROUP
 
@@ -63,8 +63,14 @@ COPY ./php_server/bash/sudo-user /etc/sudoers.d/sudo-user
 ## ---------------------------------------------------------
 
 COPY ./php_server/host/virtual-host.conf /etc/apache2/sites-available/virtual-host.conf
-RUN a2ensite virtual-host.conf && \
-    echo "ServerName localhost" >> /etc/apache2/apache2.conf
+RUN a2ensite virtual-host.conf 
+RUN a2dissite 000-default.conf
+    
+## ---------------------------------------------------------
+## Agregar ServerName a la configuración global de Apache
+## ---------------------------------------------------------
+
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
 ## ---------------------------------------------------------
 ## Exponer el puerto 80
