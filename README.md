@@ -2,7 +2,7 @@
 # Aplicación Web Ecommerce
 
 La **Aplicación Web Ecommerce**, es desarrollado como un sistema intuitivo, seguro y escalable que brinde una experiencia satisfactoria a compradores y vendedores. Como desarrollador web, mi misión es aplicar esta visión mediante el uso de buenas prácticas de desarrollo para lograr un sistema eficiente. **Mi objetivo** es mantener la relevancia y eficacia del proyecto adaptándolo cuando sea necesario en el mercado. Si estás interesado en trabajar juntos o tienes alguna pregunta, no dudes en contactarme. O si prefieres, envíame un mensaje a mi [WhatsApp](https://api.whatsapp.com/send?phone=672354875) para una respuesta más rápida. 
-Demo: [https://red-social.pablogarciajc.com/](https://red-social.pablogarciajc.com/)
+Demo: [https://ecommerce.pablogarciajc.com/](https://ecommerce.pablogarciajc.com/)
 
 </br>
 
