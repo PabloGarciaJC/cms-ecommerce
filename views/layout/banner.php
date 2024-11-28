@@ -77,7 +77,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <form action="" method="POST" id="mdFormularioRegistro">
+          <form action="<?php echo BASE_URL; ?>" method="POST" id="mdFormularioRegistro">
             <div id="respuestaPhpRegistro" style="text-align: center; display: none"></div>
             <div class="form-group cErrorUsuario">
               <label class="col-form-label ">Alias</label>

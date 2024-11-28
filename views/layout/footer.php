@@ -227,13 +227,20 @@
   </script>
   <script src="<?= BASE_URL ?>assets/js/librerias/bootstrap.js"></script>
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <script src="<?= BASE_URL ?>assets/js/config/parameters.js"></script>
-  <script src="<?= BASE_URL ?>assets/js/app/usuario/registro.js"></script>
-  <script src="<?= BASE_URL ?>assets/js/app/usuario/iniciarSesion.js"></script>
-  <script src="<?= BASE_URL ?>assets/js/app/usuario/avatarVistaPrevia.js"></script>
-  <script src="<?= BASE_URL ?>assets/js/app/usuario/informacionPublica.js"></script>
-  <script src="<?= BASE_URL ?>assets/js/app/usuario/informacionPrivada.js"></script>
-  <script src="<?= BASE_URL ?>assets/js/app/usuario/ciudad.js"></script>
+
+  <!-- <script src="<?= BASE_URL ?>assets/js/config/parameters.js"></script> -->
+  <script src="<?= BASE_URL ?>assets/js/app/config.js"></script>
+
+ 
+  <!-- <script src="<?= BASE_URL ?>assets/js/app/usuario/registro.js"></script> -->
+  <script src="<?= BASE_URL ?>assets/js/app/usuario.js"></script>
+  <!-- <script src="<?= BASE_URL ?>assets/js/app/usuario/iniciarSesion.js"></script> -->
+  <!-- <script src="<?= BASE_URL ?>assets/js/app/usuario/avatarVistaPrevia.js"></script> -->
+  <!-- <script src="<?= BASE_URL ?>assets/js/app/usuario/informacionPublica.js"></script> -->
+  <!-- <script src="<?= BASE_URL ?>assets/js/app/usuario/informacionPrivada.js"></script> -->
+  <!-- <script src="<?= BASE_URL ?>assets/js/app/usuario/ciudad.js"></script> -->
+
+
   <script src="<?= BASE_URL ?>assets/js/app/categoria/obtenerDatosEditar.js"></script>
   <script src="<?= BASE_URL ?>assets/js/app/categoria/editar.js"></script>
   <script src="<?= BASE_URL ?>assets/js/app/categoria/eliminar.js"></script>

@@ -72,7 +72,7 @@ class UsuarioController
                     $mensaje = 1;
                 }
                 $mensaje = 1;
-            } 
+            }
         }
         echo $mensaje;
     }
@@ -123,78 +123,139 @@ class UsuarioController
             unset($_SESSION['Admin']);
             unset($_SESSION['carrito']);
             header("Location: /");
-        } 
+        }
     }
 
-    public function subirImagen()
-    {
-        $id = isset($_POST['id']) ? $_POST['id'] : false;
-        $nombreArchivo = isset($_FILES['file']['name']) ? $_FILES['file']['name'] : false;
-        $tipoArchivo = isset($_FILES['file']['type']) ? $_FILES['file']['type'] : false;
-        $rutaTemporal = isset($_FILES['file']['tmp_name']) ? $_FILES['file']['tmp_name'] : false;
-        $pesoArchivo = isset($_FILES['file']['size']) ? $_FILES['file']['size'] : false;
-        $sizeArchivoMax = "1048576"; // 1 MB expresado en bytes //1048576
-        if (!is_dir('uploads/images/avatar/')) {
-            mkdir('uploads/images/avatar/', 0777, true);
-        }
-        //Instancio
-        $subirImagen = new Usuario();
-        $subirImagen->setId($id);
-        $subirImagen->setUrl_Avatar($nombreArchivo);
-        //Seleciono Imagen que Existe
-        $obtenerUsuario = $subirImagen->obtenerTodosPorId();
-        //url que existe en la base de datos actualmente.
-        $ruta = 'uploads/images/avatar/' . $obtenerUsuario->Url_Avatar;
-        if ($rutaTemporal) {
-            //Guardo la Url en la base de datos
-            $subirImagen->subirImagen();
-            //Para Guardar solo un Avatar por usuario, el cual no se repita
-            if ($obtenerUsuario->Url_Avatar == $nombreArchivo) {
-                if (is_file($ruta)) {
-                    //Borra la imagen anterior para que no quede Guardada en el Fichero
-                    unlink($ruta);
-                }
-            }
-            //Guardo en el Fichero del Proyecto o en su defecto en el servidor
-            move_uploaded_file($rutaTemporal, 'uploads/images/avatar/' . $nombreArchivo);
-        } else {
-            //Seteo con la que Existe Actualmente 
-            $subirImagen->setUrl_Avatar($obtenerUsuario->Url_Avatar);
-            //Guardo la Url en la base de datos la url Nueva.
-            $subirImagen->subirImagen();
-        }
-    }
+    // public function subirImagen()
+    // {
+    //     $id = isset($_POST['id']) ? $_POST['id'] : false;
+    //     $nombreArchivo = isset($_FILES['file']['name']) ? $_FILES['file']['name'] : false;
+    //     $tipoArchivo = isset($_FILES['file']['type']) ? $_FILES['file']['type'] : false;
+    //     $rutaTemporal = isset($_FILES['file']['tmp_name']) ? $_FILES['file']['tmp_name'] : false;
+    //     $pesoArchivo = isset($_FILES['file']['size']) ? $_FILES['file']['size'] : false;
+    //     $sizeArchivoMax = "1048576"; // 1 MB expresado en bytes //1048576
+    //     if (!is_dir('uploads/images/avatar/')) {
+    //         mkdir('uploads/images/avatar/', 0777, true);
+    //     }
+    //     //Instancio
+    //     $subirImagen = new Usuario();
+    //     $subirImagen->setId($id);
+    //     $subirImagen->setUrl_Avatar($nombreArchivo);
+    //     //Seleciono Imagen que Existe
+    //     $obtenerUsuario = $subirImagen->obtenerTodosPorId();
+    //     //url que existe en la base de datos actualmente.
+    //     $ruta = 'uploads/images/avatar/' . $obtenerUsuario->Url_Avatar;
+    //     if ($rutaTemporal) {
+    //         //Guardo la Url en la base de datos
+    //         $subirImagen->subirImagen();
+    //         //Para Guardar solo un Avatar por usuario, el cual no se repita
+    //         if ($obtenerUsuario->Url_Avatar == $nombreArchivo) {
+    //             if (is_file($ruta)) {
+    //                 //Borra la imagen anterior para que no quede Guardada en el Fichero
+    //                 unlink($ruta);
+    //             }
+    //         }
+    //         //Guardo en el Fichero del Proyecto o en su defecto en el servidor
+    //         move_uploaded_file($rutaTemporal, 'uploads/images/avatar/' . $nombreArchivo);
+    //     } else {
+    //         //Seteo con la que Existe Actualmente 
+    //         $subirImagen->setUrl_Avatar($obtenerUsuario->Url_Avatar);
+    //         //Guardo la Url en la base de datos la url Nueva.
+    //         $subirImagen->subirImagen();
+    //     }
+    // }
 
     public function informacionPublica()
     {
+        //Acceso Usuario Registrado a esta Pagina
+        Utils::accesoUsuarioRegistrado();
+
+        // Recibimos los datos desde el formulario
         $id = isset($_POST['id']) ? $_POST['id'] : false;
         $usuario = isset($_POST['usuario']) ? $_POST['usuario'] : false;
         $documentacion = isset($_POST['documentacion']) ? $_POST['documentacion'] : false;
         $telefono = isset($_POST['telefono']) ? $_POST['telefono'] : false;
-        //Instancio
-        $actualizarInformacionPublica = new Usuario();
-        $actualizarInformacionPublica->setId($id);
-        $actualizarInformacionPublica->setUsuario($usuario);
-        $actualizarInformacionPublica->setNumeroDocumento($documentacion);
-        $actualizarInformacionPublica->setNroTelefono($telefono);
-        $errores = array();
+
+        // Array para almacenar los errores
+        $errores = [];
+
+        // Validación de los campos
         if (empty($usuario)) {
-            $errores['alias'] = Utils::erroresValidacion('Error', 'Ingrese Alias');
+            $errores['usuario'] = "El alias es obligatorio.";
         } elseif (strlen($usuario) > 12) {
-            $errores['alias'] = Utils::erroresValidacion('Error', 'El Alias debe de Tener Max. 12 Caracteres');
+            $errores['usuario'] = "El alias no puede tener más de 12 caracteres.";
         }
-        if (empty(trim($documentacion))) {
-            $errores['documentacion'] = Utils::erroresValidacion('Error', 'Ingrese Documentacion');
+
+        if (empty($documentacion)) {
+            $errores['documentacion'] = "El número de documento es obligatorio.";
         }
-        if (empty(trim($telefono))) {
-            $errores['telefono'] = Utils::erroresValidacion('Error', 'Ingrese Teléfono');
+
+        if (empty($telefono)) {
+            $errores['telefono'] = "El número de teléfono es obligatorio.";
         }
-        if (count($errores) == 0) {
-            //Guardo la Url en la base de datos la url Nueva y los Datos Nuevos
+
+        // Si hay errores, no continuar con el proceso y redirigir con los errores
+        if (count($errores) > 0) {
+            $_SESSION['errores'] = $errores;
+            $_SESSION['form_data'] = $_POST; // Guardamos los datos para volver a mostrar en el formulario
+            // No hacer la redirección aquí, solo guardar los errores y datos del formulario
+        } else {
+            // Si no hay errores, procedemos con la actualización
+            $actualizarInformacionPublica = new Usuario();
+            $actualizarInformacionPublica->setId($id);
+            $actualizarInformacionPublica->setUsuario($usuario);
+            $actualizarInformacionPublica->setNumeroDocumento($documentacion);
+            $actualizarInformacionPublica->setNroTelefono($telefono);
+
+            // Lógica de manejo del avatar
+            $nombreArchivo = isset($_FILES['avatarSelecionado']['name']) ? $_FILES['avatarSelecionado']['name'] : false;
+            $rutaTemporal = isset($_FILES['avatarSelecionado']['tmp_name']) ? $_FILES['avatarSelecionado']['tmp_name'] : false;
+
+            if ($rutaTemporal) {
+                $directorioDestino = 'uploads/images/avatar/';
+                if (!is_dir($directorioDestino)) {
+                    mkdir($directorioDestino, 0777, true);
+                }
+
+                $nombreArchivoUnico = time() . '_' . basename($nombreArchivo);
+
+                $subirImagen = new Usuario();
+                $subirImagen->setId($id);
+                $subirImagen->setUrl_Avatar($nombreArchivoUnico);
+
+                $obtenerUsuario = $subirImagen->obtenerTodosPorId();
+                $ruta = $directorioDestino . $obtenerUsuario->Url_Avatar;
+
+                if (move_uploaded_file($rutaTemporal, $directorioDestino . $nombreArchivoUnico)) {
+                    if ($obtenerUsuario->Url_Avatar && is_file($ruta)) {
+                        unlink($ruta); // Elimina la imagen anterior
+                    }
+                    $subirImagen->subirImagen();
+                } else {
+                    echo "Error al mover la imagen al directorio de destino.";
+                    return;
+                }
+            }
+
+            // Actualizamos la información en la base de datos
             $actualizarInformacionPublica->actualizarInformacionPublica();
-            echo 1;
+
+            // Limpiar los errores y los datos del formulario después de procesar
+            unset($_SESSION['errores']);
+            unset($_SESSION['form_data']);
+
+            // Guardar el mensaje de éxito en la sesión
+            $_SESSION['exito'] = 'La información se actualizó correctamente.';
         }
+
+        // Redirigir a la página de información general
+        header("Location: " . BASE_URL . "usuario/informacionGeneral");
+        exit; // Asegurarse de que no se ejecute nada más después de la redirección
     }
+
+
+
+
 
     public function informacionPrivada()
     {
