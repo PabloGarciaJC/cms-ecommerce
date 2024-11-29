@@ -222,7 +222,7 @@ class Usuario
     if ($repetidos) {
       $resultado = true;
     }
-    return $repetidos;
+    return $resultado;
   }
 
   public function repetidosEmail()
@@ -233,7 +233,7 @@ class Usuario
     if ($repetidos) {
       $resultado = true;
     }
-    return $repetidos;
+    return $resultado;
   }
 
   public function subirImagen()
@@ -244,33 +244,19 @@ class Usuario
     if ($imagenSubida) {
       $resultado = true;
     }
-    return $imagenSubida;
+    return $resultado;
   }
 
 
   public function actualizarInformacionPublica()
   {
     $resultado = false;    
-    $sql = "UPDATE usuarios SET Usuario = '{$this->getUsuario()}', NumeroDocumento = '{$this->getNumeroDocumento()}', NroTelefono = '{$this->getNroTelefono()}' WHERE Id = {$this->getId()};";
-
+    $sql = "UPDATE usuarios SET Usuario = '{$this->getUsuario()}', NumeroDocumento = '{$this->getNumeroDocumento()}', Nombres = '{$this->getNombres()}', Apellidos = '{$this->getApellidos()}', Email = '{$this->getEmail()}',  NroTelefono = '{$this->getNroTelefono()}', Direccion = '{$this->getDireccion()}', Pais = '{$this->getPais()}', Ciudad = '{$this->getCiudad()}', CodigoPostal = '{$this->getCodigoPostal()}' WHERE Id = {$this->getId()};";
     $actualizar = $this->db->query($sql);
     if ($actualizar) {
       $resultado = true;
     }
-    return $actualizar;
-  }
-
-  
-  public function actualizarInformacionPrivada()
-  {
-    $resultado = false;    
-    $sql = "UPDATE usuarios SET Nombres = '{$this->getNombres()}', Apellidos = '{$this->getApellidos()}', Email = '{$this->getEmail()}', Direccion = '{$this->getDireccion()}', Pais = '{$this->getPais()}', Ciudad = '{$this->getCiudad()}', CodigoPostal = '{$this->getCodigoPostal()}'  WHERE Id = {$this->getId()};";
-
-    $actualizarInformacionPrivada = $this->db->query($sql);
-    if ($actualizarInformacionPrivada) {
-      $resultado = true;
-    }
-    return $actualizarInformacionPrivada;
+    return $resultado;
   }
 
   public function obtenerTodosPorId()

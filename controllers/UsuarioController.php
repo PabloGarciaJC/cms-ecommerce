@@ -22,7 +22,7 @@ class UsuarioController
         require_once 'views/layout/nav.php';
         require_once 'views/layout/sidebarAdministrativo.php';
         require_once 'views/usuario/informacionPublica.php';
-        require_once 'views/usuario/informacionPrivada.php';
+        // require_once 'views/usuario/informacionPrivada.php';
         require_once 'views/layout/footer.php';
     }
 
@@ -126,45 +126,6 @@ class UsuarioController
         }
     }
 
-    // public function subirImagen()
-    // {
-    //     $id = isset($_POST['id']) ? $_POST['id'] : false;
-    //     $nombreArchivo = isset($_FILES['file']['name']) ? $_FILES['file']['name'] : false;
-    //     $tipoArchivo = isset($_FILES['file']['type']) ? $_FILES['file']['type'] : false;
-    //     $rutaTemporal = isset($_FILES['file']['tmp_name']) ? $_FILES['file']['tmp_name'] : false;
-    //     $pesoArchivo = isset($_FILES['file']['size']) ? $_FILES['file']['size'] : false;
-    //     $sizeArchivoMax = "1048576"; // 1 MB expresado en bytes //1048576
-    //     if (!is_dir('uploads/images/avatar/')) {
-    //         mkdir('uploads/images/avatar/', 0777, true);
-    //     }
-    //     //Instancio
-    //     $subirImagen = new Usuario();
-    //     $subirImagen->setId($id);
-    //     $subirImagen->setUrl_Avatar($nombreArchivo);
-    //     //Seleciono Imagen que Existe
-    //     $obtenerUsuario = $subirImagen->obtenerTodosPorId();
-    //     //url que existe en la base de datos actualmente.
-    //     $ruta = 'uploads/images/avatar/' . $obtenerUsuario->Url_Avatar;
-    //     if ($rutaTemporal) {
-    //         //Guardo la Url en la base de datos
-    //         $subirImagen->subirImagen();
-    //         //Para Guardar solo un Avatar por usuario, el cual no se repita
-    //         if ($obtenerUsuario->Url_Avatar == $nombreArchivo) {
-    //             if (is_file($ruta)) {
-    //                 //Borra la imagen anterior para que no quede Guardada en el Fichero
-    //                 unlink($ruta);
-    //             }
-    //         }
-    //         //Guardo en el Fichero del Proyecto o en su defecto en el servidor
-    //         move_uploaded_file($rutaTemporal, 'uploads/images/avatar/' . $nombreArchivo);
-    //     } else {
-    //         //Seteo con la que Existe Actualmente 
-    //         $subirImagen->setUrl_Avatar($obtenerUsuario->Url_Avatar);
-    //         //Guardo la Url en la base de datos la url Nueva.
-    //         $subirImagen->subirImagen();
-    //     }
-    // }
-
     public function informacionPublica()
     {
         //Acceso Usuario Registrado a esta Pagina
@@ -175,6 +136,14 @@ class UsuarioController
         $usuario = isset($_POST['usuario']) ? $_POST['usuario'] : false;
         $documentacion = isset($_POST['documentacion']) ? $_POST['documentacion'] : false;
         $telefono = isset($_POST['telefono']) ? $_POST['telefono'] : false;
+
+        $nombre = isset($_POST['nombre']) ? trim($_POST['nombre']) : false;
+        $apellido = isset($_POST['apellido']) ? trim($_POST['apellido']) : false;
+        $email = isset($_POST['email']) ? trim($_POST['email']) : false;
+        $direccion = isset($_POST['direccion']) ? trim($_POST['direccion']) : false;
+        $pais = isset($_POST['pais']) ? trim($_POST['pais']) : false;
+        $ciudad = isset($_POST['ciudad']) ? trim($_POST['ciudad']) : false;
+        $codigoPostal = isset($_POST['codigoPostal']) ? trim($_POST['codigoPostal']) : false;
 
         // Array para almacenar los errores
         $errores = [];
@@ -194,11 +163,47 @@ class UsuarioController
             $errores['telefono'] = "El número de teléfono es obligatorio.";
         }
 
+        // Validación de los campos
+        if (empty($nombre)) {
+            $errores['nombre'] = "El nombre es obligatorio.";
+        } elseif (strlen($nombre) > 50) {
+            $errores['nombre'] = "El nombre no puede tener más de 50 caracteres.";
+        }
+
+        if (empty($apellido)) {
+            $errores['apellido'] = "El apellido es obligatorio.";
+        } elseif (strlen($apellido) > 50) {
+            $errores['apellido'] = "El apellido no puede tener más de 50 caracteres.";
+        }
+
+        // if (empty($email)) {
+        //     $errores['email'] = "El email es obligatorio.";
+        // } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        //     $errores['email'] = "El email no tiene un formato válido.";
+        // }
+
+        if (empty($direccion)) {
+            $errores['direccion'] = "La dirección es obligatoria.";
+        }
+
+        // if (empty($pais)) {
+        //     $errores['pais'] = "El país es obligatorio.";
+        // }
+
+        // if (empty($ciudad)) {
+        //     $errores['ciudad'] = "La ciudad es obligatoria.";
+        // }
+
+        if (empty($codigoPostal)) {
+            $errores['codigoPostal'] = "El código postal es obligatorio.";
+        } elseif (!is_numeric($codigoPostal)) {
+            $errores['codigoPostal'] = "El código postal debe ser numérico.";
+        }
+
         // Si hay errores, no continuar con el proceso y redirigir con los errores
         if (count($errores) > 0) {
             $_SESSION['errores'] = $errores;
             $_SESSION['form_data'] = $_POST; // Guardamos los datos para volver a mostrar en el formulario
-            // No hacer la redirección aquí, solo guardar los errores y datos del formulario
         } else {
             // Si no hay errores, procedemos con la actualización
             $actualizarInformacionPublica = new Usuario();
@@ -206,6 +211,13 @@ class UsuarioController
             $actualizarInformacionPublica->setUsuario($usuario);
             $actualizarInformacionPublica->setNumeroDocumento($documentacion);
             $actualizarInformacionPublica->setNroTelefono($telefono);
+            $actualizarInformacionPublica->setNombres($nombre);
+            $actualizarInformacionPublica->setApellidos($apellido);
+            $actualizarInformacionPublica->setEmail($email);
+            $actualizarInformacionPublica->setDireccion($direccion);
+            $actualizarInformacionPublica->setPais($pais);
+            $actualizarInformacionPublica->setCiudad($ciudad);
+            $actualizarInformacionPublica->setCodigoPostal($codigoPostal);
 
             // Lógica de manejo del avatar
             $nombreArchivo = isset($_FILES['avatarSelecionado']['name']) ? $_FILES['avatarSelecionado']['name'] : false;
@@ -254,70 +266,94 @@ class UsuarioController
     }
 
 
-
-
-
     public function informacionPrivada()
     {
-        $id = isset($_POST['id']) ? $_POST['id'] : false;
-        $nombre = isset($_POST['nombre']) ? $_POST['nombre'] : false;
-        $apellido = isset($_POST['apellido']) ? $_POST['apellido'] : false;
-        $email = isset($_POST['email']) ? $_POST['email'] : false;
-        $direccion = isset($_POST['direccion']) ? $_POST['direccion'] : false;
-        $pais = isset($_POST['pais']) ? $_POST['pais'] : false;
-        $ciudad = isset($_POST['ciudad']) ? $_POST['ciudad'] : false;
-        $codigoPostal = isset($_POST['codigoPostal']) ? $_POST['codigoPostal'] : false;
-        //Repoblar Campos
-        $repoblarInputs = array();
-        $repoblarInputs['id'] = $id;
-        $repoblarInputs['nombre'] = $nombre;
-        $repoblarInputs['apellido'] = $apellido;
-        $repoblarInputs['email'] = $email;
-        $repoblarInputs['direccion'] = $direccion;
-        $repoblarInputs['pais'] = $pais;
-        $repoblarInputs['ciudad'] = $ciudad;
-        $repoblarInputs['codigoPostal'] = $codigoPostal;
-        //instancio
-        $usuario = new usuario();
-        $usuario->setId($id);
-        $usuario->setNombres($nombre);
-        $usuario->setApellidos($apellido);
-        $usuario->setEmail($email);
-        $usuario->setDireccion($direccion);
-        $usuario->setPais($pais);
-        $usuario->setCiudad($ciudad);
-        $usuario->setCodigoPostal($codigoPostal);
-        //errores 
-        $errores = array();
-        if (empty(trim($nombre))) {
-            $errores['documentacion'] = Utils::erroresValidacion('Error', 'Ingresé Nombre');
-        }
-        if (empty(trim($apellido))) {
-            $errores['documentacion'] = Utils::erroresValidacion('Error', 'Ingresé Aplellidos');
-        }
-        if (empty(trim($email))) {
-            $errores['documentacion'] = Utils::erroresValidacion('Error', 'Ingresé Email');
-        } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $errores['documentacion'] = Utils::erroresValidacion('Error', 'Email No Válido');
-        }
-        if (empty(trim($direccion))) {
-            $errores['documentacion'] = Utils::erroresValidacion('Error', 'Ingresé Dirección');
-        }
-        if (empty(trim($pais))) {
-            $errores['documentacion'] = Utils::erroresValidacion('Error', 'Ingresé País');
-        }
-        if (empty(trim($ciudad))) {
-            $errores['documentacion'] = Utils::erroresValidacion('Error', 'Ingresé Ciudad');
-        }
-        if (empty(trim($codigoPostal))) {
-            $errores['documentacion'] = Utils::erroresValidacion('Error', 'Ingrese Código Postal');
-        }
-        if (count($errores) == 0) {
-            //consulta
-            $usuario->actualizarInformacionPrivada();
-            echo 1;
-        }
+        // // Recibir datos del formulario
+        // $id = isset($_POST['id']) ? trim($_POST['id']) : false;
+        // $nombre = isset($_POST['nombre']) ? trim($_POST['nombre']) : false;
+        // $apellido = isset($_POST['apellido']) ? trim($_POST['apellido']) : false;
+        // $email = isset($_POST['email']) ? trim($_POST['email']) : false;
+        // $direccion = isset($_POST['direccion']) ? trim($_POST['direccion']) : false;
+        // $pais = isset($_POST['pais']) ? trim($_POST['pais']) : false;
+        // $ciudad = isset($_POST['ciudad']) ? trim($_POST['ciudad']) : false;
+        // $codigoPostal = isset($_POST['codigoPostal']) ? trim($_POST['codigoPostal']) : false;
+
+        // // Array para almacenar los errores
+        // $errores = [];
+        // $form_data = $_POST; // Para repoblar los campos en caso de error
+
+        // // Validación de los campos
+        // if (empty($nombre)) {
+        //     $errores['nombre'] = "El nombre es obligatorio.";
+        // } elseif (strlen($nombre) > 50) {
+        //     $errores['nombre'] = "El nombre no puede tener más de 50 caracteres.";
+        // }
+
+        // if (empty($apellido)) {
+        //     $errores['apellido'] = "El apellido es obligatorio.";
+        // } elseif (strlen($apellido) > 50) {
+        //     $errores['apellido'] = "El apellido no puede tener más de 50 caracteres.";
+        // }
+
+        // if (empty($email)) {
+        //     $errores['email'] = "El email es obligatorio.";
+        // } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        //     $errores['email'] = "El email no tiene un formato válido.";
+        // }
+
+        // if (empty($direccion)) {
+        //     $errores['direccion'] = "La dirección es obligatoria.";
+        // }
+
+        // if (empty($pais)) {
+        //     $errores['pais'] = "El país es obligatorio.";
+        // }
+
+        // if (empty($ciudad)) {
+        //     $errores['ciudad'] = "La ciudad es obligatoria.";
+        // }
+
+        // if (empty($codigoPostal)) {
+        //     $errores['codigoPostal'] = "El código postal es obligatorio.";
+        // } elseif (!is_numeric($codigoPostal)) {
+        //     $errores['codigoPostal'] = "El código postal debe ser numérico.";
+        // }
+
+        // // Verificar si hay errores
+        // if (count($errores) > 0) {
+        //     // Si hay errores, guardarlos en la sesión y redirigir de nuevo al formulario
+        //     $_SESSION['errores'] = $errores;
+        //     $_SESSION['form_data'] = $form_data;
+        //     // header("Location: " . BASE_URL . "Usuario/informacionPrivada"); // Cambia la ruta según tu configuración
+        //     // exit;
+        // }
+
+        // // Si no hay errores, proceder con la actualización
+        // $usuario = new Usuario();
+        // $usuario->setId($id);
+        // $usuario->setNombres($nombre);
+        // $usuario->setApellidos($apellido);
+        // $usuario->setEmail($email);
+        // $usuario->setDireccion($direccion);
+        // $usuario->setPais($pais);
+        // $usuario->setCiudad($ciudad);
+        // $usuario->setCodigoPostal($codigoPostal);
+
+        // // Actualizar la información en la base de datos
+        // $resultado = $usuario->actualizarInformacionPrivada();
+
+        // // Comprobar el resultado de la actualización
+        // if ($resultado) {
+        //     $_SESSION['exito'] = "¡Información actualizada correctamente!";
+        // } else {
+        //     $_SESSION['errores']['general'] = "Ocurrió un error al actualizar la información. Intente nuevamente.";
+        // }
+
+        // // Redirigir al formulario
+        // header("Location: " . BASE_URL . "usuario/informacionGeneral");
+        // exit;
     }
+
 
     public function cambioPassword()
     {
