@@ -222,7 +222,7 @@ class Usuario
     if ($repetidos) {
       $resultado = true;
     }
-    return $resultado;
+    return $repetidos;
   }
 
   public function repetidosEmail()
@@ -233,7 +233,7 @@ class Usuario
     if ($repetidos) {
       $resultado = true;
     }
-    return $resultado;
+    return $repetidos;
   }
 
   public function subirImagen()

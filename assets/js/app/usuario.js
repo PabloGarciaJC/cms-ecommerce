@@ -93,77 +93,6 @@ class User {
     });
   }
 
-  informacionPublica() {
-    // Verifica si existe el formulario antes de proceder
-    if ($('#informacionPublica').length) {
-      $('#informacionPublica').on('submit', function (e) {
-        e.preventDefault(); // Prevenir el envío del formulario
-
-        // Obtener valores de los campos
-        let id = $('#id').val();
-        let usuario = $('#usuario').val();
-        let documentacion = $('#documentacion').val();
-        let telefono = $('#telefono').val();
-
-        // Validaciones
-        let valid = true;
-
-        if (!usuario) {
-          mostrarMensajeError('errorUsuario', 'Ingrese Alias');
-          valid = false;
-        } else {
-          mostrarMensajeError('errorUsuario', '');
-        }
-
-        if (!documentacion) {
-          mostrarMensajeError('errorDocumentacion', 'Ingrese Documentacíon');
-          valid = false;
-        } else {
-          mostrarMensajeError('errorDocumentacion', '');
-        }
-
-        if (!telefono) {
-          mostrarMensajeError('errorTelefono', 'Ingrese Teléfono');
-          valid = false;
-        } else {
-          mostrarMensajeError('errorTelefono', '');
-        }
-        // Si no pasa la validación, detener el proceso
-        if (!valid) return;
-        // Ajax para enviar información al servidor
-        $.ajax({
-          type: 'POST',
-          url: baseUrl + 'Usuario/informacionPublica',
-          data: {
-            id: id,
-            usuario: usuario,
-            documentacion: documentacion,
-            telefono: telefono
-          },
-          success: function (response) {
-            $("#respuestaPhpInformacionPublica").html(response);
-            if (response == 1) {
-              Swal.fire({
-                title: "Completado",
-                icon: "success",
-                timer: 500,
-                showConfirmButton: false
-              });
-            }
-          },
-          error: function (xhr, status, error) {
-            console.error("Error en la solicitud:", status, error);
-            $("#respuestaPhpInformacionPublica").html("Ocurrió un error. Por favor, intente de nuevo.");
-          }
-        });
-      });
-      // Función para mostrar mensajes de error
-      function mostrarMensajeError(claseInput, mensaje) {
-        $(`.${claseInput} span`).html(mensaje);
-      }
-    }
-  }
-
   avatarVistaPrevia() {
     $('.file-img').on('change', function () {
       // Obtén el archivo seleccionado
@@ -182,123 +111,21 @@ class User {
     });
   }
 
-  informacionPrivada() {
-
-    // // Verificar si el formulario existe antes de agregar el evento
-    // let $informacionPrivada = $('#informacionPrivada');
-
-    // if ($informacionPrivada.length) {
-    //   $informacionPrivada.on('submit', function (e) {
-    //     e.preventDefault(); // Freno Submit o Envío
-
-    //     // Obtener valores de los campos
-    //     let id = $('#id').val();
-    //     let nombre = $('#nombre').val();
-    //     let apellido = $('#apellido').val();
-    //     let email = $('#email').val();
-    //     let direccion = $('#direccion').val();
-    //     let ciudad = $('#ciudad').val();
-    //     let codigoPostal = $('#codigoPostal').val();
-    //     let pais = $('#pais').find('option:selected').text(); // Obtener el texto del select
-
-    //     // Validación
-    //     let valid = true;
-
-    //     // Función para mostrar los mensajes de error
-    //     function mostrarMensajeError(claseInput, mensaje) {
-    //       $(`.${claseInput} span`).html(mensaje);
-    //     }
-
-    //     // Realizamos la validación de los campos
-    //     if (!nombre) {
-    //       mostrarMensajeError('errorNombre', 'Ingrese Nombre');
-    //       valid = false;
-    //     } else {
-    //       mostrarMensajeError('errorNombre', '');
-    //     }
-
-    //     if (!apellido) {
-    //       mostrarMensajeError('errorApellido', 'Ingrese Apellidos');
-    //       valid = false;
-    //     } else {
-    //       mostrarMensajeError('errorApellido', '');
-    //     }
-
-    //     if (!email) {
-    //       mostrarMensajeError('errorEmail', 'Ingrese Email');
-    //       valid = false;
-    //     } else {
-    //       mostrarMensajeError('errorEmail', '');
-    //     }
-
-    //     if (!direccion) {
-    //       mostrarMensajeError('errorDireccion', 'Ingrese Dirección');
-    //       valid = false;
-    //     } else {
-    //       mostrarMensajeError('errorDireccion', '');
-    //     }
-
-    //     if (!codigoPostal) {
-    //       mostrarMensajeError('errorCodigoPostal', 'Ingrese Codigo Postal');
-    //       valid = false;
-    //     } else {
-    //       mostrarMensajeError('errorCodigoPostal', '');
-    //     }
-
-    //     // Si alguna validación falla, se detiene el proceso
-    //     if (!valid) return;
-
-    //     // Realizar el envío del formulario mediante AJAX
-    //     $.ajax({
-    //       type: 'POST',
-    //       url: baseUrl + 'Usuario/informacionPrivada',
-    //       data: {
-    //         id: id,
-    //         nombre: nombre,
-    //         apellido: apellido,
-    //         email: email,
-    //         direccion: direccion,
-    //         pais: pais,
-    //         ciudad: ciudad,
-    //         codigoPostal: codigoPostal
-    //       },
-    //       success: function (response) {
-    //         $("#respuestaPhpInformacionPrivada").html(response);
-    //         if (response == 1) {
-    //           Swal.fire({
-    //             title: "Completado",
-    //             icon: "success",
-    //             timer: 500,
-    //             showConfirmButton: false
-    //           });
-    //         }
-    //       },
-    //       error: function (xhr, status, error) {
-    //         console.error("Error en la solicitud AJAX:", status, error);
-    //         $("#respuestaPhpInformacionPrivada").html("Ocurrió un error al procesar la solicitud.");
-    //       }
-    //     });
-    //   });
-    // }
-  }
-
-  codidoPaises() {
+  mostrarCiudades() {
     function mostrarCodigoPaises() {
-      //Capturo los Codigo de los Paises
-      let pais = $("#pais").val();
-
-      // Informacion Privada Ajax
-      $.ajax({
-        type: "POST",
-        url: baseUrl + "ciudad/obtenerTodos",
-        data: "pais=" + pais,
-      })
-        .done(function (response) {
-          $("#ciudad").attr("disabled", false);
-          $("#ciudad").html(response);
+      $("#pais").change(function () {
+        let pais = $("#pais").val();
+        $.ajax({
+          type: "POST",
+          url: baseUrl + "ciudad/obtenerTodos",
+          data: "pais=" + pais,
         })
+          .done(function (response) {
+            $("#ciudad").attr("disabled", false);
+            $("#ciudad").html(response);
+          })
+      });
     }
-
     mostrarCodigoPaises();
   }
 
@@ -306,10 +133,8 @@ class User {
   customUser() {
     this.registro();
     this.iniciarSesion();
-    // this.informacionPublica();
-    this.avatarVistaPrevia(); // Problema
-    // this.informacionPrivada(); // Problema
-    // this.codidoPaises(); // Problema
+    this.avatarVistaPrevia();
+    this.mostrarCiudades();
   }
 
   // Iniciar aplicación
