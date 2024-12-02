@@ -49,7 +49,6 @@
                 <?php endif; ?>
               </div>
             </div>
-
             <div class="form-row">
               <div class="form-group col-md-4">
                 <label>Precio</label>

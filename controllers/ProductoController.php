@@ -17,10 +17,10 @@ class ProductoController
     //Capturo el Id para Editar
     isset($_GET['id']) ? $obtenerProductosPorId = Utils::obtenerProductosPorId($_GET['id']) : false;
 
+    require_once 'views/layout/head.php';
     require_once 'views/layout/header.php';
-    require_once 'views/layout/banner.php';
-    require_once 'views/layout/nav.php';
-    require_once 'views/layout/sidebarAdministrativo.php';
+    
+    require_once 'views/admin/sidebar.php';
     require_once 'views/Producto/crear.php';
     require_once 'views/layout/footer.php';
   }
@@ -155,9 +155,9 @@ class ProductoController
     $productos = Utils::obtenerProductosyBuscadoryPaginador($buscadorProductos, 0, $totalRegistrosBd);
 
     // Cargar las vistas
+    require_once 'views/layout/head.php';
     require_once 'views/layout/header.php';
-    require_once 'views/layout/banner.php';
-    require_once 'views/layout/nav.php';
+    
     require_once 'views/Producto/listar.php';
     require_once 'views/layout/footer.php';
   }
@@ -180,10 +180,10 @@ class ProductoController
     $listado  =  Utils::listarAutocompletado();
     // Mosrar listar de Autocompletado
     $jsonMostrar = Utils::mostrarAutocompletado($listado);
+    require_once 'views/layout/head.php';
     require_once 'views/layout/header.php';
-    require_once 'views/layout/banner.php';
-    require_once 'views/layout/nav.php';
-    require_once 'views/layout/search.php';
+    
+     
     require_once 'views/Producto/mostrar.php';
     require_once 'views/layout/footer.php';
   }
@@ -293,9 +293,9 @@ class ProductoController
     $categoriaBarraNavegacion = Utils::listaCategorias();
     // Obtengo Registro de Productos Por Id
     $idProducto = Utils::obtenerProductosPorId($idProducto);
+    require_once 'views/layout/head.php';
     require_once 'views/layout/header.php';
-    require_once 'views/layout/banner.php';
-    require_once 'views/layout/nav.php';
+    
     require_once 'views/Producto/descripcion.php';
     require_once 'views/layout/footer.php';
   }

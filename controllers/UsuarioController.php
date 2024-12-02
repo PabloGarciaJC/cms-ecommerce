@@ -18,11 +18,10 @@ class UsuarioController
         $paisesTodos = Utils::obtenerPaises();
         $paisesActual = Utils::obtenerPaisActual($usuario->Pais);
         
+        require_once 'views/layout/head.php';
         require_once 'views/layout/header.php';
-        require_once 'views/layout/banner.php';
-        require_once 'views/layout/nav.php';
-        require_once 'views/layout/sidebarAdministrativo.php';
-        require_once 'views/usuario/informacionPublica.php';
+        require_once 'views/admin/sidebar.php';
+        require_once 'views/admin/dashboard';
         require_once 'views/layout/footer.php';
     }
 
@@ -251,11 +250,11 @@ class UsuarioController
 
     public function cambioPassword()
     {
+        require_once 'views/layout/head.php';
         require_once 'views/layout/header.php';
-        require_once 'views/layout/banner.php';
-        require_once 'views/layout/nav.php';
-        require_once 'views/layout/search.php';
-        require_once 'views/layout/sidebarAdministrativo.php';
+        
+         
+        require_once 'views/admin/sidebar.php';
         require_once 'views/usuario/cambioPassword.php';
         require_once 'views/layout/footer.php';
     }

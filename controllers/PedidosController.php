@@ -17,10 +17,10 @@ class PedidosController
     $paisesTodos = Utils::obtenerPaises();
     // Estadisticas del Productos
     $stats = Utils::estadisticasCarrito();
+    require_once 'views/layout/head.php';
     require_once 'views/layout/header.php';
-    require_once 'views/layout/banner.php';
-    require_once 'views/layout/nav.php';   
-    require_once 'views/layout/sidebarAdministrativo.php';
+       
+    require_once 'views/admin/sidebar.php';
     require_once 'views/pedidos/crear.php';
     require_once 'views/layout/footer.php';
   }
@@ -67,10 +67,10 @@ class PedidosController
     $usuario = Utils::obtenerUsuario();
     //Obtengo Categorias en la Barra de Navegacion
     $categoriaBarraNavegacion = Utils::listaCategorias();
+    require_once 'views/layout/head.php';
     require_once 'views/layout/header.php';
-    require_once 'views/layout/banner.php';
-    require_once 'views/layout/nav.php';    
-    require_once 'views/layout/sidebarAdministrativo.php';
+        
+    require_once 'views/admin/sidebar.php';
     require_once 'views/pedidos/listar.php';
     require_once 'views/layout/footer.php';
   }
@@ -144,10 +144,10 @@ class PedidosController
     $mostrarProductos = Utils::obtenerProductosbyPedidos($idPedido);
     // Obtener Usuario del Pedido
     $usuarioPorPedido = Utils::obtenerUsuarioDelPedido($idPedido);
+    require_once 'views/layout/head.php';
     require_once 'views/layout/header.php';
-    require_once 'views/layout/banner.php';
-    require_once 'views/layout/nav.php';    
-    require_once 'views/layout/sidebarAdministrativo.php';
+        
+    require_once 'views/admin/sidebar.php';
     require_once 'views/pedidos/detalles.php';
     require_once 'views/layout/footer.php';
   }

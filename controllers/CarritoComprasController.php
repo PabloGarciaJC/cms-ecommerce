@@ -10,10 +10,9 @@ class CarritoComprasController
     $usuario = Utils::obtenerUsuario();
     // Obtengo Categorias en la Barra de Navegacion    
     $categoriaBarraNavegacion = Utils::listaCategorias();
+    require_once 'views/layout/head.php';
     require_once 'views/layout/header.php';
-    require_once 'views/layout/banner.php';
-    require_once 'views/layout/nav.php';
-    require_once 'views/layout/sidebarAdministrativo.php';
+    require_once 'views/admin/sidebar.php';
     require_once 'views/carritoCompras/listar.php';
     require_once 'views/layout/footer.php';
   }
