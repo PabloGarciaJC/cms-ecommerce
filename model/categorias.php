@@ -81,7 +81,7 @@ class Categorias
   
   public function actualizarCategoriaPorId()
   {
-    $sql = "UPDATE Categorias SET categorias = '{$this->getCategorias()}' WHERE Id = {$this->getId()};";
+    $sql = "UPDATE categorias SET categorias = '{$this->getCategorias()}' WHERE id = {$this->getId()};";
     $categoria = $this->db->query($sql);
    
     return $categoria;

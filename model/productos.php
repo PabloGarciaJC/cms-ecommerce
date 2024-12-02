@@ -165,7 +165,7 @@ class Productos
       $sql .= " WHERE (p.nombre LIKE '%{$this->getBuscador()}%' OR p.marca LIKE '%{$this->getBuscador()}%' OR p.stock LIKE '%{$this->getBuscador()}%' OR p.precio LIKE '%{$this->getBuscador()}%' OR p.oferta LIKE '%{$this->getBuscador()}%' OR c.categorias LIKE '%{$this->getBuscador()}%')";
     }
 
-    $sql .= "ORDER BY p.id DESC LIMIT $ultimoRegistro, $mostrarRegistros;";
+    $sql .= "ORDER BY p.id ASC LIMIT $ultimoRegistro, $mostrarRegistros;";
 
     $obtenerProductos = $this->db->query($sql);
     return $obtenerProductos;
@@ -216,7 +216,6 @@ class Productos
   {
     $resultado = false;
     $sql = "UPDATE productos SET categoria_id = {$this->getIdCategoria()}, nombre = '{$this->getNombre()}', descripcion = '{$this->getDescripcion()}', precio = {$this->getPrecio()}, stock = {$this->getStock()}, oferta = {$this->getOferta()}, marca = '{$this->getMarca()}', memoria_ram = {$this->getMemoriaRam()}, imagen = '{$this->getImagen()}' WHERE id = {$this->getId()};";
-
     $actualizar = $this->db->query($sql);
     if ($actualizar) {
       $resultado = true;

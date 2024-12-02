@@ -6,24 +6,20 @@
           <h5 class="card-title mb-0">Información General</h5>
         </div>
         <div class="card-body">
-
           <?php if (isset($_SESSION['exito'])): ?>
-            <div class="alert alert-success" id="mensajeExito">
+            <div class="alert alert-success mensaje-exito">
               <?php echo $_SESSION['exito']; ?>
             </div>
             <?php unset($_SESSION['exito']); ?>
           <?php endif; ?>
-
-          <form action="<?php echo BASE_URL; ?>Usuario/informacionPublica" id="informacionPublica" method="POST" enctype="multipart/form-data">
+          <form action="<?php echo BASE_URL; ?>Usuario/informacionPublica" method="POST" enctype="multipart/form-data">
             <input type="hidden" value="<?= $_SESSION['usuarioRegistrado']->Id ?>" name="id" id="idUsuarioRegistrado">
-
-            <!-- Avatar -->
             <div class="form-row justify-content-center mb-4">
               <div class="col-md-4 text-center">
                 <?php if ($usuario->Url_Avatar != null): ?>
-                  <img src="<?= BASE_URL ?>uploads/images/avatar/<?= $usuario->Url_Avatar ?>" class="rounded-circle img-fluid mt-2" id="previe" style="max-width: 128px; height: auto;">
+                  <img src="<?= BASE_URL ?>uploads/images/avatar/<?= $usuario->Url_Avatar ?>" class="rounded-circle img-fluid mt-2 previe" style="max-width: 128px; height: auto;">
                 <?php else: ?>
-                  <img src="<?= BASE_URL ?>assets/images/avatar.png" class="rounded-circle img-fluid mt-2" id="previe" style="max-width: 128px; height: auto;">
+                  <img src="<?= BASE_URL ?>assets/images/avatar.png" class="rounded-circle img-fluid mt-2 previe" style="max-width: 128px; height: auto;">
                 <?php endif; ?>
                 <div class="mt-2">
                   <label class="custom-file-upload">
@@ -34,13 +30,9 @@
                 <small class="text-muted d-block">Formato jpg, jpeg, png. Máximo: 1 MB. Tamaño recomendado: 128x128.</small>
               </div>
             </div>
-
-            <!-- Campos del Formulario -->
             <div class="container">
               <div class="row">
                 <div class="col-md-6">
-
-                  <!-- Alias -->
                   <div class="form-group">
                     <label for="usuario">Alias</label>
                     <input type="text" class="form-control" placeholder="<?= $usuario->Usuario ?>" disabled>
@@ -49,8 +41,6 @@
                       <div class="text-danger"><?php echo $_SESSION['errores']['usuario']; ?></div>
                     <?php endif; ?>
                   </div>
-
-                  <!-- Documentación -->
                   <div class="form-group">
                     <label for="documentacion">Nro. de Documentación</label>
                     <input type="text" class="form-control" value="<?= isset($_SESSION['form_data']['documentacion']) ? $_SESSION['form_data']['documentacion'] : $usuario->NumeroDocumento ?>" name="documentacion">
@@ -58,8 +48,6 @@
                       <div class="text-danger"><?php echo $_SESSION['errores']['documentacion']; ?></div>
                     <?php endif; ?>
                   </div>
-
-                  <!-- Teléfono -->
                   <div class="form-group">
                     <label for="telefono">Nro. de Teléfono</label>
                     <input type="text" class="form-control" value="<?= isset($_SESSION['form_data']['telefono']) ? $_SESSION['form_data']['telefono'] : $usuario->NroTelefono ?>" name="telefono">
@@ -67,20 +55,7 @@
                       <div class="text-danger"><?php echo $_SESSION['errores']['telefono']; ?></div>
                     <?php endif; ?>
                   </div>
-
-                  <!-- Dirección -->
-                  <div class="form-group">
-                    <label for="direccion">Dirección</label>
-                    <input type="text" class="form-control" value="<?= isset($_SESSION['form_data']['direccion']) ? $_SESSION['form_data']['direccion'] : $usuario->NroTelefono ?>" name="direccion">
-                    <?php if (isset($_SESSION['errores']['direccion'])): ?>
-                      <div class="text-danger"><?php echo $_SESSION['errores']['direccion']; ?></div>
-                    <?php endif; ?>
-                  </div>
-
-
                 </div>
-
-                <!-- Columna 2 -->
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="nombre">Nombre</label>
@@ -89,8 +64,6 @@
                       <div class="text-danger"><?php echo $_SESSION['errores']['nombre']; ?></div>
                     <?php endif; ?>
                   </div>
-
-                  <!-- Apellido -->
                   <div class="form-group">
                     <label for="apellido">Apellidos</label>
                     <input type="text" class="form-control" value="<?= isset($_SESSION['form_data']['apellido']) ? $_SESSION['form_data']['apellido'] : $usuario->Apellidos ?>" name="apellido">
@@ -98,29 +71,25 @@
                       <div class="text-danger"><?php echo $_SESSION['errores']['apellido']; ?></div>
                     <?php endif; ?>
                   </div>
-
-                  <!-- Email -->
-                  <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="text" class="form-control" value="<?= isset($_SESSION['form_data']['email']) ? $_SESSION['form_data']['email'] : $usuario->Email ?>" name="email" disabled>
-                    <!-- <?php if (isset($_SESSION['errores']['email'])): ?>
-                      <div class="text-danger"><?php echo $_SESSION['errores']['email']; ?></div>
-                    <?php endif; ?> -->
+                     <div class="form-group">
+                    <label for="direccion">Dirección</label>
+                    <input type="text" class="form-control w-100" value="<?= isset($_SESSION['form_data']['direccion']) ? $_SESSION['form_data']['direccion'] : $usuario->Direccion ?>" name="direccion">
+                    <?php if (isset($_SESSION['errores']['direccion'])): ?>
+                      <div class="text-danger"><?php echo $_SESSION['errores']['direccion']; ?></div>
+                    <?php endif; ?>
                   </div>
                 </div>
               </div>
-
-              <!-- Tercera Fila (País, Ciudad, Código Postal) -->
               <div class="row mt-3">
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="pais">País</label>
                     <select class="form-control" id="pais" name="pais">
-                      <option value="">Seleccione...</option>
+                      <option><?php echo isset($paisesActual) ? $paisesActual->Pais : 'Seleccione...' ?> </option>
                       <?php while ($fila = mysqli_fetch_array($paisesTodos)): ?>
-                        <option value="<?= $fila['Id'] ?>"
-                          <?= (isset($_SESSION['form_data']['pais']) && $_SESSION['form_data']['pais'] == $fila['Id']) || ($usuario->Pais == $fila['Pais']) ? 'selected' : '' ?>>
-                          <?= $fila['Pais'] ?>
+                        <option value="<?php echo $fila['Id'] ?>"
+                          <?php echo (isset($_SESSION['form_data']['pais']) && $_SESSION['form_data']['pais'] == $fila['Id']) || ($usuario->Pais == $fila['Pais']) ? 'selected' : '' ?>>
+                          <?php echo $fila['Pais'] ?>
                         </option>
                       <?php endwhile; ?>
                     </select>
@@ -129,7 +98,6 @@
                     <?php endif; ?>
                   </div>
                 </div>
-
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="ciudad">Ciudad/Región</label>
@@ -144,30 +112,23 @@
                     <?php endif; ?>
                   </div>
                 </div>
-
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="codigoPostal">Código Postal</label>
-                    <input type="text" class="form-control" id="codigoPostal" name="codigoPostal" value="<?= $_SESSION['form_data']['codigoPostal'] ?? $usuario->CodigoPostal ?>">
+                    <input type="text" class="form-control" name="codigoPostal" value="<?= $_SESSION['form_data']['codigoPostal'] ?? $usuario->CodigoPostal ?>">
                     <?php if (isset($_SESSION['errores']['codigoPostal'])): ?>
                       <div class="invalid-feedback"><?= $_SESSION['errores']['codigoPostal'] ?></div>
                     <?php endif; ?>
                   </div>
                 </div>
               </div>
-
-              <!-- Botón de Guardar -->
               <div class="form-row justify-content-center mt-4">
                 <button type="submit" class="btn btn-primary">Guardar</button>
               </div>
             </div>
           </form>
-
-
         </div>
       </div>
-
-
       <!-- Cierre de la sección -->
     </div>
   </div>

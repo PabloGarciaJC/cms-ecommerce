@@ -44,4 +44,12 @@ class Paises
     $paises = $this->db->query($sql);
     return $paises;
   }
+
+
+  public function obtenerPaisActual()
+  {
+    $sql = "SELECT * FROM paises where id = '{$this->getPais()}'";
+    $paises = $this->db->query($sql);
+    return $paises->fetch_object();
+  }
 }

@@ -204,8 +204,6 @@ class Usuario
     //verificacion que existe ese email en la base de datos 
     if ($login && $login->num_rows == 1) {
       $usuario = $login->fetch_object();
-      // verifcacion que la password coincidan 
-      //($this->password: lo que Obtengo sin cifrar por POST, $usuario->Password: lo que Tengo en la base de datos);
       $vericacion = password_verify($this->password, $usuario->Password);
       if ($vericacion == 1) {
         return $usuario;
@@ -227,15 +225,20 @@ class Usuario
 
   public function repetidosEmail()
   {
-    $resultado = false;
-    $sql = "SELECT Email FROM usuarios where Email ='{$this->getEmail()}'";
-    $repetidos = $this->db->query($sql);
-    if ($repetidos) {
-      $resultado = true;
-    }
-    return $repetidos;
+      $resultado = false;
+      // Asegurarse de que estamos excluyendo al usuario actual al hacer la consulta
+      $sql = "SELECT Email FROM usuarios WHERE Email = '{$this->getEmail()}' AND id != '{$this->getId()}'";
+      $repetidos = $this->db->query($sql);
+  
+      // Si existe algún resultado, significa que el email está en uso por otro usuario
+      if ($repetidos && $repetidos->num_rows > 0) {
+          $resultado = true;
+      }
+  
+      return $repetidos;
   }
-
+  
+  
   public function subirImagen()
   {
     $resultado = false;    
@@ -251,7 +254,7 @@ class Usuario
   public function actualizarInformacionPublica()
   {
     $resultado = false;    
-    $sql = "UPDATE usuarios SET Usuario = '{$this->getUsuario()}', NumeroDocumento = '{$this->getNumeroDocumento()}', Nombres = '{$this->getNombres()}', Apellidos = '{$this->getApellidos()}', Email = '{$this->getEmail()}',  NroTelefono = '{$this->getNroTelefono()}', Direccion = '{$this->getDireccion()}', Pais = '{$this->getPais()}', Ciudad = '{$this->getCiudad()}', CodigoPostal = '{$this->getCodigoPostal()}' WHERE Id = {$this->getId()};";
+    $sql = "UPDATE usuarios SET Usuario = '{$this->getUsuario()}', NumeroDocumento = '{$this->getNumeroDocumento()}', Nombres = '{$this->getNombres()}', Apellidos = '{$this->getApellidos()}', NroTelefono = '{$this->getNroTelefono()}', Direccion = '{$this->getDireccion()}', Pais = '{$this->getPais()}', Ciudad = '{$this->getCiudad()}', CodigoPostal = '{$this->getCodigoPostal()}' WHERE Id = {$this->getId()};";
     $actualizar = $this->db->query($sql);
     if ($actualizar) {
       $resultado = true;

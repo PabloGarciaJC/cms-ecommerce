@@ -1,11 +1,11 @@
 <IfModule mod_rewrite.c>
-    #Activar rewrite
+    # Activar rewrite
     RewriteEngine on
     ErrorDocument 404 %{ENV:BASE_URL}/error/index
 
     RewriteCond  %{SCRIPT_FILENAME} !-d
     RewriteCond  %{SCRIPT_FILENAME} !-f
 
-    RewriteRule ^(.*)/(.*) index.php?controller=$1&action=$2
-    
+    # Reescribe la URL manteniendo los parámetros GET (usando QSA)
+    RewriteRule ^(.*)/(.*)$ index.php?controller=$1&action=$2 [QSA,L]
 </IfModule>

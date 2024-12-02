@@ -47,17 +47,21 @@
                                 <td><?= $listaCategorias->categorias ?></td>
                                 <td>Desactivado</td>
                                 <td>
-                                  <a href="#" data-toggle="modal" data-target="#modalEditarCategoria">
-                                    <button class="btn btn-circle btn-info text-white" class="text-white" onclick="obtenerDatosEditar(<?= $listaCategorias->id ?>, '<?= $listaCategorias->categorias ?>')">
-                                      <i class="fa fa-pencil"></i>
-                                    </button>
+                                  <a href="javascript:void(0)"
+                                    data-toggle="modal"
+                                    data-target="#modalEditarCategoria"
+                                    class="btn btn-circle btn-info text-white btn-edit-categorias"
+                                    data-id-edit-categorias="<?php echo htmlspecialchars($listaCategorias->id, ENT_QUOTES, 'UTF-8'); ?>"
+                                    data-lista-edit-categorias="<?php echo htmlspecialchars($listaCategorias->categorias, ENT_QUOTES, 'UTF-8'); ?>">
+                                    <i class="fa fa-pencil"></i>
                                   </a>
                                 </td>
                                 <td>
-                                   <!-- <div id="respuestaPhpEliminarCategoria"></div>   -->
-                                  <button class="btn btn-circle btn-danger text-white" onclick="eliminarDatoss(<?= $listaCategorias->id ?>, '<?= $listaCategorias->categorias ?>');">
+                                  <a href="javascript:void(0)" class="btn btn-circle btn-danger text-white btn-delete-categorias"
+                                    data-id-delete-categorias="<?php echo htmlspecialchars($listaCategorias->id, ENT_QUOTES, 'UTF-8'); ?>"
+                                    data-lista-delete-categorias="<?php echo htmlspecialchars($listaCategorias->categorias, ENT_QUOTES, 'UTF-8'); ?>">
                                     <i class="fa fa-trash"></i>
-                                  </button>
+                                  </a>
                                 </td>
                               </tr>
                             <?php endwhile; ?>
@@ -79,7 +83,7 @@
 </div>
 </div>
 
-<!-- Listar Categorias -->
+<!-- Crear Categorias -->
 <div class="modal fade" id="modalCrearCategoria" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -95,11 +99,6 @@
           <div class="form-group errorListarCategoria">
             <label class="col-form-label ">Crear Categorías</label>
             <input type="text" class="form-control" id="listarCategoria" name="listarCategoria">
-            <label class="erroresValidacion"></label>
-          </div>
-          <div class="form-group">
-            <label class="col-form-label">Crear Sub Categorias</label>
-            <input type="text" class="form-control" id="listarSubcategoria" name="listarSubCategorias" disabled>
             <label class="erroresValidacion"></label>
           </div>
           <div class="right-w3l">
@@ -142,5 +141,3 @@
     </div>
   </div>
 </div>
-
-

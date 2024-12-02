@@ -11,9 +11,9 @@ class Utils
   //compruebo que el usuario Exista !!, para evitar ingresar a los metodos del controlador.
   public static function accesoUsuarioRegistrado()
   {
-    // if (!isset($_SESSION['usuarioRegistrado'])) {
-    //   header("Location:" . BASE_URL);
-    // }
+    if (!isset($_SESSION['usuarioRegistrado'])) {
+      header("Location:" . BASE_URL);
+    }
   }
 
   public static function accesoUsuarioAdmin()
@@ -92,7 +92,6 @@ class Utils
 
   public static function obtenerProductosyBuscadoryPaginador($buscador, $ultimoRegistro, $mostrarRegistros)
   {
-
     $productos = new productos;
     $productos->setBuscador($buscador);
     $mostrar = $productos->obtenerProductosyBuscadoryPaginador($ultimoRegistro, $mostrarRegistros);
@@ -124,6 +123,16 @@ class Utils
     $paisesTodos = $paises->obtenerTodosPaises();
     return $paisesTodos;
   }
+
+  public static function obtenerPaisActual($paisActual)
+  {
+    require_once 'model/paises.php';
+    $paisesActual = new Paises();
+    $paisesActual->setPais($paisActual);
+    $queryPaisActual = $paisesActual->obtenerPaisActual();
+    return $queryPaisActual;
+  }
+
 
   public static function obtenerRegistrosTotales($buscadorProductos)
   {
@@ -274,15 +283,23 @@ class Utils
 
   public static function mostrarAutocompletado($listado)
   {
-    $arrayListados = array();
-
-    while ($filas = mysqli_fetch_array($listado)) {
-      $nombre = utf8_decode($filas['nombre']);
-      $marca = utf8_decode($filas['marca']);
-      array_push($arrayListados, $nombre);
-      array_push($arrayListados, $marca);
-    }
-
-    return $jsonListado = json_encode($arrayListados);
+      $arrayListados = array();
+  
+      // Asumimos que la conexión a la base de datos ya está configurada para usar UTF-8, por ejemplo:
+      // mysqli_set_charset($conexion, "utf8");
+  
+      while ($filas = mysqli_fetch_assoc($listado)) {
+          // Usamos mysqli_fetch_assoc en lugar de mysqli_fetch_array para un acceso más claro por nombre de columna
+          $nombre = $filas['nombre'];
+          $marca = $filas['marca'];
+  
+          // Agregamos directamente los valores al array
+          array_push($arrayListados, $nombre);
+          array_push($arrayListados, $marca);
+      }
+  
+      // Retornamos el JSON de manera más limpia
+      return json_encode($arrayListados);
   }
+  
 };

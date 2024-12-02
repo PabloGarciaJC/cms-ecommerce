@@ -29,7 +29,7 @@ class CategoriaController
     $categorias = new categorias;
     $categorias->setId($id);
     $categorias->setCategorias($categoria);
-    //errores 
+    // errores 
     $errores = array();
     if (empty(trim($categoria))) {
       $errores['categoria'] = Utils::erroresValidacion('Error', 'Ingresé Categoria');

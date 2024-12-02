@@ -16,6 +16,7 @@ class ProductoController
     $categoriaBarraNavegacion = Utils::listaCategorias();
     //Capturo el Id para Editar
     isset($_GET['id']) ? $obtenerProductosPorId = Utils::obtenerProductosPorId($_GET['id']) : false;
+
     require_once 'views/layout/header.php';
     require_once 'views/layout/banner.php';
     require_once 'views/layout/nav.php';
@@ -26,252 +27,139 @@ class ProductoController
 
   public function guardar()
   {
-    //POST
-    $nombreProducto = isset($_POST['nombreProducto']) ? $_POST['nombreProducto'] : false;
-    $idProducto = isset($_POST['idProducto']) ? $_POST['idProducto'] : false;
-    $idCategoria = isset($_POST['categoria']) ? $_POST['categoria'] : false;
-    $precioProducto = isset($_POST['precioProducto']) ? $_POST['precioProducto'] : false;
-    $stockProducto = isset($_POST['stockProducto']) ? $_POST['stockProducto'] : false;
-    $ofertaProducto = isset($_POST['ofertaProducto']) ? $_POST['ofertaProducto'] : false;
-    $marcaProducto = isset($_POST['marcaProducto']) ? $_POST['marcaProducto'] : false;
-    $memoriaRamProducto = isset($_POST['memoriaRamProducto']) ? $_POST['memoriaRamProducto'] : false;
-    $descripcionProducto = isset($_POST['descripcionProducto']) ? $_POST['descripcionProducto'] : false;
-
-    //FILES
-    $nombreArchivo = isset($_FILES['guardarImagenProducto']['name']) ? $_FILES['guardarImagenProducto']['name'] : false;
-    $tipoArchivo = isset($_FILES['guardarImagenProducto']['type']) ? $_FILES['guardarImagenProducto']['type'] : false;
-    $rutaTemporal = isset($_FILES['guardarImagenProducto']['tmp_name']) ? $_FILES['guardarImagenProducto']['tmp_name'] : false;
-    $pesoArchivo = isset($_FILES['guardarImagenProducto']['size']) ? $_FILES['guardarImagenProducto']['size'] : false;
-    $sizeArchivoMax = "1048576"; // 1 MB expresado en bytes //1048576
-
-    //validacion
-    $errores = array();
-
-    if (empty($nombreProducto)) {
-      $errores["nombreProducto"] = "Debe completar Producto";
-    }
-
-    if (empty($precioProducto)) {
-      $errores["precioProducto"] = "Debe completar Precio";
-    } elseif (!is_numeric($precioProducto)) {
-      $errores["precioProducto"] = "Precio No es Válido";
-    }
-
-    if (empty($stockProducto)) {
-      $errores["stockProducto"] = "Debe completar Stock";
-    } elseif (!is_numeric($stockProducto)) {
-      $errores["stockProducto"] = "Stock No es Válido";
-    }
-
-    if (empty($marcaProducto)) {
-      $errores["marcaProducto"] = "Debe completar Marca";
-    }
-
-    if (empty($memoriaRamProducto)) {
-      $errores["memoriaRamProducto"] = "Debe completar Memoria Ram";
-    } elseif (!is_numeric($memoriaRamProducto)) {
-      $errores["memoriaRamProducto"] = "Memoria Ram No es Válido";
-    }
-
-    if ($tipoArchivo == "image/gif") {
-      $errores["tipoArchivo"] = "Tipo de Archivo No Valido";
-    }
-
-    // Crear Fichero donde guardo la imagenes en el Proyecto.
-    if (!is_dir('uploads/images/productos/')) {
-      mkdir('uploads/images/productos/', 0777, true);
-    }
-    // Muevo la imagen en el fichero que se creo anteriormente.
-    move_uploaded_file($rutaTemporal, 'uploads/images/productos/' . $nombreArchivo);
-
-    //Instancio y Seteo indiferentemene de la Condicion
-    $producto = new Productos();
-    $producto->setNombre($nombreProducto);
-    $producto->setId($idProducto);
-    $producto->setIdCategoria($idCategoria);
-    $producto->setPrecio($precioProducto);
-    $producto->setStock($stockProducto);
-    $producto->setOferta($ofertaProducto);
-    $producto->setMarca($marcaProducto);
-    $producto->setMemoriaRam($memoriaRamProducto);
-    $producto->setDescripcion($descripcionProducto);
-    $producto->setImagen($nombreArchivo);
-
-    if ($rutaTemporal) {
-      if ($idProducto) { //'Existe' . $idProducto, Si Existe Ruta Temporal, Actualizar PRODUCTO';  
-        // Obtengo URL Guardada en la Base de Datos y en URL Fichero Actual
-        $mostrarImagen = Utils::obtenerProductosPorId($idProducto);
-        $ruta = 'uploads/images/productos/' . $mostrarImagen->imagen;
-        if ($mostrarImagen->imagen != $nombreArchivo && is_file($ruta)) {
-          //Borra la imagen anterior para que no quede Guardada en el Fichero
-          unlink($ruta);
-        }
-        $producto->setId($idProducto);
-        if (count($errores) == 0) {
-          $producto->actualizar();
-          echo '1';
-        }
-      } else { // 'NO Existe' . $idProducto, Si Existe Ruta Temporal, CREAR PRODUCTO'; 
-        if (count($errores) == 0) {
-          $producto->crear();
-          echo '1';
-        }
+      // Acceso Usuario Registrado a esta Página
+      Utils::accesoUsuarioRegistrado();
+  
+      // POST
+      $nombreProducto = isset($_POST['nombreProducto']) ? $_POST['nombreProducto'] : false;
+      $idProducto = isset($_POST['idProducto']) ? $_POST['idProducto'] : false;
+      $idCategoria = isset($_POST['categoria']) ? $_POST['categoria'] : false;
+      $precioProducto = isset($_POST['precioProducto']) ? $_POST['precioProducto'] : false;
+      $stockProducto = isset($_POST['stockProducto']) ? $_POST['stockProducto'] : false;
+      $ofertaProducto = isset($_POST['ofertaProducto']) ? $_POST['ofertaProducto'] : false;
+      $marcaProducto = isset($_POST['marcaProducto']) ? $_POST['marcaProducto'] : false;
+      $memoriaRamProducto = isset($_POST['memoriaRamProducto']) ? $_POST['memoriaRamProducto'] : false;
+      $descripcionProducto = isset($_POST['descripcionProducto']) ? $_POST['descripcionProducto'] : false;
+  
+      // Instancio y Seteo indiferentemente de la Condición
+      $producto = new Productos();
+      $producto->setNombre($nombreProducto);
+      $producto->setId($idProducto);
+      $producto->setIdCategoria($idCategoria);
+      $producto->setPrecio($precioProducto);
+      $producto->setStock($stockProducto);
+      $producto->setOferta($ofertaProducto);
+      $producto->setMarca($marcaProducto);
+      $producto->setMemoriaRam($memoriaRamProducto);
+      $producto->setDescripcion($descripcionProducto);
+  
+      // Array para almacenar los errores
+      $errores = [];
+  
+      if (empty($nombreProducto)) {
+          $errores['nombreProducto'] = "El nombre del producto es obligatorio.";
       }
-    } else {
-      if ($idProducto) { //'Existe' . $idProducto, NO Existe Ruta Temporal, Actualizar PRODUCTO';          
-        $producto->setId($idProducto);
-        $mostrarImagen = Utils::obtenerProductosPorId($idProducto);
-        $producto->setImagen($mostrarImagen->imagen);
-        if (count($errores) == 0) {
-          $producto->actualizar();
-          echo '1';
-        }
-      } else { // 'NO Existe' . $idProducto, NO Existe Ruta Temporal, CREAR PRODUCTO';        
-        if (count($errores) == 0) {
-          $producto->crear();
-          echo '1';
-        }
+  
+      if (empty($precioProducto)) {
+          $errores['precioProducto'] = "El precio es obligatorio.";
       }
-    }
+  
+      if (empty($stockProducto)) {
+          $errores['stockProducto'] = "El stock es obligatorio.";
+      }
+  
+      if (empty($marcaProducto)) {
+          $errores['marcaProducto'] = "La marca es obligatoria.";
+      }
+  
+      if (empty($descripcionProducto)) {
+          $errores['descripcionProducto'] = "La descripción es obligatoria.";
+      }
+  
+      if (empty($idCategoria)) {
+          $errores['categoria'] = "La categoria es obligatoria.";
+      }
+  
+      // Validación de la imagen
+      $nombreArchivoFinal = null;
+  
+      if (isset($_FILES['avatarSelecionado']) && $_FILES['avatarSelecionado']['error'] == 0) {
+          // Si se carga una nueva imagen
+          $nombreArchivo = $_FILES['avatarSelecionado']['name'];
+          $rutaTemporal = $_FILES['avatarSelecionado']['tmp_name'];
+          $extension = pathinfo($nombreArchivo, PATHINFO_EXTENSION);
+          $nombreArchivoFinal = time() . '.' . $extension;
+          $rutaFinal = 'uploads/images/productos/' . $nombreArchivoFinal;
+  
+          if (move_uploaded_file($rutaTemporal, $rutaFinal)) {
+              $producto->setImagen($nombreArchivoFinal);
+          }
+      } elseif ($idProducto) {
+          // Si no se carga una nueva imagen y es una actualización, obtener la imagen actual
+          $productoActual = Utils::obtenerProductosPorId($idProducto);
+          if ($productoActual && $productoActual->imagen) {
+              $producto->setImagen($productoActual->imagen);
+          }
+      }
+  
+      // Si no hay imagen nueva ni imagen previa, asignar la imagen por defecto
+      if (empty($producto->getImagen())) {
+          $producto->setImagen('producto_thumbnail.png'); // Ruta de la imagen por defecto
+      }
+  
+      // Si hay errores, mostrar y no guardar el producto
+      if (count($errores) > 0) {
+          $_SESSION['erroresProductos'] = $errores;
+          header("Location: " . BASE_URL . "Producto/crear");
+          exit();
+      }
+  
+      // Limpiar los errores y los datos del formulario después de procesar
+      unset($_SESSION['erroresProductos']);
+      unset($_SESSION['exitoProductos']);
+  
+      // Guardar el producto
+      if ($idProducto) {
+          $producto->actualizar();
+          $_SESSION['exitoProductos'] = "La información se actualizó correctamente.";
+      } else {
+          $producto->crear();
+          $_SESSION['exitoProductos'] = "La información se creó correctamente.";
+      }
+  
+      // Redirigir después de guardar el producto
+      header("Location: " . BASE_URL . "Producto/listar");
+      exit();
   }
+  
+
 
   public function listar()
   {
-    //Acceso Usuario Registrado a esta Pagina
+    // Acceso Usuario Registrado a esta Página
     Utils::accesoUsuarioRegistrado();
 
-    //Obtengo Ususario en el Banner
+    // Obtengo Usuario en el Banner
     $usuario = Utils::obtenerUsuario();
 
-    //Obtengo Categorias en la Barra de Navegacion    
+    // Obtengo Categorias en la Barra de Navegación
     $categoriaBarraNavegacion = Utils::listaCategorias();
 
+    // Capturo el buscador 
+    $buscadorProductos = isset($_GET['buscadorProductos']) ? $_GET['buscadorProductos'] : false;
+
+    // Paginador 1: Extraer el Conteo de Registros de la Base de Datos
+    $totalRegistrosBd = Utils::obtenerRegistrosTotales($buscadorProductos);
+
+    // Obtengo los productos para la página actual
+    $productos = Utils::obtenerProductosyBuscadoryPaginador($buscadorProductos, 0, $totalRegistrosBd);
+
+    // Cargar las vistas
     require_once 'views/layout/header.php';
     require_once 'views/layout/banner.php';
     require_once 'views/layout/nav.php';
     require_once 'views/Producto/listar.php';
     require_once 'views/layout/footer.php';
-  }
-
-  public function buscador()
-  {
-    // Capturo el buscador 
-    $buscadorProductos = isset($_POST['buscadorProductos']) ? $_POST['buscadorProductos'] : false;
-    // Capturo el Ultimo Registro para Limitar => Iniciando en 1
-    $paginaActual = isset($_POST['paginaActualBuscadorProductos']) ? $_POST['paginaActualBuscadorProductos'] : false;
-    // Paginador 1: Extraer el Conteo de Registros de la Base de Datos
-    $totalRegistrosBd = Utils::obtenerRegistrosTotales($buscadorProductos);
-    // Paginador 2: Muestro el total de Registros que se van a Mostrar
-    $mostrarRegistros = 3;
-    // Paginador 3: Capturo la Pagina Actual => Para Limitar Los Registros, Primer Parametro
-    $ultimoRegistro = ($paginaActual - 1) * $mostrarRegistros;
-    // Paginador 4: Total de Registros que voy a Mostrar
-    $mostrarNumerosdePaginas = ceil($totalRegistrosBd / $mostrarRegistros);
-    // Pagina Anterior
-    $paginaAnterior = $paginaActual - 1;
-    // Pagina Siguiente
-    $paginaSiguiente = $paginaActual + 1;
-
-    // Obtengo Los Productor y el Buscador y Paginador 5: Consulta
-    $productos = Utils::obtenerProductosyBuscadoryPaginador($buscadorProductos, $ultimoRegistro, $mostrarRegistros);
-    echo '<div class="table table-responsive">';
-      echo '<table class="table email-table no-wrap table-hover v-middle mb-0 font-14">';
-        echo '<thead>';
-        echo '<tr>';
-        echo '<th scope="col" style=" text-align: center;">Imagen</th>';
-        echo '<th scope="col" style=" text-align: center;">Productos</th>';
-        echo '<th scope="col" style=" text-align: center;">Editar</th>';
-        echo '<th scope="col">Borrar</th>';
-        echo '</tr>';
-        echo '</thead>';
-        echo '<tbody>';
-        if ($productos->num_rows > 0) {
-          while ($mostrarProductos = $productos->fetch_object()) {
-            echo '<tr>';
-              echo '<td><img class="img-fluid" src="' . BASE_URL . 'uploads/images/productos/' . $mostrarProductos->imagen . '"></td>';
-              echo '<td>';
-                echo '<strong>Nombre:</strong> ' . $mostrarProductos->nombre . '<br>';
-                echo '<strong>Marca:</strong> ' . $mostrarProductos->marca . '<br>';
-                echo '<strong>Precio:</strong> ' . $mostrarProductos->precio . " $" . '<br>';
-                echo '<strong>Oferta:</strong> ' . $mostrarProductos->oferta . " %" . '<br>';
-                echo '<strong>Stock:</strong> ' . $mostrarProductos->stock . " Unidades" . '<br>';
-                echo '<strong>Categoria:</strong> ' . $mostrarProductos->nombreCategoria  . '<br>';
-                echo '<strong>Descripción: <a href=" ' . BASE_URL . 'Producto/crear&id=' . $mostrarProductos->id . '">ver más</a></strong>';
-              echo '</td>';
-              echo '<td>';
-                  echo '<a href="' . BASE_URL . 'Producto/crear&id=' . $mostrarProductos->id . '">';
-                  echo '<button class="btn btn-circle btn-info text-white" class="text-white">';
-                  echo '<i class="fa fa-pencil"></i>';
-                  echo '</button>';
-                  echo '</a>';
-              echo '</td>';
-              echo '<td> ';
-                echo '<button class="btn btn-circle btn-danger text-white" onclick="eliminarDatosProducto(' . $mostrarProductos->id . ' ,\'' . $mostrarProductos->nombre . '\')">';
-                echo '<i class="fa fa-trash"></i>';
-                echo '</button>';
-              echo '</td>';
-            echo '</tr>';
-          }
-        } else {
-            echo '<td colspan="8">';
-            echo '<div class="alert alert-primary" role="alert">';
-            echo 'No hay <strong>Productos</strong> con estas Característica';
-            echo '</div>';
-            echo '</td>';
-        }
-        echo '</tbody>';
-      echo '</table>';
-    echo '</div>';
-    
-    // Paginador
-    echo '<nav>';
-      echo '<ul class="table-col">';
-        echo '<a href="' . BASE_URL . 'usuario/informacionGeneral" class="table-btn-volver">Volver</a>';
-        echo '<div class="pagination justify-content-end">';
-            // Anterior
-            if ($paginaActual != 1) {
-              echo '<li class="page-item">';
-              echo '<a class="page-link" onclick = "ajaxBuscadorProductos(' . $paginaAnterior . ',\'' . $buscadorProductos . '\')"> Anterior </a>';
-              echo '</li>';
-            } else {
-              echo '<li class="page-item disabled">';
-              echo '<a class="page-link" >Anterior</a>';
-              echo '</li>';
-            }
-            // Cuerpo 
-            for ($i = 1; $i <= $mostrarNumerosdePaginas; $i++) {
-              if ($i == $paginaActual) {
-                echo '<li class="page-item active"><a class="page-link" >' . $i . '</a></li>';
-              } else {
-                echo '<li class="page-item"><a class="page-link"  onclick = "ajaxBuscadorProductos(' . $i . ',\'' . $buscadorProductos . '\')">' . $i . '</a></li>';
-              }
-            }
-            // Siguiente 
-            if ($paginaActual != $mostrarNumerosdePaginas) {
-              echo '<li class="page-item">';
-              echo '<a class="page-link"  onclick = "ajaxBuscadorProductos(' . $paginaSiguiente . ',\'' . $buscadorProductos . '\')" >Siguente</a>';
-              echo '</li>';
-            } else {
-              echo '<li class="page-item disabled">';
-              echo '<a class="page-link" >Siguente</a>';
-              echo '</li>';
-            }
-          echo '</div>';
-      echo '</ul>';
-    echo '</nav>';
-  }
-
-  public function eliminar()
-  {
-    $id = isset($_POST['id']) ? $_POST['id'] : false;
-    $producto = new Productos();
-    $producto->setId($id);
-    $eliminado = $producto->eliminar();
-    if ($eliminado) {
-      echo 1;
-    } else {
-      true;
-    }
   }
 
   public function mostrar()
@@ -298,6 +186,20 @@ class ProductoController
     require_once 'views/layout/search.php';
     require_once 'views/Producto/mostrar.php';
     require_once 'views/layout/footer.php';
+  }
+
+  public function eliminar()
+  {
+    // Acceso Usuario Registrado a esta Página
+    Utils::accesoUsuarioRegistrado();
+    $idProducto = isset($_GET['idProducto']) ? $_GET['idProducto'] : false;
+    $producto = new Productos();
+    $producto->setId($idProducto);
+    $producto->eliminar();
+   
+    // Redirigir después de guardar el producto
+    header("Location: " . BASE_URL . "Producto/listar");
+    exit();
   }
 
   public function autocompletarBuscador()
@@ -337,37 +239,37 @@ class ProductoController
         echo '<div class="row">';
         while ($mostrarProducto = $mostrarProductos->fetch_object()) {
           echo '<div class="col-md-4 product-men mt-md-0 mt-5">';
-            echo '<div class="men-pro-item simpleCart_shelfItem">';
-              echo '<div class="men-thumb-item text-center">';
-                echo '<a href="' . BASE_URL . 'Producto/descripcion&id=' . $mostrarProducto->id . '"><img class="img-fluid" src="' . BASE_URL . 'uploads/images/productos/' . $mostrarProducto->imagen . '" alt="' . $mostrarProducto->imagen . '"></a>';
-                echo '<div><span>Oferta:</span> <del>' . $mostrarProducto->oferta . ' % </del></div>';
-          
-                echo '<div class="item-info-product text-center border-top mt-4">';
-                    echo '<a href="' . BASE_URL . 'Producto/descripcion&id=' . $mostrarProducto->id . '" class="pt-1">';
-                      echo '<div class="item-info-product-title">' . $mostrarProducto->nombre . '</div>';
-                      echo '<div class="item-info-product-description"><span>Precio:</span> ' . $mostrarProducto->precio . ' $ </div>';
-                      echo '<div class="item-info-product-description"><span>Marca:</span> ' . $mostrarProducto->marca . '</div>';
-                      echo '<div class="item-info-product-description"><span>Capacidad:</span> ' . $mostrarProducto->memoria_ram . ' Gb</div>';
-                    echo '</a>';
-                    echo '<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out item-info-product-btn">';
-                      echo '<form action="' . BASE_URL . 'Producto/descripcion&id=' . $mostrarProducto->id . '" method="POST">';
-                        echo '<fieldset>';
-                          echo '<input type="hidden" name="cmd" value="_cart" />';
-                          echo '<input type="hidden" name="add" value="1" />';
-                          echo '<input type="hidden" name="business" value=" " />';
-                          echo '<input type="hidden" name="item_name" value="Apple iPhone X" />';
-                          echo '<input type="hidden" name="amount" value="280.00" />';
-                          echo '<input type="hidden" name="discount_amount" value="1.00" />';
-                          echo '<input type="hidden" name="currency_code" value="USD" />';
-                          echo '<input type="hidden" name="return" value=" " />';
-                          echo '<input type="hidden" name="cancel_return" value=" " />';
-                          echo '<input type="submit" name="submit" value="ver Producto" class="button btn" />';
-                        echo '</fieldset>';
-                      echo '</form>';
-                  echo '</div>';
-                echo '</div>';
+          echo '<div class="men-pro-item simpleCart_shelfItem">';
+          echo '<div class="men-thumb-item text-center">';
+          echo '<a href="' . BASE_URL . 'Producto/descripcion&id=' . $mostrarProducto->id . '"><img class="img-fluid" src="' . BASE_URL . 'uploads/images/productos/' . $mostrarProducto->imagen . '" alt="' . $mostrarProducto->imagen . '"></a>';
+          echo '<div><span>Oferta:</span> <del>' . $mostrarProducto->oferta . ' % </del></div>';
 
-            echo '</div>';
+          echo '<div class="item-info-product text-center border-top mt-4">';
+          echo '<a href="' . BASE_URL . 'Producto/descripcion&id=' . $mostrarProducto->id . '" class="pt-1">';
+          echo '<div class="item-info-product-title">' . $mostrarProducto->nombre . '</div>';
+          echo '<div class="item-info-product-description"><span>Precio:</span> ' . $mostrarProducto->precio . ' $ </div>';
+          echo '<div class="item-info-product-description"><span>Marca:</span> ' . $mostrarProducto->marca . '</div>';
+          echo '<div class="item-info-product-description"><span>Capacidad:</span> ' . $mostrarProducto->memoria_ram . ' Gb</div>';
+          echo '</a>';
+          echo '<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out item-info-product-btn">';
+          echo '<form action="' . BASE_URL . 'Producto/descripcion&id=' . $mostrarProducto->id . '" method="POST">';
+          echo '<fieldset>';
+          echo '<input type="hidden" name="cmd" value="_cart" />';
+          echo '<input type="hidden" name="add" value="1" />';
+          echo '<input type="hidden" name="business" value=" " />';
+          echo '<input type="hidden" name="item_name" value="Apple iPhone X" />';
+          echo '<input type="hidden" name="amount" value="280.00" />';
+          echo '<input type="hidden" name="discount_amount" value="1.00" />';
+          echo '<input type="hidden" name="currency_code" value="USD" />';
+          echo '<input type="hidden" name="return" value=" " />';
+          echo '<input type="hidden" name="cancel_return" value=" " />';
+          echo '<input type="submit" name="submit" value="ver Producto" class="button btn" />';
+          echo '</fieldset>';
+          echo '</form>';
+          echo '</div>';
+          echo '</div>';
+
+          echo '</div>';
           echo '</div>';
         };
         echo '</div>';

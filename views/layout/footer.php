@@ -228,40 +228,41 @@
   <script src="<?= BASE_URL ?>assets/js/librerias/bootstrap.js"></script>
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-  <!-- <script src="<?= BASE_URL ?>assets/js/config/parameters.js"></script> -->
-  <script src="<?= BASE_URL ?>assets/js/app/config.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/custom/app.js"></script>
 
- 
-  <!-- <script src="<?= BASE_URL ?>assets/js/app/usuario/registro.js"></script> -->
-  <script src="<?= BASE_URL ?>assets/js/app/usuario.js"></script>
-  <!-- <script src="<?= BASE_URL ?>assets/js/app/usuario/iniciarSesion.js"></script> -->
-  <!-- <script src="<?= BASE_URL ?>assets/js/app/usuario/avatarVistaPrevia.js"></script> -->
-  <!-- <script src="<?= BASE_URL ?>assets/js/app/usuario/informacionPublica.js"></script> -->
-  <!-- <script src="<?= BASE_URL ?>assets/js/app/usuario/informacionPrivada.js"></script> -->
-  <!-- <script src="<?= BASE_URL ?>assets/js/app/usuario/ciudad.js"></script> -->
+  
+  <script src="<?= BASE_URL ?>assets/js/custom/config.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/custom/usuario.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/custom/categoria.js"></script>
 
 
-  <script src="<?= BASE_URL ?>assets/js/app/categoria/obtenerDatosEditar.js"></script>
-  <script src="<?= BASE_URL ?>assets/js/app/categoria/editar.js"></script>
-  <script src="<?= BASE_URL ?>assets/js/app/categoria/eliminar.js"></script>
-  <script src="<?= BASE_URL ?>assets/js/app/categoria/listar.js"></script>
-  <script src="<?= BASE_URL ?>assets/js/app/producto/crear.js"></script>
-  <script src="<?= BASE_URL ?>assets/js/app/producto/eliminar.js"></script>
-  <script src="<?= BASE_URL ?>assets/js/app/producto/mostrarTodos.js"></script>
-  <script src="<?= BASE_URL ?>assets/js/app/producto/buscador.js"></script>
-  <script src="<?= BASE_URL ?>assets/js/app/producto/imagen.js"></script>
-  <script src="<?= BASE_URL ?>assets/js/app/carritoCompras/borrar.js"></script>
-  <script src="<?= BASE_URL ?>assets/js/app/carritoCompras/mostrar.js"></script>
-  <script src="<?= BASE_URL ?>assets/js/app/carritoCompras/carritoUp.js"></script>
-  <script src="<?= BASE_URL ?>assets/js/app/carritoCompras/carritoDown.js"></script>
-  <script src="<?= BASE_URL ?>assets/js/app/carritoCompras/confimarPedido.js"></script>
-  <script src="<?= BASE_URL ?>assets/js/app/pedidos/editarPedidos.js"></script>
-  <script src="<?= BASE_URL ?>assets/js/app/pedidos/mostrar.js"></script>
+  <!--  -->
+  <script src="<?= BASE_URL ?>assets/js/custom/producto.js"></script>
+  <!-- //  -->
+
+  <!-- <script src="<?= BASE_URL ?>assets/js/custom/producto/crear.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/custom/producto/eliminar.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/custom/producto/mostrarTodos.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/custom/producto/buscador.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/custom/producto/imagen.js"></script> -->
+
+
+  <script src="<?= BASE_URL ?>assets/js/custom/carritoCompras/borrar.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/custom/carritoCompras/mostrar.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/custom/carritoCompras/carritoUp.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/custom/carritoCompras/carritoDown.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/custom/carritoCompras/confimarPedido.js"></script>
+
+  <script src="<?= BASE_URL ?>assets/js/custom/pedidos/editarPedidos.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/custom/pedidos/mostrar.js"></script>
+
   <script src="<?= BASE_URL ?>assets/js/librerias/jquery-ui.js"></script>
-  <script src="<?= BASE_URL ?>assets/js/app/autocompletado/autocompletado.js"></script>
-  <script src="<?= BASE_URL ?>assets/js/app/autocompletado/mostrar.js"></script>
+
+  <script src="<?= BASE_URL ?>assets/js/custom/autocompletado/autocompletado.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/custom/autocompletado/mostrar.js"></script>
+
   <script>
-    autocompletado(<?= isset($jsonMostrar) ? $jsonMostrar :false ?>);
+    autocompletado(<?= isset($jsonMostrar) ? $jsonMostrar : false ?>);
   </script>
 
   </html>

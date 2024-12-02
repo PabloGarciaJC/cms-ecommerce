@@ -3514,7 +3514,7 @@ input[type="file"] {
 --------------------------------------------------------------*/
 
 /* Estilo inicial para el mensaje */
-#mensajeExito {
+.mensaje-exito {
     opacity: 1;
     transform: translateY(0);
     animation: mensajeAnimacion 1.5s ease-out forwards;

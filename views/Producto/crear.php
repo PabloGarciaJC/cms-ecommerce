@@ -3,69 +3,99 @@
     <div class="tab-pane fade show active" id="account" role="tabpanel">
       <div class="card">
         <div class="card-header">
-          <h5 class="card-title mb-0"><?= isset($_GET['id']) ? 'Editar Producto' : 'Crear Producto' ?></h5>
+          <h5 class="card-title mb-0"><?php echo isset($_GET['id']) ? 'Editar Producto' : 'Crear Producto' ?></h5>
         </div>
         <div class="card-body">
-          <div id="respuestaPhpGuardar"></div>
-          <form action="" id="formularioProducto" method="POST" enctype="multipart/form-data">
-            <div class="form-row ">
-              <div class="form-group col-md-6 errorNombreProducto">
-                <label>Nombre</label>
-                <input type="text" class="form-control" id="nombreProducto" value="<?= isset($_GET['id']) ? $obtenerProductosPorId->nombre : false ?>">
-                <label class="erroresValidacion"></label>
-              </div>
-              <input type="hidden" class="form-control" id="idProducto" value="<?= isset($_GET['id']) ? $obtenerProductosPorId->id : false ?>">
-              <div class="form-group col-md-6">
-                <label for="">Elige Categoría</label>
-                <select class="form-control" id="categoria">
-                  <?= isset($_GET['id']) ? '<option selected="selected" value="' .  $obtenerProductosPorId->categoria_id . '"> ' .  $obtenerProductosPorId->nombreCategoria . ' </option>' : false ?>
-                  <?php while ($categoriaProducto = $categoria->fetch_object()) : ?>
-                    <option value="<?= $categoriaProducto->id ?>"><?= $categoriaProducto->categorias ?></option>
-                  <?php endwhile; ?>
-                </select>
+
+          <form action="<?php echo BASE_URL; ?>Producto/guardar" method="POST" enctype="multipart/form-data">
+            <input type="hidden" value="<?php echo isset($_GET['id']) ? $_GET['id'] : false ?>" name="idProducto">
+            <div class="form-row justify-content-center mb-4">
+              <div class="col-md-4 text-center">
+                <?php if (isset($_GET['id']) != null): ?>
+                  <img src="<?php echo BASE_URL ?>uploads/images/productos/<?php echo isset($_GET['id']) ? $obtenerProductosPorId->imagen : '' ?>" class="img-fluid mt-2 previe">
+                <?php else: ?>
+                  <img src="<?php echo BASE_URL ?>uploads/images/productos/producto_thumbnail.png" class="img-fluid mt-2 previe">
+                <?php endif; ?>
+                <div class="mt-2">
+                  <label class="custom-file-upload">
+                    <input type="file" name="avatarSelecionado" id="file" class="file-img">
+                    <span class="btn btn-primary"><i class="fa fa-upload"></i> Subir Imagen</span>
+                  </label>
+                </div>
+                <small class="text-muted d-block">Formato jpg, jpeg, png. Máximo: 1 MB. Tamaño recomendado: 128x128.</small>
+                <?php if (isset($_SESSION['erroresProductos']['imagen'])): ?>
+                  <div class="text-danger"><?php echo $_SESSION['erroresProductos']['imagen']; ?></div>
+                <?php endif; ?>
               </div>
             </div>
             <div class="form-row">
-              <div class="form-group col-md-4 errorPrecioProducto">
+              <div class="form-group col-md-6">
+                <label>Nombre</label>
+                <input type="text" class="form-control" name="nombreProducto" value="<?php echo isset($_GET['id']) ? $obtenerProductosPorId->nombre : '' ?>">
+                <?php if (isset($_SESSION['erroresProductos']['nombreProducto'])): ?>
+                  <div class="text-danger"><?php echo $_SESSION['erroresProductos']['nombreProducto']; ?></div>
+                <?php endif; ?>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="">Elige Categoría</label>
+                <select class="form-control" name="categoria">
+                  <?php echo isset($_GET['id']) ? '<option selected="selected" value="' .  $obtenerProductosPorId->categoria_id . '"> ' .  $obtenerProductosPorId->nombreCategoria . ' </option>' : '' ?>
+                  <?php while ($categoriaProducto = $categoria->fetch_object()) : ?>
+                    <option value="<?php echo $categoriaProducto->id ?>"><?php echo $categoriaProducto->categorias ?></option>
+                  <?php endwhile; ?>
+                </select>
+                <?php if (isset($_SESSION['erroresProductos']['categoria'])): ?>
+                  <div class="text-danger"><?php echo $_SESSION['erroresProductos']['categoria']; ?></div>
+                <?php endif; ?>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-4">
                 <label>Precio</label>
                 <div class="input-group mb-2">
-                  <input type="text" class="form-control" id="precioProducto" value=" <?= isset($_GET['id']) ? $obtenerProductosPorId->precio : '0' ?>">
+                  <input type="text" class="form-control" name="precioProducto" value="<?php echo isset($_GET['id']) ? $obtenerProductosPorId->precio : '0' ?>">
                   <div class="input-group-prepend">
                     <div class="input-group-text"><strong>$</strong></div>
                   </div>
                 </div>
-                <label class="erroresValidacion"></label>
+                <?php if (isset($_SESSION['erroresProductos']['precioProducto'])): ?>
+                  <div class="text-danger"><?php echo $_SESSION['erroresProductos']['precioProducto']; ?></div>
+                <?php endif; ?>
               </div>
-              <div class="form-group col-md-4 errorStockProducto">
+              <div class="form-group col-md-4">
                 <label>Stock</label>
-                <input type="text" class="form-control" id="stockProducto" value=" <?= isset($_GET['id']) ? $obtenerProductosPorId->stock : '0' ?>">
-                <label class="erroresValidacion"></label>
+                <input type="text" class="form-control" name="stockProducto" value="<?php echo isset($_GET['id']) ? $obtenerProductosPorId->stock : '0' ?>">
+                <?php if (isset($_SESSION['erroresProductos']['stockProducto'])): ?>
+                  <div class="text-danger"><?php echo $_SESSION['erroresProductos']['stockProducto']; ?></div>
+                <?php endif; ?>
               </div>
-              <div class="form-group col-md-4 errorOfertaProducto">
+              <div class="form-group col-md-4">
                 <label>Oferta</label>
-                <select class="form-control" id="ofertaProducto">
-                    <option value="5">5 % de Descuento</option>
-                    <option value="10">10 % de Descuento</option>
-                    <option value="20">20 % de Descuento</option>
-                    <option value="30">30 % de Descuento</option>
-                    <option value="40">40 % de Descuento</option>
-                    <option value="50">50 % de Descuento</option>
-                  </select>
+                <select class="form-control" name="ofertaProducto">
+                  <option value="5">5 % de Descuento</option>
+                  <option value="10">10 % de Descuento</option>
+                  <option value="20">20 % de Descuento</option>
+                  <option value="30">30 % de Descuento</option>
+                  <option value="40">40 % de Descuento</option>
+                  <option value="50">50 % de Descuento</option>
+                </select>
               </div>
             </div>
-            <div class="form-row ">
-              <div class="form-group col-md-6 errorMarcaProducto">
+            <div class="form-row">
+              <div class="form-group col-md-6">
                 <label>Marca</label>
-                <input type="text" class="form-control" id="marcaProducto" value="<?= isset($_GET['id']) ? $obtenerProductosPorId->marca : false ?>">
-                <label class="erroresValidacion"></label>
+                <input type="text" class="form-control" name="marcaProducto" value="<?php echo isset($_GET['id']) ? $obtenerProductosPorId->marca : '' ?>">
+                <?php if (isset($_SESSION['erroresProductos']['marcaProducto'])): ?>
+                  <div class="text-danger"><?php echo $_SESSION['erroresProductos']['marcaProducto']; ?></div>
+                <?php endif; ?>
               </div>
-              <div class="form-group col-md-6 errorMemoriaRamProducto form-capacidad">
+              <div class="form-group col-md-6 form-capacidad">
                 <label>Capacidad</label>
                 <div class="input-group mb-2">
-                  <input type="text" class="form-control" id="memoriaRamProducto" value=" <?= isset($_GET['id']) ? $obtenerProductosPorId->memoria_ram : '0' ?>">
+                  <input type="text" class="form-control" name="memoriaRamProducto" value="<?php echo isset($_GET['id']) ? $obtenerProductosPorId->memoria_ram : '0' ?>">
                   <div class="input-group-prepend">
-                    <!-- <div class="input-group-text"><strong>Gb</strong></div> -->
-                    <select class="form-control" id="capacidadProducto">
+                    <select class="form-control">
                       <option value="KB">Kilobytes (KB)</option>
                       <option value="MB">Megabytes (MB)</option>
                       <option value="GB">Gigabytes (GB)</option>
@@ -77,51 +107,31 @@
                     </select>
                   </div>
                 </div>
-                <label class="erroresValidacion"></label>
               </div>
             </div>
-            <div class="form-group errorDescripcionProducto">
+            <div class="form-group">
               <label>Descripción</label>
-              <textarea class="form-control" id="descripcionProducto" rows="3"><?= isset($_GET['id']) ? $obtenerProductosPorId->descripcion : false ?></textarea>
-              <label class="erroresValidacion"></label>
+              <textarea class="form-control" name="descripcionProducto" rows="3"><?php echo isset($_GET['id']) ? $obtenerProductosPorId->descripcion : '' ?></textarea>
+              <?php if (isset($_SESSION['erroresProductos']['descripcionProducto'])): ?>
+                <div class="text-danger"><?php echo $_SESSION['erroresProductos']['descripcionProducto']; ?></div>
+              <?php endif; ?>
             </div>
-            <div class="product-sec1 px-sm-4 ">
-              <div class="errorFileProducto">
-                <p style="text-align: center;"><small>Formatos de la imagen JPG, JPEG, PNG y un peso Max de 1 MB, <strong>Recomendado 160 Ancho x 160 Alto</strong></small></p>
-                <label class="erroresValidacion"></label>
-              </div>
-              <div class="row">
-                <div class="col-md-4 product-men"></div>
-                <div class="col-md-4 product-men mt-md-0 mt-5">
-                  <div class="men-pro-item simpleCart_shelfItem">
-                    <div class="men-thumb-item text-center">
-                      <?php if (isset($_GET['id'])) : ?>
-                        <img class="img-fluid" src="<?= BASE_URL ?>uploads/images/productos/<?= isset($_GET['id']) ? $obtenerProductosPorId->imagen : false ?>" id="imagenProducto" alt="">
-                      <?php else : ?>
-                        <img class="img-fluid" src="" id="imagenProducto" alt="">
-                      <?php endif; ?>
-                    </div>
-                    <div class="item-info-product text-center mt-4">
-                      <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-                        <label class="custom-file-upload">
-                          <input type="file" / name="avatarSelecionado" id="archivoImagenProducto" onchange="vistaPreliminarImagenProducto(event)">
-                          <span class="btn btn-primary"><i class="fa fa-upload"></i></span> <small>Subir Imagen</small>
-                        </label>
-                      </div><br>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-4 product-men"></div>    
-              </div>
+
+            <div class="form-group text-right">
+              <button type="submit" class="btn btn-primary">Guardar</button>
             </div>
+
+
+          </form>
         </div>
       </div>
       <br>
-      <button type="submit" class="btn btn-primary"><?= isset($_GET['id']) ? 'Editar' : 'Guardar' ?></button>
-      </form>
     </div>
   </div>
 </div>
+
+
+
 </div>
 </div>
 </div>
