@@ -11,7 +11,7 @@ class AdminController
         require_once 'views/layout/script-footer.php';
     }
 
-    public function informacionPublica()
+    public function perfilGuardar()
     {
         //Acceso Usuario Registrado a esta Pagina
         Utils::accesoUsuarioRegistrado();
@@ -19,11 +19,12 @@ class AdminController
         // Recibimos los datos desde el formulario
         $id = isset($_POST['id']) ? $_POST['id'] : false;
         $usuario = isset($_POST['usuario']) ? $_POST['usuario'] : false;
+        $password = isset($_POST['password']) ? $_POST['password'] : false;
         $documentacion = isset($_POST['documentacion']) ? $_POST['documentacion'] : false;
-        $telefono = isset($_POST['telefono']) ? $_POST['telefono'] : false;
         $nombre = isset($_POST['nombre']) ? trim($_POST['nombre']) : false;
         $apellido = isset($_POST['apellido']) ? trim($_POST['apellido']) : false;
         $email = isset($_POST['email']) ? trim($_POST['email']) : false;
+        $telefono = isset($_POST['telefono']) ? $_POST['telefono'] : false;
         $direccion = isset($_POST['direccion']) ? trim($_POST['direccion']) : false;
         $pais = isset($_POST['pais']) ? trim($_POST['pais']) : false;
         $ciudad = isset($_POST['ciudad']) ? trim($_POST['ciudad']) : false;
@@ -32,15 +33,16 @@ class AdminController
         $actualizarInformacionPublica = new Usuario();
         $actualizarInformacionPublica->setId($id);
         $actualizarInformacionPublica->setUsuario($usuario);
+        $actualizarInformacionPublica->setPassword($password);
         $actualizarInformacionPublica->setNumeroDocumento($documentacion);
         $actualizarInformacionPublica->setNroTelefono($telefono);
         $actualizarInformacionPublica->setNombres($nombre);
         $actualizarInformacionPublica->setApellidos($apellido);
+        $actualizarInformacionPublica->setEmail($email);
         $actualizarInformacionPublica->setDireccion($direccion);
         $actualizarInformacionPublica->setPais($pais);
         $actualizarInformacionPublica->setCiudad($ciudad);
         $actualizarInformacionPublica->setCodigoPostal($codigoPostal);
-
 
         // Array para almacenar los errores
         $errores = [];
@@ -52,6 +54,10 @@ class AdminController
             $errores['usuario'] = "El alias no puede tener más de 12 caracteres.";
         }
 
+        // if (empty($password)) {
+        //     $errores['password'] = "La Password es obligatoria.";
+        // }
+
         if (empty($documentacion)) {
             $errores['documentacion'] = "El número de documento es obligatorio.";
         }
@@ -59,6 +65,10 @@ class AdminController
         if (empty($telefono)) {
             $errores['telefono'] = "El número de teléfono es obligatorio.";
         }
+
+        // if (empty($email)) {
+        //     $errores['email'] = "El número de email es obligatorio.";
+        // }
 
         // Validación de los campos
         if (empty($nombre)) {
@@ -77,6 +87,14 @@ class AdminController
             $errores['direccion'] = "La dirección es obligatoria.";
         }
 
+        if (empty($pais)) {
+            $errores['pais'] = "La pais es obligatoria.";
+        }
+
+        if (empty($ciudad)) {
+            $errores['ciudad'] = "La ciudad es obligatoria.";
+        }
+
         if (empty($codigoPostal)) {
             $errores['codigoPostal'] = "El código postal es obligatorio.";
         } elseif (!is_numeric($codigoPostal)) {
@@ -89,8 +107,8 @@ class AdminController
         } else {
 
             // Lógica de manejo del avatar
-            $nombreArchivo = isset($_FILES['avatarSelecionado']['name']) ? $_FILES['avatarSelecionado']['name'] : false;
-            $rutaTemporal = isset($_FILES['avatarSelecionado']['tmp_name']) ? $_FILES['avatarSelecionado']['tmp_name'] : false;
+            $nombreArchivo = isset($_FILES['avatar']['name']) ? $_FILES['avatar']['name'] : false;
+            $rutaTemporal = isset($_FILES['avatar']['tmp_name']) ? $_FILES['avatar']['tmp_name'] : false;
 
             if ($rutaTemporal) {
                 $directorioDestino = 'uploads/images/avatar/';
@@ -102,13 +120,13 @@ class AdminController
 
                 $subirImagen = new Usuario();
                 $subirImagen->setId($id);
-                $subirImagen->setUrl_Avatar($nombreArchivoUnico);
+                $subirImagen->setimagen($nombreArchivoUnico);
 
                 $obtenerUsuario = $subirImagen->obtenerTodosPorId();
-                $ruta = $directorioDestino . $obtenerUsuario->Url_Avatar;
+                $ruta = $directorioDestino . $obtenerUsuario->imagen;
 
                 if (move_uploaded_file($rutaTemporal, $directorioDestino . $nombreArchivoUnico)) {
-                    if ($obtenerUsuario->Url_Avatar && is_file($ruta)) {
+                    if ($obtenerUsuario->imagen && is_file($ruta)) {
                         unlink($ruta); // Elimina la imagen anterior
                     }
                     $subirImagen->subirImagen();
@@ -129,13 +147,24 @@ class AdminController
         }
 
         // Redirigir a la página de información general
-        header("Location: " . BASE_URL . "Admin/dashboard");
+        header("Location: " . BASE_URL . "Admin/perfil");
         exit;
     }
 
     public function perfil()
     {
+        //Acceso Usuario Registrado a esta Pagina
         Utils::accesoUsuarioRegistrado();
+
+        //Obtengo Ususario en el Banner sin Modelo
+        $usuario = Utils::obtenerUsuarioSinModelo();
+
+        //Obtengo Categorias en la Barra de Navegacion
+        $categoriaBarraNavegacion = Utils::listaCategorias();
+
+        //Obtengo Todos Los Paises
+        $paisesTodos = Utils::obtenerPaises();
+
         require_once 'views/layout/head.php';
         require_once 'views/admin/user/perfil.php';
         require_once 'views/layout/script-footer.php';

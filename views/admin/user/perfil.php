@@ -6,124 +6,168 @@
 
     <main class="panel-admin__main-content">
         <section class="panel-admin__dashboard">
-            <h2 class="panel-admin__dashboard-title">Perfil de Usuario</h2>
-            <form action="ruta_para_guardar_usuario.php" method="POST" enctype="multipart/form-data" class="panel-admin__user-form">
-                <!-- ID -->
-                <div class="form-group">
-                    <label for="userId">ID:</label>
-                    <input type="text" id="userId" name="userId" class="form-control" placeholder="ID único del usuario" readonly>
-                </div>
 
-                <!-- Usuario -->
+            <?php if (isset($_SESSION['exito'])) : ?>
+                <div class="alert alert-success alert-dismissible fade show mt-2 success-alert" role="alert">
+                    <i class="fas fa-check-circle"></i> <?php echo $_SESSION['exito']; ?>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <?php unset($_SESSION['exito']); ?>
+            <?php endif; ?>
+
+            <h2 class="panel-admin__dashboard-title">Perfil de Usuario</h2>
+
+            <form action="<?php echo BASE_URL; ?>Admin/perfilGuardar" method="POST" enctype="multipart/form-data" class="panel-admin__user-form">
+                <input type="hidden" name="id" class="form-control" value="<?php echo $usuario->Id; ?>">
+
                 <div class="form-group">
                     <label for="username">Usuario:</label>
-                    <input type="text" id="username" name="username" class="form-control" placeholder="Nombre de usuario" required>
+                    <input type="text" id="username" name="usuario" class="form-control" placeholder="Nombre de usuario" value="<?php echo $usuario->Usuario; ?>">
+                    <?php if (isset($_SESSION['errores']['usuario'])) : ?>
+                        <div class="text-danger mt-2">
+                            <i class="fas fa-exclamation-circle"></i> <?php echo $_SESSION['errores']['usuario']; ?>
+                        </div>
+                    <?php endif; ?>
                 </div>
-
-                <!-- Contraseña -->
+<!-- 
                 <div class="form-group">
                     <label for="password">Contraseña:</label>
-                    <input type="password" id="password" name="password" class="form-control" placeholder="Contraseña del usuario" required>
+                    <div style="position: relative;">
+                        <input type="password" id="password" name="password" class="form-control" placeholder="Contraseña del usuario" value="<?php echo $usuario->Password; ?>">
+                        <span id="togglePassword" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;">
+                            <i class="fas fa-eye"></i>
+                        </span>
+                    </div>
+                    <?php if (isset($_SESSION['errores']['password'])) : ?>
+                        <div class="text-danger mt-2">
+                            <i class="fas fa-exclamation-circle"></i> <?php echo $_SESSION['errores']['password']; ?>
+                        </div>
+                    <?php endif; ?>
+                </div> -->
+
+                <div class="form-group">
+                    <label>Número de Documento:</label>
+                    <input type="text" name="documentacion" class="form-control" placeholder="Documento de identidad" value="<?php echo $usuario->NumeroDocumento; ?>">
+                    <?php if (isset($_SESSION['errores']['documentacion'])) : ?>
+                        <div class="text-danger mt-2">
+                            <i class="fas fa-exclamation-circle"></i> <?php echo $_SESSION['errores']['documentacion']; ?>
+                        </div>
+                    <?php endif; ?>
                 </div>
 
-                <!-- Número de Documento -->
                 <div class="form-group">
-                    <label for="documentNumber">Número de Documento:</label>
-                    <input type="text" id="documentNumber" name="documentNumber" class="form-control" placeholder="Documento de identidad" required>
+                    <label>Nombres:</label>
+                    <input type="text" name="nombre" class="form-control" placeholder="Nombres del usuario" value="<?php echo $usuario->Nombres; ?>">
+                    <?php if (isset($_SESSION['errores']['nombre'])) : ?>
+                        <div class="text-danger mt-2">
+                            <i class="fas fa-exclamation-circle"></i> <?php echo $_SESSION['errores']['nombre']; ?>
+                        </div>
+                    <?php endif; ?>
                 </div>
 
-                <!-- Nombres -->
                 <div class="form-group">
-                    <label for="firstName">Nombres:</label>
-                    <input type="text" id="firstName" name="firstName" class="form-control" placeholder="Nombres del usuario" required>
+                    <label>Apellidos:</label>
+                    <input type="text" name="apellido" class="form-control" placeholder="Apellidos del usuario" value="<?php echo $usuario->Apellidos; ?>">
+                    <?php if (isset($_SESSION['errores']['apellido'])) : ?>
+                        <div class="text-danger mt-2">
+                            <i class="fas fa-exclamation-circle"></i> <?php echo $_SESSION['errores']['apellido']; ?>
+                        </div>
+                    <?php endif; ?>
                 </div>
 
-                <!-- Apellidos -->
                 <div class="form-group">
-                    <label for="lastName">Apellidos:</label>
-                    <input type="text" id="lastName" name="lastName" class="form-control" placeholder="Apellidos del usuario" required>
+                    <label>Correo Electrónico:</label>
+                    <input type="email" name="email" class="form-control" placeholder="Correo electrónico" value="<?php echo $usuario->Email; ?>" disabled>
+                    <?php if (isset($_SESSION['errores']['email'])) : ?>
+                        <div class="text-danger mt-2">
+                            <i class="fas fa-exclamation-circle"></i> <?php echo $_SESSION['errores']['email']; ?>
+                        </div>
+                    <?php endif; ?>
                 </div>
 
-                <!-- Email -->
                 <div class="form-group">
-                    <label for="email">Correo Electrónico:</label>
-                    <input type="email" id="email" name="email" class="form-control" placeholder="Correo electrónico" required>
+                    <label>Número de Teléfono:</label>
+                    <input type="text" name="telefono" class="form-control" placeholder="Teléfono del usuario" value="<?php echo $usuario->NroTelefono; ?>">
+                    <?php if (isset($_SESSION['errores']['telefono'])) : ?>
+                        <div class="text-danger mt-2">
+                            <i class="fas fa-exclamation-circle"></i> <?php echo $_SESSION['errores']['telefono']; ?>
+                        </div>
+                    <?php endif; ?>
                 </div>
 
-                <!-- Número de Teléfono -->
                 <div class="form-group">
-                    <label for="phone">Número de Teléfono:</label>
-                    <input type="tel" id="phone" name="phone" class="form-control" placeholder="Teléfono del usuario" required>
+                    <label>Dirección:</label>
+                    <input type="text" name="direccion" class="form-control" placeholder="Dirección del usuario" value="<?php echo $usuario->Direccion; ?>">
+                    <?php if (isset($_SESSION['errores']['direccion'])) : ?>
+                        <div class="text-danger mt-2">
+                            <i class="fas fa-exclamation-circle"></i> <?php echo $_SESSION['errores']['direccion']; ?>
+                        </div>
+                    <?php endif; ?>
                 </div>
 
-                <!-- Dirección -->
                 <div class="form-group">
-                    <label for="address">Dirección:</label>
-                    <input type="text" id="address" name="address" class="form-control" placeholder="Dirección del usuario" required>
-                </div>
-
-                <!-- País -->
-                <div class="form-group">
-                    <label for="country">País:</label>
-                    <input type="text" id="country" name="country" class="form-control" placeholder="País del usuario" required>
-                </div>
-
-                <!-- Ciudad -->
-                <div class="form-group">
-                    <label for="city">Ciudad:</label>
-                    <input type="text" id="city" name="city" class="form-control" placeholder="Ciudad del usuario" required>
-                </div>
-
-                <!-- Código Postal -->
-                <div class="form-group">
-                    <label for="postalCode">Código Postal:</label>
-                    <input type="text" id="postalCode" name="postalCode" class="form-control" placeholder="Código Postal" required>
-                </div>
-
-                <!-- Rol -->
-                <div class="form-group">
-                    <label for="role">Rol:</label>
-                    <select id="role" name="role" class="form-control" required>
-                        <option value="client">Cliente</option>
-                        <option value="admin">Administrador</option>
-                        <option value="moderator">Moderador</option>
-                        <option value="vendor">Vendedor</option>
+                    <label for="pais">País:</label>
+                    <select class="form-control" id="pais" name="pais">
+                        <option value="" disabled selected>Seleccione...</option>
+                        <?php while ($fila = mysqli_fetch_assoc($paisesTodos)) : ?>
+                            <option value="<?php echo $fila['Id']; ?>"
+                                <?php echo $usuario->Pais == $fila['Id'] ? 'selected' : ''; ?>>
+                                <?php echo $fila['Pais']; ?>
+                            </option>
+                        <?php endwhile; ?>
                     </select>
+                    <?php if (isset($_SESSION['errores']['pais'])) : ?>
+                        <div class="text-danger mt-2">
+                            <i class="fas fa-exclamation-circle"></i> <?php echo $_SESSION['errores']['pais']; ?>
+                        </div>
+                    <?php endif; ?>
                 </div>
 
-                <!-- Avatar -->
                 <div class="form-group">
-                    <label for="avatar">Avatar (URL o Subir Imagen):</label>
+                    <label for="ciudad">Ciudad/Región:</label>
+                    <select class="form-control" id="ciudad" name="ciudad" <?php echo empty($usuario->Pais) ? 'disabled' : ''; ?>>
+                        <?php if (!empty($usuario->Ciudad)) : ?>
+                            <option selected><?php echo $usuario->Ciudad; ?></option>
+                        <?php else : ?>
+                            <option value="" disabled selected>Seleccione...</option>
+                        <?php endif; ?>
+                    </select>
+                    <?php if (isset($_SESSION['errores']['ciudad'])) : ?>
+                        <div class="text-danger mt-2">
+                            <i class="fas fa-exclamation-circle"></i> <?php echo $_SESSION['errores']['ciudad']; ?>
+                        </div>
+                    <?php endif; ?>
+                </div>
+
+                <div class="form-group">
+                    <label for="codigoPostal">Código Postal:</label>
+                    <input type="text" id="codigoPostal" name="codigoPostal" class="form-control" value="<?php echo $usuario->CodigoPostal; ?>">
+                    <?php if (isset($_SESSION['errores']['codigoPostal'])) : ?>
+                        <div class="text-danger mt-2">
+                            <i class="fas fa-exclamation-circle"></i> <?php echo $_SESSION['errores']['codigoPostal']; ?>
+                        </div>
+                    <?php endif; ?>
+                </div>
+
+                <div class="form-group">
+                    <label for="avatar">Imagen de Usuario (Avatar):</label>
                     <input type="file" id="avatar" name="avatar" class="form-control" accept="image/*">
                     <div class="panel-admin__avatar-preview mt-3">
-                        <img id="avatarPreview" class="panel-admin__avatar-thumbnail" alt="Avatar Preview">
+                        <img id="avatarPreview" class="panel-admin__avatar-thumbnail" src="<?php echo !empty($usuario->imagen) ? BASE_URL . 'uploads/images/avatar/' . $usuario->imagen : BASE_URL . 'uploads/images/avatar/default-avatar.png'; ?>" alt="Avatar de Usuario">
                     </div>
+                    <?php if (isset($_SESSION['errores']['avatar'])) : ?>
+                        <div class="text-danger mt-2">
+                            <i class="fas fa-exclamation-circle"></i> <?php echo $_SESSION['errores']['avatar']; ?>
+                        </div>
+                    <?php endif; ?>
                 </div>
 
-                <!-- Botón de Guardar -->
                 <button type="submit" class="btn btn-primary">Guardar Perfil</button>
             </form>
         </section>
-
-        <!-- JavaScript para previsualizar el avatar -->
-        <script>
-            document.getElementById('avatar').addEventListener('change', function(event) {
-                const file = event.target.files[0];
-                const preview = document.getElementById('avatarPreview');
-
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        preview.src = e.target.result;
-                        preview.style.display = 'block';
-                    };
-                    reader.readAsDataURL(file);
-                } else {
-                    preview.src = '';
-                    preview.style.display = 'none';
-                }
-            });
-        </script>
-
     </main>
 </div>
+
+<?php unset($_SESSION['errores']); ?>

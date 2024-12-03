@@ -73,7 +73,6 @@
   /* Main Content */
   .panel-admin__main-content {
       background: #ecf0f1;
-      padding: 2rem;
       border-radius: 10px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       flex: 1;
@@ -100,7 +99,7 @@
 
   .panel-admin__flex-container {
       display: grid;
-      grid-template-columns: 10% 90%;
+      grid-template-columns: 15% 85%;
       margin-bottom: 40px;
       height: 100vh;
       width: 100%;
@@ -187,8 +186,6 @@
       border-bottom: 1px solid #ddd;
   }
 
-
-
   .panel-admin__stats-overview {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -247,3 +244,58 @@
   /* .panel-admin__category-list {
       text-align: center;
   } */
+
+  .panel-admin__avatar-thumbnail {
+      width: 200px;
+  }
+
+
+
+  /* Estilo general para el contenedor de las imágenes */
+  .panel-admin__image-container {
+      display: flex;
+      margin-right: 10px;
+      margin-bottom: 10px;
+      text-align: center;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+  }
+
+  /* Estilo para las imágenes de producto */
+  .panel-admin__image-thumbnail {
+      width: 200px;
+      height: 200px;
+      /* Fijar el tamaño de la imagen */
+      margin-bottom: 10px;
+  }
+
+  /* Botones debajo de las imágenes */
+  .panel-admin__btn {
+      cursor: pointer;
+      width: 100%;
+      margin-bottom: 5px;
+      font-size: 12px;
+  }
+
+  /* Estilo para el botón de eliminar */
+  .panel-admin__btn--delete {
+      background-color: #dc3545;
+      border: #dc3545;
+      color: white;
+  }
+
+  /* Estilo para el botón de editar */
+  .panel-admin__btn--edit {
+      background-color: #ffc107;
+      border: #ffc107;
+      color: black;
+  }
+
+  /* Contenedor para la vista previa de imágenes */
+  .panel-admin__image-preview {
+    cursor: pointer;
+      display: flex;
+      flex-wrap: wrap;
+    
+  }

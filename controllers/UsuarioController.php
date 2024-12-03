@@ -64,6 +64,7 @@ class UsuarioController
         $iniciarSesion->setEmail($email);
         $iniciarSesion->setPassword($password);
         $comprobandoEmail = $iniciarSesion->repetidosEmail();
+        
         //validacion
         if (empty(trim($email))) {
             $mensaje = utils::setearMensajeError('mdErrorEmailIniciarSesionPhp', 'Ingrese email');

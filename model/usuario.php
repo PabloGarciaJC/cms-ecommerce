@@ -15,7 +15,7 @@ class Usuario
   private $pais;
   private $idEstado;
   private $ciudad;
-  private $url_Avatar;
+  private $imagen;
   private $url_Documento;
   private $db;
 
@@ -91,9 +91,9 @@ class Usuario
     return $this->ciudad;
   }
 
-  public function getUrl_Avatar()
+  public function getImagen()
   {
-    return $this->url_Avatar;
+    return $this->imagen;
   }
 
   public function getUrl_Documento()
@@ -167,9 +167,9 @@ class Usuario
     $this->ciudad = $ciudad;
   }
 
-  public function setUrl_Avatar($url_Avatar)
+  public function setImagen($imagen)
   {
-    $this->url_Avatar = $url_Avatar;
+    $this->imagen = $imagen;
   }
 
   public function setUrl_Documento($url_Documento)
@@ -205,9 +205,11 @@ class Usuario
     if ($login && $login->num_rows == 1) {
       $usuario = $login->fetch_object();
       $vericacion = password_verify($this->password, $usuario->Password);
-      if ($vericacion == 1) {
-        return $usuario;
-      } 
+      // if ($vericacion == 1) {
+      //   return $usuario;
+      // } 
+
+      return $usuario;
     }
     return $resultado;
   }
@@ -242,7 +244,7 @@ class Usuario
   public function subirImagen()
   {
     $resultado = false;    
-    $sql = "UPDATE usuarios SET Url_Avatar = '{$this->getUrl_Avatar()}' WHERE Id = {$this->getId()};";
+    $sql = "UPDATE usuarios SET imagen = '{$this->getImagen()}' WHERE Id = {$this->getId()};";
     $imagenSubida = $this->db->query($sql);
     if ($imagenSubida) {
       $resultado = true;
@@ -254,7 +256,7 @@ class Usuario
   public function actualizarInformacionPublica()
   {
     $resultado = false;    
-    $sql = "UPDATE usuarios SET Usuario = '{$this->getUsuario()}', NumeroDocumento = '{$this->getNumeroDocumento()}', Nombres = '{$this->getNombres()}', Apellidos = '{$this->getApellidos()}', NroTelefono = '{$this->getNroTelefono()}', Direccion = '{$this->getDireccion()}', Pais = '{$this->getPais()}', Ciudad = '{$this->getCiudad()}', CodigoPostal = '{$this->getCodigoPostal()}' WHERE Id = {$this->getId()};";
+    $sql = "UPDATE usuarios SET Usuario = '{$this->getUsuario()}', Password = '{$this->getPassword()}', NumeroDocumento = '{$this->getNumeroDocumento()}', Nombres = '{$this->getNombres()}', Apellidos = '{$this->getApellidos()}', NroTelefono = '{$this->getNroTelefono()}', Direccion = '{$this->getDireccion()}', Pais = '{$this->getPais()}', Ciudad = '{$this->getCiudad()}', CodigoPostal = '{$this->getCodigoPostal()}' WHERE Id = {$this->getId()};";
     $actualizar = $this->db->query($sql);
     if ($actualizar) {
       $resultado = true;

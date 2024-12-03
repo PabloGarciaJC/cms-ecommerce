@@ -2,53 +2,63 @@
 
 class Categorias
 {
-
   private $id;
-  private $categorias;
-  private $fechaIngreso;
+  private $nombre;  // Cambié 'categorias' a 'nombre' para mayor claridad
+  private $descripcion;
+  private $fechaIngreso;  // Este campo no está en la base de datos, ¿es necesario?
   private $db;
 
-  ///CONSTRUCTOR///
+  /// CONSTRUCTOR ///
   public function __construct()
   {
     $this->db = Database::connect();
   }
 
-  //// GETTER //// 
+  //// GETTERS ////
   public function getId()
   {
     return $this->id;
   }
 
-  public function getCategorias()
+  public function getNombre()
   {
-    return $this->categorias;
+    return $this->nombre;
   }
 
-  public function getFecha_Ingreso()
+  public function getDescripcion()
+  {
+    return $this->descripcion;
+  }
+
+  public function getFechaIngreso()
   {
     return $this->fechaIngreso;
   }
 
-  //// SETTER //// 
-
+  //// SETTERS ////
   public function setId($id)
   {
     $this->id = $id;
   }
 
-  public function setCategorias($categorias)
+  public function setNombre($nombre)
   {
-    $this->categorias = $categorias;
+    $this->nombre = $nombre;
   }
 
-  public function setFecha_Ingreso($fechaIngreso)
+  public function setDescripcion($descripcion)
+  {
+    $this->descripcion = $descripcion;
+  }
+
+  public function setFechaIngreso($fechaIngreso)
   {
     $this->fechaIngreso = $fechaIngreso;
   }
 
-  //// CONSULTAS //// 
+  //// CONSULTAS ////
 
+  // Obtener todas las categorías
   public function obtenerCategorias()
   {
     $sql = "SELECT * FROM categorias";
@@ -56,13 +66,11 @@ class Categorias
     return $listarCategorias;
   }
 
-  
+  // Obtener una categoría por su ID
   public function obtenerCategoriasPorId()
   {
-
     $sql = "SELECT * FROM categorias";
-
-    if($this->getId() != '') {
+    if ($this->getId() != '') {
       $sql .= " WHERE id = {$this->getId()}";
     }
     
@@ -70,7 +78,7 @@ class Categorias
     return $listarCategorias->fetch_object();
   }
 
-
+  // Obtener categorías para el menú de navegación
   public function obtenerCategoriasNav()
   {
     $sql = "SELECT * FROM categorias";
@@ -78,19 +86,21 @@ class Categorias
     return $listarCategorias;
   }
 
-  
+  // Actualizar una categoría por su ID
   public function actualizarCategoriaPorId()
   {
-    $sql = "UPDATE categorias SET categorias = '{$this->getCategorias()}' WHERE id = {$this->getId()};";
+    $sql = "UPDATE categorias 
+            SET categorias = '{$this->getNombre()}', descripcion = '{$this->getDescripcion()}' 
+            WHERE id = {$this->getId()}";
     $categoria = $this->db->query($sql);
-   
     return $categoria;
   }
 
+  // Eliminar una categoría
   public function eliminar()
   {
     $result = false;
-    $sql = "DELETE FROM categorias WHERE id= {$this->id}";
+    $sql = "DELETE FROM categorias WHERE id = {$this->id}";
     $delete = $this->db->query($sql);
     if ($delete) {
       $result = true;
@@ -98,9 +108,11 @@ class Categorias
     return $result;
   }
 
+  // Crear una nueva categoría
   public function crearLista()
   {
-    $sql = "INSERT INTO categorias(categorias) VALUES ('{$this->getCategorias()}') ";
+    $sql = "INSERT INTO categorias (categorias, descripcion) 
+            VALUES ('{$this->getNombre()}', '{$this->getDescripcion()}')";
     $crearLista = $this->db->query($sql);  
     return $crearLista;
   }

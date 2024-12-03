@@ -16,8 +16,8 @@
             <input type="hidden" value="<?= $_SESSION['usuarioRegistrado']->Id ?>" name="id" id="idUsuarioRegistrado">
             <div class="form-row justify-content-center mb-4">
               <div class="col-md-4 text-center">
-                <?php if ($usuario->Url_Avatar != null): ?>
-                  <img src="<?= BASE_URL ?>uploads/images/avatar/<?= $usuario->Url_Avatar ?>" class="rounded-circle img-fluid mt-2 previe" style="max-width: 128px; height: auto;">
+                <?php if ($usuario->imagen != null): ?>
+                  <img src="<?= BASE_URL ?>uploads/images/avatar/<?= $usuario->imagen ?>" class="rounded-circle img-fluid mt-2 previe" style="max-width: 128px; height: auto;">
                 <?php else: ?>
                   <img src="<?= BASE_URL ?>assets/images/avatar.png" class="rounded-circle img-fluid mt-2 previe" style="max-width: 128px; height: auto;">
                 <?php endif; ?>

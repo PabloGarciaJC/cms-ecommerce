@@ -557,8 +557,8 @@ class Productos
 
   public function ejecutarBuscador()
   {
-    $sql = "SELECT p.*, c.categorias FROM productos p  INNER JOIN categorias c ON p.categoria_id = c.id ORDER BY c.id DESC LIMIT 10;";
-    $resultado = $this->db->query($sql);
-    return $resultado;
+    // $sql = "SELECT p.*, c.categorias FROM productos p INNER JOIN categorias c ON p.categoria_id = c.id ORDER BY c.id DESC LIMIT 10;";
+    // $resultado = $this->db->query($sql);
+    // return $resultado;
   }
 }
