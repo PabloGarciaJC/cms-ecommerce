@@ -74,7 +74,7 @@
             </div>
             <button type="submit" class="btn btn-success">Confirmar Pedido</button>
             <a href="<?= BASE_URL ?>CarritoCompras/listar" class="btn btn-danger">ver Cesta</a>
-            <a href="<?= BASE_URL ?>Usuario/informacionGeneral" class="btn btn-info">ir al Formulario</a>
+            <a href="<?= BASE_URL ?>Admin/dashboard" class="btn btn-info">ir al Formulario</a>
           </form>
         </div>
         <div id="respuestaPhpConfimarPedido" style="display: none;"></div>

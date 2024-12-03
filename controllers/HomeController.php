@@ -15,9 +15,9 @@ class HomeController
         // Obtengo los Productos por Categoria Id
         $mostrarProductoPorCategoria = Utils::obtenerCategoriaPorId($idCategoria);
         // Obtengo Marca, Sin Repetir en el Sidebar
-        $mostrarMarcaSinRepetirSidebar = Utils::mostrarMarcaSinRepetirSidebar($idCategoria);
+        // $mostrarMarcaSinRepetirSidebar = Utils::mostrarMarcaSinRepetirSidebar($idCategoria);
         // Obtengo Memoria Ram o Capacidad, Sin Repetir en el Sidebar
-        $mostrarMemoriaRamSinRepetirSidebar = Utils::mostrarMemoriaRamSinRepetirSidebar($idCategoria);
+        // $mostrarMemoriaRamSinRepetirSidebar = Utils::mostrarMemoriaRamSinRepetirSidebar($idCategoria);
         // Consulta Para Autocompletar
         $listado  =  Utils::listarAutocompletado();
         // Mosrar listar de Autocompletado

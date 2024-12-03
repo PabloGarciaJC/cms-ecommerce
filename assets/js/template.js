@@ -71,15 +71,15 @@ class Template {
     //     document.getElementById("password2").setCustomValidity('');
     //   //empty string means no validation error
     // }
-	// Can also be used with $(document).ready()
+    // Can also be used with $(document).ready()
 
-  // Can also be used with $(document).ready() // par Ficha Producto
-  $(window).load(function () {
-    $('.flexslider').flexslider({
-      animation: "slide",
-      controlNav: "thumbnails"
+    // Can also be used with $(document).ready() // par Ficha Producto
+    $(window).load(function () {
+      $('.flexslider').flexslider({
+        animation: "slide",
+        controlNav: "thumbnails"
+      });
     });
-  });
 
     /*    <!-- start-smooth-scrolling --> */
     jQuery(document).ready(function ($) {
@@ -112,6 +112,31 @@ class Template {
   // Método customTemplate
   customTemplate() {
     this.tes();
+
+
+
+    /* Admin */
+    // Detectar clic en los enlaces principales
+    $(".panel-admin__menu-list > .panel-admin__menu-item > .panel-admin__menu-link").click(function (e) {
+      e.preventDefault(); // Prevenir comportamiento predeterminado
+
+      // Alternar submenú y flecha
+      $(this).next(".panel-admin__submenu").slideToggle(); // Desplegar/ocultar el submenú
+      $(this).find(".fa-chevron-right").toggleClass("rotate"); // Rotar flecha
+
+      // Cerrar otros submenús y reiniciar flechas
+      $(".panel-admin__submenu").not($(this).next(".panel-admin__submenu")).slideUp(); // Cerrar otros submenús
+      $(".fa-chevron-right").not($(this).find(".fa-chevron-right")).removeClass("rotate"); // Reiniciar flechas
+    });
+
+
+
+    /* Tes */
+ 
+
+
+
+
   }
 
   // Iniciar aplicación

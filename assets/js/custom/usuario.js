@@ -34,7 +34,7 @@ class User {
               timer: 500,
               showConfirmButton: false
             }).then(function () {
-              window.location = baseUrl + "usuario/informacionGeneral";
+              window.location = baseUrl + "Admin/dashboard";
             });
             $('#mdFormularioRegistro').trigger('reset');
           } else {
@@ -77,7 +77,7 @@ class User {
               timer: 500,
               showConfirmButton: false,
             }).then(function () {
-              window.location = baseUrl + "usuario/informacionGeneral";
+              window.location = baseUrl + "Admin/dashboard";
             });
             $("#mdFormularioIniciarSesion").trigger("reset");
           } else {
