@@ -66,61 +66,61 @@ class Utils
 
   public static function listaCategorias()
   {
-    require_once 'model/categorias.php';
-    $categorias = new categorias;
-    $categoria = $categorias->obtenerCategorias();
-    return $categoria;
+    // require_once 'model/categorias.php';
+    // $categorias = new categorias;
+    // $categoria = $categorias->obtenerCategorias();
+    // return $categoria;
   }
 
   public static function obtenerCategoriaPorId($idProductoCategoria)
   {
-    require_once 'model/categorias.php';
-    $categorias = new categorias;
-    $categorias->setId($idProductoCategoria);
-    $categoria = $categorias->obtenerCategoriasPorId();
-    return $categoria;
+    // require_once 'model/categorias.php';
+    // $categorias = new categorias;
+    // $categorias->setId($idProductoCategoria);
+    // $categoria = $categorias->obtenerCategoriasPorId();
+    // return $categoria;
   }
 
 
   public static function obtenerProductos()
   {
-    $productos = new productos;
-    $mostrar = $productos->obtenerTodos();
-    return $mostrar;
+    // $productos = new productos;
+    // $mostrar = $productos->obtenerTodos();
+    // return $mostrar;
   }
 
   public static function obtenerProductosyBuscadoryPaginador($buscador, $ultimoRegistro, $mostrarRegistros)
   {
-    $productos = new productos;
-    $productos->setBuscador($buscador);
-    $mostrar = $productos->obtenerProductosyBuscadoryPaginador($ultimoRegistro, $mostrarRegistros);
-    return $mostrar;
+    // $productos = new productos;
+    // $productos->setBuscador($buscador);
+    // $mostrar = $productos->obtenerProductosyBuscadoryPaginador($ultimoRegistro, $mostrarRegistros);
+    // return $mostrar;
   }
 
   public static function obtenerProductosPorId($id)
   {
     $productos = new productos;
-    $productos->setId($id);
-    $mostrar = $productos->productosPorId();
-    return $mostrar->fetch_object();
+    // $productos->setId($id);
+    // $mostrar = $productos->productosPorId();
+    // return $mostrar->fetch_object();
   }
 
   public static function obtenerImagenProductoPorId()
   {
-    require_once 'model/productos.php';
-    $productos = new productos;
-    $mostrar = $productos->obtenerTodos();
-    $obtenerImagen = $mostrar->fetch_object();
-    $completado = $obtenerImagen->imagen;
-    return $completado;
+    // require_once 'model/productos.php';
+    // $productos = new productos;
+    // $mostrar = $productos->obtenerTodos();
+    // $obtenerImagen = $mostrar->fetch_object();
+    // $completado = $obtenerImagen->imagen;
+    // return $completado;
   }
 
   public static function obtenerPaises()
   {
-    require_once 'model/paises.php';
-    $paises = new Paises();
-    $paisesTodos = $paises->obtenerTodosPaises();
-    return $paisesTodos;
+    // require_once 'model/paises.php';
+    // $paises = new Paises();
+    // $paisesTodos = $paises->obtenerTodosPaises();
+    // return $paisesTodos;
   }
 
   public static function obtenerPaisActual($paisActual)

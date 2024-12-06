@@ -6,20 +6,13 @@ class ProductoController
 {
   public function crear()
   {
-    //Acceso Usuario Registrado a esta Pagina
     Utils::accesoUsuarioRegistrado();
-    //Obtengo Ususario en el Banner
     $usuario = Utils::obtenerUsuario();
-    //Imprimo Lista Categoria   
     $categoria = Utils::listaCategorias();
-    //Obtengo Categorias en la Barra de Navegacion
     $categoriaBarraNavegacion = Utils::listaCategorias();
-    //Capturo el Id para Editar
     isset($_GET['id']) ? $obtenerProductosPorId = Utils::obtenerProductosPorId($_GET['id']) : false;
-
     require_once 'views/layout/head.php';
     require_once 'views/layout/header.php';
-    
     require_once 'views/admin/dashboard/index.php';
     require_once 'views/Producto/crear.php';
     require_once 'views/layout/footer.php';

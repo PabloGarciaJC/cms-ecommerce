@@ -3,9 +3,8 @@
 class Categorias
 {
   private $id;
-  private $nombre;  // Cambié 'categorias' a 'nombre' para mayor claridad
+  private $nombre;
   private $descripcion;
-  private $fechaIngreso;  // Este campo no está en la base de datos, ¿es necesario?
   private $db;
 
   /// CONSTRUCTOR ///
@@ -30,11 +29,6 @@ class Categorias
     return $this->descripcion;
   }
 
-  public function getFechaIngreso()
-  {
-    return $this->fechaIngreso;
-  }
-
   //// SETTERS ////
   public function setId($id)
   {
@@ -51,13 +45,6 @@ class Categorias
     $this->descripcion = $descripcion;
   }
 
-  public function setFechaIngreso($fechaIngreso)
-  {
-    $this->fechaIngreso = $fechaIngreso;
-  }
-
-  //// CONSULTAS ////
-
   // Obtener todas las categorías
   public function obtenerCategorias()
   {
@@ -67,40 +54,37 @@ class Categorias
   }
 
   // Obtener una categoría por su ID
-  public function obtenerCategoriasPorId()
+  public function obtenerCategoriaPorId()
   {
-    $sql = "SELECT * FROM categorias";
-    if ($this->getId() != '') {
-      $sql .= " WHERE id = {$this->getId()}";
-    }
-    
-    $listarCategorias = $this->db->query($sql);
-    return $listarCategorias->fetch_object();
+    $sql = "SELECT * FROM categorias WHERE id = {$this->getId()}";
+    $categoria = $this->db->query($sql);
+    return $categoria->fetch_object();
   }
 
-  // Obtener categorías para el menú de navegación
-  public function obtenerCategoriasNav()
+  // Crear una nueva categoría
+  public function crearCategoria()
   {
-    $sql = "SELECT * FROM categorias";
-    $listarCategorias = $this->db->query($sql);
-    return $listarCategorias;
+    $sql = "INSERT INTO categorias (nombre, descripcion) 
+            VALUES ('{$this->getNombre()}', '{$this->getDescripcion()}')";
+    $crearCategoria = $this->db->query($sql);
+    return $crearCategoria;
   }
 
   // Actualizar una categoría por su ID
   public function actualizarCategoriaPorId()
   {
     $sql = "UPDATE categorias 
-            SET categorias = '{$this->getNombre()}', descripcion = '{$this->getDescripcion()}' 
+            SET nombre = '{$this->getNombre()}', descripcion = '{$this->getDescripcion()}' 
             WHERE id = {$this->getId()}";
     $categoria = $this->db->query($sql);
     return $categoria;
   }
 
-  // Eliminar una categoría
-  public function eliminar()
+  // Eliminar una categoría por su ID
+  public function eliminarCategoria()
   {
     $result = false;
-    $sql = "DELETE FROM categorias WHERE id = {$this->id}";
+    $sql = "DELETE FROM categorias WHERE id = {$this->getId()}";
     $delete = $this->db->query($sql);
     if ($delete) {
       $result = true;
@@ -108,13 +92,38 @@ class Categorias
     return $result;
   }
 
-  // Crear una nueva categoría
-  public function crearLista()
+  public function obtenerCategoriasConSubcategorias()
   {
-    $sql = "INSERT INTO categorias (categorias, descripcion) 
-            VALUES ('{$this->getNombre()}', '{$this->getDescripcion()}')";
-    $crearLista = $this->db->query($sql);  
-    return $crearLista;
+    $sql = "
+        SELECT 
+            c.id AS categoria_id, 
+            c.nombre AS categoria_nombre, 
+            s.id AS subcategoria_id, 
+            s.nombre AS subcategoria_nombre
+        FROM 
+            categorias c
+        LEFT JOIN 
+            subcategorias s ON c.id = s.categoria_id
+        ORDER BY 
+            c.nombre, s.nombre";
+
+    $db = Database::connect();
+    $result = $db->query($sql);
+
+    // Organizar datos en un array asociativo
+    $categorias = [];
+    while ($row = $result->fetch_assoc()) {
+      $categorias[$row['categoria_id']]['nombre'] = $row['categoria_nombre'];
+      $categorias[$row['categoria_id']]['subcategorias'][] = [
+        'id' => $row['subcategoria_id'],
+        'nombre' => $row['subcategoria_nombre']
+      ];
+    }
+
+    return $categorias;
   }
 
+
+
+  
 }

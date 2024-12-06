@@ -2,11 +2,10 @@
 
 <div class="panel-admin__flex-container">
 
-    <?php include __DIR__ . '../../layout/navigation.php'; ?>
+    <?php include __DIR__ . '../../layout/sidebar.php'; ?>
 
     <main class="panel-admin__main-content">
         <section class="panel-admin__dashboard">
-
             <?php if (isset($_SESSION['exito'])) : ?>
                 <div class="alert alert-success alert-dismissible fade show mt-2 success-alert" role="alert">
                     <i class="fas fa-check-circle"></i> <?php echo $_SESSION['exito']; ?>
@@ -16,12 +15,9 @@
                 </div>
                 <?php unset($_SESSION['exito']); ?>
             <?php endif; ?>
-
             <h2 class="panel-admin__dashboard-title">Perfil de Usuario</h2>
-
             <form action="<?php echo BASE_URL; ?>Admin/perfilGuardar" method="POST" enctype="multipart/form-data" class="panel-admin__user-form">
                 <input type="hidden" name="id" class="form-control" value="<?php echo $usuario->Id; ?>">
-
                 <div class="form-group">
                     <label for="username">Usuario:</label>
                     <input type="text" id="username" name="usuario" class="form-control" placeholder="Nombre de usuario" value="<?php echo $usuario->Usuario; ?>">
@@ -31,7 +27,7 @@
                         </div>
                     <?php endif; ?>
                 </div>
-<!-- 
+                <!-- 
                 <div class="form-group">
                     <label for="password">Contraseña:</label>
                     <div style="position: relative;">
@@ -46,7 +42,6 @@
                         </div>
                     <?php endif; ?>
                 </div> -->
-
                 <div class="form-group">
                     <label>Número de Documento:</label>
                     <input type="text" name="documentacion" class="form-control" placeholder="Documento de identidad" value="<?php echo $usuario->NumeroDocumento; ?>">
@@ -56,7 +51,6 @@
                         </div>
                     <?php endif; ?>
                 </div>
-
                 <div class="form-group">
                     <label>Nombres:</label>
                     <input type="text" name="nombre" class="form-control" placeholder="Nombres del usuario" value="<?php echo $usuario->Nombres; ?>">
@@ -66,7 +60,6 @@
                         </div>
                     <?php endif; ?>
                 </div>
-
                 <div class="form-group">
                     <label>Apellidos:</label>
                     <input type="text" name="apellido" class="form-control" placeholder="Apellidos del usuario" value="<?php echo $usuario->Apellidos; ?>">
@@ -76,7 +69,6 @@
                         </div>
                     <?php endif; ?>
                 </div>
-
                 <div class="form-group">
                     <label>Correo Electrónico:</label>
                     <input type="email" name="email" class="form-control" placeholder="Correo electrónico" value="<?php echo $usuario->Email; ?>" disabled>
@@ -86,7 +78,6 @@
                         </div>
                     <?php endif; ?>
                 </div>
-
                 <div class="form-group">
                     <label>Número de Teléfono:</label>
                     <input type="text" name="telefono" class="form-control" placeholder="Teléfono del usuario" value="<?php echo $usuario->NroTelefono; ?>">
@@ -96,7 +87,6 @@
                         </div>
                     <?php endif; ?>
                 </div>
-
                 <div class="form-group">
                     <label>Dirección:</label>
                     <input type="text" name="direccion" class="form-control" placeholder="Dirección del usuario" value="<?php echo $usuario->Direccion; ?>">
@@ -106,7 +96,6 @@
                         </div>
                     <?php endif; ?>
                 </div>
-
                 <div class="form-group">
                     <label for="pais">País:</label>
                     <select class="form-control" id="pais" name="pais">
@@ -124,7 +113,6 @@
                         </div>
                     <?php endif; ?>
                 </div>
-
                 <div class="form-group">
                     <label for="ciudad">Ciudad/Región:</label>
                     <select class="form-control" id="ciudad" name="ciudad" <?php echo empty($usuario->Pais) ? 'disabled' : ''; ?>>
@@ -140,7 +128,6 @@
                         </div>
                     <?php endif; ?>
                 </div>
-
                 <div class="form-group">
                     <label for="codigoPostal">Código Postal:</label>
                     <input type="text" id="codigoPostal" name="codigoPostal" class="form-control" value="<?php echo $usuario->CodigoPostal; ?>">
@@ -150,7 +137,6 @@
                         </div>
                     <?php endif; ?>
                 </div>
-
                 <div class="form-group">
                     <label for="avatar">Imagen de Usuario (Avatar):</label>
                     <input type="file" id="avatar" name="avatar" class="form-control" accept="image/*">
@@ -163,11 +149,9 @@
                         </div>
                     <?php endif; ?>
                 </div>
-
                 <button type="submit" class="btn btn-primary">Guardar Perfil</button>
             </form>
         </section>
     </main>
 </div>
-
 <?php unset($_SESSION['errores']); ?>

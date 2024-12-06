@@ -2,7 +2,7 @@
 
 <div class="panel-admin__flex-container">
 
-    <?php include __DIR__ . '../../layout/navigation.php'; ?>
+    <?php include __DIR__ . '../../layout/sidebar.php'; ?>
 
     <main class="panel-admin__main-content">
 

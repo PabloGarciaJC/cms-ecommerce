@@ -39,7 +39,6 @@ class Paises
 
   public function obtenerTodosPaises()
   {
-    $resultado = false;
     $sql = "SELECT * FROM paises";
     $paises = $this->db->query($sql);
     return $paises;

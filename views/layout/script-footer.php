@@ -12,10 +12,9 @@
 <script src="<?php echo BASE_URL ?>assets/js/move-top.js"></script>
 <script src="<?php echo BASE_URL ?>assets/js/scroll.js"></script>
 <script src="<?php echo BASE_URL ?>assets/js/SmoothScroll.min.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 <script src="<?= BASE_URL ?>assets/js/template.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 <script src="<?= BASE_URL ?>assets/js/custom/app.js"></script>
 <script src="<?= BASE_URL ?>assets/js/custom/config.js"></script>
 <script src="<?= BASE_URL ?>assets/js/custom/usuario.js"></script>

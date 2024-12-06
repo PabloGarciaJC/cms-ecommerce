@@ -253,7 +253,7 @@ class Usuario
   }
 
 
-  public function actualizarInformacionPublica()
+  public function actualizar()
   {
     $resultado = false;    
     $sql = "UPDATE usuarios SET Usuario = '{$this->getUsuario()}', Password = '{$this->getPassword()}', NumeroDocumento = '{$this->getNumeroDocumento()}', Nombres = '{$this->getNombres()}', Apellidos = '{$this->getApellidos()}', NroTelefono = '{$this->getNroTelefono()}', Direccion = '{$this->getDireccion()}', Pais = '{$this->getPais()}', Ciudad = '{$this->getCiudad()}', CodigoPostal = '{$this->getCodigoPostal()}' WHERE Id = {$this->getId()};";

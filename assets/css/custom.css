@@ -11,7 +11,6 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-
   }
 
   .panel-admin__header-title {
@@ -70,7 +69,6 @@
       margin-right: 10px;
   }
 
-  /* Main Content */
   .panel-admin__main-content {
       background: #ecf0f1;
       border-radius: 10px;
@@ -85,9 +83,11 @@
   }
 
   .panel-admin__dashboard--categorias {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
+      display: flex;
+  }
+
+  .panel-admin__category-form {
+      width: 100%;
   }
 
   .panel-admin__dashboard-title {
@@ -124,13 +124,10 @@
       color: #7f8c8d;
   }
 
-
   .panel-admin__header-nav-link i {
       margin-right: 8px;
   }
 
-
-  /* Ocultar submenús inicialmente */
   .panel-admin__submenu {
       display: none;
       padding-left: 10px;
@@ -138,20 +135,17 @@
       list-style: none;
   }
 
-  /* Rotación de la flecha */
   .rotate {
       transform: rotate(90deg);
       transition: transform 0.3s ease;
   }
 
-  /* Estilo opcional para submenús */
   .panel-admin__submenu-item {
       margin: 5px 10px;
       position: relative;
       padding-left: 15px;
   }
 
-  /* Personalizar el marcador con un ícono */
   .panel-admin__submenu-item::before {
       content: "\f105";
       font-family: "Font Awesome 5 Free";
@@ -164,7 +158,6 @@
       font-size: 15px;
   }
 
-  /* Enlaces del submenú */
   .panel-admin__submenu-link {
       color: #fff;
       text-decoration: none;
@@ -241,17 +234,10 @@
       font-size: 1.2rem;
   }
 
-  /* .panel-admin__category-list {
-      text-align: center;
-  } */
-
   .panel-admin__avatar-thumbnail {
       width: 200px;
   }
 
-
-
-  /* Estilo general para el contenedor de las imágenes */
   .panel-admin__image-container {
       display: flex;
       margin-right: 10px;
@@ -262,15 +248,12 @@
       align-items: center;
   }
 
-  /* Estilo para las imágenes de producto */
   .panel-admin__image-thumbnail {
       width: 200px;
       height: 200px;
-      /* Fijar el tamaño de la imagen */
       margin-bottom: 10px;
   }
 
-  /* Botones debajo de las imágenes */
   .panel-admin__btn {
       cursor: pointer;
       width: 100%;
@@ -278,24 +261,81 @@
       font-size: 12px;
   }
 
-  /* Estilo para el botón de eliminar */
   .panel-admin__btn--delete {
       background-color: #dc3545;
       border: #dc3545;
       color: white;
   }
 
-  /* Estilo para el botón de editar */
   .panel-admin__btn--edit {
       background-color: #ffc107;
       border: #ffc107;
       color: black;
   }
 
-  /* Contenedor para la vista previa de imágenes */
   .panel-admin__image-preview {
-    cursor: pointer;
+      cursor: pointer;
       display: flex;
       flex-wrap: wrap;
-    
+  }
+
+  /* Estilo para igualar la altura del select2 con los otros inputs */
+  .select2-container .select2-selection--single {
+      height: calc(2.25rem + 2px);
+      line-height: calc(2.25rem + 2px);
+      padding: 0.375rem 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+  }
+
+  .select2-container .select2-selection__rendered {
+      line-height: calc(2.25rem + 2px);
+      display: flex;
+      align-items: center;
+  }
+
+  .select2-container .select2-selection__arrow {
+      height: calc(2.25rem + 2px);
+      top: 0;
+  }
+
+  .select2-container .select2-selection__arrow b {
+      line-height: calc(2.25rem + 2px);
+  }
+
+  .select2-container--default .select2-selection--single .select2-selection__arrow {
+      height: 26px;
+      position: absolute;
+      top: 5px;
+      right: 1px;
+      width: 30px;
+  }
+
+  .select2-container--default .select2-selection--single .select2-selection__clear {
+      cursor: pointer;
+      float: right;
+      font-weight: bold;
+      margin-left: 10px;
+      color: red;
+      font-size: 20px;
+  }
+
+  /* Tabla Lista */
+  .subcategorias-cell ul {
+      list-style-type: none;
+      padding-left: 0;
+      margin: 0;
+  }
+
+  .subcategorias-cell ul li::marker {
+      content: none;
+  }
+
+  .categoria-icon {
+      color: #007bff;
+  }
+
+  .subcategoria-icon {
+      color: #ffc107;
   }

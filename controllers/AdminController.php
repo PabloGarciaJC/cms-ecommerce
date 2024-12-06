@@ -1,5 +1,8 @@
 <?php
 require_once 'model/usuario.php';
+require_once 'model/categorias.php';
+require_once 'model/paises.php';
+require_once 'model/subcategorias.php';
 
 class AdminController
 {
@@ -30,19 +33,19 @@ class AdminController
         $ciudad = isset($_POST['ciudad']) ? trim($_POST['ciudad']) : false;
         $codigoPostal = isset($_POST['codigoPostal']) ? trim($_POST['codigoPostal']) : false;
 
-        $actualizarInformacionPublica = new Usuario();
-        $actualizarInformacionPublica->setId($id);
-        $actualizarInformacionPublica->setUsuario($usuario);
-        $actualizarInformacionPublica->setPassword($password);
-        $actualizarInformacionPublica->setNumeroDocumento($documentacion);
-        $actualizarInformacionPublica->setNroTelefono($telefono);
-        $actualizarInformacionPublica->setNombres($nombre);
-        $actualizarInformacionPublica->setApellidos($apellido);
-        $actualizarInformacionPublica->setEmail($email);
-        $actualizarInformacionPublica->setDireccion($direccion);
-        $actualizarInformacionPublica->setPais($pais);
-        $actualizarInformacionPublica->setCiudad($ciudad);
-        $actualizarInformacionPublica->setCodigoPostal($codigoPostal);
+        $usuarios = new Usuario();
+        $usuarios->setId($id);
+        $usuarios->setUsuario($usuario);
+        $usuarios->setPassword($password);
+        $usuarios->setNumeroDocumento($documentacion);
+        $usuarios->setNroTelefono($telefono);
+        $usuarios->setNombres($nombre);
+        $usuarios->setApellidos($apellido);
+        $usuarios->setEmail($email);
+        $usuarios->setDireccion($direccion);
+        $usuarios->setPais($pais);
+        $usuarios->setCiudad($ciudad);
+        $usuarios->setCodigoPostal($codigoPostal);
 
         // Array para almacenar los errores
         $errores = [];
@@ -54,10 +57,6 @@ class AdminController
             $errores['usuario'] = "El alias no puede tener más de 12 caracteres.";
         }
 
-        // if (empty($password)) {
-        //     $errores['password'] = "La Password es obligatoria.";
-        // }
-
         if (empty($documentacion)) {
             $errores['documentacion'] = "El número de documento es obligatorio.";
         }
@@ -66,11 +65,6 @@ class AdminController
             $errores['telefono'] = "El número de teléfono es obligatorio.";
         }
 
-        // if (empty($email)) {
-        //     $errores['email'] = "El número de email es obligatorio.";
-        // }
-
-        // Validación de los campos
         if (empty($nombre)) {
             $errores['nombre'] = "El nombre es obligatorio.";
         } elseif (strlen($nombre) > 50) {
@@ -105,23 +99,18 @@ class AdminController
         if (count($errores) > 0) {
             $_SESSION['errores'] = $errores;
         } else {
-
             // Lógica de manejo del avatar
             $nombreArchivo = isset($_FILES['avatar']['name']) ? $_FILES['avatar']['name'] : false;
             $rutaTemporal = isset($_FILES['avatar']['tmp_name']) ? $_FILES['avatar']['tmp_name'] : false;
-
             if ($rutaTemporal) {
                 $directorioDestino = 'uploads/images/avatar/';
                 if (!is_dir($directorioDestino)) {
                     mkdir($directorioDestino, 0777, true);
                 }
-
                 $nombreArchivoUnico = time() . '_' . basename($nombreArchivo);
-
                 $subirImagen = new Usuario();
                 $subirImagen->setId($id);
                 $subirImagen->setimagen($nombreArchivoUnico);
-
                 $obtenerUsuario = $subirImagen->obtenerTodosPorId();
                 $ruta = $directorioDestino . $obtenerUsuario->imagen;
 
@@ -135,17 +124,13 @@ class AdminController
                     return;
                 }
             }
-
             // Actualizamos la información en la base de datos
-            $actualizarInformacionPublica->actualizarInformacionPublica();
-
+            $usuarios->actualizar();
             // Limpiar los errores y los datos del formulario después de procesar
             unset($_SESSION['errores']);
-
             // Guardar el mensaje de éxito en la sesión
             $_SESSION['exito'] = 'La información se actualizó correctamente.';
         }
-
         // Redirigir a la página de información general
         header("Location: " . BASE_URL . "Admin/perfil");
         exit;
@@ -153,18 +138,10 @@ class AdminController
 
     public function perfil()
     {
-        //Acceso Usuario Registrado a esta Pagina
         Utils::accesoUsuarioRegistrado();
-
-        //Obtengo Ususario en el Banner sin Modelo
         $usuario = Utils::obtenerUsuarioSinModelo();
-
-        //Obtengo Categorias en la Barra de Navegacion
-        $categoriaBarraNavegacion = Utils::listaCategorias();
-
-        //Obtengo Todos Los Paises
-        $paisesTodos = Utils::obtenerPaises();
-
+        $paises = new Paises();
+        $paisesTodos = $paises->obtenerTodosPaises();
         require_once 'views/layout/head.php';
         require_once 'views/admin/user/perfil.php';
         require_once 'views/layout/script-footer.php';
@@ -173,18 +150,99 @@ class AdminController
     public function categorias()
     {
         Utils::accesoUsuarioRegistrado();
+        $categorias = new Categorias();
+        $getCategorias = $categorias->obtenerCategorias();
+        if (isset($_GET['id'])) {
+            $categorias->setId($_GET['id']);
+            $getCategoriasId = $categorias->obtenerCategoriaPorId();
+        }
         require_once 'views/layout/head.php';
-        require_once 'views/admin/categorias/crear.php';
+        require_once 'views/admin/ecommerce/crear.php';
         require_once 'views/layout/script-footer.php';
     }
 
-    public function listaCategorias()
+    public function guardarCategorias()
+    {
+        // Acceso del usuario registrado
+        Utils::accesoUsuarioRegistrado();
+
+        // Obtener los valores del formulario
+        $name = isset($_POST['name']) ? $_POST['name'] : false;
+        $descripcion = isset($_POST['descripcion']) ? $_POST['descripcion'] : false;
+        $categoria_id = isset($_POST['subcategoria']) ? $_POST['subcategoria'] : false;
+
+        $categorias = new Categorias();
+        $subCategorias = new Subcategorias();
+
+        // Array para almacenar errores
+        $errores = [];
+
+        // Validaciones
+        if (empty($name)) {
+            $errores['name'] = "El nombre es obligatorio.";
+        }
+
+        if (empty($descripcion)) {
+            $errores['descripcion'] = "La descripción es obligatoria.";
+        }
+
+        // Si no es subcategoría, crear una categoría principal
+        if (empty($categoria_id)) {
+            // Crear categoría principal
+            $categorias->setNombre($name);
+            $categorias->setDescripcion($descripcion);
+            $resultado = $categorias->crearCategoria();
+        } else {
+
+            $subCategorias->setNombre($name);
+            $subCategorias->setDescripcion($descripcion);
+            $subCategorias->setCategoriaId($categoria_id);
+            $resultado = $subCategorias->crearSubcategoria();
+        }
+
+        // Si existen errores, los guardamos en la sesión y redirigimos
+        if (count($errores) > 0) {
+            $_SESSION['errores'] = $errores;
+            header("Location: " . BASE_URL . "Admin/categorias");
+            exit;
+        }
+
+        // Si la operación fue exitosa, mostrar mensaje
+        if ($resultado) {
+            $_SESSION['exito'] = 'La información se guardó correctamente.';
+        }
+
+        // Limpiar los errores después de procesar
+        unset($_SESSION['errores']);
+
+        // Redirigir al listado de categorías
+        header("Location: " . BASE_URL . "Admin/categorias");
+        exit;
+    }
+
+    public function ecommerce()
     {
         Utils::accesoUsuarioRegistrado();
+        $categoriasModel = new Categorias();
+        $categorias = $categoriasModel->obtenerCategoriasConSubcategorias();
         require_once 'views/layout/head.php';
-        require_once 'views/admin/categorias/lista.php';
+        require_once 'views/admin/ecommerce/lista.php';
         require_once 'views/layout/script-footer.php';
     }
+
+    public function editarGuardarCategoria()
+    {
+        echo 'editar';
+    }
+
+    public function eliminarGuardarCategoria()
+    {
+        echo 'eliminar';
+    }
+
+
+
+
 
     public function productos()
     {
@@ -209,7 +267,6 @@ class AdminController
         require_once 'views/admin/pedidos/lista.php';
         require_once 'views/layout/script-footer.php';
     }
-
 
     public function cerrarSesion()
     {

@@ -130,12 +130,20 @@ class App {
     }, 1500);
   }
 
+  select2() {
+    $('#subcategoria').select2({
+      placeholder: "Seleccione...",
+      allowClear: true
+    });
+  }
+
   // Método customApp
   customApp() {
     this.avatarVistaPrevia();
     this.mostrarCiudades();
     this.mostrarPassword();
     this.autoHideAlert();
+    this.select2();
   }
 
   // Iniciar aplicación

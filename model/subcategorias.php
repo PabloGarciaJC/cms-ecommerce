@@ -1,9 +1,9 @@
 <?php
 
-class Subcategoria
+class Subcategorias
 {
     private $id;
-    private $categoriaId;
+    private $categoria_id;
     private $nombre;
     private $descripcion;
     private $db;
@@ -41,9 +41,9 @@ class Subcategoria
         $this->id = $id;
     }
 
-    public function setCategoriaId($categoriaId)
+    public function setCategoriaId($categoria_id)
     {
-        $this->categoria_id = $categoriaId;
+        $this->categoria_id = $categoria_id;
     }
 
     public function setNombre($nombre)
@@ -56,7 +56,16 @@ class Subcategoria
         $this->descripcion = $descripcion;
     }
 
-    //// CONSULTAS ////
+    //// CONSULTAS CRUD ////
+
+    // Crear una subcategoría
+    public function crearSubcategoria()
+    {
+        $sql = "INSERT INTO subcategorias (categoria_id, nombre, descripcion) 
+                VALUES ('{$this->getCategoriaId()}', '{$this->getNombre()}', '{$this->getDescripcion()}')";
+        $crearSubcategoria = $this->db->query($sql);
+        return $crearSubcategoria;
+    }
 
     // Obtener todas las subcategorías
     public function obtenerSubcategorias()
@@ -69,16 +78,12 @@ class Subcategoria
     // Obtener una subcategoría por su ID
     public function obtenerSubcategoriaPorId()
     {
-        $sql = "SELECT * FROM subcategorias";
-        if ($this->getId() != '') {
-            $sql .= " WHERE id = {$this->getId()}";
-        }
-
+        $sql = "SELECT * FROM subcategorias WHERE id = {$this->getId()}";
         $listarSubcategoria = $this->db->query($sql);
         return $listarSubcategoria->fetch_object();
     }
 
-    // Obtener subcategorías por categoría (categoria_id)
+    // Obtener subcategorías por el id de la categoría
     public function obtenerSubcategoriasPorCategoria()
     {
         $sql = "SELECT * FROM subcategorias WHERE categoria_id = {$this->getCategoriaId()}";
@@ -90,31 +95,18 @@ class Subcategoria
     public function actualizarSubcategoriaPorId()
     {
         $sql = "UPDATE subcategorias 
-                SET nombre = '{$this->getNombre()}', descripcion = '{$this->getDescripcion()}', categoria_id = {$this->getCategoriaId()} 
+                SET categoria_id = '{$this->getCategoriaId()}', nombre = '{$this->getNombre()}', descripcion = '{$this->getDescripcion()}' 
                 WHERE id = {$this->getId()}";
         $subcategoria = $this->db->query($sql);
         return $subcategoria;
     }
 
-    // Eliminar una subcategoría
-    public function eliminar()
+    // Eliminar una subcategoría por su ID
+    public function eliminarSubcategoria()
     {
-        $result = false;
-        $sql = "DELETE FROM subcategorias WHERE id = {$this->id}";
+        $sql = "DELETE FROM subcategorias WHERE id = {$this->getId()}";
         $delete = $this->db->query($sql);
-        if ($delete) {
-            $result = true;
-        }
-        return $result;
-    }
-
-    // Crear una nueva subcategoría
-    public function crearSubcategoria()
-    {
-        $sql = "INSERT INTO subcategorias (categoria_id, nombre, descripcion) 
-                VALUES ({$this->getCategoriaId()}, '{$this->getNombre()}', '{$this->getDescripcion()}')";
-        $crearSubcategoria = $this->db->query($sql);
-        return $crearSubcategoria;
+        return $delete;
     }
 }
 ?>

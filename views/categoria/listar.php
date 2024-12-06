@@ -1,4 +1,4 @@
-<div class="col-md-7 col-xl-8">
+<!-- <div class="col-md-7 col-xl-8">
   <div class="tab-content">
     <div class="tab-pane fade show active" id="account" role="tabpanel">
       <div class="card">
@@ -6,7 +6,7 @@
           <h5 class="card-title mb-0">Gestionar Categorías</h5>
         </div>
         <div class="card-body">
-          <!-- Categorias -->
+  
           <div class="container">
             <div class="row">
               <div class="col-md-12">
@@ -74,17 +74,17 @@
               </div>
             </div>
           </div>
-          <!-- //Categorias -->
+
         </div>
       </div>
     </div>
   </div>
 </div>
 </div>
-</div>
+</div> -->
 
 <!-- Crear Categorias -->
-<div class="modal fade" id="modalCrearCategoria" tabindex="-1" role="dialog" aria-hidden="true">
+<!-- <div class="modal fade" id="modalCrearCategoria" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -108,10 +108,10 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
 <!-- Editar Categorias -->
-<div class="modal fade" id="modalEditarCategoria" tabindex="-1" role="dialog" aria-hidden="true">
+<!-- <div class="modal fade" id="modalEditarCategoria" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -140,4 +140,4 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
