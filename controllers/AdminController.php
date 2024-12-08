@@ -15,6 +15,17 @@ class AdminController
         require_once 'views/layout/script-footer.php';
     }
 
+    public function perfil()
+    {
+        Utils::accesoUsuarioRegistrado();
+        $usuario = Utils::obtenerUsuarioSinModelo();
+        $paises = new Paises();
+        $paisesTodos = $paises->obtenerTodosPaises();
+        require_once 'views/layout/head.php';
+        require_once 'views/admin/user/perfil.php';
+        require_once 'views/layout/script-footer.php';
+    }
+
     public function perfilGuardar()
     {
         //Acceso Usuario Registrado a esta Pagina
@@ -131,34 +142,20 @@ class AdminController
             unset($_SESSION['errores']);
             // Guardar el mensaje de éxito en la sesión
             $_SESSION['exito'] = 'La información se actualizó correctamente.';
+
+            // Redirigir a la página de información general
+            header("Location: " . BASE_URL . "Admin/perfil");
+            exit;
         }
-        // Redirigir a la página de información general
-        header("Location: " . BASE_URL . "Admin/perfil");
-        exit;
     }
 
-    public function perfil()
+    public function ecommerce()
     {
         Utils::accesoUsuarioRegistrado();
-        $usuario = Utils::obtenerUsuarioSinModelo();
-        $paises = new Paises();
-        $paisesTodos = $paises->obtenerTodosPaises();
+        $categoriasModel = new Categorias();
+        $categorias = $categoriasModel->obtenerCategorias();
         require_once 'views/layout/head.php';
-        require_once 'views/admin/user/perfil.php';
-        require_once 'views/layout/script-footer.php';
-    }
-
-    public function categorias()
-    {
-        Utils::accesoUsuarioRegistrado();
-        $categorias = new Categorias();
-        $getCategorias = $categorias->obtenerCategorias();
-        if (isset($_GET['id'])) {
-            $categorias->setId($_GET['id']);
-            $getCategoriasId = $categorias->obtenerCategoriaPorId();
-        }
-        require_once 'views/layout/head.php';
-        require_once 'views/admin/categoria/crear.php';
+        require_once 'views/admin/ecommerce/index.php';
         require_once 'views/layout/script-footer.php';
     }
 
@@ -250,10 +247,32 @@ class AdminController
             unset($_SESSION['errores']);
             // Guardar el mensaje de éxito en la sesión
             $_SESSION['exito'] = 'La información se actualizó correctamente.';
+
+            // Redirigir a la página de información general
+            header("Location: " . BASE_URL . "Admin/ecommerce");
+            exit;
         }
-        // Redirigir a la página de información general
-        header("Location: " . BASE_URL . "Admin/productos");
-        exit;
+    }
+
+    public function categorias()
+    {
+        Utils::accesoUsuarioRegistrado();
+        $categorias = new Categorias();
+        $getCategorias = $categorias->obtenerCategorias();
+        $editId = isset($_GET['editid']) ? $_GET['editid'] : false;
+        $deteleId = isset($_GET['deteleid']) ? $_GET['deteleid'] : false;
+        if ($editId) {
+            $categorias->setId($editId);
+            $getCategoriasId = $categorias->obtenerCategoriaPorId();
+        } elseif ($deteleId) {
+            $categorias->setId($deteleId);
+            $getCategoriasId = $categorias->obtenerCategoriaPorId();
+        } else {
+            $getCategoriasId = null;
+        }
+        require_once 'views/layout/head.php';
+        require_once 'views/admin/categoria/crear.php';
+        require_once 'views/layout/script-footer.php';
     }
 
     public function guardarCategorias()
@@ -264,6 +283,10 @@ class AdminController
         // Obtener los valores del formulario
         $name = isset($_POST['name']) ? $_POST['name'] : false;
         $descripcion = isset($_POST['descripcion']) ? $_POST['descripcion'] : false;
+        $editId = isset($_POST['editid']) ? $_POST['editid'] : false;
+        $deteleId = isset($_POST['deteleid']) ? $_POST['deteleid'] : false;
+
+        // Crear el objeto Categorias
         $categorias = new Categorias();
         $categorias->setNombre($name);
         $categorias->setDescripcion($descripcion);
@@ -283,26 +306,36 @@ class AdminController
         if (count($errores) > 0) {
             $_SESSION['errores'] = $errores;
         } else {
-            // Crear categoría principal
-            $categorias->crearCategoria();
+            // Usamos un switch para determinar qué acción tomar
+            switch (true) {
+                case $editId:
+                    // Caso de editar (actualizar categoría)
+                    $categorias->setId($editId); // Establecer el ID de la categoría a editar
+                    $categorias->actualizarCategoriaPorId();
+                    $_SESSION['exito'] = 'La categoría se actualizó correctamente.';
+                    break;
+
+                case $deteleId:
+                    // Caso de eliminar categoría
+                    $categorias->setId($deteleId); // Establecer el ID de la categoría a eliminar
+                    $categorias->eliminarCategoria();
+                    $_SESSION['exito'] = 'La categoría se eliminó correctamente.';
+                    break;
+
+                default:
+                    // Caso por defecto (crear nueva categoría)
+                    $categorias->crearCategoria();
+                    $_SESSION['exito'] = 'La categoría se creó correctamente.';
+                    break;
+            }
+
             // Limpiar los errores después de procesar
             unset($_SESSION['errores']);
-            // Si la operación fue exitosa, mostrar mensaje
-            $_SESSION['exito'] = 'La información se guardó correctamente.';
-        }
-        // Redirigir al listado de categorías
-        header("Location: " . BASE_URL . "Admin/categorias");
-        exit;
-    }
 
-    public function ecommerce()
-    {
-        Utils::accesoUsuarioRegistrado();
-        $categoriasModel = new Categorias();
-        $categorias = $categoriasModel->obtenerCategorias();
-        require_once 'views/layout/head.php';
-        require_once 'views/admin/ecommerce/index.php';
-        require_once 'views/layout/script-footer.php';
+            // Redirigir al listado de categorías
+            header("Location: " . BASE_URL . "Admin/ecommerce");
+            exit;
+        }
     }
 
     // public function listaProductos()

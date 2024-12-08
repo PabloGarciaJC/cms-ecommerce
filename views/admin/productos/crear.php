@@ -3,15 +3,6 @@
     <?php include __DIR__ . '../../layout/sidebar.php'; ?>
     <main class="panel-admin__main-content">
         <section class="panel-admin__dashboard">
-            <?php if (isset($_SESSION['exito'])) : ?>
-                <div class="alert alert-success alert-dismissible fade show mt-2 success-alert" role="alert">
-                    <i class="fas fa-check-circle"></i> <?php echo $_SESSION['exito']; ?>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <?php unset($_SESSION['exito']); ?>
-            <?php endif; ?>
             <h2 class="panel-admin__dashboard-title">Crear Nuevo Producto</h2>
             <form action="<?php echo BASE_URL; ?>Admin/guardarProductos" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
@@ -98,4 +89,4 @@
         </section>
     </main>
 </div>
-<?php unset($_SESSION['errores']); ?>
+

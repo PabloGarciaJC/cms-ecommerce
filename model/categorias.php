@@ -84,11 +84,21 @@ class Categorias
   public function eliminarCategoria()
   {
     $result = false;
-    $sql = "DELETE FROM categorias WHERE id = {$this->getId()}";
-    $delete = $this->db->query($sql);
-    if ($delete) {
-      $result = true;
+
+    // Primero, eliminar los productos que están relacionados con esta categoría
+    $sqlProductos = "DELETE FROM productos WHERE id_categoria = {$this->getId()}";
+    $deleteProductos = $this->db->query($sqlProductos);
+
+    if ($deleteProductos) {
+      // Luego, eliminar la categoría
+      $sqlCategoria = "DELETE FROM categorias WHERE id = {$this->getId()}";
+      $deleteCategoria = $this->db->query($sqlCategoria);
+
+      if ($deleteCategoria) {
+        $result = true;
+      }
     }
+
     return $result;
   }
 }
