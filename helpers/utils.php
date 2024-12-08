@@ -274,10 +274,10 @@ class Utils
 
   public static function listarAutocompletado()
   {
-    $productos = new productos;
-    // $productos->setBuscador($buscadorProducto);
-    $listado = $productos->ejecutarBuscador();
-    return $listado;
+    // $productos = new productos;
+    // // $productos->setBuscador($buscadorProducto);
+    // $listado = $productos->ejecutarBuscador();
+    // return $listado;
   }
 
   public static function mostrarAutocompletado($listado)

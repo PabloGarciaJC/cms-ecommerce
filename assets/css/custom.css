@@ -339,3 +339,59 @@
   .subcategoria-icon {
       color: #ffc107;
   }
+
+  /* breadcrumbs */
+  .breadcrumbs {
+      border-radius: 5px;
+      font-family: Arial, sans-serif;
+      margin-bottom: 20px;
+  }
+
+  .breadcrumb {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin: 0;
+      padding: 0;
+      background-color: #fff;
+  }
+
+  .breadcrumb-item {
+      font-size: 14px;
+      color: #007bff;
+  }
+
+  .breadcrumb-item a {
+      text-decoration: none;
+      color: #007bff;
+      transition: color 0.3s;
+  }
+
+  .breadcrumb-item a:hover {
+      color: #0056b3;
+  }
+
+  .breadcrumb-item span {
+      color: #6c757d;
+      font-weight: bold;
+      text-decoration: none;
+  }
+
+  .breadcrumb-item+.breadcrumb-item:before {
+      content: ">";
+      color: #6c757d;
+      padding: 0 5px;
+  }
+
+  @media (max-width: 768px) {
+      .breadcrumb-item {
+          font-size: 12px;
+      }
+  }
+
+  @media (max-width: 480px) {
+      .breadcrumb {
+          flex-direction: column;
+      }
+  }

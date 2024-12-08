@@ -14,7 +14,7 @@
                 <?php unset($_SESSION['exito']); ?>
             <?php endif; ?>
             <div class="panel-admin__stats-overview">
-                <a href="<?php echo BASE_URL ?>Admin/categorias" class="panel-admin__stat-card">
+                <a href="<?php echo BASE_URL ?>Admin/categorias<?php echo isset($_GET['parentid']) ? '?parentid=' . $_GET['parentid'] : false; ?>" class="panel-admin__stat-card">
                     <span class="panel-admin__stat-icon"><i class="fas fa-th-large"></i></span>
                     <div class="panel-admin__stat-info">
                         <h3 class="panel-admin__stat-number">Crear Categorias</h3>
@@ -27,6 +27,31 @@
                     </div>
                 </a>
             </div>
+
+            <div class="breadcrumbs">
+                <nav>
+                    <ul class="breadcrumb">
+                        <!-- Elemento fijo: Inicio -->
+                        <li class="breadcrumb-item">
+                            <a href="<?php echo BASE_URL ?>Admin/ecommerce">Inicio</a>
+                        </li>
+
+                        <!-- Elementos dinámicos: Migas de pan -->
+                        <?php if (!empty($breadcrumbs)): ?>
+                            <?php foreach ($breadcrumbs as $index => $breadcrumb): ?>
+                                <li class="breadcrumb-item">
+                                    <?php if ($index < count($breadcrumbs) - 1): ?>
+                                        <a href="<?php echo BASE_URL ?>Admin/ecommerce?parentid=<?= $breadcrumb['id']; ?>"><?= htmlspecialchars($breadcrumb['nombre']); ?></a>
+                                    <?php else: ?>
+                                        <span><?= htmlspecialchars($breadcrumb['nombre']); ?></span>
+                                    <?php endif; ?>
+                                </li>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </ul>
+                </nav>
+            </div>
+            
             <div class="panel-admin__category-list">
                 <table class="table table-striped">
                     <thead>
@@ -36,11 +61,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php if ($categorias->num_rows > 0) : ?>
-                            <?php while ($categoriaProducto = $categorias->fetch_object()) : ?>
+                        <?php if ($getCategorias->num_rows > 0) : ?>
+                            <?php while ($categoriaProducto = $getCategorias->fetch_object()) : ?>
+                                <?php
+                                $parentid = isset($categoriaProducto->parent_id) ? $categoriaProducto->parent_id : false;
+                                ?>
                                 <tr>
                                     <td>
-                                        <a href="<?php echo BASE_URL ?>Admin/categorias">
+                                        <a href="<?php echo BASE_URL ?>Admin/ecommerce&parentid=<?php echo $categoriaProducto->id; ?>">
                                             <i class="fas fa-folder subcategoria-icon"></i>
                                             <?php echo $categoriaProducto->nombre; ?>
                                         </a>

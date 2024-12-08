@@ -5,6 +5,7 @@ class Categorias
   private $id;
   private $nombre;
   private $descripcion;
+  private $parentId;
   private $db;
 
   /// CONSTRUCTOR ///
@@ -29,6 +30,11 @@ class Categorias
     return $this->descripcion;
   }
 
+  public function getParentId()
+  {
+    return $this->parentId;
+  }
+
   //// SETTERS ////
   public function setId($id)
   {
@@ -45,30 +51,78 @@ class Categorias
     $this->descripcion = $descripcion;
   }
 
+  public function setParentId($parentId)
+  {
+    $this->parentId = $parentId;
+  }
+
   // Obtener todas las categorías
   public function obtenerCategorias()
   {
-    $sql = "SELECT * FROM categorias";
+    // Consulta base
+    $sql = "SELECT * FROM categorias WHERE parent_id IS NULL OR parent_id = ''";
+    // Ejecutar la consulta
     $listarCategorias = $this->db->query($sql);
     return $listarCategorias;
   }
 
+  // Obtener todas las Subcategorías
+  public function obtenerPorSubCategorias()
+  {
+    // Consulta base
+    $sql = "SELECT * FROM categorias WHERE parent_id = {$this->getParentId()}";
+    $listarCategorias = $this->db->query($sql);
+    return $listarCategorias;
+  }
+
+
   // Obtener una categoría por su ID
   public function obtenerCategoriaPorId()
   {
-    $sql = "SELECT * FROM categorias WHERE id = {$this->getId()}";
+    $sql = "SELECT * FROM categorias WHERE "; // Añadimos WHERE aquí.
+
+    // Si existe un parent_id, se filtra por parent_id, de lo contrario por id.
+    if ($this->getParentId()) {
+      $sql .= "parent_id = {$this->getParentId()}";
+    } else {
+      $sql .= "id = {$this->getId()}";
+    }
+
+
+    // Ejecutar la consulta y obtener el resultado
     $categoria = $this->db->query($sql);
+
+    // Devolver el primer resultado
     return $categoria->fetch_object();
   }
 
+
+  public function obtenerCategoriaPadre()
+  {
+    $sql = "SELECT * FROM categorias WHERE parent_id = {$this->getParentId()}";
+    $result = $this->db->query($sql);
+    return $result;
+  }
+
+
   // Crear una nueva categoría
+  // public function crearCategoria()
+  // {
+  //   $sql = "INSERT INTO categorias (nombre, descripcion) 
+  //           VALUES ('{$this->getNombre()}', '{$this->getDescripcion()}')";
+  //   $crearCategoria = $this->db->query($sql);
+  //   return $crearCategoria;
+  // }
+
   public function crearCategoria()
   {
-    $sql = "INSERT INTO categorias (nombre, descripcion) 
-            VALUES ('{$this->getNombre()}', '{$this->getDescripcion()}')";
+    $parentId = $this->getParentId() ? $this->getParentId() : 'NULL';
+    $sql = "INSERT INTO categorias (nombre, descripcion, parent_id) 
+              VALUES ('{$this->getNombre()}', '{$this->getDescripcion()}', $parentId)";
     $crearCategoria = $this->db->query($sql);
     return $crearCategoria;
   }
+
 
   // Actualizar una categoría por su ID
   public function actualizarCategoriaPorId()
@@ -101,4 +155,32 @@ class Categorias
 
     return $result;
   }
+
+  public function getBreadcrumbs()
+  {
+      $breadcrumbs = [];
+      $currentId = $this->getParentId();
+  
+      // Iterar hacia atrás en la jerarquía hasta llegar a la raíz
+      while ($currentId) {
+          $sql = "SELECT id, nombre, parent_id FROM categorias WHERE id = $currentId";
+          $result = $this->db->query($sql);
+  
+          if ($result && $row = $result->fetch_object()) {
+              // Añadir al principio del array de breadcrumbs
+              array_unshift($breadcrumbs, [
+                  'id' => $row->id,
+                  'nombre' => $row->nombre
+              ]);
+  
+              // Seguir al siguiente padre
+              $currentId = $row->parent_id;
+          } else {
+              break; // Si no se encuentra, detener el bucle
+          }
+      }
+  
+      return $breadcrumbs;
+  }
+  
 }

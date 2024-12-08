@@ -152,12 +152,23 @@ class AdminController
     public function ecommerce()
     {
         Utils::accesoUsuarioRegistrado();
-        $categoriasModel = new Categorias();
-        $categorias = $categoriasModel->obtenerCategorias();
+        $categorias = new Categorias();
+        $parentid = isset($_GET['parentid']) ? $_GET['parentid'] : false;
+        $categorias->setParentId($parentid);
+        $breadcrumbs = $categorias->getBreadcrumbs();
+
+        if ($parentid) {
+            $categorias->setParentId($parentid);
+            $getCategorias = $categorias->obtenerPorSubCategorias();
+        } else {
+            $getCategorias = $categorias->obtenerCategorias();
+        }
+        
         require_once 'views/layout/head.php';
         require_once 'views/admin/ecommerce/index.php';
         require_once 'views/layout/script-footer.php';
     }
+
 
     public function productos()
     {
@@ -216,6 +227,8 @@ class AdminController
         // Si hubo errores al subir las imágenes, los mostramos
         if (count($errores) > 0) {
             $_SESSION['errores'] = $errores;
+            header("Location: " . BASE_URL . "Admin/productos");
+            exit;
         } else {
             // Lógica de manejo del avatar (imagenes)
             $imagenes = [];
@@ -257,19 +270,26 @@ class AdminController
     public function categorias()
     {
         Utils::accesoUsuarioRegistrado();
-        $categorias = new Categorias();
-        $getCategorias = $categorias->obtenerCategorias();
+
         $editId = isset($_GET['editid']) ? $_GET['editid'] : false;
         $deteleId = isset($_GET['deteleid']) ? $_GET['deteleid'] : false;
+        $parentid = isset($_GET['parentid']) ? $_GET['parentid'] : false;
+
+        $categorias = new Categorias();
+
         if ($editId) {
             $categorias->setId($editId);
-            $getCategoriasId = $categorias->obtenerCategoriaPorId();
         } elseif ($deteleId) {
             $categorias->setId($deteleId);
-            $getCategoriasId = $categorias->obtenerCategoriaPorId();
-        } else {
-            $getCategoriasId = null;
         }
+
+        if ($parentid) {
+            $categorias->setParentId($parentid);
+            $getCategorias = $categorias->obtenerPorSubCategorias();
+        } else {
+            $getCategorias = $categorias->obtenerCategorias();
+        }
+
         require_once 'views/layout/head.php';
         require_once 'views/admin/categoria/crear.php';
         require_once 'views/layout/script-footer.php';
@@ -277,66 +297,65 @@ class AdminController
 
     public function guardarCategorias()
     {
-        // Acceso del usuario registrado
         Utils::accesoUsuarioRegistrado();
-
-        // Obtener los valores del formulario
         $name = isset($_POST['name']) ? $_POST['name'] : false;
         $descripcion = isset($_POST['descripcion']) ? $_POST['descripcion'] : false;
         $editId = isset($_POST['editid']) ? $_POST['editid'] : false;
-        $deteleId = isset($_POST['deteleid']) ? $_POST['deteleid'] : false;
+        $deleteId = isset($_POST['deteleid']) ? $_POST['deteleid'] : false;
+        // Categorias Padre
+        $urlParentId = '';
+        $parentId = isset($_POST['parentid']) ? $_POST['parentid'] : false;
 
-        // Crear el objeto Categorias
+        if ($parentId) {
+            $urlParentId = '?parentid=' . $parentId;
+        }
+
+        // Instacio
         $categorias = new Categorias();
         $categorias->setNombre($name);
         $categorias->setDescripcion($descripcion);
+        $categorias->setParentId($parentId);
 
-        // Array para almacenar errores
         $errores = [];
 
         if (empty($name)) {
             $errores['name'] = "El nombre es obligatorio.";
         }
-
         if (empty($descripcion)) {
             $errores['descripcion'] = "La descripción es obligatoria.";
         }
 
-        // Si existen errores, los guardamos en la sesión y redirigimos
         if (count($errores) > 0) {
             $_SESSION['errores'] = $errores;
+            header("Location: " . BASE_URL . "Admin/categorias" . $urlParentId);
+            exit;
         } else {
-            // Usamos un switch para determinar qué acción tomar
             switch (true) {
                 case $editId:
-                    // Caso de editar (actualizar categoría)
-                    $categorias->setId($editId); // Establecer el ID de la categoría a editar
+                    $categorias->setId($editId);
                     $categorias->actualizarCategoriaPorId();
                     $_SESSION['exito'] = 'La categoría se actualizó correctamente.';
                     break;
 
-                case $deteleId:
-                    // Caso de eliminar categoría
-                    $categorias->setId($deteleId); // Establecer el ID de la categoría a eliminar
+                case $deleteId:
+                    $categorias->setId($deleteId);
                     $categorias->eliminarCategoria();
                     $_SESSION['exito'] = 'La categoría se eliminó correctamente.';
                     break;
 
                 default:
-                    // Caso por defecto (crear nueva categoría)
                     $categorias->crearCategoria();
                     $_SESSION['exito'] = 'La categoría se creó correctamente.';
                     break;
             }
 
-            // Limpiar los errores después de procesar
             unset($_SESSION['errores']);
-
-            // Redirigir al listado de categorías
-            header("Location: " . BASE_URL . "Admin/ecommerce");
+            header("Location: " . BASE_URL . "Admin/ecommerce" . $urlParentId);
             exit;
         }
     }
+
+
 
     // public function listaProductos()
     // {
