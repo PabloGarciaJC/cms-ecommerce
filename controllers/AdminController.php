@@ -110,6 +110,8 @@ class AdminController
         // Si hay errores, no continuar con el proceso y redirigir con los errores
         if (count($errores) > 0) {
             $_SESSION['errores'] = $errores;
+            header("Location: " . BASE_URL . "Admin/perfil");
+            exit;
         } else {
             // Lógica de manejo del avatar
             $nombreArchivo = isset($_FILES['avatar']['name']) ? $_FILES['avatar']['name'] : false;
@@ -309,6 +311,7 @@ class AdminController
 
         if (count($errores) > 0) {
             $_SESSION['errores'] = $errores;
+            $_SESSION['form'] = $_POST;
             header("Location: " . BASE_URL . "Admin/categorias");
             exit;
         } else {
@@ -331,8 +334,8 @@ class AdminController
                     $_SESSION['exito'] = 'La categoría se creó correctamente.';
                     break;
             }
-
             unset($_SESSION['errores']);
+            unset($_SESSION['form']);
             header("Location: " . BASE_URL . "Admin/ecommerce" . $urlParentid);
             exit;
         }
