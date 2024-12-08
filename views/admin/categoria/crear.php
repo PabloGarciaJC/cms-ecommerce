@@ -17,23 +17,12 @@
                 <form action="<?php echo BASE_URL ?>Admin/guardarCategorias" method="POST">
                     <div class="form-group">
                         <label for="name">Nombre de la Categoría:</label>
-                        <input type="text" id="name" name="name" class="form-control" placeholder="Ejemplo: Electrónica" value="<?php echo $getCategoriasId->nombre;?>">
+                        <input type="text" id="name" name="name" class="form-control" placeholder="Ejemplo: Electrónica" value="<?php echo isset($getCategoriasId->nombre) ? $getCategoriasId->nombre : false;?>">
                         <?php if (isset($_SESSION['errores']['name'])) : ?>
                             <div class="text-danger mt-2">
                                 <i class="fas fa-exclamation-circle"></i> <?php echo $_SESSION['errores']['name']; ?>
                             </div>
                         <?php endif; ?>
-                    </div>
-                    <div class="form-group">
-                        <label for="subcategoria">Categoría Principal:</label>
-                        <select class="form-control" id="subcategoria" name="subcategoria">
-                            <option disabled selected>Seleccione...</option>
-                            <?php while ($categoria = mysqli_fetch_assoc($getCategorias)) : ?>
-                                <option value="<?php echo $categoria['id']; ?>">
-                                    <?php echo $categoria['nombre']; ?>
-                                </option>
-                            <?php endwhile; ?>
-                        </select>
                     </div>
                     <div class="form-group">
                         <label for="descripcion">Descripción:</label>
@@ -45,6 +34,7 @@
                         <?php endif; ?>
                     </div>
                     <button type="submit" class="btn btn-primary">Guardar</button>
+                    <a href="<?php echo BASE_URL; ?>Admin/ecommerce" type="submit" class="btn btn-primary">Volver</a>
                 </form>
             </div>
         </section>

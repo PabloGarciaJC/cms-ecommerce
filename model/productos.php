@@ -8,20 +8,20 @@ class Productos
   private $descripcion;
   private $precio;
   private $stock;
+  private $estado;
   private $oferta;
-  private $marca;
-  private $memoriaRam;
-  private $imagen;
-  private $buscador;
+  private $offerExpiration;
+  private $imagenes; // Esto puede ser una cadena JSON o array
   private $db;
 
-  ///CONSTRUCTOR///
+  /// CONSTRUCTOR ///
   public function __construct()
   {
     $this->db = Database::connect();
   }
 
-  //// GETTER ////   
+  //// GETTERS Y SETTERS ////
+
   public function getId()
   {
     return $this->id;
@@ -52,32 +52,26 @@ class Productos
     return $this->stock;
   }
 
+  public function getEstado()
+  {
+    return $this->estado;
+  }
+
   public function getOferta()
   {
     return $this->oferta;
   }
 
-  public function getMarca()
+  public function getOfferExpiration()
   {
-    return $this->marca;
+    return $this->offerExpiration;
   }
 
-  public function getMemoriaRam()
+  public function getImagenes()
   {
-    return $this->memoriaRam;
+    return $this->imagenes;
   }
 
-  public function getImagen()
-  {
-    return $this->imagen;
-  }
-
-  public function getBuscador()
-  {
-    return $this->buscador;
-  }
-
-  //// SETTER //// 
   public function setId($id)
   {
     $this->id = $id;
@@ -108,457 +102,117 @@ class Productos
     $this->stock = $stock;
   }
 
+  public function setEstado($estado)
+  {
+    $this->estado = $estado;
+  }
+
   public function setOferta($oferta)
   {
     $this->oferta = $oferta;
   }
 
-  public function setMarca($marca)
+  public function setOfferExpiration($offerExpiration)
   {
-    $this->marca = $marca;
+    $this->offerExpiration = $offerExpiration;
   }
 
-  public function setMemoriaRam($memoriaRam)
+  public function setImagenes($imagenes)
   {
-    $this->memoriaRam = $memoriaRam;
+    $this->imagenes = $imagenes;
   }
 
-  public function setImagen($imagen)
+
+  // Guardar producto en la base de datos
+  public function save()
   {
-    $this->imagen = $imagen;
+      // Verificar si la categoria existe
+      $sql = "SELECT COUNT(*) FROM categorias WHERE id = '{$this->idCategoria}'";
+      $result = $this->db->query($sql);
+      $row = $result->fetch_row();
+      
+      if ($row[0] == 0) {
+          // Si la categoría no existe, lanzamos un error o retornamos false
+          return false; // O puedes lanzar una excepción con un mensaje de error
+      }
+  
+      // Convertir imágenes a JSON para almacenarlas
+      $imagenesJson = json_encode($this->imagenes); 
+      
+      $sql = "INSERT INTO productos (id_categoria, nombre, descripcion, precio, stock, estado, oferta, offer_expiration, imagenes) 
+              VALUES (
+                  '{$this->idCategoria}', 
+                  '{$this->nombre}', 
+                  '{$this->descripcion}', 
+                  '{$this->precio}', 
+                  '{$this->stock}', 
+                  '{$this->estado}', 
+                  '{$this->oferta}', 
+                  '{$this->offerExpiration}', 
+                  '$imagenesJson'
+              )";
+  
+      return $this->db->query($sql);
+  }
+  
+
+  // Obtener todos los productos
+  public function getAll()
+  {
+    $sql = "SELECT * FROM productos";
+    $result = $this->db->query($sql);
+    $productos = [];
+
+    while ($row = $result->fetch_object()) {
+      $productos[] = $row;
+    }
+
+    return $productos;
   }
 
-  public function setBuscador($buscador)
+  // Obtener un producto por ID
+  public function getById($id)
   {
-    $this->buscador = $buscador;
+    $sql = "SELECT * FROM productos WHERE id = {$id}";
+    $result = $this->db->query($sql);
+
+    return $result->fetch_object();
   }
 
-  //// CONSULTA //// 
-
-  public function crear()
+  // Actualizar un producto
+  public function update()
   {
-    $sql = "INSERT INTO productos (nombre, categoria_id, precio, stock, oferta, marca, memoria_ram, descripcion, imagen ) VALUES ('{$this->getNombre()}' , {$this->getIdCategoria()}, {$this->getPrecio()}, {$this->getStock()}, {$this->getOferta()}, '{$this->getMarca()}', {$this->getMemoriaRam()}, '{$this->getDescripcion()}', '{$this->getImagen()}') ";
-    $crear = $this->db->query($sql);
-    return $crear;
+    $imagenesJson = json_encode($this->imagenes); // Convertir imágenes a JSON para almacenarlas
+    $sql = "UPDATE productos SET 
+                id_categoria = '{$this->idCategoria}', 
+                nombre = '{$this->nombre}', 
+                descripcion = '{$this->descripcion}', 
+                precio = '{$this->precio}', 
+                stock = '{$this->stock}', 
+                estado = '{$this->estado}', 
+                oferta = '{$this->oferta}', 
+                offer_expiration = '{$this->offerExpiration}', 
+                imagenes = '$imagenesJson' 
+                WHERE id = '{$this->id}'";
+
+    return $this->db->query($sql);
   }
 
-  public function subirImagen()
+  // Eliminar un producto
+  public function delete()
   {
-    $sql = "INSERT INTO productos (imagen) VALUES ('{$this->getImagen()}')";
-    $subirImagen = $this->db->query($sql);
-    return $subirImagen;
+    $sql = "DELETE FROM productos WHERE id = '{$this->id}'";
+
+    return $this->db->query($sql);
   }
 
-  public function obtenerTodos()
+  // Método para agregar una imagen a la propiedad imagenes
+  public function addImagen($imagen)
   {
-    $sql = "SELECT p.id, p.imagen, p.nombre, p.marca, p.stock, p.precio, p.oferta, c.categorias as nombreCategoria from productos p INNER JOIN categorias c ON p.categoria_id = c.id ORDER BY p.id DESC;";
-    $obtenerProductos = $this->db->query($sql);
-    return $obtenerProductos;
-  }
-
-  public function obtenerProductosyBuscadoryPaginador($ultimoRegistro, $mostrarRegistros)
-  {
-    // var_dump($ultimoRegistro);
-    $sql = "SELECT p.id, p.nombre, p.marca, p.imagen, p.stock, p.precio, p.oferta, c.categorias as nombreCategoria from productos p INNER JOIN categorias c ON p.categoria_id = c.id ";
-
-    if ($this->getBuscador() != '') {
-      $sql .= " WHERE (p.nombre LIKE '%{$this->getBuscador()}%' OR p.marca LIKE '%{$this->getBuscador()}%' OR p.stock LIKE '%{$this->getBuscador()}%' OR p.precio LIKE '%{$this->getBuscador()}%' OR p.oferta LIKE '%{$this->getBuscador()}%' OR c.categorias LIKE '%{$this->getBuscador()}%')";
+    if (!$this->imagenes) {
+      $this->imagenes = [];
     }
 
-    $sql .= "ORDER BY p.id ASC LIMIT $ultimoRegistro, $mostrarRegistros;";
-
-    $obtenerProductos = $this->db->query($sql);
-    return $obtenerProductos;
-  }
-
-  public function productosPorId()
-  {
-
-    $sql = "SELECT p.id, p.imagen, p.nombre, p.marca, p.stock, p.precio, p.oferta, p.categoria_id, p.memoria_ram, p.descripcion, c.categorias as nombreCategoria from productos p INNER JOIN categorias c ON p.categoria_id = c.id WHERE p.id = {$this->getId()};";
-    $obtenerProductos = $this->db->query($sql);
-    return $obtenerProductos;
-  }
-
-  public function productosPorCategoriaId()
-  {
-    $sql = "SELECT p.id, p.imagen, p.nombre, p.marca, p.stock, p.precio, p.oferta, p.categoria_id, c.categorias as nombreCategoria from productos p INNER JOIN categorias c ON p.categoria_id = c.id WHERE p.categoria_id = {$this->getIdCategoria()};";
-    $obtenerProductos = $this->db->query($sql);
-    return $obtenerProductos;
-  }
-
-  public function mostrarMarcaSinRepetirSidebar()
-  {
-
-    $sql = "SELECT DISTINCT p.marca from productos p INNER JOIN categorias c ON p.categoria_id = c.id";
-
-    if ($this->getIdCategoria() != '') {
-      $sql .= " and c.id = {$this->getIdCategoria()};";
-    }
-
-    $obtenerProductos = $this->db->query($sql);
-    return $obtenerProductos;
-  }
-
-  public function mostrarMemoriaRamSinRepetirSidebar()
-  {
-
-    $sql = "SELECT DISTINCT p.memoria_ram from productos p INNER JOIN categorias c ON p.categoria_id = c.id";
-
-    if ($this->getIdCategoria() != '') {
-      $sql .= " and c.id = {$this->getIdCategoria()} order by p.memoria_ram asc;";
-    }
-
-    $obtenerProductos = $this->db->query($sql);
-    return $obtenerProductos;
-  }
-
-  public function actualizar()
-  {
-    $resultado = false;
-    $sql = "UPDATE productos SET categoria_id = {$this->getIdCategoria()}, nombre = '{$this->getNombre()}', descripcion = '{$this->getDescripcion()}', precio = {$this->getPrecio()}, stock = {$this->getStock()}, oferta = {$this->getOferta()}, marca = '{$this->getMarca()}', memoria_ram = {$this->getMemoriaRam()}, imagen = '{$this->getImagen()}' WHERE id = {$this->getId()};";
-    $actualizar = $this->db->query($sql);
-    if ($actualizar) {
-      $resultado = true;
-    }
-    return $actualizar;
-  }
-
-  public function eliminar()
-  {
-    $resultado = false;
-    $sql = "DELETE FROM productos WHERE id = {$this->getId()}";
-    $borrar = $this->db->query($sql);
-    if ($borrar) {
-      $resultado = true;
-    }
-    return $borrar;
-  }
-
-  public function obtenerRegistrosTotales($buscadorProductos)
-  {
-
-    $sql = "SELECT count(p.id) as 'registros_totales' FROM productos p";
-
-    if ($buscadorProductos != '') {
-      $sql .= " INNER JOIN categorias c ON p.categoria_id = c.id ";
-      $sql .= " WHERE (p.nombre LIKE '%{$buscadorProductos}%' OR p.marca LIKE '%{$buscadorProductos}%' OR p.stock LIKE '%{$buscadorProductos}%' OR p.precio LIKE '%{$buscadorProductos}%' OR p.oferta LIKE '%{$buscadorProductos}%' OR c.categorias LIKE '%{$buscadorProductos}%')";
-    };
-
-    $registros_totales = $this->db->query($sql);
-    return $registros_totales->fetch_object();
-  }
-
-  public function productosPorBuscadoryCheckbox($arrayMarcaCheckbox, $conteoArrayMarca, $arrayMemoriaRamCheckbox, $conteoArrayMemoriaRam, $arrayPrecioCheckbox, $conteoArrayPrecio, $arrayOfertasCheckbox, $conteoArrayOfertas, $ultimoRegistro, $mostrarRegistros)
-  {
-
-    // Muestar el Ultimo checkbox que se ha selecionado del Lado del Cliente
-    foreach ($arrayMarcaCheckbox as $todosCheckboxMarca) {
-      $todosCheckboxMarca;
-    }
-
-    // Muestar el Ultimo checkbox que se ha selecionado del Lado del Cliente
-    foreach ($arrayMemoriaRamCheckbox as $todosCheckboxMemoriaRam) {
-      $todosCheckboxMemoriaRam;
-    }
-
-    // Muestar el Ultimo checkbox que se ha selecionado del Lado del Cliente
-    foreach ($arrayPrecioCheckbox as $todosCheckboxPrecio) {
-      $indicesPrecio = explode("-", $todosCheckboxPrecio);
-      $indicesPrecio[0];
-      $indicesPrecio[1];
-    }
-
-    // Muestar el Ultimo checkbox que se ha selecionado del Lado del Cliente
-    foreach ($arrayOfertasCheckbox as $todosCheckboxOfertas) {
-      $todosCheckboxOfertas;
-    }
-
-    // CONTEO de todos los Arrays de los Checkbox que se ha selecionado
-    $todosConteoCheckbox = $conteoArrayMarca + $conteoArrayMemoriaRam + $conteoArrayPrecio + $conteoArrayOfertas;
-
-    if ($todosConteoCheckbox == 0 || $this->getBuscador() != '') {
-      $sql = "SELECT p.id, p.categoria_id, c.categorias as nombreCategoria, p.nombre, p.marca, p.stock, p.precio, p.oferta, p.memoria_ram, p.imagen from productos p INNER JOIN categorias c ON p.categoria_id = c.id WHERE (p.nombre LIKE '%{$this->getBuscador()}%' OR p.marca LIKE '%{$this->getBuscador()}%' OR p.stock LIKE '%{$this->getBuscador()}%' OR p.precio LIKE '%{$this->getBuscador()}%' OR p.oferta LIKE '%{$this->getBuscador()}%' OR c.categorias LIKE '%{$this->getBuscador()}%')";
-    } else {
-
-      /********************** VALIDACION DE TODOS LOS CHECKBOX ***********************/
-
-      // PRIMER BLOQUE - MARCA - PARTE I - 1:1 y 1:M
-      if ($conteoArrayMarca == 1) {
-        $sql = "SELECT p.id, p.categoria_id, c.categorias as nombreCategoria, p.nombre, p.marca, p.stock, p.precio, p.oferta, p.memoria_ram, p.imagen from productos p INNER JOIN categorias c ON p.categoria_id = c.id WHERE (p.marca = '$todosCheckboxMarca')";
-      }
-      // PRIMER BLOQUE - MARCA - PARTE II - M:1 - M:M
-      if ($conteoArrayMarca >= 2) {
-        $sql = "SELECT p.id, p.categoria_id, c.categorias as nombreCategoria, p.nombre, p.marca, p.stock, p.precio, p.oferta, p.memoria_ram, p.imagen from productos p INNER JOIN categorias c ON p.categoria_id = c.id WHERE (p.marca = '$todosCheckboxMarca'";
-        foreach ($arrayMarcaCheckbox as $todosCheckboxMarca) {
-          $sql .= " or p.marca = '$todosCheckboxMarca' ";
-        }
-        $sql .= ")";
-      }
-
-      // SEGUNDO BLOQUE - MEMORIA RAM - PARTE I - 1:1 y 1:M
-      if ($conteoArrayMemoriaRam == 1) {
-        $sql = "SELECT p.id, p.categoria_id, c.categorias as nombreCategoria, p.nombre, p.marca, p.stock, p.precio, p.oferta, p.memoria_ram, p.imagen from productos p INNER JOIN categorias c ON p.categoria_id = c.id WHERE (p.memoria_ram = '$todosCheckboxMemoriaRam')";
-      }
-      // SEGUNDO BLOQUE - MEMORIA RAM - PARTE II - M:1 - M:M
-      if ($conteoArrayMemoriaRam >= 2) {
-        $sql = "SELECT p.id, p.categoria_id, c.categorias as nombreCategoria, p.nombre, p.marca, p.stock, p.precio, p.oferta, p.memoria_ram, p.imagen from productos p INNER JOIN categorias c ON p.categoria_id = c.id WHERE (p.memoria_ram = '$todosCheckboxMemoriaRam'";
-        foreach ($arrayMemoriaRamCheckbox as $todosCheckboxMemoriaRam) {
-          $sql .= " or p.memoria_ram = '$todosCheckboxMemoriaRam' ";
-        }
-        $sql .= ")";
-      }
-      // TERCER BLOQUE - PRECIO - PARTE I - 1:1 y 1:M
-      if ($conteoArrayPrecio == 1) {
-        $sql = "SELECT p.id, p.categoria_id, c.categorias as nombreCategoria, p.nombre, p.marca, p.stock, p.precio, p.oferta, p.memoria_ram, p.imagen from productos p INNER JOIN categorias c ON p.categoria_id = c.id WHERE (p.precio >= $indicesPrecio[0] and p.precio <= $indicesPrecio[1])";
-      }
-      // TERCER BLOQUE - PRECIO - PARTE II - M:1 y M:M
-      if ($conteoArrayPrecio >= 2) {
-        $sql = "SELECT p.id, p.categoria_id, c.categorias as nombreCategoria, p.nombre, p.marca, p.stock, p.precio, p.oferta, p.memoria_ram, p.imagen from productos p INNER JOIN categorias c ON p.categoria_id = c.id WHERE (p.precio >= $indicesPrecio[0] and p.precio <= $indicesPrecio[1]";
-        foreach ($arrayPrecioCheckbox as $todosCheckboxPrecio) {
-          $indicesPrecio = explode("-", $todosCheckboxPrecio);
-          $sql .= " or p.precio >= $indicesPrecio[0] and p.precio <= $indicesPrecio[1]";
-        }
-        $sql .= ")";
-      }
-
-      // CUARTO BLOQUE - OFERTAS - PARTE I - 1:1 y 1:M
-      if ($conteoArrayOfertas == 1) {
-        $sql = "SELECT p.id, p.categoria_id, c.categorias as nombreCategoria, p.nombre, p.marca, p.stock, p.precio, p.oferta, p.memoria_ram, p.imagen from productos p INNER JOIN categorias c ON p.categoria_id = c.id WHERE (p.oferta = '$todosCheckboxOfertas')";
-      }
-      // CUARTO BLOQUE - OFERTAS - PARTE II - M:1 - M:M
-      if ($conteoArrayOfertas >= 2) {
-        $sql = "SELECT p.id, p.categoria_id, c.categorias as nombreCategoria, p.nombre, p.marca, p.stock, p.precio, p.oferta, p.memoria_ram, p.imagen from productos p INNER JOIN categorias c ON p.categoria_id = c.id WHERE (p.oferta = '$todosCheckboxOfertas'";
-        foreach ($arrayOfertasCheckbox as $todosCheckboxOfertas) {
-          $sql .= " or p.oferta = '$todosCheckboxOfertas' ";
-        }
-        $sql .= ")";
-      }
-
-      /********************** CONSULTAS CONCATENADAS *****************************/
-
-      //  Registros de UN checkbox de => Marca // 1:1 
-      if ($conteoArrayMarca == 1) {
-        $sql .= " and (p.marca = '$todosCheckboxMarca')";
-      }
-      // Registros de Multiples Checkbox de => Marca // 1:M
-      if ($conteoArrayMarca >= 2) {
-        $sql .= " and (p.marca = '$todosCheckboxMarca'";
-        foreach ($arrayMarcaCheckbox as $todosCheckboxMarca) {
-          $sql .= " or p.marca = '$todosCheckboxMarca'";
-        }
-        $sql .= ")";
-      }
-      /**********************************************************/
-      //  Registros de UN checkbox de => Memoria RAM // 1:1 
-      if ($conteoArrayMemoriaRam == 1) {
-        $sql .= " and (p.memoria_ram = '$todosCheckboxMemoriaRam')";
-      }
-      // Registros de Multiples Checkbox de => Memoria RAM // 1:M
-      if ($conteoArrayMemoriaRam >= 2) {
-        $sql .= " and (p.memoria_ram = '$todosCheckboxMemoriaRam'";
-        foreach ($arrayMemoriaRamCheckbox as $todosCheckboxMemoriaRam) {
-          $sql .= " or p.memoria_ram = '$todosCheckboxMemoriaRam' ";
-        }
-        $sql .= ")";
-      }
-      /**********************************************************/
-      // Registros de UN checkbox de => Precio // 1:1 
-      if ($conteoArrayPrecio == 1) {
-        $sql .= " and (p.precio >= $indicesPrecio[0] and p.precio <= $indicesPrecio[1])";
-      }
-      // Registros de Multiples Checkbox de => Precio // 1:M
-      if ($conteoArrayPrecio >= 2) {
-        $sql .= " and (p.precio >= $indicesPrecio[0] and p.precio <= $indicesPrecio[1]";
-        foreach ($arrayPrecioCheckbox as $todosCheckboxPrecio) {
-          $indicesPrecio = explode("-", $todosCheckboxPrecio);
-          $sql .= " or p.precio >= $indicesPrecio[0] and p.precio <= $indicesPrecio[1]";
-        }
-        $sql .= ")";
-      }
-
-      //  Registros de UN checkbox de => Ofertas // 1:1 
-      if ($conteoArrayOfertas == 1) {
-        $sql .= " and (p.oferta = '$todosCheckboxOfertas')";
-      }
-      // Registros de Multiples Checkbox de => Ofertas // 1:M
-      if ($conteoArrayOfertas >= 2) {
-        $sql .= " and (p.oferta = '$todosCheckboxOfertas'";
-        foreach ($arrayOfertasCheckbox as $todosCheckboxOfertas) {
-          $sql .= " or p.oferta = '$todosCheckboxOfertas' ";
-        }
-        $sql .= ")";
-      }
-    }
-
-    if ($this->getIdCategoria() != '') {
-      $sql .= " and p.categoria_id = {$this->getIdCategoria()}";
-    }
-
-    $sql .= " ORDER BY p.id DESC LIMIT $ultimoRegistro, $mostrarRegistros";
-
-    $registros_totales = $this->db->query($sql);
-    return $registros_totales;
-  }
-
-  public function conteoPorBuscadoryCheckbox($arrayMarcaCheckbox, $conteoArrayMarca, $arrayMemoriaRamCheckbox, $conteoArrayMemoriaRam, $arrayPrecioCheckbox, $conteoArrayPrecio, $arrayOfertasCheckbox, $conteoArrayOfertas)
-  {
-
-    // Muestar el Ultimo checkbox que se ha selecionado del Lado del Cliente
-    foreach ($arrayMarcaCheckbox as $todosCheckboxMarca) {
-      $todosCheckboxMarca;
-    }
-
-    // Muestar el Ultimo checkbox que se ha selecionado del Lado del Cliente
-    foreach ($arrayMemoriaRamCheckbox as $todosCheckboxMemoriaRam) {
-      $todosCheckboxMemoriaRam;
-    }
-
-    // Muestar el Ultimo checkbox que se ha selecionado del Lado del Cliente
-    foreach ($arrayPrecioCheckbox as $todosCheckboxPrecio) {
-      $indicesPrecio = explode("-", $todosCheckboxPrecio);
-      $indicesPrecio[0];
-      $indicesPrecio[1];
-    }
-
-    // Muestar el Ultimo checkbox que se ha selecionado del Lado del Cliente
-    foreach ($arrayOfertasCheckbox as $todosCheckboxOfertas) {
-      $todosCheckboxOfertas;
-    }
-
-    // CONTEO de todos los Arrays de los Checkbox que se ha selecionado
-    $todosConteoCheckbox = $conteoArrayMarca + $conteoArrayMemoriaRam + $conteoArrayPrecio + $conteoArrayOfertas;
-
-    if ($todosConteoCheckbox == 0 || $this->getBuscador() != '') {
-
-      $sql = "SELECT count(p.categoria_id) as 'registros_totales' from productos p
-      INNER JOIN categorias c ON p.categoria_id = c.id WHERE (p.nombre LIKE '%{$this->getBuscador()}%' OR p.marca LIKE '%{$this->getBuscador()}%' OR p.stock LIKE '%{$this->getBuscador()}%' OR p.precio LIKE '%{$this->getBuscador()}%' OR p.oferta LIKE '%{$this->getBuscador()}%' OR c.categorias LIKE '%{$this->getBuscador()}%')";
-    } else {
-
-      /********************** VALIDACION DE TODOS LOS CHECKBOX ***********************/
-
-      // PRIMER BLOQUE - MARCA - PARTE I - 1:1 y 1:M
-      if ($conteoArrayMarca == 1) {
-        $sql = "SELECT count(p.categoria_id) as 'registros_totales' from productos p INNER JOIN categorias c ON p.categoria_id = c.id WHERE (p.marca = '$todosCheckboxMarca')";
-      }
-      // PRIMER BLOQUE - MARCA - PARTE II - M:1 - M:M
-      if ($conteoArrayMarca >= 2) {
-        $sql = "SELECT count(p.categoria_id) as 'registros_totales' from productos p INNER JOIN categorias c ON p.categoria_id = c.id WHERE (p.marca = '$todosCheckboxMarca'";
-        foreach ($arrayMarcaCheckbox as $todosCheckboxMarca) {
-          $sql .= " or p.marca = '$todosCheckboxMarca' ";
-        }
-        $sql .= ")";
-      }
-
-      // SEGUNDO BLOQUE - MEMORIA RAM - PARTE I - 1:1 y 1:M
-      if ($conteoArrayMemoriaRam == 1) {
-        $sql = "SELECT count(p.categoria_id) as 'registros_totales' from productos p INNER JOIN categorias c ON p.categoria_id = c.id WHERE (p.memoria_ram = '$todosCheckboxMemoriaRam')";
-      }
-      // SEGUNDO BLOQUE - MEMORIA RAM - PARTE II - M:1 - M:M
-      if ($conteoArrayMemoriaRam >= 2) {
-        $sql = "SELECT count(p.categoria_id) as 'registros_totales' from productos p INNER JOIN categorias c ON p.categoria_id = c.id WHERE (p.memoria_ram = '$todosCheckboxMemoriaRam'";
-        foreach ($arrayMemoriaRamCheckbox as $todosCheckboxMemoriaRam) {
-          $sql .= " or p.memoria_ram = '$todosCheckboxMemoriaRam' ";
-        }
-        $sql .= ")";
-      }
-
-      // TERCER BLOQUE - PRECIO - PARTE I - 1:1 y 1:M
-      if ($conteoArrayPrecio == 1) {
-        $sql = "SELECT count(p.categoria_id) as 'registros_totales' from productos p INNER JOIN categorias c ON p.categoria_id = c.id WHERE (p.precio >= $indicesPrecio[0] and p.precio <= $indicesPrecio[1])";
-      }
-      // TERCER BLOQUE - PRECIO - PARTE II - M:1 y M:M
-      if ($conteoArrayPrecio >= 2) {
-        $sql = "SELECT count(p.categoria_id) as 'registros_totales' from productos p INNER JOIN categorias c ON p.categoria_id = c.id WHERE (p.precio >= $indicesPrecio[0] and p.precio <= $indicesPrecio[1]";
-        foreach ($arrayPrecioCheckbox as $todosCheckboxPrecio) {
-          $indicesPrecio = explode("-", $todosCheckboxPrecio);
-          $sql .= " or p.precio >= $indicesPrecio[0] and p.precio <= $indicesPrecio[1]";
-        }
-        $sql .= ")";
-      }
-
-      // CUARTO BLOQUE - OFERTAS - PARTE I - 1:1 y 1:M
-      if ($conteoArrayOfertas == 1) {
-        $sql = "SELECT count(p.categoria_id) as 'registros_totales' from productos p INNER JOIN categorias c ON p.categoria_id = c.id WHERE (p.oferta = '$todosCheckboxOfertas')";
-      }
-      // CUARTO BLOQUE - OFERTAS - PARTE II - M:1 - M:M
-      if ($conteoArrayOfertas >= 2) {
-        $sql = "SELECT count(p.categoria_id) as 'registros_totales' from productos p INNER JOIN categorias c ON p.categoria_id = c.id WHERE (p.oferta = '$todosCheckboxOfertas'";
-        foreach ($arrayOfertasCheckbox as $todosCheckboxOfertas) {
-          $sql .= " or p.oferta = '$todosCheckboxOfertas' ";
-        }
-        $sql .= ")";
-      }
-
-
-      /********************** CONSULTAS CONCATENADAS *****************************/
-
-      //  Registros de UN checkbox de => Marca // 1:1 
-      if ($conteoArrayMarca == 1) {
-        $sql .= " and (p.marca = '$todosCheckboxMarca')";
-      }
-      // Registros de Multiples Checkbox de => Marca // 1:M
-      if ($conteoArrayMarca >= 2) {
-        $sql .= " and (p.marca = '$todosCheckboxMarca'";
-        foreach ($arrayMarcaCheckbox as $todosCheckboxMarca) {
-          $sql .= " or p.marca = '$todosCheckboxMarca' ";
-        }
-        $sql .= ")";
-      }
-      /**********************************************************/
-      //  Registros de UN checkbox de => Memoria RAM // 1:1 
-      if ($conteoArrayMemoriaRam == 1) {
-        $sql .= " and (p.memoria_ram = '$todosCheckboxMemoriaRam')";
-      }
-      // Registros de Multiples Checkbox de => Memoria RAM // 1:M
-      if ($conteoArrayMemoriaRam >= 2) {
-        $sql .= " and (p.memoria_ram = '$todosCheckboxMemoriaRam'";
-        foreach ($arrayMemoriaRamCheckbox as $todosCheckboxMemoriaRam) {
-          $sql .= " or p.memoria_ram = '$todosCheckboxMemoriaRam' ";
-        }
-        $sql .= ")";
-      }
-      /**********************************************************/
-      // Registros de UN checkbox de => Precio // 1:1 
-      if ($conteoArrayPrecio == 1) {
-        $sql .= " and (p.precio >= $indicesPrecio[0] and p.precio <= $indicesPrecio[1])";
-      }
-      // Registros de Multiples Checkbox de => Precio // 1:M
-      if ($conteoArrayPrecio >= 2) {
-        $sql .= " and (p.precio >= $indicesPrecio[0] and p.precio <= $indicesPrecio[1]";
-        foreach ($arrayPrecioCheckbox as $todosCheckboxPrecio) {
-          $indicesPrecio = explode("-", $todosCheckboxPrecio);
-          $sql .= " or p.precio >= $indicesPrecio[0] and p.precio <= $indicesPrecio[1]";
-        }
-        $sql .= ")";
-      }
-      /**********************************************************/
-
-      //  Registros de UN checkbox de => Ofertas // 1:1 
-      if ($conteoArrayOfertas == 1) {
-        $sql .= " and (p.oferta = '$todosCheckboxOfertas')";
-      }
-      // Registros de Multiples Checkbox de => Ofertas // 1:M
-      if ($conteoArrayOfertas >= 2) {
-        $sql .= " and (p.oferta = '$todosCheckboxOfertas'";
-        foreach ($arrayOfertasCheckbox as $todosCheckboxOfertas) {
-          $sql .= " or p.oferta = '$todosCheckboxOfertas' ";
-        }
-        $sql .= ")";
-      }
-    }
-
-    if ($this->getIdCategoria() != '') {
-      $sql .= " and p.categoria_id  = {$this->getIdCategoria()}";
-    }
-
-    $registros_totales = $this->db->query($sql);
-    return $registros_totales->fetch_object();
-  }
-
-  public function ejecutarBuscador()
-  {
-    // $sql = "SELECT p.*, c.categorias FROM productos p INNER JOIN categorias c ON p.categoria_id = c.id ORDER BY c.id DESC LIMIT 10;";
-    // $resultado = $this->db->query($sql);
-    // return $resultado;
+    $this->imagenes[] = $imagen;
   }
 }

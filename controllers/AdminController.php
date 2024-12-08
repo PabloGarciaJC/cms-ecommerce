@@ -2,7 +2,8 @@
 require_once 'model/usuario.php';
 require_once 'model/categorias.php';
 require_once 'model/paises.php';
-require_once 'model/subcategorias.php';
+require_once 'model/productos.php';
+
 
 class AdminController
 {
@@ -157,8 +158,102 @@ class AdminController
             $getCategoriasId = $categorias->obtenerCategoriaPorId();
         }
         require_once 'views/layout/head.php';
-        require_once 'views/admin/ecommerce/crear.php';
+        require_once 'views/admin/categoria/crear.php';
         require_once 'views/layout/script-footer.php';
+    }
+
+    public function productos()
+    {
+        Utils::accesoUsuarioRegistrado();
+        require_once 'views/layout/head.php';
+        require_once 'views/admin/productos/crear.php';
+        require_once 'views/layout/script-footer.php';
+    }
+
+    public function guardarProductos()
+    {
+        // Obtener los datos del formulario
+        $nombre = isset($_POST['nombre']) ? trim($_POST['nombre']) : '';
+        $descripcion = isset($_POST['descripcion']) ? trim($_POST['descripcion']) : '';
+        $precio = isset($_POST['precio']) ? floatval($_POST['precio']) : 0;
+        $stock = isset($_POST['stock']) ? intval($_POST['stock']) : 0;
+        $categoria = isset($_POST['categoria']) ? intval($_POST['categoria']) : 0;  // Se usa un ID numérico
+        $estado = isset($_POST['estado']) ? trim($_POST['estado']) : '';
+        $oferta = isset($_POST['oferta']) ? floatval($_POST['oferta']) : 0;
+        $offerExpiration = isset($_POST['offerExpiration']) ? trim($_POST['offerExpiration']) : '';
+
+        // Inicializar el objeto Producto
+        $productos = new Productos();
+
+        // Asignar los valores al producto
+        $productos->setNombre($nombre);
+        $productos->setDescripcion($descripcion);
+        $productos->setPrecio($precio);
+        $productos->setStock($stock);
+        $productos->setOferta($oferta);
+        $productos->setIdCategoria($categoria);
+        $productos->setEstado($estado);
+        $productos->setOfferExpiration($offerExpiration);
+
+        // Validar los campos obligatorios
+        $errores = [];
+        if (empty($nombre)) {
+            $errores['nombre'] = "El nombre es obligatorio.";
+        }
+        if (empty($descripcion)) {
+            $errores['descripcion'] = "La descripción es obligatoria.";
+        }
+        if ($precio <= 0) {
+            $errores['precio'] = "El precio debe ser mayor que 0.";
+        }
+        if ($stock < 0) {
+            $errores['stock'] = "El stock no puede ser negativo.";
+        }
+        if ($categoria == 0) {
+            $errores['categoria'] = "Debe seleccionar una categoría.";
+        }
+        if (empty($estado)) {
+            $errores['estado'] = "Debe seleccionar el estado del producto.";
+        }
+
+        // Si hubo errores al subir las imágenes, los mostramos
+        if (count($errores) > 0) {
+            $_SESSION['errores'] = $errores;
+        } else {
+            // Lógica de manejo del avatar (imagenes)
+            $imagenes = [];
+            if (isset($_FILES['productImages']['tmp_name']) && is_array($_FILES['productImages']['tmp_name'])) {
+                $directorioDestino = 'uploads/images/productos/';
+                if (!is_dir($directorioDestino)) {
+                    mkdir($directorioDestino, 0777, true);
+                }
+
+                // Procesar cada archivo de imagen
+                foreach ($_FILES['productImages']['tmp_name'] as $key => $rutaTemporal) {
+                    $nombreArchivo = $_FILES['productImages']['name'][$key];
+                    $nombreArchivoUnico = time() . '_' . basename($nombreArchivo);
+
+                    if (move_uploaded_file($rutaTemporal, $directorioDestino . $nombreArchivoUnico)) {
+                        $imagenes[] = $nombreArchivoUnico;
+                    } else {
+                        $errores[] = "Error al guardar la imagen: $nombreArchivo";
+                    }
+                }
+            }
+            // Guardar las imágenes en el producto (si hay imágenes)
+            if (!empty($imagenes)) {
+                $productos->setImagenes(implode(',', $imagenes)); // Guardar las imágenes como una cadena separada por comas
+            }
+            // Guardar el producto en la base de datos
+            $productos->save();
+            // Limpiar los errores y los datos del formulario después de procesar
+            unset($_SESSION['errores']);
+            // Guardar el mensaje de éxito en la sesión
+            $_SESSION['exito'] = 'La información se actualizó correctamente.';
+        }
+        // Redirigir a la página de información general
+        header("Location: " . BASE_URL . "Admin/productos");
+        exit;
     }
 
     public function guardarCategorias()
@@ -169,15 +264,13 @@ class AdminController
         // Obtener los valores del formulario
         $name = isset($_POST['name']) ? $_POST['name'] : false;
         $descripcion = isset($_POST['descripcion']) ? $_POST['descripcion'] : false;
-        $categoria_id = isset($_POST['subcategoria']) ? $_POST['subcategoria'] : false;
-
         $categorias = new Categorias();
-        $subCategorias = new Subcategorias();
+        $categorias->setNombre($name);
+        $categorias->setDescripcion($descripcion);
 
         // Array para almacenar errores
         $errores = [];
 
-        // Validaciones
         if (empty($name)) {
             $errores['name'] = "El nombre es obligatorio.";
         }
@@ -186,35 +279,17 @@ class AdminController
             $errores['descripcion'] = "La descripción es obligatoria.";
         }
 
-        // Si no es subcategoría, crear una categoría principal
-        if (empty($categoria_id)) {
-            // Crear categoría principal
-            $categorias->setNombre($name);
-            $categorias->setDescripcion($descripcion);
-            $resultado = $categorias->crearCategoria();
-        } else {
-
-            $subCategorias->setNombre($name);
-            $subCategorias->setDescripcion($descripcion);
-            $subCategorias->setCategoriaId($categoria_id);
-            $resultado = $subCategorias->crearSubcategoria();
-        }
-
         // Si existen errores, los guardamos en la sesión y redirigimos
         if (count($errores) > 0) {
             $_SESSION['errores'] = $errores;
-            header("Location: " . BASE_URL . "Admin/categorias");
-            exit;
-        }
-
-        // Si la operación fue exitosa, mostrar mensaje
-        if ($resultado) {
+        } else {
+            // Crear categoría principal
+            $categorias->crearCategoria();
+            // Limpiar los errores después de procesar
+            unset($_SESSION['errores']);
+            // Si la operación fue exitosa, mostrar mensaje
             $_SESSION['exito'] = 'La información se guardó correctamente.';
         }
-
-        // Limpiar los errores después de procesar
-        unset($_SESSION['errores']);
-
         // Redirigir al listado de categorías
         header("Location: " . BASE_URL . "Admin/categorias");
         exit;
@@ -224,41 +299,19 @@ class AdminController
     {
         Utils::accesoUsuarioRegistrado();
         $categoriasModel = new Categorias();
-        $categorias = $categoriasModel->obtenerCategoriasConSubcategorias();
+        $categorias = $categoriasModel->obtenerCategorias();
         require_once 'views/layout/head.php';
-        require_once 'views/admin/ecommerce/lista.php';
+        require_once 'views/admin/ecommerce/index.php';
         require_once 'views/layout/script-footer.php';
     }
 
-    public function editarGuardarCategoria()
-    {
-        echo 'editar';
-    }
-
-    public function eliminarGuardarCategoria()
-    {
-        echo 'eliminar';
-    }
-
-
-
-
-
-    public function productos()
-    {
-        Utils::accesoUsuarioRegistrado();
-        require_once 'views/layout/head.php';
-        require_once 'views/admin/productos/crear.php';
-        require_once 'views/layout/script-footer.php';
-    }
-
-    public function listaProductos()
-    {
-        Utils::accesoUsuarioRegistrado();
-        require_once 'views/layout/head.php';
-        require_once 'views/admin/productos/lista.php';
-        require_once 'views/layout/script-footer.php';
-    }
+    // public function listaProductos()
+    // {
+    //     Utils::accesoUsuarioRegistrado();
+    //     require_once 'views/layout/head.php';
+    //     require_once 'views/admin/productos/lista.php';
+    //     require_once 'views/layout/script-footer.php';
+    // }
 
     public function listaPedidos()
     {

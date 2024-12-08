@@ -91,39 +91,4 @@ class Categorias
     }
     return $result;
   }
-
-  public function obtenerCategoriasConSubcategorias()
-  {
-    $sql = "
-        SELECT 
-            c.id AS categoria_id, 
-            c.nombre AS categoria_nombre, 
-            s.id AS subcategoria_id, 
-            s.nombre AS subcategoria_nombre
-        FROM 
-            categorias c
-        LEFT JOIN 
-            subcategorias s ON c.id = s.categoria_id
-        ORDER BY 
-            c.nombre, s.nombre";
-
-    $db = Database::connect();
-    $result = $db->query($sql);
-
-    // Organizar datos en un array asociativo
-    $categorias = [];
-    while ($row = $result->fetch_assoc()) {
-      $categorias[$row['categoria_id']]['nombre'] = $row['categoria_nombre'];
-      $categorias[$row['categoria_id']]['subcategorias'][] = [
-        'id' => $row['subcategoria_id'],
-        'nombre' => $row['subcategoria_nombre']
-      ];
-    }
-
-    return $categorias;
-  }
-
-
-
-  
 }

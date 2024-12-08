@@ -84,12 +84,12 @@
         <i class="fas fa-chevron-right"></i>
       </a>
       <ul class="panel-admin__submenu">   
-        <li class="panel-admin__submenu-item"><a href="<?php echo BASE_URL ?>Admin/ecommerce" class="panel-admin__submenu-link">Gestor de Catálogo</a></li> <!-- gestion de catagolo -->
-        <li class="panel-admin__submenu-item"><a href="<?php echo BASE_URL ?>Admin/categorias" class="panel-admin__submenu-link">Nueva Categoria</a></li> 
+        <li class="panel-admin__submenu-item"><a href="<?php echo BASE_URL ?>Admin/ecommerce" class="panel-admin__submenu-link">Gestor de Catálogo</a></li> 
+        <!-- <li class="panel-admin__submenu-item"><a href="<?php echo BASE_URL ?>Admin/categorias" class="panel-admin__submenu-link">Nueva Categoria</a></li> 
         <li class="panel-admin__submenu-item"><a href="<?php echo BASE_URL ?>Admin/productos" class="panel-admin__submenu-link">Crear Nuevo</a></li>
         <li class="panel-admin__submenu-item"><a href="<?php echo BASE_URL ?>Admin/listaproductos" class="panel-admin__submenu-link">Ver todos</a></li>
         <li class="panel-admin__submenu-item"><a href="<?php echo BASE_URL ?>Admin/carrito" class="panel-admin__submenu-link">Ver Carrito</a></li>
-        <li class="panel-admin__submenu-item"><a href="<?php echo BASE_URL ?>Admin/carrito" class="panel-admin__submenu-link">Realizar Pedido</a></li>
+        <li class="panel-admin__submenu-item"><a href="<?php echo BASE_URL ?>Admin/carrito" class="panel-admin__submenu-link">Realizar Pedido</a></li> -->
       </ul>
     </li>
 
