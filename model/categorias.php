@@ -67,7 +67,7 @@ class Categorias
   }
 
   // Obtener todas las Subcategorías
-  public function obtenerPorSubCategorias()
+  public function otenerSubcategorias()
   {
     // Consulta base
     $sql = "SELECT * FROM categorias WHERE parent_id = {$this->getParentId()}";
@@ -75,27 +75,13 @@ class Categorias
     return $listarCategorias;
   }
 
-
   // Obtener una categoría por su ID
   public function obtenerCategoriaPorId()
   {
-    $sql = "SELECT * FROM categorias WHERE "; // Añadimos WHERE aquí.
-
-    // Si existe un parent_id, se filtra por parent_id, de lo contrario por id.
-    if ($this->getParentId()) {
-      $sql .= "parent_id = {$this->getParentId()}";
-    } else {
-      $sql .= "id = {$this->getId()}";
-    }
-
-
-    // Ejecutar la consulta y obtener el resultado
+    $sql = "SELECT * FROM categorias WHERE id = {$this->getId()}";
     $categoria = $this->db->query($sql);
-
-    // Devolver el primer resultado
     return $categoria->fetch_object();
   }
-
 
   public function obtenerCategoriaPadre()
   {
@@ -156,31 +142,31 @@ class Categorias
     return $result;
   }
 
-  public function getBreadcrumbs()
-  {
-      $breadcrumbs = [];
-      $currentId = $this->getParentId();
-  
-      // Iterar hacia atrás en la jerarquía hasta llegar a la raíz
-      while ($currentId) {
-          $sql = "SELECT id, nombre, parent_id FROM categorias WHERE id = $currentId";
-          $result = $this->db->query($sql);
-  
-          if ($result && $row = $result->fetch_object()) {
-              // Añadir al principio del array de breadcrumbs
-              array_unshift($breadcrumbs, [
-                  'id' => $row->id,
-                  'nombre' => $row->nombre
-              ]);
-  
-              // Seguir al siguiente padre
-              $currentId = $row->parent_id;
-          } else {
-              break; // Si no se encuentra, detener el bucle
-          }
-      }
-  
-      return $breadcrumbs;
-  }
-  
+ public function getBreadcrumbs()
+{
+    $breadcrumbs = [];
+    $currentId = $this->getParentId();
+
+    // Iterar hacia atrás en la jerarquía hasta llegar a la raíz
+    while ($currentId) {
+        $sql = "SELECT id, nombre, parent_id FROM categorias WHERE id = $currentId";
+        $result = $this->db->query($sql);
+
+        if ($result && $row = $result->fetch_object()) {
+            // Añadir al principio del array de breadcrumbs
+            array_unshift($breadcrumbs, [
+                'id' => $row->id,
+                'nombre' => $row->nombre
+            ]);
+
+            // Seguir al siguiente padre
+            $currentId = $row->parent_id;
+        } else {
+            break; // Si no se encuentra, detener el bucle
+        }
+    }
+
+    return $breadcrumbs;
+}
+
 }

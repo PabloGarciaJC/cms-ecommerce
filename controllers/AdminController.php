@@ -158,12 +158,11 @@ class AdminController
         $breadcrumbs = $categorias->getBreadcrumbs();
 
         if ($parentid) {
-            $categorias->setParentId($parentid);
-            $getCategorias = $categorias->obtenerPorSubCategorias();
+            $getCategorias = $categorias->otenerSubcategorias();
         } else {
             $getCategorias = $categorias->obtenerCategorias();
         }
-        
+
         require_once 'views/layout/head.php';
         require_once 'views/admin/ecommerce/index.php';
         require_once 'views/layout/script-footer.php';
@@ -185,7 +184,7 @@ class AdminController
         $descripcion = isset($_POST['descripcion']) ? trim($_POST['descripcion']) : '';
         $precio = isset($_POST['precio']) ? floatval($_POST['precio']) : 0;
         $stock = isset($_POST['stock']) ? intval($_POST['stock']) : 0;
-        $categoria = isset($_POST['categoria']) ? intval($_POST['categoria']) : 0;  // Se usa un ID numérico
+        $categoria = isset($_POST['categoria']) ? intval($_POST['categoria']) : 0;
         $estado = isset($_POST['estado']) ? trim($_POST['estado']) : '';
         $oferta = isset($_POST['oferta']) ? floatval($_POST['oferta']) : 0;
         $offerExpiration = isset($_POST['offerExpiration']) ? trim($_POST['offerExpiration']) : '';
@@ -270,24 +269,13 @@ class AdminController
     public function categorias()
     {
         Utils::accesoUsuarioRegistrado();
-
         $editId = isset($_GET['editid']) ? $_GET['editid'] : false;
         $deteleId = isset($_GET['deteleid']) ? $_GET['deteleid'] : false;
-        $parentid = isset($_GET['parentid']) ? $_GET['parentid'] : false;
-
         $categorias = new Categorias();
 
-        if ($editId) {
-            $categorias->setId($editId);
-        } elseif ($deteleId) {
-            $categorias->setId($deteleId);
-        }
-
-        if ($parentid) {
-            $categorias->setParentId($parentid);
-            $getCategorias = $categorias->obtenerPorSubCategorias();
-        } else {
-            $getCategorias = $categorias->obtenerCategorias();
+        if ($editId || $deteleId) {
+            $categorias->setId($editId ?: $deteleId);
+            $getCategoriasId = $categorias->obtenerCategoriaPorId(); // Repueblo el Formulario Segun el id
         }
 
         require_once 'views/layout/head.php';
@@ -302,19 +290,13 @@ class AdminController
         $descripcion = isset($_POST['descripcion']) ? $_POST['descripcion'] : false;
         $editId = isset($_POST['editid']) ? $_POST['editid'] : false;
         $deleteId = isset($_POST['deteleid']) ? $_POST['deteleid'] : false;
-        // Categorias Padre
-        $urlParentId = '';
-        $parentId = isset($_POST['parentid']) ? $_POST['parentid'] : false;
-
-        if ($parentId) {
-            $urlParentId = '?parentid=' . $parentId;
-        }
+        $parentid = isset($_POST['parentid']) ? $_POST['parentid']  : false;
+        $urlParentid = $parentid ? '&parentid=' . $parentid : false;
 
         // Instacio
         $categorias = new Categorias();
         $categorias->setNombre($name);
         $categorias->setDescripcion($descripcion);
-        $categorias->setParentId($parentId);
 
         $errores = [];
 
@@ -327,7 +309,7 @@ class AdminController
 
         if (count($errores) > 0) {
             $_SESSION['errores'] = $errores;
-            header("Location: " . BASE_URL . "Admin/categorias" . $urlParentId);
+            header("Location: " . BASE_URL . "Admin/categorias");
             exit;
         } else {
             switch (true) {
@@ -344,18 +326,17 @@ class AdminController
                     break;
 
                 default:
+                    $categorias->setParentId($parentid);
                     $categorias->crearCategoria();
                     $_SESSION['exito'] = 'La categoría se creó correctamente.';
                     break;
             }
 
             unset($_SESSION['errores']);
-            header("Location: " . BASE_URL . "Admin/ecommerce" . $urlParentId);
+            header("Location: " . BASE_URL . "Admin/ecommerce" . $urlParentid);
             exit;
         }
     }
-
-
 
     // public function listaProductos()
     // {
