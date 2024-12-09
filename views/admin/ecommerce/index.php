@@ -50,27 +50,48 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php if ($getCategorias->num_rows > 0) : ?>
-                            <?php while ($categoriaProducto = $getCategorias->fetch_object()) : ?>
+                        <!-- Categorias -->
+                        <?php if (!empty($getCategorias['categorias']) && $getCategorias['categorias']->num_rows > 0) : ?>
+                            <?php while ($categoria = $getCategorias['categorias']->fetch_object()) : ?>
                                 <tr>
                                     <td>
-                                        <a href="<?php echo BASE_URL ?>Admin/ecommerce&parentid=<?php echo $categoriaProducto->id; ?>">
+                                        <a href="<?php echo BASE_URL ?>Admin/ecommerce&parentid=<?php echo $categoria->id; ?>">
                                             <i class="fas fa-folder subcategoria-icon"></i>
-                                            <?php echo $categoriaProducto->nombre; ?>
+                                            <?php echo $categoria->nombre; ?>
                                         </a>
                                     </td>
                                     <td>
-                                        <?php echo $categoriaProducto->descripcion; ?>
+                                        <?php echo $categoria->descripcion; ?>
                                     </td>
                                     <td>
-                                        <a href="<?= BASE_URL ?>Admin/categorias?editid=<?php echo $categoriaProducto->id; ?><?php echo isset($_GET['parentid']) ? '&parentid=' . $_GET['parentid'] : false; ?>" class="btn btn-warning btn-sm">Editar</a>
-                                        <a href="<?= BASE_URL ?>Admin/categorias?deteleid=<?php echo $categoriaProducto->id; ?><?php echo isset($_GET['parentid']) ? '&parentid=' . $_GET['parentid'] : false; ?>" class="btn btn-danger btn-sm">Eliminar</a>
+                                        <a href="<?= BASE_URL ?>Admin/categorias?editid=<?php echo $categoria->id; ?><?php echo isset($_GET['parentid']) ? '&parentid=' . $_GET['parentid'] : false; ?>" class="btn btn-warning btn-sm">Editar</a>
+                                        <a href="<?= BASE_URL ?>Admin/categorias?deteleid=<?php echo $categoria->id; ?><?php echo isset($_GET['parentid']) ? '&parentid=' . $_GET['parentid'] : false; ?>" class="btn btn-danger btn-sm">Eliminar</a>
                                     </td>
                                 </tr>
                             <?php endwhile; ?>
                         <?php else : ?>
                             <tr>
                                 <td colspan="3">No hay categorías registradas.</td>
+                            </tr>
+                        <?php endif; ?>
+                        <!-- Productos -->
+                        <?php if (!empty($getCategorias['productos']) && $getCategorias['productos']->num_rows > 0) : ?>
+                            <?php while ($producto = $getCategorias['productos']->fetch_object()) : ?>
+                                <tr>
+                                    <td>
+                                        <i class="fas fa-tags producto-icon" style="margin-right: 5px;"></i>
+                                        <?php echo $producto->nombre; ?>
+                                    </td>
+                                    <td><?php echo $producto->descripcion; ?></td>
+                                    <td>
+                                        <a href="<?= BASE_URL ?>Admin/productos?editid=<?php echo $producto->id; ?>" class="btn btn-warning btn-sm">Editar</a>
+                                        <a href="<?= BASE_URL ?>Admin/productos?deleteid=<?php echo $producto->id; ?>" class="btn btn-danger btn-sm">Eliminar</a>
+                                    </td>
+                                </tr>
+                            <?php endwhile; ?>
+                        <?php else : ?>
+                            <tr>
+                                <td colspan="3">No hay productos registrados.</td>
                             </tr>
                         <?php endif; ?>
                     </tbody>

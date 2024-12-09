@@ -170,7 +170,6 @@ class AdminController
         require_once 'views/layout/script-footer.php';
     }
 
-
     public function productos()
     {
         Utils::accesoUsuarioRegistrado();
@@ -179,6 +178,8 @@ class AdminController
         $categorias->setParentId($parentid);
         if ($parentid) {
             $getCategorias = $categorias->otenerSubcategorias();
+            
+       
         }
         require_once 'views/layout/head.php';
         require_once 'views/admin/productos/crear.php';

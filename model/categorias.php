@@ -63,17 +63,41 @@ class Categorias
     $sql = "SELECT * FROM categorias WHERE parent_id IS NULL OR parent_id = ''";
     // Ejecutar la consulta
     $listarCategorias = $this->db->query($sql);
-    return $listarCategorias;
+
+    // Devolver ambos resultados como un arreglo asociativo
+    return [
+      'categorias' => $listarCategorias,
+    ];
   }
 
   // Obtener todas las Subcategorías
+  // public function otenerSubcategorias()
+  // {
+  //   // Consulta base
+  //   $sql = "SELECT * FROM categorias WHERE parent_id = {$this->getParentId()}";
+  //   $listarCategorias = $this->db->query($sql);
+  //   return $listarCategorias;
+  // }
+
+  // Obtener todas las Subcategorías relacionadas con Productos
   public function otenerSubcategorias()
   {
-    // Consulta base
-    $sql = "SELECT * FROM categorias WHERE parent_id = {$this->getParentId()}";
-    $listarCategorias = $this->db->query($sql);
-    return $listarCategorias;
+    // Consulta para obtener todas las subcategorías
+    $sqlCategorias = "SELECT * FROM categorias WHERE parent_id = {$this->getParentId()}";
+    $listarCategorias = $this->db->query($sqlCategorias);
+
+    // Consulta para obtener todos los productos
+    $sqlProductos = "SELECT * FROM productos WHERE parent_id = {$this->getParentId()}";
+    $listarProductos = $this->db->query($sqlProductos);
+
+    // Devolver ambos resultados como un arreglo asociativo
+    return [
+      'categorias' => $listarCategorias,
+      'productos' => $listarProductos,
+    ];
   }
+
+
 
   // Obtener una categoría por su ID
   public function obtenerCategoriaPorId()
@@ -142,31 +166,30 @@ class Categorias
     return $result;
   }
 
- public function getBreadcrumbs()
-{
+  public function getBreadcrumbs()
+  {
     $breadcrumbs = [];
     $currentId = $this->getParentId();
 
     // Iterar hacia atrás en la jerarquía hasta llegar a la raíz
     while ($currentId) {
-        $sql = "SELECT id, nombre, parent_id FROM categorias WHERE id = $currentId";
-        $result = $this->db->query($sql);
+      $sql = "SELECT id, nombre, parent_id FROM categorias WHERE id = $currentId";
+      $result = $this->db->query($sql);
 
-        if ($result && $row = $result->fetch_object()) {
-            // Añadir al principio del array de breadcrumbs
-            array_unshift($breadcrumbs, [
-                'id' => $row->id,
-                'nombre' => $row->nombre
-            ]);
+      if ($result && $row = $result->fetch_object()) {
+        // Añadir al principio del array de breadcrumbs
+        array_unshift($breadcrumbs, [
+          'id' => $row->id,
+          'nombre' => $row->nombre
+        ]);
 
-            // Seguir al siguiente padre
-            $currentId = $row->parent_id;
-        } else {
-            break; // Si no se encuentra, detener el bucle
-        }
+        // Seguir al siguiente padre
+        $currentId = $row->parent_id;
+      } else {
+        break; // Si no se encuentra, detener el bucle
+      }
     }
 
     return $breadcrumbs;
-}
-
+  }
 }

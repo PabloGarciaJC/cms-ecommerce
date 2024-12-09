@@ -5,7 +5,7 @@
         <section class="panel-admin__dashboard">
             <h2 class="panel-admin__dashboard-title">Crear Nuevo Producto</h2>
             <form action="<?php echo BASE_URL; ?>Admin/guardarProductos" method="POST" enctype="multipart/form-data">
-                <input type="text" name="parentid" value="<?php echo isset($_GET['parentid']) ? $_GET['parentid'] : false; ?>">
+                <input type="hidden" name="parentid" value="<?php echo isset($_GET['parentid']) ? $_GET['parentid'] : false; ?>">
                 <div class="form-group">
                     <label for="nombre">Nombre del Producto:</label>
                     <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Ejemplo: Laptop, Smartphone">
@@ -46,9 +46,9 @@
                     <label for="categoria">Categoría:</label>
                     <select id="categoria" name="categoria" class="form-control">
                         <option value="null">Seleccione...</option>
-                        <?php while ($fila = mysqli_fetch_assoc($getCategorias)) : ?>
-                            <option value="<?php echo $fila['id']; ?>">
-                                <?php echo $fila['nombre']; ?>
+                        <?php while ($categorias = $getCategorias['categorias']->fetch_object()) : ?>
+                            <option value="<?php echo $categorias->id; ?>">
+                                <?php echo $categorias->nombre; ?>
                             </option>
                         <?php endwhile; ?>
                     </select>

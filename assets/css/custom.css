@@ -338,6 +338,8 @@
 
   .subcategoria-icon {
       color: #ffc107;
+      font-size: 1.3em;
+      margin-right: 5px;
   }
 
   /* breadcrumbs */
@@ -401,6 +403,13 @@
   .panel-admin__category-list table td:last-child {
       text-align: center;
   }
+
+  .producto-icon {
+      color: #17a2b8;
+      font-size: 1.2em;
+      vertical-align: middle;
+  }
+
 
   /* Btns Gestion de Ecommerce */
 
