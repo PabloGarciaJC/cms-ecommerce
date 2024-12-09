@@ -5,6 +5,7 @@
         <section class="panel-admin__dashboard">
             <h2 class="panel-admin__dashboard-title">Crear Nuevo Producto</h2>
             <form action="<?php echo BASE_URL; ?>Admin/guardarProductos" method="POST" enctype="multipart/form-data">
+                <input type="text" name="parentid" value="<?php echo isset($_GET['parentid']) ? $_GET['parentid'] : false; ?>">
                 <div class="form-group">
                     <label for="nombre">Nombre del Producto:</label>
                     <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Ejemplo: Laptop, Smartphone">
@@ -44,17 +45,13 @@
                 <div class="form-group">
                     <label for="categoria">Categoría:</label>
                     <select id="categoria" name="categoria" class="form-control">
-                        <option value="">Selecciona una categoría</option>
-                        <option value="37">Electrónica</option>
-                        <option value="38">Ropa</option>
-                        <option value="39">Hogar</option>
-                        <option value="40">Deportes</option>
+                        <option value="null">Seleccione...</option>
+                        <?php while ($fila = mysqli_fetch_assoc($getCategorias)) : ?>
+                            <option value="<?php echo $fila['id']; ?>">
+                                <?php echo $fila['nombre']; ?>
+                            </option>
+                        <?php endwhile; ?>
                     </select>
-                    <?php if (isset($_SESSION['errores']['categoria'])) : ?>
-                        <div class="text-danger mt-2">
-                            <i class="fas fa-exclamation-circle"></i> <?php echo $_SESSION['errores']['categoria']; ?>
-                        </div>
-                    <?php endif; ?>
                 </div>
                 <div class="form-group">
                     <label for="estado">Estado del Producto:</label>
@@ -89,4 +86,3 @@
         </section>
     </main>
 </div>
-

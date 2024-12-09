@@ -396,8 +396,23 @@
       }
   }
 
-/* Tabla */
+  /* Tabla */
   .panel-admin__category-list table th:last-child,
   .panel-admin__category-list table td:last-child {
       text-align: center;
+  }
+
+  /* Btns Gestion de Ecommerce */
+
+  .panel-admin__stats-overview.half-width {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+  }
+
+  .panel-admin__stat-card {
+      width: 50%;
+      text-align: center;
+      justify-content: center;
   }

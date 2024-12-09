@@ -11,7 +11,8 @@ class Productos
   private $estado;
   private $oferta;
   private $offerExpiration;
-  private $imagenes; // Esto puede ser una cadena JSON o array
+  private $imagenes;
+  private $parentid;
   private $db;
 
   /// CONSTRUCTOR ///
@@ -72,6 +73,11 @@ class Productos
     return $this->imagenes;
   }
 
+  public function getParentId()
+  {
+    return $this->parentid;
+  }
+
   public function setId($id)
   {
     $this->id = $id;
@@ -122,26 +128,21 @@ class Productos
     $this->imagenes = $imagenes;
   }
 
+  public function setParentId($parentid)
+  {
+    $this->parentid = $parentid;
+  }
 
   // Guardar producto en la base de datos
   public function save()
   {
-      // Verificar si la categoria existe
-      $sql = "SELECT COUNT(*) FROM categorias WHERE id = '{$this->idCategoria}'";
-      $result = $this->db->query($sql);
-      $row = $result->fetch_row();
-      
-      if ($row[0] == 0) {
-          // Si la categoría no existe, lanzamos un error o retornamos false
-          return false; // O puedes lanzar una excepción con un mensaje de error
-      }
-  
-      // Convertir imágenes a JSON para almacenarlas
-      $imagenesJson = json_encode($this->imagenes); 
-      
-      $sql = "INSERT INTO productos (id_categoria, nombre, descripcion, precio, stock, estado, oferta, offer_expiration, imagenes) 
+
+    // Convertir imágenes a JSON para almacenarlas
+    $imagenesJson = json_encode($this->imagenes);
+
+    $sql = "INSERT INTO productos (id_categoria, nombre, descripcion, precio, stock, estado, oferta, offer_expiration, imagenes, parent_id) 
               VALUES (
-                  '{$this->idCategoria}', 
+                  {$this->idCategoria}, 
                   '{$this->nombre}', 
                   '{$this->descripcion}', 
                   '{$this->precio}', 
@@ -149,12 +150,13 @@ class Productos
                   '{$this->estado}', 
                   '{$this->oferta}', 
                   '{$this->offerExpiration}', 
-                  '$imagenesJson'
+                  '$imagenesJson',
+                  '{$this->parentid}'
               )";
-  
-      return $this->db->query($sql);
+
+    return $this->db->query($sql);
   }
-  
+
 
   // Obtener todos los productos
   public function getAll()

@@ -174,6 +174,12 @@ class AdminController
     public function productos()
     {
         Utils::accesoUsuarioRegistrado();
+        $categorias = new Categorias();
+        $parentid = isset($_GET['parentid']) ? $_GET['parentid'] : false;
+        $categorias->setParentId($parentid);
+        if ($parentid) {
+            $getCategorias = $categorias->otenerSubcategorias();
+        }
         require_once 'views/layout/head.php';
         require_once 'views/admin/productos/crear.php';
         require_once 'views/layout/script-footer.php';
@@ -182,14 +188,16 @@ class AdminController
     public function guardarProductos()
     {
         // Obtener los datos del formulario
-        $nombre = isset($_POST['nombre']) ? trim($_POST['nombre']) : '';
-        $descripcion = isset($_POST['descripcion']) ? trim($_POST['descripcion']) : '';
-        $precio = isset($_POST['precio']) ? floatval($_POST['precio']) : 0;
-        $stock = isset($_POST['stock']) ? intval($_POST['stock']) : 0;
-        $categoria = isset($_POST['categoria']) ? intval($_POST['categoria']) : 0;
-        $estado = isset($_POST['estado']) ? trim($_POST['estado']) : '';
-        $oferta = isset($_POST['oferta']) ? floatval($_POST['oferta']) : 0;
-        $offerExpiration = isset($_POST['offerExpiration']) ? trim($_POST['offerExpiration']) : '';
+        $nombre = isset($_POST['nombre']) ? trim($_POST['nombre']) : false;
+        $descripcion = isset($_POST['descripcion']) ? trim($_POST['descripcion']) : false;
+        $precio = isset($_POST['precio']) ? floatval($_POST['precio']) : false;
+        $stock = isset($_POST['stock']) ? intval($_POST['stock']) : false;
+        $categoria = isset($_POST['categoria']) ? $_POST['categoria'] : false;
+        $estado = isset($_POST['estado']) ? trim($_POST['estado']) : false;
+        $oferta = isset($_POST['oferta']) ? floatval($_POST['oferta']) : false;
+        $offerExpiration = isset($_POST['offerExpiration']) ? trim($_POST['offerExpiration']) : false;
+        $parentid = isset($_POST['parentid']) ? $_POST['parentid'] : false;
+        $urlParentid = $parentid ? '&parentid=' . $parentid : '';
 
         // Inicializar el objeto Producto
         $productos = new Productos();
@@ -203,6 +211,7 @@ class AdminController
         $productos->setIdCategoria($categoria);
         $productos->setEstado($estado);
         $productos->setOfferExpiration($offerExpiration);
+        $productos->setParentId($parentid);
 
         // Validar los campos obligatorios
         $errores = [];
@@ -218,22 +227,21 @@ class AdminController
         if ($stock < 0) {
             $errores['stock'] = "El stock no puede ser negativo.";
         }
-        if ($categoria == 0) {
-            $errores['categoria'] = "Debe seleccionar una categoría.";
-        }
         if (empty($estado)) {
             $errores['estado'] = "Debe seleccionar el estado del producto.";
         }
 
-        // Si hubo errores al subir las imágenes, los mostramos
+        // Si hubo errores de validación, redirigir con los errores
         if (count($errores) > 0) {
             $_SESSION['errores'] = $errores;
-            header("Location: " . BASE_URL . "Admin/productos");
+            $_SESSION['form'] = $_POST;
+            header("Location: " . BASE_URL . "Admin/productos" . $urlParentid);
             exit;
         } else {
-            // Lógica de manejo del avatar (imagenes)
+
+            // Lógica de manejo de imágenes
             $imagenes = [];
-            if (isset($_FILES['productImages']['tmp_name']) && is_array($_FILES['productImages']['tmp_name'])) {
+            if (isset($_FILES['productImages']) && is_array($_FILES['productImages']['tmp_name'])) {
                 $directorioDestino = 'uploads/images/productos/';
                 if (!is_dir($directorioDestino)) {
                     mkdir($directorioDestino, 0777, true);
@@ -244,6 +252,7 @@ class AdminController
                     $nombreArchivo = $_FILES['productImages']['name'][$key];
                     $nombreArchivoUnico = time() . '_' . basename($nombreArchivo);
 
+                    // Subir la imagen
                     if (move_uploaded_file($rutaTemporal, $directorioDestino . $nombreArchivoUnico)) {
                         $imagenes[] = $nombreArchivoUnico;
                     } else {
@@ -251,19 +260,24 @@ class AdminController
                     }
                 }
             }
-            // Guardar las imágenes en el producto (si hay imágenes)
+
+            // Si hay imágenes, guardarlas como una cadena separada por comas
             if (!empty($imagenes)) {
-                $productos->setImagenes(implode(',', $imagenes)); // Guardar las imágenes como una cadena separada por comas
+                $productos->setImagenes(implode(',', $imagenes));
             }
+
             // Guardar el producto en la base de datos
             $productos->save();
-            // Limpiar los errores y los datos del formulario después de procesar
-            unset($_SESSION['errores']);
-            // Guardar el mensaje de éxito en la sesión
-            $_SESSION['exito'] = 'La información se actualizó correctamente.';
 
-            // Redirigir a la página de información general
-            header("Location: " . BASE_URL . "Admin/ecommerce");
+            // Guardar el mensaje de éxito en la sesión
+            $_SESSION['exito'] = 'El producto se ha creado correctamente.';
+
+            // Limpiar los errores y el formulario
+            unset($_SESSION['errores']);
+            unset($_SESSION['form']);
+
+            // Redirigir a la página de productos o a la página con el parámetro parentid
+            header("Location: " . BASE_URL . "Admin/ecommerce" . $urlParentid);
             exit;
         }
     }
@@ -312,7 +326,7 @@ class AdminController
         if (count($errores) > 0) {
             $_SESSION['errores'] = $errores;
             $_SESSION['form'] = $_POST;
-            header("Location: " . BASE_URL . "Admin/categorias");
+            header("Location: " . BASE_URL . "Admin/categorias" . $urlParentid);
             exit;
         } else {
             switch (true) {

@@ -4,19 +4,21 @@
     <main class="panel-admin__main-content">
         <section class="panel-admin__dashboard">
             <h2 class="panel-admin__dashboard-title">Gestión de Ecommerce</h2>
-            <div class="panel-admin__stats-overview">
-                <a href="<?php echo BASE_URL ?>Admin/categorias<?php echo isset($_GET['parentid']) ? '?parentid=' . $_GET['parentid'] : false; ?>" class="panel-admin__stat-card">
+            <div class="panel-admin__stats-overview <?php echo isset($_GET['parentid']) ? 'half-width' : ''; ?>">
+                <a href="<?php echo BASE_URL ?>Admin/categorias<?php echo isset($_GET['parentid']) ? '?parentid=' . $_GET['parentid'] : ''; ?>" class="panel-admin__stat-card">
                     <span class="panel-admin__stat-icon"><i class="fas fa-th-large"></i></span>
                     <div class="panel-admin__stat-info">
                         <h3 class="panel-admin__stat-number">Crear Categorias</h3>
                     </div>
                 </a>
-                <a href="<?php echo BASE_URL ?>Admin/productos" class="panel-admin__stat-card">
-                    <span class="panel-admin__stat-icon"><i class="fas fa-cogs"></i></span>
-                    <div class="panel-admin__stat-info">
-                        <h3 class="panel-admin__stat-number">Crear Productos</h3>
-                    </div>
-                </a>
+                <?php if (isset($_GET['parentid'])): ?>
+                    <a href="<?php echo BASE_URL ?>Admin/productos<?php echo isset($_GET['parentid']) ? '?parentid=' . $_GET['parentid'] : ''; ?>" class="panel-admin__stat-card">
+                        <span class="panel-admin__stat-icon"><i class="fas fa-cogs"></i></span>
+                        <div class="panel-admin__stat-info">
+                            <h3 class="panel-admin__stat-number">Crear Productos</h3>
+                        </div>
+                    </a>
+                <?php endif; ?>
             </div>
             <div class="breadcrumbs">
                 <nav>
