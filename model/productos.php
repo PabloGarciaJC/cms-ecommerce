@@ -142,16 +142,16 @@ class Productos
 
     $sql = "INSERT INTO productos (id_categoria, nombre, descripcion, precio, stock, estado, oferta, offer_expiration, imagenes, parent_id) 
               VALUES (
-                  {$this->idCategoria}, 
-                  '{$this->nombre}', 
-                  '{$this->descripcion}', 
-                  '{$this->precio}', 
-                  '{$this->stock}', 
-                  '{$this->estado}', 
-                  '{$this->oferta}', 
-                  '{$this->offerExpiration}', 
+                  {$this->getIdCategoria()}, 
+                  '{$this->getNombre()}', 
+                  '{$this->getDescripcion()}', 
+                  '{$this->getPrecio()}', 
+                  '{$this->getStock()}', 
+                  '{$this->getEstado()}', 
+                  '{$this->getOferta()}', 
+                  '{$this->getOfferExpiration()}', 
                   '$imagenesJson',
-                  '{$this->parentid}'
+                  '{$this->getParentId()}'
               )";
 
     return $this->db->query($sql);
@@ -173,37 +173,70 @@ class Productos
   }
 
   // Obtener un producto por ID
-  public function getById($id)
+  // public function obtenerProductosPorId()
+  // {
+  //   $sql = "SELECT * FROM productos WHERE id = {$this->getId()}";
+  //   $result = $this->db->query($sql);
+  //   return $result->fetch_object();
+  // }
+
+  public function obtenerProductosPorId()
   {
-    $sql = "SELECT * FROM productos WHERE id = {$id}";
+    // Verificar que se haya establecido un ID válido
+    if (!$this->getId()) {
+      return null;
+    }
+
+    // Consulta SQL para obtener el producto por ID
+    $sql = "SELECT * FROM productos WHERE id = {$this->getId()}";
+
+    // Ejecutar la consulta
     $result = $this->db->query($sql);
 
-    return $result->fetch_object();
+    // Verificar si se encontró el producto
+    if ($result && $result->num_rows > 0) {
+      return $result->fetch_object();
+    }
+
+    // Si no se encontró el producto, devolver null
+    return null;
   }
 
   // Actualizar un producto
-  public function update()
+  public function actualizarProductosPorId()
   {
-    $imagenesJson = json_encode($this->imagenes); // Convertir imágenes a JSON para almacenarlas
-    $sql = "UPDATE productos SET 
-                id_categoria = '{$this->idCategoria}', 
-                nombre = '{$this->nombre}', 
-                descripcion = '{$this->descripcion}', 
-                precio = '{$this->precio}', 
-                stock = '{$this->stock}', 
-                estado = '{$this->estado}', 
-                oferta = '{$this->oferta}', 
-                offer_expiration = '{$this->offerExpiration}', 
-                imagenes = '$imagenesJson' 
-                WHERE id = '{$this->id}'";
+    // Inicializa una lista para los campos que se actualizarán
+    $campos = [
+      "id_categoria = {$this->getIdCategoria()}",
+      "nombre = '{$this->getNombre()}'",
+      "descripcion = '{$this->getDescripcion()}'",
+      "precio = '{$this->getPrecio()}'",
+      "stock = '{$this->getStock()}'",
+      "estado = '{$this->getEstado()}'",
+      "oferta = '{$this->getOferta()}'",
+      "offer_expiration = '{$this->getOfferExpiration()}'"
+    ];
 
+    // Verifica si hay una imagen y agrégala si existe
+    if ($this->getImagenes()) {
+      $campos[] = "imagenes = '{$this->getImagenes()}'";
+    }
+
+    // Convierte el array de campos en una cadena para la consulta SQL
+    $campos_sql = implode(", ", $campos);
+
+    // Crea la consulta
+    $sql = "UPDATE productos SET $campos_sql WHERE id = {$this->getId()}";
+
+    // Ejecuta la consulta
     return $this->db->query($sql);
   }
 
+
   // Eliminar un producto
-  public function delete()
+  public function eliminarProductos()
   {
-    $sql = "DELETE FROM productos WHERE id = '{$this->id}'";
+    $sql = "DELETE FROM productos WHERE id = {$this->getId()}";
 
     return $this->db->query($sql);
   }

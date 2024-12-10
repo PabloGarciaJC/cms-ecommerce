@@ -54,45 +54,55 @@
                         <?php if (!empty($getCategorias['categorias']) && $getCategorias['categorias']->num_rows > 0) : ?>
                             <?php while ($categoria = $getCategorias['categorias']->fetch_object()) : ?>
                                 <tr>
+                                    <?php
+                                    $parentUrl = BASE_URL . "Admin/ecommerce&parentid=" . $categoria->id;
+                                    $editUrl = BASE_URL . "Admin/categorias?editid=" . $categoria->id;
+                                    $deleteUrl = BASE_URL . "Admin/categorias?deleteid=" . $categoria->id;
+                                    $parentParam = isset($_GET['parentid']) ? '&parentid=' . $_GET['parentid'] : '';
+                                    ?>
                                     <td>
-                                        <a href="<?php echo BASE_URL ?>Admin/ecommerce&parentid=<?php echo $categoria->id; ?>">
+                                        <a href="<?= $parentUrl ?>">
                                             <i class="fas fa-folder subcategoria-icon"></i>
-                                            <?php echo $categoria->nombre; ?>
+                                            <?= $categoria->nombre; ?>
                                         </a>
                                     </td>
                                     <td>
-                                        <?php echo $categoria->descripcion; ?>
+                                        <a href="<?= $parentUrl ?>">
+                                            <?= $categoria->descripcion; ?>
+                                        </a>
                                     </td>
                                     <td>
-                                        <a href="<?= BASE_URL ?>Admin/categorias?editid=<?php echo $categoria->id; ?><?php echo isset($_GET['parentid']) ? '&parentid=' . $_GET['parentid'] : false; ?>" class="btn btn-warning btn-sm">Editar</a>
-                                        <a href="<?= BASE_URL ?>Admin/categorias?deteleid=<?php echo $categoria->id; ?><?php echo isset($_GET['parentid']) ? '&parentid=' . $_GET['parentid'] : false; ?>" class="btn btn-danger btn-sm">Eliminar</a>
+                                        <a href="<?= $editUrl . $parentParam ?>" class="btn btn-warning btn-sm">Editar</a>
+                                        <a href="<?= $deleteUrl . $parentParam ?>" class="btn btn-danger btn-sm">Eliminar</a>
                                     </td>
                                 </tr>
-                            <?php endwhile; ?>
-                        <?php else : ?>
-                            <tr>
-                                <td colspan="3">No hay categorías registradas.</td>
-                            </tr>
+                            <?php endwhile; ?>                        
                         <?php endif; ?>
                         <!-- Productos -->
                         <?php if (!empty($getCategorias['productos']) && $getCategorias['productos']->num_rows > 0) : ?>
                             <?php while ($producto = $getCategorias['productos']->fetch_object()) : ?>
                                 <tr>
+                                    <?php
+                                    $urlBase = BASE_URL . "Admin/productos?editid=" . $producto->id;
+                                    $parentParam = isset($_GET['parentid']) ? '&parentid=' . $_GET['parentid'] : '';
+                                    ?>
                                     <td>
-                                        <i class="fas fa-tags producto-icon" style="margin-right: 5px;"></i>
-                                        <?php echo $producto->nombre; ?>
+                                        <a href="<?= $urlBase . $parentParam ?>">
+                                            <i class="fas fa-tags producto-icon" style="margin-right: 5px;"></i>
+                                            <?= $producto->nombre; ?>
+                                        </a>
                                     </td>
-                                    <td><?php echo $producto->descripcion; ?></td>
                                     <td>
-                                        <a href="<?= BASE_URL ?>Admin/productos?editid=<?php echo $producto->id; ?>" class="btn btn-warning btn-sm">Editar</a>
-                                        <a href="<?= BASE_URL ?>Admin/productos?deleteid=<?php echo $producto->id; ?>" class="btn btn-danger btn-sm">Eliminar</a>
+                                        <a href="<?= $urlBase . $parentParam ?>">
+                                            <?= $producto->descripcion; ?>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="<?= $urlBase . $parentParam ?>" class="btn btn-warning btn-sm">Editar</a>
+                                        <a href="<?= BASE_URL ?>Admin/productos?deleteid=<?= $producto->id . $parentParam ?>" class="btn btn-danger btn-sm">Eliminar</a>
                                     </td>
                                 </tr>
-                            <?php endwhile; ?>
-                        <?php else : ?>
-                            <tr>
-                                <td colspan="3">No hay productos registrados.</td>
-                            </tr>
+                            <?php endwhile; ?>                  
                         <?php endif; ?>
                     </tbody>
                 </table>

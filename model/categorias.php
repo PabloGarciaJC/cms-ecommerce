@@ -97,8 +97,6 @@ class Categorias
     ];
   }
 
-
-
   // Obtener una categoría por su ID
   public function obtenerCategoriaPorId()
   {

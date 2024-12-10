@@ -41,75 +41,38 @@ class App {
     }
 
     function changeMulti() {
-      let imageFiles = []; // Para mantener el control de las imágenes cargadas
-  
+      let imageFiles = [];
+
       $('#productImages').on('change', function (event) {
-          const files = event.target.files;
-          const $previewContainer = $('#imagePreview');
-          $previewContainer.empty(); // Limpiar cualquier imagen previa
-  
-          imageFiles = []; // Reiniciar el arreglo de archivos
-  
-          // Mostrar todas las imágenes seleccionadas
-          $.each(files, function (i, file) {
-              const reader = new FileReader();
-  
-              reader.onload = function (e) {
-                  const $imgContainer = $('<div>').addClass('panel-admin__image-container');
-  
-                  const $imgElement = $('<img>')
-                      .attr('src', e.target.result)
-                      .addClass('panel-admin__image-thumbnail');
-  
-                  // Añadir archivo al arreglo de archivos para gestión posterior
-                  imageFiles.push(file);
-  
-                  // Botón de eliminar
-                  const $deleteBtn = $('<button>')
-                      .text('Eliminar')
-                      .addClass('panel-admin__btn panel-admin__btn--delete')
-                      .on('click', function () {
-                          $imgContainer.remove(); // Eliminar el contenedor
-                          imageFiles = imageFiles.filter(f => f !== file); // Eliminar la imagen del arreglo
-                      });
-  
-                  // Botón de editar
-                  const $editBtn = $('<button>')
-                      .text('Editar')
-                      .addClass('panel-admin__btn panel-admin__btn--edit')
-                      .on('click', function (event) {
-                          event.preventDefault(); // Prevenir el envío del formulario
-  
-                          const $input = $('<input>')
-                              .attr({
-                                  type: 'file',
-                                  accept: 'image/*'
-                              })
-                              .on('change', function () {
-                                  const newFile = this.files[0];
-                                  if (newFile) {
-                                      const newReader = new FileReader();
-                                      newReader.onload = function (e) {
-                                          $imgElement.attr('src', e.target.result); // Reemplazar la imagen
-                                          imageFiles = imageFiles.map(f => f === file ? newFile : f); // Reemplazar en el arreglo
-                                      };
-                                      newReader.readAsDataURL(newFile);
-                                  }
-                              });
-  
-                          $input.click(); // Simular el clic del input
-                      });
-  
-                  // Añadir la imagen, botones de editar y eliminar al contenedor
-                  $imgContainer.append($imgElement, $editBtn, $deleteBtn);
-                  $previewContainer.append($imgContainer);
-              };
-  
-              reader.readAsDataURL(file);
-          });
+        const files = event.target.files;
+        const $previewContainer = $('#imagePreview');
+        $previewContainer.empty();
+
+        imageFiles = [];
+
+        // Mostrar todas las imágenes seleccionadas
+        $.each(files, function (i, file) {
+          const reader = new FileReader();
+
+          reader.onload = function (e) {
+            const $imgContainer = $('<div>').addClass('panel-admin__image-container');
+
+            const $imgElement = $('<img>')
+              .attr('src', e.target.result)
+              .addClass('panel-admin__image-thumbnail');
+
+            // Añadir archivo al arreglo de archivos para gestión posterior
+            imageFiles.push(file);
+
+            // Añadir la imagen, botones de editar y eliminar al contenedor
+            $imgContainer.append($imgElement);
+            $previewContainer.append($imgContainer);
+          };
+
+          reader.readAsDataURL(file);
+        });
       });
-  }
-  
+    }
     changeIndividual();
     changeMulti();
   }

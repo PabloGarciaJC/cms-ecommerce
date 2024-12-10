@@ -6,9 +6,9 @@
             <div class="panel-admin__category-form">
                 <h2 class="panel-admin__dashboard-title">Nueva Categoría</h2>
                 <form action="<?php echo BASE_URL ?>Admin/guardarCategorias" method="POST">
-                    <input type="hidden" name="editid" value="<?php echo isset($_GET['editid']) ? $_GET['editid'] : ''; ?>">
-                    <input type="hidden" name="deteleid" value="<?php echo isset($_GET['deteleid']) ? $_GET['deteleid'] : ''; ?>">
-                    <input type="hidden" name="parentid" value="<?php echo isset($_GET['parentid']) ? $_GET['parentid'] : false; ?>">
+                    <input type="text" name="editid" value="<?php echo $editId ?>">
+                    <input type="text" name="deleteid" value="<?php echo $deleteid  ?>">
+                    <input type="text" name="parentid" value="<?php echo $parentid; ?>">
                     <div class="form-group">
                         <label for="name">Nombre de la Categoría:</label>
                         <input type="text" id="name" name="name" class="form-control" placeholder="Ejemplo: Electrónica" value="<?php echo isset($_SESSION['form']['name']) ? $_SESSION['form']['name'] : (isset($getCategoriasId->nombre) ? $getCategoriasId->nombre : ''); ?>">
@@ -31,7 +31,7 @@
                     if (isset($_GET['editid'])) {
                         $buttonClass = 'btn-warning';
                         $buttonText = 'Editar';
-                    } elseif (isset($_GET['deteleid'])) {
+                    } elseif (isset($_GET['deleteid'])) {
                         $buttonClass = 'btn-danger';
                         $buttonText = 'Eliminar';
                     } else {
@@ -39,16 +39,16 @@
                         $buttonText = 'Guardar';
                     }
                     ?>
+                    <a href="<?php echo BASE_URL; ?>Admin/ecommerce<?php echo isset($_GET['parentid']) ? '?parentid=' . $_GET['parentid'] : false; ?>" class="btn btn-primary">
+                        <i class="fas fa-arrow-left"></i> Volver
+                    </a>
                     <button type="submit" class="btn <?php echo $buttonClass; ?>"><?php echo $buttonText; ?></button>
-                    <a href="<?php echo BASE_URL; ?>Admin/ecommerce<?php echo isset($_GET['parentid']) ? '?parentid=' . $_GET['parentid'] : false; ?>" class="btn btn-primary">Volver</a>
                 </form>
             </div>
         </section>
     </main>
 </div>
-
 <?php
-// Limpiar sesión tras mostrar errores si la página se carga sin problemas.
 if (!isset($_SESSION['errores'])) {
     unset($_SESSION['form']);
 }
