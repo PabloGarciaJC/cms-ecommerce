@@ -242,7 +242,7 @@ class AdminController
             $_SESSION['form'] = $_POST;
             header("Location: " . BASE_URL . "Admin/productos" . $urlParentid);
             exit;
-            
+
         } else {
 
             // Manejar imágenes
@@ -282,7 +282,6 @@ class AdminController
                     break;
 
                 case $deleteId:
-                    die();
                     $productos->setId($deleteId);
                     $productos->eliminarProductos();
                     $_SESSION['exito'] = 'El producto se eliminó correctamente.';
