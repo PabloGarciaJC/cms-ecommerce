@@ -61,7 +61,7 @@
                 <div class="form-group">
                     <label for="categoria">Categoría:</label>
                     <select id="categoria" name="categoria" class="form-control" <?php echo $buttonHidden; ?>>
-                        <option value="null">Seleccione...</option>
+                        <option value="<?php echo $parentid; ?>">Seleccione...</option>
                         <?php while ($categorias = $getCategorias['categorias']->fetch_object()) : ?>
                             <option value="<?php echo $categorias->id; ?>">
                                 <?php echo $categorias->nombre; ?>
@@ -123,7 +123,7 @@
                         ?>
                     </div>
                 </div>
-                <a href="<?php echo BASE_URL; ?>Admin/ecommerce<?php echo isset($_GET['parentid']) ? '?parentid=' . $_GET['parentid'] : false; ?>" class="btn btn-primary">
+                <a href="<?php echo BASE_URL; ?>Admin/ecommerce<?php echo isset($_GET['categoriaId']) ? '?categoriaId=' . $_GET['categoriaId'] : false; ?>" class="btn btn-primary">
                     <i class="fas fa-arrow-left"></i> Volver
                 </a>
                 <button type="submit" class="btn <?php echo $buttonClass; ?>"><?php echo $titleText; ?></button>

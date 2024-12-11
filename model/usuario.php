@@ -19,13 +19,13 @@ class Usuario
   private $url_Documento;
   private $db;
 
-  ///CONSTRUCTOR///
   public function __construct()
   {
     $this->db = Database::connect();
   }
 
   //// GETTER //// 
+
   public function getId()
   {
     return $this->id;
@@ -102,6 +102,7 @@ class Usuario
   }
 
   //// SETTER //// 
+
   public function setId($id)
   {
     $this->id = $id;
@@ -177,22 +178,18 @@ class Usuario
     $this->url_Documento = $url_Documento;
   }
 
-  // Consultas
+ //// CONSULTAS ////
 
   public function crear()
   {
     $result = false;
-
     $sql = "INSERT INTO usuarios (Usuario,
                                   Password,
                                   Email)";
-
     $sql .= "VALUES ('{$this->usuario}',
                     '{$this->getPassword()}',    
                     '{$this->email}')";
-
     $save = $this->db->query($sql);
-    
     return $result;
   }
 
@@ -201,14 +198,9 @@ class Usuario
     $resultado = false;
     $sql = "SELECT * FROM usuarios where Email ='{$this->getEmail()}'";
     $login = $this->db->query($sql);
-    //verificacion que existe ese email en la base de datos 
     if ($login && $login->num_rows == 1) {
       $usuario = $login->fetch_object();
       $vericacion = password_verify($this->password, $usuario->Password);
-      // if ($vericacion == 1) {
-      //   return $usuario;
-      // } 
-
       return $usuario;
     }
     return $resultado;
@@ -228,15 +220,11 @@ class Usuario
   public function repetidosEmail()
   {
       $resultado = false;
-      // Asegurarse de que estamos excluyendo al usuario actual al hacer la consulta
       $sql = "SELECT Email FROM usuarios WHERE Email = '{$this->getEmail()}' AND id != '{$this->getId()}'";
       $repetidos = $this->db->query($sql);
-  
-      // Si existe algún resultado, significa que el email está en uso por otro usuario
       if ($repetidos && $repetidos->num_rows > 0) {
           $resultado = true;
       }
-  
       return $repetidos;
   }
   

@@ -15,13 +15,13 @@ class Pedidos
   private $hora;
   private $db;
 
-  /// CONSTRUCTOR ///
   public function __construct()
   {
     $this->db = Database::connect();
   }
 
   //// GETTER //// 
+
   public function getId()
   {
     return $this->id;
@@ -73,6 +73,7 @@ class Pedidos
   }
 
   //// SETTER //// 
+
   public function setId($id)
   {
     $this->id = $id;
@@ -124,19 +125,13 @@ class Pedidos
   }
 
   //// CONSULTAS //// 
+
   public function guardar()
   {
     $result = false;
 
     $sql = "INSERT INTO pedidos (id, usuario_id, pais, ciudad, direccion, codigoPostal, coste, estado, fecha, hora) VALUES (null, {$this->getUsuario_id()}, '{$this->getPais()}', '{$this->getCiudad()}', '{$this->getDireccion()}', '{$this->getCodigoPostal()}', {$this->getCoste()}, 'Pendiente', CURDATE(), CURTIME());";
     $save = $this->db->query($sql);
-
-    // echo $sql;
-    // die();
-    // echo "</br>";
-    // echo $this->db->error;
-    // die();
-
     if ($save) {
       $result = true;
     }
@@ -153,14 +148,11 @@ class Pedidos
     $pedido_id = $query->fetch_object()->pedido;
 
     if (isset($_SESSION['carrito'])) {
-
       foreach ($_SESSION['carrito'] as $producto) {
-
         // Guardo en Linea Pedidos
         $insert = "INSERT INTO lineas_pedidos (pedido_id, producto_id, unidades) VALUES({$pedido_id}, {$producto['idProducto']}, {$producto['stock']})";
         $save = $this->db->query($insert);
       }
-
       if ($save) {
         $result = true;
       }

@@ -28,10 +28,7 @@ class AdminController
 
     public function perfilGuardar()
     {
-        //Acceso Usuario Registrado a esta Pagina
         Utils::accesoUsuarioRegistrado();
-
-        // Recibimos los datos desde el formulario
         $id = isset($_POST['id']) ? $_POST['id'] : false;
         $usuario = isset($_POST['usuario']) ? $_POST['usuario'] : false;
         $password = isset($_POST['password']) ? $_POST['password'] : false;
@@ -59,7 +56,6 @@ class AdminController
         $usuarios->setCiudad($ciudad);
         $usuarios->setCodigoPostal($codigoPostal);
 
-        // Array para almacenar los errores
         $errores = [];
 
         // Validación de los campos
@@ -107,13 +103,11 @@ class AdminController
             $errores['codigoPostal'] = "El código postal debe ser numérico.";
         }
 
-        // Si hay errores, no continuar con el proceso y redirigir con los errores
         if (count($errores) > 0) {
             $_SESSION['errores'] = $errores;
             header("Location: " . BASE_URL . "Admin/perfil");
             exit;
         } else {
-            // Lógica de manejo del avatar
             $nombreArchivo = isset($_FILES['avatar']['name']) ? $_FILES['avatar']['name'] : false;
             $rutaTemporal = isset($_FILES['avatar']['tmp_name']) ? $_FILES['avatar']['tmp_name'] : false;
             if ($rutaTemporal) {
@@ -138,14 +132,9 @@ class AdminController
                     return;
                 }
             }
-            // Actualizamos la información en la base de datos
             $usuarios->actualizar();
-            // Limpiar los errores y los datos del formulario después de procesar
             unset($_SESSION['errores']);
-            // Guardar el mensaje de éxito en la sesión
             $_SESSION['exito'] = 'La información se actualizó correctamente.';
-
-            // Redirigir a la página de información general
             header("Location: " . BASE_URL . "Admin/perfil");
             exit;
         }
@@ -154,11 +143,12 @@ class AdminController
     public function ecommerce()
     {
         Utils::accesoUsuarioRegistrado();
+        $categoriaId = isset($_GET['categoriaId']) ? $_GET['categoriaId'] : false;
+
         $categorias = new Categorias();
-        $parentid = isset($_GET['parentid']) ? $_GET['parentid'] : false;
-        $categorias->setParentId($parentid);
+        $categorias->setId($categoriaId);
         $breadcrumbs = $categorias->getBreadcrumbs();
-        if ($parentid) {
+        if ($categoriaId) {
             $getCategorias = $categorias->otenerSubcategorias();
         } else {
             $getCategorias = $categorias->obtenerCategorias();
@@ -171,14 +161,16 @@ class AdminController
     public function productos()
     {
         Utils::accesoUsuarioRegistrado();
-        $parentid = isset($_GET['parentid']) ? $_GET['parentid'] : false;
+        $parentid = isset($_GET['categoriaId']) ? $_GET['categoriaId'] : false;
         $editId = isset($_GET['editid']) ? $_GET['editid'] : false;
         $deleteid = isset($_GET['deleteid']) ? $_GET['deleteid'] : false;
+
         $categorias = new Categorias();
-        $categorias->setParentId($parentid);
+        $categorias->setId($parentid);
         if ($parentid) {
             $getCategorias = $categorias->otenerSubcategorias();
         }
+
         $productos = new Productos();
         if ($editId || $deleteid) {
             $productos->setId($editId ?: $deleteid);
@@ -191,7 +183,6 @@ class AdminController
 
     public function guardarProductos()
     {
-        // Obtener los datos del formulario
         $nombre = isset($_POST['nombre']) ? trim($_POST['nombre']) : false;
         $descripcion = isset($_POST['descripcion']) ? trim($_POST['descripcion']) : false;
         $precio = isset($_POST['precio']) ? floatval($_POST['precio']) : false;
@@ -203,22 +194,20 @@ class AdminController
         $editId = isset($_POST['editid']) ? $_POST['editid'] : false;
         $deleteId = isset($_POST['deleteid']) ? $_POST['deleteid'] : false;
         $parentid = isset($_POST['parentid']) ? $_POST['parentid'] : false;
-        $urlParentid = $parentid ? '&parentid=' . $parentid : '';
+        $urlParentid = $parentid ? '?categoriaId=' . $parentid : false;
 
-        // Instanciar el modelo de productos
         $productos = new Productos();
         $productos->setNombre($nombre);
         $productos->setDescripcion($descripcion);
         $productos->setPrecio($precio);
         $productos->setStock($stock);
         $productos->setOferta($oferta);
-        $productos->setIdCategoria($categoria);
+        $productos->setParentId($categoria);
         $productos->setEstado($estado);
         $productos->setOfferExpiration($offerExpiration);
 
         $errores = [];
 
-        // Validar los campos del formulario
         if (empty($nombre)) {
             $errores['nombre'] = "El nombre es obligatorio.";
         }
@@ -235,19 +224,14 @@ class AdminController
             $errores['estado'] = "Debe seleccionar el estado del producto.";
         }
 
-        // Manejar errores de validación
         if (count($errores) > 0) {
-
             $_SESSION['errores'] = $errores;
             $_SESSION['form'] = $_POST;
             header("Location: " . BASE_URL . "Admin/productos" . $urlParentid);
             exit;
-
         } else {
-
             // Manejar imágenes
             $imagenes = [];
-
             // Procesar nuevas imágenes cargadas
             if (isset($_FILES['productImages']) && is_array($_FILES['productImages']['tmp_name'])) {
                 $directorioDestino = 'uploads/images/productos/';
@@ -288,18 +272,13 @@ class AdminController
                     break;
 
                 default:
-                    $productos->setParentId($parentid);
                     $productos->setImagenes($imagenesJson);
                     $productos->save();
                     $_SESSION['exito'] = 'El producto se creó correctamente.';
                     break;
             }
-
-            // Limpiar errores y formulario
             unset($_SESSION['errores']);
             unset($_SESSION['form']);
-
-            // Redirigir
             header("Location: " . BASE_URL . "Admin/ecommerce" . $urlParentid);
             exit;
         }
@@ -310,11 +289,12 @@ class AdminController
         Utils::accesoUsuarioRegistrado();
         $editId = isset($_GET['editid']) ? $_GET['editid'] : false;
         $deleteid = isset($_GET['deleteid']) ? $_GET['deleteid'] : false;
-        $parentid = isset($_GET['parentid']) ? $_GET['parentid'] : false;
+        $categoriaId = isset($_GET['categoriaId']) ? $_GET['categoriaId'] : false;
+
         $categorias = new Categorias();
         if ($editId || $deleteid) {
             $categorias->setId($editId ?: $deleteid);
-            $getCategoriasId = $categorias->obtenerCategoriaPorId(); // Repueblo el Formulario Segun el id
+            $getCategoriasId = $categorias->obtenerCategoriaPorId();
         }
         require_once 'views/layout/head.php';
         require_once 'views/admin/categoria/crear.php';
@@ -329,9 +309,8 @@ class AdminController
         $editId = isset($_POST['editid']) ? $_POST['editid'] : false;
         $deleteId = isset($_POST['deleteid']) ? $_POST['deleteid'] : false;
         $parentid = isset($_POST['parentid']) ? $_POST['parentid']  : false;
-        $urlParentid = $parentid ? '&parentid=' . $parentid : false;
+        $urlParentid = $parentid ? '?categoriaId=' . $parentid : false;
 
-        // Instacio
         $categorias = new Categorias();
         $categorias->setNombre($name);
         $categorias->setDescripcion($descripcion);
@@ -357,7 +336,6 @@ class AdminController
                     $categorias->actualizarCategoriaPorId();
                     $_SESSION['exito'] = 'La categoría se actualizó correctamente.';
                     break;
-
                 case $deleteId:
                     $categorias->setId($deleteId);
                     $categorias->eliminarCategoria();
@@ -376,14 +354,6 @@ class AdminController
             exit;
         }
     }
-
-    // public function listaProductos()
-    // {
-    //     Utils::accesoUsuarioRegistrado();
-    //     require_once 'views/layout/head.php';
-    //     require_once 'views/admin/productos/lista.php';
-    //     require_once 'views/layout/script-footer.php';
-    // }
 
     public function listaPedidos()
     {

@@ -22,7 +22,7 @@
                 <form action="<?php echo BASE_URL ?>Admin/guardarCategorias" method="POST">
                     <input type="hidden" name="editid" value="<?php echo $editId ?>">
                     <input type="hidden" name="deleteid" value="<?php echo $deleteid  ?>">
-                    <input type="hidden" name="parentid" value="<?php echo $parentid; ?>">
+                    <input type="hidden" name="parentid" value="<?php echo $categoriaId; ?>">
                     <div class="form-group">
                         <label for="name">Nombre de la Categoría:</label>
                         <input type="text" id="name" name="name" class="form-control" placeholder="Ejemplo: Electrónica" <?php echo $buttonHidden; ?> value="<?php echo isset($_SESSION['form']['name']) ? $_SESSION['form']['name'] : (isset($getCategoriasId->nombre) ? $getCategoriasId->nombre : ''); ?>">
@@ -41,7 +41,7 @@
                             </div>
                         <?php endif; ?>
                     </div>
-                    <a href="<?php echo BASE_URL; ?>Admin/ecommerce<?php echo isset($_GET['parentid']) ? '?parentid=' . $_GET['parentid'] : false; ?>" class="btn btn-primary">
+                    <a href="<?php echo BASE_URL; ?>Admin/ecommerce<?php echo isset($_GET['categoriaId']) ? '?categoriaId=' . $_GET['categoriaId'] : false; ?>" class="btn btn-primary">
                         <i class="fas fa-arrow-left"></i> Volver
                     </a>
                     <button type="submit" class="btn <?php echo $buttonClass; ?>"><?php echo $titleText; ?></button>

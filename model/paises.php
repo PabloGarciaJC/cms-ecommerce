@@ -7,13 +7,13 @@ class Paises
   private $pais;
   private $db;
 
-  /// CONSTRUCTOR ///
   public function __construct()
   {
     $this->db = Database::connect();
   }
 
   //// GETTER //// 
+
   public function getId()
   {
     return $this->id;
@@ -25,6 +25,7 @@ class Paises
   }
 
   //// SETTER //// 
+
   public function setId($id)
   {
     $this->id = $id;
@@ -35,7 +36,7 @@ class Paises
     $this->pais = $pais;
   }
 
-  //// CONSULTA //// 
+  //// CONSULTAS //// 
 
   public function obtenerTodosPaises()
   {
@@ -43,7 +44,6 @@ class Paises
     $paises = $this->db->query($sql);
     return $paises;
   }
-
 
   public function obtenerPaisActual()
   {
