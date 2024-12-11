@@ -58,7 +58,6 @@ class AdminController
 
         $errores = [];
 
-        // Validación de los campos
         if (empty($usuario)) {
             $errores['usuario'] = "El alias es obligatorio.";
         } elseif (strlen($usuario) > 12) {
@@ -262,19 +261,14 @@ class AdminController
                     $productos->setId($editId);
                     $productos->setImagenes($imagenesJson);
                     $productos->actualizarProductosPorId();
-                    $_SESSION['exito'] = 'El producto se eliminó correctamente.';
                     break;
-
                 case $deleteId:
                     $productos->setId($deleteId);
                     $productos->eliminarProductos();
-                    $_SESSION['exito'] = 'El producto se eliminó correctamente.';
                     break;
-
                 default:
                     $productos->setImagenes($imagenesJson);
                     $productos->save();
-                    $_SESSION['exito'] = 'El producto se creó correctamente.';
                     break;
             }
             unset($_SESSION['errores']);
@@ -334,18 +328,14 @@ class AdminController
                 case $editId:
                     $categorias->setId($editId);
                     $categorias->actualizarCategoriaPorId();
-                    $_SESSION['exito'] = 'La categoría se actualizó correctamente.';
                     break;
                 case $deleteId:
                     $categorias->setId($deleteId);
                     $categorias->eliminarCategoria();
-                    $_SESSION['exito'] = 'La categoría se eliminó correctamente.';
                     break;
-
                 default:
                     $categorias->setParentId($parentid);
                     $categorias->crearCategoria();
-                    $_SESSION['exito'] = 'La categoría se creó correctamente.';
                     break;
             }
             unset($_SESSION['errores']);
