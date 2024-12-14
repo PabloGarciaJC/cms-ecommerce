@@ -4,9 +4,7 @@
     <main class="panel-admin__main-content">
         <section class="panel-admin__dashboard">
             <h2 class="panel-admin__dashboard-title">Gestión de Ecommerce</h2>
-
             <div class="panel-admin__stats-overview <?php echo isset($_GET['categoriaId']) ? 'half-width' : ''; ?>">
-
                 <a href="<?php echo BASE_URL ?>Admin/categorias<?php echo isset($_GET['categoriaId']) ? '?categoriaId=' . $_GET['categoriaId'] : ''; ?>" class="panel-admin__stat-card">
                     <span class="panel-admin__stat-icon"><i class="fas fa-th-large"></i></span>
                     <div class="panel-admin__stat-info">
@@ -26,13 +24,13 @@
                 <nav>
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="<?php echo BASE_URL ?>Admin/ecommerce">Inicio</a>
+                            <a href="<?php echo BASE_URL ?>Admin/catalogo">Inicio</a>
                         </li>
                         <?php if (!empty($breadcrumbs)): ?>
                             <?php foreach ($breadcrumbs as $index => $breadcrumb): ?>
                                 <li class="breadcrumb-item">
                                     <?php if ($index < count($breadcrumbs) - 1): ?>
-                                        <a href="<?php echo BASE_URL ?>Admin/ecommerce?categoriaId=<?= $breadcrumb['id']; ?>"><?= htmlspecialchars($breadcrumb['nombre']); ?></a>
+                                        <a href="<?php echo BASE_URL ?>Admin/catalogo?categoriaId=<?= $breadcrumb['id']; ?>"><?= htmlspecialchars($breadcrumb['nombre']); ?></a>
                                     <?php else: ?>
                                         <span><?= htmlspecialchars($breadcrumb['nombre']); ?></span>
                                     <?php endif; ?>
@@ -58,7 +56,7 @@
                                 <tr>
                                     <?php
                                     $urlCategoria = isset($categoria->parent_id) && $categoria->parent_id != null ? "&categoriaId=" . $categoria->parent_id : false;
-                                    $categoriaUrl = BASE_URL . "Admin/ecommerce?categoriaId=" . $categoria->id;
+                                    $categoriaUrl = BASE_URL . "Admin/catalogo?categoriaId=" . $categoria->id;
                                     $editUrl = BASE_URL . "Admin/categorias?editid=" . $categoria->id . $urlCategoria;
                                     $deleteUrl = BASE_URL . "Admin/categorias?deleteid=" . $categoria->id . $urlCategoria;
                                     ?>
@@ -92,7 +90,7 @@
                                     ?>
                                     <td>
                                         <a href="<?= $productoUrl ?>">
-                                            <i class="fas fa-tags producto-icon" style="margin-right: 5px;"></i>
+                                        <i class="fas fa-box producto-icon" style="margin-right: 5px;"></i> Productos
                                             <?= $producto->nombre; ?>
                                         </a>
                                     </td>

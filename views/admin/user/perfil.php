@@ -24,21 +24,6 @@
                         </div>
                     <?php endif; ?>
                 </div>
-                <!-- 
-                <div class="form-group">
-                    <label for="password">Contraseña:</label>
-                    <div style="position: relative;">
-                        <input type="password" id="password" name="password" class="form-control" placeholder="Contraseña del usuario" value="<?php echo $usuario->Password; ?>">
-                        <span id="togglePassword" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;">
-                            <i class="fas fa-eye"></i>
-                        </span>
-                    </div>
-                    <?php if (isset($_SESSION['errores']['password'])) : ?>
-                        <div class="text-danger mt-2">
-                            <i class="fas fa-exclamation-circle"></i> <?php echo $_SESSION['errores']['password']; ?>
-                        </div>
-                    <?php endif; ?>
-                </div> -->
                 <div class="form-group">
                     <label>Número de Documento:</label>
                     <input type="text" name="documentacion" class="form-control" placeholder="Documento de identidad" value="<?php echo $usuario->NumeroDocumento; ?>">

@@ -3,6 +3,7 @@ require_once 'model/usuario.php';
 require_once 'model/categorias.php';
 require_once 'model/paises.php';
 require_once 'model/productos.php';
+require_once 'model/roles.php';
 
 
 class AdminController
@@ -120,10 +121,9 @@ class AdminController
                 $subirImagen->setimagen($nombreArchivoUnico);
                 $obtenerUsuario = $subirImagen->obtenerTodosPorId();
                 $ruta = $directorioDestino . $obtenerUsuario->imagen;
-
                 if (move_uploaded_file($rutaTemporal, $directorioDestino . $nombreArchivoUnico)) {
                     if ($obtenerUsuario->imagen && is_file($ruta)) {
-                        unlink($ruta); // Elimina la imagen anterior
+                        unlink($ruta);
                     }
                     $subirImagen->subirImagen();
                 } else {
@@ -139,7 +139,51 @@ class AdminController
         }
     }
 
-    public function ecommerce()
+    public function password()
+    {
+        Utils::accesoUsuarioRegistrado();
+        $usuario = Utils::obtenerUsuarioSinModelo();
+        require_once 'views/layout/head.php';
+        require_once 'views/admin/user/password.php';
+        require_once 'views/layout/script-footer.php';
+    }
+
+    public function cambioPassword()
+    {
+        $id = $_POST['id'];
+        $newPassword = $_POST['new_password'];
+        $confirmPassword = $_POST['confirm_password'];
+        $usuarios = new Usuario();
+        $usuarios->setId($id);
+
+        $errores = [];
+
+        if (empty($newPassword)) {
+            $errores['password'] = 'La nueva contraseña no puede estar vacía';
+        }
+
+        if (empty($confirmPassword)) {
+            $errores['confirmPassword'] = 'La confirmación de la contraseña no puede estar vacía';
+        } elseif ($newPassword !== $confirmPassword) {
+            $errores['password'] = 'Las contraseñas no coinciden';
+        }
+
+        if (count($errores) > 0) {
+            $_SESSION['errores'] = $errores;
+            header('Location: ' . BASE_URL . 'Admin/password');
+            exit;
+        } else {
+            $hashed_password = password_hash($newPassword, PASSWORD_BCRYPT);
+            $usuarios->setPassword($hashed_password);
+            $usuarios->actualizarPassword();
+            unset($_SESSION['errores']);
+            $_SESSION['exito'] = 'Contraseña actualizada exitosamente';
+            header("Location: " . BASE_URL . "Admin/password");
+            exit;
+        }
+    }
+
+    public function catalogo()
     {
         Utils::accesoUsuarioRegistrado();
         $categoriaId = isset($_GET['categoriaId']) ? $_GET['categoriaId'] : false;
@@ -153,7 +197,7 @@ class AdminController
             $getCategorias = $categorias->obtenerCategorias();
         }
         require_once 'views/layout/head.php';
-        require_once 'views/admin/ecommerce/index.php';
+        require_once 'views/admin/ecommerce/catalogo.php';
         require_once 'views/layout/script-footer.php';
     }
 
@@ -273,7 +317,7 @@ class AdminController
             }
             unset($_SESSION['errores']);
             unset($_SESSION['form']);
-            header("Location: " . BASE_URL . "Admin/ecommerce" . $urlParentid);
+            header("Location: " . BASE_URL . "Admin/catalogo" . $urlParentid);
             exit;
         }
     }
@@ -340,9 +384,67 @@ class AdminController
             }
             unset($_SESSION['errores']);
             unset($_SESSION['form']);
-            header("Location: " . BASE_URL . "Admin/ecommerce" . $urlParentid);
+            header("Location: " . BASE_URL . "Admin/catalogo" . $urlParentid);
             exit;
         }
+    }
+
+    public function roles()
+    {
+        Utils::accesoUsuarioRegistrado();
+        $roles = new Rol();
+        $obtenerRoles = $roles->obtenerTodos();
+        $usuarios = new Usuario();
+        $obtenerUsuarios = $usuarios->obtenerTodosLosUsuarios();
+        require_once 'views/layout/head.php';
+        require_once 'views/admin/roles/index.php';
+        require_once 'views/layout/script-footer.php';
+    }
+
+    public function cambiarRol()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty(file_get_contents('php://input'))) {
+            $datos = json_decode(file_get_contents('php://input'), true);
+
+            $id = $datos['id'];
+            $nuevoRol = $datos['rol'];
+
+            // Validar los datos
+            if (empty($id) || empty($nuevoRol)) {
+                echo json_encode(['success' => false, 'message' => 'Datos inválidos']);
+                return;
+            }
+
+            // Verificar si el rol es 1 y si ya existe un usuario con ese rol
+            if ($nuevoRol == 1) {
+                $usuario = new Usuario();
+                if ($usuario->existeUsuarioConRol1()) {
+                    echo json_encode(['success' => false, 'message' => 'Solo un usuario puede tener el rol 1.']);
+                    return;
+                }
+            }
+
+            // Actualizar el rol en la base de datos
+            $usuario = new Usuario();
+            $usuario->setId($id);
+            $usuario->setRol($nuevoRol);
+
+            if ($usuario->actualizarRol()) {
+                echo json_encode(['success' => true]);
+            } else {
+                echo json_encode(['success' => false, 'message' => 'No se pudo actualizar el rol.']);
+            }
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Método no permitido.']);
+        }
+    }
+
+    public function gestionar()
+    {
+        Utils::accesoUsuarioRegistrado();
+        require_once 'views/layout/head.php';
+        require_once 'views/admin/roles/gestionar.php';
+        require_once 'views/layout/script-footer.php';
     }
 
     public function listaPedidos()
@@ -355,20 +457,12 @@ class AdminController
 
     public function cerrarSesion()
     {
+        Utils::accesoUsuarioRegistrado();
         if (isset($_SESSION['usuarioRegistrado'])) {
             unset($_SESSION['usuarioRegistrado']);
             unset($_SESSION['Admin']);
             unset($_SESSION['carrito']);
             header("Location: /");
         }
-    }
-
-    public function cambioPassword()
-    {
-        require_once 'views/layout/head.php';
-        require_once 'views/layout/header.php';
-        require_once 'views/admin/dashboard/index.php';
-        require_once 'views/usuario/cambioPassword.php';
-        require_once 'views/layout/footer.php';
     }
 }

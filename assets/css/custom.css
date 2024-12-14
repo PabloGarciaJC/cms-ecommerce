@@ -100,7 +100,6 @@
   .panel-admin__flex-container {
       display: grid;
       grid-template-columns: 15% 85%;
-      margin-bottom: 40px;
       height: 100vh;
       width: 100%;
   }
@@ -424,4 +423,37 @@
       width: 50%;
       text-align: center;
       justify-content: center;
+  }
+
+
+  .custom-table-cell>tr>td {
+      vertical-align: middle;
+  }
+
+
+  /* Tabla de Roles */
+  .custom-select-roles {
+      font-size: 1rem;
+      padding: 0.5rem 1rem;
+      background-color: #f9f9f9;
+      transition: all 0.3s ease-in-out;
+  }
+
+  .custom-select-roles:hover {
+      background-color: #e8f0fe;
+  }
+
+  .custom-select-roles:focus,
+  .custom-select-roles:focus-visible {
+      border-color: #007bff !important;
+      background-color: #ffffff;
+  }
+
+  .custom-select-roles:disabled {
+      background-color: #e9ecef;
+      cursor: not-allowed;
+  }
+
+  .btn-rol-change {
+      padding: 0.5rem 1rem;
   }

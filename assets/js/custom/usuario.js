@@ -4,7 +4,6 @@ class User {
     this.customUser();
   }
 
-  // Método registro
   registro() {
     let mdFormularioRegistro = document.getElementById('mdFormularioRegistro');
     if (mdFormularioRegistro) {
@@ -15,7 +14,6 @@ class User {
         let mdPasswordR = $('#mdPasswordRegistro').val();
         let mdConfirmarPasswordR = $('#mdConfirmarPasswordRegistro').val();
         let mdCheckedR = document.getElementById('mdCheckedRegistro').checked;
-        // Registro Usuario Ajax
         $.ajax({
           type: 'POST',
           url: baseUrl + 'Usuario/registro',
@@ -48,18 +46,13 @@ class User {
 
   iniciarSesion() {
     $("#mdFormularioIniciarSesion").on("submit", function (e) {
-      e.preventDefault(); // Freno Submit o Envío
-
+      e.preventDefault();
       let mdEmailI = $("#mdEmailIniciarSesion").val();
       let mdPasswordI = $("#mdPasswordIniciarSesion").val();
-
-      // Validación básica
       if (!mdEmailI || !mdPasswordI) {
         $("#respuestaPhpIniciarSesion").html("Por favor completa todos los campos.");
         return;
       }
-
-      // Iniciar Sesion Usuario Ajax
       $.ajax({
         type: "POST",
         url: baseUrl + "Usuario/IniciarSesion",
@@ -68,9 +61,6 @@ class User {
           password: mdPasswordI,
         },
         success: function (response) {
-          $("#mdErrorEmailIniciarSesionPhp").html("");
-          $("#mdErrorPasswordIniciarSesionPhp").html("");
-          $("#respuestaPhpIniciarSesion").html(response);
           if (response == 1) {
             Swal.fire({
               title: "Completado",
@@ -84,6 +74,9 @@ class User {
           } else {
             $("#respuestaPhpIniciarSesion").html("Error al iniciar sesión. Verifica tus credenciales.");
           }
+          $("#mdErrorEmailIniciarSesionPhp").html("");
+          $("#mdErrorPasswordIniciarSesionPhp").html("");
+          $("#respuestaPhpIniciarSesion").html(response);
         },
         error: function (xhr, status, error) {
           console.error("Error en la solicitud AJAX:", status, error);
@@ -93,18 +86,15 @@ class User {
     });
   }
 
-  // Método customUser
   customUser() {
     this.registro();
     this.iniciarSesion();
   }
 
-  // Iniciar aplicación
   init() {
     this.onReady();
   }
 }
 
-// Instanciamos e iniciamos
 const appUser = new User();
 appUser.init();

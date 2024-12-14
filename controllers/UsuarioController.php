@@ -11,6 +11,7 @@ class UsuarioController
         $password = isset($_POST['password']) ? $_POST['password'] : false;
         $confirmarPassword = isset($_POST['confirmarPassword']) ? $_POST['confirmarPassword'] : false;
         $checked = isset($_POST['checked']) ? $_POST['checked'] : false;
+
         // Instancio 
         $registro = new Usuario();
         $registro->setUsuario($usuario);
@@ -40,7 +41,7 @@ class UsuarioController
             $mensaje = utils::setearMensajeError('mdErrorChekedPhp', 'checked no selecionador');
         } else {
             $registro->crear();
-            $sesionCompletado = $registro->iniciarSesion();
+            $sesionCompletado = $registro->iniciarSesion();         
             if ($sesionCompletado && is_object($sesionCompletado)) {
                 $_SESSION['usuarioRegistrado'] = $sesionCompletado;
                 //Administro los Roles
@@ -59,13 +60,10 @@ class UsuarioController
         $mensaje = null;
         $email = isset($_POST['email']) ? $_POST['email'] : false;
         $password = isset($_POST['password']) ? $_POST['password'] : false;
-        //instacio
         $iniciarSesion = new Usuario();
         $iniciarSesion->setEmail($email);
         $iniciarSesion->setPassword($password);
         $comprobandoEmail = $iniciarSesion->repetidosEmail();
-        
-        //validacion
         if (empty(trim($email))) {
             $mensaje = utils::setearMensajeError('mdErrorEmailIniciarSesionPhp', 'Ingrese email');
         } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -76,12 +74,8 @@ class UsuarioController
             $mensaje = utils::setearMensajeError('mdErrorPasswordIniciarSesionPhp', 'Ingrese Contraseña');
         } else {
             $sesionCompletado = $iniciarSesion->iniciarSesion();
-
             if ($sesionCompletado && is_object($sesionCompletado)) {
-
                 $_SESSION['usuarioRegistrado'] = $sesionCompletado;
-
-                //Administro los Roles
                 if ($_SESSION['usuarioRegistrado']->Rol == 'Admin') {
                     $_SESSION['Admin'] = true;
                     $mensaje = 1;

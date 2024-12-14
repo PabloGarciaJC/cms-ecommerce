@@ -33,3 +33,4 @@
 <script src="<?= BASE_URL ?>assets/js/custom/pedidos/editarPedidos.js"></script>
 <script src="<?= BASE_URL ?>assets/js/custom/pedidos/mostrar.js"></script>
 <script src="<?= BASE_URL ?>assets/js/custom/autocompletado/mostrar.js"></script>
+<script src="<?= BASE_URL ?>assets/js/custom/roles.js"></script>

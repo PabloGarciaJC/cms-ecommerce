@@ -78,13 +78,14 @@ class App {
   }
 
   mostrarPassword() {
-    $('#togglePassword').on('click', function () {
-      // Alternar el tipo de input entre 'password' y 'text'
-      const input = $('#password');
-      const type = input.attr('type') === 'password' ? 'text' : 'password';
-      input.attr('type', type);
+    // Escuchar el clic en los botones de toggle-password
+    $('.toggle-password').on('click', function () {
+      // Obtener el campo de entrada que se desea cambiar
+      const input = $($(this).data('target'));  // Usamos data-target para seleccionar el campo de contraseña correspondiente
+      const type = input.attr('type') === 'password' ? 'text' : 'password';  // Cambiar entre tipo 'password' y 'text'
+      input.attr('type', type);  // Actualizar el tipo de input
 
-      // Cambiar el ícono según el estado
+      // Cambiar el ícono del ojo según el estado
       $(this).html(type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>');
     });
   }

@@ -41,7 +41,7 @@
                             </div>
                         <?php endif; ?>
                     </div>
-                    <a href="<?php echo BASE_URL; ?>Admin/ecommerce<?php echo isset($_GET['categoriaId']) ? '?categoriaId=' . $_GET['categoriaId'] : false; ?>" class="btn btn-primary">
+                    <a href=" <?php echo BASE_URL; ?>Admin/catalogo<?php echo isset($_GET['categoriaId']) ? '?categoriaId=' . $_GET['categoriaId'] : false; ?>" class="btn btn-primary">
                         <i class="fas fa-arrow-left"></i> Volver
                     </a>
                     <button type="submit" class="btn <?php echo $buttonClass; ?>"><?php echo $titleText; ?></button>

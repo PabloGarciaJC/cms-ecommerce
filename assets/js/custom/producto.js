@@ -10,9 +10,7 @@ class Producto {
 
             if ($formularioProducto.length) {
                 $formularioProducto.on("submit", function (e) {
-                    e.preventDefault(); // Freno Submit o Envío;
-
-                    // Valores Capturados
+                    e.preventDefault();
                     let nombreProducto = $("#nombreProducto").val();
                     let idProducto = $("#idProducto").val();
                     let categoria = $("#categoria").val();
@@ -23,14 +21,8 @@ class Producto {
                     let memoriaRamProducto = $("#memoriaRamProducto").val();
                     let descripcionProducto = $("#descripcionProducto").val();
                     let guardarImagenProducto = $("#archivoImagenProducto").val();
-
-                    // Instancio FormData
                     let datosFormularioProducto = new FormData();
-
-                    // Capturo Propiedades File
                     let imagenPropiedadesProducto = $("#archivoImagenProducto")[0].files[0];
-
-                    // Setear el Objeto FormData
                     datosFormularioProducto.append("nombreProducto", nombreProducto);
                     datosFormularioProducto.append("idProducto", idProducto);
                     datosFormularioProducto.append("categoria", categoria);
@@ -84,7 +76,6 @@ class Producto {
                         $(`.${claseInput}`).last().children().html(mensaje);
                     }
 
-                    // Ajax Vista Previa
                     $.ajax({
                         type: "POST",
                         url: baseUrl + "Producto/guardar",
@@ -157,9 +148,8 @@ class Producto {
 
             if ($formularioProducto.length) {
                 $formularioProducto.on("submit", function (e) {
-                    e.preventDefault(); // Freno Submit o Envío;
+                    e.preventDefault();
 
-                    // Valores Capturados
                     let nombreProducto = $("#nombreProducto").val();
                     let idProducto = $("#idProducto").val();
                     let categoria = $("#categoria").val();
@@ -170,14 +160,8 @@ class Producto {
                     let memoriaRamProducto = $("#memoriaRamProducto").val();
                     let descripcionProducto = $("#descripcionProducto").val();
                     let guardarImagenProducto = $("#archivoImagenProducto").val();
-
-                    // Instancio FormData
                     let datosFormularioProducto = new FormData();
-
-                    // Capturo Propiedades File
                     let imagenPropiedadesProducto = $("#archivoImagenProducto")[0].files[0];
-
-                    // Setear el Objeto FormData
                     datosFormularioProducto.append("nombreProducto", nombreProducto);
                     datosFormularioProducto.append("idProducto", idProducto);
                     datosFormularioProducto.append("categoria", categoria);
@@ -231,7 +215,6 @@ class Producto {
                         $(`.${claseInput}`).last().children().html(mensaje);
                     }
 
-                    // Ajax Vista Previa
                     $.ajax({
                         type: "POST",
                         url: baseUrl + "Producto/guardar",
@@ -272,10 +255,7 @@ class Producto {
 
             // Obtener Tiempo Real Datos Buscador
             buscadorProductos.addEventListener("keyup", (event) => {
-
-
                 let valorBuscadorProductos = event.target.value;
-
                 ajaxBuscadorProductos(
                     paginaActualBuscadorProductos,
                     valorBuscadorProductos

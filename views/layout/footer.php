@@ -655,7 +655,7 @@
 			</div>
 		</div>
 	</div>
-	<!-- //Modales -->
+
 	<?php include __DIR__ . '/script-footer.php'; ?>
 
 	</body>

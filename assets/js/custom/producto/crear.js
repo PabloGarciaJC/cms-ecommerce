@@ -77,7 +77,7 @@ if (formularioProducto) {
       elemento.lastElementChild.innerHTML = mensaje;
     }
 
-    // Ajax Vista Previa
+     
     $.ajax({
       type: "POST",
       url: baseUrl + "Producto/guardar",

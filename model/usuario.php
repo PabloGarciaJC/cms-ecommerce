@@ -17,6 +17,7 @@ class Usuario
   private $ciudad;
   private $imagen;
   private $url_Documento;
+  private $rol;
   private $db;
 
   public function __construct()
@@ -81,7 +82,7 @@ class Usuario
     return $this->pais;
   }
 
-  public function getidEstado()
+  public function getIdEstado()
   {
     return $this->idEstado;
   }
@@ -96,9 +97,14 @@ class Usuario
     return $this->imagen;
   }
 
-  public function getUrl_Documento()
+  public function getUrlDocumento()
   {
     return $this->url_Documento;
+  }
+
+  public function getRol()
+  {
+    return $this->rol;
   }
 
   //// SETTER //// 
@@ -158,7 +164,7 @@ class Usuario
     $this->pais = $pais;
   }
 
-  public function setidEstado($idEstado)
+  public function setIdEstado($idEstado)
   {
     $this->idEstado = $idEstado;
   }
@@ -173,23 +179,32 @@ class Usuario
     $this->imagen = $imagen;
   }
 
-  public function setUrl_Documento($url_Documento)
+  public function setUrlDocumento($url_Documento)
   {
     $this->url_Documento = $url_Documento;
   }
 
- //// CONSULTAS ////
+  public function setRol($rol)
+  {
+    $this->rol = $rol;
+  }
+
+  //// CONSULTAS ////
 
   public function crear()
   {
     $result = false;
+
     $sql = "INSERT INTO usuarios (Usuario,
                                   Password,
                                   Email)";
+
     $sql .= "VALUES ('{$this->usuario}',
                     '{$this->getPassword()}',    
                     '{$this->email}')";
+
     $save = $this->db->query($sql);
+
     return $result;
   }
 
@@ -201,7 +216,9 @@ class Usuario
     if ($login && $login->num_rows == 1) {
       $usuario = $login->fetch_object();
       $vericacion = password_verify($this->password, $usuario->Password);
-      return $usuario;
+      if ($vericacion == 1) {
+        return $usuario;
+      }
     }
     return $resultado;
   }
@@ -209,7 +226,7 @@ class Usuario
   public function repetidosUsuario()
   {
     $resultado = false;
-    $sql = "SELECT Usuario FROM usuarios where Usuario ='{$this->getUsuario()}'";
+    $sql = "SELECT Usuario FROM usuarios WHERE Usuario = '{$this->usuario}'";
     $repetidos = $this->db->query($sql);
     if ($repetidos) {
       $resultado = true;
@@ -219,20 +236,19 @@ class Usuario
 
   public function repetidosEmail()
   {
-      $resultado = false;
-      $sql = "SELECT Email FROM usuarios WHERE Email = '{$this->getEmail()}' AND id != '{$this->getId()}'";
-      $repetidos = $this->db->query($sql);
-      if ($repetidos && $repetidos->num_rows > 0) {
-          $resultado = true;
-      }
-      return $repetidos;
+    $resultado = false;
+    $sql = "SELECT Email FROM usuarios WHERE Email = '{$this->email}' AND Id != '{$this->id}'";
+    $repetidos = $this->db->query($sql);
+    if ($repetidos && $repetidos->num_rows > 0) {
+      $resultado = true;
+    }
+    return $repetidos;
   }
-  
-  
+
   public function subirImagen()
   {
-    $resultado = false;    
-    $sql = "UPDATE usuarios SET imagen = '{$this->getImagen()}' WHERE Id = {$this->getId()};";
+    $resultado = false;
+    $sql = "UPDATE usuarios SET imagen = '{$this->imagen}' WHERE Id = {$this->id}";
     $imagenSubida = $this->db->query($sql);
     if ($imagenSubida) {
       $resultado = true;
@@ -240,11 +256,21 @@ class Usuario
     return $resultado;
   }
 
-
   public function actualizar()
   {
-    $resultado = false;    
-    $sql = "UPDATE usuarios SET Usuario = '{$this->getUsuario()}', Password = '{$this->getPassword()}', NumeroDocumento = '{$this->getNumeroDocumento()}', Nombres = '{$this->getNombres()}', Apellidos = '{$this->getApellidos()}', NroTelefono = '{$this->getNroTelefono()}', Direccion = '{$this->getDireccion()}', Pais = '{$this->getPais()}', Ciudad = '{$this->getCiudad()}', CodigoPostal = '{$this->getCodigoPostal()}' WHERE Id = {$this->getId()};";
+    $resultado = false;
+    $sql = "UPDATE usuarios SET 
+              Usuario = '{$this->usuario}', 
+              Password = '{$this->password}', 
+              NumeroDocumento = '{$this->numeroDocumento}', 
+              Nombres = '{$this->nombres}', 
+              Apellidos = '{$this->apellidos}', 
+              NroTelefono = '{$this->nroTelefono}', 
+              Direccion = '{$this->direccion}', 
+              Pais = '{$this->pais}', 
+              Ciudad = '{$this->ciudad}', 
+              CodigoPostal = '{$this->codigoPostal}' 
+            WHERE Id = {$this->id}";
     $actualizar = $this->db->query($sql);
     if ($actualizar) {
       $resultado = true;
@@ -255,12 +281,42 @@ class Usuario
   public function obtenerTodosPorId()
   {
     $resultado = false;
-    $sql = "SELECT * FROM usuarios WHERE Id = {$this->getId()};";
+    $sql = "SELECT * FROM usuarios WHERE Id = {$this->id}";
     $obtenerTodos = $this->db->query($sql);
     if ($obtenerTodos) {
       $resultado = true;
-    } 
+    }
     return $obtenerTodos->fetch_object();
   }
 
+  public function actualizarPassword()
+  {
+    $sql = "UPDATE usuarios SET Password = '{$this->password}' WHERE Id = {$this->id}";
+    $resultado = $this->db->query($sql);
+    return $resultado;
+  }
+
+  public function actualizarRol()
+  {
+    $sql = "UPDATE usuarios SET Rol = '{$this->rol}' WHERE Id = {$this->id}";
+    $resultado = $this->db->query($sql);
+    return $resultado;
+  }
+
+  public function obtenerTodosLosUsuarios()
+  {
+      $sql = "SELECT * FROM usuarios";
+      $resultado = $this->db->query($sql);
+  
+      return $resultado;
+  }
+
+  public function existeUsuarioConRol1()
+  {
+      $sql = "SELECT COUNT(*) AS count FROM usuarios WHERE Rol = 1";
+      $result = $this->db->query($sql);
+      $data = $result->fetch_object();
+      return $data->count > 0;
+  }
+  
 }
