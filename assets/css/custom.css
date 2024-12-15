@@ -430,7 +430,6 @@
       vertical-align: middle;
   }
 
-
   /* Tabla de Roles */
   .custom-select-roles {
       font-size: 1rem;
@@ -456,4 +455,15 @@
 
   .btn-rol-change {
       padding: 0.5rem 1rem;
+  }
+
+
+  .panel-admin__category-list-catalogo table th {
+      padding-right: 50px;
+  }
+
+  /* Tabla de Catalogo */
+  .panel-admin__category-list-catalogo table th:last-child,
+  .panel-admin__category-list-catalogo table td:last-child {
+      text-align: right;
   }

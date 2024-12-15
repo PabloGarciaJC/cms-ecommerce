@@ -53,13 +53,12 @@
                 </div>
                 <?php unset($_SESSION['exito'], $_SESSION['messageClass'], $_SESSION['icon']); ?>
             <?php endif; ?>
-
-            <div class="panel-admin__category-list">
+            
+            <div class="panel-admin__category-list-catalogo">
                 <table class="table table-striped">
                     <thead>
                         <tr>
                             <th>Categoría Principal</th>
-                            <th>Descripción</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -78,11 +77,6 @@
                                         <a href="<?= $categoriaUrl ?>">
                                             <i class="fas fa-folder subcategoria-icon"></i>
                                             <?= $categoria->nombre; ?>
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a href="<?= $categoriaUrl ?>">
-                                            <?= $categoria->descripcion; ?>
                                         </a>
                                     </td>
                                     <td>
@@ -105,11 +99,6 @@
                                         <a href="<?= $editProUrl ?>">
                                             <i class="fas fa-box producto-icon" style="margin-right: 5px;"></i> Productos
                                             <?= $producto->nombre; ?>
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a href="<?= $editProUrl ?>">
-                                            <?= $producto->descripcion; ?>
                                         </a>
                                     </td>
                                     <td>
