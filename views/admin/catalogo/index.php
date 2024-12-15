@@ -98,24 +98,23 @@
                                 <tr>
                                     <?php
                                     $urlProducto = isset($producto->parent_id) && $producto->parent_id != null ? "&categoriaId=" . $producto->parent_id : false;
-                                    $productoUrl = BASE_URL . "Admin/productos?categoriaId=" . $producto->parent_id;
                                     $editProUrl = BASE_URL . "Admin/productos?editid=" . $producto->id . $urlProducto;
                                     $deleteProUrl = BASE_URL . "Admin/productos?deleteid=" . $producto->id . $urlProducto;
                                     ?>
                                     <td>
-                                        <a href="<?= $productoUrl ?>">
+                                        <a href="<?= $editProUrl ?>">
                                             <i class="fas fa-box producto-icon" style="margin-right: 5px;"></i> Productos
                                             <?= $producto->nombre; ?>
                                         </a>
                                     </td>
                                     <td>
-                                        <a href="<?= $productoUrl ?>">
+                                        <a href="<?= $editProUrl ?>">
                                             <?= $producto->descripcion; ?>
                                         </a>
                                     </td>
                                     <td>
-                                        <a href="<?= $editProUrl; ?>" class="btn btn-warning btn-sm">Editar</a>
-                                        <a href="<?= $deleteProUrl; ?>" class="btn btn-danger btn-sm">Eliminar</a>
+                                        <a href="<?= $editProUrl; ?>" class="btn btn-warning btn-sm">Editar ff</a>
+                                        <a href="<?= $deleteProUrl; ?>" class="btn btn-danger btn-sm">Eliminar ee</a>
                                     </td>
                                 </tr>
                             <?php endwhile; ?>

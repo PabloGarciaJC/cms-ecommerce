@@ -58,83 +58,55 @@ class AdminController
 
         $errores = [];
 
-        if (empty($usuario)) {
-            $errores['usuario'] = "El alias es obligatorio.";
-        } elseif (strlen($usuario) > 12) {
-            $errores['usuario'] = "El alias no puede tener más de 12 caracteres.";
-        }
-
-        if (empty($documentacion)) {
-            $errores['documentacion'] = "El número de documento es obligatorio.";
-        }
-
-        if (empty($telefono)) {
-            $errores['telefono'] = "El número de teléfono es obligatorio.";
-        }
-
-        if (empty($nombre)) {
-            $errores['nombre'] = "El nombre es obligatorio.";
-        } elseif (strlen($nombre) > 50) {
-            $errores['nombre'] = "El nombre no puede tener más de 50 caracteres.";
-        }
-
-        if (empty($apellido)) {
-            $errores['apellido'] = "El apellido es obligatorio.";
-        } elseif (strlen($apellido) > 50) {
-            $errores['apellido'] = "El apellido no puede tener más de 50 caracteres.";
-        }
-
-        if (empty($direccion)) {
-            $errores['direccion'] = "La dirección es obligatoria.";
-        }
-
-        if (empty($pais)) {
-            $errores['pais'] = "La pais es obligatoria.";
-        }
-
-        if (empty($ciudad)) {
-            $errores['ciudad'] = "La ciudad es obligatoria.";
-        }
-
-        if (empty($codigoPostal)) {
-            $errores['codigoPostal'] = "El código postal es obligatorio.";
-        } elseif (!is_numeric($codigoPostal)) {
-            $errores['codigoPostal'] = "El código postal debe ser numérico.";
-        }
-
         if (count($errores) > 0) {
             $_SESSION['errores'] = $errores;
+            $_SESSION['form'] = $_POST;
             header("Location: " . BASE_URL . "Admin/perfil");
             exit;
+            
         } else {
+
             $nombreArchivo = isset($_FILES['avatar']['name']) ? $_FILES['avatar']['name'] : false;
             $rutaTemporal = isset($_FILES['avatar']['tmp_name']) ? $_FILES['avatar']['tmp_name'] : false;
+
             if ($rutaTemporal) {
                 $directorioDestino = 'uploads/images/avatar/';
                 if (!is_dir($directorioDestino)) {
                     mkdir($directorioDestino, 0777, true);
                 }
+
+                // Generar un nombre único para el archivo de imagen
                 $nombreArchivoUnico = time() . '_' . basename($nombreArchivo);
                 $subirImagen = new Usuario();
                 $subirImagen->setId($id);
                 $subirImagen->setimagen($nombreArchivoUnico);
+
+                // Obtener la imagen actual del usuario para eliminarla si existe
                 $obtenerUsuario = $subirImagen->obtenerTodosPorId();
                 $ruta = $directorioDestino . $obtenerUsuario->imagen;
+
                 if (move_uploaded_file($rutaTemporal, $directorioDestino . $nombreArchivoUnico)) {
+                    // Eliminar la imagen anterior si existe
                     if ($obtenerUsuario->imagen && is_file($ruta)) {
                         unlink($ruta);
                     }
+
+                    // Guardar la nueva imagen
                     $subirImagen->subirImagen();
                 } else {
                     echo "Error al mover la imagen al directorio de destino.";
                     return;
                 }
             }
+
+            // Actualizar los datos del usuario
             $usuarios->actualizar();
+
+            // Mensaje de éxito
             $_SESSION['exito'] = 'La información se actualizó correctamente.';
-            $messageClass = 'alert-warning';
-            $_SESSION['messageClass'] = $messageClass;
+            $_SESSION['messageClass'] = 'alert-warning';
             unset($_SESSION['errores']);
+            unset($_SESSION['form']);
             header("Location: " . BASE_URL . "Admin/perfil");
             exit;
         }
@@ -222,6 +194,7 @@ class AdminController
             $productos->setId($editId ?: $deleteid);
             $getProductosById = $productos->obtenerProductosPorId();
         }
+
         require_once 'views/layout/head.php';
         require_once 'views/admin/productos/crear.php';
         require_once 'views/layout/script-footer.php';

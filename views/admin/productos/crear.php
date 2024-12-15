@@ -95,7 +95,6 @@
                 <div class="form-group">
                     <label for="productImages">Imágenes del Producto:</label>
                     <input type="file" id="productImages" name="productImages[]" class="form-control" accept="image/*" <?php echo $buttonHidden; ?> multiple>
-
                     <!-- Mostrar imágenes existentes -->
                     <div id="imagePreview" class="panel-admin__image-preview mt-3">
                         <?php
@@ -113,16 +112,25 @@
                                 return !empty($imagen) && $imagen !== 'null'; // Filtra vacíos y "null"
                             });
 
+                            // Procesar las imágenes
                             foreach ($imagenesArray as $imagen) {
-                                $imagenSanitizada = preg_replace('/[^a-z0-9_\-.]/i', '', $imagen);
-                                echo '<div class="panel-admin__image-container">';
-                                echo '<img src="' . BASE_URL . 'uploads/images/productos/' . htmlspecialchars($imagenSanitizada, ENT_QUOTES, 'UTF-8') . '" alt="Imagen del Producto" class="panel-admin__image-thumbnail">';
-                                echo '</div>';
+                                $imagenSanitizada = preg_replace('/[^a-z0-9_\-.]/i', '', $imagen); // Sanitizar el nombre de la imagen
+
+                                // Ruta completa de la imagen en el servidor
+                                $rutaImagen = 'uploads/images/productos/' . $imagenSanitizada;
+
+                                // Verificar si la imagen existe en el servidor
+                                if (!empty($imagenSanitizada) && file_exists($rutaImagen)) {
+                                    echo '<div class="panel-admin__image-container">';
+                                    echo '<img src="' . BASE_URL . $rutaImagen . '" alt="Imagen del Producto" class="panel-admin__image-thumbnail">';
+                                    echo '</div>';
+                                }
                             }
                         }
                         ?>
                     </div>
                 </div>
+
                 <a href=" <?php echo BASE_URL; ?>Admin/catalogo<?php echo isset($_GET['categoriaId']) ? '?categoriaId=' . $_GET['categoriaId'] : false; ?>" class="btn btn-primary">
                     <i class="fas fa-arrow-left"></i> Volver
                 </a>

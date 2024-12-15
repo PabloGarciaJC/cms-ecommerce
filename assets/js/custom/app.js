@@ -26,18 +26,20 @@ class App {
 
     function changeIndividual() {
       $('#avatar').on('change', function (event) {
-        const file = event.target.files[0];
-        const $preview = $('#avatarPreview');
+        const file = event.target.files[0]; // Obtén el archivo seleccionado
+        const $preview = $('#avatarPreview'); // El elemento de la vista previa de la imagen
+
         if (file) {
-          const reader = new FileReader();
+          const reader = new FileReader(); // Usamos FileReader para leer el archivo
           reader.onload = function (e) {
-            $preview.attr('src', e.target.result).show();
+            $preview.attr('src', e.target.result).show(); // Actualiza el src de la vista previa y la muestra
           };
-          reader.readAsDataURL(file);
+          reader.readAsDataURL(file); // Lee el archivo como una URL de datos
         } else {
-          $preview.attr('src', '').hide();
+          $preview.attr('src', '').hide(); // Si no hay archivo, oculta la vista previa
         }
       });
+
     }
 
     function changeMulti() {
@@ -73,6 +75,7 @@ class App {
         });
       });
     }
+    
     changeIndividual();
     changeMulti();
   }

@@ -14,13 +14,13 @@
                 </div>
                 <?php unset($_SESSION['exito'], $_SESSION['messageClass'], $_SESSION['icon']); ?>
             <?php endif; ?>
-
+            
             <h2 class="panel-admin__dashboard-title">Perfil de Usuario</h2>
             <form action="<?php echo BASE_URL; ?>Admin/perfilGuardar" method="POST" enctype="multipart/form-data" class="panel-admin__user-form">
                 <input type="hidden" name="id" class="form-control" value="<?php echo $usuario->Id; ?>">
                 <div class="form-group">
                     <label for="username">Usuario:</label>
-                    <input type="text" id="username" name="usuario" class="form-control" placeholder="Nombre de usuario" value="<?php echo $usuario->Usuario; ?>">
+                    <input type="text" id="username" name="usuario" class="form-control" placeholder="Nombre de usuario" value="<?php echo isset($_SESSION['form']['usuario']) ? $_SESSION['form']['usuario'] : $usuario->Usuario; ?>">
                     <?php if (isset($_SESSION['errores']['usuario'])) : ?>
                         <div class="text-danger mt-2">
                             <i class="fas fa-exclamation-circle"></i> <?php echo $_SESSION['errores']['usuario']; ?>
@@ -29,7 +29,7 @@
                 </div>
                 <div class="form-group">
                     <label>Número de Documento:</label>
-                    <input type="text" name="documentacion" class="form-control" placeholder="Documento de identidad" value="<?php echo $usuario->NumeroDocumento; ?>">
+                    <input type="text" name="documentacion" class="form-control" placeholder="Documento de identidad" value="<?php echo isset($_SESSION['form']['documentacion']) ? $_SESSION['form']['documentacion'] : $usuario->NumeroDocumento; ?>">
                     <?php if (isset($_SESSION['errores']['documentacion'])) : ?>
                         <div class="text-danger mt-2">
                             <i class="fas fa-exclamation-circle"></i> <?php echo $_SESSION['errores']['documentacion']; ?>
@@ -38,7 +38,7 @@
                 </div>
                 <div class="form-group">
                     <label>Nombres:</label>
-                    <input type="text" name="nombre" class="form-control" placeholder="Nombres del usuario" value="<?php echo $usuario->Nombres; ?>">
+                    <input type="text" name="nombre" class="form-control" placeholder="Nombres del usuario" value="<?php echo isset($_SESSION['form']['nombre']) ? $_SESSION['form']['nombre'] : $usuario->Nombres; ?>">
                     <?php if (isset($_SESSION['errores']['nombre'])) : ?>
                         <div class="text-danger mt-2">
                             <i class="fas fa-exclamation-circle"></i> <?php echo $_SESSION['errores']['nombre']; ?>
@@ -47,7 +47,7 @@
                 </div>
                 <div class="form-group">
                     <label>Apellidos:</label>
-                    <input type="text" name="apellido" class="form-control" placeholder="Apellidos del usuario" value="<?php echo $usuario->Apellidos; ?>">
+                    <input type="text" name="apellido" class="form-control" placeholder="Apellidos del usuario" value="<?php echo isset($_SESSION['form']['apellido']) ? $_SESSION['form']['apellido'] : $usuario->Apellidos; ?>">
                     <?php if (isset($_SESSION['errores']['apellido'])) : ?>
                         <div class="text-danger mt-2">
                             <i class="fas fa-exclamation-circle"></i> <?php echo $_SESSION['errores']['apellido']; ?>
@@ -56,7 +56,7 @@
                 </div>
                 <div class="form-group">
                     <label>Correo Electrónico:</label>
-                    <input type="email" name="email" class="form-control" placeholder="Correo electrónico" value="<?php echo $usuario->Email; ?>" disabled>
+                    <input type="email" name="email" class="form-control" placeholder="Correo electrónico" value="<?php echo isset($_SESSION['form']['email']) ? $_SESSION['form']['email'] : $usuario->Email; ?>" disabled>
                     <?php if (isset($_SESSION['errores']['email'])) : ?>
                         <div class="text-danger mt-2">
                             <i class="fas fa-exclamation-circle"></i> <?php echo $_SESSION['errores']['email']; ?>
@@ -65,7 +65,7 @@
                 </div>
                 <div class="form-group">
                     <label>Número de Teléfono:</label>
-                    <input type="text" name="telefono" class="form-control" placeholder="Teléfono del usuario" value="<?php echo $usuario->NroTelefono; ?>">
+                    <input type="text" name="telefono" class="form-control" placeholder="Teléfono del usuario" value="<?php echo isset($_SESSION['form']['telefono']) ? $_SESSION['form']['telefono'] : $usuario->NroTelefono; ?>">
                     <?php if (isset($_SESSION['errores']['telefono'])) : ?>
                         <div class="text-danger mt-2">
                             <i class="fas fa-exclamation-circle"></i> <?php echo $_SESSION['errores']['telefono']; ?>
@@ -74,7 +74,7 @@
                 </div>
                 <div class="form-group">
                     <label>Dirección:</label>
-                    <input type="text" name="direccion" class="form-control" placeholder="Dirección del usuario" value="<?php echo $usuario->Direccion; ?>">
+                    <input type="text" name="direccion" class="form-control" placeholder="Dirección del usuario" value="<?php echo isset($_SESSION['form']['direccion']) ? $_SESSION['form']['direccion'] : $usuario->Direccion; ?>">
                     <?php if (isset($_SESSION['errores']['direccion'])) : ?>
                         <div class="text-danger mt-2">
                             <i class="fas fa-exclamation-circle"></i> <?php echo $_SESSION['errores']['direccion']; ?>
@@ -87,7 +87,7 @@
                         <option value="" disabled selected>Seleccione...</option>
                         <?php while ($fila = mysqli_fetch_assoc($paisesTodos)) : ?>
                             <option value="<?php echo $fila['Id']; ?>"
-                                <?php echo $usuario->Pais == $fila['Id'] ? 'selected' : ''; ?>>
+                                <?php echo isset($_SESSION['form']['pais']) ? ($_SESSION['form']['pais'] == $fila['Id'] ? 'selected' : '') : ($usuario->Pais == $fila['Id'] ? 'selected' : ''); ?>>
                                 <?php echo $fila['Pais']; ?>
                             </option>
                         <?php endwhile; ?>
@@ -115,7 +115,7 @@
                 </div>
                 <div class="form-group">
                     <label for="codigoPostal">Código Postal:</label>
-                    <input type="text" id="codigoPostal" name="codigoPostal" class="form-control" value="<?php echo $usuario->CodigoPostal; ?>">
+                    <input type="text" id="codigoPostal" name="codigoPostal" class="form-control" value="<?php echo isset($_SESSION['form']['codigoPostal']) ? $_SESSION['form']['codigoPostal'] : $usuario->CodigoPostal; ?>">
                     <?php if (isset($_SESSION['errores']['codigoPostal'])) : ?>
                         <div class="text-danger mt-2">
                             <i class="fas fa-exclamation-circle"></i> <?php echo $_SESSION['errores']['codigoPostal']; ?>
@@ -124,10 +124,17 @@
                 </div>
                 <div class="form-group">
                     <label for="avatar">Imagen de Usuario (Avatar):</label>
-                    <input type="file" id="avatar" name="avatar" class="form-control" accept="image/*">
+                    <input type="file" id="avatar" name="avatar" class="form-control" accept="image/*"
+                        <?php echo isset($_SESSION['form']['avatar']) ? 'value="' . $_SESSION['form']['avatar'] . '"' : ''; ?>>
+
+                    <!-- Vista previa de la imagen cargada -->
                     <div class="panel-admin__avatar-preview mt-3">
-                        <img id="avatarPreview" class="panel-admin__avatar-thumbnail" src="<?php echo !empty($usuario->imagen) ? BASE_URL . 'uploads/images/avatar/' . $usuario->imagen : BASE_URL . 'uploads/images/avatar/default-avatar.png'; ?>" alt="Avatar de Usuario">
+                        <img id="avatarPreview" class="panel-admin__avatar-thumbnail"
+                            src="<?php echo !empty($usuario->imagen) ? BASE_URL . 'uploads/images/avatar/' . $usuario->imagen : ''; ?>"
+                            alt="Avatar de Usuario"
+                            style="display:<?php echo !empty($usuario->imagen) ? 'block' : 'none'; ?>;">
                     </div>
+
                     <?php if (isset($_SESSION['errores']['avatar'])) : ?>
                         <div class="text-danger mt-2">
                             <i class="fas fa-exclamation-circle"></i> <?php echo $_SESSION['errores']['avatar']; ?>
