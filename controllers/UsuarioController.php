@@ -12,15 +12,13 @@ class UsuarioController
         $confirmarPassword = isset($_POST['confirmarPassword']) ? $_POST['confirmarPassword'] : false;
         $checked = isset($_POST['checked']) ? $_POST['checked'] : false;
 
-        // Instancio 
         $registro = new Usuario();
         $registro->setUsuario($usuario);
         $registro->setEmail($email);
         $registro->setPassword($confirmarPassword);
         $comprobarUsuario = $registro->repetidosUsuario();
         $comprobandoEmail = $registro->repetidosEmail();
-
-        //validacion
+        
         if (empty(trim($usuario))) {
             $mensaje = utils::setearMensajeError('mdErrorUsuarioPhp', 'Ingrese Alias');
         } elseif (strlen($usuario) > 12) {
