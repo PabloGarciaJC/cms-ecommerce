@@ -5,7 +5,6 @@ require_once 'model/paises.php';
 require_once 'model/productos.php';
 require_once 'model/roles.php';
 
-
 class AdminController
 {
     public function dashboard()
@@ -132,8 +131,10 @@ class AdminController
                 }
             }
             $usuarios->actualizar();
-            unset($_SESSION['errores']);
             $_SESSION['exito'] = 'La información se actualizó correctamente.';
+            $messageClass = 'alert-warning';
+            $_SESSION['messageClass'] = $messageClass;
+            unset($_SESSION['errores']);
             header("Location: " . BASE_URL . "Admin/perfil");
             exit;
         }
@@ -176,9 +177,11 @@ class AdminController
             $hashed_password = password_hash($newPassword, PASSWORD_BCRYPT);
             $usuarios->setPassword($hashed_password);
             $usuarios->actualizarPassword();
+            $_SESSION['exito'] = 'La Contraseña se actualizó correctamente.';
+            $messageClass = 'alert-warning';
+            $_SESSION['messageClass'] = $messageClass;
             unset($_SESSION['errores']);
-            $_SESSION['exito'] = 'Contraseña actualizada exitosamente';
-            header("Location: " . BASE_URL . "Admin/password");
+            header('Location: ' . BASE_URL . 'Admin/password');
             exit;
         }
     }
@@ -197,7 +200,7 @@ class AdminController
             $getCategorias = $categorias->obtenerCategorias();
         }
         require_once 'views/layout/head.php';
-        require_once 'views/admin/ecommerce/catalogo.php';
+        require_once 'views/admin/catalogo/index.php';
         require_once 'views/layout/script-footer.php';
     }
 
@@ -291,7 +294,6 @@ class AdminController
                     }
                 }
             }
-
             // Convertir el arreglo de imágenes a formato JSON
             if (!empty($imagenes)) {
                 $imagenesJson = json_encode($imagenes);
@@ -300,21 +302,29 @@ class AdminController
             }
 
             // Acciones según el caso: editar, eliminar o crear
+            $messageClass = '';
             switch (true) {
                 case $editId:
                     $productos->setId($editId);
                     $productos->setImagenes($imagenesJson);
                     $productos->actualizarProductosPorId();
+                    $_SESSION['exito'] = 'El Producto se actualizó correctamente.';
+                    $messageClass = 'alert-warning';
                     break;
                 case $deleteId:
                     $productos->setId($deleteId);
                     $productos->eliminarProductos();
+                    $_SESSION['exito'] = 'El Producto se eliminó correctamente.';
+                    $messageClass = 'alert-danger';
                     break;
                 default:
                     $productos->setImagenes($imagenesJson);
                     $productos->save();
+                    $_SESSION['exito'] = 'El Producto se creó correctamente.';
+                    $messageClass = 'alert-primary';
                     break;
             }
+            $_SESSION['messageClass'] = $messageClass;
             unset($_SESSION['errores']);
             unset($_SESSION['form']);
             header("Location: " . BASE_URL . "Admin/catalogo" . $urlParentid);
@@ -367,20 +377,28 @@ class AdminController
             header("Location: " . BASE_URL . "Admin/categorias" . $urlParentid);
             exit;
         } else {
+            $messageClass = '';
             switch (true) {
                 case $editId:
                     $categorias->setId($editId);
                     $categorias->actualizarCategoriaPorId();
+                    $_SESSION['exito'] = 'La Categoria se actualizó correctamente.';
+                    $messageClass = 'alert-warning';
                     break;
                 case $deleteId:
                     $categorias->setId($deleteId);
                     $categorias->eliminarCategoria();
+                    $_SESSION['exito'] = 'La Categoria se eliminó correctamente.';
+                    $messageClass = 'alert-danger';
                     break;
                 default:
                     $categorias->setParentId($parentid);
                     $categorias->crearCategoria();
+                    $_SESSION['exito'] = 'La Categoria se creó correctamente.';
+                    $messageClass = 'alert-primary';
                     break;
             }
+            $_SESSION['messageClass'] = $messageClass;
             unset($_SESSION['errores']);
             unset($_SESSION['form']);
             header("Location: " . BASE_URL . "Admin/catalogo" . $urlParentid);
@@ -488,19 +506,27 @@ class AdminController
             header("Location: " . BASE_URL . "Admin/crearRoles");
             exit;
         } else {
+            $messageClass = '';
             switch (true) {
                 case $editId:
                     $rol->setId($editId);
                     $rol->actualizar();
+                    $_SESSION['exito'] = 'La información se actualizó correctamente.';
+                    $messageClass = 'alert-warning';
                     break;
                 case $deleteid:
                     $rol->setId($deleteid);
                     $rol->eliminar();
+                    $_SESSION['exito'] = 'La información se eliminó correctamente.';
+                    $messageClass = 'alert-danger';
                     break;
                 default:
                     $rol->crear();
+                    $_SESSION['exito'] = 'La información se creó correctamente.';
+                    $messageClass = 'alert-primary';
                     break;
             }
+            $_SESSION['messageClass'] = $messageClass;
             unset($_SESSION['errores']);
             unset($_SESSION['form']);
             header("Location: " . BASE_URL . "Admin/roles");

@@ -4,6 +4,7 @@
     <main class="panel-admin__main-content">
         <section class="panel-admin__dashboard">
             <h2 class="panel-admin__dashboard-title">Gestión de Ecommerce</h2>
+
             <div class="panel-admin__stats-overview <?php echo isset($_GET['categoriaId']) ? 'half-width' : ''; ?>">
                 <a href="<?php echo BASE_URL ?>Admin/categorias<?php echo isset($_GET['categoriaId']) ? '?categoriaId=' . $_GET['categoriaId'] : ''; ?>" class="panel-admin__stat-card">
                     <span class="panel-admin__stat-icon"><i class="fas fa-th-large"></i></span>
@@ -20,6 +21,7 @@
                     </a>
                 <?php endif; ?>
             </div>
+
             <div class="breadcrumbs">
                 <nav>
                     <ul class="breadcrumb">
@@ -40,6 +42,18 @@
                     </ul>
                 </nav>
             </div>
+
+            <?php if (isset($_SESSION['exito'])) : ?>
+                <div class="alert <?php echo $_SESSION['messageClass']; ?> alert-dismissible fade show mt-2 text-center" role="alert">
+                    <i class="<?php echo isset($_SESSION['icon']) ? $_SESSION['icon'] : 'fas fa-check-circle'; ?>"></i>
+                    <?php echo $_SESSION['exito']; ?>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <?php unset($_SESSION['exito'], $_SESSION['messageClass'], $_SESSION['icon']); ?>
+            <?php endif; ?>
+
             <div class="panel-admin__category-list">
                 <table class="table table-striped">
                     <thead>
@@ -90,7 +104,7 @@
                                     ?>
                                     <td>
                                         <a href="<?= $productoUrl ?>">
-                                        <i class="fas fa-box producto-icon" style="margin-right: 5px;"></i> Productos
+                                            <i class="fas fa-box producto-icon" style="margin-right: 5px;"></i> Productos
                                             <?= $producto->nombre; ?>
                                         </a>
                                     </td>
@@ -112,4 +126,5 @@
         </section>
     </main>
 </div>
+<?php unset($_SESSION['exito'], $_SESSION['messageClass']); ?>
 <?php unset($_SESSION['errores']); ?>

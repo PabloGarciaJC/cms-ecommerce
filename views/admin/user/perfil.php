@@ -3,15 +3,18 @@
     <?php include __DIR__ . '../../layout/sidebar.php'; ?>
     <main class="panel-admin__main-content">
         <section class="panel-admin__dashboard">
+
             <?php if (isset($_SESSION['exito'])) : ?>
-                <div class="alert alert-success alert-dismissible fade show mt-2 success-alert" role="alert">
-                    <i class="fas fa-check-circle"></i> <?php echo $_SESSION['exito']; ?>
+                <div class="alert <?php echo $_SESSION['messageClass']; ?> alert-dismissible fade show mt-2 text-center" role="alert">
+                    <i class="<?php echo isset($_SESSION['icon']) ? $_SESSION['icon'] : 'fas fa-check-circle'; ?>"></i>
+                    <?php echo $_SESSION['exito']; ?>
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <?php unset($_SESSION['exito']); ?>
+                <?php unset($_SESSION['exito'], $_SESSION['messageClass'], $_SESSION['icon']); ?>
             <?php endif; ?>
+
             <h2 class="panel-admin__dashboard-title">Perfil de Usuario</h2>
             <form action="<?php echo BASE_URL; ?>Admin/perfilGuardar" method="POST" enctype="multipart/form-data" class="panel-admin__user-form">
                 <input type="hidden" name="id" class="form-control" value="<?php echo $usuario->Id; ?>">
@@ -136,4 +139,5 @@
         </section>
     </main>
 </div>
+<?php unset($_SESSION['exito'], $_SESSION['messageClass']); ?>
 <?php unset($_SESSION['errores']); ?>

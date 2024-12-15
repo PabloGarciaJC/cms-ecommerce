@@ -92,8 +92,10 @@ class App {
 
   autoHideAlert() {
     setTimeout(function () {
-      $('.success-alert').alert('close')
-    }, 1500);
+      $('.alert').fadeOut('slow', function () {
+        $(this).remove();
+      });
+    }, 2000);
   }
 
   select2() {

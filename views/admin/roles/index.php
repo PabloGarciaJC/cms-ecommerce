@@ -12,6 +12,18 @@
                     </div>
                 </a>
             </div>
+
+            <?php if (isset($_SESSION['exito'])) : ?>
+                <div class="alert <?php echo $_SESSION['messageClass']; ?> alert-dismissible fade show mt-2 text-center" role="alert">
+                    <i class="<?php echo isset($_SESSION['icon']) ? $_SESSION['icon'] : 'fas fa-check-circle'; ?>"></i>
+                    <?php echo $_SESSION['exito']; ?>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <?php unset($_SESSION['exito'], $_SESSION['messageClass'], $_SESSION['icon']); ?>
+            <?php endif; ?>
+
             <div class="panel-admin__category-list">
                 <table class="table table-striped text-center">
                     <thead>
@@ -22,19 +34,21 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <?php while ($rol = $obtenerRoles->fetch_object()): ?>
-                        <tr>
-                            <td><?php echo $rol->nombre; ?></td>
-                            <td><?php echo $rol->descripcion; ?></td>
-                            <td>
-                                <a href="<?php echo BASE_URL; ?>Admin/crearRoles?editid=<?php echo $rol->id; ?>" class="btn btn-warning btn-sm">Editar</a>
-                                <a href="<?php echo BASE_URL; ?>Admin/crearRoles?deleteid=<?php echo $rol->id; ?>" class="btn btn-danger btn-sm">Eliminar</a>
-                            </td>
-                        </tr>
-                    <?php endwhile; ?>
+                        <?php while ($rol = $obtenerRoles->fetch_object()): ?>
+                            <tr>
+                                <td><?php echo $rol->nombre; ?></td>
+                                <td><?php echo $rol->descripcion; ?></td>
+                                <td>
+                                    <a href="<?php echo BASE_URL; ?>Admin/crearRoles?editid=<?php echo $rol->id; ?>" class="btn btn-warning btn-sm">Editar</a>
+                                    <a href="<?php echo BASE_URL; ?>Admin/crearRoles?deleteid=<?php echo $rol->id; ?>" class="btn btn-danger btn-sm">Eliminar</a>
+                                </td>
+                            </tr>
+                        <?php endwhile; ?>
                     </tbody>
                 </table>
             </div>
         </section>
     </main>
 </div>
+<?php unset($_SESSION['exito'], $_SESSION['messageClass']); ?>
+<?php unset($_SESSION['errores']); ?>
