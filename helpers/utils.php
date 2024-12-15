@@ -282,23 +282,22 @@ class Utils
 
   public static function mostrarAutocompletado($listado)
   {
-      // $arrayListados = array();
-  
-      // // Asumimos que la conexión a la base de datos ya está configurada para usar UTF-8, por ejemplo:
-      // // mysqli_set_charset($conexion, "utf8");
-  
-      // while ($filas = mysqli_fetch_assoc($listado)) {
-      //     // Usamos mysqli_fetch_assoc en lugar de mysqli_fetch_array para un acceso más claro por nombre de columna
-      //     $nombre = $filas['nombre'];
-      //     $marca = $filas['marca'];
-  
-      //     // Agregamos directamente los valores al array
-      //     array_push($arrayListados, $nombre);
-      //     array_push($arrayListados, $marca);
-      // }
-  
-      // // Retornamos el JSON de manera más limpia
-      // return json_encode($arrayListados);
+    // $arrayListados = array();
+
+    // // Asumimos que la conexión a la base de datos ya está configurada para usar UTF-8, por ejemplo:
+    // // mysqli_set_charset($conexion, "utf8");
+
+    // while ($filas = mysqli_fetch_assoc($listado)) {
+    //     // Usamos mysqli_fetch_assoc en lugar de mysqli_fetch_array para un acceso más claro por nombre de columna
+    //     $nombre = $filas['nombre'];
+    //     $marca = $filas['marca'];
+
+    //     // Agregamos directamente los valores al array
+    //     array_push($arrayListados, $nombre);
+    //     array_push($arrayListados, $marca);
+    // }
+
+    // // Retornamos el JSON de manera más limpia
+    // return json_encode($arrayListados);
   }
-  
 };

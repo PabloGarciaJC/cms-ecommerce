@@ -28,17 +28,17 @@
       </a>
       <ul class="panel-admin__submenu">
         <li class="panel-admin__submenu-item">
-          <a href="<?php echo BASE_URL ?>Admin/gestionar" class="panel-admin__submenu-link">Gestionar</a>
+          <a href="<?php echo BASE_URL ?>Admin/roles" class="panel-admin__submenu-link">Gestionar</a>
         </li>
         <li class="panel-admin__submenu-item">
-          <a href="<?php echo BASE_URL ?>Admin/roles" class="panel-admin__submenu-link">Asignar Roles</a>
+          <a href="<?php echo BASE_URL ?>Admin/asignarRoles" class="panel-admin__submenu-link">Asignar</a>
         </li>
       </ul>
     </li>
     <li class="panel-admin__menu-item">
       <a class="panel-admin__menu-link d-flex justify-content-between align-items-center" href="#">
         <span>
-          <i class="fas fa-shopping-bag"></i> Ecommerce
+        <i class="fas fa-th"></i> Catalogo
         </span>
         <i class="fas fa-chevron-right"></i>
       </a>

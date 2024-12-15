@@ -328,7 +328,6 @@ class AdminController
         $editId = isset($_GET['editid']) ? $_GET['editid'] : false;
         $deleteid = isset($_GET['deleteid']) ? $_GET['deleteid'] : false;
         $categoriaId = isset($_GET['categoriaId']) ? $_GET['categoriaId'] : false;
-
         $categorias = new Categorias();
         if ($editId || $deleteid) {
             $categorias->setId($editId ?: $deleteid);
@@ -389,7 +388,7 @@ class AdminController
         }
     }
 
-    public function roles()
+    public function asignarRoles()
     {
         Utils::accesoUsuarioRegistrado();
         $roles = new Rol();
@@ -397,7 +396,7 @@ class AdminController
         $usuarios = new Usuario();
         $obtenerUsuarios = $usuarios->obtenerTodosLosUsuarios();
         require_once 'views/layout/head.php';
-        require_once 'views/admin/roles/index.php';
+        require_once 'views/admin/roles/asignarRoles.php';
         require_once 'views/layout/script-footer.php';
     }
 
@@ -439,13 +438,76 @@ class AdminController
         }
     }
 
-    public function gestionar()
+    public function roles()
     {
         Utils::accesoUsuarioRegistrado();
+        $rol = new Rol();
+        $obtenerRoles = $rol->obtenerTodos();
         require_once 'views/layout/head.php';
-        require_once 'views/admin/roles/gestionar.php';
+        require_once 'views/admin/roles/index.php';
         require_once 'views/layout/script-footer.php';
     }
+
+    public function crearRoles()
+    {
+        $editId = isset($_GET['editid']) ? $_GET['editid'] : false;
+        $deleteid = isset($_GET['deleteid']) ? $_GET['deleteid'] : false;
+        $rol = new Rol();
+        if ($editId || $deleteid) {
+            $rol->setId($editId ?: $deleteid);
+            $obtenerRoles = $rol->obtenerPorId();
+        }
+        require_once 'views/layout/head.php';
+        require_once 'views/admin/roles/crear.php';
+        require_once 'views/layout/script-footer.php';
+    }
+
+    public function guardarRoles()
+    {
+        Utils::accesoUsuarioRegistrado();
+        $name = isset($_POST['name']) ? $_POST['name'] : false;
+        $descripcion = isset($_POST['descripcion']) ? $_POST['descripcion'] : false;
+        $editId = isset($_POST['editid']) ? $_POST['editid'] : false;
+        $deleteid = isset($_POST['deleteid']) ? $_POST['deleteid'] : false;
+        $rol = new Rol();
+        $rol->setNombre($name);
+        $rol->setDescripcion($descripcion);
+
+        $errores = [];
+
+        if (empty($name)) {
+            $errores['name'] = "El nombre es obligatorio.";
+        }
+        if (empty($descripcion)) {
+            $errores['descripcion'] = "La descripción es obligatoria.";
+        }
+
+        if (count($errores) > 0) {
+            $_SESSION['errores'] = $errores;
+            $_SESSION['form'] = $_POST;
+            header("Location: " . BASE_URL . "Admin/crearRoles");
+            exit;
+        } else {
+            switch (true) {
+                case $editId:
+                    $rol->setId($editId);
+                    $rol->actualizar();
+                    break;
+                case $deleteid:
+                    $rol->setId($deleteid);
+                    $rol->eliminar();
+                    break;
+                default:
+                    $rol->crear();
+                    break;
+            }
+            unset($_SESSION['errores']);
+            unset($_SESSION['form']);
+            header("Location: " . BASE_URL . "Admin/roles");
+            exit;
+        }
+    }
+
 
     public function listaPedidos()
     {

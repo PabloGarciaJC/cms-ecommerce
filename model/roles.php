@@ -79,7 +79,7 @@ class Rol
 
     public function obtenerPorId()
     {
-        $sql = "SELECT * FROM roles WHERE id = {$this->id}";
+        $sql = "SELECT * FROM roles WHERE id = {$this->getId()}";
         $result = $this->db->query($sql);
         return $result->fetch_object();
     }
@@ -87,8 +87,8 @@ class Rol
     public function crear()
     {
         $sql = "INSERT INTO roles (nombre, descripcion, created, updated) VALUES (
-            '{$this->nombre}', 
-            '{$this->descripcion}', 
+            '{$this->getNombre()}', 
+            '{$this->getDescripcion()}', 
             NOW(), 
             NOW()
         )";
@@ -100,10 +100,10 @@ class Rol
     public function actualizar()
     {
         $sql = "UPDATE roles SET 
-                nombre = '{$this->nombre}', 
-                descripcion = '{$this->descripcion}', 
+                nombre = '{$this->getNombre()}',  
+                descripcion = '{$this->getDescripcion()}', 
                 updated = NOW() 
-                WHERE id = {$this->id}";
+                WHERE id = {$this->getId()}";
 
         $result = $this->db->query($sql);
         return $result;
@@ -111,7 +111,7 @@ class Rol
 
     public function eliminar()
     {
-        $sql = "DELETE FROM roles WHERE id = {$this->id}";
+        $sql = "DELETE FROM roles WHERE id = {$this->getId()}";
         $result = $this->db->query($sql);
         return $result;
     }
