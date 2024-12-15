@@ -1,9 +1,6 @@
 <?php include __DIR__ . '../../layout/header.php'; ?>
-
 <div class="panel-admin__flex-container">
-
   <?php include __DIR__ . '../../layout/sidebar.php'; ?>
-
   <main class="panel-admin__main-content">
     <section class="panel-admin__dashboard">
       <h2 class="panel-admin__dashboard-title">Estadísticas</h2>
