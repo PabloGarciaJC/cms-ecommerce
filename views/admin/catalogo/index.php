@@ -113,8 +113,8 @@
                                         </a>
                                     </td>
                                     <td>
-                                        <a href="<?= $editProUrl; ?>" class="btn btn-warning btn-sm">Editar ff</a>
-                                        <a href="<?= $deleteProUrl; ?>" class="btn btn-danger btn-sm">Eliminar ee</a>
+                                        <a href="<?= $editProUrl; ?>" class="btn btn-warning btn-sm">Editar</a>
+                                        <a href="<?= $deleteProUrl; ?>" class="btn btn-danger btn-sm">Eliminar</a>
                                     </td>
                                 </tr>
                             <?php endwhile; ?>
