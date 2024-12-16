@@ -38,6 +38,7 @@
 <div class="navbar-inner">
 	<div class="container">
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			
 			<div class="language-selector">
 				<form action="<?php echo BASE_URL . ltrim($_SERVER['REQUEST_URI'], '/') ?>" method="POST">
 					<div class="language-dropdown">
