@@ -32,19 +32,8 @@ class HomeController
     {
         $this->idiomas();
         $usuario = Utils::obtenerUsuario();
-
-
         $categorias = new Categorias();
-        $getCategorias = $categorias->obtenerCategorias();
-
-        var_dump($getCategorias);
-
-
-        // $categoriaBarraNavegacion = Utils::listaCategorias();
-        // $idCategoria = isset($_GET['producto']) ? $_GET['producto'] : false;
-        // $mostrarProductoPorCategoria = Utils::obtenerCategoriaPorId($idCategoria);
-        // $listado  =  Utils::listarAutocompletado();
-        // $jsonMostrar = Utils::mostrarAutocompletado($listado);
+        $categoriasConSubcategoriasYProductos = $categorias->obtenerCategoriasYProductos();
         require_once 'views/layout/head.php';
         require_once 'views/layout/header.php';
         require_once 'views/home/slider.php';
@@ -56,6 +45,8 @@ class HomeController
     {
         $this->idiomas();
         $usuario = Utils::obtenerUsuario();
+        $categorias = new Categorias();
+        $categoriasConSubcategoriasYProductos = $categorias->obtenerCategoriasYProductos();
         require_once 'views/layout/head.php';
         require_once 'views/layout/header.php';
         require_once 'views/home/nosotros.php';
@@ -66,6 +57,8 @@ class HomeController
     {
         $this->idiomas();
         $usuario = Utils::obtenerUsuario();
+        $categorias = new Categorias();
+        $categoriasConSubcategoriasYProductos = $categorias->obtenerCategoriasYProductos();
         require_once 'views/layout/head.php';
         require_once 'views/layout/header.php';
         require_once 'views/home/help.php';
@@ -76,6 +69,8 @@ class HomeController
     {
         $this->idiomas();
         $usuario = Utils::obtenerUsuario();
+        $categorias = new Categorias();
+        $categoriasConSubcategoriasYProductos = $categorias->obtenerCategoriasYProductos();
         require_once 'views/layout/head.php';
         require_once 'views/layout/header.php';
         require_once 'views/home/faqs.php';
@@ -86,6 +81,8 @@ class HomeController
     {
         $this->idiomas();
         $usuario = Utils::obtenerUsuario();
+        $categorias = new Categorias();
+        $categoriasConSubcategoriasYProductos = $categorias->obtenerCategoriasYProductos();
         require_once 'views/layout/head.php';
         require_once 'views/layout/header.php';
         require_once 'views/home/term.php';
@@ -96,6 +93,8 @@ class HomeController
     {
         $this->idiomas();
         $usuario = Utils::obtenerUsuario();
+        $categorias = new Categorias();
+        $categoriasConSubcategoriasYProductos = $categorias->obtenerCategoriasYProductos();
         require_once 'views/layout/head.php';
         require_once 'views/layout/header.php';
         require_once 'views/home/privacy.php';
@@ -106,6 +105,8 @@ class HomeController
     {
         $this->idiomas();
         $usuario = Utils::obtenerUsuario();
+        $categorias = new Categorias();
+        $categoriasConSubcategoriasYProductos = $categorias->obtenerCategoriasYProductos();
         require_once 'views/layout/head.php';
         require_once 'views/layout/header.php';
         require_once 'views/home/contacto.php';

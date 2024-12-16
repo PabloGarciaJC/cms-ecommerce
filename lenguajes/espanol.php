@@ -187,7 +187,6 @@ define('TEXT_TRACK_ORDER', 'Track Order');
 define('TEXT_PHONE_NUMBER', '001 234 5678');
 define('TEXT_HELLO_IDENTIFY', 'Hola, Identifícate');
 define('TEXT_REGISTER', 'Regístrate');
-define('TEXT_HELLO_USER', 'Hola, ');
 define('TEXT_ELECTRO_STORE', 'Electro Store');
 define('TEXT_SEARCH_PLACEHOLDER', 'Buscar');
 define('TEXT_SEARCH_BUTTON', 'Buscar');

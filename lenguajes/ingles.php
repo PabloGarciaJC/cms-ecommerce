@@ -188,14 +188,8 @@ define('TEXT_TRACK_ORDER', 'Track Order');
 define('TEXT_PHONE_NUMBER', '001 234 5678');
 define('TEXT_HELLO_IDENTIFY', 'Hello, Identify Yourself');
 define('TEXT_REGISTER', 'Register');
-define('TEXT_HELLO_USER', 'Hello, ');
 define('TEXT_ELECTRO_STORE', 'Electro Store');
 define('TEXT_SEARCH_PLACEHOLDER', 'Search');
 define('TEXT_SEARCH_BUTTON', 'Search');
 define('TEXT_CART_ICON', 'Cart');
-
-
-
-
-
 ?>

@@ -14,7 +14,7 @@ class Categorias
   }
 
   //// GETTERS ////
-  
+
   public function getId()
   {
     return $this->id;
@@ -57,7 +57,7 @@ class Categorias
     $this->parentId = $parentId;
   }
 
-   //// CONSULTAS //// 
+  //// CONSULTAS //// 
 
   public function obtenerCategorias()
   {
@@ -79,6 +79,36 @@ class Categorias
       'productos' => $listarProductos,
     ];
   }
+
+  public function obtenerCategoriasYProductos()
+  {
+    // Obtener todas las categorías principales
+    $sqlCategorias = "SELECT * FROM categorias WHERE parent_id IS NULL OR parent_id = ''";
+    $categorias = $this->db->query($sqlCategorias);
+
+    // Para cada categoría, obtener sus subcategorías y productos
+    $categoriasConSubcategoriasYProductos = [];
+
+    while ($categoria = $categorias->fetch_object()) {
+      // Obtener subcategorías para cada categoría principal
+      $sqlSubcategorias = "SELECT * FROM categorias WHERE parent_id = {$categoria->id}";
+      $subcategorias = $this->db->query($sqlSubcategorias);
+
+      // Obtener productos para cada categoría principal
+      $sqlProductos = "SELECT * FROM productos WHERE parent_id = {$categoria->id}";
+      $productos = $this->db->query($sqlProductos);
+
+      // Asociar las subcategorías y productos con la categoría
+      $categoriasConSubcategoriasYProductos[] = [
+        'categoria' => $categoria,
+        'subcategorias' => $subcategorias,
+        'productos' => $productos
+      ];
+    }
+
+    return $categoriasConSubcategoriasYProductos;
+  }
+
 
   public function obtenerCategoriaPorId()
   {

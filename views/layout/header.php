@@ -16,7 +16,7 @@
 					<li class="text-center border-right text-white">
 						<?php if (isset($_SESSION['usuarioRegistrado'])) : ?>
 							<a href="<?= BASE_URL ?>Admin/dashboard" class="text-white">
-								<?php echo TEXT_HELLO_USER . $usuario->Usuario; ?>
+								<?php echo $usuario->Usuario; ?>
 							</a>
 						<?php else : ?>
 							<a href="javascript:void(0)" data-toggle="modal" data-target="#exampleModal" class="text-white">
@@ -63,91 +63,53 @@
 			</button>
 
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+
 				<ul class="navbar-nav ml-auto text-center mr-xl-5">
-					<!-- Inicio -->
 					<li class="nav-item <?php echo (basename($_SERVER['REQUEST_URI']) == '' || basename($_SERVER['REQUEST_URI']) == 'index.php') ? 'active' : ''; ?> mr-lg-2 mb-lg-0 mb-2">
 						<a class="nav-link" href="<?php echo BASE_URL; ?>"><?php echo TEXT_INICIO; ?>
 							<span class="sr-only">(current)</span>
 						</a>
 					</li>
-					
-					<!-- Electronics -->
-					<li class="nav-item dropdown  mr-lg-2 mb-lg-0 mb-2">
-						<a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							Electronics
-						</a>
-						<div class="dropdown-menu">
-							<div class="agile_inner_drop_nav_info p-4">
-								<h5 class="mb-3">Mobiles, Computers</h5>
-								<div class="row">
-									<div class="col-sm-6 multi-gd-img">
-										<ul class="multi-column-dropdown">
-											<li><a href="product.html">All Mobile Phones</a></li>
-											<li><a href="product.html">All Mobile Accessories</a></li>
-											<li><a href="product.html">Cases & Covers</a></li>
-											<li><a href="product.html">Screen Protectors</a></li>
-											<li><a href="product.html">Power Banks</a></li>
-											<li><a href="product.html">All Certified Refurbished</a></li>
-											<li><a href="product.html">Tablets</a></li>
-											<li><a href="product.html">Wearable Devices</a></li>
-											<li><a href="product.html">Smart Home</a></li>
-										</ul>
-									</div>
-									<div class="col-sm-6 multi-gd-img">
-										<ul class="multi-column-dropdown">
-											<li><a href="product.html">Laptops</a></li>
-											<li><a href="product.html">Drives & Storage</a></li>
-											<li><a href="product.html">Printers & Ink</a></li>
-											<li><a href="product.html">Networking Devices</a></li>
-											<li><a href="product.html">Computer Accessories</a></li>
-											<li><a href="product.html">Game Zone</a></li>
-											<li><a href="product.html">Software</a></li>
-										</ul>
-									</div>
-								</div>
-							</div>
-						</div>
-					</li>
-					<!-- Appliances -->
-					<li class="nav-item dropdown mr-lg-2 mb-lg-0 mb-2">
-						<a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							Appliances
-						</a>
-						<div class="dropdown-menu">
-							<div class="agile_inner_drop_nav_info p-4">
-								<h5 class="mb-3">TV, Appliances, Electronics</h5>
-								<div class="row">
-									<div class="col-sm-6 multi-gd-img">
-										<ul class="multi-column-dropdown">
-											<li><a href="product2.html">Televisions</a></li>
-											<li><a href="product2.html">Home Entertainment Systems</a></li>
-											<li><a href="product2.html">Headphones</a></li>
-											<li><a href="product2.html">Speakers</a></li>
-											<li><a href="product2.html">MP3, Media Players & Accessories</a></li>
-											<li><a href="product2.html">Audio & Video Accessories</a></li>
-											<li><a href="product2.html">Cameras</a></li>
-											<li><a href="product2.html">DSLR Cameras</a></li>
-											<li><a href="product2.html">Camera Accessories</a></li>
-										</ul>
-									</div>
-									<div class="col-sm-6 multi-gd-img">
-										<ul class="multi-column-dropdown">
-											<li><a href="product2.html">Musical Instruments</a></li>
-											<li><a href="product2.html">Gaming Consoles</a></li>
-											<li><a href="product2.html">All Electronics</a></li>
-											<li><a href="product2.html">Air Conditioners</a></li>
-											<li><a href="product2.html">Refrigerators</a></li>
-											<li><a href="product2.html">Washing Machines</a></li>
-											<li><a href="product2.html">Kitchen & Home Appliances</a></li>
-											<li><a href="product2.html">Heating & Cooling Appliances</a></li>
-											<li><a href="product2.html">All Appliances</a></li>
-										</ul>
+					<!-- Categorías y Productos -->
+					<?php if (!empty($categoriasConSubcategoriasYProductos)) : ?>
+						<?php foreach ($categoriasConSubcategoriasYProductos as $item) : ?>
+							<li class="nav-item dropdown mr-lg-2 mb-lg-0 mb-2">
+								<a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<?= $item['categoria']->nombre ?>
+								</a>
+								<!-- Dropdown de Subcategorías y Productos -->
+								<div class="dropdown-menu multi-level-dropdown">
+									<div class="agile_inner_drop_nav_info p-4">
+										<div class="row">
+											<!-- Subcategorías -->
+											<?php if (isset($item['subcategorias']) && $item['subcategorias']->num_rows > 0) : ?>
+												<div class="col-sm-6 multi-gd-img">
+													<h6>Subcategorías</h6>
+													<ul class="multi-column-dropdown">
+														<?php while ($subcategoria = $item['subcategorias']->fetch_object()) : ?>
+															<li><a href="catalogo.php?categoriaId=<?= $subcategoria->id ?>"><?= $subcategoria->nombre ?></a></li>
+														<?php endwhile; ?>
+													</ul>
+												</div>
+											<?php endif; ?>
+											<!-- Productos -->
+											<?php if (isset($item['productos']) && $item['productos']->num_rows > 0) : ?>
+												<div class="col-sm-6 multi-gd-img">
+													<h6>Productos</h6>
+													<ul class="multi-column-dropdown">
+														<?php while ($producto = $item['productos']->fetch_object()) : ?>
+															<li><a href="producto.php?id=<?= $producto->id ?>"><?= $producto->nombre ?></a></li>
+														<?php endwhile; ?>
+													</ul>
+												</div>
+											<?php endif; ?>
+										</div>
 									</div>
 								</div>
-							</div>
-						</div>
-					</li>
-
+							</li>
+						<?php endforeach; ?>
+					<?php endif; ?>
+					<!-- Otros enlaces -->
 					<li class="nav-item <?php echo (basename($_SERVER['REQUEST_URI']) == 'nosotros') ? 'active' : ''; ?> mr-lg-2 mb-lg-0 mb-2">
 						<a class="nav-link" href="<?php echo BASE_URL; ?>Home/nosotros"><?php echo TEXT_NOSOTROS; ?></a>
 					</li>
