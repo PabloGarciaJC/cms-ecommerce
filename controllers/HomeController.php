@@ -4,8 +4,32 @@ require_once 'model/productos.php';
 
 class HomeController
 {
+
+    public function idiomas()
+    {
+        $lang = isset($_POST['lenguaje']) ? $_POST['lenguaje'] : false;
+
+        if ($lang) {
+            $_SESSION['lang'] = $lang;
+        } elseif (!isset($_SESSION['lang'])) {
+            $_SESSION['lang'] = 'es';
+        }
+
+        switch ($_SESSION['lang']) {
+            case 'en':
+                require_once 'lenguajes/ingles.php';
+                break;
+            case 'fr':
+                require_once 'lenguajes/frances.php';
+                break;
+            default:
+                require_once 'lenguajes/espanol.php';
+        }
+    }
+
     public function index()
     {
+        $this->idiomas();
         $usuario = Utils::obtenerUsuario();
         $categoriaBarraNavegacion = Utils::listaCategorias();
         $idCategoria = isset($_GET['producto']) ? $_GET['producto'] : false;
@@ -21,6 +45,7 @@ class HomeController
 
     public function nosotros()
     {
+        $this->idiomas();
         $usuario = Utils::obtenerUsuario();
         require_once 'views/layout/head.php';
         require_once 'views/layout/header.php';
@@ -30,6 +55,7 @@ class HomeController
 
     public function help()
     {
+        $this->idiomas();
         $usuario = Utils::obtenerUsuario();
         require_once 'views/layout/head.php';
         require_once 'views/layout/header.php';
@@ -39,6 +65,7 @@ class HomeController
 
     public function faqs()
     {
+        $this->idiomas();
         $usuario = Utils::obtenerUsuario();
         require_once 'views/layout/head.php';
         require_once 'views/layout/header.php';
@@ -48,6 +75,7 @@ class HomeController
 
     public function term()
     {
+        $this->idiomas();
         $usuario = Utils::obtenerUsuario();
         require_once 'views/layout/head.php';
         require_once 'views/layout/header.php';
@@ -57,6 +85,7 @@ class HomeController
 
     public function privacy()
     {
+        $this->idiomas();
         $usuario = Utils::obtenerUsuario();
         require_once 'views/layout/head.php';
         require_once 'views/layout/header.php';
@@ -66,6 +95,7 @@ class HomeController
 
     public function contactanos()
     {
+        $this->idiomas();
         $usuario = Utils::obtenerUsuario();
         require_once 'views/layout/head.php';
         require_once 'views/layout/header.php';

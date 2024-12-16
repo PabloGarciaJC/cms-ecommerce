@@ -9,7 +9,6 @@ define("TEXT_SOBRE_NOSOTROS", "About Us");
 // Textos para "Contactos"
 define("TEXT_CONTACTO", " <span>C</span>ontact");
 define("TEXT_CONTACTANOS", "Contact us");
-
 define("TEXT_CONTACT_SECTION_TITLE", "Contact Information");
 define("TEXT_ADDRESS_TITLE", "Address");
 define("TEXT_ADDRESS_DETAILS", "1PO Box 8568954 Melbourne <label>Australia.</label>");
@@ -64,34 +63,24 @@ define("TEXT_HELP_ANSWER_10", "If you forgot your password, click 'Forgot your p
 // Textos para "Faqs"
 define("TEXT_FAQS_PAGE_TITLE", "<span>F</span>aqs");
 define("TEXT_FAQS_SECTION_TITLE", "Top 10 Frequently Asked Questions");
-
 define("TEXT_FAQS_QUESTION_1", "What is the best approach for designing a website?");
 define("TEXT_FAQS_ANSWER_1", "The best approach is to focus on a user-friendly design with clear navigation and optimized performance, ensuring the website is accessible and engaging for all users.");
-
 define("TEXT_FAQS_QUESTION_2", "How do you ensure a good user experience?");
 define("TEXT_FAQS_ANSWER_2", "Good user experience can be achieved through clean layouts, easy-to-read text, intuitive navigation, and ensuring fast load times to keep users engaged.");
-
 define("TEXT_FAQS_QUESTION_3", "What are the benefits of a mobile-friendly website?");
 define("TEXT_FAQS_ANSWER_3", "A mobile-friendly website ensures that users on all devices have the best experience. It increases user retention and helps improve SEO rankings, as mobile-first indexing becomes more prevalent.");
-
 define("TEXT_FAQS_QUESTION_4", "How can I make my website more accessible?");
 define("TEXT_FAQS_ANSWER_4", "To make a website more accessible, focus on clear text contrast, alternative text for images, keyboard navigation options, and ensuring compatibility with screen readers for visually impaired users.");
-
 define("TEXT_FAQS_QUESTION_5", "What is the difference between UI and UX design?");
 define("TEXT_FAQS_ANSWER_5", "UI (User Interface) refers to the visual elements and layout of a website or app, while UX (User Experience) is focused on the overall experience of the user when interacting with the interface, ensuring ease and satisfaction.");
-
 define("TEXT_FAQS_QUESTION_6", "Why is website speed important?");
 define("TEXT_FAQS_ANSWER_6", "Website speed is crucial as slow loading times can frustrate users and lead to high bounce rates. Fast websites enhance user experience, improve conversion rates, and contribute to better SEO performance.");
-
 define("TEXT_FAQS_QUESTION_7", "How does responsive design affect website performance?");
 define("TEXT_FAQS_ANSWER_7", "Responsive design ensures that a website adapts seamlessly to different screen sizes, improving user experience on both desktop and mobile devices. This is vital for retaining visitors and providing a consistent experience.");
-
 define("TEXT_FAQS_QUESTION_8", "What is the role of SEO in website design?");
 define("TEXT_FAQS_ANSWER_8", "SEO (Search Engine Optimization) plays a crucial role in ensuring your website ranks well on search engines. Proper use of keywords, meta tags, and optimized images contributes to better visibility and higher traffic.");
-
 define("TEXT_FAQS_QUESTION_9", "How do you choose the right color scheme for a website?");
 define("TEXT_FAQS_ANSWER_9", "Choosing the right color scheme depends on your brand identity and the emotions you want to evoke in users. Colors should be aesthetically pleasing, consistent, and contribute to the overall mood of the site.");
-
 define("TEXT_FAQS_QUESTION_10", "What is the importance of regular website updates?");
 define("TEXT_FAQS_ANSWER_10", "Regular updates ensure that your website remains secure, bug-free, and up-to-date with the latest trends. It also helps in maintaining strong SEO rankings and keeping the content fresh for users.");
 

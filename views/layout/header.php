@@ -39,7 +39,7 @@
 	<div class="container">
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 			<div class="language-selector">
-				<form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="get">
+				<form action="<?php echo BASE_URL . ltrim($_SERVER['REQUEST_URI'], '/') ?>" method="POST">
 					<div class="language-dropdown">
 						<select id="language-select" name="lenguaje" required onchange="this.form.submit()">
 							<option value="es" <?php echo (isset($_SESSION['lang']) && $_SESSION['lang'] == 'es') ? 'selected' : ''; ?>>
@@ -51,42 +51,26 @@
 							<option value="fr" <?php echo (isset($_SESSION['lang']) && $_SESSION['lang'] == 'fr') ? 'selected' : ''; ?>>
 								🇫🇷 Francés
 							</option>
-							<option value="de" <?php echo (isset($_SESSION['lang']) && $_SESSION['lang'] == 'de') ? 'selected' : ''; ?>>
-								🇩🇪 Alemán
-							</option>
-							<option value="it" <?php echo (isset($_SESSION['lang']) && $_SESSION['lang'] == 'it') ? 'selected' : ''; ?>>
-								🇮🇹 Italiano
-							</option>
-							<option value="pt" <?php echo (isset($_SESSION['lang']) && $_SESSION['lang'] == 'pt') ? 'selected' : ''; ?>>
-								🇵🇹 Portugués
-							</option>
-							<option value="zh" <?php echo (isset($_SESSION['lang']) && $_SESSION['lang'] == 'zh') ? 'selected' : ''; ?>>
-								🇨🇳 Chino
-							</option>
-							<option value="jp" <?php echo (isset($_SESSION['lang']) && $_SESSION['lang'] == 'jp') ? 'selected' : ''; ?>>
-								🇯🇵 Japonés
-							</option>
 						</select>
 					</div>
 				</form>
-
 			</div>
 
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
 				aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
-			<?php $current_page = basename($_SERVER['REQUEST_URI']); ?>
+
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav ml-auto text-center mr-xl-5">
 					<!-- Inicio -->
-					<li class="nav-item <?php echo ($current_page == '' || $current_page == 'index.php') ? 'active' : ''; ?> mr-lg-2 mb-lg-0 mb-2">
+					<li class="nav-item <?php echo (basename($_SERVER['REQUEST_URI']) == '' || basename($_SERVER['REQUEST_URI']) == 'index.php') ? 'active' : ''; ?> mr-lg-2 mb-lg-0 mb-2">
 						<a class="nav-link" href="<?php echo BASE_URL; ?>"><?php echo TEXT_INICIO; ?>
 							<span class="sr-only">(current)</span>
 						</a>
 					</li>
 					<!-- Electronics -->
-					<li class="nav-item dropdown <?php echo ($current_page == 'product.html') ? 'active' : ''; ?> mr-lg-2 mb-lg-0 mb-2">
+					<li class="nav-item dropdown  mr-lg-2 mb-lg-0 mb-2">
 						<a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							Electronics
 						</a>
@@ -123,7 +107,7 @@
 						</div>
 					</li>
 					<!-- Appliances -->
-					<li class="nav-item dropdown <?php echo ($current_page == 'product2.html') ? 'active' : ''; ?> mr-lg-2 mb-lg-0 mb-2">
+					<li class="nav-item dropdown mr-lg-2 mb-lg-0 mb-2">
 						<a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							Appliances
 						</a>
@@ -161,10 +145,10 @@
 							</div>
 						</div>
 					</li>
-					<li class="nav-item <?php echo ($current_page == 'nosotros') ? 'active' : ''; ?> mr-lg-2 mb-lg-0 mb-2">
+					<li class="nav-item <?php echo (basename($_SERVER['REQUEST_URI']) == 'nosotros') ? 'active' : ''; ?> mr-lg-2 mb-lg-0 mb-2">
 						<a class="nav-link" href="<?php echo BASE_URL; ?>Home/nosotros"><?php echo TEXT_NOSOTROS; ?></a>
 					</li>
-					<li class="nav-item <?php echo ($current_page == 'contact.html') ? 'active' : ''; ?>">
+					<li class="nav-item <?php echo (basename($_SERVER['REQUEST_URI']) == 'contactanos') ? 'active' : ''; ?>">
 						<a class="nav-link" href="<?php echo BASE_URL; ?>Home/contactanos"><?php echo TEXT_CONTACTANOS; ?></a>
 					</li>
 				</ul>

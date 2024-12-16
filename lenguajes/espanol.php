@@ -2,14 +2,12 @@
 
 // Textos generales
 define("TEXT_INICIO", "Inicio");
-
 define("TEXT_NOSOTROS", "Nosotros");
 define("TEXT_SOBRE_NOSOTROS", "Sobre Nosotros");
 
 // Textos para "Contactos"
 define("TEXT_CONTACTO", " <span>C</span>ontacto");
 define("TEXT_CONTACTANOS", "Contáctanos");
-
 define("TEXT_CONTACT_SECTION_TITLE", "Información de Contacto");
 define("TEXT_ADDRESS_TITLE", "Dirección");
 define("TEXT_ADDRESS_DETAILS", "1PO Box 8568954 Melbourne <label>Australia.</label>");
@@ -194,8 +192,4 @@ define('TEXT_ELECTRO_STORE', 'Electro Store');
 define('TEXT_SEARCH_PLACEHOLDER', 'Buscar');
 define('TEXT_SEARCH_BUTTON', 'Buscar');
 define('TEXT_CART_ICON', 'Carrito');
-
-
-
-
 ?>
