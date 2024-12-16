@@ -9,15 +9,7 @@
 				</p>
 			</div>
 			<div class="col-lg-8 header-right mt-lg-0 mt-2">
-				<ul>
-					<li class="text-center border-right text-white">
-						<a class="play-icon popup-with-zoom-anim text-white" href="#small-dialog1">
-							<i class="fas fa-map-marker mr-2"></i><?php echo TEXT_SELECT_LOCATION; ?></a>
-					</li>
-					<li class="text-center border-right text-white">
-						<a href="#" data-toggle="modal" data-target="#exampleModal" class="text-white">
-							<i class="fas fa-truck mr-2"></i><?php echo TEXT_TRACK_ORDER; ?></a>
-					</li>
+				<ul class="text-right">
 					<li class="text-center border-right text-white">
 						<i class="fas fa-phone mr-2"></i> <?php echo TEXT_PHONE_NUMBER; ?>
 					</li>

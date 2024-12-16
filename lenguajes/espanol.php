@@ -130,7 +130,22 @@ define("TEXT_USER_CONSENT_DESC", "Lorem Ipsum es simplemente texto de relleno de
 define("TEXT_POLICY_UPDATES", "Actualizaciones de la Política");
 define("TEXT_POLICY_UPDATES_DESC", "Necesita asegurarse de que no haya nada embarazoso oculto en medio del texto. Todos los generadores de Lorem Ipsum en Internet tienden a repetir fragmentos predefinidos según sea necesario.");
 
+// Textos para "Modal Inicio de Sesión"
+define("TEXT_MODAL_LOGIN_TITLE", "Inicia sesión");
+define("TEXT_MODAL_EMAIL_LABEL", "Dirección de e-mail");
+define("TEXT_MODAL_PASSWORD_LABEL", "Contraseña");
+define("TEXT_MODAL_CONTINUE_BUTTON", "Continuar");
+define("TEXT_MODAL_NO_ACCOUNT", "¿No tienes una cuenta?");
+define("TEXT_MODAL_REGISTER_NOW", "Regístrate ahora");
 
+// Textos para "Modal Registro"
+define("TEXT_MODAL_REGISTER_TITLE", "Registro");
+define("TEXT_MODAL_ALIAS_LABEL", "Alias");
+define("TEXT_MODAL_EMAIL_LABEL_REGISTER", "Email");
+define("TEXT_MODAL_PASSWORD_LABEL_REGISTER", "Contraseña");
+define("TEXT_MODAL_CONFIRM_PASSWORD_LABEL", "Confirma Contraseña");
+define("TEXT_MODAL_TERMS_LABEL", "Acepto los Términos y Condiciones");
+define("TEXT_MODAL_ACCEPT_BUTTON", "Aceptar");
 
 // Textos para "Footer"
 define("TEXT_FOOTER_SHIPPING", "Envío gratis");
