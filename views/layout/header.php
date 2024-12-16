@@ -38,7 +38,7 @@
 <div class="navbar-inner">
 	<div class="container">
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-			
+
 			<div class="language-selector">
 				<form action="<?php echo BASE_URL . ltrim($_SERVER['REQUEST_URI'], '/') ?>" method="POST">
 					<div class="language-dropdown">
@@ -70,6 +70,7 @@
 							<span class="sr-only">(current)</span>
 						</a>
 					</li>
+					
 					<!-- Electronics -->
 					<li class="nav-item dropdown  mr-lg-2 mb-lg-0 mb-2">
 						<a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -146,6 +147,7 @@
 							</div>
 						</div>
 					</li>
+
 					<li class="nav-item <?php echo (basename($_SERVER['REQUEST_URI']) == 'nosotros') ? 'active' : ''; ?> mr-lg-2 mb-lg-0 mb-2">
 						<a class="nav-link" href="<?php echo BASE_URL; ?>Home/nosotros"><?php echo TEXT_NOSOTROS; ?></a>
 					</li>

@@ -1,6 +1,7 @@
 <?php
 
 require_once 'model/productos.php';
+require_once 'model/categorias.php';
 
 class HomeController
 {
@@ -31,11 +32,19 @@ class HomeController
     {
         $this->idiomas();
         $usuario = Utils::obtenerUsuario();
-        $categoriaBarraNavegacion = Utils::listaCategorias();
-        $idCategoria = isset($_GET['producto']) ? $_GET['producto'] : false;
-        $mostrarProductoPorCategoria = Utils::obtenerCategoriaPorId($idCategoria);
-        $listado  =  Utils::listarAutocompletado();
-        $jsonMostrar = Utils::mostrarAutocompletado($listado);
+
+
+        $categorias = new Categorias();
+        $getCategorias = $categorias->obtenerCategorias();
+
+        var_dump($getCategorias);
+
+
+        // $categoriaBarraNavegacion = Utils::listaCategorias();
+        // $idCategoria = isset($_GET['producto']) ? $_GET['producto'] : false;
+        // $mostrarProductoPorCategoria = Utils::obtenerCategoriaPorId($idCategoria);
+        // $listado  =  Utils::listarAutocompletado();
+        // $jsonMostrar = Utils::mostrarAutocompletado($listado);
         require_once 'views/layout/head.php';
         require_once 'views/layout/header.php';
         require_once 'views/home/slider.php';

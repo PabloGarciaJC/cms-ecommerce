@@ -4,21 +4,7 @@ class Template {
     this.customTemplate();
   }
 
-  tes() {
-
-    /*  	<!-- nav smooth scroll --> */
-    $(document).ready(function () {
-      $(".dropdown").hover(
-        function () {
-          $('.dropdown-menu', this).stop(true, true).slideDown("fast");
-          $(this).toggleClass('open');
-        },
-        function () {
-          $('.dropdown-menu', this).stop(true, true).slideUp("fast");
-          $(this).toggleClass('open');
-        }
-      );
-    });
+  templateCustom() {
 
     /*  	<!-- popup modal (for location)--> */
     $(document).ready(function () {
@@ -37,7 +23,7 @@ class Template {
     });
 
     /*  <!-- cart-js --> */
-    paypals.minicarts.render(); //use only unique class names other than paypals.minicarts.Also Replace same class name in css and minicart.min.js
+    paypals.minicarts.render();
 
     paypals.minicarts.cart.on('checkout', function (evt) {
       var items = this.items(),
@@ -55,23 +41,6 @@ class Template {
         evt.preventDefault();
       }
     });
-
-    /*  <!-- password-script --> */
-    // window.onload = function () {
-    //   document.getElementById("password1").onchange = validatePassword;
-    //   document.getElementById("password2").onchange = validatePassword;
-    // }
-
-    // function validatePassword() {
-    //   var pass2 = document.getElementById("password2").value;
-    //   var pass1 = document.getElementById("password1").value;
-    //   if (pass1 != pass2)
-    //     document.getElementById("password2").setCustomValidity("Passwords Don't Match");
-    //   else
-    //     document.getElementById("password2").setCustomValidity('');
-    //   //empty string means no validation error
-    // }
-    // Can also be used with $(document).ready()
 
     // Can also be used with $(document).ready() // par Ficha Producto
     $(window).load(function () {
@@ -94,14 +63,6 @@ class Template {
 
     /*  <!-- smooth-scrolling-of-move-up --> */
     $(document).ready(function () {
-      /*
-      var defaults = {
-        containerID: 'toTop', // fading element id
-        containerHoverID: 'toTopHover', // fading element hover id
-        scrollSpeed: 1200,
-        easingType: 'linear' 
-      };
-      */
       $().UItoTop({
         easingType: 'easeOutQuart'
       });
@@ -111,32 +72,18 @@ class Template {
 
   // Método customTemplate
   customTemplate() {
-    this.tes();
-
-
-
+    this.templateCustom();
     /* Admin */
     // Detectar clic en los enlaces principales
     $(".panel-admin__menu-list > .panel-admin__menu-item > .panel-admin__menu-link").click(function (e) {
       e.preventDefault(); // Prevenir comportamiento predeterminado
-
       // Alternar submenú y flecha
       $(this).next(".panel-admin__submenu").slideToggle(); // Desplegar/ocultar el submenú
       $(this).find(".fa-chevron-right").toggleClass("rotate"); // Rotar flecha
-
       // Cerrar otros submenús y reiniciar flechas
       $(".panel-admin__submenu").not($(this).next(".panel-admin__submenu")).slideUp(); // Cerrar otros submenús
       $(".fa-chevron-right").not($(this).find(".fa-chevron-right")).removeClass("rotate"); // Reiniciar flechas
     });
-
-
-
-    /* Tes */
- 
-
-
-
-
   }
 
   // Iniciar aplicación
