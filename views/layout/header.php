@@ -169,13 +169,11 @@
 							</div>
 						</div>
 					</li>
-					<!-- Nosotros -->
 					<li class="nav-item <?php echo ($current_page == 'nosotros') ? 'active' : ''; ?> mr-lg-2 mb-lg-0 mb-2">
-						<a class="nav-link" href="<?php echo BASE_URL; ?>Home/nosotros">Nosotros</a>
+						<a class="nav-link" href="<?php echo BASE_URL; ?>Home/nosotros"><?php echo TEXT_NOSOTROS; ?></a>
 					</li>
-					<!-- Contact Us -->
 					<li class="nav-item <?php echo ($current_page == 'contact.html') ? 'active' : ''; ?>">
-						<a class="nav-link" href="contact.html">Contact Us</a>
+						<a class="nav-link" href="<?php echo BASE_URL; ?>Home/contactanos"><?php echo TEXT_CONTACTANOS; ?></a>
 					</li>
 				</ul>
 			</div>
@@ -201,7 +199,7 @@
 				<div class="row">
 					<div class="col-10 agileits_search">
 						<form class="form-inline" action="#" method="post">
-							<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" required>
+							<input class="form-control mr-sm-2" type="search" placeholder="<?php echo TEXT_SEARCH_BUTTON; ?>" aria-label="Search" required>
 							<button class="btn my-2 my-sm-0" type="submit"><?php echo TEXT_SEARCH_BUTTON; ?></button>
 						</form>
 					</div>

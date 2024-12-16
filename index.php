@@ -15,7 +15,6 @@ if ($lang) {
     $_SESSION['lang'] = 'es';
 }
 
-// Cargar el archivo de idioma según la selección
 switch ($_SESSION['lang']) {
     case 'en':
         require_once 'lenguajes/ingles.php';
@@ -41,7 +40,6 @@ switch ($_SESSION['lang']) {
     default:
         require_once 'lenguajes/espanol.php';
 }
-
 
 ## ---------------------------------------------------------
 ## Cargar variables de entorno

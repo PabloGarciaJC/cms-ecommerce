@@ -91,12 +91,12 @@
 					<div class="col-md-3 col-sm-6 footer-grids mt-sm-0 mt-4">
 						<h3 class="text-white font-weight-bold mb-3"><?php echo TEXT_FOOTER_QUICK_LINKS; ?></h3>
 						<ul>
-							<li class="mb-3"><a href="about.html"><?php echo TEXT_FOOTER_ABOUT_US; ?></a></li>
-							<li class="mb-3"><a href="contact.html"><?php echo TEXT_FOOTER_CONTACT_US; ?></a></li>
-							<li class="mb-3"><a href="help.html"><?php echo TEXT_FOOTER_HELP; ?></a></li>
-							<li class="mb-3"><a href="faqs.html"><?php echo TEXT_FOOTER_FAQS; ?></a></li>
-							<li class="mb-3"><a href="terms.html"><?php echo TEXT_FOOTER_TERMS; ?></a></li>
-							<li><a href="privacy.html"><?php echo TEXT_FOOTER_PRIVACY_POLICY; ?></a></li>
+							<li class="mb-3"><a href="<?php echo BASE_URL; ?>Home/nosotros"><?php echo TEXT_FOOTER_ABOUT_US; ?></a></li>
+							<li class="mb-3"><a href="<?php echo BASE_URL; ?>Home/contactanos"><?php echo TEXT_CONTACTANOS; ?></a></li>
+							<li class="mb-3"><a href="<?php echo BASE_URL; ?>Home/help"><?php echo TEXT_FOOTER_HELP; ?></a></li>
+							<li class="mb-3"><a href="<?php echo BASE_URL; ?>Home/faqs"><?php echo TEXT_FOOTER_FAQS; ?></a></li>
+							<li class="mb-3"><a href="<?php echo BASE_URL; ?>Home/term"><?php echo TEXT_FOOTER_TERMS; ?></a></li>
+							<li><a href="<?php echo BASE_URL; ?>Home/privacy"><?php echo TEXT_FOOTER_PRIVACY_POLICY; ?></a></li>
 						</ul>
 					</div>
 					<div class="col-md-3 col-sm-6 footer-grids mt-md-0 mt-4">
@@ -139,11 +139,6 @@
 		</div>
 	</div>
 
-
-
-	<!-- Modales -->
-
-	<!-- Button trigger modal(select-location) -->
 	<div id="small-dialog1" class="mfp-hide">
 		<div class="select-city">
 			<h3>
@@ -521,7 +516,6 @@
 			<div class="clearfix"></div>
 		</div>
 	</div>
-	<!-- //shop locator (popup) -->
 
 	<!-- inicar sesión -->
 	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-hidden="true">
