@@ -7,30 +7,30 @@
                     $imagenes = trim($prod->imagenes, '"');
                     $imagenes_array = json_decode($imagenes);
                     ?>
-                    <img src="<?php echo BASE_URL ?>uploads/images/productos/<?php echo $imagenes_array[0]; ?>" alt="">
+                    <img src="<?php echo BASE_URL ?>uploads/images/productos/<?php echo $imagenes_array[0]; ?>">
                     <div class="men-cart-pro">
                         <div class="inner-men-cart-pro">
-                            <a href="<?php echo BASE_URL ?>Producto/descripcion?id=15" class="link-product-add-cart"><?php echo TEXT_QUICK_VIEW; ?></a>
+                            <a href="<?php echo BASE_URL ?>Producto/ficha?id=<?php echo $prod->id; ?>" class="link-product-add-cart"><?php echo TEXT_QUICK_VIEW; ?></a>
                         </div>
                     </div>
                 </div>
                 <div class="item-info-product text-center border-top mt-4">
                     <h4 class="pt-1">
-                        <a href="<?php echo BASE_URL ?>Producto/descripcion?id=15"><?php echo $prod->nombre; ?></a>
+                        <a href="<?php echo BASE_URL ?>Producto/ficha?id=<?php echo $prod->id; ?>"><?php echo $prod->nombre; ?></a>
                     </h4>
                     <?php if (!empty($prod->precio)): ?>
                         <div class="info-product-price my-2">
                             <?php if (!empty($prod->oferta) && $prod->oferta > 0): ?>
                                 <span class="product-new-top"><?php echo TEXT_OFERTA . ' ' . intval($prod->oferta) . '%'; ?></span>
                             <?php endif; ?>
-                            <?php 
-                                if (!empty($prod->oferta) && $prod->oferta > 0) {
-                                    $precio_con_descuento = $prod->precio - ($prod->precio * $prod->oferta / 100);
-                                    echo '<span class="item_price">' . intval($precio_con_descuento) . '$</span>';
-                                    echo '<del>' . intval($prod->precio) . '$</del>';
-                                } else {
-                                    echo '<span class="item_price">' . intval($prod->precio) . '$</span>';
-                                }
+                            <?php
+                            if (!empty($prod->oferta) && $prod->oferta > 0) {
+                                $precio_con_descuento = $prod->precio - ($prod->precio * $prod->oferta / 100);
+                                echo '<span class="item_price">' . intval($precio_con_descuento) . '$</span>';
+                                echo '<del>' . intval($prod->precio) . '$</del>';
+                            } else {
+                                echo '<span class="item_price">' . intval($prod->precio) . '$</span>';
+                            }
                             ?>
                         </div>
                     <?php endif; ?>

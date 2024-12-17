@@ -13,6 +13,7 @@ define('ADD_TO_CART', 'Agregar al carrito');
 // Textos para "Productos Lista"
 define("TEXT_QUICK_VIEW", "Vista rápida");
 define('TEXT_OFERTA', 'Oferta:');
+define("TEXT_GARANTIA", "<label>1 Año</label> de garantía del fabricante");
 
 // Textos para "Contactos"
 define("TEXT_CONTACTO", " <span>C</span>ontacto");

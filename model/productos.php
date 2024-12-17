@@ -214,7 +214,6 @@ class Productos
     return $this->db->query($sql);
   }
 
-
   public function eliminarProductos()
   {
     $sql = "DELETE FROM productos WHERE id = {$this->getId()}";
@@ -228,7 +227,6 @@ class Productos
     }
     $this->imagenes[] = $imagen;
   }
-
 
   public function movil()
   {
