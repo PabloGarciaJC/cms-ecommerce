@@ -9,6 +9,18 @@ define("TEXT_MOVILES", "Móviles");
 define("TEXT_PORTATILES", "Portátiles");
 define("TEXT_ACCESORIOS", "Accesorios");
 define('ADD_TO_CART', 'Agregar al carrito');
+define("CHECKOUT", "<span>V</span>erificar <span>C</span>ompra");
+
+// Textos para "Checkout"
+define('CART_CONTAINS', 'Tu carrito de compras contiene:');
+define('PRODUCTS_COUNT', 'Productos');
+define('SL_NO', 'SL No.');
+define('PRODUCT', 'Producto');
+define('QUALITY', 'Calidad');
+define('PRODUCT_NAME', 'Nombre del Producto');
+define('PRICE', 'Precio');
+define('REMOVE', 'Eliminar');
+define("MAKE_PAYMENT", "Realizar Pago");
 
 // Textos para "Productos Lista"
 define("TEXT_QUICK_VIEW", "Vista rápida");

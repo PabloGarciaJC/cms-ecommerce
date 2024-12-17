@@ -9,6 +9,18 @@ define("TEXT_MOVILES", "Téléphones mobiles");
 define("TEXT_PORTATILES", "Ordinateurs portables");
 define("TEXT_ACCESORIOS", "Accessoires");
 define('ADD_TO_CART', 'Ajouter au panier');
+define("CHECKOUT", "<span>V</span>érification de la commande");
+
+// Textos para "Checkout"
+define('CART_CONTAINS', 'Votre panier contient:');
+define('PRODUCTS_COUNT', 'Produits');
+define('SL_NO', 'SL No.');
+define('PRODUCT', 'Produit');
+define('QUALITY', 'Qualité');
+define('PRODUCT_NAME', 'Nom du produit');
+define('PRICE', 'Prix');
+define('REMOVE', 'Supprimer');
+define("MAKE_PAYMENT", "Effectuer paiement");
 
 // Textos para "Productos Lista"
 define("TEXT_QUICK_VIEW", "Aperçu rapide");

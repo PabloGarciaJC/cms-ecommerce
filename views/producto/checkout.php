@@ -1,43 +1,24 @@
-	<!-- banner-2 -->
-	<div class="page-head_agile_info_w3l">
-	</div>
-	<!-- page -->
-	<div class="services-breadcrumb">
-	    <div class="agile_inner_breadcrumb">
-	        <div class="container">
-	            <ul class="w3_short">
-	                <li>
-	                    <a href="<?= BASE_URL ?>"><?php echo TEXT_INICIO; ?></a>
-	                    <i>|</i>
-	                </li>
-	                <li><?php echo TEXT_CONTACTANOS; ?></li>
-	            </ul>
-	        </div>
-	    </div>
-	</div>
-
 	<div class="privacy py-sm-5 py-4">
 	    <div class="container py-xl-4 py-lg-2">
 	        <!-- tittle heading -->
 	        <h3 class="tittle-w3l text-center mb-lg-5 mb-sm-4 mb-3">
-	            <span>C</span>heckout
+                <?php echo CHECKOUT; ?>
 	        </h3>
 	        <!-- //tittle heading -->
 	        <div class="checkout-right">
-	            <h4 class="mb-sm-4 mb-3">Your shopping cart contains:
-	                <span>3 Products</span>
+	            <h4 class="mb-sm-4 mb-3"><?php echo CART_CONTAINS; ?>
+	                <span>3 <?php echo PRODUCTS_COUNT; ?></span>
 	            </h4>
 	            <div class="table-responsive">
 	                <table class="timetable_sub">
 	                    <thead>
-	                        <tr>
-	                            <th>SL No.</th>
-	                            <th>Product</th>
-	                            <th>Quality</th>
-	                            <th>Product Name</th>
-
-	                            <th>Price</th>
-	                            <th>Remove</th>
+	                       <tr>
+	                            <th><?php echo SL_NO; ?></th>
+	                            <th><?php echo PRODUCT; ?></th>
+	                            <th><?php echo QUALITY; ?></th>
+	                            <th><?php echo PRODUCT_NAME; ?></th>
+	                            <th><?php echo PRICE; ?></th>
+	                            <th><?php echo REMOVE; ?></th>
 	                        </tr>
 	                    </thead>
 	                    <tbody>
@@ -163,7 +144,7 @@
 	                    </div>
 	                </form>
 	                <div class="checkout-right-basket">
-	                    <a href="payment.html">Make a Payment
+	                    <a href="payment.html"><?php echo MAKE_PAYMENT; ?>
 	                        <span class="far fa-hand-point-right"></span>
 	                    </a>
 	                </div>

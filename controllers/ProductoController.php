@@ -38,7 +38,6 @@ class ProductoController extends HomeController
     require_once 'views/layout/footer.php';
   }
 
-
   public function moviles()
   {
     $probject = new Productos();
