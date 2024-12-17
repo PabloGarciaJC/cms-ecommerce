@@ -36,10 +36,10 @@ class Template {
         total += items[i].get('quantity');
       }
 
-      if (total < 3) {
-        alert('The minimum order quantity is 3. Please add more to your shopping cart before checking out');
-        evt.preventDefault();
-      }
+      // if (total < 3) {
+      //   alert('The minimum order quantity is 3. Please add more to your shopping cart before checking out');
+      //   evt.preventDefault();
+      // }
     });
 
     // Can also be used with $(document).ready() // par Ficha Producto
