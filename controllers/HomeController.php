@@ -2,6 +2,7 @@
 
 require_once 'model/productos.php';
 require_once 'model/categorias.php';
+require_once 'controllers/ProductoController.php';
 
 class HomeController
 {
@@ -36,6 +37,7 @@ class HomeController
         $categoriasConSubcategoriasYProductos = $categorias->obtenerCategoriasYProductos();
         require_once 'views/layout/head.php';
         require_once 'views/layout/header.php';
+        $producto = new ProductoController();
         require_once 'views/home/slider.php';
         require_once 'views/home/body.php';
         require_once 'views/layout/footer.php';

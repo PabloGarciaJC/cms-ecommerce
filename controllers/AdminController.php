@@ -63,7 +63,6 @@ class AdminController
             $_SESSION['form'] = $_POST;
             header("Location: " . BASE_URL . "Admin/perfil");
             exit;
-            
         } else {
 
             $nombreArchivo = isset($_FILES['avatar']['name']) ? $_FILES['avatar']['name'] : false;
@@ -209,7 +208,8 @@ class AdminController
         $categoria = isset($_POST['categoria']) ? $_POST['categoria'] : false;
         $estado = isset($_POST['estado']) ? trim($_POST['estado']) : false;
         $oferta = isset($_POST['oferta']) ? floatval($_POST['oferta']) : false;
-        $offerExpiration = isset($_POST['offerExpiration']) ? trim($_POST['offerExpiration']) : false;
+        $offerStart = isset($_POST['offerStart']) && !empty(trim($_POST['offerStart'])) ? trim($_POST['offerStart']) : null;
+        $offerExpiration = isset($_POST['offerExpiration']) && !empty(trim($_POST['offerExpiration'])) ? trim($_POST['offerExpiration']) : null;
         $editId = isset($_POST['editid']) ? $_POST['editid'] : false;
         $deleteId = isset($_POST['deleteid']) ? $_POST['deleteid'] : false;
         $parentid = isset($_POST['parentid']) ? $_POST['parentid'] : false;
@@ -223,10 +223,12 @@ class AdminController
         $productos->setOferta($oferta);
         $productos->setParentId($categoria);
         $productos->setEstado($estado);
+        $productos->setOfferStart($offerStart);
         $productos->setOfferExpiration($offerExpiration);
 
         $errores = [];
 
+        // Validaciones de campos
         if (empty($nombre)) {
             $errores['nombre'] = "El nombre es obligatorio.";
         }
@@ -249,9 +251,8 @@ class AdminController
             header("Location: " . BASE_URL . "Admin/productos" . $urlParentid);
             exit;
         } else {
-            // Manejar imágenes
+            // Manejo de imágenes
             $imagenes = [];
-            // Procesar nuevas imágenes cargadas
             if (isset($_FILES['productImages']) && is_array($_FILES['productImages']['tmp_name'])) {
                 $directorioDestino = 'uploads/images/productos/';
                 if (!is_dir($directorioDestino)) {
@@ -267,6 +268,7 @@ class AdminController
                     }
                 }
             }
+
             // Convertir el arreglo de imágenes a formato JSON
             if (!empty($imagenes)) {
                 $imagenesJson = json_encode($imagenes);
@@ -312,10 +314,17 @@ class AdminController
         $deleteid = isset($_GET['deleteid']) ? $_GET['deleteid'] : false;
         $categoriaId = isset($_GET['categoriaId']) ? $_GET['categoriaId'] : false;
         $categorias = new Categorias();
+
         if ($editId || $deleteid) {
             $categorias->setId($editId ?: $deleteid);
             $getCategoriasId = $categorias->obtenerCategoriaPorId();
+            // Decodificar el JSON de las imágenes
+            if (isset($getCategoriasId->imagenes)) {
+                $imagenes = json_decode($getCategoriasId->imagenes, true);
+                $getCategoriasId->imagenes = $imagenes;
+            }
         }
+
         require_once 'views/layout/head.php';
         require_once 'views/admin/categoria/crear.php';
         require_once 'views/layout/script-footer.php';
@@ -324,19 +333,19 @@ class AdminController
     public function guardarCategorias()
     {
         Utils::accesoUsuarioRegistrado();
-        $name = isset($_POST['name']) ? $_POST['name'] : false;
-        $descripcion = isset($_POST['descripcion']) ? $_POST['descripcion'] : false;
+
+        $name = isset($_POST['name']) ? trim($_POST['name']) : false;
+        $descripcion = isset($_POST['descripcion']) ? trim($_POST['descripcion']) : false;
         $editId = isset($_POST['editid']) ? $_POST['editid'] : false;
         $deleteId = isset($_POST['deleteid']) ? $_POST['deleteid'] : false;
-        $parentid = isset($_POST['parentid']) ? $_POST['parentid']  : false;
-        $urlParentid = $parentid ? '?categoriaId=' . $parentid : false;
+        $parentid = isset($_POST['parentid']) ? $_POST['parentid'] : false;
+        $urlParentid = $parentid ? '?categoriaId=' . $parentid : '';
 
         $categorias = new Categorias();
         $categorias->setNombre($name);
         $categorias->setDescripcion($descripcion);
 
         $errores = [];
-
         if (empty($name)) {
             $errores['name'] = "El nombre es obligatorio.";
         }
@@ -349,34 +358,76 @@ class AdminController
             $_SESSION['form'] = $_POST;
             header("Location: " . BASE_URL . "Admin/categorias" . $urlParentid);
             exit;
-        } else {
-            $messageClass = '';
-            switch (true) {
-                case $editId:
-                    $categorias->setId($editId);
-                    $categorias->actualizarCategoriaPorId();
-                    $_SESSION['exito'] = 'La Categoria se actualizó correctamente.';
-                    $messageClass = 'alert-warning';
-                    break;
-                case $deleteId:
-                    $categorias->setId($deleteId);
-                    $categorias->eliminarCategoria();
-                    $_SESSION['exito'] = 'La Categoria se eliminó correctamente.';
-                    $messageClass = 'alert-danger';
-                    break;
-                default:
-                    $categorias->setParentId($parentid);
-                    $categorias->crearCategoria();
-                    $_SESSION['exito'] = 'La Categoria se creó correctamente.';
-                    $messageClass = 'alert-primary';
-                    break;
+        }
+
+        // Manejo de imágenes subidas
+        $imagenes = [];
+
+        if (isset($_FILES['categoriaImages']) && is_array($_FILES['categoriaImages']['tmp_name'])) {
+            $directorioDestino = 'uploads/images/categorias/';
+
+            if (!is_dir($directorioDestino)) {
+                mkdir($directorioDestino, 0777, true);
             }
-            $_SESSION['messageClass'] = $messageClass;
-            unset($_SESSION['errores']);
-            unset($_SESSION['form']);
-            header("Location: " . BASE_URL . "Admin/catalogo" . $urlParentid);
+
+            foreach ($_FILES['categoriaImages']['tmp_name'] as $key => $rutaTemporal) {
+                $nombreArchivo = $_FILES['categoriaImages']['name'][$key];
+                $extension = pathinfo($nombreArchivo, PATHINFO_EXTENSION);
+                $extensionesPermitidas = ['jpg', 'jpeg', 'png', 'gif'];
+
+                if (!in_array(strtolower($extension), $extensionesPermitidas)) {
+                    $errores['imagenes'] = "El archivo {$nombreArchivo} tiene una extensión no permitida.";
+                    continue;
+                }
+
+                if ($_FILES['categoriaImages']['size'][$key] > 5 * 1024 * 1024) {
+                    $errores['imagenes'] = "El archivo {$nombreArchivo} supera el tamaño máximo permitido (5MB).";
+                    continue;
+                }
+
+                // Generar un nombre único y mover el archivo
+                $nombreArchivoUnico = time() . '_' . basename($nombreArchivo);
+                if (move_uploaded_file($rutaTemporal, $directorioDestino . $nombreArchivoUnico)) {
+                    $imagenes[] = ['archivo' => $nombreArchivoUnico];
+                }
+            }
+        }
+
+        // Convertir las imágenes a JSON
+        $jsonImagenes = json_encode($imagenes, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            $_SESSION['errores']['json'] = "Error al procesar las imágenes como JSON.";
+            header("Location: " . BASE_URL . "Admin/categorias" . $urlParentid);
             exit;
         }
+
+        // Acciones según la operación (crear, editar, eliminar)
+        $messageClass = '';
+        if ($editId) {
+            $categorias->setId($editId);
+            $categorias->setImagenes($jsonImagenes);
+            $categorias->actualizarCategoriaPorId();
+            $_SESSION['exito'] = 'La categoría se actualizó correctamente.';
+            $messageClass = 'alert-warning';
+        } elseif ($deleteId) {
+            $categorias->setId($deleteId);
+            $categorias->eliminarCategoria();
+            $_SESSION['exito'] = 'La categoría se eliminó correctamente.';
+            $messageClass = 'alert-danger';
+        } else {
+            $categorias->setImagenes($jsonImagenes);
+            $categorias->setParentId($parentid);
+            $categorias->crearCategoria();
+            $_SESSION['exito'] = 'La categoría se creó correctamente.';
+            $messageClass = 'alert-primary';
+        }
+
+        // Configurar mensajes de éxito o error y redirigir
+        $_SESSION['messageClass'] = $messageClass;
+        unset($_SESSION['errores']);
+        unset($_SESSION['form']);
+        header("Location: " . BASE_URL . "Admin/catalogo" . $urlParentid);
+        exit;
     }
 
     public function asignarRoles()
@@ -506,7 +557,6 @@ class AdminController
             exit;
         }
     }
-
 
     public function listaPedidos()
     {
