@@ -95,7 +95,7 @@
                                     ?>
                                     <td>
                                         <a href="<?= $editProUrl ?>">
-                                            <i class="fas fa-box producto-icon" style="margin-right: 5px;"></i> Productos
+                                            <i class="fas fa-box producto-icon" style="margin-right: 5px;"></i>
                                             <?= $producto->nombre; ?>
                                         </a>
                                     </td>

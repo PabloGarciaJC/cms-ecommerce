@@ -9,9 +9,11 @@ class Productos
   private $stock;
   private $estado;
   private $oferta;
+  private $offerStart;
   private $offerExpiration;
   private $imagenes;
   private $parentid;
+
   private $db;
 
   public function __construct()
@@ -61,6 +63,7 @@ class Productos
     return $this->offerExpiration;
   }
 
+
   public function getImagenes()
   {
     return $this->imagenes;
@@ -69,6 +72,11 @@ class Productos
   public function getParentId()
   {
     return $this->parentid;
+  }
+
+  public function getOfferStart()
+  {
+    return $this->offerStart;
   }
 
   //// SETTER //// 
@@ -123,12 +131,21 @@ class Productos
     $this->parentid = $parentid;
   }
 
- //// CONSULTAS ////
+  public function setOfferStart($offerStart)
+  {
+    $this->offerStart = $offerStart;
+  }
+
+  //// CONSULTAS ////
 
   public function save()
   {
+    // Manejo de fechas de inicio y expiración de la oferta
+    $offerStart = $this->getOfferStart() ? "'{$this->getOfferStart()}'" : "NULL";
+    $offerExpiration = $this->getOfferExpiration() ? "'{$this->getOfferExpiration()}'" : "NULL";
+
     $imagenesJson = json_encode($this->imagenes);
-    $sql = "INSERT INTO productos (nombre, descripcion, precio, stock, estado, oferta, offer_expiration, imagenes, parent_id) 
+    $sql = "INSERT INTO productos (nombre, descripcion, precio, stock, estado, oferta, offer_expiration, imagenes, parent_id, offer_start) 
               VALUES (
                   '{$this->getNombre()}', 
                   '{$this->getDescripcion()}', 
@@ -136,9 +153,10 @@ class Productos
                   '{$this->getStock()}', 
                   '{$this->getEstado()}', 
                   '{$this->getOferta()}', 
-                  '{$this->getOfferExpiration()}', 
+                  $offerExpiration, 
                   '$imagenesJson',
-                  {$this->getParentId()}
+                  {$this->getParentId()},
+                  $offerStart
               )";
 
     return $this->db->query($sql);
@@ -170,6 +188,10 @@ class Productos
 
   public function actualizarProductosPorId()
   {
+    // Manejo de fechas de inicio y expiración de la oferta
+    $offerStart = $this->getOfferStart() ? "'{$this->getOfferStart()}'" : "NULL";
+    $offerExpiration = $this->getOfferExpiration() ? "'{$this->getOfferExpiration()}'" : "NULL";
+
     $campos = [
       "nombre = '{$this->getNombre()}'",
       "descripcion = '{$this->getDescripcion()}'",
@@ -177,16 +199,21 @@ class Productos
       "stock = '{$this->getStock()}'",
       "estado = '{$this->getEstado()}'",
       "oferta = '{$this->getOferta()}'",
-      "offer_expiration = '{$this->getOfferExpiration()}'",
+      "offer_start = $offerStart",
+      "offer_expiration = $offerExpiration",
       "parent_id = {$this->getParentId()}"
     ];
+
     if ($this->getImagenes()) {
       $campos[] = "imagenes = '{$this->getImagenes()}'";
     }
+
     $campos_sql = implode(", ", $campos);
     $sql = "UPDATE productos SET $campos_sql WHERE id = {$this->getId()}";
+
     return $this->db->query($sql);
   }
+
 
   public function eliminarProductos()
   {
@@ -200,5 +227,24 @@ class Productos
       $this->imagenes = [];
     }
     $this->imagenes[] = $imagen;
+  }
+
+
+  public function movil()
+  {
+    $sql = "SELECT * FROM productos WHERE parent_id = 192 LIMIT 3";
+    return $this->db->query($sql);
+  }
+
+  public function tvAudios()
+  {
+    $sql = "SELECT * FROM productos WHERE parent_id = 194 LIMIT 3";
+    return $this->db->query($sql);
+  }
+
+  public function accesorios()
+  {
+    $sql = "SELECT * FROM productos WHERE parent_id = 190 LIMIT 3";
+    return $this->db->query($sql);
   }
 }

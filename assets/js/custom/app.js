@@ -45,37 +45,45 @@ class App {
     function changeMulti() {
       let imageFiles = [];
 
-      $('#productImages').on('change', function (event) {
-        const files = event.target.files;
-        const $previewContainer = $('#imagePreview');
-        $previewContainer.empty();
+      // Función para manejar el cambio de imágenes y la vista previa
+      function handleImageChange(inputSelector) {
+        $(inputSelector).on('change', function (event) {
+          const files = event.target.files;
+          const $previewContainer = $('#imagePreview');
+          $previewContainer.empty();  // Limpiar las vistas previas existentes
 
-        imageFiles = [];
+          // Limpiar el arreglo de archivos
+          imageFiles = [];
 
-        // Mostrar todas las imágenes seleccionadas
-        $.each(files, function (i, file) {
-          const reader = new FileReader();
+          // Mostrar todas las imágenes seleccionadas
+          $.each(files, function (i, file) {
+            const reader = new FileReader();
 
-          reader.onload = function (e) {
-            const $imgContainer = $('<div>').addClass('panel-admin__image-container');
+            reader.onload = function (e) {
+              const $imgContainer = $('<div>').addClass('panel-admin__image-container');
+              const $imgElement = $('<img>')
+                .attr('src', e.target.result)
+                .addClass('panel-admin__image-thumbnail');
 
-            const $imgElement = $('<img>')
-              .attr('src', e.target.result)
-              .addClass('panel-admin__image-thumbnail');
+              // Añadir archivo al arreglo de archivos para gestión posterior
+              imageFiles.push(file);
 
-            // Añadir archivo al arreglo de archivos para gestión posterior
-            imageFiles.push(file);
+              // Añadir la imagen al contenedor
+              $imgContainer.append($imgElement);
+              $previewContainer.append($imgContainer);
+            };
 
-            // Añadir la imagen, botones de editar y eliminar al contenedor
-            $imgContainer.append($imgElement);
-            $previewContainer.append($imgContainer);
-          };
-
-          reader.readAsDataURL(file);
+            reader.readAsDataURL(file);
+          });
         });
-      });
+      }
+
+      // Llamamos a la función `handleImageChange` para cada selector
+      handleImageChange('#productImages');
+      handleImageChange('#categoriaImages');
     }
-    
+
+
     changeIndividual();
     changeMulti();
   }

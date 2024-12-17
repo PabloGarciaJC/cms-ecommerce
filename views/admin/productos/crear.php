@@ -87,39 +87,33 @@
                     <input type="number" id="oferta" name="oferta" class="form-control" <?php echo $buttonHidden; ?> placeholder="Ejemplo: 10" step="0.01" value="<?php echo isset($_SESSION['form']['oferta']) ? $_SESSION['form']['oferta'] : (isset($getProductosById->oferta) ? $getProductosById->oferta : ''); ?>">
                     <small>Ingrese el descuento en porcentaje (Ejemplo: 10 para un 10% de descuento)</small>
                 </div>
+
+                <div class="form-group">
+                    <label for="offerStart">Fecha de Inicio de la Oferta:</label>
+                    <input type="date" id="offerStart" name="offerStart" <?php echo $buttonHidden; ?> class="form-control"
+                        value="<?php echo isset($_SESSION['form']['offer_start']) ? $_SESSION['form']['offer_start'] : (isset($getProductosById->offer_start) && $getProductosById->offer_start ? date('Y-m-d', strtotime($getProductosById->offer_start)) : ''); ?>" />
+                </div>
                 <div class="form-group">
                     <label for="offerExpiration">Fecha de Expiración de la Oferta:</label>
-                    <input type="date" id="offerExpiration" name="offerExpiration" <?php echo $buttonHidden; ?> class="form-control" value="<?php echo isset($_SESSION['form']['offer_expiration']) ? $_SESSION['form']['offer_expiration'] : (isset($getProductosById->offer_expiration) ? date('Y-m-d', strtotime($getProductosById->offer_expiration)) : ''); ?>" />
+                    <input type="date" id="offerExpiration" name="offerExpiration" <?php echo $buttonHidden; ?> class="form-control"
+                        value="<?php echo isset($_SESSION['form']['offer_expiration']) ? $_SESSION['form']['offer_expiration'] : (isset($getProductosById->offer_expiration) && $getProductosById->offer_expiration ? date('Y-m-d', strtotime($getProductosById->offer_expiration)) : ''); ?>" />
                 </div>
-
                 <div class="form-group">
                     <label for="productImages">Imágenes del Producto:</label>
                     <input type="file" id="productImages" name="productImages[]" class="form-control" accept="image/*" <?php echo $buttonHidden; ?> multiple>
-                    <!-- Mostrar imágenes existentes -->
                     <div id="imagePreview" class="panel-admin__image-preview mt-3">
                         <?php
-                        // Obtener las imágenes existentes
                         $imagenes = isset($_SESSION['form']['imagenes']) ? $_SESSION['form']['imagenes'] : (isset($getProductosById->imagenes) ? $getProductosById->imagenes : '');
-
                         if (!empty($imagenes)) {
-                            // Asumimos que las imágenes están separadas por comas en la base de datos
                             $imagenesArray = explode(',', $imagenes);
-
-                            // Limpiar y validar imágenes
                             $imagenesArray = array_filter(array_map(function ($imagen) {
-                                return trim($imagen, ' "'); // Elimina comillas y espacios
+                                return trim($imagen, ' "');
                             }, $imagenesArray), function ($imagen) {
-                                return !empty($imagen) && $imagen !== 'null'; // Filtra vacíos y "null"
+                                return !empty($imagen) && $imagen !== 'null';
                             });
-
-                            // Procesar las imágenes
                             foreach ($imagenesArray as $imagen) {
-                                $imagenSanitizada = preg_replace('/[^a-z0-9_\-.]/i', '', $imagen); // Sanitizar el nombre de la imagen
-
-                                // Ruta completa de la imagen en el servidor
+                                $imagenSanitizada = preg_replace('/[^a-z0-9_\-.]/i', '', $imagen);
                                 $rutaImagen = 'uploads/images/productos/' . $imagenSanitizada;
-
-                                // Verificar si la imagen existe en el servidor
                                 if (!empty($imagenSanitizada) && file_exists($rutaImagen)) {
                                     echo '<div class="panel-admin__image-container">';
                                     echo '<img src="' . BASE_URL . $rutaImagen . '" alt="Imagen del Producto" class="panel-admin__image-thumbnail">';

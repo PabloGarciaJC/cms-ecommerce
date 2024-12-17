@@ -31,7 +31,7 @@
                 <?php endif; ?>
 
                 <h2 class="panel-admin__dashboard-title"><?php echo $titleText; ?> Categoría</h2>
-                <form action="<?php echo BASE_URL ?>Admin/guardarCategorias" method="POST">
+                <form action="<?php echo BASE_URL ?>Admin/guardarCategorias" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="editid" value="<?php echo $editId ?>">
                     <input type="hidden" name="deleteid" value="<?php echo $deleteid  ?>">
                     <input type="hidden" name="parentid" value="<?php echo $categoriaId; ?>">
@@ -53,6 +53,28 @@
                             </div>
                         <?php endif; ?>
                     </div>
+                    <div class="form-group">
+                        <label for="categoriaImages">Subir imagen de categoria:</label>
+                        <input type="file" id="categoriaImages" name="categoriaImages[]" class="form-control" accept="image/*" <?php echo $buttonHidden; ?> multiple>
+                        <div id="imagePreview" class="panel-admin__image-preview mt-3">
+                            <?php
+                            if (isset($getCategoriasId->imagenes) && is_array($getCategoriasId->imagenes)) {
+                                foreach ($getCategoriasId->imagenes as $imagen) {
+                                    if (isset($imagen['archivo']) && !empty($imagen['archivo'])) {
+                                        $imagenSanitizada = preg_replace('/[^a-z0-9_\-.]/i', '', $imagen['archivo']);
+                                        $rutaImagen = 'uploads/images/categorias/' . $imagenSanitizada;
+                                        if (file_exists($rutaImagen)) {
+                                            echo '<div class="panel-admin__image-container">';
+                                            echo '<img src="' . BASE_URL . $rutaImagen . '" alt="Imagen de la categoría" class="panel-admin__image-thumbnail">';
+                                            echo '</div>';
+                                        }
+                                    }
+                                }
+                            }
+                            ?>
+                        </div>
+                    </div>
+
                     <a href=" <?php echo BASE_URL; ?>Admin/catalogo<?php echo isset($_GET['categoriaId']) ? '?categoriaId=' . $_GET['categoriaId'] : false; ?>" class="btn btn-primary">
                         <i class="fas fa-arrow-left"></i> Volver
                     </a>

@@ -2,9 +2,16 @@
 
 // Textos generales
 define("TEXT_INICIO", "Home");
-
 define("TEXT_NOSOTROS", "About Us");
 define("TEXT_SOBRE_NOSOTROS", "About Us");
+define("TEXT_NUESTROS_PRODUCTOS", "<span>O</span>ur <span>P</span>roducts");
+define("TEXT_MOVILES", "Mobile Phones");
+define("TEXT_PORTATILES", "Laptops");
+define("TEXT_ACCESORIOS", "Accessories");
+define('ADD_TO_CART', 'Add to cart');
+
+// Textos para "Productos Lista"
+define("TEXT_QUICK_VIEW", "Quick View");
 
 // Textos para "Contactos"
 define("TEXT_CONTACTO", " <span>C</span>ontact");

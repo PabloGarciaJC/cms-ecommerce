@@ -6,6 +6,7 @@ class Categorias
   private $nombre;
   private $descripcion;
   private $parentId;
+  private $imagenesJson;
   private $db;
 
   public function __construct()
@@ -35,6 +36,11 @@ class Categorias
     return $this->parentId;
   }
 
+  public function getImagenes()
+  {
+    return $this->imagenesJson;
+  }
+
   //// SETTERS ////
 
   public function setId($id)
@@ -55,6 +61,11 @@ class Categorias
   public function setParentId($parentId)
   {
     $this->parentId = $parentId;
+  }
+
+  public function setImagenes($imagenesJson)
+  {
+    $this->imagenesJson = $imagenesJson;
   }
 
   //// CONSULTAS //// 
@@ -126,15 +137,26 @@ class Categorias
 
   public function crearCategoria()
   {
-    $parentId = $this->getParentId() ? $this->getParentId() : 'NULL';
-    $sql = "INSERT INTO categorias (nombre, descripcion, parent_id) VALUES ('{$this->getNombre()}', '{$this->getDescripcion()}', $parentId)";
-    $crearCategoria = $this->db->query($sql);
-    return $crearCategoria;
+    $nombre = $this->db->real_escape_string($this->getNombre());
+    $descripcion = $this->db->real_escape_string($this->getDescripcion());
+    $parent_id_sql = $this->getParentId() == false ? 'NULL' : $this->getParentId();
+    $sql = "INSERT INTO categorias (nombre, descripcion, parent_id, imagenes) VALUES ('$nombre', '$descripcion', $parent_id_sql, '{$this->getImagenes()}')";
+    return $this->db->query($sql);
   }
 
   public function actualizarCategoriaPorId()
   {
-    $sql = "UPDATE categorias SET nombre = '{$this->getNombre()}', descripcion = '{$this->getDescripcion()}' WHERE id = {$this->getId()}";
+    $nombre = $this->db->real_escape_string($this->getNombre());
+    $descripcion = $this->db->real_escape_string($this->getDescripcion());
+    $imagenes = $this->getImagenes();
+    $imagenesValidas = !empty($imagenes) && $imagenes != '[]' && $imagenes != 'null';
+    $sql = "UPDATE categorias SET nombre = '$nombre', descripcion = '$descripcion'";
+
+    if ($imagenesValidas) {
+      $sql .= ", imagenes = '$imagenes'"; 
+    }
+    
+    $sql .= " WHERE id = {$this->getId()}";
     $categoria = $this->db->query($sql);
     return $categoria;
   }

@@ -4,6 +4,14 @@
 define("TEXT_INICIO", "Accueil");
 define("TEXT_NOSOTROS", "Nous");
 define("TEXT_SOBRE_NOSOTROS", "À propos de nous");
+define("TEXT_NUESTROS_PRODUCTOS", "<span>N</span>os <span>P</span>roduits");
+define("TEXT_MOVILES", "Téléphones mobiles");
+define("TEXT_PORTATILES", "Ordinateurs portables");
+define("TEXT_ACCESORIOS", "Accessoires");
+define('ADD_TO_CART', 'Ajouter au panier');
+
+// Textos para "Productos Lista"
+define("TEXT_QUICK_VIEW", "Aperçu rapide");
 
 // Textos para "Contactos"
 define("TEXT_CONTACTO", " <span>C</span>ontact");
