@@ -12,6 +12,7 @@ define('ADD_TO_CART', 'Add to cart');
 
 // Textos para "Productos Lista"
 define("TEXT_QUICK_VIEW", "Quick View");
+define('TEXT_OFERTA', 'Offer:');
 
 // Textos para "Contactos"
 define("TEXT_CONTACTO", " <span>C</span>ontact");

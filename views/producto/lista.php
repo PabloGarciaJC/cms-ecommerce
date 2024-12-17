@@ -21,7 +21,7 @@
                     <?php if (!empty($prod->precio)): ?>
                         <div class="info-product-price my-2">
                             <?php if (!empty($prod->oferta) && $prod->oferta > 0): ?>
-                                <span class="product-new-top">Oferta: <?php echo intval($prod->oferta); ?>%</span>
+                                <span class="product-new-top"><?php echo TEXT_OFERTA . ' ' . intval($prod->oferta) . '%'; ?></span>
                             <?php endif; ?>
                             <?php 
                                 if (!empty($prod->oferta) && $prod->oferta > 0) {
