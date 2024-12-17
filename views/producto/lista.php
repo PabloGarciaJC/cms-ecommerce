@@ -21,12 +21,12 @@
                     <?php if (!empty($prod->precio)): ?>
                         <div class="info-product-price my-2">
                             <?php if (!empty($prod->oferta) && $prod->oferta > 0): ?>
-                                <span class="product-new-top"><?php echo TEXT_OFERTA . ' ' . intval($prod->oferta) . '%'; ?></span>
+                                <span class="product-new-top"><?php echo TEXT_OFERTA . ' ' . intval($prod->oferta) . '$'; ?></span>
                             <?php endif; ?>
                             <?php
                             if (!empty($prod->oferta) && $prod->oferta > 0) {
-                                $precio_con_descuento = $prod->precio - ($prod->precio * $prod->oferta / 100);
-                                echo '<span class="item_price">' . intval($precio_con_descuento) . '$</span>';
+                                $precio_con_descuento = $prod->precio - $prod->oferta;
+                                echo '<span class="item_price">' . intval($prod->precio - $prod->oferta) . '$</span>';
                                 echo '<del>' . intval($prod->precio) . '$</del>';
                             } else {
                                 echo '<span class="item_price">' . intval($prod->precio) . '$</span>';
@@ -37,14 +37,17 @@
                     <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
                         <form action="#" method="post">
                             <fieldset>
+                                <input type="hidden" id="text_oferta" value="<?php echo OFERTA; ?>" />
+                                <input type="hidden" id="text_subtotal" value="<?php echo SUBTOTAL; ?>" />
+                                <input type="hidden" id="text_realizar_pedido" value="<?php echo REALIZAR_PEDIDO; ?>" />
                                 <input type="hidden" name="cmd" value="_cart" />
                                 <input type="hidden" name="add" value="1" />
-                                <input type="hidden" name="business" value=" " />
-                                <input type="hidden" name="item_name" value="OPPO A37f" />
-                                <input type="hidden" name="amount" value="230.00" />
-                                <input type="hidden" name="discount_amount" value="1.00" />
+                                <input type="hidden" name="business" value="" />
+                                <input type="hidden" name="item_name" value="<?php echo $prod->nombre; ?>" />
+                                <input type="hidden" name="amount" value="<?php echo $prod->precio; ?>" />
+                                <input type="hidden" name="discount_amount" value="<?php echo $prod->oferta; ?>" />
                                 <input type="hidden" name="currency_code" value="USD" />
-                                <input type="hidden" name="return" value=" " />
+                                <input type="hidden" name="return" value="" />
                                 <input type="hidden" name="cancel_return" value=" " />
                                 <input type="submit" name="submit" value="<?php echo ADD_TO_CART; ?>" class="button btn" />
                             </fieldset>

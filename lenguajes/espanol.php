@@ -14,6 +14,9 @@ define('ADD_TO_CART', 'Agregar al carrito');
 define("TEXT_QUICK_VIEW", "Vista rápida");
 define('TEXT_OFERTA', 'Oferta:');
 define("TEXT_GARANTIA", "<label>1 Año</label> de garantía del fabricante");
+define('OFERTA', 'Oferta');
+define('SUBTOTAL', 'Subtotal');
+define('REALIZAR_PEDIDO', 'Realizar Pedido');
 
 // Textos para "Contactos"
 define("TEXT_CONTACTO", " <span>C</span>ontacto");

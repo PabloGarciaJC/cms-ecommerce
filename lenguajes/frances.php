@@ -14,6 +14,9 @@ define('ADD_TO_CART', 'Ajouter au panier');
 define("TEXT_QUICK_VIEW", "Aperçu rapide");
 define('TEXT_OFERTA', 'Offre:');
 define("TEXT_GARANTIA", "<label>1 an</label> de garantie du fabricant");
+define('OFERTA', 'Offre'); 
+define('SUBTOTAL', 'Sous-total');
+define('REALIZAR_PEDIDO', 'Passer la commande');
 
 // Textos para "Contactos"
 define("TEXT_CONTACTO", " <span>C</span>ontact");
