@@ -58,6 +58,7 @@ class HomeController
         $categoriasConSubcategoriasYProductos = $categorias->obtenerCategoriasYProductos();
         require_once 'views/layout/head.php';
         require_once 'views/layout/header.php';
+        require_once 'views/layout/search.php';
         $producto = new ProductoController();
         require_once 'views/home/slider.php';
         require_once 'views/home/body.php';

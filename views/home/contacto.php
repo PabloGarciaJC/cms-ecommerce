@@ -16,7 +16,6 @@
 		</div>
 	</div>
 
-	<!-- contact -->
 	<div class="contact py-sm-5 py-4">
 		<div class="container py-xl-4 py-lg-2">
 			<!-- tittle heading -->
