@@ -6,7 +6,7 @@
 					<a href="<?= BASE_URL ?>"><?php echo TEXT_INICIO; ?></a>
 					<i>|</i>
 				</li>
-				<li><?php echo TEXT_CONTACTANOS; ?></li>
+				<li><?php echo TEXT_FICHA; ?></li>
 			</ul>
 		</div>
 	</div>

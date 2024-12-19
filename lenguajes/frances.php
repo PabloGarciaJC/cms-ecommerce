@@ -14,6 +14,8 @@ define("TEXT_HELP", "Aide");
 define("TEXT_FAQS", "Questions Fréquemment Posées");
 define("TEXT_TERMS", "Conditions Générales d'Utilisation");
 define("TEXT_TERMS_PRIVACY", "Politique de Confidentialité");
+define("TEXT_CHECKOUT", "Valider la commande");
+define("TEXT_FICHA", "Fiche Produit");
 
 // Textos para "Checkout"
 define('CART_CONTAINS', 'Votre panier contient:');

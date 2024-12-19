@@ -14,6 +14,8 @@ define("TEXT_HELP", "Ayuda");
 define("TEXT_FAQS", "Preguntas frecuentes");
 define("TEXT_TERMS", "Términos De Uso");
 define("TEXT_TERMS_PRIVACY", "Política de Privacidad");
+define("TEXT_CHECKOUT", "Verificar Compra");
+define("TEXT_FICHA", "Ficha Producto");
 
 // Textos para "Checkout"
 define('CART_CONTAINS', 'Tu carrito de compras contiene:');
