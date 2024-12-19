@@ -37,6 +37,8 @@
                     <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
                         <form action="#" method="post">
                             <fieldset>
+                                <input type="hidden" name="href" value="<?php echo BASE_URL ?>Producto/ficha?id=<?php echo $prod->id; ?>" />
+                                <input type="hidden" name="image" value="<?php echo BASE_URL ?>uploads/images/productos/<?php echo $imagenes_array[0]; ?>" />
                                 <input type="hidden" id="text_oferta" value="<?php echo OFERTA; ?>" />
                                 <input type="hidden" id="text_subtotal" value="<?php echo SUBTOTAL; ?>" />
                                 <input type="hidden" id="text_realizar_pedido" value="<?php echo REALIZAR_PEDIDO; ?>" />

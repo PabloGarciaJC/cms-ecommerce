@@ -23,7 +23,7 @@ class Template {
     });
 
     /*  <!-- cart-js --> */
-    paypals.minicarts.render();
+    paypals.minicarts.render(); //use only unique class names other than paypals.minicarts.Also Replace same class name in css and minicart.min.js
 
     paypals.minicarts.cart.on('checkout', function (evt) {
       var items = this.items(),
@@ -36,10 +36,27 @@ class Template {
         total += items[i].get('quantity');
       }
 
-      // if (total < 3) {
-      //   alert('The minimum order quantity is 3. Please add more to your shopping cart before checking out');
-      //   evt.preventDefault();
-      // }
+    });
+
+    $(document).ready(function () {
+      $('.close').on('click', function () {
+        // Busca la fila más cercana al botón clickeado y la desvanece
+        $(this).closest('tr').fadeOut('slow', function () {
+          $(this).remove(); // Elimina la fila del DOM después de que desaparezca
+        });
+      });
+    });
+
+    $('.value-plus').on('click', function () {
+      var divUpd = $(this).parent().find('.value'),
+        newVal = parseInt(divUpd.text(), 10) + 1;
+      divUpd.text(newVal);
+    });
+
+    $('.value-minus').on('click', function () {
+      var divUpd = $(this).parent().find('.value'),
+        newVal = parseInt(divUpd.text(), 10) - 1;
+      if (newVal >= 1) divUpd.text(newVal);
     });
 
     // Can also be used with $(document).ready() // par Ficha Producto
@@ -89,6 +106,26 @@ class Template {
   // Iniciar aplicación
   init() {
     this.onReady();
+
+   /* Carrtio de Compras */
+    document.addEventListener('click', function (event) {
+      // Aumentar cantidad
+      if (event.target.classList.contains('quantity-increment')) {
+          const idx = event.target.getAttribute('data-minicarts-idx');
+          const input = document.querySelector(`input[data-minicarts-idx="${idx}"]`);
+          input.value = parseInt(input.value || 0, 10) + 1; // Incrementar el valor
+      }
+      
+      // Disminuir cantidad
+      if (event.target.classList.contains('quantity-decrement')) {
+          const idx = event.target.getAttribute('data-minicarts-idx');
+          const input = document.querySelector(`input[data-minicarts-idx="${idx}"]`);
+          input.value = Math.max(1, parseInt(input.value || 1, 10) - 1); // Reducir el valor pero mantener mínimo 1
+      }
+  });
+  
+
+
   }
 }
 

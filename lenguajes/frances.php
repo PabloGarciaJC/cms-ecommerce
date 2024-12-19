@@ -20,7 +20,7 @@ define('QUALITY', 'Qualité');
 define('PRODUCT_NAME', 'Nom du produit');
 define('PRICE', 'Prix');
 define('REMOVE', 'Supprimer');
-define("MAKE_PAYMENT", "Effectuer paiement");
+define("MAKE_PAYMENT", "Terminer l'achat");
 
 // Textos para "Productos Lista"
 define("TEXT_QUICK_VIEW", "Aperçu rapide");

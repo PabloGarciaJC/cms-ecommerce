@@ -73,18 +73,23 @@
 							<i class="fas fa-retweet mr-3"></i>Net banking & Credit/ Debit/ ATM card
 						</p> -->
 				</div>
+				
 				<div class="occasion-cart">
 					<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
 						<form action="#" method="post">
 							<fieldset>
+								<?php
+								$imagenes = trim($productoFicha->imagenes, '"');
+								$imagenes_array = json_decode($imagenes);
+								?>
+								<input type="hidden" name="href" value="<?php echo BASE_URL ?>Producto/ficha?id=<?php echo $productoFicha->id; ?>" />
+								<input type="hidden" name="image" value="<?php echo BASE_URL ?>uploads/images/productos/<?php echo $imagenes_array[0]; ?>" />
 								<input type="hidden" id="text_oferta" value="<?php echo OFERTA; ?>" />
 								<input type="hidden" id="text_subtotal" value="<?php echo SUBTOTAL; ?>" />
 								<input type="hidden" id="text_realizar_pedido" value="<?php echo REALIZAR_PEDIDO; ?>" />
-
 								<input type="hidden" name="cmd" value="_cart" />
 								<input type="hidden" name="add" value="1" />
 								<input type="hidden" name="business" value=" " />
-
 								<input type="hidden" name="business" value="" />
 								<input type="hidden" name="item_name" value="<?php echo $productoFicha->nombre; ?>" />
 								<input type="hidden" name="amount" value="<?php echo $productoFicha->precio; ?>" />
@@ -93,7 +98,6 @@
 								<input type="hidden" name="cancel_return" value=" " />
 								<input type="hidden" name="return" value="" />
 								<input type="submit" name="submit" value="<?php echo ADD_TO_CART; ?>" class="button btn" />
-
 							</fieldset>
 						</form>
 					</div>

@@ -516,7 +516,6 @@ h3.tittle-w3l span {
     color: #212121 !important;
     font-size: 1em;
     display: block;
-    margin-bottom: .5em;
     text-transform: capitalize;
 }
 
@@ -529,8 +528,8 @@ h3.tittle-w3l span {
 }
 
 #PPminicarts .minicarts-remove {
-    background: #3399cc !important;
-    border: 1px solid #3399cc !important;
+    background: #d61e0f !important;
+    border: 1px solid #d61e0f !important;
     opacity: 1 !important;
     outline: none;
 }
@@ -1575,15 +1574,13 @@ td.invert-image a img {
     position: relative;
 }
 
-.close1,
-.close2,
-.close3 {
+.close {
     background: url('../images/close_1.png') no-repeat 0px 0px;
     cursor: pointer;
     width: 28px;
     height: 28px;
     position: absolute;
-    right: 15px;
+    right: 40px;
     top: -13px;
     -webkit-transition: color 0.2s ease-in-out;
     -moz-transition: color 0.2s ease-in-out;

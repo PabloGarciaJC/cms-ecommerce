@@ -46,6 +46,8 @@ class ProductoController extends HomeController
           $shipping = isset($_POST["shipping_$idx"]) ? $_POST["shipping_$idx"] : 0;
           $shipping2 = isset($_POST["shipping2_$idx"]) ? $_POST["shipping2_$idx"] : 0;
           $discount = isset($_POST["discount_amount_$idx"]) ? $_POST["discount_amount_$idx"] : 0;
+          $image = isset($_POST["image_$idx"]) ? $_POST["image_$idx"] : '';
+          $href = isset($_POST["href_$idx"]) ? $_POST["href_$idx"] : '';
 
           // Almacenar cada artículo en el arreglo
           $items[] = [
@@ -55,7 +57,9 @@ class ProductoController extends HomeController
             'price' => $price,
             'shipping' => $shipping,
             'shipping2' => $shipping2,
-            'discount' => $discount
+            'discount' => $discount,
+            'image' => $image,
+            'href' => $href
           ];
 
           // Sumar el total
@@ -67,6 +71,12 @@ class ProductoController extends HomeController
     require_once 'views/layout/header.php';
     require_once 'views/producto/checkout.php';
     require_once 'views/layout/footer.php';
+  }
+
+  public function checkoutGuardar()
+  {
+
+    var_dump($_POST);
   }
 
 
