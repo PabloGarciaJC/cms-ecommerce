@@ -10,14 +10,14 @@
 	                    <a href="<?= BASE_URL ?>"><?php echo TEXT_INICIO; ?></a>
 	                    <i>|</i>
 	                </li>
-	                <li><?php echo TEXT_CONTACTANOS; ?></li>
+	                <li><?php echo TEXT_FAQS; ?></li>
 	            </ul>
 	        </div>
 	    </div>
 	</div>
 
 	<div class="faqs-w3l py-sm-5 py-4">
-	    <div class="container py-xl-4 py-lg-2">
+	    <div class="container">
 	        <!-- tittle heading -->
 	        <h3 class="tittle-w3l text-center mb-lg-5 mb-sm-4 mb-3">
 	            <?php echo TEXT_FAQS_PAGE_TITLE; ?>

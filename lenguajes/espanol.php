@@ -10,6 +10,10 @@ define("TEXT_PORTATILES", "Portátiles");
 define("TEXT_ACCESORIOS", "Accesorios");
 define('ADD_TO_CART', 'Agregar al carrito');
 define("CHECKOUT", "<span>V</span>erificar <span>C</span>ompra");
+define("TEXT_HELP", "Ayuda");
+define("TEXT_FAQS", "Preguntas frecuentes");
+define("TEXT_TERMS", "Términos De Uso");
+define("TEXT_TERMS_PRIVACY", "Política de Privacidad");
 
 // Textos para "Checkout"
 define('CART_CONTAINS', 'Tu carrito de compras contiene:');
@@ -85,7 +89,7 @@ define("TEXT_HELP_QUESTION_10", "¿Cómo restablezco mi contraseña?");
 define("TEXT_HELP_ANSWER_10", "Si olvidaste tu contraseña, haz clic en '¿Olvidaste tu contraseña?' en la página de inicio de sesión. Te enviaremos un correo electrónico con instrucciones para restablecerla.");
 
 // Textos para "Faqs"
-define("TEXT_FAQS_PAGE_TITLE", "<span>F</span>aqs");
+define("TEXT_FAQS_PAGE_TITLE", "<span>P</span>reguntas <span>F</span>recuentes");
 define("TEXT_FAQS_SECTION_TITLE", "Las 10 Preguntas Más Frecuentes");
 define("TEXT_FAQS_QUESTION_1", "¿Cuál es el mejor enfoque para diseñar un sitio web?");
 define("TEXT_FAQS_ANSWER_1", "El mejor enfoque es centrarse en un diseño fácil de usar, con una navegación clara y un rendimiento optimizado, asegurando que el sitio sea accesible y atractivo para todos los usuarios.");
@@ -136,7 +140,7 @@ define("TEXT_COPYRIGHT_1", "Todo el contenido del sitio, incluidos textos, gráf
 define("TEXT_COPYRIGHT_2", "Nos reservamos el derecho de modificar o eliminar cualquier contenido del sitio en cualquier momento, y de tomar las medidas necesarias para proteger nuestra propiedad intelectual.");
 
 // Textos para "Politica y Privacidad"
-define("TEXT_PRIVACY_PAGE_TITLE", "<span>P</span>olítica de <span>R</span>ivacidad");
+define("TEXT_PRIVACY_PAGE_TITLE", "<span>P</span>olítica de <span>P</span>rivacidad");
 define("TEXT_PRIVACY_SUBTITLE", "Política de Privacidad");
 define("TEXT_PRIVACY_INTRO", "Valoramos la confianza que deposita en nosotros. Por eso, insistimos en los más altos estándares para transacciones seguras y la privacidad de la información del cliente. Lea la siguiente declaración para conocer nuestras prácticas de recopilación y difusión de información.");
 define("TEXT_PRIVACY_PARAGRAPH_1", "Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.");

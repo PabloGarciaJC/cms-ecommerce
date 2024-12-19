@@ -10,6 +10,10 @@ define("TEXT_PORTATILES", "Ordinateurs portables");
 define("TEXT_ACCESORIOS", "Accessoires");
 define('ADD_TO_CART', 'Ajouter au panier');
 define("CHECKOUT", "<span>V</span>érification de la commande");
+define("TEXT_HELP", "Aide");
+define("TEXT_FAQS", "Questions Fréquemment Posées");
+define("TEXT_TERMS", "Conditions Générales d'Utilisation");
+define("TEXT_TERMS_PRIVACY", "Politique de Confidentialité");
 
 // Textos para "Checkout"
 define('CART_CONTAINS', 'Votre panier contient:');
@@ -85,7 +89,7 @@ define("TEXT_HELP_QUESTION_10", "Comment réinitialiser mon mot de passe ?");
 define("TEXT_HELP_ANSWER_10", "Si vous avez oublié votre mot de passe, cliquez sur 'Mot de passe oublié ?' sur la page de connexion. Nous vous enverrons un email avec des instructions pour le réinitialiser.");
 
 // Textes pour "Faqs"
-define("TEXT_FAQS_PAGE_TITLE", "<span>F</span>aqs");
+define("TEXT_FAQS_PAGE_TITLE", "<span>Q</span>uestions <span>F</span>réquemment <span>P</span>osées");
 define("TEXT_FAQS_SECTION_TITLE", "Les 10 Questions les Plus Fréquemment Posées");
 define("TEXT_FAQS_QUESTION_1", "Quelle est la meilleure approche pour concevoir un site web ?");
 define("TEXT_FAQS_ANSWER_1", "La meilleure approche est de se concentrer sur un design facile à utiliser, avec une navigation claire et des performances optimisées, garantissant que le site soit accessible et attrayant pour tous les utilisateurs.");

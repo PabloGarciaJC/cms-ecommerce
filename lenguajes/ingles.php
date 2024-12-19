@@ -10,6 +10,10 @@ define("TEXT_PORTATILES", "Laptops");
 define("TEXT_ACCESORIOS", "Accessories");
 define('ADD_TO_CART', 'Add to cart');
 define("CHECKOUT", "<span>C</span>heckout");
+define("TEXT_HELP", "Help");
+define("TEXT_FAQS", "Faqs");
+define("TEXT_TERMS", "Terms Of Use");
+define("TEXT_TERMS_PRIVACY", "Privacy Policy");
 
 // Textos para "Checkout"
 define('CART_CONTAINS', 'Your shopping cart contains:');

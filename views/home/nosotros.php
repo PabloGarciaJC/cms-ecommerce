@@ -13,7 +13,7 @@
 	</div>
 </div>
 <div class="welcome py-sm-5 py-4">
-	<div class="container py-xl-4 py-lg-2">
+	<div class="container">
 		<h3 class="tittle-w3l text-center mb-lg-5 mb-sm-4 mb-3">
 			<?php echo TEXT_SOBRE_TITULO_0; ?>
 			<?php echo TEXT_SOBRE_TITULO_1; ?>
