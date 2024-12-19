@@ -32,10 +32,15 @@
 						</thead>
 						<tbody>
 							<?php
+							// Usar $_SESSION['productoLista'] si no se pasa $items desde el controlador
+							$items = $_SESSION['productoLista'] ?? [];
+
 							if (empty($items)) {
 								echo '<tr><td colspan="5">No hay productos</td></tr>';
 							} else {
-								foreach ($items as $index => $item) { ?>
+								$total = 0;
+								foreach ($items as $index => $item) {
+									$total += $item['price'] * $item['quantity']; ?>
 									<tr class="rem<?php echo $index + 1; ?>">
 										<td class="invert"><?php echo $index + 1; ?></td>
 										<td class="invert-image">
@@ -65,7 +70,7 @@
 						<tfoot>
 							<tr>
 								<td colspan="4" style="text-align: right;"><strong>Total:</strong></td>
-								<td>$100</td>
+								<td>$<?php echo isset($total) ? number_format($total, 2) : '0.00'; ?></td>
 							</tr>
 						</tfoot>
 					</table>
@@ -78,6 +83,5 @@
 				<a href="payment.html"><?php echo MAKE_PAYMENT; ?></a>
 			</div>
 		</form>
-
 	</div>
-</div
+</div>
