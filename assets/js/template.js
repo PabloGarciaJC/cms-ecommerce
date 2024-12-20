@@ -107,24 +107,22 @@ class Template {
   init() {
     this.onReady();
 
-   /* Carrtio de Compras */
+    /* Carrtio de Compras */
     document.addEventListener('click', function (event) {
       // Aumentar cantidad
       if (event.target.classList.contains('quantity-increment')) {
-          const idx = event.target.getAttribute('data-minicarts-idx');
-          const input = document.querySelector(`input[data-minicarts-idx="${idx}"]`);
-          input.value = parseInt(input.value || 0, 10) + 1; // Incrementar el valor
+        const idx = event.target.getAttribute('data-minicarts-idx');
+        const input = document.querySelector(`input[data-minicarts-idx="${idx}"]`);
+        input.value = parseInt(input.value || 0, 10) + 1; // Incrementar el valor
       }
-      
+
       // Disminuir cantidad
       if (event.target.classList.contains('quantity-decrement')) {
-          const idx = event.target.getAttribute('data-minicarts-idx');
-          const input = document.querySelector(`input[data-minicarts-idx="${idx}"]`);
-          input.value = Math.max(1, parseInt(input.value || 1, 10) - 1); // Reducir el valor pero mantener mínimo 1
+        const idx = event.target.getAttribute('data-minicarts-idx');
+        const input = document.querySelector(`input[data-minicarts-idx="${idx}"]`);
+        input.value = Math.max(1, parseInt(input.value || 1, 10) - 1); // Reducir el valor pero mantener mínimo 1
       }
-  });
-  
-
+    });
 
   }
 }

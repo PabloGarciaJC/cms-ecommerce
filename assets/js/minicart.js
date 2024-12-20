@@ -1960,18 +1960,8 @@
                     </ul>
                 </div>
                 <!-- Cantidad -->
-               <div class="minicarts-details-quantity">
-                  <button type="button" class="quantity-decrement" data-minicarts-idx="<%= i %>">-</button>
-                  <input 
-                      class="minicarts-quantity" 
-                      data-minicarts-idx="<%= i %>" 
-                      name="quantity_<%= idx %>" 
-                      type="text" 
-                      pattern="[0-9]*" 
-                      value="<%= items[i].get("quantity") %>" 
-                      autocomplete="off" 
-                  />
-                  <button type="button" class="quantity-increment" data-minicarts-idx="<%= i %>">+</button>
+                <div class="minicarts-details-quantity">
+                  <input class="minicarts-quantity" data-minicarts-idx="<%= i %>" name="quantity_<%= idx %>" type="text" pattern="[0-9]*" value="<%= items[i].get("quantity") %>" autocomplete="off" />
                 </div>
 
                 <!-- Precio -->

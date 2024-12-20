@@ -24,7 +24,7 @@ class ProductoController extends HomeController
 
   public function checkout()
   {
-      $this->idiomas(); // Llamar a la función de idiomas corregida
+      $this->idiomas();
   
       $usuario = Utils::obtenerUsuario();
       $categorias = new Categorias();

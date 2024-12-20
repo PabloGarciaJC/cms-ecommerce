@@ -556,9 +556,6 @@ MagnificPopup.prototype = {
 		mfp.contentContainer.append(mfp.content);
 	},
 
-
-
-	
 	/**
 	 * Creates Magnific Popup data object based on given data
 	 * @param  {int} index Index of item to parse

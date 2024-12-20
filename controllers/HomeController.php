@@ -29,26 +29,6 @@ class HomeController
         }
     }
 
-    // Método privado para cargar datos comunes
-    private function cargarDatosComunes()
-    {
-        // Establece el idioma
-        $this->idiomas();
-
-        // Obtiene el usuario
-        $usuario = Utils::obtenerUsuario();
-
-        // Carga las categorías y productos
-        $categorias = new Categorias();
-        $categoriasConSubcategoriasYProductos = $categorias->obtenerCategoriasYProductos();
-
-        // Devuelve los datos para que puedan ser utilizados en las vistas
-        return [
-            'usuario' => $usuario,
-            'categoriasConSubcategoriasYProductos' => $categoriasConSubcategoriasYProductos
-        ];
-    }
-
     public function index()
     {
         // $datos = $this->cargarDatosComunes();

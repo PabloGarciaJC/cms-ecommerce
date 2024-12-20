@@ -32,9 +32,7 @@
 						</thead>
 						<tbody>
 							<?php
-							// Usar $_SESSION['productoLista'] si no se pasa $items desde el controlador
 							$items = $_SESSION['productoLista'] ?? [];
-
 							if (empty($items)) {
 								echo '<tr><td colspan="5">No hay productos</td></tr>';
 							} else {
@@ -51,21 +49,21 @@
 										<td class="invert">
 											<div class="quantity">
 												<div class="quantity-select">
-													<div class="entry value-minus">&nbsp;</div>
+													<!-- <div class="entry value-minus">&nbsp;</div> -->
 													<div class="entry value">
 														<span><?php echo $item['quantity']; ?></span>
 													</div>
-													<div class="entry value-plus active">&nbsp;</div>
+													<!-- <div class="entry value-plus active">&nbsp;</div> -->
 												</div>
 											</div>
 										</td>
 										<td class="invert"><?php echo $item['name']; ?></td>
 										<td class="invert">$<?php echo number_format($item['price'], 2); ?></td>
 									</tr>
-							<?php
+								<?php
+									}
 								}
-							}
-							?>
+								?>
 						</tbody>
 						<tfoot>
 							<tr>
