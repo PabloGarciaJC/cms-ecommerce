@@ -1713,7 +1713,8 @@ button.submit.check_out:hover {
     margin-top: 20px;
 }
 
-.checkout-right-basket a {
+.checkout-right-basket a,
+.checkout-right-basket button {
     padding: 12px 25px;
     color: #fff;
     font-size: 16px;
@@ -1721,10 +1722,13 @@ button.submit.check_out:hover {
     text-decoration: none;
     letter-spacing: 1px;
     display: inline-block;
+    cursor: pointer;
 }
 
-.checkout-right-basket a:hover {
+.checkout-right-basket a:hover,
+.checkout-right-basket button:hover {
     background: #F45C5D;
+    border: 1px solid #F45C5D;
     transition: 0.5s all;
     -webkit-transition: 0.5s all;
     -moz-transition: 0.5s all;
@@ -1739,29 +1743,6 @@ button.submit.check_out:hover {
 }
 
 /*-- //payment button --*/
-
-/*-- Payment page --*/
-
-/* .agileits_w3layouts_tab2 input[type="email"],
-.agileits_w3layouts_tab2 input[type="password"],
-.creditly-wrapper .form-control {
-    display: block;
-    width: 100%;
-    padding: 18px 10px;
-    font-size: 14px;
-    color: #212121;
-    background: #fff;
-    border: 1px solid #e7e7e7;
-    margin-bottom: 20px;
-    outline: none;
-}
-
-.agileits_w3layouts_tab2 input[type="email"]:focus,
-.agileits_w3layouts_tab2 input[type="password"]:focus,
-.creditly-wrapper .form-control:focus {
-    border-color: #66afe9;
-    outline: 0;
-} */
 
 .agileits_w3layouts_tab2 input[type="submit"] {
     display: block;

@@ -126,7 +126,6 @@ class Pedidos
 
   //// CRUD METHODS //// 
 
-  // 1. Crear un nuevo pedido
   public function guardar()
   {
       $result = false;
@@ -137,16 +136,13 @@ class Pedidos
       $save = $this->db->query($sql);
   
       if ($save) {
-          // Obtener el último ID insertado en la tabla 'pedidos'
-          $this->id = $this->db->insert_id; // Esto es lo que debe asignarse a $this->id
+          $this->id = $this->db->insert_id;
           $result = true;
       }
   
       return $result;
   }
   
-
-  // 2. Obtener todos los pedidos
   public function obtenerTodos()
   {
     $result = [];
@@ -161,7 +157,6 @@ class Pedidos
     return $result;
   }
 
-  // 3. Obtener un pedido por ID
   public function obtenerPorId($id)
   {
     $result = null;
@@ -176,7 +171,6 @@ class Pedidos
     return $result;
   }
 
-  // 4. Actualizar un pedido
   public function actualizar()
   {
     $result = false;
@@ -202,7 +196,6 @@ class Pedidos
     return $result;
   }
 
-  // 5. Eliminar un pedido
   public function eliminar($id)
   {
     $result = false;

@@ -17,6 +17,18 @@
 		<h3 class="tittle-w3l text-center mb-lg-5 mb-sm-4 mb-3">
 			<?php echo CHECKOUT; ?>
 		</h3>
+
+		<?php if (isset($_SESSION['exito'])) : ?>
+			<div class="alert <?php echo $_SESSION['messageClass']; ?> alert-dismissible fade show mt-2 text-center" role="alert">
+				<i class="<?php echo isset($_SESSION['icon']) ? $_SESSION['icon'] : 'fas fa-check-circle'; ?>"></i>
+				<?php echo $_SESSION['exito']; ?>
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<?php unset($_SESSION['exito'], $_SESSION['messageClass'], $_SESSION['icon']); ?>
+		<?php endif; ?>
+
 		<form method="post" action="<?php echo BASE_URL ?>Producto/checkoutGuardar">
 			<div class="checkout-right">
 				<div class="table-responsive">
@@ -66,15 +78,6 @@
 								}
 							}
 							?>
-							<!-- Campos ocultos para datos del usuario -->
-							<input type="hidden" name="usuario_id" value="<?php echo $usuario->Id; ?>" />
-							<input type="hidden" name="pais" value="<?php echo $usuario->Pais; ?>" />
-							<input type="hidden" name="ciudad" value="<?php echo $usuario->Ciudad; ?>" />
-							<input type="hidden" name="direccion" value="<?php echo $usuario->Direccion; ?>" />
-							<input type="hidden" name="codigoPostal" value="<?php echo $usuario->CodigoPostal; ?>" />
-							<input type="hidden" id="text_oferta" value="<?php echo OFERTA; ?>" />
-							<input type="hidden" id="text_subtotal" value="<?php echo SUBTOTAL; ?>" />
-							<input type="hidden" id="text_realizar_pedido" value="<?php echo REALIZAR_PEDIDO; ?>" />
 						</tbody>
 						<tfoot>
 							<tr>
@@ -85,13 +88,73 @@
 					</table>
 				</div>
 			</div>
-
-
-
+			<div class="checkout-left">
+				<div class="address_form_agile mt-sm-3 mt-0">
+					<h2 class="panel-admin__dashboard-title">Dirección del Envio</h2>
+					<input type="hidden" name="id" class="form-control" value="<?php echo $usuario->Id; ?>">
+					<div class="form-group">
+						<label>Dirección:</label>
+						<input type="text" name="direccion" class="form-control" placeholder="Dirección del usuario" value="<?php echo isset($_SESSION['form']['direccion']) ? $_SESSION['form']['direccion'] : $usuario->Direccion; ?>" disabled>
+						<?php if (isset($_SESSION['errores']['direccion'])) : ?>
+							<div class="text-danger mt-2">
+								<i class="fas fa-exclamation-circle"></i> <?php echo $_SESSION['errores']['direccion']; ?>
+							</div>
+						<?php endif; ?>
+					</div>
+					<div class="form-group">
+						<label for="pais">País:</label>
+						<select class="form-control" id="pais" name="pais" disabled>
+							<option value="" disabled selected>Seleccione...</option>
+							<?php while ($fila = mysqli_fetch_assoc($paisesTodos)) : ?>
+								<option value="<?php echo $fila['Id']; ?>"
+									<?php echo isset($_SESSION['form']['pais']) ? ($_SESSION['form']['pais'] == $fila['Id'] ? 'selected' : '') : ($usuario->Pais == $fila['Id'] ? 'selected' : ''); ?>>
+									<?php echo $fila['Pais']; ?>
+								</option>
+							<?php endwhile; ?>
+						</select>
+						<?php if (isset($_SESSION['errores']['pais'])) : ?>
+							<div class="text-danger mt-2">
+								<i class="fas fa-exclamation-circle"></i> <?php echo $_SESSION['errores']['pais']; ?>
+							</div>
+						<?php endif; ?>
+					</div>
+					<div class="form-group">
+						<label for="ciudad">Ciudad/Región:</label>
+						<select class="form-control" id="ciudad" name="ciudad" <?php echo empty($usuario->Pais) ? 'disabled' : ''; ?> disabled>
+							<?php if (!empty($usuario->Ciudad)) : ?>
+								<option selected><?php echo $usuario->Ciudad; ?></option>
+							<?php else : ?>
+								<option value="" disabled selected>Seleccione...</option>
+							<?php endif; ?>
+						</select>
+						<?php if (isset($_SESSION['errores']['ciudad'])) : ?>
+							<div class="text-danger mt-2">
+								<i class="fas fa-exclamation-circle"></i> <?php echo $_SESSION['errores']['ciudad']; ?>
+							</div>
+						<?php endif; ?>
+					</div>
+					<div class="form-group">
+						<label for="codigoPostal">Código Postal:</label>
+						<input type="text" id="codigoPostal" name="codigoPostal" class="form-control" value="<?php echo isset($_SESSION['form']['codigoPostal']) ? $_SESSION['form']['codigoPostal'] : $usuario->CodigoPostal; ?>" disabled>
+						<?php if (isset($_SESSION['errores']['codigoPostal'])) : ?>
+							<div class="text-danger mt-2">
+								<i class="fas fa-exclamation-circle"></i> <?php echo $_SESSION['errores']['codigoPostal']; ?>
+							</div>
+						<?php endif; ?>
+					</div>
+				</div>
+			</div>
+			<input type="hidden" name="usuario_id" value="<?php echo $usuario->Id; ?>" />
+			<input type="hidden" name="pais" value="<?php echo $usuario->Pais; ?>" />
+			<input type="hidden" name="ciudad" value="<?php echo $usuario->Ciudad; ?>" />
+			<input type="hidden" name="direccion" value="<?php echo $usuario->Direccion; ?>" />
+			<input type="hidden" name="codigoPostal" value="<?php echo $usuario->CodigoPostal; ?>" />
+			<input type="hidden" id="text_oferta" value="<?php echo OFERTA; ?>" />
+			<input type="hidden" id="text_subtotal" value="<?php echo SUBTOTAL; ?>" />
+			<input type="hidden" id="text_realizar_pedido" value="<?php echo REALIZAR_PEDIDO; ?>" />
 			<div class="checkout-right-basket">
 				<button type="submit"><?php echo MAKE_PAYMENT; ?></button>
 			</div>
-
 		</form>
 	</div>
 </div>

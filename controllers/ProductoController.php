@@ -5,6 +5,7 @@ require_once 'model/categorias.php';
 require_once 'model/categorias.php';
 require_once 'model/pedidos.php';
 require_once 'model/lineaPedidos.php';
+require_once 'model/paises.php';
 
 class ProductoController extends HomeController
 {
@@ -32,6 +33,9 @@ class ProductoController extends HomeController
 
     $categorias = new Categorias();
     $categoriasConSubcategoriasYProductos = $categorias->obtenerCategoriasYProductos();
+
+    $paises = new Paises();
+    $paisesTodos = $paises->obtenerTodosPaises();
 
     // Inicializar la sesión con un valor predeterminado si no existe
     if (!isset($_SESSION['productoLista'])) {
@@ -78,6 +82,11 @@ class ProductoController extends HomeController
           $totalAmount += $price * $quantity;
         }
       }
+
+      // Limpiar posibles errores o datos previos en el formulario
+      unset($_SESSION['errores']);
+      unset($_SESSION['form']);
+      unset($_SESSION['exito']);
     }
 
     require_once 'views/layout/head.php';
@@ -136,9 +145,7 @@ class ProductoController extends HomeController
       $_SESSION['form'] = $_POST;
       header("Location: " . BASE_URL . "Producto/checkout");
       exit;
-
     } else {
-
       // Guardar el pedido y obtener el ID generado
       $resultado = $pedido->guardar();
 
@@ -152,11 +159,17 @@ class ProductoController extends HomeController
         $lineaPedido->guardar();
       }
 
-      $_SESSION['exito'] = 'El Producto se creó correctamente.';
+      // Cerrar la sesión de productoLista (vaciar el carrito)
+      unset($_SESSION['productoLista']);
+
+      // Mensaje de éxito y redirección
+      $_SESSION['exito'] = 'El Pedido se realizó correctamente.';
       $_SESSION['messageClass'] = 'alert-primary';
+
+      // Limpiar posibles errores o datos previos en el formulario
       unset($_SESSION['errores']);
-      unset($_SESSION['form']);
-      header("Location: " . BASE_URL . "Producto/checkout");
+      unset($_SESSION['form']);    
+      header("Location: " . BASE_URL . "Admin/listaPedidos");
       exit;
     }
   }
