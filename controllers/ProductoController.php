@@ -174,7 +174,6 @@ class ProductoController extends HomeController
     }
   }
 
-
   public function moviles()
   {
     $probject = new Productos();

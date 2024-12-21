@@ -615,11 +615,11 @@ class AdminController
 
     public function listaUsuario()
     {
-        Utils::accesoUsuarioRegistrado();  // Se asegura de que el usuario esté registrado y tenga acceso
-        $usuario = new Usuario();  // Creamos una instancia de la clase Usuario
-        $usuarios = $usuario->obtenerTodosLosUsuarios();  // Obtenemos todos los usuarios
+        Utils::accesoUsuarioRegistrado();
+        $usuario = new Usuario();
+        $usuarios = $usuario->obtenerTodosLosUsuarios();
         require_once 'views/layout/head.php';
-        require_once 'views/admin/user/lista.php';  // La vista que renderiza la lista de usuarios
+        require_once 'views/admin/user/lista.php';
         require_once 'views/layout/script-footer.php';
     }
 

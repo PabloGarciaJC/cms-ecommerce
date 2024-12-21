@@ -48,7 +48,7 @@
     </main>
 </div>
 <?php
-// if (!isset($_SESSION['errores'])) {
-//     unset($_SESSION['form']);
-// }
+if (!isset($_SESSION['errores'])) {
+    unset($_SESSION['form']);
+}
 ?>

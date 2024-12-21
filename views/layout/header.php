@@ -84,7 +84,7 @@
 													<h6>Subcategorías</h6>
 													<ul class="multi-column-dropdown">
 														<?php while ($subcategoria = $item['subcategorias']->fetch_object()) : ?>
-															<li><a href="catalogo.php?categoriaId=<?= $subcategoria->id ?>"><?= $subcategoria->nombre ?></a></li>
+															<li><a href="<?php echo BASE_URL; ?>Catalogo/index"><?= $subcategoria->nombre ?></a></li>
 														<?php endwhile; ?>
 													</ul>
 												</div>
@@ -95,7 +95,7 @@
 													<h6>Productos</h6>
 													<ul class="multi-column-dropdown">
 														<?php while ($producto = $item['productos']->fetch_object()) : ?>
-															<li><a href="producto.php?id=<?= $producto->id ?>"><?= $producto->nombre ?></a></li>
+															<li><a href="<?php echo BASE_URL; ?>Producto/ficha?id=<?= $producto->id ?>"><?= $producto->nombre ?></a></li>
 														<?php endwhile; ?>
 													</ul>
 												</div>

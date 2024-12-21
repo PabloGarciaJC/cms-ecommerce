@@ -96,6 +96,7 @@
 								$imagenes = trim($productoFicha->imagenes, '"');
 								$imagenes_array = json_decode($imagenes);
 								?>
+								<input type="hidden" name="producto_id" value="<?php echo $productoFicha->id; ?>" />
 								<input type="hidden" name="href" value="<?php echo BASE_URL ?>Producto/ficha?id=<?php echo $productoFicha->id; ?>" />
 								<input type="hidden" name="image" value="<?php echo BASE_URL ?>uploads/images/productos/<?php echo $imagenes_array[0]; ?>" />
 								<input type="hidden" id="text_oferta" value="<?php echo OFERTA; ?>" />
