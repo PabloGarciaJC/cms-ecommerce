@@ -40,7 +40,6 @@
                     </ul>
                 </nav>
             </div>
-            
             <?php if (isset($_SESSION['exito'])) : ?>
                 <div class="alert <?php echo $_SESSION['messageClass']; ?> alert-dismissible fade show mt-2 text-center" role="alert">
                     <i class="<?php echo isset($_SESSION['icon']) ? $_SESSION['icon'] : 'fas fa-check-circle'; ?>"></i>
@@ -51,7 +50,6 @@
                 </div>
                 <?php unset($_SESSION['exito'], $_SESSION['messageClass'], $_SESSION['icon']); ?>
             <?php endif; ?>
-            
             <div class="panel-admin__category-list-catalogo">
                 <table class="table table-striped">
                     <thead>

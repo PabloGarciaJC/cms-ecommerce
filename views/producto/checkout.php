@@ -154,6 +154,9 @@
 			<input type="hidden" id="text_realizar_pedido" value="<?php echo REALIZAR_PEDIDO; ?>" />
 			<div class="checkout-right-basket">
 				<button type="submit"><?php echo MAKE_PAYMENT; ?></button>
+				<?php if (isset($_SESSION['errores']) && count($_SESSION['errores']) > 0) : ?>
+					<a href="<?php echo BASE_URL ?>Admin/perfil" type="button" target="_blank" >Actualizar Formulario</a>
+				<?php endif; ?>
 			</div>
 		</form>
 	</div>
