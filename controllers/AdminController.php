@@ -4,6 +4,7 @@ require_once 'model/categorias.php';
 require_once 'model/paises.php';
 require_once 'model/productos.php';
 require_once 'model/roles.php';
+require_once 'model/pedidos.php';
 
 class AdminController
 {
@@ -484,6 +485,9 @@ class AdminController
     {
         Utils::accesoUsuarioRegistrado();
         $rol = new Rol();
+        unset($_SESSION['errores']);
+        unset($_SESSION['form']);
+        unset($_SESSION['exito']);
         $obtenerRoles = $rol->obtenerTodos();
         require_once 'views/layout/head.php';
         require_once 'views/admin/roles/index.php';
@@ -560,9 +564,74 @@ class AdminController
 
     public function listaPedidos()
     {
+        // Verificamos que el usuario esté registrado
         Utils::accesoUsuarioRegistrado();
+
+        // Creamos una instancia del modelo Pedidos
+        $pedidos = new Pedidos();
+
+        // Obtenemos los estados posibles de un pedido
+        $estados = $pedidos->obtenerEstados();
+
+        // Obtenemos la lista de pedidos con los productos asociados y el nombre del usuario
+        $listaPedidos = $pedidos->obtenerPedidosConProductos();
+
         require_once 'views/layout/head.php';
         require_once 'views/admin/pedidos/lista.php';
+        require_once 'views/layout/script-footer.php';
+    }
+
+    public function actualizarPedidos()
+    {
+        // Verificamos si se han enviado los datos del formulario
+        if (isset($_POST['pedido_id']) && isset($_POST['estado'])) {
+            // Obtener el ID del pedido y el nuevo estado
+            $pedido_id = $_POST['pedido_id'];
+            $nuevoEstado = $_POST['estado'];
+
+            // Crear una instancia del modelo
+            $pedidoModel = new Pedidos();
+
+            // Llamar al método para actualizar el estado
+            $actualizado = $pedidoModel->actualizarEstado($pedido_id, $nuevoEstado);
+
+            // Verificar si la actualización fue exitosa
+            if ($actualizado) {
+                $_SESSION['exito'] = 'Estado del pedido actualizado correctamente.';
+            } else {
+                $_SESSION['errores'] = 'Hubo un problema al actualizar el estado del pedido.';
+            }
+
+            // Redirigir a la página de lista de pedidos
+            header("Location: " . BASE_URL . "Admin/listaPedidos");
+            exit;
+        } else {
+            // Si no se reciben datos válidos, redirigir con un error
+            $_SESSION['errores'] = 'No se han recibido datos válidos para actualizar el pedido.';
+            header("Location: " . BASE_URL . "Admin/listaPedidos");
+            exit;
+        }
+    }
+
+    public function listaUsuario()
+    {
+        Utils::accesoUsuarioRegistrado();  // Se asegura de que el usuario esté registrado y tenga acceso
+        $usuario = new Usuario();  // Creamos una instancia de la clase Usuario
+        $usuarios = $usuario->obtenerTodosLosUsuarios();  // Obtenemos todos los usuarios
+        require_once 'views/layout/head.php';
+        require_once 'views/admin/user/lista.php';  // La vista que renderiza la lista de usuarios
+        require_once 'views/layout/script-footer.php';
+    }
+
+    public function detalleUsuario()
+    {
+        Utils::accesoUsuarioRegistrado();
+        $id = isset($_GET['id']) ? $_GET['id'] : false;
+        $usuario = new Usuario();
+        $usuario->setId($id);
+        $usuarioDetails = $usuario->obtenerTodosPorId();
+        require_once 'views/layout/head.php';
+        require_once 'views/admin/user/detalle.php';
         require_once 'views/layout/script-footer.php';
     }
 

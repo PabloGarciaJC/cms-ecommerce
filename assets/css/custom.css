@@ -431,7 +431,7 @@
   /* Tabla de Roles */
   .custom-select-roles {
       font-size: 1rem;
-      padding: 0.5rem 1rem;
+      padding: 5px;
       background-color: #f9f9f9;
       transition: all 0.3s ease-in-out;
   }

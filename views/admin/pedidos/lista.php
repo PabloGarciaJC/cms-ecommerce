@@ -1,58 +1,75 @@
 <?php include __DIR__ . '../../layout/header.php'; ?>
+
 <div class="panel-admin__flex-container">
     <?php include __DIR__ . '../../layout/sidebar.php'; ?>
     <main class="panel-admin__main-content">
         <section class="panel-admin__dashboard">
-            <h2 class="panel-admin__dashboard-title">Gestión de Categorías</h2>
+            <h2 class="panel-admin__dashboard-title">Gestión de Pedidos</h2>
+
+            <?php if (isset($_SESSION['exito'])): ?>
+                <div class="alert alert-success text-center">
+                    <?php echo $_SESSION['exito']; ?>
+                </div>
+                <?php unset($_SESSION['exito']); ?>
+            <?php endif; ?>
+
+            <?php if (isset($_SESSION['errores'])): ?>
+                <div class="alert alert-danger text-center">
+                    <?php echo $_SESSION['errores']; ?>
+                </div>
+                <?php unset($_SESSION['errores']); ?>
+            <?php endif; ?>
+
             <div class="panel-admin__category-list">
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>Categoría</th>
-                            <th>Descripción</th>
-                            <th>Subcategorías</th>
-                            <th>Acciones</th>
-                            <th>Ver Productos</th>
+                            <th class="text-center align-middle">ID Pedido</th>
+                            <th class="text-center align-middle">Usuario</th>
+                            <th class="text-center align-middle">Productos</th>
+                            <th class="text-center align-middle">Total</th>
+                            <th class="text-center align-middle">Fecha</th>
+                            <th class="text-center align-middle">Hora</th>
+                            <th class="text-center align-middle">Estado</th>
+                            <th class="text-center align-middle">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Electrónica</td>
-                            <td>Todo lo relacionado con tecnología y dispositivos electrónicos.</td>
-                            <td>
-                                <ul>
-                                    <li>Smartphones</li>
-                                    <li>Laptops</li>
-                                </ul>
-                            </td>
-                            <td>
-                                <button class="btn btn-warning btn-sm">Editar</button>
-                                <button class="btn btn-danger btn-sm">Eliminar</button>
-                            </td>
-                            <td>
-                                <a href="productos.php?categoria=1" class="btn btn-info btn-sm">Ver Productos</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Ropa</td>
-                            <td>Categoría de ropa para hombres, mujeres y niños.</td>
-                            <td>
-                                <ul>
-                                    <li>Hombre</li>
-                                    <li>Mujer</li>
-                                </ul>
-                            </td>
-                            <td>
-                                <button class="btn btn-warning btn-sm">Editar</button>
-                                <button class="btn btn-danger btn-sm">Eliminar</button>
-                            </td>
-                            <td>
-                                <a href="productos.php?categoria=2" class="btn btn-info btn-sm">Ver Productos</a>
-                            </td>
-                        </tr>
+                        <?php foreach ($listaPedidos as $pedido): ?>
+                            <tr>
+                                <td class="text-center align-middle"><?php echo $pedido->pedido_id; ?></td>
+                                <td class="text-center align-middle"><?php echo $pedido->nombre_usuario; ?></td>
+                                <td class="text-center align-middle"><?php echo $pedido->productos; ?></td>
+                                <td class="text-center align-middle">$<?php echo number_format($pedido->coste, 2); ?></td>
+                                <td class="text-center align-middle"><?php echo date('d/m/Y', strtotime($pedido->fecha)); ?></td>
+                                <td class="text-center align-middle"><?php echo date('H:i', strtotime($pedido->hora)); ?></td>
+                                <td class="text-center align-middle">
+                                    <form method="POST" action="<?php echo BASE_URL; ?>Admin/actualizarPedidos">
+                                        <select name="estado" class="form-control" required>
+                                            <?php foreach ($estados as $estado): ?>
+                                                <option value="<?php echo $estado; ?>" <?php echo $estado == $pedido->estado ? 'selected' : ''; ?>>
+                                                    <?php echo $estado; ?>
+                                                </option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                </td>
+                                <td class="text-center align-middle">
+                                    <input type="hidden" name="pedido_id" value="<?php echo $pedido->pedido_id; ?>" />
+                                    <button type="submit" class="btn btn-success btn-sm">Actualizar Estado</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>
         </section>
     </main>
 </div>
+
+<?php
+unset($_SESSION['errores']);
+unset($_SESSION['form']);
+unset($_SESSION['exito']);
+?>
+<?php include __DIR__ . '../../layout/footer.php'; ?>
