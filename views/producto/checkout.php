@@ -59,11 +59,22 @@
 										</td>
 										<td class="invert"><?php echo $item['name']; ?></td>
 										<td class="invert">$<?php echo number_format($item['price'], 2); ?></td>
+										<input type="hidden" name="productos[<?php echo $index; ?>][producto_id]" value="<?php echo $item['producto_id']; ?>" />
+										<input type="hidden" name="productos[<?php echo $index; ?>][quantity]" value="<?php echo $item['quantity']; ?>" />
 									</tr>
-								<?php
-									}
+							<?php
 								}
-								?>
+							}
+							?>
+							<!-- Campos ocultos para datos del usuario -->
+							<input type="hidden" name="usuario_id" value="<?php echo $usuario->Id; ?>" />
+							<input type="hidden" name="pais" value="<?php echo $usuario->Pais; ?>" />
+							<input type="hidden" name="ciudad" value="<?php echo $usuario->Ciudad; ?>" />
+							<input type="hidden" name="direccion" value="<?php echo $usuario->Direccion; ?>" />
+							<input type="hidden" name="codigoPostal" value="<?php echo $usuario->CodigoPostal; ?>" />
+							<input type="hidden" id="text_oferta" value="<?php echo OFERTA; ?>" />
+							<input type="hidden" id="text_subtotal" value="<?php echo SUBTOTAL; ?>" />
+							<input type="hidden" id="text_realizar_pedido" value="<?php echo REALIZAR_PEDIDO; ?>" />
 						</tbody>
 						<tfoot>
 							<tr>
@@ -74,12 +85,13 @@
 					</table>
 				</div>
 			</div>
-			<input type="hidden" id="text_oferta" value="<?php echo OFERTA; ?>" />
-			<input type="hidden" id="text_subtotal" value="<?php echo SUBTOTAL; ?>" />
-			<input type="hidden" id="text_realizar_pedido" value="<?php echo REALIZAR_PEDIDO; ?>" />
+
+
+
 			<div class="checkout-right-basket">
-				<a href="payment.html"><?php echo MAKE_PAYMENT; ?></a>
+				<button type="submit"><?php echo MAKE_PAYMENT; ?></button>
 			</div>
+
 		</form>
 	</div>
 </div>

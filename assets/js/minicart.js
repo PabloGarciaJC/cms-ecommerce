@@ -1923,7 +1923,7 @@
       var hasItems = !!items.length;
       var priceFormat = { format: true, currency: cart.settings("currency_code") };
       var totalFormat = { format: true, showCode: true };
-      console.log(totalFormat);
+      console.log(items);
     %>
     <form method="post" class="<% if (!hasItems) { %>minicarts-empty<% } %>" action="<%= config.action %>" target="<%= config.target %>">
         <button type="button" class="minicarts-closer">&times;</button>
@@ -1975,6 +1975,7 @@
                 </div>
 
                 <!-- Campos ocultos -->
+                <input type="hidden" name="producto_id_<%= idx %>" value="<%= items[i].get("producto_id") %>" />
                 <input type="hidden" name="href_<%= idx %>" value="<%= items[i].get("href") %>" />
                 <input type="hidden" name="item_name_<%= idx %>" value="<%= items[i].get("item_name") %>" />
                 <input type="hidden" name="amount_<%= idx %>" value="<%= items[i].amount() %>" />

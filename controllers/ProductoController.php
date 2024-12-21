@@ -2,7 +2,9 @@
 
 require_once 'model/productos.php';
 require_once 'model/categorias.php';
-require_once 'controllers/HomeController.php';
+require_once 'model/categorias.php';
+require_once 'model/pedidos.php';
+require_once 'model/lineaPedidos.php';
 
 class ProductoController extends HomeController
 {
@@ -24,66 +26,139 @@ class ProductoController extends HomeController
 
   public function checkout()
   {
-      $this->idiomas();
-  
-      $usuario = Utils::obtenerUsuario();
-      $categorias = new Categorias();
-      $categoriasConSubcategoriasYProductos = $categorias->obtenerCategoriasYProductos();
-  
-      // Inicializar la sesión con un valor predeterminado si no existe
-      if (!isset($_SESSION['productoLista'])) {
-          $_SESSION['productoLista'] = [];
+    $this->idiomas();
+
+    $usuario = Utils::obtenerUsuario();
+
+    $categorias = new Categorias();
+    $categoriasConSubcategoriasYProductos = $categorias->obtenerCategoriasYProductos();
+
+    // Inicializar la sesión con un valor predeterminado si no existe
+    if (!isset($_SESSION['productoLista'])) {
+      $_SESSION['productoLista'] = [];
+    }
+
+    $items = [];
+    $totalAmount = 0;
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+      // Recorremos todos los índices de los productos que se han enviado en el carrito
+      foreach ($_POST as $key => $value) {
+        // Capturar detalles de los productos y cantidades
+        if (strpos($key, 'item_name_') === 0) {
+          $idx = substr($key, 10); // Extraemos el índice del producto
+          $itemName = $_POST["item_name_$idx"];
+          $itemNumber = isset($_POST["item_number_$idx"]) ? $_POST["item_number_$idx"] : '';
+          $quantity = isset($_POST["quantity_$idx"]) ? $_POST["quantity_$idx"] : 0;
+          $price = isset($_POST["amount_$idx"]) ? $_POST["amount_$idx"] : 0;
+          $shipping = isset($_POST["shipping_$idx"]) ? $_POST["shipping_$idx"] : 0;
+          $shipping2 = isset($_POST["shipping2_$idx"]) ? $_POST["shipping2_$idx"] : 0;
+          $discount = isset($_POST["discount_amount_$idx"]) ? $_POST["discount_amount_$idx"] : 0;
+          $image = isset($_POST["image_$idx"]) ? $_POST["image_$idx"] : '';
+          $href = isset($_POST["href_$idx"]) ? $_POST["href_$idx"] : '';
+          $producto_id = $_POST["producto_id_$idx"];
+
+          // Almacenar cada artículo en el arreglo
+          $items[] = [
+            'name' => $itemName,
+            'number' => $itemNumber,
+            'quantity' => $quantity,
+            'price' => $price,
+            'shipping' => $shipping,
+            'shipping2' => $shipping2,
+            'discount' => $discount,
+            'image' => $image,
+            'href' => $href,
+            'producto_id' => $producto_id,
+          ];
+          // Actualizar la sesión con los nuevos artículos
+          $_SESSION['productoLista'] = $items;
+
+          // Sumar el total
+          $totalAmount += $price * $quantity;
+        }
       }
-  
-      $items = [];
-      $totalAmount = 0;
-  
-      if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-          // Recorremos todos los índices de los productos que se han enviado en el carrito
-          foreach ($_POST as $key => $value) {
-              // Capturar detalles de los productos y cantidades
-              if (strpos($key, 'item_name_') === 0) {
-                  $idx = substr($key, 10); // Extraemos el índice del producto
-                  $itemName = $_POST["item_name_$idx"];
-                  $itemNumber = isset($_POST["item_number_$idx"]) ? $_POST["item_number_$idx"] : '';
-                  $quantity = isset($_POST["quantity_$idx"]) ? $_POST["quantity_$idx"] : 0;
-                  $price = isset($_POST["amount_$idx"]) ? $_POST["amount_$idx"] : 0;
-                  $shipping = isset($_POST["shipping_$idx"]) ? $_POST["shipping_$idx"] : 0;
-                  $shipping2 = isset($_POST["shipping2_$idx"]) ? $_POST["shipping2_$idx"] : 0;
-                  $discount = isset($_POST["discount_amount_$idx"]) ? $_POST["discount_amount_$idx"] : 0;
-                  $image = isset($_POST["image_$idx"]) ? $_POST["image_$idx"] : '';
-                  $href = isset($_POST["href_$idx"]) ? $_POST["href_$idx"] : '';
-  
-                  // Almacenar cada artículo en el arreglo
-                  $items[] = [
-                      'name' => $itemName,
-                      'number' => $itemNumber,
-                      'quantity' => $quantity,
-                      'price' => $price,
-                      'shipping' => $shipping,
-                      'shipping2' => $shipping2,
-                      'discount' => $discount,
-                      'image' => $image,
-                      'href' => $href
-                  ];
-                  // Actualizar la sesión con los nuevos artículos
-                  $_SESSION['productoLista'] = $items;
-  
-                  // Sumar el total
-                  $totalAmount += $price * $quantity;
-              }
-          }
-      }
-  
-      require_once 'views/layout/head.php';
-      require_once 'views/layout/header.php';
-      require_once 'views/producto/checkout.php';
-      require_once 'views/layout/footer.php';
+    }
+
+    require_once 'views/layout/head.php';
+    require_once 'views/layout/header.php';
+    require_once 'views/producto/checkout.php';
+    require_once 'views/layout/footer.php';
   }
-  
+
   public function checkoutGuardar()
   {
-    // Envio a Linea de Pedidos.
+    // Verificar si hay productos en el carrito
+    $productos = $_SESSION['productoLista'] ?? [];
+
+    // Calcular el coste total
+    $total = 0;
+    foreach ($productos as $producto) {
+      $total += $producto['price'] * $producto['quantity'];
+    }
+
+    $usuarioId = isset($_POST['usuario_id']) ? trim($_POST['usuario_id']) : false;
+    $direccion = isset($_POST['direccion']) ? trim($_POST['direccion']) : false;
+    $pais = isset($_POST['pais']) ? trim($_POST['pais']) : false;
+    $ciudad = isset($_POST['ciudad']) ? trim($_POST['ciudad']) : false;
+    $codigoPostal = isset($_POST['codigoPostal']) ? trim($_POST['codigoPostal']) : false;
+
+    // Crear una instancia del modelo Pedidos
+    $pedido = new Pedidos();
+    $pedido->setUsuario_id($usuarioId);
+    $pedido->setDireccion($direccion);
+    $pedido->setPais($pais);
+    $pedido->setCiudad($ciudad);
+    $pedido->setCodigoPostal($codigoPostal);
+    $pedido->setCoste($total);
+    $pedido->setEstado('Pendiente');
+
+    $errores = [];
+
+    if (empty($direccion)) {
+      $errores['direccion'] = 'La Direccion no puede estar vacía';
+    }
+
+    if (empty($pais)) {
+      $errores['pais'] = 'El pais no puede estar vacía';
+    }
+
+    if (empty($ciudad)) {
+      $errores['ciudad'] = 'La ciudad no puede estar vacía';
+    }
+
+    if (empty($codigoPostal)) {
+      $errores['codigoPostal'] = 'El codigoPostal no puede estar vacía';
+    }
+
+    if (count($errores) > 0) {
+      $_SESSION['errores'] = $errores;
+      $_SESSION['form'] = $_POST;
+      header("Location: " . BASE_URL . "Producto/checkout");
+      exit;
+
+    } else {
+
+      // Guardar el pedido y obtener el ID generado
+      $resultado = $pedido->guardar();
+
+      // Guardar las líneas de pedido
+      foreach ($productos as $producto) {
+        $lineaPedido = new LineaPedidos();
+        $lineaPedido->setPedido_id($pedido->getId());
+        $lineaPedido->setProducto_id($producto['producto_id']);
+        $lineaPedido->setCantidad($producto['quantity']);
+        $lineaPedido->setPrecio($producto['price']);
+        $lineaPedido->guardar();
+      }
+
+      $_SESSION['exito'] = 'El Producto se creó correctamente.';
+      $_SESSION['messageClass'] = 'alert-primary';
+      unset($_SESSION['errores']);
+      unset($_SESSION['form']);
+      header("Location: " . BASE_URL . "Producto/checkout");
+      exit;
+    }
   }
 
 

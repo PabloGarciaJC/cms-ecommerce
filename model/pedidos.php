@@ -20,7 +20,7 @@ class Pedidos
     $this->db = Database::connect();
   }
 
-  //// GETTER //// 
+  //// GETTERS //// 
 
   public function getId()
   {
@@ -62,7 +62,7 @@ class Pedidos
     return $this->estado;
   }
 
-  public function getfecha()
+  public function getFecha()
   {
     return $this->fecha;
   }
@@ -72,7 +72,7 @@ class Pedidos
     return $this->hora;
   }
 
-  //// SETTER //// 
+  //// SETTERS //// 
 
   public function setId($id)
   {
@@ -124,92 +124,96 @@ class Pedidos
     $this->hora = $hora;
   }
 
-  //// CONSULTAS //// 
+  //// CRUD METHODS //// 
 
+  // 1. Crear un nuevo pedido
   public function guardar()
   {
-    $result = false;
-
-    $sql = "INSERT INTO pedidos (id, usuario_id, pais, ciudad, direccion, codigoPostal, coste, estado, fecha, hora) VALUES (null, {$this->getUsuario_id()}, '{$this->getPais()}', '{$this->getCiudad()}', '{$this->getDireccion()}', '{$this->getCodigoPostal()}', {$this->getCoste()}, 'Pendiente', CURDATE(), CURTIME());";
-    $save = $this->db->query($sql);
-    if ($save) {
-      $result = true;
-    }
-
-    return $result;
-  }
-
-  public function guardarLinea()
-  {
-    $result = false;
-
-    $sql = "SELECT LAST_INSERT_ID() as 'pedido';";
-    $query = $this->db->query($sql);
-    $pedido_id = $query->fetch_object()->pedido;
-
-    if (isset($_SESSION['carrito'])) {
-      foreach ($_SESSION['carrito'] as $producto) {
-        // Guardo en Linea Pedidos
-        $insert = "INSERT INTO lineas_pedidos (pedido_id, producto_id, unidades) VALUES({$pedido_id}, {$producto['idProducto']}, {$producto['stock']})";
-        $save = $this->db->query($insert);
-      }
+      $result = false;
+  
+      $sql = "INSERT INTO pedidos (id, usuario_id, pais, ciudad, direccion, codigoPostal, coste, estado, fecha, hora) 
+              VALUES (null, {$this->getUsuario_id()}, '{$this->getPais()}', '{$this->getCiudad()}', '{$this->getDireccion()}', '{$this->getCodigoPostal()}', {$this->getCoste()}, 'Pendiente', CURDATE(), CURTIME());";
+  
+      $save = $this->db->query($sql);
+  
       if ($save) {
-        $result = true;
+          // Obtener el último ID insertado en la tabla 'pedidos'
+          $this->id = $this->db->insert_id; // Esto es lo que debe asignarse a $this->id
+          $result = true;
       }
+  
       return $result;
-    }
   }
+  
 
-  public function obtenerTodosPorUsuarios()
-  {
-    $sql = "SELECT * FROM pedidos p WHERE usuario_id = {$this->getUsuario_id()} ORDER BY id DESC";
-    $pedido = $this->db->query($sql);
-    return $pedido;
-  }
-
+  // 2. Obtener todos los pedidos
   public function obtenerTodos()
   {
-    $sql = "SELECT * FROM pedidos p ORDER BY id DESC ";
-    $pedido = $this->db->query($sql);
-    return $pedido;
-  }
+    $result = [];
 
-  public function actualizarEstado()
-  {
-    $sql = "UPDATE pedidos SET estado='{$this->getEstado()}' WHERE id={$this->getId()}";
-    $save = $this->db->query($sql);
+    $sql = "SELECT * FROM pedidos";
+    $query = $this->db->query($sql);
 
-    $result = false;
-    if ($save) {
-      $result = true;
+    while ($row = $query->fetch_object()) {
+      $result[] = $row;
     }
+
     return $result;
   }
 
-  public function obtenerProductosbyPedido()
+  // 3. Obtener un pedido por ID
+  public function obtenerPorId($id)
   {
+    $result = null;
 
-    $sql = "SELECT pr.*, lp.unidades, c.categorias as nombreCategoria FROM productos pr";
+    $sql = "SELECT * FROM pedidos WHERE id = {$id}";
+    $query = $this->db->query($sql);
 
-    $sql .= " INNER JOIN lineas_pedidos lp";
-    $sql .= " ON pr.id = lp.producto_id ";
+    if ($query && $query->num_rows == 1) {
+      $result = $query->fetch_object();
+    }
 
-    $sql .= " INNER JOIN categorias c";
-    $sql .= " ON pr.categoria_id = c.id";
-
-    $sql .= " WHERE lp.pedido_id = {$this->getId()}";
- 
-    $productos = $this->db->query($sql);
-    return $productos;
+    return $result;
   }
 
-  public function obtenerUsuariobyPedido()
+  // 4. Actualizar un pedido
+  public function actualizar()
   {
-    $sql = "SELECT u.* FROM usuarios u INNER JOIN pedidos p ON u.Id = p.usuario_id WHERE p.id = {$this->getId()}";
-    $productos = $this->db->query($sql);
-    $idUsuario = $productos->fetch_object();
-    return $idUsuario;
+    $result = false;
+
+    $sql = "UPDATE pedidos 
+                SET usuario_id = {$this->getUsuario_id()},
+                    pais = '{$this->getPais()}',
+                    ciudad = '{$this->getCiudad()}',
+                    direccion = '{$this->getDireccion()}',
+                    codigoPostal = '{$this->getCodigoPostal()}',
+                    coste = {$this->getCoste()},
+                    estado = '{$this->getEstado()}',
+                    fecha = '{$this->getFecha()}',
+                    hora = '{$this->getHora()}'
+                WHERE id = {$this->getId()};";
+
+    $update = $this->db->query($sql);
+
+    if ($update) {
+      $result = true;
+    }
+
+    return $result;
   }
 
+  // 5. Eliminar un pedido
+  public function eliminar($id)
+  {
+    $result = false;
 
+    $sql = "DELETE FROM pedidos WHERE id = {$id}";
+    $delete = $this->db->query($sql);
+
+    if ($delete) {
+      $result = true;
+    }
+
+    return $result;
+  }
 }

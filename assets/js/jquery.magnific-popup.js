@@ -493,10 +493,6 @@ MagnificPopup.prototype = {
 		
 		mfp.currItem = item;
 
-		
-
-		
-
 		if(!mfp.currTemplate[type]) {
 			var markup = mfp.st[type] ? mfp.st[type].markup : false;
 
@@ -528,7 +524,6 @@ MagnificPopup.prototype = {
 
 		_mfpTrigger('AfterChange');
 	},
-
 
 	/**
 	 * Set HTML content of popup
