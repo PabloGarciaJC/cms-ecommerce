@@ -389,7 +389,7 @@ class AdminController
                 // Generar un nombre único y mover el archivo
                 $nombreArchivoUnico = time() . '_' . basename($nombreArchivo);
                 if (move_uploaded_file($rutaTemporal, $directorioDestino . $nombreArchivoUnico)) {
-                    $imagenes[] = ['archivo' => $nombreArchivoUnico];
+                    $imagenes[] = $nombreArchivoUnico;
                 }
             }
         }

@@ -14,12 +14,21 @@ class CatalogoController extends HomeController
   public function index()
   {
     $this->idiomas();
+    $categoriaId = isset($_GET['categoriaId']) ? $_GET['categoriaId'] : false;
     $usuario = Utils::obtenerUsuario();
+    $categorias = new Categorias();
+    $categorias->setId($categoriaId);
+    $categoriasConSubcategoriasYProductos = $categorias->obtenerCategoriasYProductos();
+
+
+    $getCategorias = $categorias->otenerSubcategorias();
+
+    $breadcrumbs = $categorias->getBreadcrumbs();
+    
     require_once 'views/layout/head.php';
     require_once 'views/layout/header.php';
     require_once 'views/layout/search.php';
-
-
+    require_once 'views/catalogo/index.php';
     require_once 'views/layout/footer.php';
   }
 
