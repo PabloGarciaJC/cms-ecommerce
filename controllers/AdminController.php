@@ -167,7 +167,7 @@ class AdminController
         $categorias->setId($categoriaId);
         $breadcrumbs = $categorias->getBreadcrumbs();
         if ($categoriaId) {
-            $getCategorias = $categorias->otenerSubcategorias('', '');
+            $getCategorias = $categorias->obtenerSubcategorias('', '');
         } else {
             $getCategorias = $categorias->obtenerCategorias();
         }
@@ -186,7 +186,7 @@ class AdminController
         $categorias = new Categorias();
         $categorias->setId($parentid);
         if ($parentid) {
-            $getCategorias = $categorias->otenerSubcategorias('', '');
+            $getCategorias = $categorias->obtenerSubcategorias('', '');
         }
 
         $productos = new Productos();

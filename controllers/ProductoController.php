@@ -188,10 +188,10 @@ class ProductoController extends HomeController
     require 'views/producto/lista.php';
   }
 
-  public function accesorios()
+  public function electrodomesticos()
   {
     $probject = new Productos();
-    $productos = $probject->accesorios();
+    $productos = $probject->electrodomesticos();
     require 'views/producto/lista.php';
   }
 }

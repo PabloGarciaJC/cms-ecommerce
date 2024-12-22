@@ -244,9 +244,9 @@ class Productos
     return $this->db->query($sql);
   }
 
-  public function accesorios()
+  public function electrodomesticos()
   {
-    $sql = "SELECT * FROM productos WHERE parent_id = 190 LIMIT 3";
+    $sql = "SELECT * FROM productos WHERE parent_id = 196 LIMIT 3";
     return $this->db->query($sql);
   }
 }

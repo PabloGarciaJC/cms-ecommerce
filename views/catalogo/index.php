@@ -36,5 +36,5 @@
         </form>
     </div>
 </div>
- <!-- Componente en Catalogo -->
+ <!-- Componente en el Fichero de Catalogo -->
 <?php include __DIR__ . '/productos.php'; ?>

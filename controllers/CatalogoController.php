@@ -24,6 +24,7 @@ class CatalogoController extends HomeController
     // Menu de Navegacion
     $categoriasConSubcategoriasYProductos = $categorias->obtenerCategoriasYProductos();
 
+    // Realizar busqueda por Filtro en Subategorias
     if ($searchCategoriaId) {
       $categorias->setId($searchCategoriaId);
     } else {
@@ -32,9 +33,11 @@ class CatalogoController extends HomeController
 
     // Realizar búsqueda por texto si se ha ingresado
     if ($textoBusqueda) {
+      echo 'existe texto';
       $getCategorias = $categorias->buscarProductosPorTexto($textoBusqueda, $minPrecio, $maxPrecio);
     } else {
-      $getCategorias = $categorias->otenerSubcategorias($minPrecio, $maxPrecio);
+      echo 'no existe texto';
+      $getCategorias = $categorias->obtenerSubcategorias($minPrecio, $maxPrecio);
     }
 
     // Mostrar breadcrumbs
