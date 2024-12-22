@@ -207,4 +207,27 @@ class Categorias
     }
     return $breadcrumbs;
   }
+
+  public function buscarProductosPorTexto($textoBusqueda, $minPrecio = false, $maxPrecio = false)
+  {
+    // Escapar texto para prevenir inyección SQL
+    $textoBusqueda = $this->db->real_escape_string($textoBusqueda);
+
+    // Base de la consulta
+    $sql = "SELECT * FROM productos WHERE nombre LIKE '%$textoBusqueda%'";
+
+    // Agregar filtros de precio si están definidos
+    if ($minPrecio !== false) {
+      $sql .= " AND precio >= $minPrecio";
+    }
+    if ($maxPrecio !== false) {
+      $sql .= " AND precio <= $maxPrecio";
+    }
+
+    $resultados = $this->db->query($sql);
+
+    return [
+      'productos' => $resultados,
+    ];
+  }
 }

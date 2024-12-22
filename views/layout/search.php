@@ -12,10 +12,11 @@
 			<div class="col-md-9 header mt-4 mb-md-0 mb-4">
 				<div class="row">
 					<div class="col-10 agileits_search">
-						<form class="form-inline" action="#" method="post">
-							<input class="form-control mr-sm-2" type="search" placeholder="<?php echo TEXT_SEARCH_BUTTON; ?>" aria-label="Search" required>
-							<button class="btn my-2 my-sm-0" type="submit"><?php echo TEXT_SEARCH_BUTTON; ?></button>
+						<form class="form-inline" action="<?= BASE_URL ?>Catalogo/index" method="GET">
+							<input class="form-control mr-sm-2" type="search" name="textoBusqueda" placeholder="<?= TEXT_SEARCH_BUTTON; ?>" aria-label="Search" value="<?= $_GET['textoBusqueda'] ?? ''; ?>">
+							<button class="btn my-2 my-sm-0" type="submit"><?= TEXT_SEARCH_BUTTON; ?></button>
 						</form>
+
 					</div>
 					<div class="col-2 top_nav_right text-center mt-sm-0 mt-2">
 						<div class="wthreecartaits wthreecartaits2 cart cart box_1">
