@@ -13,7 +13,6 @@ class CatalogoController extends HomeController
   {
     $this->idiomas();
     $categoriaId = isset($_GET['categoriaId']) ? $_GET['categoriaId'] : false;
-    $searchCategoriaId = isset($_GET['searchCategoriaId']) ? $_GET['searchCategoriaId'] : false;
     $minPrecio = isset($_GET['minPrecio']) ? $_GET['minPrecio'] : false;
     $maxPrecio = isset($_GET['maxPrecio']) ? $_GET['maxPrecio'] : false;
     $textoBusqueda = isset($_GET['textoBusqueda']) ? $_GET['textoBusqueda'] : false;
@@ -24,21 +23,8 @@ class CatalogoController extends HomeController
     // Menu de Navegacion
     $categoriasConSubcategoriasYProductos = $categorias->obtenerCategoriasYProductos();
 
-    // Realizar busqueda por Filtro en Subategorias
-    if ($searchCategoriaId) {
-      $categorias->setId($searchCategoriaId);
-    } else {
-      $categorias->setId($categoriaId);
-    }
-
-    // Realizar búsqueda por texto si se ha ingresado
-    if ($textoBusqueda) {
-      echo 'existe texto';
-      $getCategorias = $categorias->buscarProductosPorTexto($textoBusqueda, $minPrecio, $maxPrecio);
-    } else {
-      echo 'no existe texto';
-      $getCategorias = $categorias->obtenerSubcategorias($minPrecio, $maxPrecio);
-    }
+    $categorias->setId($categoriaId);
+    $getCategorias = $categorias->obtenerSubcategorias($minPrecio, $maxPrecio);
 
     // Mostrar breadcrumbs
     $breadcrumbs = $categorias->getBreadcrumbs();

@@ -82,23 +82,12 @@ class Categorias
   public function obtenerSubcategorias($minPrecio, $maxPrecio)
   {
 
-    if ($this->getId()) {
+    // Construir la consulta SQL para categoria con filtro de precio
+    $sqlCategorias = "SELECT * FROM categorias WHERE parent_id = {$this->getId()}";
+    $listarCategorias = $this->db->query($sqlCategorias);
 
-      $sqlCategorias = "SELECT * FROM categorias WHERE parent_id = {$this->getId()}";
-      $listarCategorias = $this->db->query($sqlCategorias);
-
-      // Construir la consulta SQL para productos con filtro de precio
-      $sqlProductos = "SELECT * FROM productos WHERE parent_id = {$this->getId()}";
-    } else {
-
-      $sqlCategorias = "SELECT * FROM categorias";
-      $listarCategorias = $this->db->query($sqlCategorias);
-
-      // Obtener todos los productos sin repeticiones
-      $sqlProductos = "SELECT DISTINCT * FROM productos";
-    }
-
-    // SELECT DISTINCT * FROM productos WHERE precio >= 100 AND precio <= 500
+    // Construir la consulta SQL para productos con filtro de precio
+    $sqlProductos = "SELECT * FROM productos WHERE parent_id = {$this->getId()}";
 
     if (!empty($minPrecio)) {
       $sqlProductos .= " AND precio >= {$minPrecio}";
@@ -114,8 +103,8 @@ class Categorias
       'categorias' => $listarCategorias,
       'productos' => $listarProductos,
     ];
-
   }
+
 
   public function obtenerCategoriasYProductos()
   {
