@@ -144,7 +144,6 @@ class Productos
     $offerStart = $this->getOfferStart() ? "'{$this->getOfferStart()}'" : "NULL";
     $offerExpiration = $this->getOfferExpiration() ? "'{$this->getOfferExpiration()}'" : "NULL";
 
-    $imagenesJson = json_encode($this->imagenes);
     $sql = "INSERT INTO productos (nombre, descripcion, precio, stock, estado, oferta, offer_expiration, imagenes, parent_id, offer_start) 
               VALUES (
                   '{$this->getNombre()}', 
@@ -154,7 +153,7 @@ class Productos
                   '{$this->getEstado()}', 
                   '{$this->getOferta()}', 
                   $offerExpiration, 
-                  '$imagenesJson',
+                  '{$this->getImagenes()}',
                   {$this->getParentId()},
                   $offerStart
               )";
@@ -204,11 +203,16 @@ class Productos
       "parent_id = {$this->getParentId()}"
     ];
 
-    if ($this->getImagenes()) {
+
+    $imagenes = $this->getImagenes();
+    $imagenesValidas = !empty($imagenes) && $imagenes != '[]' && $imagenes != 'null';
+
+    if ($imagenesValidas) {
       $campos[] = "imagenes = '{$this->getImagenes()}'";
     }
 
     $campos_sql = implode(", ", $campos);
+
     $sql = "UPDATE productos SET $campos_sql WHERE id = {$this->getId()}";
 
     return $this->db->query($sql);

@@ -167,7 +167,7 @@ class AdminController
         $categorias->setId($categoriaId);
         $breadcrumbs = $categorias->getBreadcrumbs();
         if ($categoriaId) {
-            $getCategorias = $categorias->otenerSubcategorias('','');
+            $getCategorias = $categorias->otenerSubcategorias('', '');
         } else {
             $getCategorias = $categorias->obtenerCategorias();
         }
@@ -186,7 +186,7 @@ class AdminController
         $categorias = new Categorias();
         $categorias->setId($parentid);
         if ($parentid) {
-            $getCategorias = $categorias->otenerSubcategorias('','');
+            $getCategorias = $categorias->otenerSubcategorias('', '');
         }
 
         $productos = new Productos();
@@ -251,30 +251,49 @@ class AdminController
             $_SESSION['form'] = $_POST;
             header("Location: " . BASE_URL . "Admin/productos" . $urlParentid);
             exit;
+            
         } else {
+
             // Manejo de imágenes
             $imagenes = [];
+
             if (isset($_FILES['productImages']) && is_array($_FILES['productImages']['tmp_name'])) {
+
                 $directorioDestino = 'uploads/images/productos/';
+
                 if (!is_dir($directorioDestino)) {
                     mkdir($directorioDestino, 0777, true);
                 }
+
                 foreach ($_FILES['productImages']['tmp_name'] as $key => $rutaTemporal) {
                     $nombreArchivo = $_FILES['productImages']['name'][$key];
+                    $extension = pathinfo($nombreArchivo, PATHINFO_EXTENSION);
+                    $extensionesPermitidas = ['jpg', 'jpeg', 'png', 'gif'];
+
+
+                    if (!in_array(strtolower($extension), $extensionesPermitidas)) {
+                        $errores['imagenes'] = "El archivo {$nombreArchivo} tiene una extensión no permitida.";
+                        continue;
+                    }
+
+                    if ($_FILES['productImages']['size'][$key] > 5 * 1024 * 1024) {
+                        $errores['imagenes'] = "El archivo {$nombreArchivo} supera el tamaño máximo permitido (5MB).";
+                        continue;
+                    }
+
                     $nombreArchivoUnico = time() . '_' . basename($nombreArchivo);
                     if (move_uploaded_file($rutaTemporal, $directorioDestino . $nombreArchivoUnico)) {
                         $imagenes[] = $nombreArchivoUnico;
-                    } else {
-                        $errores[] = "Error al guardar la imagen: $nombreArchivo";
                     }
                 }
             }
 
-            // Convertir el arreglo de imágenes a formato JSON
-            if (!empty($imagenes)) {
-                $imagenesJson = json_encode($imagenes);
-            } else {
-                $imagenesJson = null;
+            // Convertir las imágenes a JSON
+            $jsonImagenes = json_encode($imagenes, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                $_SESSION['errores']['json'] = "Error al procesar las imágenes como JSON.";
+                header("Location: " . BASE_URL . "Admin/productos" . $urlParentid);
+                exit;
             }
 
             // Acciones según el caso: editar, eliminar o crear
@@ -282,7 +301,7 @@ class AdminController
             switch (true) {
                 case $editId:
                     $productos->setId($editId);
-                    $productos->setImagenes($imagenesJson);
+                    $productos->setImagenes($jsonImagenes);
                     $productos->actualizarProductosPorId();
                     $_SESSION['exito'] = 'El Producto se actualizó correctamente.';
                     $messageClass = 'alert-warning';
@@ -294,12 +313,14 @@ class AdminController
                     $messageClass = 'alert-danger';
                     break;
                 default:
-                    $productos->setImagenes($imagenesJson);
+                    $productos->setImagenes($jsonImagenes);
                     $productos->save();
                     $_SESSION['exito'] = 'El Producto se creó correctamente.';
                     $messageClass = 'alert-primary';
                     break;
             }
+
+            // Configurar mensajes de éxito o error y redirigir
             $_SESSION['messageClass'] = $messageClass;
             unset($_SESSION['errores']);
             unset($_SESSION['form']);
