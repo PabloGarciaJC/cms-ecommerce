@@ -22,6 +22,7 @@
     <div class="filter-container">
         <form method="GET" action="<?= BASE_URL ?>Catalogo/index" class="d-flex w-100">        
             <input type="hidden" name="categoriaId" value="<?= $_GET['categoriaId'] ?? ''; ?>" />
+            <input type="hidden" name="textoBusqueda" value="<?= $_GET['textoBusqueda'] ?? ''; ?>" />
             <input type="text" name="minPrecio" placeholder="Precio mínimo" value="<?= $_GET['minPrecio'] ?? ''; ?>" />
             <input type="text" name="maxPrecio" placeholder="Precio máximo" value="<?= $_GET['maxPrecio'] ?? ''; ?>" />
             <button type="submit">Aplicar filtros</button>

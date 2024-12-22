@@ -22,9 +22,8 @@ class CatalogoController extends HomeController
 
     // Menu de Navegacion
     $categoriasConSubcategoriasYProductos = $categorias->obtenerCategoriasYProductos();
-
     $categorias->setId($categoriaId);
-    $getCategorias = $categorias->obtenerSubcategorias($minPrecio, $maxPrecio);
+    $getCategorias = $categorias->obtenerSubcategorias($minPrecio, $maxPrecio, $textoBusqueda);
 
     // Mostrar breadcrumbs
     $breadcrumbs = $categorias->getBreadcrumbs();

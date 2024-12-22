@@ -79,30 +79,76 @@ class Categorias
     ];
   }
 
-  public function obtenerSubcategorias($minPrecio, $maxPrecio)
+  public function obtenerSubcategorias($minPrecio, $maxPrecio, $textoBusqueda)
   {
 
-    // Construir la consulta SQL para categoria con filtro de precio
-    $sqlCategorias = "SELECT * FROM categorias WHERE parent_id = {$this->getId()}";
-    $listarCategorias = $this->db->query($sqlCategorias);
+    $parentId = intval($this->getId());
 
-    // Construir la consulta SQL para productos con filtro de precio
-    $sqlProductos = "SELECT * FROM productos WHERE parent_id = {$this->getId()}";
+    if ($parentId <= 0) {
 
-    if (!empty($minPrecio)) {
-      $sqlProductos .= " AND precio >= {$minPrecio}";
+      $sqlCategorias = "SELECT * FROM categorias";
+      if (!empty($textoBusqueda)) {
+        $textoBusquedaEscapado = $this->db->real_escape_string($textoBusqueda);
+        $sqlCategorias .= " WHERE nombre LIKE '%{$textoBusquedaEscapado}%'";
+      }
+
+      $listarCategorias = $this->db->query($sqlCategorias);
+      $sqlProductos = "SELECT * FROM productos";
+
+      if (!empty($textoBusqueda)) {
+        $textoBusquedaEscapado = $this->db->real_escape_string($textoBusqueda);
+        $sqlProductos .= " WHERE nombre LIKE '%{$textoBusquedaEscapado}%'";
+      }
+
+      if (!empty($minPrecio)) {
+        $sqlProductos .= strpos($sqlProductos, 'WHERE') !== false ? " AND" : " WHERE";
+        $sqlProductos .= " precio >= {$minPrecio}";
+      }
+
+      if (!empty($maxPrecio)) {
+        $sqlProductos .= strpos($sqlProductos, 'WHERE') !== false ? " AND" : " WHERE";
+        $sqlProductos .= " precio <= {$maxPrecio}";
+      }
+
+      $listarProductos = $this->db->query($sqlProductos);
+
+      return [
+        'categorias' => $listarCategorias,
+        'productos' => $listarProductos,
+      ];
+
+    } else {
+
+      // Inicializar las consultas SQL
+      $sqlCategorias = "SELECT * FROM categorias";
+      $sqlProductos = "SELECT * FROM productos";
+      
+      // Verificar si existe un ID y ajustar las consultas
+      if ($this->getId()) {
+        $sqlCategorias .= " WHERE parent_id = {$this->getId()}";
+        $sqlProductos .= " WHERE parent_id = {$this->getId()}";
+      }
+
+      // Añadir filtros de precio a la consulta de productos
+      if (!empty($minPrecio)) {
+        $sqlProductos .= $this->getId() ? " AND" : " WHERE";
+        $sqlProductos .= " precio >= {$minPrecio}";
+      }
+
+      if (!empty($maxPrecio)) {
+        $sqlProductos .= $this->getId() ? " AND" : " WHERE";
+        $sqlProductos .= " precio <= {$maxPrecio}";
+      }
+
+      // Ejecutar las consultas
+      $listarCategorias = $this->db->query($sqlCategorias);
+      $listarProductos = $this->db->query($sqlProductos);
+
+      return [
+        'categorias' => $listarCategorias,
+        'productos' => $listarProductos,
+      ];
     }
-
-    if (!empty($maxPrecio)) {
-      $sqlProductos .= " AND precio <= {$maxPrecio}";
-    }
-
-    $listarProductos = $this->db->query($sqlProductos);
-
-    return [
-      'categorias' => $listarCategorias,
-      'productos' => $listarProductos,
-    ];
   }
 
 
