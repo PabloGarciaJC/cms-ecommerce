@@ -58,15 +58,17 @@
                         <input type="file" id="categoriaImages" name="categoriaImages[]" class="form-control" accept="image/*" <?php echo $buttonHidden; ?> multiple>
                         <div id="imagePreview" class="panel-admin__image-preview mt-3">
                             <?php
-                            if (isset($getCategoriasId->imagenes) && is_array($getCategoriasId->imagenes)) {
-                                foreach ($getCategoriasId->imagenes as $imagen) {
-                                    if (isset($imagen['archivo']) && !empty($imagen['archivo'])) {
-                                        $imagenSanitizada = preg_replace('/[^a-z0-9_\-.]/i', '', $imagen['archivo']);
-                                        $rutaImagen = 'uploads/images/categorias/' . $imagenSanitizada;
+                            $imagenes = isset($_SESSION['form']['imagenes']) ? $_SESSION['form']['imagenes'] : (isset($getCategoriasId->imagenes) ? $getCategoriasId->imagenes : '');
+                            if (!empty($imagenes)) {
+                                if (is_array($imagenes)) {
+                                    foreach ($imagenes as $imagen) {
+                                        $rutaImagen = 'uploads/images/categorias/' . $imagen;
                                         if (file_exists($rutaImagen)) {
                                             echo '<div class="panel-admin__image-container">';
-                                            echo '<img src="' . BASE_URL . $rutaImagen . '" alt="Imagen de la categoría" class="panel-admin__image-thumbnail">';
+                                            echo '<img src="' . BASE_URL . $rutaImagen . '" alt="Imagen del Producto" class="panel-admin__image-thumbnail">';
                                             echo '</div>';
+                                        } else {
+                                            echo "El archivo {$imagen} no existe.";
                                         }
                                     }
                                 }
