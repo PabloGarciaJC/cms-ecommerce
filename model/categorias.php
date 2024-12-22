@@ -79,12 +79,24 @@ class Categorias
     ];
   }
 
-  public function otenerSubcategorias()
+  public function otenerSubcategorias($minPrecio, $maxPrecio)
   {
     $sqlCategorias = "SELECT * FROM categorias WHERE parent_id = {$this->getId()}";
     $listarCategorias = $this->db->query($sqlCategorias);
+
+    // Construir la consulta SQL para productos con filtro de precio
     $sqlProductos = "SELECT * FROM productos WHERE parent_id = {$this->getId()}";
+
+    if (!empty($minPrecio)) {
+      $sqlProductos .= " AND precio >= {$minPrecio}";
+    }
+
+    if (!empty($maxPrecio)) {
+      $sqlProductos .= " AND precio <= {$maxPrecio}";
+    }
+
     $listarProductos = $this->db->query($sqlProductos);
+
     return [
       'categorias' => $listarCategorias,
       'productos' => $listarProductos,
@@ -153,9 +165,9 @@ class Categorias
     $sql = "UPDATE categorias SET nombre = '$nombre', descripcion = '$descripcion'";
 
     if ($imagenesValidas) {
-      $sql .= ", imagenes = '$imagenes'"; 
+      $sql .= ", imagenes = '$imagenes'";
     }
-    
+
     $sql .= " WHERE id = {$this->getId()}";
     $categoria = $this->db->query($sql);
     return $categoria;

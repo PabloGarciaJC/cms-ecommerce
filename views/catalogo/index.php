@@ -21,18 +21,20 @@
     </div>
     <div class="filter-container">
         <form method="GET" action="<?= BASE_URL ?>Catalogo/index" class="d-flex w-100">
-            <select name="categoriaId">
-                <option value="">Categoría</option>
+            <select name="searchCategoriaId">
+                <option value="">Subcategorías</option>
                 <?php foreach ($getCategorias['categorias'] as $categoria): ?>
                     <option value="<?= $categoria['id']; ?>" <?= (isset($_GET['categoriaId']) && $_GET['categoriaId'] == $categoria['id']) ? 'selected' : ''; ?>>
                         <?= htmlspecialchars($categoria['nombre']); ?>
                     </option>
                 <?php endforeach; ?>
             </select>
+            <input type="hidden" name="categoriaId" value="<?= $_GET['categoriaId'] ?? ''; ?>" />
             <input type="text" name="minPrecio" placeholder="Precio mínimo" value="<?= $_GET['minPrecio'] ?? ''; ?>" />
             <input type="text" name="maxPrecio" placeholder="Precio máximo" value="<?= $_GET['maxPrecio'] ?? ''; ?>" />
             <button type="submit">Aplicar filtros</button>
         </form>
     </div>
 </div>
+ <!-- Componente en Catalogo -->
 <?php include __DIR__ . '/productos.php'; ?>
