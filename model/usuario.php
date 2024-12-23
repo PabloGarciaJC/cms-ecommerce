@@ -15,17 +15,18 @@ class Usuario
   private $pais;
   private $idEstado;
   private $ciudad;
-  private $url_Avatar;
+  private $imagen;
   private $url_Documento;
+  private $rol;
   private $db;
 
-  ///CONSTRUCTOR///
   public function __construct()
   {
     $this->db = Database::connect();
   }
 
   //// GETTER //// 
+
   public function getId()
   {
     return $this->id;
@@ -81,7 +82,7 @@ class Usuario
     return $this->pais;
   }
 
-  public function getidEstado()
+  public function getIdEstado()
   {
     return $this->idEstado;
   }
@@ -91,17 +92,23 @@ class Usuario
     return $this->ciudad;
   }
 
-  public function getUrl_Avatar()
+  public function getImagen()
   {
-    return $this->url_Avatar;
+    return $this->imagen;
   }
 
-  public function getUrl_Documento()
+  public function getUrlDocumento()
   {
     return $this->url_Documento;
   }
 
+  public function getRol()
+  {
+    return $this->rol;
+  }
+
   //// SETTER //// 
+
   public function setId($id)
   {
     $this->id = $id;
@@ -157,7 +164,7 @@ class Usuario
     $this->pais = $pais;
   }
 
-  public function setidEstado($idEstado)
+  public function setIdEstado($idEstado)
   {
     $this->idEstado = $idEstado;
   }
@@ -167,17 +174,22 @@ class Usuario
     $this->ciudad = $ciudad;
   }
 
-  public function setUrl_Avatar($url_Avatar)
+  public function setImagen($imagen)
   {
-    $this->url_Avatar = $url_Avatar;
+    $this->imagen = $imagen;
   }
 
-  public function setUrl_Documento($url_Documento)
+  public function setUrlDocumento($url_Documento)
   {
     $this->url_Documento = $url_Documento;
   }
 
-  // Consultas
+  public function setRol($rol)
+  {
+    $this->rol = $rol;
+  }
+
+  //// CONSULTAS ////
 
   public function crear()
   {
@@ -192,7 +204,7 @@ class Usuario
                     '{$this->email}')";
 
     $save = $this->db->query($sql);
-    
+
     return $result;
   }
 
@@ -201,15 +213,12 @@ class Usuario
     $resultado = false;
     $sql = "SELECT * FROM usuarios where Email ='{$this->getEmail()}'";
     $login = $this->db->query($sql);
-    //verificacion que existe ese email en la base de datos 
     if ($login && $login->num_rows == 1) {
       $usuario = $login->fetch_object();
-      // verifcacion que la password coincidan 
-      //($this->password: lo que Obtengo sin cifrar por POST, $usuario->Password: lo que Tengo en la base de datos);
       $vericacion = password_verify($this->password, $usuario->Password);
       if ($vericacion == 1) {
         return $usuario;
-      } 
+      }
     }
     return $resultado;
   }
@@ -217,7 +226,7 @@ class Usuario
   public function repetidosUsuario()
   {
     $resultado = false;
-    $sql = "SELECT Usuario FROM usuarios where Usuario ='{$this->getUsuario()}'";
+    $sql = "SELECT Usuario FROM usuarios WHERE Usuario = '{$this->usuario}'";
     $repetidos = $this->db->query($sql);
     if ($repetidos) {
       $resultado = true;
@@ -228,9 +237,9 @@ class Usuario
   public function repetidosEmail()
   {
     $resultado = false;
-    $sql = "SELECT Email FROM usuarios where Email ='{$this->getEmail()}'";
+    $sql = "SELECT Email FROM usuarios WHERE Email = '{$this->email}' AND Id != '{$this->id}'";
     $repetidos = $this->db->query($sql);
-    if ($repetidos) {
+    if ($repetidos && $repetidos->num_rows > 0) {
       $resultado = true;
     }
     return $repetidos;
@@ -238,50 +247,88 @@ class Usuario
 
   public function subirImagen()
   {
-    $resultado = false;    
-    $sql = "UPDATE usuarios SET Url_Avatar = '{$this->getUrl_Avatar()}' WHERE Id = {$this->getId()};";
+    $resultado = false;
+    $sql = "UPDATE usuarios SET imagen = '{$this->imagen}' WHERE Id = {$this->id}";
     $imagenSubida = $this->db->query($sql);
     if ($imagenSubida) {
       $resultado = true;
     }
-    return $imagenSubida;
+    return $resultado;
   }
 
-
-  public function actualizarInformacionPublica()
+  public function actualizar()
   {
-    $resultado = false;    
-    $sql = "UPDATE usuarios SET Usuario = '{$this->getUsuario()}', NumeroDocumento = '{$this->getNumeroDocumento()}', NroTelefono = '{$this->getNroTelefono()}' WHERE Id = {$this->getId()};";
-
+    $resultado = false;
+    $sql = "UPDATE usuarios SET 
+              Usuario = '{$this->usuario}', 
+              Password = '{$this->password}', 
+              NumeroDocumento = '{$this->numeroDocumento}', 
+              Nombres = '{$this->nombres}', 
+              Apellidos = '{$this->apellidos}', 
+              NroTelefono = '{$this->nroTelefono}', 
+              Direccion = '{$this->direccion}', 
+              Pais = '{$this->pais}', 
+              Ciudad = '{$this->ciudad}', 
+              CodigoPostal = '{$this->codigoPostal}' 
+            WHERE Id = {$this->id}";
     $actualizar = $this->db->query($sql);
     if ($actualizar) {
       $resultado = true;
     }
-    return $actualizar;
-  }
-
-  
-  public function actualizarInformacionPrivada()
-  {
-    $resultado = false;    
-    $sql = "UPDATE usuarios SET Nombres = '{$this->getNombres()}', Apellidos = '{$this->getApellidos()}', Email = '{$this->getEmail()}', Direccion = '{$this->getDireccion()}', Pais = '{$this->getPais()}', Ciudad = '{$this->getCiudad()}', CodigoPostal = '{$this->getCodigoPostal()}'  WHERE Id = {$this->getId()};";
-
-    $actualizarInformacionPrivada = $this->db->query($sql);
-    if ($actualizarInformacionPrivada) {
-      $resultado = true;
-    }
-    return $actualizarInformacionPrivada;
+    return $resultado;
   }
 
   public function obtenerTodosPorId()
   {
     $resultado = false;
-    $sql = "SELECT * FROM usuarios WHERE Id = {$this->getId()};";
+    $sql = "SELECT * FROM usuarios WHERE Id = {$this->id}";
     $obtenerTodos = $this->db->query($sql);
     if ($obtenerTodos) {
       $resultado = true;
-    } 
+    }
     return $obtenerTodos->fetch_object();
   }
 
+  public function actualizarPassword()
+  {
+    $sql = "UPDATE usuarios SET Password = '{$this->password}' WHERE Id = {$this->id}";
+    $resultado = $this->db->query($sql);
+    return $resultado;
+  }
+
+  public function actualizarRol()
+  {
+    $sql = "UPDATE usuarios SET Rol = '{$this->rol}' WHERE Id = {$this->id}";
+    $resultado = $this->db->query($sql);
+    return $resultado;
+  }
+
+  public function obtenerTodosLosUsuarios()
+  {
+    $sql = "SELECT * FROM usuarios";
+    $resultado = $this->db->query($sql);
+
+    return $resultado;
+  }
+
+  public function existeUsuarioConRol1()
+  {
+    $sql = "SELECT COUNT(*) AS count FROM usuarios WHERE Rol = 1";
+    $result = $this->db->query($sql);
+    $data = $result->fetch_object();
+    return $data->count > 0;
+  }
+
+  public function obtenerTotalClientes()
+  {
+    $sql = "SELECT COUNT(*) AS total_clientes FROM usuarios";
+    $query = $this->db->query($sql);
+
+    if ($query && $row = $query->fetch_object()) {
+      return $row->total_clientes;
+    }
+
+    return 0;
+  }
+  
 }

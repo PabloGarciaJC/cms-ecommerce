@@ -7,13 +7,13 @@ class Paises
   private $pais;
   private $db;
 
-  /// CONSTRUCTOR ///
   public function __construct()
   {
     $this->db = Database::connect();
   }
 
   //// GETTER //// 
+
   public function getId()
   {
     return $this->id;
@@ -25,6 +25,7 @@ class Paises
   }
 
   //// SETTER //// 
+
   public function setId($id)
   {
     $this->id = $id;
@@ -35,13 +36,19 @@ class Paises
     $this->pais = $pais;
   }
 
-  //// CONSULTA //// 
+  //// CONSULTAS //// 
 
   public function obtenerTodosPaises()
   {
-    $resultado = false;
     $sql = "SELECT * FROM paises";
     $paises = $this->db->query($sql);
     return $paises;
+  }
+
+  public function obtenerPaisActual()
+  {
+    $sql = "SELECT * FROM paises where id = '{$this->getPais()}'";
+    $paises = $this->db->query($sql);
+    return $paises->fetch_object();
   }
 }

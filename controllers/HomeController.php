@@ -1,59 +1,119 @@
 <?php
 
 require_once 'model/productos.php';
+require_once 'model/categorias.php';
+require_once 'controllers/ProductoController.php';
 
 class HomeController
 {
+
+    public function idiomas()
+    {
+        $lang = isset($_POST['lenguaje']) ? $_POST['lenguaje'] : false;
+
+        if ($lang) {
+            $_SESSION['lang'] = $lang;
+        } elseif (!isset($_SESSION['lang'])) {
+            $_SESSION['lang'] = 'es';
+        }
+
+        switch ($_SESSION['lang']) {
+            case 'en':
+                require_once 'lenguajes/ingles.php';
+                break;
+            case 'fr':
+                require_once 'lenguajes/frances.php';
+                break;
+            default:
+                require_once 'lenguajes/espanol.php';
+        }
+    }
+
     public function index()
     {
-        //Obtengo Ususario en el Banner
+        // $datos = $this->cargarDatosComunes();
+        $this->idiomas();
         $usuario = Utils::obtenerUsuario();
-        //Obtengo Categorias en la Barra de Navegacion
-        $categoriaBarraNavegacion = Utils::listaCategorias();
-        // Obtengo el Id de Producto por Categoria
-        $idCategoria = isset($_GET['producto']) ? $_GET['producto'] : false;
-        // Obtengo los Productos por Categoria Id
-        $mostrarProductoPorCategoria = Utils::obtenerCategoriaPorId($idCategoria);
-        // Obtengo Marca, Sin Repetir en el Sidebar
-        $mostrarMarcaSinRepetirSidebar = Utils::mostrarMarcaSinRepetirSidebar($idCategoria);
-        // Obtengo Memoria Ram o Capacidad, Sin Repetir en el Sidebar
-        $mostrarMemoriaRamSinRepetirSidebar = Utils::mostrarMemoriaRamSinRepetirSidebar($idCategoria);
-        // Consulta Para Autocompletar
-        $listado  =  Utils::listarAutocompletado();
-        // Mosrar listar de Autocompletado
-        $jsonMostrar = Utils::mostrarAutocompletado($listado);
+        $categorias = new Categorias();
+        $categoriasConSubcategoriasYProductos = $categorias->obtenerCategoriasYProductos();
+        require_once 'views/layout/head.php';
         require_once 'views/layout/header.php';
-        require_once 'views/layout/banner.php';
-        require_once 'views/layout/nav.php';
         require_once 'views/layout/search.php';
+        $producto = new ProductoController();
         require_once 'views/home/slider.php';
-        require_once 'views/home/contentIndex.php';
+        require_once 'views/home/body.php';
         require_once 'views/layout/footer.php';
     }
 
-    public function sobreNosotros()
+    public function nosotros()
     {
-        //Obtengo Ususario en el Banner
+        $this->idiomas();
         $usuario = Utils::obtenerUsuario();
-        //Obtengo Categorias en la Barra de Navegacion
-        $categoriaBarraNavegacion = Utils::listaCategorias();
+        $categorias = new Categorias();
+        $categoriasConSubcategoriasYProductos = $categorias->obtenerCategoriasYProductos();
+        require_once 'views/layout/head.php';
         require_once 'views/layout/header.php';
-        require_once 'views/layout/banner.php';
-        require_once 'views/layout/nav.php';      
-        require_once 'views/home/aboutUs.php';
+        require_once 'views/home/nosotros.php';
+        require_once 'views/layout/footer.php';
+    }
+
+    public function help()
+    {
+        $this->idiomas();
+        $usuario = Utils::obtenerUsuario();
+        $categorias = new Categorias();
+        $categoriasConSubcategoriasYProductos = $categorias->obtenerCategoriasYProductos();
+        require_once 'views/layout/head.php';
+        require_once 'views/layout/header.php';
+        require_once 'views/home/help.php';
+        require_once 'views/layout/footer.php';
+    }
+
+    public function faqs()
+    {
+        $this->idiomas();
+        $usuario = Utils::obtenerUsuario();
+        $categorias = new Categorias();
+        $categoriasConSubcategoriasYProductos = $categorias->obtenerCategoriasYProductos();
+        require_once 'views/layout/head.php';
+        require_once 'views/layout/header.php';
+        require_once 'views/home/faqs.php';
+        require_once 'views/layout/footer.php';
+    }
+
+    public function term()
+    {
+        $this->idiomas();
+        $usuario = Utils::obtenerUsuario();
+        $categorias = new Categorias();
+        $categoriasConSubcategoriasYProductos = $categorias->obtenerCategoriasYProductos();
+        require_once 'views/layout/head.php';
+        require_once 'views/layout/header.php';
+        require_once 'views/home/term.php';
+        require_once 'views/layout/footer.php';
+    }
+
+    public function privacy()
+    {
+        $this->idiomas();
+        $usuario = Utils::obtenerUsuario();
+        $categorias = new Categorias();
+        $categoriasConSubcategoriasYProductos = $categorias->obtenerCategoriasYProductos();
+        require_once 'views/layout/head.php';
+        require_once 'views/layout/header.php';
+        require_once 'views/home/privacy.php';
         require_once 'views/layout/footer.php';
     }
 
     public function contactanos()
     {
-        //Obtengo Ususario en el Banner
+        $this->idiomas();
         $usuario = Utils::obtenerUsuario();
-        //Obtengo Categorias en la Barra de Navegacion
-        $categoriaBarraNavegacion = Utils::listaCategorias();
+        $categorias = new Categorias();
+        $categoriasConSubcategoriasYProductos = $categorias->obtenerCategoriasYProductos();
+        require_once 'views/layout/head.php';
         require_once 'views/layout/header.php';
-        require_once 'views/layout/banner.php';
-        require_once 'views/layout/nav.php';        
-        require_once 'views/home/contactUs.php';
+        require_once 'views/home/contacto.php';
         require_once 'views/layout/footer.php';
     }
 }

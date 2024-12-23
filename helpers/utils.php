@@ -11,9 +11,9 @@ class Utils
   //compruebo que el usuario Exista !!, para evitar ingresar a los metodos del controlador.
   public static function accesoUsuarioRegistrado()
   {
-    // if (!isset($_SESSION['usuarioRegistrado'])) {
-    //   header("Location:" . BASE_URL);
-    // }
+    if (!isset($_SESSION['usuarioRegistrado'])) {
+      header("Location:" . BASE_URL);
+    }
   }
 
   public static function accesoUsuarioAdmin()
@@ -36,7 +36,6 @@ class Utils
   {
     return "<strong>$error,</strong> " . $mensaje;
   }
-
 
   //El Objeto Usuario Esta  Disponible en toda la Pagina 
   //"Lo Necesito para Mostrar el Nombre en el Banner"
@@ -67,86 +66,95 @@ class Utils
 
   public static function listaCategorias()
   {
-    require_once 'model/categorias.php';
-    $categorias = new categorias;
-    $categoria = $categorias->obtenerCategorias();
-    return $categoria;
+    // require_once 'model/categorias.php';
+    // $categorias = new categorias;
+    // $categoria = $categorias->obtenerCategorias();
+    // return $categoria;
   }
 
   public static function obtenerCategoriaPorId($idProductoCategoria)
   {
-    require_once 'model/categorias.php';
-    $categorias = new categorias;
-    $categorias->setId($idProductoCategoria);
-    $categoria = $categorias->obtenerCategoriasPorId();
-    return $categoria;
+    // require_once 'model/categorias.php';
+    // $categorias = new categorias;
+    // $categorias->setId($idProductoCategoria);
+    // $categoria = $categorias->obtenerCategoriasPorId();
+    // return $categoria;
   }
 
 
   public static function obtenerProductos()
   {
-    $productos = new productos;
-    $mostrar = $productos->obtenerTodos();
-    return $mostrar;
+    // $productos = new productos;
+    // $mostrar = $productos->obtenerTodos();
+    // return $mostrar;
   }
 
   public static function obtenerProductosyBuscadoryPaginador($buscador, $ultimoRegistro, $mostrarRegistros)
   {
-
-    $productos = new productos;
-    $productos->setBuscador($buscador);
-    $mostrar = $productos->obtenerProductosyBuscadoryPaginador($ultimoRegistro, $mostrarRegistros);
-    return $mostrar;
+    // $productos = new productos;
+    // $productos->setBuscador($buscador);
+    // $mostrar = $productos->obtenerProductosyBuscadoryPaginador($ultimoRegistro, $mostrarRegistros);
+    // return $mostrar;
   }
 
   public static function obtenerProductosPorId($id)
   {
     $productos = new productos;
-    $productos->setId($id);
-    $mostrar = $productos->productosPorId();
-    return $mostrar->fetch_object();
+    // $productos->setId($id);
+    // $mostrar = $productos->productosPorId();
+    // return $mostrar->fetch_object();
   }
 
   public static function obtenerImagenProductoPorId()
   {
-    require_once 'model/productos.php';
-    $productos = new productos;
-    $mostrar = $productos->obtenerTodos();
-    $obtenerImagen = $mostrar->fetch_object();
-    $completado = $obtenerImagen->imagen;
-    return $completado;
+    // require_once 'model/productos.php';
+    // $productos = new productos;
+    // $mostrar = $productos->obtenerTodos();
+    // $obtenerImagen = $mostrar->fetch_object();
+    // $completado = $obtenerImagen->imagen;
+    // return $completado;
   }
 
   public static function obtenerPaises()
   {
-    require_once 'model/paises.php';
-    $paises = new Paises();
-    $paisesTodos = $paises->obtenerTodosPaises();
-    return $paisesTodos;
+    // require_once 'model/paises.php';
+    // $paises = new Paises();
+    // $paisesTodos = $paises->obtenerTodosPaises();
+    // return $paisesTodos;
   }
+
+  public static function obtenerPaisActual($paisActual)
+  {
+    require_once 'model/paises.php';
+    $paisesActual = new Paises();
+    $paisesActual->setPais($paisActual);
+    $queryPaisActual = $paisesActual->obtenerPaisActual();
+    return $queryPaisActual;
+  }
+
 
   public static function obtenerRegistrosTotales($buscadorProductos)
   {
-    $productos = new productos;
-    $mostrarTodos = $productos->obtenerRegistrosTotales($buscadorProductos);
-    $obtenerRegistros = $mostrarTodos->registros_totales;
-    return $obtenerRegistros;
+    // $productos = new productos;
+    // $mostrarTodos = $productos->obtenerRegistrosTotales($buscadorProductos);
+    // $obtenerRegistros = $mostrarTodos->registros_totales;
+    // return $obtenerRegistros;
   }
 
   public static function mostrarMarcaSinRepetirSidebar($idCategoria)
   {
-    $productos = new productos;
-    $productos->setIdCategoria($idCategoria);
-    $mostrarProductosCategoriaId = $productos->mostrarMarcaSinRepetirSidebar();
-    return $mostrarProductosCategoriaId;
+    // $productos = new productos;
+    // $productos->setIdCategoria($idCategoria);
+    // $mostrarProductosCategoriaId = $productos->mostrarMarcaSinRepetirSidebar();
+    // return $mostrarProductosCategoriaId;
   }
 
   public static function mostrarMemoriaRamSinRepetirSidebar($idCategoria)
   {
-    $productos = new productos;
-    $productos->setIdCategoria($idCategoria);
-    $mostrarProductosCategoriaId = $productos->mostrarMemoriaRamSinRepetirSidebar();
-    return $mostrarProductosCategoriaId;
+    // $productos = new productos;
+    // $productos->setIdCategoria($idCategoria);
+    // $mostrarProductosCategoriaId = $productos->mostrarMemoriaRamSinRepetirSidebar();
+    // return $mostrarProductosCategoriaId;
   }
 
 
@@ -158,45 +166,45 @@ class Utils
   /* Puedo usarla en otro Momento */
   public static function obtenerProductosPorCategoriaId($categoriaId)
   {
-    $productos = new productos;
-    $productos->setIdCategoria($categoriaId);
-    $mostrarProductosCategoriaId = $productos->productosPorCategoriaId();
-    return $mostrarProductosCategoriaId;
+    // $productos = new productos;
+    // $productos->setIdCategoria($categoriaId);
+    // $mostrarProductosCategoriaId = $productos->productosPorCategoriaId();
+    // return $mostrarProductosCategoriaId;
   }
 
   public static function obtenerProductosPorBuscadoryCheckbox($productoByIdCategoria, $arrayMarcaCheckbox, $arrayMemoriaRamCheckbox, $arrayPrecioCheckbox, $arrayOfertasCheckbox, $ultimoRegistro, $mostrarRegistros, $buscadorProducto)
   {
 
-    // Counteo de checkbox selecionados
-    $conteoArrayMarca = count($arrayMarcaCheckbox);
-    $conteoArrayMemoriaRam = count($arrayMemoriaRamCheckbox);
-    $conteoArrayPrecio = count($arrayPrecioCheckbox);
-    $conteoArrayOfertas = count($arrayOfertasCheckbox);
+    // // Counteo de checkbox selecionados
+    // $conteoArrayMarca = count($arrayMarcaCheckbox);
+    // $conteoArrayMemoriaRam = count($arrayMemoriaRamCheckbox);
+    // $conteoArrayPrecio = count($arrayPrecioCheckbox);
+    // $conteoArrayOfertas = count($arrayOfertasCheckbox);
 
-    //Instancio Objeto y Consulta
-    $productos = new productos;
-    $productos->setIdCategoria($productoByIdCategoria);
-    $productos->setBuscador($buscadorProducto);
+    // //Instancio Objeto y Consulta
+    // $productos = new productos;
+    // $productos->setIdCategoria($productoByIdCategoria);
+    // $productos->setBuscador($buscadorProducto);
 
-    $mostrar = $productos->productosPorBuscadoryCheckbox($arrayMarcaCheckbox, $conteoArrayMarca, $arrayMemoriaRamCheckbox, $conteoArrayMemoriaRam, $arrayPrecioCheckbox, $conteoArrayPrecio, $arrayOfertasCheckbox, $conteoArrayOfertas, $ultimoRegistro, $mostrarRegistros);
+    // $mostrar = $productos->productosPorBuscadoryCheckbox($arrayMarcaCheckbox, $conteoArrayMarca, $arrayMemoriaRamCheckbox, $conteoArrayMemoriaRam, $arrayPrecioCheckbox, $conteoArrayPrecio, $arrayOfertasCheckbox, $conteoArrayOfertas, $ultimoRegistro, $mostrarRegistros);
 
-    return $mostrar;
+    // return $mostrar;
   }
 
   public static function conteoRegistrosPorBuscadoryCheckbox($productoByIdCategoria, $arrayMarcaCheckbox, $arrayMemoriaRamCheckbox, $arrayPrecioCheckbox, $arrayOfertasCheckbox, $buscadorProducto)
   {
-    // Counteo de checkbox selecionados
-    $conteoArrayMarca = count($arrayMarcaCheckbox);
-    $conteoArrayMemoriaRam = count($arrayMemoriaRamCheckbox);
-    $conteoArrayPrecio = count($arrayPrecioCheckbox);
-    $conteoArrayOfertas = count($arrayOfertasCheckbox);
+    // // Counteo de checkbox selecionados
+    // $conteoArrayMarca = count($arrayMarcaCheckbox);
+    // $conteoArrayMemoriaRam = count($arrayMemoriaRamCheckbox);
+    // $conteoArrayPrecio = count($arrayPrecioCheckbox);
+    // $conteoArrayOfertas = count($arrayOfertasCheckbox);
 
-    //Instancio Objeto y Consulta
-    $productos = new productos;
-    $productos->setIdCategoria($productoByIdCategoria);
-    $productos->setBuscador($buscadorProducto);
-    $resultado = $productos->conteoPorBuscadoryCheckbox($arrayMarcaCheckbox, $conteoArrayMarca, $arrayMemoriaRamCheckbox, $conteoArrayMemoriaRam, $arrayPrecioCheckbox, $conteoArrayPrecio, $arrayOfertasCheckbox, $conteoArrayOfertas);
-    return $resultado->registros_totales;
+    // //Instancio Objeto y Consulta
+    // $productos = new productos;
+    // $productos->setIdCategoria($productoByIdCategoria);
+    // $productos->setBuscador($buscadorProducto);
+    // $resultado = $productos->conteoPorBuscadoryCheckbox($arrayMarcaCheckbox, $conteoArrayMarca, $arrayMemoriaRamCheckbox, $conteoArrayMemoriaRam, $arrayPrecioCheckbox, $conteoArrayPrecio, $arrayOfertasCheckbox, $conteoArrayOfertas);
+    // return $resultado->registros_totales;
   }
 
   public static function estadisticasCarrito()
@@ -266,23 +274,30 @@ class Utils
 
   public static function listarAutocompletado()
   {
-    $productos = new productos;
-    // $productos->setBuscador($buscadorProducto);
-    $listado = $productos->ejecutarBuscador();
-    return $listado;
+    // $productos = new productos;
+    // // $productos->setBuscador($buscadorProducto);
+    // $listado = $productos->ejecutarBuscador();
+    // return $listado;
   }
 
   public static function mostrarAutocompletado($listado)
   {
-    $arrayListados = array();
+    // $arrayListados = array();
 
-    while ($filas = mysqli_fetch_array($listado)) {
-      $nombre = utf8_decode($filas['nombre']);
-      $marca = utf8_decode($filas['marca']);
-      array_push($arrayListados, $nombre);
-      array_push($arrayListados, $marca);
-    }
+    // // Asumimos que la conexión a la base de datos ya está configurada para usar UTF-8, por ejemplo:
+    // // mysqli_set_charset($conexion, "utf8");
 
-    return $jsonListado = json_encode($arrayListados);
+    // while ($filas = mysqli_fetch_assoc($listado)) {
+    //     // Usamos mysqli_fetch_assoc en lugar de mysqli_fetch_array para un acceso más claro por nombre de columna
+    //     $nombre = $filas['nombre'];
+    //     $marca = $filas['marca'];
+
+    //     // Agregamos directamente los valores al array
+    //     array_push($arrayListados, $nombre);
+    //     array_push($arrayListados, $marca);
+    // }
+
+    // // Retornamos el JSON de manera más limpia
+    // return json_encode($arrayListados);
   }
 };

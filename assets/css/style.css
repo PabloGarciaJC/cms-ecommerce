@@ -13,7 +13,6 @@ body {
     font-family: 'Open Sans', sans-serif;
 }
 
-
 body a {
     text-decoration: none;
     transition: 0.5s all;
@@ -262,8 +261,6 @@ button.w3view-cart {
     background: #f8f9fa;
     box-shadow: 0px 2px 6px 1px rgba(0, 0, 0, 0.13);
 }
-
-.navbar-inner {margin-bottom: 20px;}
 
 .navbar-light .navbar-nav .nav-link {
     letter-spacing: 1px;
@@ -519,7 +516,6 @@ h3.tittle-w3l span {
     color: #212121 !important;
     font-size: 1em;
     display: block;
-    margin-bottom: .5em;
     text-transform: capitalize;
 }
 
@@ -532,8 +528,8 @@ h3.tittle-w3l span {
 }
 
 #PPminicarts .minicarts-remove {
-    background: #3399cc !important;
-    border: 1px solid #3399cc !important;
+    background: #d61e0f !important;
+    border: 1px solid #d61e0f !important;
     opacity: 1 !important;
     outline: none;
 }
@@ -584,6 +580,10 @@ h3.tittle-w3l span {
     position: relative;
 }
 
+.men-thumb-item img {
+    height: 201px;
+}
+
 #PPminicarts .minicarts-submit img {
     vertical-align: middle;
     padding: 4px 0 0 2px;
@@ -608,15 +608,8 @@ h3.tittle-w3l span {
     visibility: hidden;
 }
 
-.product-men:nth-child(3) .product-new-top {
-    background: #FFC107;
-}
-
-.product-men:nth-child(4) .product-new-top {
-    background: #219ff3;
-}
-
 .product-new-top {
+    z-index: 1;
     background: #ff2978;
     color: #fff;
     position: absolute;
@@ -965,24 +958,6 @@ h3.heading-tittle {
     color: #000;
     font-size: 17px;
     letter-spacing: 1px;
-}
-
-.item-info-product a {
-    color: #000;
-}
-
-.item-info-product-title {
-    font-weight: 700;
-    font-size: 22px;
-}
-
-.item-info-product-description span {
-    font-weight: 600;
-    font-size: 16px;
-}
-
-.item-info-product-btn{
-    margin-top: 10px;
 }
 
 span.item_price {
@@ -1599,15 +1574,13 @@ td.invert-image a img {
     position: relative;
 }
 
-.close1,
-.close2,
-.close3 {
+.close {
     background: url('../images/close_1.png') no-repeat 0px 0px;
     cursor: pointer;
     width: 28px;
     height: 28px;
     position: absolute;
-    right: 15px;
+    right: 40px;
     top: -13px;
     -webkit-transition: color 0.2s ease-in-out;
     -moz-transition: color 0.2s ease-in-out;
@@ -1740,7 +1713,8 @@ button.submit.check_out:hover {
     margin-top: 20px;
 }
 
-.checkout-right-basket a {
+.checkout-right-basket a,
+.checkout-right-basket button {
     padding: 12px 25px;
     color: #fff;
     font-size: 16px;
@@ -1748,10 +1722,13 @@ button.submit.check_out:hover {
     text-decoration: none;
     letter-spacing: 1px;
     display: inline-block;
+    cursor: pointer;
 }
 
-.checkout-right-basket a:hover {
+.checkout-right-basket a:hover,
+.checkout-right-basket button:hover {
     background: #F45C5D;
+    border: 1px solid #F45C5D;
     transition: 0.5s all;
     -webkit-transition: 0.5s all;
     -moz-transition: 0.5s all;
@@ -1766,29 +1743,6 @@ button.submit.check_out:hover {
 }
 
 /*-- //payment button --*/
-
-/*-- Payment page --*/
-
-/* .agileits_w3layouts_tab2 input[type="email"],
-.agileits_w3layouts_tab2 input[type="password"],
-.creditly-wrapper .form-control {
-    display: block;
-    width: 100%;
-    padding: 18px 10px;
-    font-size: 14px;
-    color: #212121;
-    background: #fff;
-    border: 1px solid #e7e7e7;
-    margin-bottom: 20px;
-    outline: none;
-}
-
-.agileits_w3layouts_tab2 input[type="email"]:focus,
-.agileits_w3layouts_tab2 input[type="password"]:focus,
-.creditly-wrapper .form-control:focus {
-    border-color: #66afe9;
-    outline: 0;
-} */
 
 .agileits_w3layouts_tab2 input[type="submit"] {
     display: block;
@@ -3434,72 +3388,3 @@ div#testimonials h4.m-title {
 }
 
 /*--//responsive--*/
-
-
-/* Letras de Banner Iniciar Sesion */
-.estilosSesionRegistro {
-    font-size: 13px;
-    color: #fff !important;
-}
-
-/* Tabla Lista de Productos */
-
-.table tbody tr td {
-    text-align: center;
-    vertical-align: middle;
-}
-
-.table th {
-    width: 33.33%;
-    max-width: 33.33%;
-}
-
-.col-center {   
-    margin: 0px auto;
-}
-
-.table tr {
-    text-align: center;
-}
-
-.table-btn-volver {
-    background: #007bff;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 10%;
-    border-radius: 3px;
-}
-
-.table-btn-volver:hover, .page-link:hover{
-    color: #fff !important;
-}
-
-.table-col {
-    display: flex;
-    justify-content: space-between;
-}
-
-
-/* Form Admin  */
-
-input[type="file"] {
-    display: none;
-  }
-
-  .custom-file-upload {
-    border: 1px solid #ccc;
-    display: inline-block;
-    padding: 6px 12px;
-    cursor: pointer;
-  }
-
-  .erroresValidacion {
-    color: red;
-  }
-
-  /* Panel Administrativo Producto */
-  .form-capacidad, #memoriaRamProducto {
-    text-align: center;
-  }

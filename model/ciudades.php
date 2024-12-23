@@ -8,13 +8,13 @@ class Ciudades
   private $ciudad;
   private $db;
 
-  /// CONSTRUCTOR ///
   public function __construct()
   {
     $this->db = Database::connect();
   }
 
   //// GETTER //// 
+
   public function getId()
   {
     return $this->id;
@@ -31,6 +31,7 @@ class Ciudades
   }
 
   //// SETTER //// 
+  
   public function setId($id)
   {
     $this->id = $id;
@@ -46,7 +47,7 @@ class Ciudades
     $this->ciudad = $ciudad;
   }
 
-  //// CONSULTA //// 
+  //// CONSULTAS //// 
 
   public function obtenerTodasCiudades()
   {

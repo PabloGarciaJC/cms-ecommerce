@@ -2,222 +2,345 @@
 
 class Pedidos
 {
+    private $id;
+    private $usuario_id;
+    private $pais;
+    private $ciudad;
+    private $direccion;
+    private $codigoPostal;
+    private $coste;
+    private $estado;
+    private $fecha;
+    private $hora;
+    private $db;
 
-  private $id;
-  private $usuario_id;
-  private $pais;
-  private $ciudad;
-  private $direccion;
-  private $codigoPostal;
-  private $coste;
-  private $estado;
-  private $fecha;
-  private $hora;
-  private $db;
-
-  /// CONSTRUCTOR ///
-  public function __construct()
-  {
-    $this->db = Database::connect();
-  }
-
-  //// GETTER //// 
-  public function getId()
-  {
-    return $this->id;
-  }
-
-  public function getUsuario_id()
-  {
-    return $this->usuario_id;
-  }
-
-  public function getPais()
-  {
-    return $this->pais;
-  }
-
-  public function getCiudad()
-  {
-    return $this->ciudad;
-  }
-
-  public function getDireccion()
-  {
-    return $this->direccion;
-  }
-
-  public function getCodigoPostal()
-  {
-    return $this->codigoPostal;
-  }
-
-  public function getCoste()
-  {
-    return $this->coste;
-  }
-
-  public function getEstado()
-  {
-    return $this->estado;
-  }
-
-  public function getfecha()
-  {
-    return $this->fecha;
-  }
-
-  public function getHora()
-  {
-    return $this->hora;
-  }
-
-  //// SETTER //// 
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-
-  public function setUsuario_id($usuario_id)
-  {
-    $this->usuario_id = $usuario_id;
-  }
-
-  public function setPais($pais)
-  {
-    $this->pais = $pais;
-  }
-
-  public function setCiudad($ciudad)
-  {
-    $this->ciudad = $ciudad;
-  }
-
-  public function setDireccion($direccion)
-  {
-    $this->direccion = $direccion;
-  }
-
-  public function setCodigoPostal($codigoPostal)
-  {
-    $this->codigoPostal = $codigoPostal;
-  }
-
-  public function setCoste($coste)
-  {
-    $this->coste = $coste;
-  }
-
-  public function setEstado($estado)
-  {
-    $this->estado = $estado;
-  }
-
-  public function setFecha($fecha)
-  {
-    $this->fecha = $fecha;
-  }
-
-  public function setHora($hora)
-  {
-    $this->hora = $hora;
-  }
-
-  //// CONSULTAS //// 
-  public function guardar()
-  {
-    $result = false;
-
-    $sql = "INSERT INTO pedidos (id, usuario_id, pais, ciudad, direccion, codigoPostal, coste, estado, fecha, hora) VALUES (null, {$this->getUsuario_id()}, '{$this->getPais()}', '{$this->getCiudad()}', '{$this->getDireccion()}', '{$this->getCodigoPostal()}', {$this->getCoste()}, 'Pendiente', CURDATE(), CURTIME());";
-    $save = $this->db->query($sql);
-
-    // echo $sql;
-    // die();
-    // echo "</br>";
-    // echo $this->db->error;
-    // die();
-
-    if ($save) {
-      $result = true;
+    public function __construct()
+    {
+        $this->db = Database::connect();
     }
 
-    return $result;
-  }
+    //// GETTERS ////
 
-  public function guardarLinea()
-  {
-    $result = false;
-
-    $sql = "SELECT LAST_INSERT_ID() as 'pedido';";
-    $query = $this->db->query($sql);
-    $pedido_id = $query->fetch_object()->pedido;
-
-    if (isset($_SESSION['carrito'])) {
-
-      foreach ($_SESSION['carrito'] as $producto) {
-
-        // Guardo en Linea Pedidos
-        $insert = "INSERT INTO lineas_pedidos (pedido_id, producto_id, unidades) VALUES({$pedido_id}, {$producto['idProducto']}, {$producto['stock']})";
-        $save = $this->db->query($insert);
-      }
-
-      if ($save) {
-        $result = true;
-      }
-      return $result;
+    public function getId()
+    {
+        return $this->id;
     }
-  }
 
-  public function obtenerTodosPorUsuarios()
-  {
-    $sql = "SELECT * FROM pedidos p WHERE usuario_id = {$this->getUsuario_id()} ORDER BY id DESC";
-    $pedido = $this->db->query($sql);
-    return $pedido;
-  }
-
-  public function obtenerTodos()
-  {
-    $sql = "SELECT * FROM pedidos p ORDER BY id DESC ";
-    $pedido = $this->db->query($sql);
-    return $pedido;
-  }
-
-  public function actualizarEstado()
-  {
-    $sql = "UPDATE pedidos SET estado='{$this->getEstado()}' WHERE id={$this->getId()}";
-    $save = $this->db->query($sql);
-
-    $result = false;
-    if ($save) {
-      $result = true;
+    public function getUsuario_id()
+    {
+        return $this->usuario_id;
     }
-    return $result;
-  }
 
-  public function obtenerProductosbyPedido()
-  {
+    public function getPais()
+    {
+        return $this->pais;
+    }
 
-    $sql = "SELECT pr.*, lp.unidades, c.categorias as nombreCategoria FROM productos pr";
+    public function getCiudad()
+    {
+        return $this->ciudad;
+    }
 
-    $sql .= " INNER JOIN lineas_pedidos lp";
-    $sql .= " ON pr.id = lp.producto_id ";
+    public function getDireccion()
+    {
+        return $this->direccion;
+    }
 
-    $sql .= " INNER JOIN categorias c";
-    $sql .= " ON pr.categoria_id = c.id";
+    public function getCodigoPostal()
+    {
+        return $this->codigoPostal;
+    }
 
-    $sql .= " WHERE lp.pedido_id = {$this->getId()}";
- 
-    $productos = $this->db->query($sql);
-    return $productos;
-  }
+    public function getCoste()
+    {
+        return $this->coste;
+    }
 
-  public function obtenerUsuariobyPedido()
-  {
-    $sql = "SELECT u.* FROM usuarios u INNER JOIN pedidos p ON u.Id = p.usuario_id WHERE p.id = {$this->getId()}";
-    $productos = $this->db->query($sql);
-    $idUsuario = $productos->fetch_object();
-    return $idUsuario;
-  }
+    public function getEstado()
+    {
+        return $this->estado;
+    }
 
+    public function getFecha()
+    {
+        return $this->fecha;
+    }
 
+    public function getHora()
+    {
+        return $this->hora;
+    }
+
+    //// SETTERS ////
+
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    public function setUsuario_id($usuario_id)
+    {
+        $this->usuario_id = $usuario_id;
+    }
+
+    public function setPais($pais)
+    {
+        $this->pais = $pais;
+    }
+
+    public function setCiudad($ciudad)
+    {
+        $this->ciudad = $ciudad;
+    }
+
+    public function setDireccion($direccion)
+    {
+        $this->direccion = $direccion;
+    }
+
+    public function setCodigoPostal($codigoPostal)
+    {
+        $this->codigoPostal = $codigoPostal;
+    }
+
+    public function setCoste($coste)
+    {
+        $this->coste = $coste;
+    }
+
+    public function setEstado($estado)
+    {
+        $this->estado = $estado;
+    }
+
+    public function setFecha($fecha)
+    {
+        $this->fecha = $fecha;
+    }
+
+    public function setHora($hora)
+    {
+        $this->hora = $hora;
+    }
+
+    //// CONSULTAS //// 
+
+    public function guardar()
+    {
+        $result = false;
+
+        $sql = "INSERT INTO pedidos (id, usuario_id, pais, ciudad, direccion, codigoPostal, coste, estado, fecha, hora) 
+                VALUES (null, {$this->getUsuario_id()}, '{$this->getPais()}', '{$this->getCiudad()}', '{$this->getDireccion()}', '{$this->getCodigoPostal()}', {$this->getCoste()}, 'Pendiente', CURDATE(), CURTIME());";
+
+        $save = $this->db->query($sql);
+
+        if ($save) {
+            $this->id = $this->db->insert_id;
+            $result = true;
+        }
+
+        return $result;
+    }
+
+    public function obtenerTodos()
+    {
+        $result = [];
+
+        $sql = "SELECT * FROM pedidos";
+        $query = $this->db->query($sql);
+
+        while ($row = $query->fetch_object()) {
+            $result[] = $row;
+        }
+
+        return $result;
+    }
+
+    public function obtenerPedidos()
+    {
+        $result = [];
+
+        $sql = "SELECT pedidos.*, usuarios.Usuario AS nombre_usuario 
+                FROM pedidos 
+                INNER JOIN usuarios ON pedidos.usuario_id = usuarios.id";
+
+        $query = $this->db->query($sql);
+
+        while ($row = $query->fetch_object()) {
+            $result[] = $row;
+        }
+
+        return $result;
+    }
+
+    public function obtenerPorId($id)
+    {
+        $result = null;
+
+        $sql = "SELECT * FROM pedidos WHERE id = {$id}";
+        $query = $this->db->query($sql);
+
+        if ($query && $query->num_rows == 1) {
+            $result = $query->fetch_object();
+        }
+
+        return $result;
+    }
+
+    public function obtenerEstados()
+    {
+        return ['Pendiente', 'Enviado', 'Entregado', 'Cancelado'];
+    }
+
+    public function actualizarEstado($id, $nuevoEstado)
+    {
+        $result = false;
+
+        $sql = "UPDATE pedidos 
+                SET estado = '{$nuevoEstado}' 
+                WHERE id = {$id};";
+
+        $update = $this->db->query($sql);
+
+        if ($update) {
+            $result = true;
+        }
+
+        return $result;
+    }
+
+    public function actualizar()
+    {
+        $result = false;
+
+        $sql = "UPDATE pedidos 
+                SET usuario_id = {$this->getUsuario_id()},
+                    pais = '{$this->getPais()}',
+                    ciudad = '{$this->getCiudad()}',
+                    direccion = '{$this->getDireccion()}',
+                    codigoPostal = '{$this->getCodigoPostal()}',
+                    coste = {$this->getCoste()},
+                    estado = '{$this->getEstado()}',
+                    fecha = '{$this->getFecha()}',
+                    hora = '{$this->getHora()}'
+                WHERE id = {$this->getId()};";
+
+        $update = $this->db->query($sql);
+
+        if ($update) {
+            $result = true;
+        }
+
+        return $result;
+    }
+
+    public function eliminar($id)
+    {
+        $result = false;
+
+        $sql = "DELETE FROM pedidos WHERE id = {$id}";
+        $delete = $this->db->query($sql);
+
+        if ($delete) {
+            $result = true;
+        }
+
+        return $result;
+    }
+
+    public function obtenerPedidosConProductos()
+    {
+        $result = [];
+
+        $sql = "SELECT pedidos.id AS pedido_id, usuarios.Usuario AS nombre_usuario, GROUP_CONCAT(CONCAT(productos.nombre, ' (x', linea_pedidos.cantidad, ')') SEPARATOR ', ') AS productos, pedidos.coste, pedidos.estado, pedidos.fecha, pedidos.hora FROM pedidos
+                INNER JOIN usuarios ON pedidos.usuario_id = usuarios.id
+                LEFT JOIN linea_pedidos ON pedidos.id = linea_pedidos.pedido_id
+                LEFT JOIN productos ON linea_pedidos.producto_id = productos.id
+                GROUP BY pedidos.id";
+
+        $query = $this->db->query($sql);
+
+        while ($row = $query->fetch_object()) {
+            $result[] = $row;
+        }
+
+        return $result;
+    }
+
+    public function contarPedidosPendientes()
+    {
+        $sql = "SELECT COUNT(*) AS total_pendientes FROM pedidos WHERE estado = 'Pendiente'";
+        $query = $this->db->query($sql);
+
+        if ($query && $row = $query->fetch_object()) {
+            return $row->total_pendientes;
+        }
+
+        return 0;
+    }
+
+    public function obtenerIngresosMensuales()
+    {
+        $sql = "SELECT SUM(linea_pedidos.precio * linea_pedidos.cantidad) AS total_ingresos
+            FROM linea_pedidos
+            INNER JOIN pedidos ON linea_pedidos.pedido_id = pedidos.id
+            WHERE MONTH(pedidos.fecha) = MONTH(CURDATE()) AND YEAR(pedidos.fecha) = YEAR(CURDATE())";
+
+        $query = $this->db->query($sql);
+
+        if ($query && $row = $query->fetch_object()) {
+            return $row->total_ingresos;
+        }
+
+        return 0;
+    }
+
+    public function obtenerVentasMensuales()
+    {
+        $result = [];
+        $sql = "SELECT MONTH(fecha) AS mes, SUM(coste) AS ingresos
+            FROM pedidos
+            WHERE YEAR(fecha) = YEAR(CURDATE())
+            GROUP BY MONTH(fecha)
+            ORDER BY MONTH(fecha)";
+
+        $query = $this->db->query($sql);
+
+        while ($row = $query->fetch_object()) {
+            $result[] = $row;
+        }
+
+        return $result;
+    }
+
+    public function obtenerPedidosPendientes()
+    {
+        $sql = "SELECT COUNT(*) AS total FROM pedidos WHERE estado = 'Pendiente'";
+        $query = $this->db->query($sql);
+        $row = $query->fetch_object();
+        return $row->total;
+    }
+
+    public function obtenerPedidosCompletados()
+    {
+        $sql = "SELECT COUNT(*) AS total_completados FROM pedidos WHERE estado = 'Entregado'";
+        $query = $this->db->query($sql);
+        $row = $query->fetch_object();
+        return $row->total_completados;
+    }
+
+    public function obtenerHistorialPedidos()
+    {
+        $sql = "SELECT p.id, u.Usuario AS cliente, p.estado, p.fecha FROM pedidos p JOIN usuarios u ON p.usuario_id = u.id ORDER BY p.fecha DESC";
+        $query = $this->db->query($sql);
+        return $query;
+    }
+
+    public function obtenerVentasTotales()
+    {
+        $query = "SELECT SUM(coste) AS ventas_totales FROM pedidos";
+        $resultado = $this->db->query($query);
+        $ventasTotales = $resultado->fetch_object();
+        return $ventasTotales->ventas_totales;
+    }
 }
