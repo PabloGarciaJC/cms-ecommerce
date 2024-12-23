@@ -5,7 +5,6 @@
     <main class="panel-admin__main-content">
         <section class="panel-admin__dashboard">
             <h2 class="panel-admin__dashboard-title">Perfil de <?php echo $usuarioDetails->Usuario; ?></h2>
-
             <div class="panel-admin__category-list">
                 <table class="table table-bordered">
                     <tr>
@@ -60,11 +59,7 @@
                     </tr>
                 </table>
             </div>
-
             <a href="<?php echo BASE_URL; ?>Admin/listaUsuario" class="btn btn-primary btn-sm">Volver a la lista de usuarios</a>
-
         </section>
     </main>
 </div>
-
-<?php include __DIR__ . '../../layout/footer.php'; ?>

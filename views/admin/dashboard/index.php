@@ -8,7 +8,7 @@
         <div class="col-md-12">
           <div class="panel-admin__stats-overview">
             <div class="row w-100">
-              <div class="col-12 col-sm-6 col-lg-4 col-xl-2">
+              <div class="col-12 col-sm-6 col-lg-4 mt-3">
                 <div class="panel-admin__stat-card w-100">
                   <span class="panel-admin__stat-icon"><i class="fas fa-dollar-sign"></i></span>
                   <div class="panel-admin__stat-info">
@@ -17,7 +17,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-12 col-sm-6 col-lg-4 col-xl-2">
+              <div class="col-12 col-sm-6 col-lg-4 mt-3">
                 <div class="panel-admin__stat-card w-100">
                   <span class="panel-admin__stat-icon"><i class="fas fa-box"></i></span>
                   <div class="panel-admin__stat-info">
@@ -26,7 +26,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-12 col-sm-6 col-lg-4 col-xl-2">
+              <div class="col-12 col-sm-6 col-lg-4 mt-3">
                 <div class="panel-admin__stat-card w-100">
                   <span class="panel-admin__stat-icon"><i class="fas fa-users"></i></span>
                   <div class="panel-admin__stat-info">
@@ -35,7 +35,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-12 col-sm-6 col-lg-4 col-xl-2">
+              <div class="col-12 col-sm-6 col-lg-4 mt-3">
                 <div class="panel-admin__stat-card w-100">
                   <span class="panel-admin__stat-icon"><i class="fas fa-users"></i></span>
                   <div class="panel-admin__stat-info">
@@ -44,7 +44,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-12 col-sm-6 col-lg-4 col-xl-2">
+              <div class="col-12 col-sm-6 col-lg-4 mt-3">
                 <div class="panel-admin__stat-card w-100">
                   <span class="panel-admin__stat-icon"><i class="fas fa-shopping-cart"></i></span>
                   <div class="panel-admin__stat-info">
@@ -53,7 +53,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-12 col-sm-6 col-lg-4 col-xl-2">
+              <div class="col-12 col-sm-6 col-lg-4 mt-3">
                 <div class="panel-admin__stat-card w-100">
                   <span class="panel-admin__stat-icon"><i class="fas fa-dollar-sign"></i></span>
                   <div class="panel-admin__stat-info">

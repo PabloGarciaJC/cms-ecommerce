@@ -7,7 +7,7 @@
   .panel-admin__header {
       background-color: #2c3e50;
       color: white;
-      padding: 20px;
+      padding: 10px 15px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -51,7 +51,7 @@
   .panel-admin__menu-link,
   .panel-admin__menu-link-init {
       display: block;
-      padding: 10px 15px;
+      padding: 10px 10px;
       color: #fff;
       text-decoration: none;
       font-size: 1rem;
@@ -186,18 +186,34 @@
       margin-bottom: 30px;
   }
 
+  @media (max-width:767px) {
+      .panel-admin__stats-overview.half-width {
+          flex-direction: column;
+          gap: 10px;
+      }
+
+      .panel-admin__stats-overview.half-width>a {
+          width: 100%;
+      }
+  }
+
   .panel-admin__stat-card {
       background-color: #f8f9fa;
       border: 1px solid #ddd;
       border-radius: 8px;
-      padding: 15px;
+      padding: 10px;
       gap: 15px;
       height: 100px;
       display: flex;
       align-items: center;
   }
 
-  .panel-admin__stat-label {line-height: 1.5;}
+  .panel-admin__stat-label {
+      line-height: 1.2;
+      font-size: 14px;
+      margin: 0;
+      color: #666;
+  }
 
   .panel-admin__stat-icon {
       font-size: 2rem;
@@ -212,12 +228,7 @@
       font-size: 1.25rem;
       font-weight: bold;
       margin: 0;
-      color: #666;
-  }
-
-  .panel-admin__stat-label {
-      margin: 0;
-      color: #666;
+      color: #000000;
   }
 
   .panel-admin__charts {
@@ -394,12 +405,6 @@
       }
   }
 
-  @media (max-width: 480px) {
-      .breadcrumb {
-          flex-direction: column;
-      }
-  }
-
   /* Tabla */
   .panel-admin__category-list table th:last-child,
   .panel-admin__category-list table td:last-child {
@@ -412,18 +417,13 @@
       vertical-align: middle;
   }
 
-
   /* Btns Gestion de Catalogo */
-
   .panel-admin__stats-overview.half-width {
       display: flex;
       justify-content: center;
       align-items: center;
 
   }
-
-
-
 
   .custom-table-cell>tr>td {
       vertical-align: middle;
@@ -460,6 +460,43 @@
   .panel-admin__category-list-catalogo table th {
       padding-right: 50px;
   }
+
+  .panel-admin__menu-desplegable {
+      display: none;
+  }
+
+  @media (max-width:767px) {
+
+      .panel-admin__menu-wrapper {
+          display: flex;
+          justify-content: space-between;
+          width: 100%;
+      }
+
+      .panel-admin__menu-desplegable {
+          display: flex;
+          gap: 10px;
+          justify-content: center;
+          align-items: center;
+          cursor: pointer;
+      }
+
+      .panel-admin__menu {
+          position: absolute;
+          left: -300px;
+          width: 300px;
+          height: 100vh;
+          transition: all 0.3s ease-in-out;
+          z-index: 1;
+          top: 43px;
+      }
+
+      .panel-admin__flex-container {
+          grid-template-columns: 1fr;
+      }
+
+  }
+
 
   /* Tabla de Catalogo */
   .panel-admin__category-list-catalogo table th:last-child,
@@ -936,5 +973,31 @@
       .filter-container button {
           width: 100%;
           margin-top: 10px;
+      }
+  }
+
+  /* Tabla */
+
+  .table-responsive {
+      max-height: 500px;
+      overflow-y: auto;
+      overflow-x: auto;
+      width: 100%;
+  }
+
+  @media (max-width: 768px) {
+
+      .table th,
+      .table td {
+          padding: 8px;
+          font-size: 14px
+      }
+
+      .table td {
+          word-wrap: break-word;
+      }
+
+      .form-control {
+          font-size: 12px;
       }
   }
