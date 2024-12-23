@@ -119,17 +119,14 @@ class Categorias
 
     } else {
 
-      // Inicializar las consultas SQL
       $sqlCategorias = "SELECT * FROM categorias";
       $sqlProductos = "SELECT * FROM productos";
-      
-      // Verificar si existe un ID y ajustar las consultas
+
       if ($this->getId()) {
         $sqlCategorias .= " WHERE parent_id = {$this->getId()}";
         $sqlProductos .= " WHERE parent_id = {$this->getId()}";
       }
 
-      // Añadir filtros de precio a la consulta de productos
       if (!empty($minPrecio)) {
         $sqlProductos .= $this->getId() ? " AND" : " WHERE";
         $sqlProductos .= " precio >= {$minPrecio}";
@@ -140,7 +137,6 @@ class Categorias
         $sqlProductos .= " precio <= {$maxPrecio}";
       }
 
-      // Ejecutar las consultas
       $listarCategorias = $this->db->query($sqlCategorias);
       $listarProductos = $this->db->query($sqlProductos);
 
@@ -154,23 +150,20 @@ class Categorias
 
   public function obtenerCategoriasYProductos()
   {
-    // Obtener todas las categorías principales
+
     $sqlCategorias = "SELECT * FROM categorias WHERE parent_id IS NULL OR parent_id = ''";
     $categorias = $this->db->query($sqlCategorias);
 
-    // Para cada categoría, obtener sus subcategorías y productos
     $categoriasConSubcategoriasYProductos = [];
 
     while ($categoria = $categorias->fetch_object()) {
-      // Obtener subcategorías para cada categoría principal
+
       $sqlSubcategorias = "SELECT * FROM categorias WHERE parent_id = {$categoria->id}";
       $subcategorias = $this->db->query($sqlSubcategorias);
 
-      // Obtener productos para cada categoría principal
       $sqlProductos = "SELECT * FROM productos WHERE parent_id = {$categoria->id}";
       $productos = $this->db->query($sqlProductos);
-
-      // Asociar las subcategorías y productos con la categoría
+      
       $categoriasConSubcategoriasYProductos[] = [
         'categoria' => $categoria,
         'subcategorias' => $subcategorias,

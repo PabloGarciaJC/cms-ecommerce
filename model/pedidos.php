@@ -123,7 +123,7 @@ class Pedidos
         $this->hora = $hora;
     }
 
-    //// CRUD METHODS ////
+    //// CONSULTAS //// 
 
     public function guardar()
     {
@@ -159,20 +159,20 @@ class Pedidos
     public function obtenerPedidos()
     {
         $result = [];
-    
+
         $sql = "SELECT pedidos.*, usuarios.Usuario AS nombre_usuario 
                 FROM pedidos 
                 INNER JOIN usuarios ON pedidos.usuario_id = usuarios.id";
-        
+
         $query = $this->db->query($sql);
-    
+
         while ($row = $query->fetch_object()) {
             $result[] = $row;
         }
-    
+
         return $result;
     }
-    
+
 
     public function obtenerPorId($id)
     {
@@ -252,32 +252,96 @@ class Pedidos
     public function obtenerPedidosConProductos()
     {
         $result = [];
-    
-        $sql = "SELECT 
-                    pedidos.id AS pedido_id,
-                    usuarios.Usuario AS nombre_usuario,
-                    GROUP_CONCAT(CONCAT(productos.nombre, ' (x', linea_pedidos.cantidad, ')') SEPARATOR ', ') AS productos,
-                    pedidos.coste,
-                    pedidos.estado,
-                    pedidos.fecha,
-                    pedidos.hora
-                FROM pedidos
+
+        $sql = "SELECT pedidos.id AS pedido_id, usuarios.Usuario AS nombre_usuario, GROUP_CONCAT(CONCAT(productos.nombre, ' (x', linea_pedidos.cantidad, ')') SEPARATOR ', ') AS productos, pedidos.coste, pedidos.estado, pedidos.fecha, pedidos.hora FROM pedidos
                 INNER JOIN usuarios ON pedidos.usuario_id = usuarios.id
                 LEFT JOIN linea_pedidos ON pedidos.id = linea_pedidos.pedido_id
                 LEFT JOIN productos ON linea_pedidos.producto_id = productos.id
-                GROUP BY pedidos.id";  
-    
+                GROUP BY pedidos.id";
+
         $query = $this->db->query($sql);
-    
-        // Obtenemos los resultados
+
         while ($row = $query->fetch_object()) {
             $result[] = $row;
         }
-    
+
         return $result;
     }
-    
-    
 
-    
+    public function contarPedidosPendientes()
+    {
+        $sql = "SELECT COUNT(*) AS total_pendientes FROM pedidos WHERE estado = 'Pendiente'";
+        $query = $this->db->query($sql);
+
+        if ($query && $row = $query->fetch_object()) {
+            return $row->total_pendientes;
+        }
+
+        return 0;
+    }
+
+    public function obtenerIngresosMensuales()
+    {
+        $sql = "SELECT SUM(linea_pedidos.precio * linea_pedidos.cantidad) AS total_ingresos
+            FROM linea_pedidos
+            INNER JOIN pedidos ON linea_pedidos.pedido_id = pedidos.id
+            WHERE MONTH(pedidos.fecha) = MONTH(CURDATE()) AND YEAR(pedidos.fecha) = YEAR(CURDATE())";
+
+        $query = $this->db->query($sql);
+
+        if ($query && $row = $query->fetch_object()) {
+            return $row->total_ingresos;
+        }
+
+        return 0;
+    }
+
+    public function obtenerVentasMensuales()
+    {
+        $result = [];
+        $sql = "SELECT MONTH(fecha) AS mes, SUM(coste) AS ingresos
+            FROM pedidos
+            WHERE YEAR(fecha) = YEAR(CURDATE())
+            GROUP BY MONTH(fecha)
+            ORDER BY MONTH(fecha)";
+
+        $query = $this->db->query($sql);
+
+        while ($row = $query->fetch_object()) {
+            $result[] = $row;
+        }
+
+        return $result;
+    }
+
+    public function obtenerPedidosPendientes()
+    {
+        $sql = "SELECT COUNT(*) AS total FROM pedidos WHERE estado = 'Pendiente'";
+        $query = $this->db->query($sql);
+        $row = $query->fetch_object();
+        return $row->total;
+    }
+
+    public function obtenerPedidosCompletados()
+    {
+        $sql = "SELECT COUNT(*) AS total_completados FROM pedidos WHERE estado = 'Entregado'";
+        $query = $this->db->query($sql);
+        $row = $query->fetch_object();
+        return $row->total_completados;
+    }
+
+    public function obtenerHistorialPedidos()
+    {
+        $sql = "SELECT p.id, u.Usuario AS cliente, p.estado, p.fecha FROM pedidos p JOIN usuarios u ON p.usuario_id = u.id ORDER BY p.fecha DESC";
+        $query = $this->db->query($sql);
+        return $query;
+    }
+
+    public function obtenerVentasTotales()
+    {
+        $query = "SELECT SUM(coste) AS ventas_totales FROM pedidos";
+        $resultado = $this->db->query($query);
+        $ventasTotales = $resultado->fetch_object();
+        return $ventasTotales->ventas_totales;
+    }
 }

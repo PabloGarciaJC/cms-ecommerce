@@ -41,6 +41,7 @@ class LineaPedidos
     }
 
     //// SETTERS ////
+
     public function setId($id)
     {
         $this->id = $id;
@@ -67,6 +68,7 @@ class LineaPedidos
     }
 
     //// CONSULTAS ////
+    
     public function guardar()
     {
         $sql = "INSERT INTO linea_pedidos (pedido_id, producto_id, cantidad, precio) 

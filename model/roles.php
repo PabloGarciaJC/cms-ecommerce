@@ -68,7 +68,7 @@ class Rol
         $this->updated = $updated;
     }
 
-    //// MÉTODOS CRUD ////
+   //// CONSULTAS //// 
 
     public function obtenerTodos()
     {

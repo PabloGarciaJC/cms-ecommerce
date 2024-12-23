@@ -305,18 +305,30 @@ class Usuario
 
   public function obtenerTodosLosUsuarios()
   {
-      $sql = "SELECT * FROM usuarios";
-      $resultado = $this->db->query($sql);
-  
-      return $resultado;
+    $sql = "SELECT * FROM usuarios";
+    $resultado = $this->db->query($sql);
+
+    return $resultado;
   }
 
   public function existeUsuarioConRol1()
   {
-      $sql = "SELECT COUNT(*) AS count FROM usuarios WHERE Rol = 1";
-      $result = $this->db->query($sql);
-      $data = $result->fetch_object();
-      return $data->count > 0;
+    $sql = "SELECT COUNT(*) AS count FROM usuarios WHERE Rol = 1";
+    $result = $this->db->query($sql);
+    $data = $result->fetch_object();
+    return $data->count > 0;
+  }
+
+  public function obtenerTotalClientes()
+  {
+    $sql = "SELECT COUNT(*) AS total_clientes FROM usuarios";
+    $query = $this->db->query($sql);
+
+    if ($query && $row = $query->fetch_object()) {
+      return $row->total_clientes;
+    }
+
+    return 0;
   }
   
 }

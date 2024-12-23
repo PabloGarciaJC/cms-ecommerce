@@ -140,7 +140,6 @@ class Productos
 
   public function save()
   {
-    // Manejo de fechas de inicio y expiración de la oferta
     $offerStart = $this->getOfferStart() ? "'{$this->getOfferStart()}'" : "NULL";
     $offerExpiration = $this->getOfferExpiration() ? "'{$this->getOfferExpiration()}'" : "NULL";
 
@@ -187,7 +186,6 @@ class Productos
 
   public function actualizarProductosPorId()
   {
-    // Manejo de fechas de inicio y expiración de la oferta
     $offerStart = $this->getOfferStart() ? "'{$this->getOfferStart()}'" : "NULL";
     $offerExpiration = $this->getOfferExpiration() ? "'{$this->getOfferExpiration()}'" : "NULL";
 
@@ -202,7 +200,6 @@ class Productos
       "offer_expiration = $offerExpiration",
       "parent_id = {$this->getParentId()}"
     ];
-
 
     $imagenes = $this->getImagenes();
     $imagenesValidas = !empty($imagenes) && $imagenes != '[]' && $imagenes != 'null';
@@ -249,4 +246,17 @@ class Productos
     $sql = "SELECT * FROM productos WHERE parent_id = 196 LIMIT 3";
     return $this->db->query($sql);
   }
+
+  public function obtenerTotalProductos()
+  {
+    $sql = "SELECT SUM(stock) AS total_productos FROM productos";
+    $query = $this->db->query($sql);
+
+    if ($query && $row = $query->fetch_object()) {
+      return $row->total_productos;
+    }
+
+    return 0;
+  }
+
 }

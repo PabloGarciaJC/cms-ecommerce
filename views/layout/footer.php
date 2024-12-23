@@ -91,11 +91,11 @@
 					<div class="col-md-3 col-sm-6 footer-grids mt-sm-0 mt-4">
 						<h3 class="text-white font-weight-bold mb-3"><?php echo TEXT_FOOTER_QUICK_LINKS; ?></h3>
 						<ul>
-							<li class="mb-3"><a href="<?php echo BASE_URL; ?>Home/nosotros"><?php echo TEXT_FOOTER_ABOUT_US; ?></a></li>
-							<li class="mb-3"><a href="<?php echo BASE_URL; ?>Home/contactanos"><?php echo TEXT_CONTACTANOS; ?></a></li>
 							<li class="mb-3"><a href="<?php echo BASE_URL; ?>Home/help"><?php echo TEXT_FOOTER_HELP; ?></a></li>
 							<li class="mb-3"><a href="<?php echo BASE_URL; ?>Home/faqs"><?php echo TEXT_FOOTER_FAQS; ?></a></li>
 							<li class="mb-3"><a href="<?php echo BASE_URL; ?>Home/term"><?php echo TEXT_FOOTER_TERMS; ?></a></li>
+							<li class="mb-3"><a href="<?php echo BASE_URL; ?>Home/nosotros"><?php echo TEXT_FOOTER_ABOUT_US; ?></a></li>
+							<li class="mb-3"><a href="<?php echo BASE_URL; ?>Home/contactanos"><?php echo TEXT_CONTACTANOS; ?></a></li>								
 							<li><a href="<?php echo BASE_URL; ?>Home/privacy"><?php echo TEXT_FOOTER_PRIVACY_POLICY; ?></a></li>
 						</ul>
 					</div>

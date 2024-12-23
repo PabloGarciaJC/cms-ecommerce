@@ -11,6 +11,17 @@ class AdminController
     public function dashboard()
     {
         Utils::accesoUsuarioRegistrado();
+        $usuario = Utils::obtenerUsuarioSinModelo();
+        $pedidosModel = new Pedidos();
+        $pedidosPendientes = $pedidosModel->obtenerPedidosPendientes();
+        $ingresosMensuales = $pedidosModel->obtenerIngresosMensuales();
+        $pedidosCompletados = $pedidosModel->obtenerPedidosCompletados();
+        $ventasTotales = $pedidosModel->obtenerVentasTotales();
+        $productosModel = new Productos();
+        $totalProductos = $productosModel->obtenerTotalProductos();
+        $usuariosModel = new Usuario();
+        $totalClientes = $usuariosModel->obtenerTotalClientes();
+        $historialPedidos = $pedidosModel->obtenerHistorialPedidos();
         require_once 'views/layout/head.php';
         require_once 'views/admin/dashboard/index.php';
         require_once 'views/layout/script-footer.php';
@@ -251,7 +262,6 @@ class AdminController
             $_SESSION['form'] = $_POST;
             header("Location: " . BASE_URL . "Admin/productos" . $urlParentid);
             exit;
-            
         } else {
 
             // Manejo de imágenes
