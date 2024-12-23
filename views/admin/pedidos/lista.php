@@ -21,47 +21,50 @@
             <?php endif; ?>
 
             <div class="panel-admin__category-list">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th class="text-center align-middle">ID Pedido</th>
-                            <th class="text-center align-middle">Usuario</th>
-                            <th class="text-center align-middle">Productos</th>
-                            <th class="text-center align-middle">Total</th>
-                            <th class="text-center align-middle">Fecha</th>
-                            <th class="text-center align-middle">Hora</th>
-                            <th class="text-center align-middle">Estado</th>
-                            <th class="text-center align-middle">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($listaPedidos as $pedido): ?>
+                <!-- Contenedor con scroll horizontal y vertical -->
+                <div class="table-responsive" style="max-height: 500px; overflow-y: auto; overflow-x: auto;">
+                    <table class="table table-striped" style="width: 100%;"> <!-- 100% para que ocupe todo el ancho disponible -->
+                        <thead>
                             <tr>
-                                <td class="text-center align-middle"><?php echo $pedido->pedido_id; ?></td>
-                                <td class="text-center align-middle"><?php echo $pedido->nombre_usuario; ?></td>
-                                <td class="text-center align-middle"><?php echo $pedido->productos; ?></td>
-                                <td class="text-center align-middle">$<?php echo number_format($pedido->coste, 2); ?></td>
-                                <td class="text-center align-middle"><?php echo date('d/m/Y', strtotime($pedido->fecha)); ?></td>
-                                <td class="text-center align-middle"><?php echo date('H:i', strtotime($pedido->hora)); ?></td>
-                                <td class="text-center align-middle">
-                                    <form method="POST" action="<?php echo BASE_URL; ?>Admin/actualizarPedidos">
-                                        <select name="estado" class="form-control" required>
-                                            <?php foreach ($estados as $estado): ?>
-                                                <option value="<?php echo $estado; ?>" <?php echo $estado == $pedido->estado ? 'selected' : ''; ?>>
-                                                    <?php echo $estado; ?>
-                                                </option>
-                                            <?php endforeach; ?>
-                                        </select>
-                                </td>
-                                <td class="text-center align-middle">
-                                    <input type="hidden" name="pedido_id" value="<?php echo $pedido->pedido_id; ?>" />
-                                    <button type="submit" class="btn btn-success btn-sm">Actualizar Estado</button>
-                                    </form>
-                                </td>
+                                <th class="text-center align-middle">ID Pedido</th>
+                                <th class="text-center align-middle">Usuario</th>
+                                <th class="text-center align-middle">Productos</th>
+                                <th class="text-center align-middle">Total</th>
+                                <th class="text-center align-middle">Fecha</th>
+                                <th class="text-center align-middle">Hora</th>
+                                <th class="text-center align-middle">Estado</th>
+                                <th class="text-center align-middle">Acciones</th>
                             </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($listaPedidos as $pedido): ?>
+                                <tr>
+                                    <td class="text-center align-middle"><?php echo $pedido->pedido_id; ?></td>
+                                    <td class="text-center align-middle"><?php echo $pedido->nombre_usuario; ?></td>
+                                    <td class="text-center align-middle"><?php echo $pedido->productos; ?></td>
+                                    <td class="text-center align-middle">$<?php echo number_format($pedido->coste, 2); ?></td>
+                                    <td class="text-center align-middle"><?php echo date('d/m/Y', strtotime($pedido->fecha)); ?></td>
+                                    <td class="text-center align-middle"><?php echo date('H:i', strtotime($pedido->hora)); ?></td>
+                                    <td class="text-center align-middle">
+                                        <form method="POST" action="<?php echo BASE_URL; ?>Admin/actualizarPedidos">
+                                            <select name="estado" class="form-control" required>
+                                                <?php foreach ($estados as $estado): ?>
+                                                    <option value="<?php echo $estado; ?>" <?php echo $estado == $pedido->estado ? 'selected' : ''; ?>>
+                                                        <?php echo $estado; ?>
+                                                    </option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                    </td>
+                                    <td class="text-center align-middle">
+                                        <input type="hidden" name="pedido_id" value="<?php echo $pedido->pedido_id; ?>" />
+                                        <button type="submit" class="btn btn-success btn-sm">Actualizar Estado</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div> <!-- Fin de table-responsive -->
             </div>
         </section>
     </main>
@@ -72,4 +75,3 @@ unset($_SESSION['errores']);
 unset($_SESSION['form']);
 unset($_SESSION['exito']);
 ?>
-<?php include __DIR__ . '../../layout/footer.php'; ?>

@@ -123,6 +123,18 @@ class App {
     this.mostrarPassword();
     this.autoHideAlert();
     this.select2();
+
+    let abierto = false;
+
+    $('.panel-admin__menu-desplegable').click(function () {
+      if (abierto) {
+        $('.panel-admin__menu').animate({ left: '-300px' }, 300);
+      } else {
+        $('.panel-admin__menu').animate({ left: '0' }, 300);
+      }
+      abierto = !abierto;
+    });
+
   }
 
   // Iniciar aplicación

@@ -4,8 +4,9 @@
     <main class="panel-admin__main-content">
         <section class="panel-admin__dashboard">
             <h2 class="panel-admin__dashboard-title">Gestionar de Roles</h2>
-            <div class="panel-admin__stats-overview">
-                <a href="<?php echo BASE_URL; ?>Admin/crearRoles" class="panel-admin__stat-card w-50">
+            
+            <div class="panel-admin__stats-overview mt-3">
+                <a href="<?php echo BASE_URL; ?>Admin/crearRoles" class="panel-admin__stat-card">
                     <span class="panel-admin__stat-icon"><i class="fas fa-user"></i></span>
                     <div class="panel-admin__stat-info">
                         <h3 class="panel-admin__stat-number">Añadir Rol</h3>
