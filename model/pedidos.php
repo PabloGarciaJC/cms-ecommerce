@@ -173,7 +173,6 @@ class Pedidos
         return $result;
     }
 
-
     public function obtenerPorId($id)
     {
         $result = null;
