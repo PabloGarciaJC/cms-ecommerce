@@ -191,10 +191,13 @@
       border: 1px solid #ddd;
       border-radius: 8px;
       padding: 15px;
+      gap: 15px;
+      height: 100px;
       display: flex;
       align-items: center;
-      gap: 15px;
   }
+
+  .panel-admin__stat-label {line-height: 1.5;}
 
   .panel-admin__stat-icon {
       font-size: 2rem;
@@ -209,6 +212,7 @@
       font-size: 1.25rem;
       font-weight: bold;
       margin: 0;
+      color: #666;
   }
 
   .panel-admin__stat-label {
@@ -418,11 +422,7 @@
 
   }
 
-  .panel-admin__stat-card {
-      width: 50%;
-      text-align: center;
-      justify-content: center;
-  }
+
 
 
   .custom-table-cell>tr>td {
