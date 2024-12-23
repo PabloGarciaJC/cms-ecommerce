@@ -28,7 +28,7 @@
       </a>
       <ul class="panel-admin__submenu">
         <li class="panel-admin__submenu-item">
-          <a href="<?php echo BASE_URL ?>Admin/listaUsuario" class="panel-admin__submenu-link">Listar</a>
+          <a href="<?php echo BASE_URL ?>Admin/listaUsuario" class="panel-admin__submenu-link">Lista</a>
         </li>
       </ul>
     </li>
@@ -68,6 +68,32 @@
       </a>
       <ul class="panel-admin__submenu">
         <li class="panel-admin__submenu-item"><a href="<?php echo BASE_URL ?>Admin/listaPedidos" class="panel-admin__submenu-link">Lista</a></li>
+      </ul>
+    </li>
+    <li class="panel-admin__menu-item">
+      <a class="panel-admin__menu-link d-flex justify-content-between align-items-center" href="#">
+        <span>
+          <i class="fas fa-shopping-cart"></i> Carrito de Compras
+        </span>
+        <i class="fas fa-chevron-right"></i>        
+      </a>
+      <ul class="panel-admin__submenu">
+        <li class="panel-admin__submenu-item">
+          <a href="<?php echo BASE_URL ?>Producto/checkout" class="panel-admin__submenu-link">Ver Carrito</a>
+        </li>
+      </ul>
+    </li>
+    <li class="panel-admin__menu-item">
+      <a class="panel-admin__menu-link d-flex justify-content-between align-items-center" href="#">
+        <span>
+          <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+        </span>
+        <i class="fas fa-chevron-right"></i>        
+      </a>
+      <ul class="panel-admin__submenu">
+        <li class="panel-admin__submenu-item">
+          <a href="<?php echo BASE_URL ?>Admin/cerrarSesion" class="panel-admin__submenu-link">Cerrar Sesión</a>
+        </li>
       </ul>
     </li>
   </ul>

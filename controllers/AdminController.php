@@ -595,20 +595,23 @@ class AdminController
 
     public function listaPedidos()
     {
-        // Verificamos que el usuario esté registrado
         Utils::accesoUsuarioRegistrado();
-
-        // Creamos una instancia del modelo Pedidos
         $pedidos = new Pedidos();
-
-        // Obtenemos los estados posibles de un pedido
         $estados = $pedidos->obtenerEstados();
-
-        // Obtenemos la lista de pedidos con los productos asociados y el nombre del usuario
         $listaPedidos = $pedidos->obtenerPedidosConProductos();
-
         require_once 'views/layout/head.php';
         require_once 'views/admin/pedidos/lista.php';
+        require_once 'views/layout/script-footer.php';
+    }
+
+    public function detallePedido()
+    {
+        Utils::accesoUsuarioRegistrado();
+        $id = isset($_GET['id']) ? $_GET['id'] : false;
+        $pedido = new Pedidos();
+        $pedidoDetails = $pedido->obtenerPorId($id);
+        require_once 'views/layout/head.php';
+        require_once 'views/admin/pedidos/detalle.php';
         require_once 'views/layout/script-footer.php';
     }
 
