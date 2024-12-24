@@ -698,6 +698,14 @@ class AdminController
         require_once 'views/layout/script-footer.php';
     }
 
+    public function documentacion()
+    {
+        Utils::accesoUsuarioRegistrado();
+        require_once 'views/layout/head.php';
+        require_once 'views/admin/layout/documentacion.php';
+        require_once 'views/layout/script-footer.php';
+    }
+
     public function cerrarSesion()
     {
         Utils::accesoUsuarioRegistrado();

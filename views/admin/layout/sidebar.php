@@ -24,7 +24,7 @@
         <span>
           <i class="fas fa-users"></i> Usuarios
         </span>
-        <i class="fas fa-chevron-right"></i>        
+        <i class="fas fa-chevron-right"></i>
       </a>
       <ul class="panel-admin__submenu">
         <li class="panel-admin__submenu-item">
@@ -37,7 +37,7 @@
         <span>
           <i class="fas fa-users"></i> Roles
         </span>
-        <i class="fas fa-chevron-right"></i>        
+        <i class="fas fa-chevron-right"></i>
       </a>
       <ul class="panel-admin__submenu">
         <li class="panel-admin__submenu-item">
@@ -51,7 +51,7 @@
     <li class="panel-admin__menu-item">
       <a class="panel-admin__menu-link d-flex justify-content-between align-items-center" href="#">
         <span>
-        <i class="fas fa-th"></i> Catalogo
+          <i class="fas fa-th"></i> Catalogo
         </span>
         <i class="fas fa-chevron-right"></i>
       </a>
@@ -75,7 +75,7 @@
         <span>
           <i class="fas fa-shopping-cart"></i> Carrito de Compras
         </span>
-        <i class="fas fa-chevron-right"></i>        
+        <i class="fas fa-chevron-right"></i>
       </a>
       <ul class="panel-admin__submenu">
         <li class="panel-admin__submenu-item">
@@ -83,12 +83,27 @@
         </li>
       </ul>
     </li>
+
+    <li class="panel-admin__menu-item">
+      <a class="panel-admin__menu-link d-flex justify-content-between align-items-center" href="#">
+        <span>
+          <i class="fas fa-book me-2"></i> Conoce la Plataforma
+        </span>
+        <i class="fas fa-chevron-right"></i>
+      </a>
+      <ul class="panel-admin__submenu">
+        <li class="panel-admin__submenu-item">
+          <a href="<?php echo BASE_URL ?>Admin/documentacion" class="panel-admin__submenu-link">Documentación</a>
+        </li>
+      </ul>
+    </li>
+
     <li class="panel-admin__menu-item">
       <a class="panel-admin__menu-link d-flex justify-content-between align-items-center" href="#">
         <span>
           <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
         </span>
-        <i class="fas fa-chevron-right"></i>        
+        <i class="fas fa-chevron-right"></i>
       </a>
       <ul class="panel-admin__submenu">
         <li class="panel-admin__submenu-item">
