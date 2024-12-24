@@ -3,7 +3,7 @@
   <?php include __DIR__ . '../../layout/sidebar.php'; ?>
   <main class="panel-admin__main-content">
     <section class="panel-admin__dashboard">
-      <h2 class="panel-admin__dashboard-title">Bienvenido, <?php echo $usuario->Usuario; ?>!</h2>
+      <h2 class="panel-admin__dashboard-title">Panel Administrativo</h2>
       <div class="row">
         <div class="col-md-12">
           <div class="panel-admin__stats-overview">
@@ -62,6 +62,18 @@
                   </div>
                 </div>
               </div>
+              <div class="col-12 col-sm-6 col-lg-4 mt-3">
+                <a href="<?php echo BASE_URL; ?>" target="_blank" class="text-decoration-none">
+                  <div class="panel-admin__stat-card w-100">
+                    <span class="panel-admin__stat-icon"><i class="fas fa-link"></i></span>
+                    <div class="panel-admin__stat-info">
+                      <h3 class="panel-admin__stat-number">IR al Sitio Web</h3>
+                      <p class="panel-admin__stat-label">Visita nuestra página</p>
+                    </div>
+                  </div>
+                </a>
+              </div>
+
             </div>
           </div>
         </div>
