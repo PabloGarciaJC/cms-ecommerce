@@ -84,8 +84,6 @@
 							<li class="mb-3"><a href="<?php echo BASE_URL; ?>Catalogo/index?categoriaId=193"><?php echo TEXT_FOOTER_CATEGORY_TABLET; ?></a></li>
 							<li class="mb-3"><a href="<?php echo BASE_URL; ?>Catalogo/index?categoriaId=194"><?php echo TEXT_FOOTER_CATEGORY_TV_PORTATIL; ?></a></li>
 							<li class="mb-3"><a href="<?php echo BASE_URL; ?>Catalogo/index?categoriaId=196"><?php echo TEXT_FOOTER_CATEGORY_APPLIANCES; ?></a></li>
-							<!-- <li class="mb-3"><a href="product.html"><?php echo TEXT_FOOTER_CATEGORY_WASHING_MACHINES; ?></a></li>
-							<li><a href="product2.html"><?php echo TEXT_FOOTER_CATEGORY_REFRIGERATORS; ?></a></li> -->
 						</ul>
 					</div>
 					<div class="col-md-3 col-sm-6 footer-grids mt-sm-0 mt-4">

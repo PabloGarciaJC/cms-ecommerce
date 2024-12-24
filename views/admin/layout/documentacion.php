@@ -4,28 +4,37 @@
     <main class="panel-admin__main-content">
         <section class="panel-admin__dashboard">
             <h2 class="panel-admin__dashboard-title">Tecnologías Empleadas para el Desarrollo</h2>
-
             <div class="row">
-                <!-- Tarjetas con más padding y fondo restaurado -->
                 <div class="col-12 col-md-4 mb-4">
                     <div class="card info-card feature-card h-100 shadow-sm bg-light border-light">
                         <div class="card-header">
-                            <h3><i class="bi bi-code-slash"></i> Laravel</h3>
+                            <h3><i class="bi bi-code-slash"></i> PHP</h3>
                         </div>
                         <div class="card-body-info p-4">
-                            <p>Framework PHP robusto y eficiente utilizado para el desarrollo del back-end de la aplicación. Facilita la creación de aplicaciones web seguras, escalables y fáciles de mantener.</p>
-                            <p><a href="https://laravel.com/docs" target="_blank" class="btn btn-link p-0">Documentación de Laravel</a></p>
+                            <p>PHP es un lenguaje de scripting ampliamente utilizado para el desarrollo de aplicaciones web dinámicas y sistemas backend.</p>
+                            <p><a href="https://www.php.net/docs.php" target="_blank" class="btn btn-link p-0">Documentación de PHP</a></p>
                         </div>
                     </div>
                 </div>
                 <div class="col-12 col-md-4 mb-4">
                     <div class="card info-card feature-card h-100 shadow-sm bg-light border-light">
                         <div class="card-header">
-                            <h3><i class="bi bi-arrow-repeat"></i> Laravel Mix</h3>
+                            <h3><i class="bi bi-file-earmark-text"></i> Logging</h3>
                         </div>
                         <div class="card-body-info p-4">
-                            <p>Herramienta de compilación de assets basada en Webpack, que facilita la gestión de archivos CSS y JavaScript, mejorando la eficiencia en el desarrollo front-end.</p>
-                            <p><a href="https://laravel-mix.com/docs" target="_blank" class="btn btn-link p-0">Documentación de Laravel Mix</a></p>
+                            <p>El registro de eventos (logging) se utiliza para monitorear el estado de una aplicación, registrar errores y analizar el comportamiento de la misma.</p>
+                            <p><a href="https://www.php-fig.org/psr/psr-3/" target="_blank" class="btn btn-link p-0">Documentación de PSR-3 (Logging)</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4 mb-4">
+                    <div class="card info-card feature-card h-100 shadow-sm bg-light border-light">
+                        <div class="card-header">
+                            <h3><i class="bi bi-bug"></i> Testing</h3>
+                        </div>
+                        <div class="card-body-info p-4">
+                            <p>Testing es una práctica fundamental en el desarrollo de software para garantizar que las funcionalidades de la aplicación operen correctamente y cumplan con los requisitos establecidos.</p>
+                            <p><a href="https://phpunit.de/manual/current/en/" target="_blank" class="btn btn-link p-0">Documentación de PHPUnit</a></p>
                         </div>
                     </div>
                 </div>
@@ -109,17 +118,6 @@
                 <div class="col-12 col-md-4 mb-4">
                     <div class="card info-card feature-card h-100 shadow-sm bg-light border-light">
                         <div class="card-header">
-                            <h3><i class="bi bi-cloud-download"></i> Postman</h3>
-                        </div>
-                        <div class="card-body-info p-4">
-                            <p>Herramienta utilizada para probar y documentar los endpoints de la API. Con Postman, realizamos solicitudes HTTP y verificamos las respuestas de la API para asegurar su correcto funcionamiento.</p>
-                            <p><a href="https://www.postman.com/docs" target="_blank" class="btn btn-link p-0">Documentación de Postman</a></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-4 mb-4">
-                    <div class="card info-card feature-card h-100 shadow-sm bg-light border-light">
-                        <div class="card-header">
                             <h3><i class="bi bi-cogs"></i> Make</h3>
                         </div>
                         <div class="card-body-info p-4">
@@ -141,6 +139,111 @@
                 </div>
             </div>
 
+            <h2 class="panel-admin__dashboard-title">Usuarios Ficticios para Pruebas</h2>
+            <div class="row">
+                <div class="col-12 col-md-4 mb-4">
+                    <div class="card info-card feature-card h-100 shadow-sm bg-light border-light">
+                        <div class="card-header">
+                            <h3><i class="bi bi-person-circle"></i> Administrador</h3>
+                        </div>
+                        <div class="card-body-info p-4">
+                            <p><strong>Correo:</strong> admin@cms.com</p>
+                            <p><strong>Contraseña:</strong> password</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4 mb-4">
+                    <div class="card info-card feature-card h-100 shadow-sm bg-light border-light">
+                        <div class="card-header">
+                            <h3><i class="bi bi-person-circle"></i> Cliente de Prueba</h3>
+                        </div>
+                        <div class="card-body-info p-4">
+                            <p><strong>Correo:</strong> cliente@user.com</p>
+                            <p><strong>Contraseña:</strong> password</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h2 class="panel-admin__dashboard-title">Contáctame / Sígueme en mis redes sociales</h2>
+            <div class="row">
+                <div class="col-12 col-md-4 mb-4">
+                    <div class="card info-card feature-card h-100 shadow-sm bg-light border-light">
+                        <div class="card-header">
+                            <h3><i class="bi bi-github"></i> GitHub</h3>
+                        </div>
+                        <div class="card-body-info p-4">
+                            <p>Visita mi perfil en GitHub para ver mis proyectos y contribuciones al código abierto.</p>
+                            <p><a href="https://github.com/PabloGarciaJC" target="_blank" class="btn btn-link p-0">Ir a GitHub</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4 mb-4">
+                    <div class="card info-card feature-card h-100 shadow-sm bg-light border-light">
+                        <div class="card-header">
+                            <h3><i class="bi bi-facebook"></i> Facebook</h3>
+                        </div>
+                        <div class="card-body-info p-4">
+                            <p>Conéctate conmigo en Facebook y mantente al tanto de mis actualizaciones personales y profesionales.</p>
+                            <p><a href="https://www.facebook.com/PabloGarciaJC" target="_blank" class="btn btn-link p-0">Ir a Facebook</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4 mb-4">
+                    <div class="card info-card feature-card h-100 shadow-sm bg-light border-light">
+                        <div class="card-header">
+                            <h3><i class="bi bi-youtube"></i> YouTube</h3>
+                        </div>
+                        <div class="card-body-info p-4">
+                            <p>Visita mi canal de YouTube para ver videos sobre desarrollo web, tutoriales y más.</p>
+                            <p><a href="https://www.youtube.com/channel/UC5I4oY7BeNwT4gBu1ZKsEhw" target="_blank" class="btn btn-link p-0">Ir a YouTube</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4 mb-4">
+                    <div class="card info-card feature-card h-100 shadow-sm bg-light border-light">
+                        <div class="card-header">
+                            <h3><i class="bi bi-globe"></i> Página Web</h3>
+                        </div>
+                        <div class="card-body-info p-4">
+                            <p>Visita mi página web personal donde encontrarás más sobre mis proyectos y servicios.</p>
+                            <p><a href="https://pablogarciajc.com/" target="_blank" class="btn btn-link p-0">Ir a mi página web</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4 mb-4">
+                    <div class="card info-card feature-card h-100 shadow-sm bg-light border-light">
+                        <div class="card-header">
+                            <h3><i class="bi bi-linkedin"></i> LinkedIn</h3>
+                        </div>
+                        <div class="card-body-info p-4">
+                            <p>Conéctate conmigo en LinkedIn para seguir mi carrera profesional y establecer conexiones.</p>
+                            <p><a href="https://www.linkedin.com/in/pablogarciajc/" target="_blank" class="btn btn-link p-0">Ir a LinkedIn</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4 mb-4">
+                    <div class="card info-card feature-card h-100 shadow-sm bg-light border-light">
+                        <div class="card-header">
+                            <h3><i class="bi bi-instagram"></i> Instagram</h3>
+                        </div>
+                        <div class="card-body-info p-4">
+                            <p>Sigue mi cuenta de Instagram para ver fotos, proyectos y más contenido relacionado con mi trabajo.</p>
+                            <p><a href="https://www.instagram.com/pablogarciajc/" target="_blank" class="btn btn-link p-0">Ir a Instagram</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4 mb-4">
+                    <div class="card info-card feature-card h-100 shadow-sm bg-light border-light">
+                        <div class="card-header">
+                            <h3><i class="bi bi-twitter"></i> Twitter</h3>
+                        </div>
+                        <div class="card-body-info p-4">
+                            <p>Sigue mi cuenta de Twitter para estar al tanto de mis proyectos, pensamientos y actualizaciones.</p>
+                            <p><a href="https://x.com/PabloGarciaJC?t=lct1gxvE8DkqAr8dgxrHIw&s=09" target="_blank" class="btn btn-link p-0">Ir a Twitter</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
 </div>
