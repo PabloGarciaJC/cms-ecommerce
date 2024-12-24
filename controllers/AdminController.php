@@ -70,13 +70,42 @@ class AdminController
 
         $errores = [];
 
+        if (empty($usuario)) {
+            $errores['usuario'] = 'El nombre de usuario no puede estar vacío.';
+        }
+ 
+        if (empty($documentacion)) {
+            $errores['documentacion'] = 'El número de documento no puede estar vacío.';
+        }
+        if (empty($nombre)) {
+            $errores['nombre'] = 'El nombre no puede estar vacío.';
+        }
+        if (empty($apellido)) {
+            $errores['apellido'] = 'El apellido no puede estar vacío.';
+        }
+
+        if (empty($telefono)) {
+            $errores['telefono'] = 'El teléfono no puede estar vacío.';
+        }
+        if (empty($direccion)) {
+            $errores['direccion'] = 'La dirección no puede estar vacía.';
+        }
+        if (empty($pais)) {
+            $errores['pais'] = 'El país no puede estar vacío.';
+        }
+        if (empty($ciudad)) {
+            $errores['ciudad'] = 'La ciudad no puede estar vacía.';
+        }
+        if (empty($codigoPostal)) {
+            $errores['codigoPostal'] = 'El código postal no puede estar vacío.';
+        }
+       
         if (count($errores) > 0) {
             $_SESSION['errores'] = $errores;
             $_SESSION['form'] = $_POST;
             header("Location: " . BASE_URL . "Admin/perfil");
             exit;
         } else {
-
             $nombreArchivo = isset($_FILES['avatar']['name']) ? $_FILES['avatar']['name'] : false;
             $rutaTemporal = isset($_FILES['avatar']['tmp_name']) ? $_FILES['avatar']['tmp_name'] : false;
 

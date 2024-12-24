@@ -95,7 +95,7 @@
 							<li class="mb-3"><a href="<?php echo BASE_URL; ?>Home/faqs"><?php echo TEXT_FOOTER_FAQS; ?></a></li>
 							<li class="mb-3"><a href="<?php echo BASE_URL; ?>Home/term"><?php echo TEXT_FOOTER_TERMS; ?></a></li>
 							<li class="mb-3"><a href="<?php echo BASE_URL; ?>Home/nosotros"><?php echo TEXT_FOOTER_ABOUT_US; ?></a></li>
-							<li class="mb-3"><a href="<?php echo BASE_URL; ?>Home/contactanos"><?php echo TEXT_CONTACTANOS; ?></a></li>								
+							<li class="mb-3"><a href="<?php echo BASE_URL; ?>Home/contactanos"><?php echo TEXT_CONTACTANOS; ?></a></li>
 							<li><a href="<?php echo BASE_URL; ?>Home/privacy"><?php echo TEXT_FOOTER_PRIVACY_POLICY; ?></a></li>
 						</ul>
 					</div>
@@ -150,6 +150,31 @@
 					</button>
 				</div>
 				<div class="modal-body">
+					<div class="mb-3 contn-info">
+						<div class="parrafo-info">
+							<h1 class="text-center title-info">Información Importante</h1>
+							Los usuarios proporcionados son ficticios y están destinados para realizar pruebas.
+						</div>
+						<div class="row text-center">
+							<div class="col">
+								<div class="card user-card bg-light p-2" data-email="admin@cms.com" data-password="password">
+									<p class="mb-0"><strong>Administrador</strong><br>admin@cms.com</p>
+									<p class="text-center mt-2">
+										<a href="#" class="select-action">Selecciona AQUÍ</a>
+									</p>
+								</div>
+							</div>
+							<div class="col">
+								<div class="card user-card bg-light p-2" data-email="cliente@user.com" data-password="password">
+									<p class="mb-0"><strong>Cliente de Prueba</strong><br>cliente@user.com</p>
+									<p class="text-center mt-2">
+										<a href="#" class="select-action">Selecciona AQUÍ</a>
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+
 					<form action="" id="mdFormularioIniciarSesion" method="POST">
 						<div id="respuestaPhpIniciarSesion" style="text-align: center; display: none"></div>
 						<div class="form-group">
@@ -173,6 +198,97 @@
 			</div>
 		</div>
 	</div>
+
+	<!-- Script para llenar los campos con usuarios de prueba -->
+	<script>
+		document.addEventListener('DOMContentLoaded', function() {
+			const userCards = document.querySelectorAll('.user-card');
+			const emailInput = document.getElementById('mdEmailIniciarSesion');
+			const passwordInput = document.getElementById('mdPasswordIniciarSesion');
+
+			// Recorre las tarjetas y añade funcionalidad de clic
+			userCards.forEach(card => {
+				card.addEventListener('click', function() {
+					// Remueve la clase activa de todas las tarjetas
+					userCards.forEach(c => c.classList.remove('active'));
+					// Añade la clase activa a la tarjeta seleccionada
+					card.classList.add('active');
+
+					// Obtén los datos del usuario
+					const email = card.getAttribute('data-email');
+					const password = card.getAttribute('data-password');
+
+					// Rellena los campos del formulario
+					emailInput.value = email;
+					passwordInput.value = password;
+				});
+			});
+
+			// Mostrar el modal automáticamente si no se ha mostrado antes
+			const modalShown = localStorage.getItem('modalShown');
+			if (!modalShown) {
+				$('#exampleModal').modal('show');
+				localStorage.setItem('modalShown', 'true');
+			}
+		});
+	</script>
+
+	<!-- Estilo adicional para tarjetas -->
+	<style>
+		.contn-info {
+			background: #FFFFBD;
+			padding: 20px;
+			display: flex;
+			flex-direction: column;
+			gap: 20px;
+
+			border-radius: 5px;
+			box-shadow: 0 0 30px rgba(1, 41, 112, .1);
+			border: 1px solid #007bff;
+		}
+
+		.parrafo-info {
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+		}
+
+		.title-info {
+			font-size: 35px;
+		}
+
+		.user-card {
+			cursor: pointer;
+			border: 1px solid #007bff;
+			transition: transform 0.3s ease, box-shadow 0.3s ease;
+			border-radius: 8px;
+		}
+
+		.user-card.active {
+			box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+			transform: scale(1.05);
+		}
+
+		.user-card:hover {
+			transform: scale(1.05);
+			box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+		}
+
+		.select-action {
+			display: inline-block;
+			padding: 0px 10px;
+			font-weight: bold;
+			color: #fff !important;
+			background-color: #007bff;
+			text-decoration: none;
+			transition: background-color 0.3s ease, box-shadow 0.3s ease;
+		}
+
+		.select-action:hover {
+			opacity: 1;
+		}
+	</style>
+
 
 
 	<!-- register -->

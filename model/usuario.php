@@ -260,11 +260,12 @@ class Usuario
   {
     $resultado = false;
     $sql = "UPDATE usuarios SET 
-              Usuario = '{$this->usuario}', 
-              Password = '{$this->password}', 
+              Usuario = '{$this->usuario}',
               NumeroDocumento = '{$this->numeroDocumento}', 
               Nombres = '{$this->nombres}', 
               Apellidos = '{$this->apellidos}', 
+
+              
               NroTelefono = '{$this->nroTelefono}', 
               Direccion = '{$this->direccion}', 
               Pais = '{$this->pais}', 
