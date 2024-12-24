@@ -8,7 +8,7 @@
 				</p>
 			</div>
 			<div class="col-lg-8 header-right mt-lg-0 mt-2">
-				<ul class="text-right">
+				<ul class="text-right header-top-contn">
 					<li class="text-center border-right text-white">
 						<i class="fas fa-phone mr-2"></i> <?php echo TEXT_PHONE_NUMBER; ?>
 					</li>
@@ -35,7 +35,7 @@
 
 <div class="navbar-inner">
 	<div class="container">
-		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<nav class="navbar navbar-expand-lg navbar-light bg-light navbar-containder">
 
 			<div class="language-selector">
 				<form action="<?php echo BASE_URL . ltrim($_SERVER['REQUEST_URI'], '/') ?>" method="POST">

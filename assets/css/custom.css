@@ -3,6 +3,21 @@
       width: 100%;
   }
 
+  /* HEader nav */
+
+  @media (max-width:767px) {
+
+      .header-top-contn {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+      }
+
+      .navbar-containder {
+          justify-content: center;
+      }
+  }
+
   /* Panel Administrador */
   .panel-admin__header {
       background-color: #2c3e50;
@@ -494,9 +509,7 @@
       .panel-admin__flex-container {
           grid-template-columns: 1fr;
       }
-
   }
-
 
   /* Tabla de Catalogo */
   .panel-admin__category-list-catalogo table th:last-child,
@@ -518,7 +531,6 @@
       padding: 10px;
       font-size: 16px;
       border: 1px solid #ddd;
-      border-radius: 5px;
       background-color: #f9f9f9;
       cursor: pointer;
   }
@@ -537,7 +549,6 @@
       background-color: #007bff;
       color: #fff;
   }
-
 
   /* Aqq */
   @keyframes pop-in {
@@ -972,7 +983,7 @@
 
       .filter-container button {
           width: 100%;
-          margin-top: 10px;
+          padding: 0px;
       }
   }
 
@@ -999,5 +1010,32 @@
 
       .form-control {
           font-size: 12px;
+      }
+  }
+
+  /* Tabla  */
+  .invert-img-table img {
+      max-width: 90px;
+      min-width: 90px
+  }
+
+  /* Formulario Checkout  */
+
+  @media (max-width:767px) {
+      .form-checkout {
+          margin-bottom: 30px;
+      }
+  }
+
+  /* Search  */
+
+  .row.header-bot_inner_wthreeinfo_header_mid {
+      margin-bottom: 10px;
+      margin-top: 10px;
+  }
+
+  @media (max-width:767px) {
+      .row.header-bot_inner_wthreeinfo_header_mid {
+          gap: 10px;
       }
   }

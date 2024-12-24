@@ -80,12 +80,12 @@
 					<div class="col-md-3 col-sm-6 footer-grids">
 						<h3 class="text-white font-weight-bold mb-3"><?php echo TEXT_FOOTER_CATEGORIES; ?></h3>
 						<ul>
-							<li class="mb-3"><a href="product.html"><?php echo TEXT_FOOTER_CATEGORY_MOBILES; ?></a></li>
-							<li class="mb-3"><a href="product.html"><?php echo TEXT_FOOTER_CATEGORY_COMPUTERS; ?></a></li>
-							<li class="mb-3"><a href="product.html"><?php echo TEXT_FOOTER_CATEGORY_TV_AUDIO; ?></a></li>
-							<li class="mb-3"><a href="product2.html"><?php echo TEXT_FOOTER_CATEGORY_SMARTPHONES; ?></a></li>
-							<li class="mb-3"><a href="product.html"><?php echo TEXT_FOOTER_CATEGORY_WASHING_MACHINES; ?></a></li>
-							<li><a href="product2.html"><?php echo TEXT_FOOTER_CATEGORY_REFRIGERATORS; ?></a></li>
+							<li class="mb-3"><a href="<?php echo BASE_URL; ?>Catalogo/index?categoriaId=192"><?php echo TEXT_FOOTER_CATEGORY_MOBILES; ?></a></li>
+							<li class="mb-3"><a href="<?php echo BASE_URL; ?>Catalogo/index?categoriaId=193"><?php echo TEXT_FOOTER_CATEGORY_TABLET; ?></a></li>
+							<li class="mb-3"><a href="<?php echo BASE_URL; ?>Catalogo/index?categoriaId=194"><?php echo TEXT_FOOTER_CATEGORY_TV_PORTATIL; ?></a></li>
+							<li class="mb-3"><a href="<?php echo BASE_URL; ?>Catalogo/index?categoriaId=196"><?php echo TEXT_FOOTER_CATEGORY_APPLIANCES; ?></a></li>
+							<!-- <li class="mb-3"><a href="product.html"><?php echo TEXT_FOOTER_CATEGORY_WASHING_MACHINES; ?></a></li>
+							<li><a href="product2.html"><?php echo TEXT_FOOTER_CATEGORY_REFRIGERATORS; ?></a></li> -->
 						</ul>
 					</div>
 					<div class="col-md-3 col-sm-6 footer-grids mt-sm-0 mt-4">
@@ -112,7 +112,7 @@
 					<div class="col-md-3 col-sm-6 footer-grids w3l-agileits mt-md-0 mt-4">
 						<h3 class="text-white font-weight-bold mb-3"><?php echo TEXT_FOOTER_NEWSLETTER; ?></h3>
 						<p class="mb-3"><?php echo TEXT_FOOTER_NEWSLETTER_DESC; ?></p>
-						<form action="#" method="post">
+						<form action="avasscript:void(0)" method="post">
 							<div class="form-group">
 								<input type="email" class="form-control" placeholder="Email" name="email" required="">
 								<input type="submit" value="Go">
@@ -122,9 +122,9 @@
 							<h3 class="text-white font-weight-bold mb-3"><?php echo TEXT_FOOTER_FOLLOW_US; ?></h3>
 							<div class="social">
 								<ul>
-									<li><a class="icon fb" href="#"><i class="fab fa-facebook-f"></i></a></li>
-									<li><a class="icon tw" href="#"><i class="fab fa-twitter"></i></a></li>
-									<li><a class="icon gp" href="#"><i class="fab fa-google-plus-g"></i></a></li>
+									<li><a class="icon fb" href="javasscript:void(0)"><i class="fab fa-facebook-f"></i></a></li>
+									<li><a class="icon tw" href="javasscript:void(0)"><i class="fab fa-twitter"></i></a></li>
+									<li><a class="icon gp" href="javasscript:void(0)"><i class="fab fa-google-plus-g"></i></a></li>
 								</ul>
 							</div>
 						</div>
@@ -288,9 +288,13 @@
 		.select-action:hover {
 			opacity: 1;
 		}
+
+		@media (max-width:767px) {
+			.contn-info .row.text-center {
+				gap: 10px;
+			}
+		}
 	</style>
-
-
 
 	<!-- register -->
 	<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-hidden="true">

@@ -29,7 +29,7 @@
 			<?php unset($_SESSION['exito'], $_SESSION['messageClass'], $_SESSION['icon']); ?>
 		<?php endif; ?>
 
-		<form method="post" action="<?php echo BASE_URL ?>Producto/checkoutGuardar">
+		<form method="post" action="<?php echo BASE_URL ?>Producto/checkoutGuardar" class="form-checkout">
 			<div class="checkout-right">
 				<div class="table-responsive">
 					<table class="timetable_sub">
@@ -53,7 +53,7 @@
 									$total += $item['price'] * $item['quantity']; ?>
 									<tr class="rem<?php echo $index + 1; ?>">
 										<td class="invert"><?php echo $index + 1; ?></td>
-										<td class="invert-image">
+										<td class="invert-image invert-img-table">
 											<a href="<?php echo $item['href']; ?>">
 												<img src="<?php echo $item['image']; ?>" alt=" " class="img-responsive">
 											</a>

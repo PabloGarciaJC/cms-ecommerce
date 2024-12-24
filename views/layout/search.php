@@ -9,7 +9,7 @@
 					</a>
 				</h1>
 			</div>
-			<div class="col-md-9 header mt-4 mb-md-0 mb-4">
+			<div class="col-md-9 header mt-4 mb-md-0">
 				<div class="row">
 					<div class="col-10 agileits_search">
 						<form class="form-inline" action="<?= BASE_URL ?>Catalogo/index" method="GET">

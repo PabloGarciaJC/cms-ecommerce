@@ -50,7 +50,7 @@
 						echo '<span class="item_price">' . intval($productoFicha->precio - $productoFicha->oferta) . '$</span>';
 						echo '<del>' . intval($productoFicha->precio) . '$</del>';
 					} else {
-						echo '<span class="item_price">' . intval($productoFicha->precio) . '$</span>';
+						echo '<span class="item_price">' . PRICE . ' : ' . intval($productoFicha->precio) . '$</span>';
 					}
 					?>
 				</p>
@@ -87,7 +87,7 @@
 							<i class="fas fa-retweet mr-3"></i>Net banking & Credit/ Debit/ ATM card
 						</p> -->
 				</div>
-				
+
 				<div class="occasion-cart">
 					<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
 						<form action="#" method="post">
