@@ -73,7 +73,7 @@ class AdminController
         if (empty($usuario)) {
             $errores['usuario'] = 'El nombre de usuario no puede estar vacío.';
         }
- 
+
         if (empty($documentacion)) {
             $errores['documentacion'] = 'El número de documento no puede estar vacío.';
         }
@@ -99,7 +99,7 @@ class AdminController
         if (empty($codigoPostal)) {
             $errores['codigoPostal'] = 'El código postal no puede estar vacío.';
         }
-       
+
         if (count($errores) > 0) {
             $_SESSION['errores'] = $errores;
             $_SESSION['form'] = $_POST;
@@ -517,11 +517,11 @@ class AdminController
                 return;
             }
 
-            // Verificar si el rol es 1 y si ya existe un usuario con ese rol
-            if ($nuevoRol == 1) {
+            // Verificar si el nuevo rol es Admin (id = 22)
+            if ($nuevoRol == 22) {
                 $usuario = new Usuario();
-                if ($usuario->existeUsuarioConRol1()) {
-                    echo json_encode(['success' => false, 'message' => 'Solo un usuario puede tener el rol 1.']);
+                if ($usuario->existeUsuarioConRolAdmin() && !$usuario->esRolActualAdmin($id)) {
+                    echo json_encode(['success' => false, 'message' => 'Solo un usuario puede tener el rol de Admin.']);
                     return;
                 }
             }

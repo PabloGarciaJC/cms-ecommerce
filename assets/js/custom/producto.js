@@ -102,7 +102,6 @@ class Producto {
 
     eliminar() {
         function eliminarDatosProducto(idProducto, nombreProductoBd) {
-            console.log(idProducto);
             Swal.fire({
                 title: "Estas Seguro ?",
                 text: "Se borrará de forma permanente : " + nombreProductoBd,

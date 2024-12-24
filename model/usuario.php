@@ -264,8 +264,6 @@ class Usuario
               NumeroDocumento = '{$this->numeroDocumento}', 
               Nombres = '{$this->nombres}', 
               Apellidos = '{$this->apellidos}', 
-
-              
               NroTelefono = '{$this->nroTelefono}', 
               Direccion = '{$this->direccion}', 
               Pais = '{$this->pais}', 
@@ -312,12 +310,20 @@ class Usuario
     return $resultado;
   }
 
-  public function existeUsuarioConRol1()
+  public function existeUsuarioConRolAdmin()
   {
-    $sql = "SELECT COUNT(*) AS count FROM usuarios WHERE Rol = 1";
+    $sql = "SELECT COUNT(*) AS count FROM usuarios WHERE Rol = 22";
     $result = $this->db->query($sql);
     $data = $result->fetch_object();
     return $data->count > 0;
+  }
+
+  public function esRolActualAdmin($id)
+  {
+    $sql = "SELECT Rol FROM usuarios WHERE Id = {$id}";
+    $result = $this->db->query($sql);
+    $data = $result->fetch_object();
+    return isset($data->Rol) && $data->Rol == 22;
   }
 
   public function obtenerTotalClientes()
@@ -331,5 +337,4 @@ class Usuario
 
     return 0;
   }
-  
 }

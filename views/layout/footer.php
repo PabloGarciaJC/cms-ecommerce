@@ -251,6 +251,7 @@
 			display: flex;
 			flex-direction: column;
 			gap: 10px;
+			text-align: center;
 		}
 
 		.title-info {
