@@ -116,6 +116,92 @@ class App {
     });
   }
 
+  applyAnimationsByDirection = function (containerSelector, direction) {
+    // Selecciona todos los elementos que coinciden con el selector
+    let targets = document.querySelectorAll(containerSelector);
+    if (!targets.length) {
+      return;
+    }
+
+    // Configuración del IntersectionObserver con threshold y rootMargin
+    const observerOptions = {
+      threshold: 0.01,                 // Detecta cuando el 1% del elemento es visible
+      rootMargin: "-500px 0px 0px 0px" // Comienza a detectar 500px antes de que el elemento entre en el viewport
+    };
+
+    // Crea el Intersection Observer con las opciones configuradas
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // Agrega la clase de animación
+          entry.target.classList.add(`animation__slide--${direction}`);
+
+          // Escucha el fin de la animación antes de quitar la clase
+          entry.target.addEventListener('animationend', function () {
+            entry.target.classList.remove(`animation__slide--${direction}`);
+          }, { once: true });  // `once: true` asegura que el listener se ejecute solo una vez
+
+          // Deja de observar el elemento para que la animación solo se ejecute una vez
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);  // Usa las opciones en el observer
+
+    // Observa cada elemento seleccionado
+    targets.forEach(target => observer.observe(target));
+  };
+
+ initAnimationLeftRight = function (containerSelector) {
+		const container = document.querySelector(containerSelector);
+
+		if (!container) return;
+
+		// Verificar si ya se han aplicado animaciones al contenedor
+		if (container.classList.contains('animations-applied')) return;
+
+		// Seleccionar todos los elementos .banner-wrapper dentro del contenedor
+		const bannerWrappers = container.querySelectorAll('.banner-wrapper');
+
+		// Función para aplicar animación a cada elemento
+		const applyAnimation = (element, index) => {
+			// Aplica animación desde la izquierda o derecha dependiendo del índice
+			if (index % 2 === 0) {
+				element.classList.add('animation__slide--left');
+			} else {
+				element.classList.add('animation__slide--right');
+			}
+		};
+
+		// Crear un Intersection Observer para detectar cuando el elemento entra en el viewport
+		const observer = new IntersectionObserver(entries => {
+			entries.forEach(entry => {
+				if (entry.isIntersecting) {
+					const index = Array.from(bannerWrappers).indexOf(entry.target);
+					applyAnimation(entry.target, index); // Aplica la animación
+
+					// Mostrar el log cuando se detecta el elemento
+					console.log(`Elemento ${entry.target} detectado. Índice: ${index}`);
+
+					// Marcar el elemento como animado para evitar reanimaciones
+					entry.target.classList.add('animation-applied');
+					// Dejar de observar este elemento después de la animación
+					observer.unobserve(entry.target);
+				}
+			});
+		}, {
+			threshold: 0.01, // Detectar cuando solo una pequeña parte (1%) del elemento es visible
+			rootMargin: "-500px 0px 0px 0px" // Detectar el elemento 500px antes de que entre en el viewport
+		});
+
+		// Aplicar el observador a cada .banner-wrapper
+		bannerWrappers.forEach(wrapper => {
+			observer.observe(wrapper);
+		});
+
+		// Marcar el contenedor como con animaciones aplicadas para evitar duplicados
+		container.classList.add('animations-applied');
+	};
+
   // Método customApp
   customApp() {
     this.avatarVistaPrevia();
@@ -124,6 +210,7 @@ class App {
     this.autoHideAlert();
     this.select2();
 
+    // Menu Desplegable en version Movil para el Panel Administrativo
     let abierto = false;
 
     $('.panel-admin__menu-desplegable').click(function () {
@@ -134,6 +221,16 @@ class App {
       }
       abierto = !abierto;
     });
+
+    // Animaciones para items generales
+    this.applyAnimationsByDirection('.animation__left', 'left');
+		this.applyAnimationsByDirection('.animation__right', 'right');
+		this.applyAnimationsByDirection('.animation__fade-in-upscale', 'fade-in-upscale');
+		this.applyAnimationsByDirection('.animation__up', 'up');
+		this.applyAnimationsByDirection('.animation__down', 'down');
+
+    // Animacion Left y Rigth en secuencia
+		this.initAnimationLeftRight('.animation__left-right');
 
   }
 

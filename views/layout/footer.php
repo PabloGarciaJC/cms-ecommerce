@@ -1,9 +1,9 @@
 	<!-- middle section -->
 	<div class="join-w3l1 py-sm-5 py-4">
 		<div class="container py-xl-4 py-lg-2">
-			<div class="row">
+			<div class="row animation__left-right">
 				<div class="col-lg-6">
-					<div class="join-agile text-left p-4">
+					<div class="join-agile text-left p-4 banner-wrapper">
 						<div class="row">
 							<div class="col-sm-7 offer-name">
 								<h6><?php echo TEXT_AUDIO_DESC; ?></h6>
@@ -16,7 +16,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-lg-6 mt-lg-0 mt-5">
+				<div class="col-lg-6 mt-lg-0 mt-5 banner-wrapper">
 					<div class="join-agile text-left p-4">
 						<div class="row ">
 							<div class="col-sm-7 offer-name">
@@ -38,7 +38,7 @@
 		<div class="footer-top-first">
 			<div class="container py-md-5 py-sm-4 py-3">
 				<div class="row w3l-grids-footer border-top border-bottom py-sm-4 py-3">
-					<div class="col-md-4 offer-footer">
+					<div class="col-md-4 offer-footer animation__fade-in-upscale">
 						<div class="row">
 							<div class="col-4 icon-fot">
 								<i class="fas fa-dolly"></i>
@@ -49,7 +49,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-md-4 offer-footer my-md-0 my-4">
+					<div class="col-md-4 offer-footer my-md-0 my-4 animation__fade-in-upscale">
 						<div class="row">
 							<div class="col-4 icon-fot">
 								<i class="fas fa-shipping-fast"></i>
@@ -60,7 +60,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-md-4 offer-footer">
+					<div class="col-md-4 offer-footer animation__fade-in-upscale">
 						<div class="row">
 							<div class="col-4 icon-fot">
 								<i class="far fa-thumbs-up"></i>

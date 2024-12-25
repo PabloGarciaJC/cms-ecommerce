@@ -24,7 +24,7 @@
 			</h3>
 
 			<div class="row contact-grids agile-1 mb-5">
-				<div class="col-sm-4 contact-grid agileinfo-6 mt-sm-0 mt-2">
+				<div class="col-sm-4 contact-grid agileinfo-6 mt-sm-0 mt-2 animation__fade-in-upscale">
 					<div class="contact-grid1 text-center">
 						<div class="con-ic">
 							<i class="fas fa-map-marker-alt rounded-circle"></i>
@@ -33,7 +33,7 @@
 						<p><?php echo TEXT_ADDRESS_DETAILS; ?></p>
 					</div>
 				</div>
-				<div class="col-sm-4 contact-grid agileinfo-6 my-sm-0 my-4">
+				<div class="col-sm-4 contact-grid agileinfo-6 my-sm-0 my-4 animation__fade-in-upscale">
 					<div class="contact-grid1 text-center">
 						<div class="con-ic">
 							<i class="fas fa-phone rounded-circle"></i>
@@ -42,7 +42,7 @@
 						<p><?php echo TEXT_CALL_US_DETAILS; ?></p>
 					</div>
 				</div>
-				<div class="col-sm-4 contact-grid agileinfo-6">
+				<div class="col-sm-4 contact-grid agileinfo-6 animation__fade-in-upscale">
 					<div class="contact-grid1 text-center">
 						<div class="con-ic">
 							<i class="fas fa-envelope-open rounded-circle"></i>
@@ -53,7 +53,7 @@
 				</div>
 			</div>
 			<!-- form -->
-			<form action="#" method="post">
+			<form action="#" method="post" class="animation__up">
 				<div class="contact-grids1 w3agile-6">
 					<div class="row">
 						<div class="col-md-6 col-sm-6 contact-form1 form-group">
