@@ -1045,19 +1045,10 @@
 @keyframes animation__slide-right-keyframes {from {transform: translateX(100%); opacity: 1;} to {transform: translateX(0); opacity: 1;}}
 @keyframes animation__slide-left-keyframes {from {transform: translateX(-100%);opacity: 1;}  to {transform: translateX(0);opacity: 1;}}
 @keyframes animation__slide-up-keyframes {from {transform: translateY(100%); opacity: 1;} to {transform: translateY(0); opacity: 1;}}
-@keyframes animation__fade-in-keyframes {from {opacity: 0;} to {opacity: 1;}}
 @keyframes animation__slide--fade-in-upscale {from {opacity: 0; transform: translateY(20px) scale(0);} to {opacity: 1; transform: translateY(0) scale(1);}}
-@keyframes animation__slide--jump {0%, 100% {transform: translateY(0);} 50% {transform: translateY(-10px);}}
-@keyframes animation__flip {0% {transform: scale(1) rotateX(0deg);} 100% {transform: scale(1) rotateX(360deg);}}
 @keyframes animation__slide-down-keyframes {from {transform: translateY(-100%); opacity: 1;} to { transform: translateY(0); opacity: 1;}}
-@keyframes iconos-flotantes__animacion-campana {0% {transform: rotate(15deg);}25% {transform: rotate(-15deg);}50% {transform: rotate(10deg);}75% {transform: rotate(-10deg);} 100% {transform: rotate(0deg);}}
-@keyframes bounce { 0%, 100% {transform: translateY(0);}50% {transform: translateY(-4px);}}
-@keyframes smoothScroll {0% {transform: translateY(-94px);} 100% {transform: translateY(0px);}}
-@keyframes iconos-flotantes__appear-fading {from { opacity: 0; } to { opacity: 1; }}
 .animation__slide--right {animation-duration: 2s; animation-name: animation__slide-right-keyframes; animation-fill-mode: forwards;}
 .animation__slide--left {animation-duration: 2s; animation-name: animation__slide-left-keyframes; animation-fill-mode: forwards;}
 .animation__slide--up { animation-duration: 2s; animation-name: animation__slide-up-keyframes; }
-.animation__slide--fade-in { animation-duration: 2s; animation-name: animation__slide--fade-in-keyframes; }
 .animation__slide--fade-in-upscale { animation: animation__slide--fade-in-upscale 1s forwards; }
-.animation__slide--jum { animation: animation__slide--jump 1s ease-in-out infinite; display: inline-block;}
 .animation__slide--down {animation-duration: 2s;animation-name: animation__slide-down-keyframes;animation-fill-mode: forwards;}

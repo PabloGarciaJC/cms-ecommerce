@@ -222,7 +222,7 @@ class App {
       abierto = !abierto;
     });
 
-    // Animaciones para items generales
+    // Animaciones para items Individuales
     this.applyAnimationsByDirection('.animation__left', 'left');
 		this.applyAnimationsByDirection('.animation__right', 'right');
 		this.applyAnimationsByDirection('.animation__fade-in-upscale', 'fade-in-upscale');
