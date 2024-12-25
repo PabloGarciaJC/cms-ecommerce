@@ -11,7 +11,7 @@ class AdminController
     public function dashboard()
     {
         Utils::accesoUsuarioRegistrado();
-        $usuario = Utils::obtenerUsuarioSinModelo();
+        $usuario = Utils::obtenerUsuario();
         $pedidosModel = new Pedidos();
         $pedidosPendientes = $pedidosModel->obtenerPedidosPendientes();
         $ingresosMensuales = $pedidosModel->obtenerIngresosMensuales();
@@ -30,7 +30,7 @@ class AdminController
     public function perfil()
     {
         Utils::accesoUsuarioRegistrado();
-        $usuario = Utils::obtenerUsuarioSinModelo();
+        $usuario = Utils::obtenerUsuario();
         $paises = new Paises();
         $paisesTodos = $paises->obtenerTodosPaises();
         require_once 'views/layout/head.php';
@@ -155,7 +155,7 @@ class AdminController
     public function password()
     {
         Utils::accesoUsuarioRegistrado();
-        $usuario = Utils::obtenerUsuarioSinModelo();
+        $usuario = Utils::obtenerUsuario();
         require_once 'views/layout/head.php';
         require_once 'views/admin/user/password.php';
         require_once 'views/layout/script-footer.php';
@@ -202,7 +202,6 @@ class AdminController
     {
         Utils::accesoUsuarioRegistrado();
         $categoriaId = isset($_GET['categoriaId']) ? $_GET['categoriaId'] : false;
-
         $categorias = new Categorias();
         $categorias->setId($categoriaId);
         $breadcrumbs = $categorias->getBreadcrumbs();

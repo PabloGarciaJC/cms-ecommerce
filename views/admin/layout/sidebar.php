@@ -19,6 +19,9 @@
         <li class="panel-admin__submenu-item"><a href="<?php echo BASE_URL ?>Admin/password" class="panel-admin__submenu-link">Contraseña</a></li>
       </ul>
     </li>
+    
+    <!-- Mostrar solo si el usuario tiene rol de Admin -->
+    <?php if ($_SESSION['usuarioRegistrado']->rol_nombre == 'Admin'): ?>
     <li class="panel-admin__menu-item">
       <a class="panel-admin__menu-link d-flex justify-content-between align-items-center" href="#">
         <span>
@@ -59,10 +62,12 @@
         <li class="panel-admin__submenu-item"><a href="<?php echo BASE_URL ?>Admin/catalogo" class="panel-admin__submenu-link">Gestor de Catálogo</a></li>
       </ul>
     </li>
+    <?php endif; ?>
+
     <li class="panel-admin__menu-item">
       <a class="panel-admin__menu-link d-flex justify-content-between align-items-center" href="#">
         <span>
-          <i class="fas fa-shipping-fast"></i>Pedidos
+          <i class="fas fa-shipping-fast"></i> Pedidos
         </span>
         <i class="fas fa-chevron-right"></i>
       </a>
@@ -70,6 +75,7 @@
         <li class="panel-admin__submenu-item"><a href="<?php echo BASE_URL ?>Admin/listaPedidos" class="panel-admin__submenu-link">Lista</a></li>
       </ul>
     </li>
+    <?php if ($_SESSION['usuarioRegistrado']->rol_nombre == 'Cliente'): ?>
     <li class="panel-admin__menu-item">
       <a class="panel-admin__menu-link d-flex justify-content-between align-items-center" href="#">
         <span>
@@ -83,7 +89,7 @@
         </li>
       </ul>
     </li>
-
+    <?php endif; ?>
     <li class="panel-admin__menu-item">
       <a class="panel-admin__menu-link d-flex justify-content-between align-items-center" href="#">
         <span>

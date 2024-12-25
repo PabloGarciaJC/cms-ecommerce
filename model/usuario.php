@@ -211,17 +211,32 @@ class Usuario
   public function iniciarSesion()
   {
     $resultado = false;
-    $sql = "SELECT * FROM usuarios where Email ='{$this->getEmail()}'";
+
+    // Realizamos un INNER JOIN con la tabla de roles para obtener el nombre del rol
+    $sql = "SELECT u.*, r.nombre AS rol_nombre 
+              FROM usuarios u
+              INNER JOIN roles r ON u.Rol = r.id
+              WHERE u.Email = '{$this->getEmail()}'";
+
+    // Ejecutamos la consulta
     $login = $this->db->query($sql);
+
     if ($login && $login->num_rows == 1) {
+      // Si el usuario existe, obtenemos el objeto usuario
       $usuario = $login->fetch_object();
-      $vericacion = password_verify($this->password, $usuario->Password);
-      if ($vericacion == 1) {
+
+      // Verificamos la contraseña
+      $verificacion = password_verify($this->password, $usuario->Password);
+
+      if ($verificacion == 1) {
+        // Si la contraseña es correcta, retornamos el objeto usuario con el rol
         return $usuario;
       }
     }
+
     return $resultado;
   }
+
 
   public function repetidosUsuario()
   {
@@ -279,14 +294,15 @@ class Usuario
 
   public function obtenerTodosPorId()
   {
-    $resultado = false;
-    $sql = "SELECT * FROM usuarios WHERE Id = {$this->id}";
+    $sql = "SELECT u.*, r.nombre AS rol_nombre, r.descripcion AS rol_descripcion 
+              FROM usuarios u
+              INNER JOIN roles r ON u.Rol = r.id
+              WHERE u.Id = {$this->id}";
+
     $obtenerTodos = $this->db->query($sql);
-    if ($obtenerTodos) {
-      $resultado = true;
-    }
     return $obtenerTodos->fetch_object();
   }
+
 
   public function actualizarPassword()
   {
