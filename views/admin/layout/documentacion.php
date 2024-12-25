@@ -3,7 +3,7 @@
     <?php include __DIR__ . '../../layout/sidebar.php'; ?>
     <main class="panel-admin__main-content">
         <section class="panel-admin__dashboard">
-            <h2 class="panel-admin__dashboard-title">¿Qué funcionalidades ofrece esta red social?</h2>
+            <h2 class="panel-admin__dashboard-title">¿Qué funcionalidades ofrece esta ecommerce?</h2>
             <div class="row">
                 <div class="col-12 col-md-4 mb-4">
                     <div class="card info-card feature-card h-100 shadow-sm bg-light border-light">
@@ -116,7 +116,6 @@
                     </div>
                 </div>
             </div>
-
             <h2 class="panel-admin__dashboard-title">Tecnologías Empleadas para el Desarrollo</h2>
             <div class="row">
                 <div class="col-12 col-md-4 mb-4">
@@ -197,7 +196,6 @@
                     </div>
                 </div>
             </div>
-
             <h2 class="panel-admin__dashboard-title">Usuarios Ficticios para Pruebas</h2>
             <div class="row">
                 <div class="col-12 col-md-4 mb-4">
@@ -223,7 +221,6 @@
                     </div>
                 </div>
             </div>
-
             <h2 class="panel-admin__dashboard-title">Contáctame / Sígueme en mis redes sociales</h2>
             <div class="row">
                 <div class="col-12 col-md-4 mb-4">

@@ -156,7 +156,7 @@
 						<div class="row text-center">
 							<div class="col">
 								<div class="card user-card bg-light p-2" data-email="admin@cms.com" data-password="password">
-									<p class="mb-0"><strong>Administrador</strong><br>admin@cms.com</p>
+									<p class="mb-0 user-card-parrafo"><strong>Administrador</strong><br>admin@cms.com</p>
 									<p class="text-center mt-2">
 										<a href="#" class="select-action">Selecciona AQUÍ</a>
 									</p>
@@ -164,7 +164,7 @@
 							</div>
 							<div class="col">
 								<div class="card user-card bg-light p-2" data-email="cliente@user.com" data-password="password">
-									<p class="mb-0"><strong>Cliente de Prueba</strong><br>cliente@user.com</p>
+									<p class="mb-0 user-card-parrafo"><strong>Cliente de Prueba</strong><br>cliente@user.com</p>
 									<p class="text-center mt-2">
 										<a href="#" class="select-action">Selecciona AQUÍ</a>
 									</p>
@@ -233,16 +233,17 @@
 
 	<!-- Estilo adicional para tarjetas -->
 	<style>
+
+		.user-card-parrafo {color: #3e3d3d}
 		.contn-info {
 			background: #FFFFBD;
 			padding: 20px;
 			display: flex;
 			flex-direction: column;
 			gap: 20px;
-
 			border-radius: 5px;
 			box-shadow: 0 0 30px rgba(1, 41, 112, .1);
-			border: 1px solid #007bff;
+			border: 1px solid rgba(244, 92, 93, 0.82);
 		}
 
 		.parrafo-info {
@@ -258,19 +259,19 @@
 
 		.user-card {
 			cursor: pointer;
-			border: 1px solid #007bff;
+			border: 1px solid rgba(244, 92, 93, 0.82);
 			transition: transform 0.3s ease, box-shadow 0.3s ease;
 			border-radius: 8px;
 		}
 
 		.user-card.active {
-			box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+			box-shadow: 0 0 5px rgba(244, 92, 93, 0.82);
 			transform: scale(1.05);
 		}
 
 		.user-card:hover {
 			transform: scale(1.05);
-			box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+			box-shadow: 0 0 5px rgba(244, 92, 93, 0.82);
 		}
 
 		.select-action {
