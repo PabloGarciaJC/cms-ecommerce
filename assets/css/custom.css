@@ -1192,3 +1192,68 @@
       height: 20px;
       margin-right: 10px;
   }
+
+  /* # CAMPOS CON USUARIOS DE PRUEBA
+================================================== */
+  .user-card-parrafo {
+      color: #3e3d3d
+  }
+
+  .contn-info {
+      background: #FFFFBD;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 30px rgba(1, 41, 112, .1);
+      border: 1px solid rgba(244, 92, 93, 0.82);
+  }
+
+  .parrafo-info {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      text-align: center;
+  }
+
+  .title-info {
+      font-size: 35px;
+  }
+
+  .user-card {
+      cursor: pointer;
+      border: 1px solid rgba(244, 92, 93, 0.82);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border-radius: 8px;
+  }
+
+  .user-card.active {
+      box-shadow: 0 0 5px rgba(244, 92, 93, 0.82);
+      transform: scale(1.05);
+  }
+
+  .user-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 5px rgba(244, 92, 93, 0.82);
+  }
+
+  .select-action {
+      display: inline-block;
+      padding: 0px 10px;
+      font-weight: bold;
+      color: #fff !important;
+      background-color: #007bff;
+      text-decoration: none;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .select-action:hover {
+      opacity: 1;
+  }
+
+  @media (max-width:767px) {
+      .contn-info .row.text-center {
+          gap: 10px;
+      }
+  }

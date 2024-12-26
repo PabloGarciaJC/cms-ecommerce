@@ -267,6 +267,38 @@ class App {
       });
     });
 
+    // Script para llenar los campos con usuarios de prueba 
+    document.addEventListener('DOMContentLoaded', function () {
+      const userCards = document.querySelectorAll('.user-card');
+      const emailInput = document.getElementById('mdEmailIniciarSesion');
+      const passwordInput = document.getElementById('mdPasswordIniciarSesion');
+
+      // Recorre las tarjetas y añade funcionalidad de clic
+      userCards.forEach(card => {
+        card.addEventListener('click', function () {
+          // Remueve la clase activa de todas las tarjetas
+          userCards.forEach(c => c.classList.remove('active'));
+          // Añade la clase activa a la tarjeta seleccionada
+          card.classList.add('active');
+
+          // Obtén los datos del usuario
+          const email = card.getAttribute('data-email');
+          const password = card.getAttribute('data-password');
+
+          // Rellena los campos del formulario
+          emailInput.value = email;
+          passwordInput.value = password;
+        });
+      });
+
+      // Mostrar el modal automáticamente si no se ha mostrado antes
+      const modalShown = localStorage.getItem('modalShown');
+      if (!modalShown) {
+        $('#exampleModal').modal('show');
+        localStorage.setItem('modalShown', 'true');
+      }
+    });
+    
   }
 
   // Iniciar aplicación

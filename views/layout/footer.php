@@ -1,4 +1,3 @@
-	<!-- middle section -->
 	<div class="join-w3l1 py-sm-5 py-4">
 		<div class="container py-xl-4 py-lg-2">
 			<div class="row animation__left-right">
@@ -33,7 +32,6 @@
 			</div>
 		</div>
 	</div>
-	<!-- middle section -->
 	<footer>
 		<div class="footer-top-first">
 			<div class="container py-md-5 py-sm-4 py-3">
@@ -197,104 +195,6 @@
 		</div>
 	</div>
 
-	<!-- Script para llenar los campos con usuarios de prueba -->
-	<script>
-		document.addEventListener('DOMContentLoaded', function() {
-			const userCards = document.querySelectorAll('.user-card');
-			const emailInput = document.getElementById('mdEmailIniciarSesion');
-			const passwordInput = document.getElementById('mdPasswordIniciarSesion');
-
-			// Recorre las tarjetas y añade funcionalidad de clic
-			userCards.forEach(card => {
-				card.addEventListener('click', function() {
-					// Remueve la clase activa de todas las tarjetas
-					userCards.forEach(c => c.classList.remove('active'));
-					// Añade la clase activa a la tarjeta seleccionada
-					card.classList.add('active');
-
-					// Obtén los datos del usuario
-					const email = card.getAttribute('data-email');
-					const password = card.getAttribute('data-password');
-
-					// Rellena los campos del formulario
-					emailInput.value = email;
-					passwordInput.value = password;
-				});
-			});
-
-			// Mostrar el modal automáticamente si no se ha mostrado antes
-			const modalShown = localStorage.getItem('modalShown');
-			if (!modalShown) {
-				$('#exampleModal').modal('show');
-				localStorage.setItem('modalShown', 'true');
-			}
-		});
-	</script>
-
-	<!-- Estilo adicional para tarjetas -->
-	<style>
-
-		.user-card-parrafo {color: #3e3d3d}
-		.contn-info {
-			background: #FFFFBD;
-			padding: 20px;
-			display: flex;
-			flex-direction: column;
-			gap: 20px;
-			border-radius: 5px;
-			box-shadow: 0 0 30px rgba(1, 41, 112, .1);
-			border: 1px solid rgba(244, 92, 93, 0.82);
-		}
-
-		.parrafo-info {
-			display: flex;
-			flex-direction: column;
-			gap: 10px;
-			text-align: center;
-		}
-
-		.title-info {
-			font-size: 35px;
-		}
-
-		.user-card {
-			cursor: pointer;
-			border: 1px solid rgba(244, 92, 93, 0.82);
-			transition: transform 0.3s ease, box-shadow 0.3s ease;
-			border-radius: 8px;
-		}
-
-		.user-card.active {
-			box-shadow: 0 0 5px rgba(244, 92, 93, 0.82);
-			transform: scale(1.05);
-		}
-
-		.user-card:hover {
-			transform: scale(1.05);
-			box-shadow: 0 0 5px rgba(244, 92, 93, 0.82);
-		}
-
-		.select-action {
-			display: inline-block;
-			padding: 0px 10px;
-			font-weight: bold;
-			color: #fff !important;
-			background-color: #007bff;
-			text-decoration: none;
-			transition: background-color 0.3s ease, box-shadow 0.3s ease;
-		}
-
-		.select-action:hover {
-			opacity: 1;
-		}
-
-		@media (max-width:767px) {
-			.contn-info .row.text-center {
-				gap: 10px;
-			}
-		}
-	</style>
-
 	<!-- register -->
 	<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-hidden="true">
 		<div class="modal-dialog" role="document">
@@ -343,7 +243,6 @@
 			</div>
 		</div>
 	</div>
-
 
 	<?php include __DIR__ . '/script-footer.php'; ?>
 
