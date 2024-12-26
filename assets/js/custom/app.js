@@ -151,56 +151,56 @@ class App {
     targets.forEach(target => observer.observe(target));
   };
 
- initAnimationLeftRight = function (containerSelector) {
-		const container = document.querySelector(containerSelector);
+  initAnimationLeftRight = function (containerSelector) {
+    const container = document.querySelector(containerSelector);
 
-		if (!container) return;
+    if (!container) return;
 
-		// Verificar si ya se han aplicado animaciones al contenedor
-		if (container.classList.contains('animations-applied')) return;
+    // Verificar si ya se han aplicado animaciones al contenedor
+    if (container.classList.contains('animations-applied')) return;
 
-		// Seleccionar todos los elementos .banner-wrapper dentro del contenedor
-		const bannerWrappers = container.querySelectorAll('.banner-wrapper');
+    // Seleccionar todos los elementos .banner-wrapper dentro del contenedor
+    const bannerWrappers = container.querySelectorAll('.banner-wrapper');
 
-		// Función para aplicar animación a cada elemento
-		const applyAnimation = (element, index) => {
-			// Aplica animación desde la izquierda o derecha dependiendo del índice
-			if (index % 2 === 0) {
-				element.classList.add('animation__slide--left');
-			} else {
-				element.classList.add('animation__slide--right');
-			}
-		};
+    // Función para aplicar animación a cada elemento
+    const applyAnimation = (element, index) => {
+      // Aplica animación desde la izquierda o derecha dependiendo del índice
+      if (index % 2 === 0) {
+        element.classList.add('animation__slide--left');
+      } else {
+        element.classList.add('animation__slide--right');
+      }
+    };
 
-		// Crear un Intersection Observer para detectar cuando el elemento entra en el viewport
-		const observer = new IntersectionObserver(entries => {
-			entries.forEach(entry => {
-				if (entry.isIntersecting) {
-					const index = Array.from(bannerWrappers).indexOf(entry.target);
-					applyAnimation(entry.target, index); // Aplica la animación
+    // Crear un Intersection Observer para detectar cuando el elemento entra en el viewport
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const index = Array.from(bannerWrappers).indexOf(entry.target);
+          applyAnimation(entry.target, index); // Aplica la animación
 
-					// Mostrar el log cuando se detecta el elemento
-					console.log(`Elemento ${entry.target} detectado. Índice: ${index}`);
+          // Mostrar el log cuando se detecta el elemento
+          console.log(`Elemento ${entry.target} detectado. Índice: ${index}`);
 
-					// Marcar el elemento como animado para evitar reanimaciones
-					entry.target.classList.add('animation-applied');
-					// Dejar de observar este elemento después de la animación
-					observer.unobserve(entry.target);
-				}
-			});
-		}, {
-			threshold: 0.01, // Detectar cuando solo una pequeña parte (1%) del elemento es visible
-			rootMargin: "-500px 0px 0px 0px" // Detectar el elemento 500px antes de que entre en el viewport
-		});
+          // Marcar el elemento como animado para evitar reanimaciones
+          entry.target.classList.add('animation-applied');
+          // Dejar de observar este elemento después de la animación
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.01, // Detectar cuando solo una pequeña parte (1%) del elemento es visible
+      rootMargin: "-500px 0px 0px 0px" // Detectar el elemento 500px antes de que entre en el viewport
+    });
 
-		// Aplicar el observador a cada .banner-wrapper
-		bannerWrappers.forEach(wrapper => {
-			observer.observe(wrapper);
-		});
+    // Aplicar el observador a cada .banner-wrapper
+    bannerWrappers.forEach(wrapper => {
+      observer.observe(wrapper);
+    });
 
-		// Marcar el contenedor como con animaciones aplicadas para evitar duplicados
-		container.classList.add('animations-applied');
-	};
+    // Marcar el contenedor como con animaciones aplicadas para evitar duplicados
+    container.classList.add('animations-applied');
+  };
 
   // Método customApp
   customApp() {
@@ -224,13 +224,48 @@ class App {
 
     // Animaciones para items Individuales
     this.applyAnimationsByDirection('.animation__left', 'left');
-		this.applyAnimationsByDirection('.animation__right', 'right');
-		this.applyAnimationsByDirection('.animation__fade-in-upscale', 'fade-in-upscale');
-		this.applyAnimationsByDirection('.animation__up', 'up');
-		this.applyAnimationsByDirection('.animation__down', 'down');
+    this.applyAnimationsByDirection('.animation__right', 'right');
+    this.applyAnimationsByDirection('.animation__fade-in-upscale', 'fade-in-upscale');
+    this.applyAnimationsByDirection('.animation__up', 'up');
+    this.applyAnimationsByDirection('.animation__down', 'down');
 
     // Animacion Left y Rigth en secuencia
-		this.initAnimationLeftRight('.animation__left-right');
+    this.initAnimationLeftRight('.animation__left-right');
+
+    // Select de Idiomas
+    document.addEventListener('DOMContentLoaded', function () {
+      var selectSelected = document.querySelector('.select-selected');
+      var selectItems = document.querySelector('.select-items');
+      var selectedLanguageInput = document.getElementById('selected-language');
+      var languageForm = document.getElementById('language-form');
+      var selectArrow = document.querySelector('.select-arrow');
+
+      selectSelected.addEventListener('click', function () {
+        var isExpanded = selectItems.classList.contains('show');
+        selectItems.classList.toggle('show', !isExpanded);
+        selectArrow.classList.toggle('down', !isExpanded);
+      });
+
+      selectItems.addEventListener('click', function (event) {
+        var selectedOption = event.target.closest('div');
+        if (selectedOption) {
+          var value = selectedOption.getAttribute('data-value');
+          var imgSrc = selectedOption.querySelector('img').getAttribute('src');
+          var text = selectedOption.textContent.trim();
+
+          selectSelected.innerHTML = '<div><img src="' + imgSrc + '" alt="selected-language">' + text + '</div><div class="select-arrow">&#9662;</div>';
+          selectedLanguageInput.value = value;
+          languageForm.submit();
+        }
+      });
+
+      document.addEventListener('click', function (event) {
+        if (!selectSelected.contains(event.target) && !selectItems.contains(event.target)) {
+          selectItems.classList.remove('show');
+          selectArrow.classList.remove('down');
+        }
+      });
+    });
 
   }
 

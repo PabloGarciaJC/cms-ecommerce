@@ -974,6 +974,7 @@ span.item_price {
 .product-sec1.product-sec2 {
     background: #F45C5D;
     position: relative;
+    margin-bottom: 25px;
 }
 
 h3.effect-bg {

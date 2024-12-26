@@ -6,7 +6,6 @@ require_once 'controllers/ProductoController.php';
 
 class HomeController
 {
-
     public function idiomas()
     {
         $lang = isset($_POST['lenguaje']) ? $_POST['lenguaje'] : false;
@@ -29,13 +28,18 @@ class HomeController
         }
     }
 
-    public function index()
+    private function cargarDatosComunes()
     {
-        // $datos = $this->cargarDatosComunes();
         $this->idiomas();
         $usuario = Utils::obtenerUsuario();
         $categorias = new Categorias();
         $categoriasConSubcategoriasYProductos = $categorias->obtenerCategoriasYProductos();
+        return compact('usuario', 'categoriasConSubcategoriasYProductos');
+    }
+
+    public function index()
+    {
+        extract($this->cargarDatosComunes());
         require_once 'views/layout/head.php';
         require_once 'views/layout/header.php';
         require_once 'views/layout/search.php';
@@ -47,10 +51,7 @@ class HomeController
 
     public function nosotros()
     {
-        $this->idiomas();
-        $usuario = Utils::obtenerUsuario();
-        $categorias = new Categorias();
-        $categoriasConSubcategoriasYProductos = $categorias->obtenerCategoriasYProductos();
+        extract($this->cargarDatosComunes());
         require_once 'views/layout/head.php';
         require_once 'views/layout/header.php';
         require_once 'views/home/nosotros.php';
@@ -59,10 +60,7 @@ class HomeController
 
     public function help()
     {
-        $this->idiomas();
-        $usuario = Utils::obtenerUsuario();
-        $categorias = new Categorias();
-        $categoriasConSubcategoriasYProductos = $categorias->obtenerCategoriasYProductos();
+        extract($this->cargarDatosComunes());
         require_once 'views/layout/head.php';
         require_once 'views/layout/header.php';
         require_once 'views/home/help.php';
@@ -71,10 +69,7 @@ class HomeController
 
     public function faqs()
     {
-        $this->idiomas();
-        $usuario = Utils::obtenerUsuario();
-        $categorias = new Categorias();
-        $categoriasConSubcategoriasYProductos = $categorias->obtenerCategoriasYProductos();
+        extract($this->cargarDatosComunes());
         require_once 'views/layout/head.php';
         require_once 'views/layout/header.php';
         require_once 'views/home/faqs.php';
@@ -83,10 +78,7 @@ class HomeController
 
     public function term()
     {
-        $this->idiomas();
-        $usuario = Utils::obtenerUsuario();
-        $categorias = new Categorias();
-        $categoriasConSubcategoriasYProductos = $categorias->obtenerCategoriasYProductos();
+        extract($this->cargarDatosComunes());
         require_once 'views/layout/head.php';
         require_once 'views/layout/header.php';
         require_once 'views/home/term.php';
@@ -95,10 +87,7 @@ class HomeController
 
     public function privacy()
     {
-        $this->idiomas();
-        $usuario = Utils::obtenerUsuario();
-        $categorias = new Categorias();
-        $categoriasConSubcategoriasYProductos = $categorias->obtenerCategoriasYProductos();
+        extract($this->cargarDatosComunes());
         require_once 'views/layout/head.php';
         require_once 'views/layout/header.php';
         require_once 'views/home/privacy.php';
@@ -107,10 +96,7 @@ class HomeController
 
     public function contactanos()
     {
-        $this->idiomas();
-        $usuario = Utils::obtenerUsuario();
-        $categorias = new Categorias();
-        $categoriasConSubcategoriasYProductos = $categorias->obtenerCategoriasYProductos();
+        extract($this->cargarDatosComunes());
         require_once 'views/layout/head.php';
         require_once 'views/layout/header.php';
         require_once 'views/home/contacto.php';
