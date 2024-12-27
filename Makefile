@@ -36,6 +36,7 @@ print-urls:
 .PHONY: up
 up:
 	$(DOCKER_COMPOSE) up -d
+	 @$(MAKE) --no-print-directory print-urls
 
 .PHONY: down
 down:
