@@ -1,9 +1,8 @@
-	<!-- middle section -->
 	<div class="join-w3l1 py-sm-5 py-4">
 		<div class="container py-xl-4 py-lg-2">
-			<div class="row">
+			<div class="row animation__left-right">
 				<div class="col-lg-6">
-					<div class="join-agile text-left p-4">
+					<div class="join-agile text-left p-4 banner-wrapper">
 						<div class="row">
 							<div class="col-sm-7 offer-name">
 								<h6><?php echo TEXT_AUDIO_DESC; ?></h6>
@@ -16,7 +15,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-lg-6 mt-lg-0 mt-5">
+				<div class="col-lg-6 mt-lg-0 mt-5 banner-wrapper">
 					<div class="join-agile text-left p-4">
 						<div class="row ">
 							<div class="col-sm-7 offer-name">
@@ -33,12 +32,11 @@
 			</div>
 		</div>
 	</div>
-	<!-- middle section -->
 	<footer>
 		<div class="footer-top-first">
 			<div class="container py-md-5 py-sm-4 py-3">
 				<div class="row w3l-grids-footer border-top border-bottom py-sm-4 py-3">
-					<div class="col-md-4 offer-footer">
+					<div class="col-md-4 offer-footer animation__fade-in-upscale">
 						<div class="row">
 							<div class="col-4 icon-fot">
 								<i class="fas fa-dolly"></i>
@@ -49,7 +47,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-md-4 offer-footer my-md-0 my-4">
+					<div class="col-md-4 offer-footer my-md-0 my-4 animation__fade-in-upscale">
 						<div class="row">
 							<div class="col-4 icon-fot">
 								<i class="fas fa-shipping-fast"></i>
@@ -60,7 +58,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-md-4 offer-footer">
+					<div class="col-md-4 offer-footer animation__fade-in-upscale">
 						<div class="row">
 							<div class="col-4 icon-fot">
 								<i class="far fa-thumbs-up"></i>
@@ -80,12 +78,10 @@
 					<div class="col-md-3 col-sm-6 footer-grids">
 						<h3 class="text-white font-weight-bold mb-3"><?php echo TEXT_FOOTER_CATEGORIES; ?></h3>
 						<ul>
-							<li class="mb-3"><a href="product.html"><?php echo TEXT_FOOTER_CATEGORY_MOBILES; ?></a></li>
-							<li class="mb-3"><a href="product.html"><?php echo TEXT_FOOTER_CATEGORY_COMPUTERS; ?></a></li>
-							<li class="mb-3"><a href="product.html"><?php echo TEXT_FOOTER_CATEGORY_TV_AUDIO; ?></a></li>
-							<li class="mb-3"><a href="product2.html"><?php echo TEXT_FOOTER_CATEGORY_SMARTPHONES; ?></a></li>
-							<li class="mb-3"><a href="product.html"><?php echo TEXT_FOOTER_CATEGORY_WASHING_MACHINES; ?></a></li>
-							<li><a href="product2.html"><?php echo TEXT_FOOTER_CATEGORY_REFRIGERATORS; ?></a></li>
+							<li class="mb-3"><a href="<?php echo BASE_URL; ?>Catalogo/index?categoriaId=192"><?php echo TEXT_FOOTER_CATEGORY_MOBILES; ?></a></li>
+							<li class="mb-3"><a href="<?php echo BASE_URL; ?>Catalogo/index?categoriaId=193"><?php echo TEXT_FOOTER_CATEGORY_TABLET; ?></a></li>
+							<li class="mb-3"><a href="<?php echo BASE_URL; ?>Catalogo/index?categoriaId=194"><?php echo TEXT_FOOTER_CATEGORY_TV_PORTATIL; ?></a></li>
+							<li class="mb-3"><a href="<?php echo BASE_URL; ?>Catalogo/index?categoriaId=196"><?php echo TEXT_FOOTER_CATEGORY_APPLIANCES; ?></a></li>
 						</ul>
 					</div>
 					<div class="col-md-3 col-sm-6 footer-grids mt-sm-0 mt-4">
@@ -95,7 +91,7 @@
 							<li class="mb-3"><a href="<?php echo BASE_URL; ?>Home/faqs"><?php echo TEXT_FOOTER_FAQS; ?></a></li>
 							<li class="mb-3"><a href="<?php echo BASE_URL; ?>Home/term"><?php echo TEXT_FOOTER_TERMS; ?></a></li>
 							<li class="mb-3"><a href="<?php echo BASE_URL; ?>Home/nosotros"><?php echo TEXT_FOOTER_ABOUT_US; ?></a></li>
-							<li class="mb-3"><a href="<?php echo BASE_URL; ?>Home/contactanos"><?php echo TEXT_CONTACTANOS; ?></a></li>								
+							<li class="mb-3"><a href="<?php echo BASE_URL; ?>Home/contactanos"><?php echo TEXT_CONTACTANOS; ?></a></li>
 							<li><a href="<?php echo BASE_URL; ?>Home/privacy"><?php echo TEXT_FOOTER_PRIVACY_POLICY; ?></a></li>
 						</ul>
 					</div>
@@ -112,7 +108,7 @@
 					<div class="col-md-3 col-sm-6 footer-grids w3l-agileits mt-md-0 mt-4">
 						<h3 class="text-white font-weight-bold mb-3"><?php echo TEXT_FOOTER_NEWSLETTER; ?></h3>
 						<p class="mb-3"><?php echo TEXT_FOOTER_NEWSLETTER_DESC; ?></p>
-						<form action="#" method="post">
+						<form action="avasscript:void(0)" method="post">
 							<div class="form-group">
 								<input type="email" class="form-control" placeholder="Email" name="email" required="">
 								<input type="submit" value="Go">
@@ -122,9 +118,9 @@
 							<h3 class="text-white font-weight-bold mb-3"><?php echo TEXT_FOOTER_FOLLOW_US; ?></h3>
 							<div class="social">
 								<ul>
-									<li><a class="icon fb" href="#"><i class="fab fa-facebook-f"></i></a></li>
-									<li><a class="icon tw" href="#"><i class="fab fa-twitter"></i></a></li>
-									<li><a class="icon gp" href="#"><i class="fab fa-google-plus-g"></i></a></li>
+									<li><a class="icon fb" href="javasscript:void(0)"><i class="fab fa-facebook-f"></i></a></li>
+									<li><a class="icon tw" href="javasscript:void(0)"><i class="fab fa-twitter"></i></a></li>
+									<li><a class="icon gp" href="javasscript:void(0)"><i class="fab fa-google-plus-g"></i></a></li>
 								</ul>
 							</div>
 						</div>
@@ -150,6 +146,31 @@
 					</button>
 				</div>
 				<div class="modal-body">
+					<div class="mb-3 contn-info">
+						<div class="parrafo-info">
+							<h1 class="text-center title-info">Información Importante</h1>
+							Los usuarios proporcionados son ficticios y están destinados para realizar pruebas.
+						</div>
+						<div class="row text-center">
+							<div class="col">
+								<div class="card user-card bg-light p-2" data-email="admin@cms.com" data-password="password">
+									<p class="mb-0 user-card-parrafo"><strong>Administrador</strong><br>admin@cms.com</p>
+									<p class="text-center mt-2">
+										<a href="#" class="select-action">Selecciona AQUÍ</a>
+									</p>
+								</div>
+							</div>
+							<div class="col">
+								<div class="card user-card bg-light p-2" data-email="cliente@user.com" data-password="password">
+									<p class="mb-0 user-card-parrafo"><strong>Cliente de Prueba</strong><br>cliente@user.com</p>
+									<p class="text-center mt-2">
+										<a href="#" class="select-action">Selecciona AQUÍ</a>
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+
 					<form action="" id="mdFormularioIniciarSesion" method="POST">
 						<div id="respuestaPhpIniciarSesion" style="text-align: center; display: none"></div>
 						<div class="form-group">
@@ -173,7 +194,6 @@
 			</div>
 		</div>
 	</div>
-
 
 	<!-- register -->
 	<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-hidden="true">
@@ -223,7 +243,6 @@
 			</div>
 		</div>
 	</div>
-
 
 	<?php include __DIR__ . '/script-footer.php'; ?>
 

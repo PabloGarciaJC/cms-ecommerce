@@ -56,7 +56,9 @@
                 </div>
                 <div class="form-group">
                     <label>Correo Electrónico:</label>
-                    <input type="email" name="email" class="form-control" placeholder="Correo electrónico" value="<?php echo isset($_SESSION['form']['email']) ? $_SESSION['form']['email'] : $usuario->Email; ?>" disabled>
+                    <input type="email" class="form-control" placeholder="Correo electrónico" value="<?php echo isset($_SESSION['form']['email']) ? $_SESSION['form']['email'] : $usuario->Email; ?>" disabled>
+                    <input type="hidden" name="email" value="<?php echo $usuario->Email; ?>">
+                    
                     <?php if (isset($_SESSION['errores']['email'])) : ?>
                         <div class="text-danger mt-2">
                             <i class="fas fa-exclamation-circle"></i> <?php echo $_SESSION['errores']['email']; ?>

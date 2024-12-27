@@ -11,7 +11,7 @@ class AdminController
     public function dashboard()
     {
         Utils::accesoUsuarioRegistrado();
-        $usuario = Utils::obtenerUsuarioSinModelo();
+        $usuario = Utils::obtenerUsuario();
         $pedidosModel = new Pedidos();
         $pedidosPendientes = $pedidosModel->obtenerPedidosPendientes();
         $ingresosMensuales = $pedidosModel->obtenerIngresosMensuales();
@@ -30,7 +30,7 @@ class AdminController
     public function perfil()
     {
         Utils::accesoUsuarioRegistrado();
-        $usuario = Utils::obtenerUsuarioSinModelo();
+        $usuario = Utils::obtenerUsuario();
         $paises = new Paises();
         $paisesTodos = $paises->obtenerTodosPaises();
         require_once 'views/layout/head.php';
@@ -70,13 +70,42 @@ class AdminController
 
         $errores = [];
 
+        if (empty($usuario)) {
+            $errores['usuario'] = 'El nombre de usuario no puede estar vacío.';
+        }
+
+        if (empty($documentacion)) {
+            $errores['documentacion'] = 'El número de documento no puede estar vacío.';
+        }
+        if (empty($nombre)) {
+            $errores['nombre'] = 'El nombre no puede estar vacío.';
+        }
+        if (empty($apellido)) {
+            $errores['apellido'] = 'El apellido no puede estar vacío.';
+        }
+
+        if (empty($telefono)) {
+            $errores['telefono'] = 'El teléfono no puede estar vacío.';
+        }
+        if (empty($direccion)) {
+            $errores['direccion'] = 'La dirección no puede estar vacía.';
+        }
+        if (empty($pais)) {
+            $errores['pais'] = 'El país no puede estar vacío.';
+        }
+        if (empty($ciudad)) {
+            $errores['ciudad'] = 'La ciudad no puede estar vacía.';
+        }
+        if (empty($codigoPostal)) {
+            $errores['codigoPostal'] = 'El código postal no puede estar vacío.';
+        }
+
         if (count($errores) > 0) {
             $_SESSION['errores'] = $errores;
             $_SESSION['form'] = $_POST;
             header("Location: " . BASE_URL . "Admin/perfil");
             exit;
         } else {
-
             $nombreArchivo = isset($_FILES['avatar']['name']) ? $_FILES['avatar']['name'] : false;
             $rutaTemporal = isset($_FILES['avatar']['tmp_name']) ? $_FILES['avatar']['tmp_name'] : false;
 
@@ -126,7 +155,7 @@ class AdminController
     public function password()
     {
         Utils::accesoUsuarioRegistrado();
-        $usuario = Utils::obtenerUsuarioSinModelo();
+        $usuario = Utils::obtenerUsuario();
         require_once 'views/layout/head.php';
         require_once 'views/admin/user/password.php';
         require_once 'views/layout/script-footer.php';
@@ -173,7 +202,6 @@ class AdminController
     {
         Utils::accesoUsuarioRegistrado();
         $categoriaId = isset($_GET['categoriaId']) ? $_GET['categoriaId'] : false;
-
         $categorias = new Categorias();
         $categorias->setId($categoriaId);
         $breadcrumbs = $categorias->getBreadcrumbs();
@@ -488,11 +516,11 @@ class AdminController
                 return;
             }
 
-            // Verificar si el rol es 1 y si ya existe un usuario con ese rol
-            if ($nuevoRol == 1) {
+            // Verificar si el nuevo rol es Admin (id = 22)
+            if ($nuevoRol == 22) {
                 $usuario = new Usuario();
-                if ($usuario->existeUsuarioConRol1()) {
-                    echo json_encode(['success' => false, 'message' => 'Solo un usuario puede tener el rol 1.']);
+                if ($usuario->existeUsuarioConRolAdmin() && !$usuario->esRolActualAdmin($id)) {
+                    echo json_encode(['success' => false, 'message' => 'Solo un usuario puede tener el rol de Admin.']);
                     return;
                 }
             }
@@ -666,6 +694,14 @@ class AdminController
         $usuarioDetails = $usuario->obtenerTodosPorId();
         require_once 'views/layout/head.php';
         require_once 'views/admin/user/detalle.php';
+        require_once 'views/layout/script-footer.php';
+    }
+
+    public function documentacion()
+    {
+        Utils::accesoUsuarioRegistrado();
+        require_once 'views/layout/head.php';
+        require_once 'views/admin/layout/documentacion.php';
         require_once 'views/layout/script-footer.php';
     }
 

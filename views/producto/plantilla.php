@@ -1,4 +1,4 @@
-<div class="col-md-4 product-men mt-5">
+<div class="col-md-4 product-men mt-5 animation__fade-in-upscale">
     <div class="men-pro-item simpleCart_shelfItem">
         <div class="men-thumb-item text-center">
             <?php

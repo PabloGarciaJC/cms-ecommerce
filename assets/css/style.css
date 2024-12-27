@@ -974,6 +974,7 @@ span.item_price {
 .product-sec1.product-sec2 {
     background: #F45C5D;
     position: relative;
+    margin-bottom: 25px;
 }
 
 h3.effect-bg {
@@ -1128,6 +1129,13 @@ h2.footer-top-head-w3l {
 
 .w3l-middlefooter-sec {
     background: #333;
+}
+
+@media (max-width:767px) {
+
+    .w3l-middlefooter-sec {
+        text-align: center;
+    }
 }
 
 /*-- social-icons --*/
@@ -1528,6 +1536,12 @@ li.subitem1 p {
     margin: 0;
 }
 
+@media (max-width:767px) {
+    .occasion-cart .snipcart-details {
+        width: 100%;
+    }
+}
+
 /*-- //single-page --*/
 
 /*-- checkout --*/
@@ -1566,7 +1580,9 @@ table.timetable_sub {
 }
 
 td.invert-image a img {
-    width: 30%;
+    width: 90px;
+    max-width: 90px;
+    min-width: 90px;
     margin: 0 auto;
 }
 
@@ -1575,13 +1591,13 @@ td.invert-image a img {
 }
 
 .close {
-    background: url('../images/close_1.png') no-repeat 0px 0px;
+    /* background: url('../images/close_1.png') no-repeat 0px 0px; */
     cursor: pointer;
     width: 28px;
     height: 28px;
     position: absolute;
-    right: 40px;
-    top: -13px;
+    right: 15px;
+    top: 18px;
     -webkit-transition: color 0.2s ease-in-out;
     -moz-transition: color 0.2s ease-in-out;
     -o-transition: color 0.2s ease-in-out;
@@ -2409,7 +2425,7 @@ div#testimonials h4.m-title {
     }
 
     .navbar-light .navbar-toggler {
-        border-color: #0879c9;
+        /* border-color: #0879c9; */
         border-radius: 0;
     }
 
@@ -3055,8 +3071,8 @@ div#testimonials h4.m-title {
 
     button.w3view-cart {
         font-size: 20px;
-        width: 40px;
-        height: 40px;
+        width: 43px;
+        height: 43px;
         padding: 0;
     }
 
@@ -3386,5 +3402,3 @@ div#testimonials h4.m-title {
         width: 45%;
     }
 }
-
-/*--//responsive--*/

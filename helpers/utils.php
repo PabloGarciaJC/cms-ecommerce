@@ -50,18 +50,16 @@ class Utils
     }
   }
 
-  //El Objeto Usuario Esta  Disponible en toda la Pagina 
-  //"Lo Necesito para Mostrar el Nombre en el Banner"
   public static function obtenerUsuarioSinModelo()
   {
-    if (isset($_SESSION['usuarioRegistrado']->Id)) {
-      if (isset($_SESSION['usuarioRegistrado']->Id)) {
-        $obtenertodos = new usuario;
-        $obtenertodos->setId($_SESSION['usuarioRegistrado']->Id);
-        $usuario = $obtenertodos->obtenerTodosPorId();
-        return $usuario;
-      }
-    }
+    // if (isset($_SESSION['usuarioRegistrado']->Id)) {
+    //   if (isset($_SESSION['usuarioRegistrado']->Id)) {
+    //     $obtenertodos = new usuario;
+    //     $obtenertodos->setId($_SESSION['usuarioRegistrado']->Id);
+    //     $usuario = $obtenertodos->obtenerTodosPorId();
+    //     return $usuario;
+    //   }
+    // }
   }
 
   public static function listaCategorias()

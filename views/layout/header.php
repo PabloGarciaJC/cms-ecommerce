@@ -8,7 +8,7 @@
 				</p>
 			</div>
 			<div class="col-lg-8 header-right mt-lg-0 mt-2">
-				<ul class="text-right">
+				<ul class="text-right header-top-contn">
 					<li class="text-center border-right text-white">
 						<i class="fas fa-phone mr-2"></i> <?php echo TEXT_PHONE_NUMBER; ?>
 					</li>
@@ -35,25 +35,52 @@
 
 <div class="navbar-inner">
 	<div class="container">
-		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-
-			<div class="language-selector">
-				<form action="<?php echo BASE_URL . ltrim($_SERVER['REQUEST_URI'], '/') ?>" method="POST">
-					<div class="language-dropdown">
-						<select id="language-select" name="lenguaje" required onchange="this.form.submit()">
-							<option value="es" <?php echo (isset($_SESSION['lang']) && $_SESSION['lang'] == 'es') ? 'selected' : ''; ?>>
-								🇪🇸 Español
-							</option>
-							<option value="en" <?php echo (isset($_SESSION['lang']) && $_SESSION['lang'] == 'en') ? 'selected' : ''; ?>>
-								🇬🇧 Inglés
-							</option>
-							<option value="fr" <?php echo (isset($_SESSION['lang']) && $_SESSION['lang'] == 'fr') ? 'selected' : ''; ?>>
-								🇫🇷 Francés
-							</option>
-						</select>
+		<nav class="navbar navbar-expand-lg navbar-light bg-light navbar-containder">
+			<?php
+			$idioma = isset($_SESSION['lang']) ? $_SESSION['lang'] : 'es';
+			$nombre_idioma = '';
+			switch ($idioma) {
+				case 'es':
+					$nombre_idioma = 'Español';
+					break;
+				case 'en':
+					$nombre_idioma = 'Inglés';
+					break;
+				case 'fr':
+					$nombre_idioma = 'Francés';
+					break;
+				default:
+					$nombre_idioma = 'Español';
+			}
+			?>
+			<div class="custom-select-container">
+				<div class="select-selected">
+					<div>
+						<img src="<?php echo BASE_URL ?>assets/images/banderas/<?php echo $idioma; ?>.svg" alt="selected-language">
+						<?php echo $nombre_idioma; ?>
 					</div>
-				</form>
+					<div class="select-arrow">&#9662;</div>
+				</div>
+				<div class="select-items">
+					<div data-value="es">
+						<img src="<?php echo BASE_URL ?>assets/images/banderas/es.svg" alt="bandera-español">
+						Español
+					</div>
+					<div data-value="en">
+						<img src="<?php echo BASE_URL ?>assets/images/banderas/en.svg" alt="bandera-ingles">
+						Inglés
+					</div>
+					<div data-value="fr">
+						<img src="<?php echo BASE_URL ?>assets/images/banderas/fr.svg" alt="bandera-frances">
+						Francés
+					</div>
+				</div>
 			</div>
+
+			<form id="language-form" action="<?php echo BASE_URL . ltrim($_SERVER['REQUEST_URI'], '/') ?>" method="POST">
+				<input type="hidden" name="lenguaje" id="selected-language" value="<?php echo $idioma; ?>">
+			</form>
+
 
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
 				aria-expanded="false" aria-label="Toggle navigation">
@@ -84,7 +111,7 @@
 													<h6>Subcategorías</h6>
 													<ul class="multi-column-dropdown">
 														<?php while ($subcategoria = $item['subcategorias']->fetch_object()) : ?>
-															<li><a href="<?php echo BASE_URL; ?>Catalogo/index?categoriaId=<?= $subcategoria->id ?>"><?= $subcategoria->nombre ?></a></li>														
+															<li><a href="<?php echo BASE_URL; ?>Catalogo/index?categoriaId=<?= $subcategoria->id ?>"><?= $subcategoria->nombre ?></a></li>
 														<?php endwhile; ?>
 													</ul>
 												</div>

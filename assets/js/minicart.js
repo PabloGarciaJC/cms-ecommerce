@@ -1923,7 +1923,6 @@
       var hasItems = !!items.length;
       var priceFormat = { format: true, currency: cart.settings("currency_code") };
       var totalFormat = { format: true, showCode: true };
-      console.log(items);
     %>
     <form method="post" class="<% if (!hasItems) { %>minicarts-empty<% } %>" action="<%= config.action %>" target="<%= config.target %>">
         <button type="button" class="minicarts-closer">&times;</button>

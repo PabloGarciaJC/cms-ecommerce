@@ -211,17 +211,32 @@ class Usuario
   public function iniciarSesion()
   {
     $resultado = false;
-    $sql = "SELECT * FROM usuarios where Email ='{$this->getEmail()}'";
+
+    // Realizamos un INNER JOIN con la tabla de roles para obtener el nombre del rol
+    $sql = "SELECT u.*, r.nombre AS rol_nombre 
+              FROM usuarios u
+              INNER JOIN roles r ON u.Rol = r.id
+              WHERE u.Email = '{$this->getEmail()}'";
+
+    // Ejecutamos la consulta
     $login = $this->db->query($sql);
+
     if ($login && $login->num_rows == 1) {
+      // Si el usuario existe, obtenemos el objeto usuario
       $usuario = $login->fetch_object();
-      $vericacion = password_verify($this->password, $usuario->Password);
-      if ($vericacion == 1) {
+
+      // Verificamos la contraseña
+      $verificacion = password_verify($this->password, $usuario->Password);
+
+      if ($verificacion == 1) {
+        // Si la contraseña es correcta, retornamos el objeto usuario con el rol
         return $usuario;
       }
     }
+
     return $resultado;
   }
+
 
   public function repetidosUsuario()
   {
@@ -260,8 +275,7 @@ class Usuario
   {
     $resultado = false;
     $sql = "UPDATE usuarios SET 
-              Usuario = '{$this->usuario}', 
-              Password = '{$this->password}', 
+              Usuario = '{$this->usuario}',
               NumeroDocumento = '{$this->numeroDocumento}', 
               Nombres = '{$this->nombres}', 
               Apellidos = '{$this->apellidos}', 
@@ -280,14 +294,15 @@ class Usuario
 
   public function obtenerTodosPorId()
   {
-    $resultado = false;
-    $sql = "SELECT * FROM usuarios WHERE Id = {$this->id}";
+    $sql = "SELECT u.*, r.nombre AS rol_nombre, r.descripcion AS rol_descripcion 
+              FROM usuarios u
+              INNER JOIN roles r ON u.Rol = r.id
+              WHERE u.Id = {$this->id}";
+
     $obtenerTodos = $this->db->query($sql);
-    if ($obtenerTodos) {
-      $resultado = true;
-    }
     return $obtenerTodos->fetch_object();
   }
+
 
   public function actualizarPassword()
   {
@@ -311,12 +326,20 @@ class Usuario
     return $resultado;
   }
 
-  public function existeUsuarioConRol1()
+  public function existeUsuarioConRolAdmin()
   {
-    $sql = "SELECT COUNT(*) AS count FROM usuarios WHERE Rol = 1";
+    $sql = "SELECT COUNT(*) AS count FROM usuarios WHERE Rol = 22";
     $result = $this->db->query($sql);
     $data = $result->fetch_object();
     return $data->count > 0;
+  }
+
+  public function esRolActualAdmin($id)
+  {
+    $sql = "SELECT Rol FROM usuarios WHERE Id = {$id}";
+    $result = $this->db->query($sql);
+    $data = $result->fetch_object();
+    return isset($data->Rol) && $data->Rol == 22;
   }
 
   public function obtenerTotalClientes()
@@ -330,5 +353,4 @@ class Usuario
 
     return 0;
   }
-  
 }

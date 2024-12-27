@@ -945,28 +945,6 @@ $.fn.magnificPopup = function(options) {
 	return jqEl;
 };
 
-
-//Quick benchmark
-/*
-var start = performance.now(),
-	i,
-	rounds = 1000;
-
-for(i = 0; i < rounds; i++) {
-
-}
-console.log('Test #1:', performance.now() - start);
-
-start = performance.now();
-for(i = 0; i < rounds; i++) {
-
-}
-console.log('Test #2:', performance.now() - start);
-*/
-
-
-/*>>core*/
-
 /*>>inline*/
 
 var INLINE_NS = 'inline',

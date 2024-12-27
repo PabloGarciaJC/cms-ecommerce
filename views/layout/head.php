@@ -20,9 +20,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			window.scrollTo(0, 1);
 		}
 	</script>
-	<link href="<?php echo BASE_URL ?>assets/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" /> <!-- ya -->
+	<link href="<?php echo BASE_URL ?>assets/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 	<link href="<?php echo BASE_URL ?>assets/css/style.css" rel="stylesheet" type="text/css" media="all" />
 	<link rel="stylesheet" href="<?php echo BASE_URL ?>assets/css/fontawesome-all.css">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 	<link href="<?php echo BASE_URL ?>assets/css/popuo-box.css" rel="stylesheet" type="text/css" media="all" />
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
 	<link href="<?php echo BASE_URL ?>assets/css/menu.css" rel="stylesheet" type="text/css" media="all" />
