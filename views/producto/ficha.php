@@ -67,25 +67,25 @@
 						<?php echo TEXT_GARANTIA; ?>
 					</p>
 					<!-- <ul>
-							<li class="mb-1">
-								3 GB RAM | 16 GB ROM | Expandable Upto 256 GB
-							</li>
-							<li class="mb-1">
-								5.5 inch Full HD Display
-							</li>
-							<li class="mb-1">
-								13MP Rear Camera | 8MP Front Camera
-							</li>
-							<li class="mb-1">
-								3300 mAh Battery
-							</li>
-							<li class="mb-1">
-								Exynos 7870 Octa Core 1.6GHz Processor
-							</li>
-						</ul> -->
-					<!-- <p class="my-sm-4 my-3">
-							<i class="fas fa-retweet mr-3"></i>Net banking & Credit/ Debit/ ATM card
-						</p> -->
+						<li class="mb-1">
+							3 GB RAM | 16 GB ROM | Expandable Upto 256 GB
+						</li>
+						<li class="mb-1">
+							5.5 inch Full HD Display
+						</li>
+						<li class="mb-1">
+							13MP Rear Camera | 8MP Front Camera
+						</li>
+						<li class="mb-1">
+							3300 mAh Battery
+						</li>
+						<li class="mb-1">
+							Exynos 7870 Octa Core 1.6GHz Processor
+						</li>
+					</ul>
+					<p class="my-sm-4 my-3">
+						<i class="fas fa-retweet mr-3"></i>Net banking & Credit/ Debit/ ATM card
+					</p> -->
 				</div>
 
 				<div class="occasion-cart">
@@ -122,18 +122,16 @@
 	</div>
 </div>
 
+<!-- Reseñas -->
 <div class="container ficha-producto__container mb-4">
 	<div class="ficha-producto__reviews-text">
 		<h4>Reseñas de Usuarios:</h4>
-
-		<!-- Pestañas -->
 		<div class="ficha-producto__tabs mt-4">
 			<div class="ficha-producto__tab ficha-producto__tab--active" id="leave-review-tab">Deja tu Reseña</div>
 			<div class="ficha-producto__tab" id="most-recent-tab">Más Recientes</div>
 			<div class="ficha-producto__tab" id="highest-rated-tab">Más Valoradas</div>
 			<div class="ficha-producto__tab" id="oldest-tab">Más Antiguas</div>
 		</div>
-
 		<!-- Formulario de reseña -->
 		<div class="ficha-producto__tab-content ficha-producto__tab-content--active" id="leave-review-content">
 			<?php if (isset($_SESSION['exito'])) : ?>
@@ -181,8 +179,8 @@
 			</div>
 		</div>
 		<?php unset($_SESSION['form'], $_SESSION['errores']); ?>
-
 	</div>
+
 	<div class="ficha-producto__tab-content" id="most-recent-content">
 		<div class="ficha-producto__reviews-list">
 			<?php while ($comentario = $comentariosRecientes->fetch_object()) : ?>

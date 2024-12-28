@@ -1258,13 +1258,13 @@
       }
   }
 
-
-  /* # RESEÑAS    
+  /* # RESEÑA BASE
 ================================================== */
   .ficha-producto__tabs {
       display: flex;
       justify-content: flex-start;
       margin-bottom: 1rem;
+      flex-wrap: wrap;
   }
 
   .ficha-producto__tab {
@@ -1273,7 +1273,13 @@
       cursor: pointer;
       border: 1px solid #ddd;
       border-radius: 5px 5px 0 0;
-      transition: all 0.3s ease;
+      margin-bottom: 0.5rem;
+      font-size: 13px;
+      text-decoration: none;
+      text-transform: uppercase;
+      box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.45);
+      font-weight: 600;
+      transition: 0.5s all;
   }
 
   .ficha-producto__tab:hover,
@@ -1356,7 +1362,7 @@
 
   .ficha-producto__review-item {
       border: 1px solid #ddd;
-      padding: 1rem;
+      padding: 10px;
       border-radius: 8px;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       background-color: #fff;
@@ -1403,4 +1409,76 @@
       color: #888;
       margin-left: 10px;
       font-size: 1.2rem;
+  }
+
+  @media (min-width: 1200px) {
+      .ficha-producto__tabs {
+          flex-wrap: nowrap;
+      }
+
+      .ficha-producto__tab {
+          margin-right: 1rem;
+      }
+
+      .ficha-producto__reviews-list {
+          display: grid;
+          gap: 1.5rem;
+      }
+
+      .ficha-producto__review-item {
+          padding: 1.5rem;
+      }
+  }
+
+  @media (max-width: 1199px) and (min-width: 768px) {
+      .ficha-producto__tabs {
+          flex-direction: column;
+      }
+
+      .ficha-producto__tab {
+          margin-right: 0;
+          margin-bottom: 1rem;
+      }
+
+      .ficha-producto__reviews-list {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 1.5rem;
+      }
+
+      .ficha-producto__review-item {
+          padding: 1.5rem;
+      }
+  }
+
+  @media (max-width: 767px) {
+
+      .ficha-producto__container {
+          margin-top: 40px;
+      }
+
+      .ficha-producto__tabs {
+          flex-direction: column;
+          align-items: stretch;
+      }
+
+      .ficha-producto__tab {
+          margin-right: 0;
+          margin-bottom: 0.5rem;
+          padding: 10px 15px;
+      }
+
+      .ficha-producto__form-control {
+          margin-top: 0.5rem;
+      }
+
+      .ficha-producto__btn {
+          width: 100%;
+      }
+
+      .ficha-producto__reviews-list {
+          display: flex;
+          flex-direction: column;
+      }
+
   }
