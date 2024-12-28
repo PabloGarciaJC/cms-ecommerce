@@ -6,6 +6,9 @@ require_once 'model/productos.php';
 require_once 'model/roles.php';
 require_once 'model/pedidos.php';
 
+require_once 'model/comentario.php';
+
+
 class AdminController
 {
     public function dashboard()
@@ -696,6 +699,63 @@ class AdminController
         require_once 'views/admin/user/detalle.php';
         require_once 'views/layout/script-footer.php';
     }
+
+    public function gestionarComentarios()
+    {
+        // Verificar si el usuario tiene acceso registrado
+        Utils::accesoUsuarioRegistrado();
+
+        // Crear una instancia del modelo Comentario
+        $comentario = new Comentario();
+
+        // Obtener los comentarios desde el modelo Comentario
+        $comentarios = $comentario->getComentarios();
+
+        // Cargar la vista
+        require_once 'views/layout/head.php';
+        require_once 'views/admin/comentario/index.php';
+        require_once 'views/layout/script-footer.php';
+    }
+
+
+    public function cambiarEstadoComentario()
+    {
+        // Verificar si el usuario tiene acceso registrado
+        Utils::accesoUsuarioRegistrado();
+    
+        // Recibir los datos de la solicitud AJAX
+        $comentario_id = isset($_POST['comentario_id']) ? $_POST['comentario_id'] : null;
+        $estado = isset($_POST['estado']) ? $_POST['estado'] : null;
+    
+        // Verificar que los valores estén disponibles
+        if ($comentario_id !== null && $estado !== null) {
+            // Instanciar el modelo Comentario
+            $comentario = new Comentario();
+            
+            // Establecer el ID y el nuevo estado
+            $comentario->setId($comentario_id);
+            $comentario->setEstado($estado);
+    
+            // Llamar al método para actualizar el estado del comentario
+            $resultado = $comentario->cambiarEstadoComentario();
+    
+            // Verificar si la actualización fue exitosa
+            if ($resultado) {
+                // Respuesta exitosa
+                echo json_encode(['success' => true, 'message' => 'Estado actualizado correctamente']);
+            } else {
+                // Respuesta de error
+                echo json_encode(['success' => false, 'message' => 'Error al cambiar el estado del comentario']);
+            }
+        } else {
+            // Si falta algún dato requerido
+            echo json_encode(['success' => false, 'message' => 'Datos incompletos']);
+        }
+    }
+    
+
+
+
 
     public function documentacion()
     {

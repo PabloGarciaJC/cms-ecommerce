@@ -62,6 +62,17 @@
           <li class="panel-admin__submenu-item"><a href="<?php echo BASE_URL ?>Admin/catalogo" class="panel-admin__submenu-link">Gestor de Catálogo</a></li>
         </ul>
       </li>
+      <li class="panel-admin__menu-item">
+        <a class="panel-admin__menu-link d-flex justify-content-between align-items-center" href="#">
+          <span>
+            <i class="fas fa-comments"></i> Comentarios
+          </span>
+          <i class="fas fa-chevron-right"></i>
+        </a>
+        <ul class="panel-admin__submenu">
+          <li class="panel-admin__submenu-item"><a href="<?php echo BASE_URL ?>Admin/gestionarComentarios" class="panel-admin__submenu-link">Gestor de Comentarios</a></li>
+        </ul>
+      </li>
     <?php endif; ?>
 
     <li class="panel-admin__menu-item">

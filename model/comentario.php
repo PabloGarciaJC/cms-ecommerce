@@ -2,6 +2,9 @@
 
 class Comentario
 {
+
+    private $id;
+    private $estado;
     private $comentario;
     private $calificacion;
     private $producto_id;
@@ -10,19 +13,24 @@ class Comentario
 
     public function __construct()
     {
-        // Conectamos a la base de datos
         $this->db = Database::connect();
     }
 
-    // GETTERS y SETTERS
+    //// GETTERS ////
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getEstado()
+    {
+        return $this->estado;
+    }
+
     public function getComentario()
     {
         return $this->comentario;
-    }
-
-    public function setComentario($comentario)
-    {
-        $this->comentario = $comentario;
     }
 
     public function getCalificacion()
@@ -30,19 +38,9 @@ class Comentario
         return $this->calificacion;
     }
 
-    public function setCalificacion($calificacion)
-    {
-        $this->calificacion = $calificacion;
-    }
-
     public function getProducto_id()
     {
         return $this->producto_id;
-    }
-
-    public function setProducto_id($producto_id)
-    {
-        $this->producto_id = $producto_id;
     }
 
     public function getUsuario_id()
@@ -50,19 +48,45 @@ class Comentario
         return $this->usuario_id;
     }
 
+    //// SETTERS ////
+
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    public function setEstado($estado)
+    {
+        $this->estado = $estado;
+    }
+
+    public function setComentario($comentario)
+    {
+        $this->comentario = $comentario;
+    }
+
+    public function setCalificacion($calificacion)
+    {
+        $this->calificacion = $calificacion;
+    }
+
+    public function setProducto_id($producto_id)
+    {
+        $this->producto_id = $producto_id;
+    }
+
     public function setUsuario_id($usuario_id)
     {
         $this->usuario_id = $usuario_id;
     }
 
-    // Método para guardar el comentario en la base de datos
+    //// CONSULTAS //// 
+
     public function guardar()
     {
-        // Creamos la consulta SQL de inserción, incluyendo el campo estatus con un valor predeterminado de 0
-        $sql = "INSERT INTO comentarios (comentario, calificacion, producto_id, usuario_id, estatus) 
+        $sql = "INSERT INTO comentarios (comentario, calificacion, producto_id, usuario_id, estado) 
                 VALUES ('{$this->getComentario()}', {$this->getCalificacion()}, {$this->getProducto_id()}, {$this->getUsuario_id()}, 0)";
 
-        // Ejecutamos la consulta SQL
         $save = $this->db->query($sql);
 
         return $save;
@@ -84,15 +108,13 @@ class Comentario
     public function obtenerComentariosValorados($idProducto)
     {
         $sql = "SELECT comentarios.*, usuarios.Usuario AS Usuario
-                FROM comentarios
-                INNER JOIN usuarios ON comentarios.usuario_id = usuarios.Id
-                WHERE comentarios.producto_id = $idProducto
-                AND comentarios.calificacion = 5
-                ORDER BY comentarios.calificacion DESC";
+            FROM comentarios
+            INNER JOIN usuarios ON comentarios.usuario_id = usuarios.Id
+            WHERE comentarios.producto_id = $idProducto
+            ORDER BY comentarios.calificacion DESC";
         $result = $this->db->query($sql);
         return $result;
     }
-    
 
     // Obtener comentarios más antiguos
     public function obtenerComentariosAntiguos($idProducto)
@@ -102,6 +124,27 @@ class Comentario
             INNER JOIN usuarios ON comentarios.usuario_id = usuarios.Id
             WHERE comentarios.producto_id = $idProducto
             ORDER BY comentarios.fecha ASC";
+        $result = $this->db->query($sql);
+        return $result;
+    }
+
+    public function cambiarEstadoComentario()
+    {
+        // Aseguramos que solo existan los valores esperados 'pendiente' o 'aprobado'
+        $estado = ($this->getEstado() === 'pendiente') ? 'aprobado' : 'pendiente';
+
+        $sql = "UPDATE comentarios SET estado = '{$this->getEstado()}' WHERE id = {$this->getId()}";
+
+        $result = $this->db->query($sql);
+        return $result;
+    }
+
+    public function getComentarios()
+    {
+        $sql = "SELECT c.id, c.producto_id, c.usuario_id, c.comentario, c.calificacion, c.fecha, c.estado, u.Usuario
+            FROM comentarios c
+            JOIN usuarios u ON c.usuario_id = u.Id";
+
         $result = $this->db->query($sql);
         return $result;
     }

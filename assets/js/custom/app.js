@@ -141,7 +141,7 @@ class App {
             entry.target.classList.remove(`animation__slide--${direction}`);
           }, { once: true });  // `once: true` asegura que el listener se ejecute solo una vez
 
-          // Deja de observar el elemento para que la animación solo se ejecute una vez
+          // Deja de obserlet el elemento para que la animación solo se ejecute una vez
           observer.unobserve(entry.target);
         }
       });
@@ -184,7 +184,7 @@ class App {
 
           // Marcar el elemento como animado para evitar reanimaciones
           entry.target.classList.add('animation-applied');
-          // Dejar de observar este elemento después de la animación
+          // Dejar de obserlet este elemento después de la animación
           observer.unobserve(entry.target);
         }
       });
@@ -234,37 +234,39 @@ class App {
 
     // Select de Idiomas
     document.addEventListener('DOMContentLoaded', function () {
-      var selectSelected = document.querySelector('.select-selected');
-      var selectItems = document.querySelector('.select-items');
-      var selectedLanguageInput = document.getElementById('selected-language');
-      var languageForm = document.getElementById('language-form');
-      var selectArrow = document.querySelector('.select-arrow');
+      let selectSelected = document.querySelector('.select-selected');
+      let selectItems = document.querySelector('.select-items');
+      let selectedLanguageInput = document.getElementById('selected-language');
+      let languageForm = document.getElementById('language-form');
+      let selectArrow = document.querySelector('.select-arrow');
 
-      selectSelected.addEventListener('click', function () {
-        var isExpanded = selectItems.classList.contains('show');
-        selectItems.classList.toggle('show', !isExpanded);
-        selectArrow.classList.toggle('down', !isExpanded);
-      });
+      if (selectSelected && selectItems && selectedLanguageInput && languageForm && selectArrow) {
+        selectSelected.addEventListener('click', function () {
+          let isExpanded = selectItems.classList.contains('show');
+          selectItems.classList.toggle('show', !isExpanded);
+          selectArrow.classList.toggle('down', !isExpanded);
+        });
 
-      selectItems.addEventListener('click', function (event) {
-        var selectedOption = event.target.closest('div');
-        if (selectedOption) {
-          var value = selectedOption.getAttribute('data-value');
-          var imgSrc = selectedOption.querySelector('img').getAttribute('src');
-          var text = selectedOption.textContent.trim();
+        selectItems.addEventListener('click', function (event) {
+          let selectedOption = event.target.closest('div');
+          if (selectedOption) {
+            let value = selectedOption.getAttribute('data-value');
+            let imgSrc = selectedOption.querySelector('img').getAttribute('src');
+            let text = selectedOption.textContent.trim();
 
-          selectSelected.innerHTML = '<div><img src="' + imgSrc + '" alt="selected-language">' + text + '</div><div class="select-arrow">&#9662;</div>';
-          selectedLanguageInput.value = value;
-          languageForm.submit();
-        }
-      });
+            selectSelected.innerHTML = '<div><img src="' + imgSrc + '" alt="selected-language">' + text + '</div><div class="select-arrow">&#9662;</div>';
+            selectedLanguageInput.value = value;
+            languageForm.submit();
+          }
+        });
 
-      document.addEventListener('click', function (event) {
-        if (!selectSelected.contains(event.target) && !selectItems.contains(event.target)) {
-          selectItems.classList.remove('show');
-          selectArrow.classList.remove('down');
-        }
-      });
+        document.addEventListener('click', function (event) {
+          if (!selectSelected.contains(event.target) && !selectItems.contains(event.target)) {
+            selectItems.classList.remove('show');
+            selectArrow.classList.remove('down');
+          }
+        });
+      }
     });
 
     // Script para llenar los campos con usuarios de prueba 
@@ -307,11 +309,11 @@ class App {
     // Cambiar de pestaña cuando se haga clic en los Tabs de Reseña, Ficha Producto
     document.querySelectorAll('.ficha-producto__tab').forEach(tab => {
       tab.addEventListener('click', function () {
-        // Desactivar todas las pestañas
+        // Desactilet todas las pestañas
         document.querySelectorAll('.ficha-producto__tab').forEach(t => t.classList.remove('ficha-producto__tab--active'));
         document.querySelectorAll('.ficha-producto__tab-content').forEach(content => content.classList.remove('ficha-producto__tab-content--active'));
 
-        // Activar la pestaña seleccionada
+        // Actilet la pestaña seleccionada
         this.classList.add('ficha-producto__tab--active');
         document.getElementById(this.id.replace('-tab', '-content')).classList.add('ficha-producto__tab-content--active');
       });
