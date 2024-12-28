@@ -104,17 +104,11 @@
       </ul>
     </li>
     <li class="panel-admin__menu-item">
-      <a class="panel-admin__menu-link d-flex justify-content-between align-items-center" href="#">
+      <a href="<?php echo BASE_URL ?>Admin/cerrarSesion" class="panel-admin__menu-link-init d-flex justify-content-between align-items-center">
         <span>
           <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
         </span>
-        <i class="fas fa-chevron-right"></i>
       </a>
-      <ul class="panel-admin__submenu">
-        <li class="panel-admin__submenu-item">
-          <a href="<?php echo BASE_URL ?>Admin/cerrarSesion" class="panel-admin__submenu-link">Cerrar Sesión</a>
-        </li>
-      </ul>
     </li>
   </ul>
 </aside>

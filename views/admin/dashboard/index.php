@@ -4,6 +4,16 @@
   <main class="panel-admin__main-content">
     <section class="panel-admin__dashboard">
       <h2 class="panel-admin__dashboard-title">Panel Administrativo</h2>
+      <div class="panel-admin__welcome-message">
+        <p class="panel-admin__welcome-text">
+          ¡Bienvenido, <?php echo $_SESSION['usuarioRegistrado']->Usuario; ?>!
+          <?php if ($_SESSION['usuarioRegistrado']->rol_nombre == 'Admin') { ?>
+            Eres un Administrador, aquí puedes gestionar todos los aspectos del sistema.
+          <?php } else { ?>
+            Eres un usuario con Rol <?php echo $_SESSION['usuarioRegistrado']->rol_nombre; ?>.
+          <?php } ?>
+        </p>
+      </div>
       <div class="row">
         <div class="col-md-12">
           <div class="panel-admin__stats-overview">
@@ -67,7 +77,7 @@
               <div class="col-12 col-sm-6 col-lg-4 mt-3">
                 <a href="<?php echo BASE_URL; ?>" target="_blank" class="text-decoration-none">
                   <div class="panel-admin__stat-card w-100">
-                    <span class="panel-admin__stat-icon"><i class="fas fa-link"></i></span>
+                    <span class="panel-admin__stat-icon"><i class="fas fa-home"></i></span>
                     <div class="panel-admin__stat-info">
                       <h3 class="panel-admin__stat-number">IR al Sitio Web</h3>
                       <p class="panel-admin__stat-label">Visita nuestra página</p>

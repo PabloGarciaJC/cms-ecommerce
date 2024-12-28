@@ -1,6 +1,4 @@
 <script src="<?= BASE_URL ?>assets/js/custom/config.js"></script>
-
-
 <script src="<?php echo BASE_URL ?>assets/js/jquery-2.2.3.min.js"></script>
 <script src="<?php echo BASE_URL ?>assets/js/jquery.flexslider.js"></script>
 <script src="<?php echo BASE_URL ?>assets/js/jquery.magnific-popup.js"></script>
@@ -23,6 +21,3 @@
 <script src="<?= BASE_URL ?>assets/js/custom/categoria.js"></script>
 <script src="<?= BASE_URL ?>assets/js/custom/producto.js"></script>
 <script src="<?= BASE_URL ?>assets/js/custom/roles.js"></script>
-
-
-
