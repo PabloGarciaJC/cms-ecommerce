@@ -702,21 +702,13 @@ class AdminController
 
     public function gestionarComentarios()
     {
-        // Verificar si el usuario tiene acceso registrado
         Utils::accesoUsuarioRegistrado();
-
-        // Crear una instancia del modelo Comentario
         $comentario = new Comentario();
-
-        // Obtener los comentarios desde el modelo Comentario
         $comentarios = $comentario->getComentarios();
-
-        // Cargar la vista
         require_once 'views/layout/head.php';
         require_once 'views/admin/comentario/index.php';
         require_once 'views/layout/script-footer.php';
     }
-
 
     public function cambiarEstadoComentario()
     {
@@ -753,10 +745,6 @@ class AdminController
         }
     }
     
-
-
-
-
     public function documentacion()
     {
         Utils::accesoUsuarioRegistrado();
