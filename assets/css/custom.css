@@ -1485,3 +1485,62 @@
       }
 
   }
+
+  /* # TABLA DE COMENTARIOS
+================================================== */
+  .estado-select {
+      width: 150px;
+      padding: 8px;
+      font-size: 14px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      background-color: #f8f9fa;
+      transition: all 0.3s ease;
+  }
+
+  .estado-select:focus {
+      border-color: #007bff;
+      outline: none;
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+
+  .estado-select option {
+      padding: 5px;
+  }
+
+  /* # FICHA PRODUCTO CALIFICACION PROMEDIO
+================================================== */
+  .product-rating {
+      background-color: #f9f9f9;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+  }
+
+  .product-rating .rating-title {
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 10px;
+  }
+
+  .product-rating .stars {
+      font-size: 22px;
+      color: #ffc107;
+      /* Dorado para las estrellas */
+      margin-bottom: 5px;
+  }
+
+  .product-rating .stars .far {
+      color: #ddd;
+      /* Estrellas vacías en gris claro */
+  }
+
+  .product-rating .rating-value {
+      font-size: 14px;
+      color: #555;
+      margin-top: 5px;
+      display: block;
+  }

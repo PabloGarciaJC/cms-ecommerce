@@ -18,7 +18,7 @@
                             <tr>
                                 <td><?php echo $usuario->Usuario ?></td>
                                 <td>
-                                    <select class="custom-select-roles">
+                                    <select class="custom-select-roles estado-select">
                                         <?php
                                         $obtenerRoles->data_seek(0); // Reinicia el cursor del resultado de obtenerRoles
                                         while ($rol = $obtenerRoles->fetch_object()):

@@ -92,41 +92,30 @@ class Comentario
         return $save;
     }
 
-    // Obtener comentarios más recientes
-    public function obtenerComentariosRecientes($idProducto)
-    {
-        $sql = "SELECT comentarios.*, usuarios.Usuario AS Usuario
-            FROM comentarios
-            INNER JOIN usuarios ON comentarios.usuario_id = usuarios.Id
-            WHERE comentarios.producto_id = $idProducto
-            ORDER BY comentarios.fecha DESC";
-        $result = $this->db->query($sql);
-        return $result;
-    }
-
     // Obtener comentarios más valorados
     public function obtenerComentariosValorados($idProducto)
     {
         $sql = "SELECT comentarios.*, usuarios.Usuario AS Usuario
             FROM comentarios
             INNER JOIN usuarios ON comentarios.usuario_id = usuarios.Id
-            WHERE comentarios.producto_id = $idProducto
+            WHERE comentarios.producto_id = $idProducto AND comentarios.estado = 1
             ORDER BY comentarios.calificacion DESC";
         $result = $this->db->query($sql);
         return $result;
     }
 
     // Obtener comentarios más antiguos
-    public function obtenerComentariosAntiguos($idProducto)
+    public function obtenerComentariosMenorCalificacion($idProducto)
     {
         $sql = "SELECT comentarios.*, usuarios.Usuario AS Usuario
-            FROM comentarios
-            INNER JOIN usuarios ON comentarios.usuario_id = usuarios.Id
-            WHERE comentarios.producto_id = $idProducto
-            ORDER BY comentarios.fecha ASC";
+                FROM comentarios
+                INNER JOIN usuarios ON comentarios.usuario_id = usuarios.Id
+                WHERE comentarios.producto_id = $idProducto AND comentarios.estado = 1
+                ORDER BY comentarios.calificacion ASC";
         $result = $this->db->query($sql);
         return $result;
     }
+
 
     public function cambiarEstadoComentario()
     {
@@ -147,5 +136,18 @@ class Comentario
 
         $result = $this->db->query($sql);
         return $result;
+    }
+
+    public function obtenerPromedioCalificacion($idProducto)
+    {
+        $sql = "SELECT AVG(calificacion) AS promedio FROM comentarios 
+            WHERE producto_id = $idProducto AND estado = 1";
+        $result = $this->db->query($sql);
+
+        if ($result && $result->num_rows > 0) {
+            $row = $result->fetch_object();
+            return $row->promedio;
+        }
+        return 0;
     }
 }

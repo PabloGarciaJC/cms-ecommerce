@@ -87,6 +87,13 @@
 						<i class="fas fa-retweet mr-3"></i>Net banking & Credit/ Debit/ ATM card
 					</p> -->
 				</div>
+				<div class="product-rating mb-4 text-center">
+					<h4 class="rating-title">Calificación Promedio</h4>
+					<div class="stars">
+						<?= str_repeat('<i class="fas fa-star"></i>', round($promedioCalificacion)) . str_repeat('<i class="far fa-star"></i>', 5 - round($promedioCalificacion)); ?>
+						<span class="rating-value">(<?= number_format($promedioCalificacion, 1); ?> de 5)</span>
+					</div>
+				</div>
 
 				<div class="occasion-cart">
 					<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
@@ -128,9 +135,8 @@
 		<h4>Reseñas de Usuarios:</h4>
 		<div class="ficha-producto__tabs mt-4">
 			<div class="ficha-producto__tab ficha-producto__tab--active" id="leave-review-tab">Deja tu Reseña</div>
-			<div class="ficha-producto__tab" id="most-recent-tab">Más Recientes</div>
 			<div class="ficha-producto__tab" id="highest-rated-tab">Más Valoradas</div>
-			<div class="ficha-producto__tab" id="oldest-tab">Más Antiguas</div>
+			<div class="ficha-producto__tab" id="oldest-tab">Menos Valoradas</div>
 		</div>
 		<!-- Formulario de reseña -->
 		<div class="ficha-producto__tab-content ficha-producto__tab-content--active" id="leave-review-content">
@@ -180,60 +186,50 @@
 		<?php unset($_SESSION['form'], $_SESSION['errores']); ?>
 	</div>
 
-	<div class="ficha-producto__tab-content" id="most-recent-content">
-		<div class="ficha-producto__reviews-list">
-			<?php while ($comentario = $comentariosRecientes->fetch_object()) : ?>
-				<div class="ficha-producto__review-item">
-					<div class="ficha-producto__review-header">
-						<strong class="ficha-producto__review-user"><?= htmlspecialchars($comentario->Usuario); ?></strong>
-						<div class="ficha-producto__review-stars">
-							<?= str_repeat('★', $comentario->calificacion) . str_repeat('☆', 5 - $comentario->calificacion); ?>
-						</div>
-					</div>
-					<p class="ficha-producto__review-comment"><?= htmlspecialchars($comentario->comentario); ?></p>
-					<div class="ficha-producto__review-footer">
-						<span class="ficha-producto__review-date"><?= date("d M Y", strtotime($comentario->fecha)); ?></span>
-					</div>
-				</div>
-			<?php endwhile; ?>
-		</div>
-	</div>
-
 	<div class="ficha-producto__tab-content" id="highest-rated-content">
 		<div class="ficha-producto__reviews-list">
-			<?php while ($comentario = $comentariosValorados->fetch_object()) : ?>
-				<div class="ficha-producto__review-item">
-					<div class="ficha-producto__review-header">
-						<strong class="ficha-producto__review-user"><?= htmlspecialchars($comentario->Usuario); ?></strong>
-						<div class="ficha-producto__review-stars">
-							<?= str_repeat('★', $comentario->calificacion) . str_repeat('☆', 5 - $comentario->calificacion); ?>
+			<?php if ($comentariosValorados->num_rows > 0) : ?>
+				<?php while ($comentario = $comentariosValorados->fetch_object()) : ?>
+					<div class="ficha-producto__review-item">
+						<div class="ficha-producto__review-header">
+							<strong class="ficha-producto__review-user"><?= htmlspecialchars($comentario->Usuario); ?></strong>
+							<div class="ficha-producto__review-stars">
+								<?= str_repeat('★', $comentario->calificacion) . str_repeat('☆', 5 - $comentario->calificacion); ?>
+							</div>
+						</div>
+						<p class="ficha-producto__review-comment"><?= htmlspecialchars($comentario->comentario); ?></p>
+						<div class="ficha-producto__review-footer">
+							<span class="ficha-producto__review-date"><?= date("d M Y", strtotime($comentario->fecha)); ?></span>
 						</div>
 					</div>
-					<p class="ficha-producto__review-comment"><?= htmlspecialchars($comentario->comentario); ?></p>
-					<div class="ficha-producto__review-footer">
-						<span class="ficha-producto__review-date"><?= date("d M Y", strtotime($comentario->fecha)); ?></span>
-					</div>
-				</div>
-			<?php endwhile; ?>
+				<?php endwhile; ?>
+			<?php else : ?>
+				<p class="ficha-producto__no-reviews">No hay comentarios valorados para este producto.</p>
+			<?php endif; ?>
 		</div>
 	</div>
 
 	<div class="ficha-producto__tab-content" id="oldest-content">
 		<div class="ficha-producto__reviews-list">
-			<?php while ($comentario = $comentariosAntiguos->fetch_object()) : ?>
-				<div class="ficha-producto__review-item">
-					<div class="ficha-producto__review-header">
-						<strong class="ficha-producto__review-user"><?= htmlspecialchars($comentario->Usuario); ?></strong>
-						<div class="ficha-producto__review-stars">
-							<?= str_repeat('★', $comentario->calificacion) . str_repeat('☆', 5 - $comentario->calificacion); ?>
+			<?php if ($obtenerComentariosMenorCalificacion->num_rows > 0) : ?>
+				<?php while ($comentario = $obtenerComentariosMenorCalificacion->fetch_object()) : ?>
+					<div class="ficha-producto__review-item">
+						<div class="ficha-producto__review-header">
+							<strong class="ficha-producto__review-user"><?= htmlspecialchars($comentario->Usuario); ?></strong>
+							<div class="ficha-producto__review-stars">
+								<?= str_repeat('★', $comentario->calificacion) . str_repeat('☆', 5 - $comentario->calificacion); ?>
+							</div>
+						</div>
+						<p class="ficha-producto__review-comment"><?= htmlspecialchars($comentario->comentario); ?></p>
+						<div class="ficha-producto__review-footer">
+							<span class="ficha-producto__review-date"><?= date("d M Y", strtotime($comentario->fecha)); ?></span>
 						</div>
 					</div>
-					<p class="ficha-producto__review-comment"><?= htmlspecialchars($comentario->comentario); ?></p>
-					<div class="ficha-producto__review-footer">
-						<span class="ficha-producto__review-date"><?= date("d M Y", strtotime($comentario->fecha)); ?></span>
-					</div>
-				</div>
-			<?php endwhile; ?>
+				<?php endwhile; ?>
+			<?php else : ?>
+				<p class="ficha-producto__no-reviews">No hay comentarios antiguos para este producto.</p>
+			<?php endif; ?>
 		</div>
 	</div>
+
 </div>

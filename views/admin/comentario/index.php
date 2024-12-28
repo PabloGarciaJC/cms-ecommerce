@@ -40,9 +40,8 @@
                                 </select>
                             </td>
                             <td>
-                                <!-- Botón para guardar el cambio de estado -->
-                                <button class="btn btn-success guardar-estado" data-id="<?php echo $comentario->id; ?>">
-                                    Guardar
+                                <button class="btn btn-warning btn-sm guardar-estado" data-id="<?php echo $comentario->id; ?>">
+                                    Editar
                                 </button>
                             </td>
                         </tr>
@@ -52,53 +51,3 @@
         </section>
     </main>
 </div>
-
-
-
-<!-- Estilos CSS para mejorar el diseño del select y botón -->
-<style>
-    /* Estilos para el select */
-    .estado-select {
-        width: 150px;
-        padding: 8px;
-        font-size: 14px;
-        border-radius: 5px;
-        border: 1px solid #ccc;
-        background-color: #f8f9fa;
-        transition: all 0.3s ease;
-    }
-
-    .estado-select:focus {
-        border-color: #007bff;
-        outline: none;
-        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-    }
-
-    .estado-select option {
-        padding: 5px;
-    }
-
-    .estado-select:hover {
-        background-color: #e9ecef;
-    }
-
-    /* Estilos para el botón de guardar */
-    .guardar-estado {
-        background-color: #28a745;
-        color: white;
-        padding: 8px 15px;
-        font-size: 14px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-    }
-
-    .guardar-estado:hover {
-        background-color: #218838;
-    }
-
-    .guardar-estado:active {
-        background-color: #1e7e34;
-    }
-</style>

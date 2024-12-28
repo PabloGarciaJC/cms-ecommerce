@@ -26,20 +26,19 @@ class App {
 
     function changeIndividual() {
       $('#avatar').on('change', function (event) {
-        const file = event.target.files[0]; // Obtén el archivo seleccionado
-        const $preview = $('#avatarPreview'); // El elemento de la vista previa de la imagen
+        const file = event.target.files[0];
+        const $preview = $('#avatarPreview');
 
         if (file) {
-          const reader = new FileReader(); // Usamos FileReader para leer el archivo
+          const reader = new FileReader();
           reader.onload = function (e) {
-            $preview.attr('src', e.target.result).show(); // Actualiza el src de la vista previa y la muestra
+            $preview.attr('src', e.target.result).show();
           };
-          reader.readAsDataURL(file); // Lee el archivo como una URL de datos
+          reader.readAsDataURL(file);
         } else {
-          $preview.attr('src', '').hide(); // Si no hay archivo, oculta la vista previa
+          $preview.attr('src', '').hide();
         }
       });
-
     }
 
     function changeMulti() {
@@ -50,7 +49,7 @@ class App {
         $(inputSelector).on('change', function (event) {
           const files = event.target.files;
           const $previewContainer = $('#imagePreview');
-          $previewContainer.empty();  // Limpiar las vistas previas existentes
+          $previewContainer.empty();
 
           // Limpiar el arreglo de archivos
           imageFiles = [];

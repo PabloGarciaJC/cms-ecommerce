@@ -20,12 +20,11 @@ class ProductoController extends HomeController
     $productoFicha = $producto->obtenerProductosPorId();
     $categorias = new Categorias();
     $categoriasConSubcategoriasYProductos = $categorias->obtenerCategoriasYProductos();
-
     $comentarios = new Comentario();
-    $comentariosRecientes = $comentarios->obtenerComentariosRecientes($idProducto);
     $comentariosValorados = $comentarios->obtenerComentariosValorados($idProducto);
-    $comentariosAntiguos = $comentarios->obtenerComentariosAntiguos($idProducto);
+    $obtenerComentariosMenorCalificacion = $comentarios->obtenerComentariosMenorCalificacion($idProducto);
 
+    $promedioCalificacion = $comentarios->obtenerPromedioCalificacion($idProducto);
 
     require_once 'views/layout/head.php';
     require_once 'views/layout/header.php';
