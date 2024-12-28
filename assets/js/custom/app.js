@@ -273,7 +273,7 @@ class App {
       const emailInput = document.getElementById('mdEmailIniciarSesion');
       const passwordInput = document.getElementById('mdPasswordIniciarSesion');
       const form = document.querySelector('mdFormularioIniciarSesion');
-     
+
 
       // Recorre las tarjetas y añade funcionalidad de clic
       userCards.forEach(card => {
@@ -290,7 +290,7 @@ class App {
           // Rellena los campos del formulario
           emailInput.value = email;
           passwordInput.value = password;
-          
+
           // Simula el envío del formulario
           $("#mdFormularioIniciarSesion").submit();
         });
@@ -303,7 +303,20 @@ class App {
         localStorage.setItem('modalShown', 'true');
       }
     });
-    
+
+    // Cambiar de pestaña cuando se haga clic en los Tabs de Reseña, Ficha Producto
+    document.querySelectorAll('.ficha-producto__tab').forEach(tab => {
+      tab.addEventListener('click', function () {
+        // Desactivar todas las pestañas
+        document.querySelectorAll('.ficha-producto__tab').forEach(t => t.classList.remove('ficha-producto__tab--active'));
+        document.querySelectorAll('.ficha-producto__tab-content').forEach(content => content.classList.remove('ficha-producto__tab-content--active'));
+
+        // Activar la pestaña seleccionada
+        this.classList.add('ficha-producto__tab--active');
+        document.getElementById(this.id.replace('-tab', '-content')).classList.add('ficha-producto__tab-content--active');
+      });
+    });
+
   }
 
   // Iniciar aplicación

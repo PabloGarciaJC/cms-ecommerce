@@ -222,4 +222,10 @@ define('TEXT_ELECTRO_STORE', 'Electro Store');
 define('TEXT_SEARCH_PLACEHOLDER', 'Buscar');
 define('TEXT_SEARCH_BUTTON', 'Buscar');
 define('TEXT_CART_ICON', 'Carrito');
+
+/* Textos para "Comentarios" */
+define('TEXT_DEJA_COMENTARIO', 'Deja un comentario');
+define('TEXT_COMENTARIO', 'Comentario');
+define('TEXT_CALIFICACION', 'Calificación');
+define('TEXT_ENVIAR_COMENTARIO', 'Enviar comentario');
 ?>

@@ -6,6 +6,7 @@ require_once 'model/categorias.php';
 require_once 'model/pedidos.php';
 require_once 'model/lineaPedidos.php';
 require_once 'model/paises.php';
+require_once 'model/comentario.php';
 
 class ProductoController extends HomeController
 {
@@ -19,6 +20,13 @@ class ProductoController extends HomeController
     $productoFicha = $producto->obtenerProductosPorId();
     $categorias = new Categorias();
     $categoriasConSubcategoriasYProductos = $categorias->obtenerCategoriasYProductos();
+
+    $comentarios = new Comentario();
+    $comentariosRecientes = $comentarios->obtenerComentariosRecientes($idProducto);
+    $comentariosValorados = $comentarios->obtenerComentariosValorados($idProducto);
+    $comentariosAntiguos = $comentarios->obtenerComentariosAntiguos($idProducto);
+
+
     require_once 'views/layout/head.php';
     require_once 'views/layout/header.php';
     require_once 'views/producto/ficha.php';

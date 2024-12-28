@@ -12,8 +12,8 @@
 	</div>
 </div>
 
-<div class="banner-bootom-w3-agileits py-5">
-	<div class="container py-xl-4 py-lg-2">
+<div class="banner-bootom-w3-agileits mt-3">
+	<div class="container">
 		<div class="row">
 			<div class="col-lg-5 col-md-8 single-right-left ">
 				<div class="grid images_3_of_2">
@@ -118,6 +118,125 @@
 					</div>
 				</div>
 			</div>
+		</div>
+	</div>
+</div>
+
+<div class="container ficha-producto__container mb-4">
+	<div class="ficha-producto__reviews-text">
+		<h4>Reseñas de Usuarios:</h4>
+
+		<!-- Pestañas -->
+		<div class="ficha-producto__tabs mt-4">
+			<div class="ficha-producto__tab ficha-producto__tab--active" id="leave-review-tab">Deja tu Reseña</div>
+			<div class="ficha-producto__tab" id="most-recent-tab">Más Recientes</div>
+			<div class="ficha-producto__tab" id="highest-rated-tab">Más Valoradas</div>
+			<div class="ficha-producto__tab" id="oldest-tab">Más Antiguas</div>
+		</div>
+
+		<!-- Formulario de reseña -->
+		<div class="ficha-producto__tab-content ficha-producto__tab-content--active" id="leave-review-content">
+			<?php if (isset($_SESSION['exito'])) : ?>
+				<div class="alert <?php echo $_SESSION['messageClass']; ?> alert-dismissible fade show mt-2 text-center" role="alert">
+					<i class="<?php echo isset($_SESSION['icon']) ? $_SESSION['icon'] : 'fas fa-check-circle'; ?>"></i>
+					<?php echo $_SESSION['exito']; ?>
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<?php unset($_SESSION['exito'], $_SESSION['messageClass'], $_SESSION['icon']); ?>
+			<?php endif; ?>
+
+			<?php if (isset($_SESSION['errores'])) : ?>
+				<div class="alert alert-danger">
+					<ul>
+						<?php foreach ($_SESSION['errores'] as $error) : ?>
+							<li><?php echo $error; ?></li>
+						<?php endforeach; ?>
+					</ul>
+				</div>
+				<?php unset($_SESSION['errores']); ?>
+			<?php endif; ?>
+
+			<div class="ficha-producto__product-review">
+				<h4>Deja tu comentario:</h4>
+				<form action="<?php echo BASE_URL ?>Comentario/guardar" method="POST">
+					<input type="hidden" name="producto_id" value="<?php echo $productoFicha->id; ?>" />
+					<input type="hidden" name="usuario_id" value="<?php echo $usuario->Id; ?>" />
+					<div class="ficha-producto__form-group">
+						<textarea id="comentario" name="comentario" class="ficha-producto__form-control" rows="4" required><?php echo isset($_SESSION['form']['comentario']) ? htmlspecialchars($_SESSION['form']['comentario'], ENT_QUOTES, 'UTF-8') : ''; ?></textarea>
+					</div>
+					<div class="ficha-producto__form-group">
+						<label for="calificacion">Calificación</label>
+						<div class="ficha-producto__stars">
+							<?php for ($i = 5; $i >= 1; $i--) : ?>
+								<input type="radio" name="calificacion" value="<?php echo $i; ?>" id="star<?php echo $i; ?>"
+									<?php echo isset($_SESSION['form']['calificacion']) && $_SESSION['form']['calificacion'] == $i ? 'checked' : ''; ?>>
+								<label for="star<?php echo $i; ?>">☆</label>
+							<?php endfor; ?>
+						</div>
+					</div>
+					<button type="submit" class="ficha-producto__btn">Enviar Comentario</button>
+				</form>
+			</div>
+		</div>
+		<?php unset($_SESSION['form'], $_SESSION['errores']); ?>
+
+	</div>
+	<div class="ficha-producto__tab-content" id="most-recent-content">
+		<div class="ficha-producto__reviews-list">
+			<?php while ($comentario = $comentariosRecientes->fetch_object()) : ?>
+				<div class="ficha-producto__review-item">
+					<div class="ficha-producto__review-header">
+						<strong class="ficha-producto__review-user"><?= htmlspecialchars($comentario->Usuario); ?></strong>
+						<div class="ficha-producto__review-stars">
+							<?= str_repeat('★', $comentario->calificacion) . str_repeat('☆', 5 - $comentario->calificacion); ?>
+						</div>
+					</div>
+					<p class="ficha-producto__review-comment"><?= htmlspecialchars($comentario->comentario); ?></p>
+					<div class="ficha-producto__review-footer">
+						<span class="ficha-producto__review-date"><?= date("d M Y", strtotime($comentario->fecha)); ?></span>
+					</div>
+				</div>
+			<?php endwhile; ?>
+		</div>
+	</div>
+
+	<div class="ficha-producto__tab-content" id="highest-rated-content">
+		<div class="ficha-producto__reviews-list">
+			<?php while ($comentario = $comentariosValorados->fetch_object()) : ?>
+				<div class="ficha-producto__review-item">
+					<div class="ficha-producto__review-header">
+						<strong class="ficha-producto__review-user"><?= htmlspecialchars($comentario->Usuario); ?></strong>
+						<div class="ficha-producto__review-stars">
+							<?= str_repeat('★', $comentario->calificacion) . str_repeat('☆', 5 - $comentario->calificacion); ?>
+						</div>
+					</div>
+					<p class="ficha-producto__review-comment"><?= htmlspecialchars($comentario->comentario); ?></p>
+					<div class="ficha-producto__review-footer">
+						<span class="ficha-producto__review-date"><?= date("d M Y", strtotime($comentario->fecha)); ?></span>
+					</div>
+				</div>
+			<?php endwhile; ?>
+		</div>
+	</div>
+
+	<div class="ficha-producto__tab-content" id="oldest-content">
+		<div class="ficha-producto__reviews-list">
+			<?php while ($comentario = $comentariosAntiguos->fetch_object()) : ?>
+				<div class="ficha-producto__review-item">
+					<div class="ficha-producto__review-header">
+						<strong class="ficha-producto__review-user"><?= htmlspecialchars($comentario->Usuario); ?></strong>
+						<div class="ficha-producto__review-stars">
+							<?= str_repeat('★', $comentario->calificacion) . str_repeat('☆', 5 - $comentario->calificacion); ?>
+						</div>
+					</div>
+					<p class="ficha-producto__review-comment"><?= htmlspecialchars($comentario->comentario); ?></p>
+					<div class="ficha-producto__review-footer">
+						<span class="ficha-producto__review-date"><?= date("d M Y", strtotime($comentario->fecha)); ?></span>
+					</div>
+				</div>
+			<?php endwhile; ?>
 		</div>
 	</div>
 </div>
