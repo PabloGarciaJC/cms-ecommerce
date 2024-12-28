@@ -157,12 +157,11 @@
 			<?php endif; ?>
 
 			<div class="ficha-producto__product-review">
-				<h4>Deja tu comentario:</h4>
 				<form action="<?php echo BASE_URL ?>Comentario/guardar" method="POST">
 					<input type="hidden" name="producto_id" value="<?php echo $productoFicha->id; ?>" />
 					<input type="hidden" name="usuario_id" value="<?php echo $usuario->Id; ?>" />
 					<div class="ficha-producto__form-group">
-						<textarea id="comentario" name="comentario" class="ficha-producto__form-control" rows="4" required><?php echo isset($_SESSION['form']['comentario']) ? htmlspecialchars($_SESSION['form']['comentario'], ENT_QUOTES, 'UTF-8') : ''; ?></textarea>
+						<textarea id="comentario" name="comentario" class="ficha-producto__form-control" rows="4" placeholder="Deja tu comentario" required><?php echo isset($_SESSION['form']['comentario']) ? htmlspecialchars($_SESSION['form']['comentario'], ENT_QUOTES, 'UTF-8') : ''; ?></textarea>
 					</div>
 					<div class="ficha-producto__form-group">
 						<label for="calificacion">Calificación</label>
