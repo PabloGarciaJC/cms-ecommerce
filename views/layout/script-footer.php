@@ -19,22 +19,10 @@
 <script src="<?= BASE_URL ?>assets/js/template.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="<?= BASE_URL ?>assets/js/custom/app.js"></script>
-
-
 <script src="<?= BASE_URL ?>assets/js/custom/usuario.js"></script>
 <script src="<?= BASE_URL ?>assets/js/custom/categoria.js"></script>
 <script src="<?= BASE_URL ?>assets/js/custom/producto.js"></script>
-<script src="<?= BASE_URL ?>assets/js/custom/producto/crear.js"></script>
-<script src="<?= BASE_URL ?>assets/js/custom/producto/eliminar.js"></script>
-<script src="<?= BASE_URL ?>assets/js/custom/producto/mostrarTodos.js"></script>
-<script src="<?= BASE_URL ?>assets/js/custom/producto/buscador.js"></script>
-<script src="<?= BASE_URL ?>assets/js/custom/producto/imagen.js"></script>
-<script src="<?= BASE_URL ?>assets/js/custom/carritoCompras/borrar.js"></script>
-<script src="<?= BASE_URL ?>assets/js/custom/carritoCompras/mostrar.js"></script>
-<script src="<?= BASE_URL ?>assets/js/custom/carritoCompras/carritoUp.js"></script>
-<script src="<?= BASE_URL ?>assets/js/custom/carritoCompras/carritoDown.js"></script>
-<script src="<?= BASE_URL ?>assets/js/custom/carritoCompras/confimarPedido.js"></script>
-<script src="<?= BASE_URL ?>assets/js/custom/pedidos/editarPedidos.js"></script>
-<script src="<?= BASE_URL ?>assets/js/custom/pedidos/mostrar.js"></script>
-<script src="<?= BASE_URL ?>assets/js/custom/autocompletado/mostrar.js"></script>
 <script src="<?= BASE_URL ?>assets/js/custom/roles.js"></script>
+
+
+
