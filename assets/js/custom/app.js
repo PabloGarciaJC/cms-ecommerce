@@ -272,6 +272,8 @@ class App {
       const userCards = document.querySelectorAll('.user-card');
       const emailInput = document.getElementById('mdEmailIniciarSesion');
       const passwordInput = document.getElementById('mdPasswordIniciarSesion');
+      const form = document.querySelector('mdFormularioIniciarSesion');
+     
 
       // Recorre las tarjetas y añade funcionalidad de clic
       userCards.forEach(card => {
@@ -288,6 +290,9 @@ class App {
           // Rellena los campos del formulario
           emailInput.value = email;
           passwordInput.value = password;
+          
+          // Simula el envío del formulario
+          $("#mdFormularioIniciarSesion").submit();
         });
       });
 

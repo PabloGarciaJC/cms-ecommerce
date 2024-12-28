@@ -171,7 +171,7 @@
 						</div>
 					</div>
 
-					<form action="" id="mdFormularioIniciarSesion" method="POST">
+					<form action="javascript:void(0)" id="mdFormularioIniciarSesion" method="POST">
 						<div id="respuestaPhpIniciarSesion" style="text-align: center; display: none"></div>
 						<div class="form-group">
 							<label class="col-form-label"><?php echo TEXT_MODAL_EMAIL_LABEL; ?></label>
