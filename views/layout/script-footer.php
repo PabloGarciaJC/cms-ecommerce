@@ -18,7 +18,5 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="<?= BASE_URL ?>assets/js/custom/app.js"></script>
 <script src="<?= BASE_URL ?>assets/js/custom/usuario.js"></script>
-<script src="<?= BASE_URL ?>assets/js/custom/categoria.js"></script>
-<script src="<?= BASE_URL ?>assets/js/custom/producto.js"></script>
 <script src="<?= BASE_URL ?>assets/js/custom/roles.js"></script>
 <script src="<?= BASE_URL ?>assets/js/custom/comentario.js"></script>

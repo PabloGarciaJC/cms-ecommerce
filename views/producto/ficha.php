@@ -87,10 +87,20 @@
 						<i class="fas fa-retweet mr-3"></i>Net banking & Credit/ Debit/ ATM card
 					</p> -->
 				</div>
+				<?php
+				// Asegúrate de que $promedioCalificacion tenga un valor válido
+				$promedioCalificacion = isset($promedioCalificacion) && is_numeric($promedioCalificacion) ? $promedioCalificacion : 0;
+				// Redondea el promedio
+				$promedioRedondeado = round($promedioCalificacion);
+				?>
 				<div class="product-rating mb-4 text-center">
 					<h4 class="rating-title">Calificación Promedio</h4>
 					<div class="stars">
-						<?= str_repeat('<i class="fas fa-star"></i>', round($promedioCalificacion)) . str_repeat('<i class="far fa-star"></i>', 5 - round($promedioCalificacion)); ?>
+						<?php
+						// Generar las estrellas llenas y vacías
+						echo str_repeat('<i class="fas fa-star"></i>', $promedioRedondeado);
+						echo str_repeat('<i class="far fa-star"></i>', 5 - $promedioRedondeado);
+						?>
 						<span class="rating-value">(<?= number_format($promedioCalificacion, 1); ?> de 5)</span>
 					</div>
 				</div>
@@ -163,7 +173,7 @@
 			<?php endif; ?>
 
 			<div class="ficha-producto__product-review">
-				<form action="<?php echo BASE_URL ?>Comentario/guardar" method="POST">
+				<form action="<?php echo BASE_URL ?>Comentario/guardar" method="POST" id="reviewForm">
 					<input type="hidden" name="producto_id" value="<?php echo $productoFicha->id; ?>" />
 					<input type="hidden" name="usuario_id" value="<?php echo $usuario->Id; ?>" />
 					<div class="ficha-producto__form-group">
@@ -179,7 +189,7 @@
 							<?php endfor; ?>
 						</div>
 					</div>
-					<button type="submit" class="ficha-producto__btn">Enviar Comentario</button>
+					<button type="button" id="submitReview" class="ficha-producto__btn">Enviar Comentario</button>
 				</form>
 			</div>
 		</div>

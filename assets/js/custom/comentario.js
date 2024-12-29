@@ -40,9 +40,44 @@ class Commentario {
         });
     }
 
+    guardarComentarioFronted() {
+        $('#submitReview').on('click', function (e) {
+            e.preventDefault();
+            const formData = $('#reviewForm').serialize();
+            $.ajax({
+                type: "POST",
+                url: baseUrl + 'Comentario/guardar',
+                data: formData,
+                success: function (response) {
+                    const data = JSON.parse(response);
+                    if (data.success) {
+                        Swal.fire({
+                            title: "Completado",
+                            text: data.message, 
+                            icon: "success",
+                            timer: 2000,
+                            showConfirmButton: false
+                        })
+                    } else {
+                        Swal.fire({
+                            html: `<ul style="text-align: left;">${data.errors.map(error => `<li>${error}</li>`).join('')}</ul>`,
+                            icon: "error",
+                            showConfirmButton: true
+                        });
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error en la solicitud:", error);
+                    alert("Ocurrió un error. Inténtalo de nuevo.");
+                }
+            });
+        });
+    }
+
     // Método customCommentario
     customCommentario() {
         this.editarComentarioPanelAdministrador();
+        this.guardarComentarioFronted();
     }
 
     // Iniciar aplicación

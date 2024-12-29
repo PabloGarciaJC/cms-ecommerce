@@ -23,9 +23,7 @@ class ProductoController extends HomeController
     $comentarios = new Comentario();
     $comentariosValorados = $comentarios->obtenerComentariosValorados($idProducto);
     $obtenerComentariosMenorCalificacion = $comentarios->obtenerComentariosMenorCalificacion($idProducto);
-
     $promedioCalificacion = $comentarios->obtenerPromedioCalificacion($idProducto);
-
     require_once 'views/layout/head.php';
     require_once 'views/layout/header.php';
     require_once 'views/producto/ficha.php';

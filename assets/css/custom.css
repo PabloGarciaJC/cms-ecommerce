@@ -1519,6 +1519,10 @@
       margin-bottom: 20px;
   }
 
+  .product-rating-plantilla {
+      margin-bottom: 20px;
+  }
+
   .product-rating .rating-title {
       font-size: 18px;
       font-weight: bold;
@@ -1526,16 +1530,16 @@
       margin-bottom: 10px;
   }
 
-  .product-rating .stars {
+  .product-rating .stars,
+  .product-rating-plantilla .stars {
       font-size: 22px;
       color: #ffc107;
-      /* Dorado para las estrellas */
       margin-bottom: 5px;
   }
 
-  .product-rating .stars .far {
+  .product-rating .stars .far,
+  .product-rating-plantilla .far {
       color: #ddd;
-      /* Estrellas vacías en gris claro */
   }
 
   .product-rating .rating-value {

@@ -32,6 +32,11 @@
                     ?>
                 </div>
             <?php endif; ?>
+            <div class="product-rating-plantilla">
+                <span class="stars">
+                    <?= str_repeat('<i class="fas fa-star"></i>', round($prod->promedio_calificacion ?? 0)) . str_repeat('<i class="far fa-star"></i>', 5 - round($prod->promedio_calificacion ?? 0)); ?>
+                </span>
+            </div>
             <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
                 <form action="#" method="post">
                     <fieldset>

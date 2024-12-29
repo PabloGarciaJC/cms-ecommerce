@@ -231,19 +231,37 @@ class Productos
 
   public function movil()
   {
-    $sql = "SELECT * FROM productos WHERE parent_id = 192 LIMIT 3";
+    $sql = "SELECT p.*, 
+                     (SELECT AVG(calificacion) 
+                      FROM comentarios 
+                      WHERE producto_id = p.id) AS promedio_calificacion 
+              FROM productos p 
+              WHERE parent_id = 192 
+              LIMIT 3";
     return $this->db->query($sql);
   }
 
   public function tvAudios()
   {
-    $sql = "SELECT * FROM productos WHERE parent_id = 194 LIMIT 3";
+    $sql = "SELECT p.*, 
+                     (SELECT AVG(calificacion) 
+                      FROM comentarios 
+                      WHERE producto_id = p.id) AS promedio_calificacion 
+              FROM productos p 
+              WHERE parent_id = 194 
+              LIMIT 3";
     return $this->db->query($sql);
   }
 
   public function electrodomesticos()
   {
-    $sql = "SELECT * FROM productos WHERE parent_id = 196 LIMIT 3";
+    $sql = "SELECT p.*, 
+                     (SELECT AVG(calificacion) 
+                      FROM comentarios 
+                      WHERE producto_id = p.id) AS promedio_calificacion 
+              FROM productos p 
+              WHERE parent_id = 196 
+              LIMIT 3";
     return $this->db->query($sql);
   }
 
@@ -258,5 +276,4 @@ class Productos
 
     return 0;
   }
-
 }

@@ -26,11 +26,11 @@ class App {
 
     function changeIndividual() {
       $('#avatar').on('change', function (event) {
-        const file = event.target.files[0];
-        const $preview = $('#avatarPreview');
+        let file = event.target.files[0];
+        let $preview = $('#avatarPreview');
 
         if (file) {
-          const reader = new FileReader();
+          let reader = new FileReader();
           reader.onload = function (e) {
             $preview.attr('src', e.target.result).show();
           };
@@ -47,8 +47,8 @@ class App {
       // Función para manejar el cambio de imágenes y la vista previa
       function handleImageChange(inputSelector) {
         $(inputSelector).on('change', function (event) {
-          const files = event.target.files;
-          const $previewContainer = $('#imagePreview');
+          let files = event.target.files;
+          let $previewContainer = $('#imagePreview');
           $previewContainer.empty();
 
           // Limpiar el arreglo de archivos
@@ -56,11 +56,11 @@ class App {
 
           // Mostrar todas las imágenes seleccionadas
           $.each(files, function (i, file) {
-            const reader = new FileReader();
+            let reader = new FileReader();
 
             reader.onload = function (e) {
-              const $imgContainer = $('<div>').addClass('panel-admin__image-container');
-              const $imgElement = $('<img>')
+              let $imgContainer = $('<div>').addClass('panel-admin__image-container');
+              let $imgElement = $('<img>')
                 .attr('src', e.target.result)
                 .addClass('panel-admin__image-thumbnail');
 
@@ -91,8 +91,8 @@ class App {
     // Escuchar el clic en los botones de toggle-password
     $('.toggle-password').on('click', function () {
       // Obtener el campo de entrada que se desea cambiar
-      const input = $($(this).data('target'));  // Usamos data-target para seleccionar el campo de contraseña correspondiente
-      const type = input.attr('type') === 'password' ? 'text' : 'password';  // Cambiar entre tipo 'password' y 'text'
+      let input = $($(this).data('target'));  // Usamos data-target para seleccionar el campo de contraseña correspondiente
+      let type = input.attr('type') === 'password' ? 'text' : 'password';  // Cambiar entre tipo 'password' y 'text'
       input.attr('type', type);  // Actualizar el tipo de input
 
       // Cambiar el ícono del ojo según el estado
@@ -123,13 +123,13 @@ class App {
     }
 
     // Configuración del IntersectionObserver con threshold y rootMargin
-    const observerOptions = {
+    let observerOptions = {
       threshold: 0.01,                 // Detecta cuando el 1% del elemento es visible
       rootMargin: "-500px 0px 0px 0px" // Comienza a detectar 500px antes de que el elemento entre en el viewport
     };
 
     // Crea el Intersection Observer con las opciones configuradas
-    const observer = new IntersectionObserver(entries => {
+    let observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           // Agrega la clase de animación
@@ -151,7 +151,7 @@ class App {
   };
 
   initAnimationLeftRight = function (containerSelector) {
-    const container = document.querySelector(containerSelector);
+    let container = document.querySelector(containerSelector);
 
     if (!container) return;
 
@@ -159,10 +159,10 @@ class App {
     if (container.classList.contains('animations-applied')) return;
 
     // Seleccionar todos los elementos .banner-wrapper dentro del contenedor
-    const bannerWrappers = container.querySelectorAll('.banner-wrapper');
+    let bannerWrappers = container.querySelectorAll('.banner-wrapper');
 
     // Función para aplicar animación a cada elemento
-    const applyAnimation = (element, index) => {
+    let applyAnimation = (element, index) => {
       // Aplica animación desde la izquierda o derecha dependiendo del índice
       if (index % 2 === 0) {
         element.classList.add('animation__slide--left');
@@ -172,10 +172,10 @@ class App {
     };
 
     // Crear un Intersection Observer para detectar cuando el elemento entra en el viewport
-    const observer = new IntersectionObserver(entries => {
+    let observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          const index = Array.from(bannerWrappers).indexOf(entry.target);
+          let index = Array.from(bannerWrappers).indexOf(entry.target);
           applyAnimation(entry.target, index); // Aplica la animación
 
           // Mostrar el log cuando se detecta el elemento
@@ -232,73 +232,67 @@ class App {
     this.initAnimationLeftRight('.animation__left-right');
 
     // Select de Idiomas
-    document.addEventListener('DOMContentLoaded', function () {
-      let selectSelected = document.querySelector('.select-selected');
-      let selectItems = document.querySelector('.select-items');
-      let selectedLanguageInput = document.getElementById('selected-language');
-      let languageForm = document.getElementById('language-form');
-      let selectArrow = document.querySelector('.select-arrow');
+    let selectSelected = document.querySelector('.select-selected');
+    let selectItems = document.querySelector('.select-items');
+    let selectedLanguageInput = document.getElementById('selected-language');
+    let languageForm = document.getElementById('language-form');
+    let selectArrow = document.querySelector('.select-arrow');
 
-      if (selectSelected && selectItems && selectedLanguageInput && languageForm && selectArrow) {
-        selectSelected.addEventListener('click', function () {
-          let isExpanded = selectItems.classList.contains('show');
-          selectItems.classList.toggle('show', !isExpanded);
-          selectArrow.classList.toggle('down', !isExpanded);
-        });
+    if (selectSelected && selectItems && selectedLanguageInput && languageForm && selectArrow) {
+      selectSelected.addEventListener('click', function () {
+        let isExpanded = selectItems.classList.contains('show');
+        selectItems.classList.toggle('show', !isExpanded);
+        selectArrow.classList.toggle('down', !isExpanded);
+      });
 
-        selectItems.addEventListener('click', function (event) {
-          let selectedOption = event.target.closest('div');
-          if (selectedOption) {
-            let value = selectedOption.getAttribute('data-value');
-            let imgSrc = selectedOption.querySelector('img').getAttribute('src');
-            let text = selectedOption.textContent.trim();
+      selectItems.addEventListener('click', function (event) {
+        let selectedOption = event.target.closest('div');
+        if (selectedOption) {
+          let value = selectedOption.getAttribute('data-value');
+          let imgSrc = selectedOption.querySelector('img').getAttribute('src');
+          let text = selectedOption.textContent.trim();
 
-            selectSelected.innerHTML = '<div><img src="' + imgSrc + '" alt="selected-language">' + text + '</div><div class="select-arrow">&#9662;</div>';
-            selectedLanguageInput.value = value;
-            languageForm.submit();
-          }
-        });
+          selectSelected.innerHTML = '<div><img src="' + imgSrc + '" alt="selected-language">' + text + '</div><div class="select-arrow">&#9662;</div>';
+          selectedLanguageInput.value = value;
+          languageForm.submit();
+        }
+      });
 
-        document.addEventListener('click', function (event) {
-          if (!selectSelected.contains(event.target) && !selectItems.contains(event.target)) {
-            selectItems.classList.remove('show');
-            selectArrow.classList.remove('down');
-          }
-        });
-      }
-    });
+      document.addEventListener('click', function (event) {
+        if (!selectSelected.contains(event.target) && !selectItems.contains(event.target)) {
+          selectItems.classList.remove('show');
+          selectArrow.classList.remove('down');
+        }
+      });
+    }
 
     // Script para llenar los campos con usuarios de prueba 
-    document.addEventListener('DOMContentLoaded', function () {
-      const userCards = document.querySelectorAll('.user-card');
-      const emailInput = document.getElementById('mdEmailIniciarSesion');
-      const passwordInput = document.getElementById('mdPasswordIniciarSesion');
-      const form = document.querySelector('mdFormularioIniciarSesion');
+    let userCards = document.querySelectorAll('.user-card');
+    let emailInput = document.getElementById('mdEmailIniciarSesion');
+    let passwordInput = document.getElementById('mdPasswordIniciarSesion');
 
+    // Recorre las tarjetas y añade funcionalidad de clic
+    userCards.forEach(card => {
+      card.addEventListener('click', function () {
+        // Remueve la clase activa de todas las tarjetas
+        userCards.forEach(c => c.classList.remove('active'));
+        // Añade la clase activa a la tarjeta seleccionada
+        card.classList.add('active');
 
-      // Recorre las tarjetas y añade funcionalidad de clic
-      userCards.forEach(card => {
-        card.addEventListener('click', function () {
-          // Remueve la clase activa de todas las tarjetas
-          userCards.forEach(c => c.classList.remove('active'));
-          // Añade la clase activa a la tarjeta seleccionada
-          card.classList.add('active');
+        // Obtén los datos del usuario
+        let email = card.getAttribute('data-email');
+        let password = card.getAttribute('data-password');
 
-          // Obtén los datos del usuario
-          const email = card.getAttribute('data-email');
-          const password = card.getAttribute('data-password');
+        // Rellena los campos del formulario
+        emailInput.value = email;
+        passwordInput.value = password;
 
-          // Rellena los campos del formulario
-          emailInput.value = email;
-          passwordInput.value = password;
-
-          // Simula el envío del formulario
-          $("#mdFormularioIniciarSesion").submit();
-        });
+        // Simula el envío del formulario
+        $("#mdFormularioIniciarSesion").submit();
       });
 
       // Mostrar el modal automáticamente si no se ha mostrado antes
-      const modalShown = localStorage.getItem('modalShown');
+      let modalShown = localStorage.getItem('modalShown');
       if (!modalShown) {
         $('#exampleModal').modal('show');
         localStorage.setItem('modalShown', 'true');

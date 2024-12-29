@@ -12,6 +12,7 @@
                         <th>Comentario</th>
                         <th>Calificación</th>
                         <th>Fecha</th>
+                        <th>Producto</th>
                         <th>Estado</th>
                         <th>Acción</th>
                     </tr>
@@ -33,6 +34,9 @@
                             </td>
                             <td><?php echo date("d M Y", strtotime($comentario->fecha)); ?></td>
                             <td>
+                                <?php echo htmlspecialchars($comentario->producto_nombre); ?> <!-- Mostrar el nombre del producto -->
+                            </td>
+                            <td>
                                 <!-- Seleccionar estado con un select -->
                                 <select class="estado-select" data-id="<?php echo $comentario->id; ?>">
                                     <option value="1" <?php echo $comentario->estado == 1 ? 'selected' : ''; ?>>Aprobado</option>
@@ -47,6 +51,7 @@
                         </tr>
                     <?php endwhile; ?>
                 </tbody>
+
             </table>
         </section>
     </main>

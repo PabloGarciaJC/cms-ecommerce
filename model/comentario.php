@@ -130,13 +130,16 @@ class Comentario
 
     public function getComentarios()
     {
-        $sql = "SELECT c.id, c.producto_id, c.usuario_id, c.comentario, c.calificacion, c.fecha, c.estado, u.Usuario
-            FROM comentarios c
-            JOIN usuarios u ON c.usuario_id = u.Id";
-
+        // Consulta SQL que une los comentarios con los productos y usuarios
+        $sql = "SELECT c.id, c.producto_id, c.usuario_id, c.comentario, c.calificacion, c.fecha, c.estado, u.Usuario, p.nombre AS producto_nombre
+                FROM comentarios c
+                JOIN usuarios u ON c.usuario_id = u.Id
+                JOIN productos p ON c.producto_id = p.id";
+    
         $result = $this->db->query($sql);
         return $result;
     }
+    
 
     public function obtenerPromedioCalificacion($idProducto)
     {
