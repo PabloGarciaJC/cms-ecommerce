@@ -95,7 +95,7 @@
 													<h6>Subcategorías</h6>
 													<ul class="multi-column-dropdown">
 														<?php while ($subcategoria = $item['subcategorias']->fetch_object()) : ?>
-															<li><a href="<?php echo BASE_URL; ?>Catalogo/index?parent_id=<?= $subcategoria->parent_id ?>"><?= $subcategoria->nombre ?></a></li>
+															<li><a href="<?php echo BASE_URL; ?>Catalogo/index?parent_id=<?= $subcategoria->grupo_id ?>"><?= $subcategoria->nombre ?></a></li>
 														<?php endwhile; ?>
 													</ul>
 												</div>

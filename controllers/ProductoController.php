@@ -142,8 +142,8 @@ class ProductoController extends HomeController
 
     require_once 'views/layout/head.php';
     require_once 'views/layout/header.php';
-    require_once 'views/layout/search.php';
-    // require_once 'views/producto/checkout.php';
+    // require_once 'views/layout/search.php';
+    require_once 'views/producto/checkout.php';
     require_once 'views/layout/footer.php';
   }
 

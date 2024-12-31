@@ -47,13 +47,10 @@ class CatalogoController extends HomeController
 
     // Menu de categorias
     $categoriasConSubcategoriasYProductos = $categorias->obtenerCategoriasYProductos();
-    
-    // Ficha de producto
-    // $producto->setParentId($parentId);
-    // $productoFicha = $producto->obtenerProductosPorId();
 
     // Mostrar breadcrumbsFonted
     $categorias->setParentId($parentId);
+    $categorias->setId($parentId);
     $breadcrumbs = $categorias->getBreadcrumbsFontend();
 
     // Obetener Productos por categorias
