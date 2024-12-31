@@ -3,11 +3,17 @@
 require_once 'model/productos.php';
 require_once 'model/categorias.php';
 require_once 'controllers/ProductoController.php';
+require_once 'model/idiomas.php';
 
 class HomeController
 {
-    public function idiomas()
+
+    private function cargarDatosComunes()
     {
+        $usuario = Utils::obtenerUsuario();
+        $categorias = new Categorias();
+        $idiomas = new Idiomas();
+        $getIdiomas = $idiomas->obtenerTodos();
         $lang = isset($_POST['lenguaje']) ? $_POST['lenguaje'] : false;
 
         if ($lang) {
@@ -16,25 +22,22 @@ class HomeController
             $_SESSION['lang'] = 'es';
         }
 
+        // Carga el archivo del idioma según la selección
         switch ($_SESSION['lang']) {
             case 'en':
                 require_once 'lenguajes/ingles.php';
+                $categorias->setIdioma(2);
                 break;
             case 'fr':
                 require_once 'lenguajes/frances.php';
+                $categorias->setIdioma(3);
                 break;
             default:
                 require_once 'lenguajes/espanol.php';
         }
-    }
 
-    private function cargarDatosComunes()
-    {
-        $this->idiomas();
-        $usuario = Utils::obtenerUsuario();
-        $categorias = new Categorias();
         $categoriasConSubcategoriasYProductos = $categorias->obtenerCategoriasYProductos();
-        return compact('usuario', 'categoriasConSubcategoriasYProductos');
+        return compact('usuario', 'categoriasConSubcategoriasYProductos', 'getIdiomas');
     }
 
     public function index()

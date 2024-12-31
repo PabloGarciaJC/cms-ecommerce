@@ -4,9 +4,11 @@ class Categorias
 {
   private $id;
   private $nombre;
+  private $idioma;
   private $descripcion;
   private $parentId;
   private $imagenesJson;
+  private $grupoId;
   private $db;
 
   public function __construct()
@@ -19,6 +21,11 @@ class Categorias
   public function getId()
   {
     return $this->id;
+  }
+
+  public function getGrupoId()
+  {
+    return $this->grupoId;
   }
 
   public function getNombre()
@@ -39,6 +46,11 @@ class Categorias
   public function getImagenes()
   {
     return $this->imagenesJson;
+  }
+
+  public function getIdioma()
+  {
+    return $this->idioma;
   }
 
   //// SETTERS ////
@@ -68,102 +80,141 @@ class Categorias
     $this->imagenesJson = $imagenesJson;
   }
 
+  public function setIdioma($idioma)
+  {
+    $this->idioma = $idioma;
+  }
+
+  public function setGrupoId($grupoId)
+  {
+    $this->grupoId = $grupoId;
+  }
+
+
   //// CONSULTAS //// 
 
   public function obtenerCategorias()
   {
-    $sql = "SELECT * FROM categorias WHERE parent_id IS NULL OR parent_id = ''";
+    $sql = "SELECT * FROM categorias WHERE idioma_id = 1 AND parent_id IS NULL;";
     $listarCategorias = $this->db->query($sql);
     return [
       'categorias' => $listarCategorias,
     ];
   }
 
-  public function obtenerSubcategorias($minPrecio, $maxPrecio, $textoBusqueda)
+  public function obtenerSubcategorias()
   {
+    $idioma = empty($this->getIdioma()) ? 1 : $this->getIdioma();
 
-    $parentId = intval($this->getId());
+    // Panel Administrativo
+    $sqlCategorias = "SELECT * FROM categorias WHERE idioma_id = $idioma";
+    $sqlProductos = "SELECT * FROM productos WHERE idioma_id = $idioma";
 
-    if ($parentId <= 0) {
+    if ($this->getId()) {
+      $sqlCategorias .= " AND parent_id = {$this->getId()}";
+      $sqlProductos .= " AND parent_id = {$this->getId()}";
+    }
 
-      $sqlCategorias = "SELECT * FROM categorias";
-      if (!empty($textoBusqueda)) {
-        $textoBusquedaEscapado = $this->db->real_escape_string($textoBusqueda);
-        $sqlCategorias .= " WHERE nombre LIKE '%{$textoBusquedaEscapado}%'";
-      }
+    if (!empty($minPrecio)) {
+      $sqlProductos .= $this->getId() ? " AND" : " WHERE";
+      $sqlProductos .= " precio >= {$minPrecio}";
+    }
 
-      $listarCategorias = $this->db->query($sqlCategorias);
-      $sqlProductos = "SELECT * FROM productos";
+    if (!empty($maxPrecio)) {
+      $sqlProductos .= $this->getId() ? " AND" : " WHERE";
+      $sqlProductos .= " precio <= {$maxPrecio}";
+    }
 
-      if (!empty($textoBusqueda)) {
-        $textoBusquedaEscapado = $this->db->real_escape_string($textoBusqueda);
-        $sqlProductos .= " WHERE nombre LIKE '%{$textoBusquedaEscapado}%'";
+    $listarCategorias = $this->db->query($sqlCategorias);
+    $listarProductos = $this->db->query($sqlProductos);
+
+    return [
+      'categorias' => $listarCategorias,
+      'productos' => $listarProductos,
+    ];
+  }
+
+  public function obtenerCategoriasYProductosFronted($minPrecio, $maxPrecio, $textoBusqueda)
+  {
+    $idioma = empty($this->getIdioma()) ? 1 : $this->getIdioma();
+
+    if ($this->getParentId()) {
+
+      // $sqlCategorias = "SELECT * FROM categorias WHERE idioma_id = $idioma";
+      $sqlProductos = "SELECT * FROM productos WHERE idioma_id = $idioma";
+
+      if ($this->getParentId()) {
+        // $sqlCategorias .= " AND parent_id = {$this->getId()}";
+        $sqlProductos .= " AND parent_id = {$this->getParentId()}";
       }
 
       if (!empty($minPrecio)) {
-        $sqlProductos .= strpos($sqlProductos, 'WHERE') !== false ? " AND" : " WHERE";
+        $sqlProductos .= $this->getParentId() ? " AND" : " WHERE";
         $sqlProductos .= " precio >= {$minPrecio}";
       }
 
       if (!empty($maxPrecio)) {
-        $sqlProductos .= strpos($sqlProductos, 'WHERE') !== false ? " AND" : " WHERE";
+        $sqlProductos .= $this->getParentId() ? " AND" : " WHERE";
         $sqlProductos .= " precio <= {$maxPrecio}";
       }
 
+      // $listarCategorias = $this->db->query($sqlCategorias);
       $listarProductos = $this->db->query($sqlProductos);
 
       return [
-        'categorias' => $listarCategorias,
         'productos' => $listarProductos,
       ];
-
     } else {
 
-      $sqlCategorias = "SELECT * FROM categorias";
-      $sqlProductos = "SELECT * FROM productos";
+      // Consulta base para productos y categorías
+      $sqlProductos = "SELECT * FROM productos WHERE idioma_id = $idioma";
+      $sqlCategorias = "SELECT * FROM categorias WHERE idioma_id = $idioma";
 
-      if ($this->getId()) {
-        $sqlCategorias .= " WHERE parent_id = {$this->getId()}";
-        $sqlProductos .= " WHERE parent_id = {$this->getId()}";
+      // Si hay texto de búsqueda, agregar condición a las consultas
+      if (!empty($textoBusqueda)) {
+        $textoBusquedaEscapado = $this->db->real_escape_string($textoBusqueda);
+        $sqlCategorias .= " AND nombre LIKE '%{$textoBusquedaEscapado}%'";
+        $sqlProductos .= " AND nombre LIKE '%{$textoBusquedaEscapado}%'";
       }
-
       if (!empty($minPrecio)) {
-        $sqlProductos .= $this->getId() ? " AND" : " WHERE";
-        $sqlProductos .= " precio >= {$minPrecio}";
+        $sqlProductos .= " AND precio >= {$minPrecio}";
       }
 
       if (!empty($maxPrecio)) {
-        $sqlProductos .= $this->getId() ? " AND" : " WHERE";
-        $sqlProductos .= " precio <= {$maxPrecio}";
+        $sqlProductos .= " AND precio <= {$maxPrecio}";
       }
 
-      $listarCategorias = $this->db->query($sqlCategorias);
+      // Ejecutar las consultas
       $listarProductos = $this->db->query($sqlProductos);
+      $listarCategorias = $this->db->query($sqlCategorias);
 
+      // Retornar los resultados
       return [
-        'categorias' => $listarCategorias,
         'productos' => $listarProductos,
+        'categorias' => $listarCategorias,
       ];
     }
   }
 
-
   public function obtenerCategoriasYProductos()
   {
 
-    $sqlCategorias = "SELECT * FROM categorias WHERE parent_id IS NULL OR parent_id = ''";
+    $idioma = empty($this->getIdioma()) ? 1 : $this->getIdioma();
+
+    $sqlCategorias = "SELECT * FROM categorias WHERE idioma_id = $idioma;";
     $categorias = $this->db->query($sqlCategorias);
 
     $categoriasConSubcategoriasYProductos = [];
 
     while ($categoria = $categorias->fetch_object()) {
 
-      $sqlSubcategorias = "SELECT * FROM categorias WHERE parent_id = {$categoria->id}";
+      $sqlSubcategorias = "SELECT * FROM categorias WHERE idioma_id = $idioma AND parent_id = {$categoria->grupo_id}";
       $subcategorias = $this->db->query($sqlSubcategorias);
 
-      $sqlProductos = "SELECT * FROM productos WHERE parent_id = {$categoria->id}";
+      $sqlProductos = "SELECT * FROM productos WHERE idioma_id = $idioma AND parent_id = {$categoria->grupo_id}";
+
       $productos = $this->db->query($sqlProductos);
-      
+
       $categoriasConSubcategoriasYProductos[] = [
         'categoria' => $categoria,
         'subcategorias' => $subcategorias,
@@ -174,12 +225,18 @@ class Categorias
     return $categoriasConSubcategoriasYProductos;
   }
 
-
-  public function obtenerCategoriaPorId()
+  public function obtenerCategoriaPorGrupo()
   {
-    $sql = "SELECT * FROM categorias WHERE id = {$this->getId()}";
-    $categoria = $this->db->query($sql);
-    return $categoria->fetch_object();
+    $sql = "SELECT * FROM categorias WHERE grupo_id = {$this->getGrupoId()}";
+
+    $result = $this->db->query($sql);
+    $datos = [];
+
+    while ($row = $result->fetch_object()) {
+      $datos[$row->idioma_id] = $row;
+    }
+
+    return $datos;
   }
 
   public function obtenerCategoriaPadre()
@@ -191,57 +248,104 @@ class Categorias
 
   public function crearCategoria()
   {
-    $nombre = $this->db->real_escape_string($this->getNombre());
-    $descripcion = $this->db->real_escape_string($this->getDescripcion());
+    $nombre = $this->db->real_escape_string($this->getNombre() ?? "");
+    $descripcion = $this->db->real_escape_string($this->getDescripcion() ?? "");
+
     $parent_id_sql = $this->getParentId() == false ? 'NULL' : $this->getParentId();
-    $sql = "INSERT INTO categorias (nombre, descripcion, parent_id, imagenes) VALUES ('$nombre', '$descripcion', $parent_id_sql, '{$this->getImagenes()}')";
+    $grupo_id = $this->db->real_escape_string($this->getGrupoId());
+
+    $sql = "INSERT INTO categorias (nombre, descripcion, parent_id, idioma_id, grupo_id, imagenes) 
+                  VALUES ('$nombre', '$descripcion', $parent_id_sql, {$this->getIdioma()}, '$grupo_id', '{$this->getImagenes()}')";
+
     return $this->db->query($sql);
   }
 
   public function actualizarCategoriaPorId()
   {
-    $nombre = $this->db->real_escape_string($this->getNombre());
-    $descripcion = $this->db->real_escape_string($this->getDescripcion());
-    $imagenes = $this->getImagenes();
-    $imagenesValidas = !empty($imagenes) && $imagenes != '[]' && $imagenes != 'null';
-    $sql = "UPDATE categorias SET nombre = '$nombre', descripcion = '$descripcion'";
+    $nombre = $this->db->real_escape_string($this->getNombre() ?? "");
+    $descripcion = $this->db->real_escape_string($this->getDescripcion() ?? "");
+    $parent_id_sql = $this->getParentId() == false ? 'NULL' : $this->getParentId();
+    $grupo_id = $this->db->real_escape_string($this->getGrupoId());
 
-    if ($imagenesValidas) {
-      $sql .= ", imagenes = '$imagenes'";
+    $imagenes = $this->getImagenes();
+
+    if (is_string($imagenes)) {
+      $imagenes = json_decode($imagenes, true);
     }
 
-    $sql .= " WHERE id = {$this->getId()}";
-    $categoria = $this->db->query($sql);
-    return $categoria;
+    $imagenesValidas = !empty($imagenes) && is_array($imagenes);
+
+    if ($imagenesValidas) {
+      $imagenesJSON = json_encode($imagenes, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+      $imagenesJSON = $this->db->real_escape_string($imagenesJSON);
+    }
+
+    $sql = "UPDATE categorias SET 
+                          nombre = '$nombre', 
+                          descripcion = '$descripcion', 
+                          parent_id = $parent_id_sql, 
+                          grupo_id = '$grupo_id'";
+
+    if ($imagenesValidas) {
+      $sql .= ", imagenes = '$imagenesJSON'";
+    }
+
+    $sql .= " WHERE grupo_id = '$grupo_id' AND idioma_id = {$this->getIdioma()}";
+
+    return $this->db->query($sql);
   }
+
 
   public function eliminarCategoria()
   {
-    $result = false;
-    $sqlCategoria = "DELETE FROM categorias WHERE id = {$this->getId()}";
-    $deleteCategoria = $this->db->query($sqlCategoria);
-    if ($deleteCategoria) {
-      $result = true;
-    }
-    return $result;
+    $grupo_id = $this->db->real_escape_string($this->getGrupoId());
+    $idioma_id = $this->db->real_escape_string($this->getIdioma());
+
+    $sql = "DELETE FROM categorias WHERE grupo_id = '$grupo_id' AND idioma_id = $idioma_id";
+
+    return $this->db->query($sql);
   }
 
   public function getBreadcrumbs()
   {
     $breadcrumbs = [];
     $currentId = $this->getId();
-    // Iterar hacia atrás en la jerarquía hasta llegar a la raíz
+
     while ($currentId) {
-      $sql = "SELECT id, nombre, parent_id FROM categorias WHERE id = $currentId";
+      $sql = "SELECT id, nombre, parent_id, grupo_id FROM categorias WHERE grupo_id = $currentId";
       $result = $this->db->query($sql);
 
       if ($result && $row = $result->fetch_object()) {
-        // Añadir al principio del array de breadcrumbs
+        array_unshift($breadcrumbs, [
+          'id' => $row->id,
+          'nombre' => $row->nombre,
+          'grupo_id' => $row->grupo_id
+        ]);
+        $currentId = $row->parent_id;
+      } else {
+        break;
+      }
+    }
+    return $breadcrumbs;
+  }
+
+  public function getBreadcrumbsFontend()
+  {
+    $breadcrumbs = [];
+    $currentId = $this->getParentId();
+
+    $idioma = empty($this->getIdioma()) ? 1 : $this->getIdioma();
+
+    while ($currentId) {
+      $sql = "SELECT id, nombre, parent_id FROM categorias WHERE grupo_id = '$currentId' AND idioma_id = $idioma";
+
+      $result = $this->db->query($sql);
+
+      if ($result && $row = $result->fetch_object()) {
         array_unshift($breadcrumbs, [
           'id' => $row->id,
           'nombre' => $row->nombre
         ]);
-        // Seguir al siguiente padre
         $currentId = $row->parent_id;
       } else {
         break;
@@ -252,13 +356,10 @@ class Categorias
 
   public function buscarProductosPorTexto($textoBusqueda, $minPrecio = false, $maxPrecio = false)
   {
-    // Escapar texto para prevenir inyección SQL
-    $textoBusqueda = $this->db->real_escape_string($textoBusqueda);
 
-    // Base de la consulta
+    $textoBusqueda = $this->db->real_escape_string($textoBusqueda);
     $sql = "SELECT * FROM productos WHERE nombre LIKE '%$textoBusqueda%'";
 
-    // Agregar filtros de precio si están definidos
     if ($minPrecio !== false) {
       $sql .= " AND precio >= $minPrecio";
     }

@@ -32,7 +32,7 @@
                             <?php foreach ($breadcrumbs as $index => $breadcrumb): ?>
                                 <li class="breadcrumb-item">
                                     <?php if ($index < count($breadcrumbs) - 1): ?>
-                                        <a href="<?php echo BASE_URL ?>Admin/catalogo?categoriaId=<?= $breadcrumb['id']; ?>"><?= htmlspecialchars($breadcrumb['nombre']); ?></a>
+                                        <a href="<?php echo BASE_URL ?>Admin/catalogo?categoriaId=<?= $breadcrumb['grupo_id']; ?>"><?= htmlspecialchars($breadcrumb['nombre']); ?></a>
                                     <?php else: ?>
                                         <span><?= htmlspecialchars($breadcrumb['nombre']); ?></span>
                                     <?php endif; ?>
@@ -67,9 +67,9 @@
                                 <tr>
                                     <?php
                                     $urlCategoria = isset($categoria->parent_id) && $categoria->parent_id != null ? "&categoriaId=" . $categoria->parent_id : false;
-                                    $categoriaUrl = BASE_URL . "Admin/catalogo?categoriaId=" . $categoria->id;
-                                    $editUrl = BASE_URL . "Admin/categorias?editid=" . $categoria->id . $urlCategoria;
-                                    $deleteUrl = BASE_URL . "Admin/categorias?deleteid=" . $categoria->id . $urlCategoria;
+                                    $categoriaUrl = BASE_URL . "Admin/catalogo?categoriaId=" . $categoria->grupo_id;
+                                    $editUrl = BASE_URL . "Admin/categorias?editid=" . $categoria->grupo_id . $urlCategoria;
+                                    $deleteUrl = BASE_URL . "Admin/categorias?deleteid=" . $categoria->grupo_id . $urlCategoria;
                                     ?>
                                     <td>
                                         <a href="<?= $categoriaUrl ?>">
@@ -90,8 +90,8 @@
                                 <tr>
                                     <?php
                                     $urlProducto = isset($producto->parent_id) && $producto->parent_id != null ? "&categoriaId=" . $producto->parent_id : false;
-                                    $editProUrl = BASE_URL . "Admin/productos?editid=" . $producto->id . $urlProducto;
-                                    $deleteProUrl = BASE_URL . "Admin/productos?deleteid=" . $producto->id . $urlProducto;
+                                    $editProUrl = BASE_URL . "Admin/productos?editid=" . $producto->grupo_id . $urlProducto;
+                                    $deleteProUrl = BASE_URL . "Admin/productos?deleteid=" . $producto->grupo_id . $urlProducto;
                                     ?>
                                     <td>
                                         <a href="<?= $editProUrl ?>">

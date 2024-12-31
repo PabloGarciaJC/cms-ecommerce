@@ -2,7 +2,6 @@
 
 require_once 'model/productos.php';
 require_once 'model/categorias.php';
-require_once 'model/categorias.php';
 require_once 'model/pedidos.php';
 require_once 'model/lineaPedidos.php';
 require_once 'model/paises.php';
@@ -10,20 +9,71 @@ require_once 'model/comentario.php';
 
 class ProductoController extends HomeController
 {
+
+  private function cargarDatosComunes()
+  {
+    $usuario = Utils::obtenerUsuario();
+    $categorias = new Categorias();
+    $idiomas = new Idiomas();
+    $getIdiomas = $idiomas->obtenerTodos();
+    $lang = isset($_POST['lenguaje']) ? $_POST['lenguaje'] : false;
+
+    if ($lang) {
+      $_SESSION['lang'] = $lang;
+    } elseif (!isset($_SESSION['lang'])) {
+      $_SESSION['lang'] = 'es';
+    }
+
+    switch ($_SESSION['lang']) {
+      case 'en':
+        require_once 'lenguajes/ingles.php';
+        $categorias->setIdioma(2);
+        break;
+      case 'fr':
+        require_once 'lenguajes/frances.php';
+        $categorias->setIdioma(3);
+        break;
+      default:
+        require_once 'lenguajes/espanol.php';
+    }
+
+    $categoriasConSubcategoriasYProductos = $categorias->obtenerCategoriasYProductos();
+    return compact('usuario', 'categoriasConSubcategoriasYProductos', 'getIdiomas');
+  }
+
   public function ficha()
   {
-    $this->idiomas();
-    $idProducto = isset($_GET['id']) ? $_GET['id'] : false;
-    $usuario = Utils::obtenerUsuario();
+    extract($this->cargarDatosComunes());
+
     $producto = new Productos();
-    $producto->setId($idProducto);
-    $productoFicha = $producto->obtenerProductosPorId();
+    $idProducto = isset($_GET['parent_id']) ? $_GET['parent_id'] : false;
+    $id = isset($_GET['id']) ? $_GET['id'] : false;
+
     $categorias = new Categorias();
-    $categoriasConSubcategoriasYProductos = $categorias->obtenerCategoriasYProductos();
+
+    switch ($_SESSION['lang']) {
+      case 'en':
+        $categorias->setIdioma(2);
+        $producto->setIdioma(2);
+        break;
+      case 'fr':
+        $categorias->setIdioma(3);
+        $producto->setIdioma(3);
+        break;
+      default:
+    }
+
+    // Ficha de producto
+    $producto->setParentId($idProducto);
+    $producto->setId($id);
+    $productoFicha = $producto->obtenerProductosPorId();
+
+    // Para el Componente de compentario
     $comentarios = new Comentario();
-    $comentariosValorados = $comentarios->obtenerComentariosValorados($idProducto);
-    $obtenerComentariosMenorCalificacion = $comentarios->obtenerComentariosMenorCalificacion($idProducto);
-    $promedioCalificacion = $comentarios->obtenerPromedioCalificacion($idProducto);
+    $comentariosValorados = $comentarios->obtenerComentariosValorados($productoFicha->id);
+    $obtenerComentariosMenorCalificacion = $comentarios->obtenerComentariosMenorCalificacion($productoFicha->id);
+    $promedioCalificacion = $comentarios->obtenerPromedioCalificacion($productoFicha->id);
+
     require_once 'views/layout/head.php';
     require_once 'views/layout/header.php';
     require_once 'views/producto/ficha.php';
@@ -32,16 +82,12 @@ class ProductoController extends HomeController
 
   public function checkout()
   {
-    $this->idiomas();
 
-    $usuario = Utils::obtenerUsuario();
-
-    $categorias = new Categorias();
-    $categoriasConSubcategoriasYProductos = $categorias->obtenerCategoriasYProductos();
+    extract($this->cargarDatosComunes());
 
     $paises = new Paises();
     $paisesTodos = $paises->obtenerTodosPaises();
-
+   
     // Inicializar la sesión con un valor predeterminado si no existe
     if (!isset($_SESSION['productoLista'])) {
       $_SESSION['productoLista'] = [];
@@ -96,7 +142,8 @@ class ProductoController extends HomeController
 
     require_once 'views/layout/head.php';
     require_once 'views/layout/header.php';
-    require_once 'views/producto/checkout.php';
+    require_once 'views/layout/search.php';
+    // require_once 'views/producto/checkout.php';
     require_once 'views/layout/footer.php';
   }
 
@@ -173,7 +220,7 @@ class ProductoController extends HomeController
 
       // Limpiar posibles errores o datos previos en el formulario
       unset($_SESSION['errores']);
-      unset($_SESSION['form']);    
+      unset($_SESSION['form']);
       header("Location: " . BASE_URL . "Admin/listaPedidos");
       exit;
     }

@@ -9,25 +9,65 @@ require_once 'model/paises.php';
 
 class CatalogoController extends HomeController
 {
-  public function index()
-  {
-    $this->idiomas();
-    $categoriaId = isset($_GET['categoriaId']) ? $_GET['categoriaId'] : false;
-    $minPrecio = isset($_GET['minPrecio']) ? $_GET['minPrecio'] : false;
-    $maxPrecio = isset($_GET['maxPrecio']) ? $_GET['maxPrecio'] : false;
-    $textoBusqueda = isset($_GET['textoBusqueda']) ? $_GET['textoBusqueda'] : false;
 
+  private function cargarDatosComunes()
+  {
     $usuario = Utils::obtenerUsuario();
+
+    $idiomas = new Idiomas();
+    $getIdiomas = $idiomas->obtenerTodos();
+    $lang = isset($_POST['lenguaje']) ? $_POST['lenguaje'] : false;
+
+    $producto = new Productos();
+    $parentId = isset($_GET['parent_id']) ? $_GET['parent_id'] : false;
+
     $categorias = new Categorias();
 
-    // Menu de Navegacion
+    if ($lang) {
+      $_SESSION['lang'] = $lang;
+    } elseif (!isset($_SESSION['lang'])) {
+      $_SESSION['lang'] = 'es';
+    }
+
+    // Carga el archivo del idioma según la selección
+    switch ($_SESSION['lang']) {
+      case 'en':
+        require_once 'lenguajes/ingles.php';
+        $categorias->setIdioma(2);
+        $producto->setIdioma(2);
+        break;
+      case 'fr':
+        require_once 'lenguajes/frances.php';
+        $categorias->setIdioma(3);
+        $producto->setIdioma(3);
+        break;
+      default:
+        require_once 'lenguajes/espanol.php';
+    }
+
+    // Menu de categorias
     $categoriasConSubcategoriasYProductos = $categorias->obtenerCategoriasYProductos();
-    $categorias->setId($categoriaId);
-    $getCategorias = $categorias->obtenerSubcategorias($minPrecio, $maxPrecio, $textoBusqueda);
+    
+    // Ficha de producto
+    // $producto->setParentId($parentId);
+    // $productoFicha = $producto->obtenerProductosPorId();
 
-    // Mostrar breadcrumbs
-    $breadcrumbs = $categorias->getBreadcrumbs();
+    // Mostrar breadcrumbsFonted
+    $categorias->setParentId($parentId);
+    $breadcrumbs = $categorias->getBreadcrumbsFontend();
 
+    // Obetener Productos por categorias
+    $categoriaId = isset($_GET['categoriaId']) ? $_GET['categoriaId'] : false;
+    $textoBusqueda = isset($_GET['textoBusqueda']) ? $_GET['textoBusqueda'] : false;
+    $minPrecio = isset($_GET['minPrecio']) ? $_GET['minPrecio'] : false;
+    $maxPrecio = isset($_GET['maxPrecio']) ? $_GET['maxPrecio'] : false;
+    $getCategorias = $categorias->obtenerCategoriasYProductosFronted($minPrecio, $maxPrecio, $textoBusqueda);
+    return compact('usuario', 'categoriasConSubcategoriasYProductos', 'getIdiomas', 'breadcrumbs', 'getCategorias');
+  }
+
+  public function index()
+  {
+    extract($this->cargarDatosComunes());
     require_once 'views/layout/head.php';
     require_once 'views/layout/header.php';
     require_once 'views/layout/search.php';

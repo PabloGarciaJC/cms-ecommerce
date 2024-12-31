@@ -1,6 +1,7 @@
 <?php include __DIR__ . '../../layout/header.php'; ?>
 <div class="panel-admin__flex-container">
     <?php include __DIR__ . '../../layout/sidebar.php'; ?>
+
     <?php
     $buttonHidden = '';
     if (isset($_GET['editid'])) {
@@ -15,69 +16,71 @@
         $titleText = 'Guardar';
     }
     ?>
+
     <main class="panel-admin__main-content">
         <section class="panel-admin__dashboard panel-admin__dashboard--categorias">
             <div class="panel-admin__category-form">
-
-                <?php if (isset($_SESSION['exito'])) : ?>
-                    <div class="alert <?php echo $_SESSION['messageClass']; ?> alert-dismissible fade show mt-2 text-center" role="alert">
-                        <i class="<?php echo isset($_SESSION['icon']) ? $_SESSION['icon'] : 'fas fa-check-circle'; ?>"></i>
-                        <?php echo $_SESSION['exito']; ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <?php unset($_SESSION['exito'], $_SESSION['messageClass'], $_SESSION['icon']); ?>
-                <?php endif; ?>
-
                 <h2 class="panel-admin__dashboard-title"><?php echo $titleText; ?> Categoría</h2>
                 <form action="<?php echo BASE_URL ?>Admin/guardarCategorias" method="POST" enctype="multipart/form-data">
-                    <input type="hidden" name="editid" value="<?php echo $editId ?>">
-                    <input type="hidden" name="deleteid" value="<?php echo $deleteid  ?>">
+                    <input type="hidden" name="editid" value="<?php echo $editId; ?>">
+                    <input type="hidden" name="deleteid" value="<?php echo $deleteid; ?>">
                     <input type="hidden" name="parentid" value="<?php echo $categoriaId; ?>">
-                    <div class="form-group">
-                        <label for="name">Nombre de la Categoría:</label>
-                        <input type="text" id="name" name="name" class="form-control" placeholder="Ejemplo: Electrónica" <?php echo $buttonHidden; ?> value="<?php echo isset($_SESSION['form']['name']) ? $_SESSION['form']['name'] : (isset($getCategoriasId->nombre) ? $getCategoriasId->nombre : ''); ?>">
-                        <?php if (isset($_SESSION['errores']['name'])) : ?>
-                            <div class="text-danger mt-2">
-                                <i class="fas fa-exclamation-circle"></i> <?php echo $_SESSION['errores']['name']; ?>
-                            </div>
-                        <?php endif; ?>
-                    </div>
-                    <div class="form-group">
-                        <label for="descripcion">Descripción:</label>
-                        <textarea id="descripcion" name="descripcion" class="form-control" <?php echo $buttonHidden; ?> placeholder="Descripción de la categoría..."><?php echo isset($_SESSION['form']['descripcion']) ? $_SESSION['form']['descripcion'] : (isset($getCategoriasId->descripcion) ? $getCategoriasId->descripcion : ''); ?></textarea>
-                        <?php if (isset($_SESSION['errores']['descripcion'])) : ?>
-                            <div class="text-danger mt-2">
-                                <i class="fas fa-exclamation-circle"></i> <?php echo $_SESSION['errores']['descripcion']; ?>
-                            </div>
-                        <?php endif; ?>
-                    </div>
-                    <div class="form-group">
-                        <label for="categoriaImages">Subir imagen de categoria:</label>
-                        <input type="file" id="categoriaImages" name="categoriaImages[]" class="form-control" accept="image/*" <?php echo $buttonHidden; ?> multiple>
-                        <div id="imagePreview" class="panel-admin__image-preview mt-3">
-                            <?php
-                            $imagenes = isset($_SESSION['form']['imagenes']) ? $_SESSION['form']['imagenes'] : (isset($getCategoriasId->imagenes) ? $getCategoriasId->imagenes : '');
-                            if (!empty($imagenes)) {
-                                if (is_array($imagenes)) {
-                                    foreach ($imagenes as $imagen) {
-                                        $rutaImagen = 'uploads/images/categorias/' . $imagen;
-                                        if (file_exists($rutaImagen)) {
-                                            echo '<div class="panel-admin__image-container">';
-                                            echo '<img src="' . BASE_URL . $rutaImagen . '" alt="Imagen del Producto" class="panel-admin__image-thumbnail">';
-                                            echo '</div>';
-                                        } else {
-                                            echo "El archivo {$imagen} no existe.";
-                                        }
-                                    }
-                                }
-                            }
-                            ?>
-                        </div>
-                    </div>
+                    <!-- Pestañas de idiomas -->
+                    <ul class="nav nav-tabs" id="languageTabs" role="tablist">
+                        <?php foreach ($getIdiomas as $index => $idioma) : ?>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link <?php echo $index === 0 ? 'active' : ''; ?>" id="tab-<?php echo $idioma['codigo']; ?>" data-toggle="tab" href="#form-<?php echo $idioma['codigo']; ?>" role="tab" aria-controls="form-<?php echo $idioma['codigo']; ?>" aria-selected="<?php echo $index === 0 ? 'true' : 'false'; ?>">
+                                    <?php echo $idioma['nombre']; ?>
+                                </a>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                    <div class="tab-content" id="languageTabsContent">
+                        <?php foreach ($getIdiomas as $index => $idioma) : ?>
+                            <div class="tab-pane fade <?php echo $index === 0 ? 'show active' : ''; ?>" id="form-<?php echo $idioma['codigo']; ?>" role="tabpanel" aria-labelledby="tab-<?php echo $idioma['codigo']; ?>">
+                                <div class="form-group mt-2">
+                                    <label for="name-<?php echo $idioma['codigo']; ?>">Nombre de la Categoría (<?php echo $idioma['nombre']; ?>):</label>
+                                    <input type="text" id="name-<?php echo $idioma['codigo']; ?>" name="name[<?php echo $idioma['codigo']; ?>]" class="form-control" <?php echo $buttonHidden; ?> value="<?php echo isset($getCategoriasId[$idioma['id']]) ? $getCategoriasId[$idioma['id']]->nombre : ''; ?>">
+                                    <input type="hidden" name="id_idioma[<?php echo $idioma['id']; ?>]" value="<?php echo $idioma['id']; ?>">
+                                </div>
+                                <div class="form-group">
+                                    <label for="descripcion-<?php echo $idioma['codigo']; ?>">Descripción (<?php echo $idioma['nombre']; ?>):</label>
+                                    <textarea id="descripcion-<?php echo $idioma['codigo']; ?>" name="descripcion[<?php echo $idioma['codigo']; ?>]" class="form-control" <?php echo $buttonHidden; ?>><?php echo isset($getCategoriasId[$idioma['id']]) ? $getCategoriasId[$idioma['id']]->descripcion : ''; ?></textarea>
+                                </div>
+                                <!-- Mostrar imágenes por idioma -->
+                                <div class="form-group">
+                                    <label for="categoriaImages-<?php echo $idioma['codigo']; ?>">Subir imagen de categoría (<?php echo $idioma['nombre']; ?>):</label>
+                                    <input type="file" id="categoriaImages-<?php echo $idioma['codigo']; ?>" name="categoriaImages[<?php echo $idioma['codigo']; ?>][]" class="form-control" accept="image/*" <?php echo $buttonHidden; ?> multiple>
 
-                    <a href=" <?php echo BASE_URL; ?>Admin/catalogo<?php echo isset($_GET['categoriaId']) ? '?categoriaId=' . $_GET['categoriaId'] : false; ?>" class="btn btn-primary">
+                                    <div id="imagePreview-<?php echo $idioma['codigo']; ?>" class="panel-admin__image-preview mt-3">
+                                        <?php
+                                        // Aquí filtramos y mostramos las imágenes asociadas a cada idioma
+                                        $imagenes = isset($_SESSION['form']['imagenes'][$idioma['codigo']]) ? $_SESSION['form']['imagenes'][$idioma['codigo']] : (isset($getCategoriasId[$idioma['id']]->imagenes) ? $getCategoriasId[$idioma['id']]->imagenes : '');
+                                        if (!empty($imagenes)) {
+                                            $imagenesArray = explode(',', $imagenes);
+                                            $imagenesArray = array_filter(array_map(function ($imagen) {
+                                                return trim($imagen, ' "');
+                                            }, $imagenesArray), function ($imagen) {
+                                                return !empty($imagen) && $imagen !== 'null';
+                                            });
+                                            foreach ($imagenesArray as $imagen) {
+                                                $imagenSanitizada = preg_replace('/[^a-z0-9_\-.]/i', '', $imagen);
+                                                $rutaImagen = 'uploads/images/categorias/' . $imagenSanitizada;
+                                                if (!empty($imagenSanitizada) && file_exists($rutaImagen)) {
+                                                    echo '<div class="panel-admin__image-container">';
+                                                    echo '<img src="' . BASE_URL . $rutaImagen . '" alt="Imagen de la categoría" class="panel-admin__image-thumbnail">';
+                                                    echo '</div>';
+                                                }
+                                            }
+                                        }
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                    <!-- Botones -->
+                    <a href="<?php echo BASE_URL; ?>Admin/catalogo<?php echo isset($_GET['categoriaId']) ? '?categoriaId=' . $_GET['categoriaId'] : ''; ?>" class="btn btn-primary">
                         <i class="fas fa-arrow-left"></i> Volver
                     </a>
                     <button type="submit" class="btn <?php echo $buttonClass; ?>"><?php echo $titleText; ?></button>
@@ -86,8 +89,8 @@
         </section>
     </main>
 </div>
-<?php unset($_SESSION['exito'], $_SESSION['messageClass']); ?>
-<?php unset($_SESSION['errores']);
+
+<?php
 if (!isset($_SESSION['errores'])) {
     unset($_SESSION['form']);
 }

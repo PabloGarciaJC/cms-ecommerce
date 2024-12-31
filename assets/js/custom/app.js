@@ -46,40 +46,55 @@ class App {
 
       // Función para manejar el cambio de imágenes y la vista previa
       function handleImageChange(inputSelector) {
-        $(inputSelector).on('change', function (event) {
-          let files = event.target.files;
-          let $previewContainer = $('#imagePreview');
-          $previewContainer.empty();
+        // $(inputSelector).on('change', function (event) {
+        //   let files = event.target.files;
+        //   let $previewContainer = $('#imagePreview');
+        //   $previewContainer.empty();
 
-          // Limpiar el arreglo de archivos
-          imageFiles = [];
+        //   // Limpiar el arreglo de archivos
+        //   imageFiles = [];
 
-          // Mostrar todas las imágenes seleccionadas
-          $.each(files, function (i, file) {
-            let reader = new FileReader();
+        //   // Mostrar todas las imágenes seleccionadas
+        //   $.each(files, function (i, file) {
+        //     let reader = new FileReader();
 
+        //     reader.onload = function (e) {
+        //       let $imgContainer = $('<div>').addClass('panel-admin__image-container');
+        //       let $imgElement = $('<img>')
+        //         .attr('src', e.target.result)
+        //         .addClass('panel-admin__image-thumbnail');
+
+        //       // Añadir archivo al arreglo de archivos para gestión posterior
+        //       imageFiles.push(file);
+
+        //       // Añadir la imagen al contenedor
+        //       $imgContainer.append($imgElement);
+        //       $previewContainer.append($imgContainer);
+        //     };
+
+        //     reader.readAsDataURL(file);
+        //   });
+        // });
+
+        $('input[type="file"]').on('change', function (event) {
+          var previewContainer = $('#imagePreview-' + this.id.split('-')[1]);
+          previewContainer.empty(); // Limpia las imágenes anteriores
+
+          $.each(this.files, function (index, file) {
+            var reader = new FileReader();
             reader.onload = function (e) {
-              let $imgContainer = $('<div>').addClass('panel-admin__image-container');
-              let $imgElement = $('<img>')
-                .attr('src', e.target.result)
-                .addClass('panel-admin__image-thumbnail');
-
-              // Añadir archivo al arreglo de archivos para gestión posterior
-              imageFiles.push(file);
-
-              // Añadir la imagen al contenedor
-              $imgContainer.append($imgElement);
-              $previewContainer.append($imgContainer);
+              var img = $('<img>').attr('src', e.target.result).addClass('panel-admin__image-thumbnail');
+              previewContainer.append(img);
             };
-
             reader.readAsDataURL(file);
           });
         });
+
       }
 
       // Llamamos a la función `handleImageChange` para cada selector
       handleImageChange('#productImages');
-      handleImageChange('#categoriaImages');
+      // handleImageChange('#categoriaImages');
     }
 
 
@@ -207,7 +222,7 @@ class App {
     this.mostrarCiudades();
     this.mostrarPassword();
     this.autoHideAlert();
-    this.select2();
+    // this.select2();
 
     // Menu Desplegable en version Movil para el Panel Administrativo
     let abierto = false;
@@ -232,39 +247,41 @@ class App {
     this.initAnimationLeftRight('.animation__left-right');
 
     // Select de Idiomas
-    let selectSelected = document.querySelector('.select-selected');
-    let selectItems = document.querySelector('.select-items');
-    let selectedLanguageInput = document.getElementById('selected-language');
-    let languageForm = document.getElementById('language-form');
-    let selectArrow = document.querySelector('.select-arrow');
+    let $selectSelected = $('.select-selected');
+    let $selectItems = $('.select-items');
+    let $selectedLanguageInput = $('#selected-language');
+    let $languageForm = $('#language-form');
+    let $selectArrow = $('.select-arrow');
 
-    if (selectSelected && selectItems && selectedLanguageInput && languageForm && selectArrow) {
-      selectSelected.addEventListener('click', function () {
-        let isExpanded = selectItems.classList.contains('show');
-        selectItems.classList.toggle('show', !isExpanded);
-        selectArrow.classList.toggle('down', !isExpanded);
+    if ($selectSelected.length && $selectItems.length && $selectedLanguageInput.length && $languageForm.length && $selectArrow.length) {
+      $selectSelected.on('click', function () {
+        let isExpanded = $selectItems.hasClass('show');
+        $selectItems.toggleClass('show', !isExpanded);
+        $selectArrow.toggleClass('down', !isExpanded);
       });
 
-      selectItems.addEventListener('click', function (event) {
-        let selectedOption = event.target.closest('div');
-        if (selectedOption) {
-          let value = selectedOption.getAttribute('data-value');
-          let imgSrc = selectedOption.querySelector('img').getAttribute('src');
-          let text = selectedOption.textContent.trim();
+      $selectItems.on('click', function (event) {
+        let $selectedOption = $(event.target).closest('div');
+        if ($selectedOption.length) {
+          let value = $selectedOption.data('value');
+          let imgSrc = $selectedOption.find('img').attr('src');
+          let text = $selectedOption.text().trim();
 
-          selectSelected.innerHTML = '<div><img src="' + imgSrc + '" alt="selected-language">' + text + '</div><div class="select-arrow">&#9662;</div>';
-          selectedLanguageInput.value = value;
-          languageForm.submit();
+          $selectSelected.html('<div><img src="' + imgSrc + '" alt="selected-language">' + text + '</div><div class="select-arrow">&#9662;</div>');
+          $selectedLanguageInput.val(value);
+          $languageForm.submit();
         }
       });
 
-      document.addEventListener('click', function (event) {
-        if (!selectSelected.contains(event.target) && !selectItems.contains(event.target)) {
-          selectItems.classList.remove('show');
-          selectArrow.classList.remove('down');
+      $(document).on('click', function (event) {
+        if (!$selectSelected.is(event.target) && !$selectItems.is(event.target) && !$selectSelected.has(event.target).length && !$selectItems.has(event.target).length) {
+          $selectItems.removeClass('show');
+          $selectArrow.removeClass('down');
         }
       });
     }
+
+
 
     // Script para llenar los campos con usuarios de prueba 
     let userCards = document.querySelectorAll('.user-card');
@@ -310,6 +327,28 @@ class App {
         this.classList.add('ficha-producto__tab--active');
         document.getElementById(this.id.replace('-tab', '-content')).classList.add('ficha-producto__tab-content--active');
       });
+    });
+
+
+    /* Campo de Pestaña Panel Administrativo */
+    $('#languageTabs a').on('click', function (e) {
+      e.preventDefault();
+      $(this).tab('show');
+    });
+
+    // Función para mostrar imágenes en vista previa
+    $("#categoriaImages").on('change', function () {
+      var files = $(this)[0].files;
+      $('#imagePreview').empty();
+      if (files.length > 0) {
+        $.each(files, function (index, file) {
+          var reader = new FileReader();
+          reader.onload = function (e) {
+            $('#imagePreview').append('<div class="panel-admin__image-container"><img src="' + e.target.result + '" class="panel-admin__image-thumbnail" /></div>');
+          };
+          reader.readAsDataURL(file);
+        });
+      }
     });
 
   }

@@ -221,6 +221,7 @@
       height: 100px;
       display: flex;
       align-items: center;
+      width: 100%;
   }
 
   .panel-admin__stat-label {
@@ -279,7 +280,12 @@
   }
 
   .panel-admin__image-thumbnail {
-      margin-bottom: 10px;
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      margin: 5px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
   }
 
   .panel-admin__btn {
@@ -848,8 +854,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: 20px;
-      margin: 20px 0;
-      justify-content: center;
+      margin-top: 20px;
   }
 
   .categoria-card {
@@ -864,8 +869,7 @@
   }
 
   .categoria-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+      transform: scale(1.03);
   }
 
   .categoria-header {
@@ -1224,18 +1228,12 @@
   .user-card {
       cursor: pointer;
       border: 1px solid rgba(244, 92, 93, 0.82);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transition: transform 0.1s ease;
       border-radius: 8px;
   }
 
-  .user-card.active {
-      box-shadow: 0 0 5px rgba(244, 92, 93, 0.82);
-      transform: scale(1.05);
-  }
-
   .user-card:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 5px rgba(244, 92, 93, 0.82);
+      transform: scale(1.03);
   }
 
   .select-action {
@@ -1245,7 +1243,7 @@
       color: #fff !important;
       background-color: #007bff;
       text-decoration: none;
-      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      transition: background-color 0.3s ease;
   }
 
   .select-action:hover {

@@ -21,7 +21,7 @@
     </div>
     <div class="filter-container">
         <form method="GET" action="<?= BASE_URL ?>Catalogo/index" class="d-flex w-100">        
-            <input type="hidden" name="categoriaId" value="<?= $_GET['categoriaId'] ?? ''; ?>" />
+            <input type="hidden" name="parent_id" value="<?= $_GET['parent_id'] ?? ''; ?>" />
             <input type="hidden" name="textoBusqueda" value="<?= $_GET['textoBusqueda'] ?? ''; ?>" />
             <input type="text" name="minPrecio" placeholder="Precio mínimo" value="<?= $_GET['minPrecio'] ?? ''; ?>" />
             <input type="text" name="maxPrecio" placeholder="Precio máximo" value="<?= $_GET['maxPrecio'] ?? ''; ?>" />
@@ -29,5 +29,7 @@
         </form>
     </div>
 </div>
+
  <!-- Componente en el Fichero de Catalogo -->
+ <?php include __DIR__ . '/box.php'; ?>
 <?php include __DIR__ . '/productos.php'; ?>

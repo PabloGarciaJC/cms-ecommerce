@@ -1,4 +1,6 @@
 <?php
+define("TEXT_LANGUAGE", "Frances");
+define("TEXT_LANGUAGE_IDIOMA", "fr");
 
 // Textos generales
 define("TEXT_INICIO", "Accueil");

@@ -8,13 +8,13 @@
             <img src="<?php echo BASE_URL ?>uploads/images/productos/<?php echo $imagenes_array[0]; ?>">
             <div class="men-cart-pro">
                 <div class="inner-men-cart-pro">
-                    <a href="<?php echo BASE_URL ?>Producto/ficha?id=<?php echo $prod->id; ?>" class="link-product-add-cart"><?php echo TEXT_QUICK_VIEW; ?></a>
+                    <a href="<?php echo BASE_URL ?>Producto/ficha?id=<?php echo urlencode($prod->id); ?>&parent_id=<?php echo urlencode($prod->parent_id); ?>" class="link-product-add-cart"><?php echo TEXT_QUICK_VIEW; ?></a>
                 </div>
             </div>
         </div>
         <div class="item-info-product text-center border-top mt-4">
             <h4 class="pt-1">
-                <a href="<?php echo BASE_URL ?>Producto/ficha?id=<?php echo $prod->id; ?>"><?php echo $prod->nombre; ?></a>
+                <a href="<?php echo BASE_URL ?>Producto/ficha?id=<?php echo urlencode($prod->id); ?>&parent_id=<?php echo urlencode($prod->parent_id); ?>"><?php echo $prod->nombre; ?></a>
             </h4>
             <?php if (!empty($prod->precio)): ?>
                 <div class="info-product-price my-2">

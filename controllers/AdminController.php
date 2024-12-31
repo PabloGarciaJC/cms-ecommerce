@@ -5,12 +5,19 @@ require_once 'model/paises.php';
 require_once 'model/productos.php';
 require_once 'model/roles.php';
 require_once 'model/pedidos.php';
-
 require_once 'model/comentario.php';
-
+require_once 'model/idiomas.php';
 
 class AdminController
 {
+
+    private function cargarDatosComunes()
+    {
+        $idiomas = new Idiomas();
+        $getIdiomas = $idiomas->obtenerTodos();
+        return compact('getIdiomas');
+    }
+
     public function dashboard()
     {
         Utils::accesoUsuarioRegistrado();
@@ -209,7 +216,7 @@ class AdminController
         $categorias->setId($categoriaId);
         $breadcrumbs = $categorias->getBreadcrumbs();
         if ($categoriaId) {
-            $getCategorias = $categorias->obtenerSubcategorias('', '', '');
+            $getCategorias = $categorias->obtenerSubcategorias();
         } else {
             $getCategorias = $categorias->obtenerCategorias();
         }
@@ -220,23 +227,16 @@ class AdminController
 
     public function productos()
     {
+        extract($this->cargarDatosComunes());
         Utils::accesoUsuarioRegistrado();
-        $parentid = isset($_GET['categoriaId']) ? $_GET['categoriaId'] : false;
         $editId = isset($_GET['editid']) ? $_GET['editid'] : false;
         $deleteid = isset($_GET['deleteid']) ? $_GET['deleteid'] : false;
-
-        $categorias = new Categorias();
-        $categorias->setId($parentid);
-        if ($parentid) {
-            $getCategorias = $categorias->obtenerSubcategorias('', '', '');
-        }
-
+        $categoriaId = isset($_GET['categoriaId']) ? $_GET['categoriaId'] : false;
         $productos = new Productos();
         if ($editId || $deleteid) {
-            $productos->setId($editId ?: $deleteid);
-            $getProductosById = $productos->obtenerProductosPorId();
+            $productos->setGrupoId($editId ?: $deleteid);
+            $getProductosById = $productos->obtenerProductosPorGrupo();
         }
-
         require_once 'views/layout/head.php';
         require_once 'views/admin/productos/crear.php';
         require_once 'views/layout/script-footer.php';
@@ -244,150 +244,141 @@ class AdminController
 
     public function guardarProductos()
     {
-        $nombre = isset($_POST['nombre']) ? trim($_POST['nombre']) : false;
-        $descripcion = isset($_POST['descripcion']) ? trim($_POST['descripcion']) : false;
-        $precio = isset($_POST['precio']) ? floatval($_POST['precio']) : false;
-        $stock = isset($_POST['stock']) ? intval($_POST['stock']) : false;
-        $categoria = isset($_POST['categoria']) ? $_POST['categoria'] : false;
-        $estado = isset($_POST['estado']) ? trim($_POST['estado']) : false;
-        $oferta = isset($_POST['oferta']) ? floatval($_POST['oferta']) : false;
-        $offerStart = isset($_POST['offerStart']) && !empty(trim($_POST['offerStart'])) ? trim($_POST['offerStart']) : null;
-        $offerExpiration = isset($_POST['offerExpiration']) && !empty(trim($_POST['offerExpiration'])) ? trim($_POST['offerExpiration']) : null;
+        Utils::accesoUsuarioRegistrado();
+
+        $datos = [
+            'nombres' => isset($_POST['nombre']) ? $_POST['nombre'] : [],
+            'descripciones' => isset($_POST['descripcion']) ? $_POST['descripcion'] : [],
+            'precios' => isset($_POST['precio']) ? $_POST['precio'] : [],
+            'stock' => isset($_POST['stock']) ? $_POST['stock'] : [],
+            'estado' => isset($_POST['estado']) ? $_POST['estado'] : [],
+            'oferta' => isset($_POST['oferta']) ? $_POST['oferta'] : [],
+            'offerStart' => isset($_POST['offerStart']) ? $_POST['offerStart'] : [],
+            'offerExpiration' => isset($_POST['offerExpiration']) ? $_POST['offerExpiration'] : [],
+            'id_idioma' => isset($_POST['id_idioma']) ? $_POST['id_idioma'] : [],
+        ];
+
         $editId = isset($_POST['editid']) ? $_POST['editid'] : false;
         $deleteId = isset($_POST['deleteid']) ? $_POST['deleteid'] : false;
         $parentid = isset($_POST['parentid']) ? $_POST['parentid'] : false;
-        $urlParentid = $parentid ? '?categoriaId=' . $parentid : false;
+        $urlParentid = $parentid ? '?categoriaId=' . $parentid : '';
 
         $productos = new Productos();
-        $productos->setNombre($nombre);
-        $productos->setDescripcion($descripcion);
-        $productos->setPrecio($precio);
-        $productos->setStock($stock);
-        $productos->setOferta($oferta);
-        $productos->setParentId($categoria);
-        $productos->setEstado($estado);
-        $productos->setOfferStart($offerStart);
-        $productos->setOfferExpiration($offerExpiration);
+        $registroCreado = false;
 
-        $errores = [];
+        // Generación de grupo_id único
+        $grupo_id = substr(str_replace('.', '', microtime(true)), 0, 6) . str_pad(rand(0, 9999), 4, '0', STR_PAD_LEFT);
+        $grupo_id = substr($grupo_id, 0, 10);
 
-        // Validaciones de campos
-        if (empty($nombre)) {
-            $errores['nombre'] = "El nombre es obligatorio.";
-        }
-        if (empty($descripcion)) {
-            $errores['descripcion'] = "La descripción es obligatoria.";
-        }
-        if ($precio <= 0) {
-            $errores['precio'] = "El precio debe ser mayor que 0.";
-        }
-        if ($stock < 0) {
-            $errores['stock'] = "El stock no puede ser negativo.";
-        }
-        if (empty($estado)) {
-            $errores['estado'] = "Debe seleccionar el estado del producto.";
-        }
+        // Manejo de imágenes
+        $imagenesPorIdioma = [];
 
-        if (count($errores) > 0) {
-            $_SESSION['errores'] = $errores;
-            $_SESSION['form'] = $_POST;
-            header("Location: " . BASE_URL . "Admin/productos" . $urlParentid);
-            exit;
-        } else {
+        if (isset($_FILES['productImages']) && is_array($_FILES['productImages']['tmp_name'])) {
+            foreach ($_FILES['productImages']['tmp_name'] as $idiomaCodigo => $imagenes) {
+                if (isset($imagenes) && !empty($imagenes[0]) && isset($_FILES['productImages']['error'][$idiomaCodigo][0])) {
+                    if ($_FILES['productImages']['error'][$idiomaCodigo][0] === UPLOAD_ERR_OK) {
+                        $imagenesIdioma = [];
+                        foreach ($imagenes as $key => $rutaTemporal) {
+                            $nombreArchivo = $_FILES['productImages']['name'][$idiomaCodigo][$key];
+                            if (!empty($nombreArchivo) && is_string($nombreArchivo)) {
+                                $extension = pathinfo($nombreArchivo, PATHINFO_EXTENSION);
+                                $extensionesPermitidas = ['jpg', 'jpeg', 'png', 'gif'];
 
-            // Manejo de imágenes
-            $imagenes = [];
+                                // Validar la extensión del archivo
+                                if (!in_array(strtolower($extension), $extensionesPermitidas)) {
+                                    $errores['imagenes'] = "El archivo {$nombreArchivo} tiene una extensión no permitida.";
+                                    continue;
+                                }
 
-            if (isset($_FILES['productImages']) && is_array($_FILES['productImages']['tmp_name'])) {
+                                // Validar el tamaño del archivo
+                                if ($_FILES['productImages']['size'][$idiomaCodigo][$key] > 5 * 1024 * 1024) {
+                                    $errores['imagenes'] = "El archivo {$nombreArchivo} supera el tamaño máximo permitido (5MB).";
+                                    continue;
+                                }
 
-                $directorioDestino = 'uploads/images/productos/';
-
-                if (!is_dir($directorioDestino)) {
-                    mkdir($directorioDestino, 0777, true);
-                }
-
-                foreach ($_FILES['productImages']['tmp_name'] as $key => $rutaTemporal) {
-                    $nombreArchivo = $_FILES['productImages']['name'][$key];
-                    $extension = pathinfo($nombreArchivo, PATHINFO_EXTENSION);
-                    $extensionesPermitidas = ['jpg', 'jpeg', 'png', 'gif'];
-
-
-                    if (!in_array(strtolower($extension), $extensionesPermitidas)) {
-                        $errores['imagenes'] = "El archivo {$nombreArchivo} tiene una extensión no permitida.";
-                        continue;
-                    }
-
-                    if ($_FILES['productImages']['size'][$key] > 5 * 1024 * 1024) {
-                        $errores['imagenes'] = "El archivo {$nombreArchivo} supera el tamaño máximo permitido (5MB).";
-                        continue;
-                    }
-
-                    $nombreArchivoUnico = time() . '_' . basename($nombreArchivo);
-                    if (move_uploaded_file($rutaTemporal, $directorioDestino . $nombreArchivoUnico)) {
-                        $imagenes[] = $nombreArchivoUnico;
+                                // Generar nombre único y mover archivo
+                                $nombreArchivoUnico = time() . '_' . basename($nombreArchivo);
+                                $directorioDestino = 'uploads/images/productos/';
+                                if (move_uploaded_file($rutaTemporal, $directorioDestino . $nombreArchivoUnico)) {
+                                    $imagenesIdioma[] = $nombreArchivoUnico;
+                                }
+                            }
+                        }
+                        if (!empty($imagenesIdioma)) {
+                            $imagenesPorIdioma[$idiomaCodigo] = json_encode($imagenesIdioma);
+                        }
                     }
                 }
             }
+        }
 
-            // Convertir las imágenes a JSON
-            $jsonImagenes = json_encode($imagenes, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
-            if (json_last_error() !== JSON_ERROR_NONE) {
-                $_SESSION['errores']['json'] = "Error al procesar las imágenes como JSON.";
-                header("Location: " . BASE_URL . "Admin/productos" . $urlParentid);
-                exit;
-            }
+        // Asignar valores a los productos y verificar validaciones
+        foreach ($datos['nombres'] as $idioma => $nombre) {
+            $descripcion = isset($datos['descripciones'][$idioma]) ? $datos['descripciones'][$idioma] : '';
+            $precio = isset($datos['precios'][$idioma]) && is_numeric($datos['precios'][$idioma]) ? floatval($datos['precios'][$idioma]) : 0.0;
+            $stock = isset($datos['stock'][$idioma]) && $datos['stock'][$idioma] !== '' ? intval($datos['stock'][$idioma]) : 0;
+            $estado = isset($datos['estado'][$idioma]) ? $datos['estado'][$idioma] : '';
+            $oferta = isset($datos['oferta'][$idioma]) && is_numeric($datos['oferta'][$idioma]) ? floatval($datos['oferta'][$idioma]) : 0.0;
+            $offerStart = isset($datos['offerStart'][$idioma]) ? $datos['offerStart'][$idioma] : null;
+            $offerExpiration = isset($datos['offerExpiration'][$idioma]) ? $datos['offerExpiration'][$idioma] : null;
+            $idioma_id = array_search($idioma, array_keys($datos['nombres'])) + 1;
 
-            // Acciones según el caso: editar, eliminar o crear
+            // Asignación de datos a los productos
+            $productos->setIdioma($idioma_id);
+            $productos->setNombre($nombre);
+            $productos->setDescripcion($descripcion);
+            $productos->setPrecio($precio);
+            $productos->setStock($stock); // Validado correctamente
+            $productos->setEstado($estado);
+            $productos->setOferta($oferta); 
+            $productos->setOfferStart($offerStart);
+            $productos->setOfferExpiration($offerExpiration);
+            $productos->setParentId($parentid);
+
+            // Asignar las imágenes correspondientes
+            $productos->setImagenes(isset($imagenesPorIdioma[$idioma]) ? $imagenesPorIdioma[$idioma] : '[]');
+
+            // Acciones según el caso (crear, editar, eliminar)
             $messageClass = '';
-            switch (true) {
-                case $editId:
-                    $productos->setId($editId);
-                    $productos->setImagenes($jsonImagenes);
-                    $productos->actualizarProductosPorId();
-                    $_SESSION['exito'] = 'El Producto se actualizó correctamente.';
-                    $messageClass = 'alert-warning';
-                    break;
-                case $deleteId:
-                    $productos->setId($deleteId);
-                    $productos->eliminarProductos();
-                    $_SESSION['exito'] = 'El Producto se eliminó correctamente.';
-                    $messageClass = 'alert-danger';
-                    break;
-                default:
-                    $productos->setImagenes($jsonImagenes);
-                    $productos->save();
-                    $_SESSION['exito'] = 'El Producto se creó correctamente.';
-                    $messageClass = 'alert-primary';
-                    break;
+            if ($editId) {
+                $productos->setGrupoId($editId);
+                $productos->actualizarProductoPorId();
+                $_SESSION['exito'] = 'El producto se actualizó correctamente.';
+                $messageClass = 'alert-warning';
+            } elseif ($deleteId) {
+                $productos->setGrupoId($deleteId);
+                $productos->eliminarProducto();
+                $_SESSION['exito'] = 'El producto se eliminó correctamente.';
+                $messageClass = 'alert-danger';
+            } else {
+                $productos->setGrupoId($grupo_id);
+                $productos->crearProducto();
+                $_SESSION['exito'] = 'El producto se creó correctamente.';
+                $messageClass = 'alert-primary';
             }
 
-            // Configurar mensajes de éxito o error y redirigir
-            $_SESSION['messageClass'] = $messageClass;
-            unset($_SESSION['errores']);
-            unset($_SESSION['form']);
-            header("Location: " . BASE_URL . "Admin/catalogo" . $urlParentid);
-            exit;
+            $registroCreado = true;
         }
+        $_SESSION['messageClass'] = $messageClass;
+        unset($_SESSION['errores']);
+        unset($_SESSION['form']);
+        header("Location: " . BASE_URL . "Admin/catalogo" . $urlParentid);
+        exit;
     }
+
 
     public function categorias()
     {
+        extract($this->cargarDatosComunes());
         Utils::accesoUsuarioRegistrado();
         $editId = isset($_GET['editid']) ? $_GET['editid'] : false;
         $deleteid = isset($_GET['deleteid']) ? $_GET['deleteid'] : false;
         $categoriaId = isset($_GET['categoriaId']) ? $_GET['categoriaId'] : false;
         $categorias = new Categorias();
-
         if ($editId || $deleteid) {
-            $categorias->setId($editId ?: $deleteid);
-            $getCategoriasId = $categorias->obtenerCategoriaPorId();
-            // Decodificar el JSON de las imágenes
-            if (isset($getCategoriasId->imagenes)) {
-                $imagenes = json_decode($getCategoriasId->imagenes, true);
-                $getCategoriasId->imagenes = $imagenes;
-            }
+            $categorias->setGrupoId($editId ?: $deleteid);
+            $getCategoriasId = $categorias->obtenerCategoriaPorGrupo();
         }
-
         require_once 'views/layout/head.php';
         require_once 'views/admin/categoria/crear.php';
         require_once 'views/layout/script-footer.php';
@@ -397,95 +388,111 @@ class AdminController
     {
         Utils::accesoUsuarioRegistrado();
 
-        $name = isset($_POST['name']) ? trim($_POST['name']) : false;
-        $descripcion = isset($_POST['descripcion']) ? trim($_POST['descripcion']) : false;
+        $datos = [
+            'nombres' => isset($_POST['name']) ? $_POST['name'] : [],
+            'descripciones' => isset($_POST['descripcion']) ? $_POST['descripcion'] : [],
+            'id_idioma' => isset($_POST['id_idioma']) ? $_POST['id_idioma'] : [],
+        ];
+
+
+
         $editId = isset($_POST['editid']) ? $_POST['editid'] : false;
         $deleteId = isset($_POST['deleteid']) ? $_POST['deleteid'] : false;
         $parentid = isset($_POST['parentid']) ? $_POST['parentid'] : false;
         $urlParentid = $parentid ? '?categoriaId=' . $parentid : '';
-
         $categorias = new Categorias();
-        $categorias->setNombre($name);
-        $categorias->setDescripcion($descripcion);
 
-        $errores = [];
-        if (empty($name)) {
-            $errores['name'] = "El nombre es obligatorio.";
-        }
-        if (empty($descripcion)) {
-            $errores['descripcion'] = "La descripción es obligatoria.";
-        }
+        // Generar un único grupo_id para todos los registros
+        $grupo_id = substr(str_replace('.', '', microtime(true)), 0, 6) . str_pad(rand(0, 9999), 4, '0', STR_PAD_LEFT);
+        $grupo_id = substr($grupo_id, 0, 10);
 
-        if (count($errores) > 0) {
-            $_SESSION['errores'] = $errores;
-            $_SESSION['form'] = $_POST;
-            header("Location: " . BASE_URL . "Admin/categorias" . $urlParentid);
-            exit;
-        }
+        $registroCreado = false;
 
         // Manejo de imágenes subidas
-        $imagenes = [];
+        $imagenesPorIdioma = [];
 
+        // Verificar si se ha enviado el formulario con archivos
         if (isset($_FILES['categoriaImages']) && is_array($_FILES['categoriaImages']['tmp_name'])) {
-            $directorioDestino = 'uploads/images/categorias/';
+            foreach ($_FILES['categoriaImages']['tmp_name'] as $idiomaCodigo => $imagenes) {
+                // Verificar que tmp_name y error estén definidos y no estén vacíos
+                if (isset($imagenes) && !empty($imagenes[0]) && isset($_FILES['categoriaImages']['error'][$idiomaCodigo][0])) {
+                    // Verificar si el archivo no tiene errores (error == UPLOAD_ERR_OK)
+                    if ($_FILES['categoriaImages']['error'][$idiomaCodigo][0] === UPLOAD_ERR_OK) {
+                        // Procesar las imágenes solo si están presentes y no tienen errores
+                        $imagenesIdioma = [];
+                        foreach ($imagenes as $key => $rutaTemporal) {
+                            $nombreArchivo = $_FILES['categoriaImages']['name'][$idiomaCodigo][$key];
 
-            if (!is_dir($directorioDestino)) {
-                mkdir($directorioDestino, 0777, true);
-            }
+                            // Verificar que el nombre del archivo no esté vacío
+                            if (!empty($nombreArchivo) && is_string($nombreArchivo)) {
+                                $extension = pathinfo($nombreArchivo, PATHINFO_EXTENSION);
+                                $extensionesPermitidas = ['jpg', 'jpeg', 'png', 'gif'];
 
-            foreach ($_FILES['categoriaImages']['tmp_name'] as $key => $rutaTemporal) {
-                $nombreArchivo = $_FILES['categoriaImages']['name'][$key];
-                $extension = pathinfo($nombreArchivo, PATHINFO_EXTENSION);
-                $extensionesPermitidas = ['jpg', 'jpeg', 'png', 'gif'];
+                                // Validar la extensión del archivo
+                                if (!in_array(strtolower($extension), $extensionesPermitidas)) {
+                                    $errores['imagenes'] = "El archivo {$nombreArchivo} tiene una extensión no permitida.";
+                                    continue;
+                                }
 
-                if (!in_array(strtolower($extension), $extensionesPermitidas)) {
-                    $errores['imagenes'] = "El archivo {$nombreArchivo} tiene una extensión no permitida.";
-                    continue;
-                }
+                                // Validar el tamaño del archivo (máximo 5MB)
+                                if ($_FILES['categoriaImages']['size'][$idiomaCodigo][$key] > 5 * 1024 * 1024) {
+                                    $errores['imagenes'] = "El archivo {$nombreArchivo} supera el tamaño máximo permitido (5MB).";
+                                    continue;
+                                }
 
-                if ($_FILES['categoriaImages']['size'][$key] > 5 * 1024 * 1024) {
-                    $errores['imagenes'] = "El archivo {$nombreArchivo} supera el tamaño máximo permitido (5MB).";
-                    continue;
-                }
+                                // Generar un nombre único para el archivo
+                                $nombreArchivoUnico = time() . '_' . basename($nombreArchivo);
 
-                // Generar un nombre único y mover el archivo
-                $nombreArchivoUnico = time() . '_' . basename($nombreArchivo);
-                if (move_uploaded_file($rutaTemporal, $directorioDestino . $nombreArchivoUnico)) {
-                    $imagenes[] = $nombreArchivoUnico;
+                                // Mover el archivo a su destino final
+                                $directorioDestino = 'uploads/images/categorias/';
+                                if (move_uploaded_file($rutaTemporal, $directorioDestino . $nombreArchivoUnico)) {
+                                    $imagenesIdioma[] = $nombreArchivoUnico;
+                                }
+                            }
+                        }
+                        // Si se han subido imágenes, agregar al arreglo de imágenes por idioma
+                        if (!empty($imagenesIdioma)) {
+                            $imagenesPorIdioma[$idiomaCodigo] = json_encode($imagenesIdioma);
+                        }
+                    }
                 }
             }
         }
 
-        // Convertir las imágenes a JSON
-        $jsonImagenes = json_encode($imagenes, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
-        if (json_last_error() !== JSON_ERROR_NONE) {
-            $_SESSION['errores']['json'] = "Error al procesar las imágenes como JSON.";
-            header("Location: " . BASE_URL . "Admin/categorias" . $urlParentid);
-            exit;
-        }
+        // Asignar las imágenes a las categorías
+        foreach ($datos['nombres'] as $idioma => $nombre) {
+            $descripcion = isset($datos['descripciones'][$idioma]) ? $datos['descripciones'][$idioma] : '';
+            $idioma_id = array_search($idioma, array_keys($datos['nombres'])) + 1;
 
-        // Acciones según la operación (crear, editar, eliminar)
-        $messageClass = '';
-        if ($editId) {
-            $categorias->setId($editId);
-            $categorias->setImagenes($jsonImagenes);
-            $categorias->actualizarCategoriaPorId();
-            $_SESSION['exito'] = 'La categoría se actualizó correctamente.';
-            $messageClass = 'alert-warning';
-        } elseif ($deleteId) {
-            $categorias->setId($deleteId);
-            $categorias->eliminarCategoria();
-            $_SESSION['exito'] = 'La categoría se eliminó correctamente.';
-            $messageClass = 'alert-danger';
-        } else {
-            $categorias->setImagenes($jsonImagenes);
+            // Crear la categoría con los valores correspondientes
+            $categorias->setIdioma($idioma_id);
+            $categorias->setNombre($nombre);
+            $categorias->setDescripcion($descripcion);
             $categorias->setParentId($parentid);
-            $categorias->crearCategoria();
-            $_SESSION['exito'] = 'La categoría se creó correctamente.';
-            $messageClass = 'alert-primary';
+
+            // Asignar las imágenes para este idioma
+            $categorias->setImagenes(isset($imagenesPorIdioma[$idioma]) ? $imagenesPorIdioma[$idioma] : '[]');
+
+            if ($editId) {
+                $categorias->setGrupoId($editId);
+                $categorias->actualizarCategoriaPorId();
+                $_SESSION['exito'] = 'La categoría se actualizó correctamente.';
+                $messageClass = 'alert-warning';
+            } elseif ($deleteId) {
+                $categorias->setGrupoId($deleteId);
+                $categorias->eliminarCategoria();
+                $_SESSION['exito'] = 'La categoría se eliminó correctamente.';
+                $messageClass = 'alert-danger';
+            } else {
+                $categorias->setGrupoId($grupo_id);
+                $categorias->crearCategoria();
+                $_SESSION['exito'] = 'La categoría se creó correctamente.';
+                $messageClass = 'alert-primary';
+            }
+
+            $registroCreado = true;
         }
 
-        // Configurar mensajes de éxito o error y redirigir
         $_SESSION['messageClass'] = $messageClass;
         unset($_SESSION['errores']);
         unset($_SESSION['form']);
@@ -714,23 +721,23 @@ class AdminController
     {
         // Verificar si el usuario tiene acceso registrado
         Utils::accesoUsuarioRegistrado();
-    
+
         // Recibir los datos de la solicitud AJAX
         $comentario_id = isset($_POST['comentario_id']) ? $_POST['comentario_id'] : null;
         $estado = isset($_POST['estado']) ? $_POST['estado'] : null;
-    
+
         // Verificar que los valores estén disponibles
         if ($comentario_id !== null && $estado !== null) {
             // Instanciar el modelo Comentario
             $comentario = new Comentario();
-            
+
             // Establecer el ID y el nuevo estado
             $comentario->setId($comentario_id);
             $comentario->setEstado($estado);
-    
+
             // Llamar al método para actualizar el estado del comentario
             $resultado = $comentario->cambiarEstadoComentario();
-    
+
             // Verificar si la actualización fue exitosa
             if ($resultado) {
                 // Respuesta exitosa
@@ -744,7 +751,7 @@ class AdminController
             echo json_encode(['success' => false, 'message' => 'Datos incompletos']);
         }
     }
-    
+
     public function documentacion()
     {
         Utils::accesoUsuarioRegistrado();

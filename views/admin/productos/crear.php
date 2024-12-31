@@ -1,8 +1,13 @@
 <?php include __DIR__ . '../../layout/header.php'; ?>
 <div class="panel-admin__flex-container">
     <?php include __DIR__ . '../../layout/sidebar.php'; ?>
+
     <?php
     $buttonHidden = '';
+    $buttonClass = 'btn-primary';
+    $titleText = 'Guardar';
+
+    // Variables editid y deleteid
     if (isset($_GET['editid'])) {
         $buttonClass = 'btn-warning';
         $titleText = 'Editar';
@@ -10,122 +15,116 @@
         $buttonClass = 'btn-danger';
         $titleText = 'Eliminar';
         $buttonHidden = 'readonly';
-    } else {
-        $buttonClass = 'btn-primary';
-        $titleText = 'Guardar';
     }
     ?>
+
     <main class="panel-admin__main-content">
         <section class="panel-admin__dashboard">
             <h2 class="panel-admin__dashboard-title"><?php echo $titleText; ?> Producto</h2>
             <form action="<?php echo BASE_URL; ?>Admin/guardarProductos" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="editid" value="<?php echo $editId; ?>">
                 <input type="hidden" name="deleteid" value="<?php echo $deleteid; ?>">
-                <input type="hidden" name="parentid" value="<?php echo $parentid; ?>">
-                <div class="form-group">
-                    <label for="nombre">Nombre del Producto:</label>
-                    <input type="text" id="nombre" name="nombre" class="form-control" <?php echo $buttonHidden; ?> placeholder="Ejemplo: Laptop, Smartphone" value="<?php echo isset($_SESSION['form']['nombre']) ? $_SESSION['form']['nombre'] : (isset($getProductosById->nombre) ? $getProductosById->nombre : ''); ?>">
-                    <?php if (isset($_SESSION['errores']['nombre'])) : ?>
-                        <div class="text-danger mt-2">
-                            <i class="fas fa-exclamation-circle"></i> <?php echo $_SESSION['errores']['nombre']; ?>
-                        </div>
-                    <?php endif; ?>
-                </div>
-                <div class="form-group">
-                    <label for="descripcion">Descripción:</label>
-                    <textarea id="descripcion" name="descripcion" class="form-control" <?php echo $buttonHidden; ?> placeholder="Descripción del producto..."><?php echo isset($_SESSION['form']['descripcion']) ? $_SESSION['form']['descripcion'] : (isset($getProductosById->descripcion) ? $getProductosById->descripcion : ''); ?></textarea>
-                    <?php if (isset($_SESSION['errores']['descripcion'])) : ?>
-                        <div class="text-danger mt-2">
-                            <i class="fas fa-exclamation-circle"></i> <?php echo $_SESSION['errores']['descripcion']; ?>
-                        </div>
-                    <?php endif; ?>
-                </div>
-                <div class="form-group">
-                    <label for="precio">Precio:</label>
-                    <input type="number" id="precio" name="precio" class="form-control" <?php echo $buttonHidden; ?> placeholder="Ejemplo: 999.99" step="0.01" value="<?php echo isset($_SESSION['form']['precio']) ? $_SESSION['form']['precio'] : (isset($getProductosById->precio) ? $getProductosById->precio : ''); ?>">
-                    <?php if (isset($_SESSION['errores']['precio'])) : ?>
-                        <div class="text-danger mt-2">
-                            <i class="fas fa-exclamation-circle"></i> <?php echo $_SESSION['errores']['precio']; ?>
-                        </div>
-                    <?php endif; ?>
-                </div>
-                <div class="form-group">
-                    <label for="stock">Stock Disponible:</label>
-                    <input type="number" id="stock" name="stock" class="form-control" <?php echo $buttonHidden; ?> placeholder="Ejemplo: 50" value="<?php echo isset($_SESSION['form']['stock']) ? $_SESSION['form']['stock'] : (isset($getProductosById->stock) ? $getProductosById->stock : ''); ?>" />
-                    <?php if (isset($_SESSION['errores']['stock'])) : ?>
-                        <div class="text-danger mt-2">
-                            <i class="fas fa-exclamation-circle"></i> <?php echo $_SESSION['errores']['stock']; ?>
-                        </div>
-                    <?php endif; ?>
-                </div>
-                <div class="form-group">
-                    <label for="categoria">Categoría:</label>
-                    <select id="categoria" name="categoria" class="form-control" <?php echo $buttonHidden; ?>>
-                        <option value="<?php echo $parentid; ?>">Seleccione...</option>
-                        <?php while ($categorias = $getCategorias['categorias']->fetch_object()) : ?>
-                            <option value="<?php echo $categorias->id; ?>">
-                                <?php echo $categorias->nombre; ?>
-                            </option>
-                        <?php endwhile; ?>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="estado">Estado del Producto:</label>
-                    <select id="estado" name="estado" class="form-control" <?php echo $buttonHidden; ?>>
-                        <option value="available">Disponible</option>
-                        <option value="out_of_stock">Agotado</option>
-                        <option value="discontinued">Descontinuado</option>
-                    </select>
-                    <?php if (isset($_SESSION['errores']['estado'])) : ?>
-                        <div class="text-danger mt-2">
-                            <i class="fas fa-exclamation-circle"></i> <?php echo $_SESSION['errores']['estado']; ?>
-                        </div>
-                    <?php endif; ?>
-                </div>
-                <div class="form-group">
-                    <label for="oferta">Oferta o Descuento (si aplica):</label>
-                    <input type="number" id="oferta" name="oferta" class="form-control" <?php echo $buttonHidden; ?> placeholder="Ejemplo: 10" step="0.01" value="<?php echo isset($_SESSION['form']['oferta']) ? $_SESSION['form']['oferta'] : (isset($getProductosById->oferta) ? $getProductosById->oferta : ''); ?>">
-                    <small>Ingrese el descuento en porcentaje (Ejemplo: 10 para un 10% de descuento)</small>
-                </div>
+                <input type="hidden" name="parentid" value="<?php echo $categoriaId; ?>">
 
-                <div class="form-group">
-                    <label for="offerStart">Fecha de Inicio de la Oferta:</label>
-                    <input type="date" id="offerStart" name="offerStart" <?php echo $buttonHidden; ?> class="form-control"
-                        value="<?php echo isset($_SESSION['form']['offer_start']) ? $_SESSION['form']['offer_start'] : (isset($getProductosById->offer_start) && $getProductosById->offer_start ? date('Y-m-d', strtotime($getProductosById->offer_start)) : ''); ?>" />
-                </div>
-                <div class="form-group">
-                    <label for="offerExpiration">Fecha de Expiración de la Oferta:</label>
-                    <input type="date" id="offerExpiration" name="offerExpiration" <?php echo $buttonHidden; ?> class="form-control"
-                        value="<?php echo isset($_SESSION['form']['offer_expiration']) ? $_SESSION['form']['offer_expiration'] : (isset($getProductosById->offer_expiration) && $getProductosById->offer_expiration ? date('Y-m-d', strtotime($getProductosById->offer_expiration)) : ''); ?>" />
-                </div>
-                <div class="form-group">
-                    <label for="productImages">Imágenes del Producto:</label>
-                    <input type="file" id="productImages" name="productImages[]" class="form-control" accept="image/*" <?php echo $buttonHidden; ?> multiple>
-                    <div id="imagePreview" class="panel-admin__image-preview mt-3">
-                        <?php
-                        $imagenes = isset($_SESSION['form']['imagenes']) ? $_SESSION['form']['imagenes'] : (isset($getProductosById->imagenes) ? $getProductosById->imagenes : '');
-                        if (!empty($imagenes)) {
-                            $imagenesArray = explode(',', $imagenes);
-                            $imagenesArray = array_filter(array_map(function ($imagen) {
-                                return trim($imagen, ' "');
-                            }, $imagenesArray), function ($imagen) {
-                                return !empty($imagen) && $imagen !== 'null';
-                            });
-                            foreach ($imagenesArray as $imagen) {
-                                $imagenSanitizada = preg_replace('/[^a-z0-9_\-.]/i', '', $imagen);
-                                $rutaImagen = 'uploads/images/productos/' . $imagenSanitizada;
-                                if (!empty($imagenSanitizada) && file_exists($rutaImagen)) {
-                                    echo '<div class="panel-admin__image-container">';
-                                    echo '<img src="' . BASE_URL . $rutaImagen . '" alt="Imagen del Producto" class="panel-admin__image-thumbnail">';
-                                    echo '</div>';
-                                }
-                            }
-                        }
-                        ?>
-                    </div>
-                </div>
+                <!-- Pestañas para cada idioma -->
+                <ul class="nav nav-tabs" id="languageTabs" role="tablist">
+                    <?php foreach ($getIdiomas as $index => $idioma) : ?>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link <?php echo $index === 0 ? 'active' : ''; ?>" id="tab-<?php echo $idioma['codigo']; ?>" data-toggle="tab" href="#form-<?php echo $idioma['codigo']; ?>" role="tab" aria-controls="form-<?php echo $idioma['codigo']; ?>" aria-selected="<?php echo $index === 0 ? 'true' : 'false'; ?>">
+                                <?php echo $idioma['nombre']; ?>
+                            </a>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
 
-                <a href=" <?php echo BASE_URL; ?>Admin/catalogo<?php echo isset($_GET['categoriaId']) ? '?categoriaId=' . $_GET['categoriaId'] : false; ?>" class="btn btn-primary">
+                <div class="tab-content" id="languageTabsContent">
+                    <?php foreach ($getIdiomas as $index => $idioma) : ?>
+                        <div class="tab-pane fade <?php echo $index === 0 ? 'show active' : ''; ?>" id="form-<?php echo $idioma['codigo']; ?>" role="tabpanel" aria-labelledby="tab-<?php echo $idioma['codigo']; ?>">
+                            <input type="hidden" name="id_idioma[<?php echo $idioma['id']; ?>]" value="<?php echo $idioma['id']; ?>">
+
+                            <!-- Nombre del Producto -->
+                            <div class="form-group mt-2">
+                                <label for="nombre-<?php echo $idioma['codigo']; ?>">Nombre del Producto (<?php echo $idioma['nombre']; ?>):</label>
+                                <input type="text" id="nombre-<?php echo $idioma['codigo']; ?>" name="nombre[<?php echo $idioma['codigo']; ?>]" class="form-control" <?php echo $buttonHidden; ?> placeholder="Ejemplo: Laptop, Smartphone" value="<?php echo isset($getProductosById[$idioma['id']]) ? $getProductosById[$idioma['id']]->nombre : ''; ?>">
+                            </div>
+
+                            <!-- Descripción -->
+                            <div class="form-group">
+                                <label for="descripcion-<?php echo $idioma['codigo']; ?>">Descripción (<?php echo $idioma['nombre']; ?>):</label>
+                                <textarea id="descripcion-<?php echo $idioma['codigo']; ?>" name="descripcion[<?php echo $idioma['codigo']; ?>]" class="form-control" <?php echo $buttonHidden; ?> placeholder="Descripción del producto..."><?php echo isset($getProductosById[$idioma['id']]) ? $getProductosById[$idioma['id']]->descripcion : ''; ?></textarea>
+                            </div>
+
+                            <!-- Precio -->
+                            <div class="form-group">
+                                <label for="precio-<?php echo $idioma['codigo']; ?>">Precio:</label>
+                                <input type="number" id="precio-<?php echo $idioma['codigo']; ?>" name="precio[<?php echo $idioma['codigo']; ?>]" class="form-control" <?php echo $buttonHidden; ?> placeholder="Ejemplo: 999.99" step="0.01" value="<?php echo isset($getProductosById[$idioma['id']]) ? $getProductosById[$idioma['id']]->precio : ''; ?>">
+                            </div>
+
+                            <!-- Stock Disponible -->
+                            <div class="form-group">
+                                <label for="stock-<?php echo $idioma['codigo']; ?>">Stock Disponible:</label>
+                                <input type="number" id="stock-<?php echo $idioma['codigo']; ?>" name="stock[<?php echo $idioma['codigo']; ?>]" class="form-control" <?php echo $buttonHidden; ?> placeholder="Ejemplo: 50" value="<?php echo isset($getProductosById[$idioma['id']]) ? $getProductosById[$idioma['id']]->stock : ''; ?>" />
+                            </div>
+
+                            <!-- Estado del Producto -->
+                            <div class="form-group">
+                                <label for="estado-<?php echo $idioma['codigo']; ?>">Estado del Producto:</label>
+                                <select id="estado-<?php echo $idioma['codigo']; ?>" name="estado[<?php echo $idioma['codigo']; ?>]" class="form-control" <?php echo $buttonHidden; ?>>
+                                    <option value="available" <?php echo (isset($getProductosById[$idioma['id']]) && $getProductosById[$idioma['id']]->estado === 'available') ? 'selected' : ''; ?>>Disponible</option>
+                                    <option value="out_of_stock" <?php echo (isset($getProductosById[$idioma['id']]) && $getProductosById[$idioma['id']]->estado === 'out_of_stock') ? 'selected' : ''; ?>>Agotado</option>
+                                    <option value="discontinued" <?php echo (isset($getProductosById[$idioma['id']]) && $getProductosById[$idioma['id']]->estado === 'discontinued') ? 'selected' : ''; ?>>Descontinuado</option>
+                                </select>
+                            </div>
+
+                            <!-- Oferta o Descuento -->
+                            <div class="form-group">
+                                <label for="oferta-<?php echo $idioma['codigo']; ?>">Oferta o Descuento (si aplica):</label>
+                                <input type="number" id="oferta-<?php echo $idioma['codigo']; ?>" name="oferta[<?php echo $idioma['codigo']; ?>]" class="form-control" <?php echo $buttonHidden; ?> placeholder="Ejemplo: 10" step="0.01" value="<?php echo isset($getProductosById[$idioma['id']]) ? $getProductosById[$idioma['id']]->oferta : ''; ?>">
+                                <small>Ingrese el descuento en porcentaje (Ejemplo: 10 para un 10% de descuento)</small>
+                            </div>
+
+                            <!-- Fecha de Inicio de la Oferta -->
+                            <div class="form-group">
+                                <label for="offerStart-<?php echo $idioma['codigo']; ?>">Fecha de Inicio de la Oferta:</label>
+                                <input type="date" id="offerStart-<?php echo $idioma['codigo']; ?>" name="offerStart[<?php echo $idioma['codigo']; ?>]" class="form-control" <?php echo $buttonHidden; ?>
+                                    value="<?php echo isset($getProductosById[$idioma['id']]) ? $getProductosById[$idioma['id']]->offer_start : ''; ?>" />
+                            </div>
+
+                            <!-- Fecha de Expiración de la Oferta -->
+                            <div class="form-group">
+                                <label for="offerExpiration-<?php echo $idioma['codigo']; ?>">Fecha de Expiración de la Oferta:</label>
+                                <input type="date" id="offerExpiration-<?php echo $idioma['codigo']; ?>" name="offerExpiration[<?php echo $idioma['codigo']; ?>]" class="form-control" <?php echo $buttonHidden; ?>
+                                    value="<?php echo isset($getProductosById[$idioma['id']]) ? $getProductosById[$idioma['id']]->offer_expiration : ''; ?>" />
+                            </div>
+
+                            <!-- Imágenes del Producto -->
+                            <div class="form-group">
+                                <label for="productImages-<?php echo $idioma['codigo']; ?>">Imágenes del Producto (<?php echo $idioma['nombre']; ?>):</label>
+                                <input type="file" id="productImages-<?php echo $idioma['codigo']; ?>" name="productImages[<?php echo $idioma['codigo']; ?>][]" class="form-control" accept="image/*" <?php echo $buttonHidden; ?> multiple>
+
+                                <div id="imagePreview-<?php echo $idioma['codigo']; ?>" class="panel-admin__image-preview mt-3">
+                                    <?php
+                                    $imagenes = isset($_SESSION['form']['imagenes'][$idioma['codigo']]) ? $_SESSION['form']['imagenes'][$idioma['codigo']] : (isset($getProductosById[$idioma['id']]->imagenes) ? $getProductosById[$idioma['id']]->imagenes : '');
+                                    if (!empty($imagenes)) {
+                                        $imagenesArray = explode(',', $imagenes);
+                                        foreach ($imagenesArray as $imagen) {
+                                            $imagenSanitizada = preg_replace('/[^a-z0-9_\-.]/i', '', $imagen);
+                                            $rutaImagen = 'uploads/images/productos/' . $imagenSanitizada;
+                                            if (file_exists($rutaImagen)) {
+                                                echo '<div class="panel-admin__image-container">';
+                                                echo '<img src="' . BASE_URL . $rutaImagen . '" alt="Imagen del Producto" class="panel-admin__image-thumbnail">';
+                                                echo '</div>';
+                                            }
+                                        }
+                                    }
+                                    ?>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+                <!-- Botones -->
+                <a href="<?php echo BASE_URL; ?>Admin/catalogo<?php echo isset($_GET['categoriaId']) ? '?categoriaId=' . $_GET['categoriaId'] : ''; ?>" class="btn btn-primary">
                     <i class="fas fa-arrow-left"></i> Volver
                 </a>
                 <button type="submit" class="btn <?php echo $buttonClass; ?>"><?php echo $titleText; ?></button>
@@ -133,6 +132,7 @@
         </section>
     </main>
 </div>
+
 <?php
 if (!isset($_SESSION['errores'])) {
     unset($_SESSION['form']);
