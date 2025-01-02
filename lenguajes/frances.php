@@ -34,7 +34,7 @@ define("MAKE_PAYMENT", "Terminer l'achat");
 define("TEXT_QUICK_VIEW", "Aperçu rapide");
 define('TEXT_OFERTA', 'Offre:');
 define("TEXT_GARANTIA", "<label>1 an</label> de garantie du fabricant");
-define('OFERTA', 'Offre'); 
+define('OFERTA', 'Offre');
 define('SUBTOTAL', 'Sous-total');
 define('REALIZAR_PEDIDO', 'Passer la commande');
 
@@ -238,5 +238,13 @@ define("TEXT_NO_OLD_REVIEWS", "Il n'y a pas d'avis anciens pour ce produit.");
 define("TEXT_REVIEW_USER", "Utilisateur");
 define("TEXT_REVIEW_DATE", "Date");
 
-?>
-
+// Texto de Shipping
+define('TEXT_SHIPPING_TOTAL', 'Total');
+define('TEXT_SHIPPING_ADDRESS_SHIPPING', 'Adresse de livraison');
+define('TEXT_SHIPPING_ADDRESS', 'Adresse');
+define('TEXT_SHIPPING_ADDRESS_USER', 'Adresse de l\'utilisateur');
+define('TEXT_SHIPPING_COUNTRY', 'Pays');
+define('TEXT_SHIPPING_SELECT', 'Sélectionner');
+define('TEXT_SHIPPING_CITY', 'Ville/Région');
+define('TEXT_SHIPPING_ZIP_CODE', 'Code Postal');
+define('TEXT_SHIPPING_UPDATE_FORM', 'Mettre à jour le formulaire');

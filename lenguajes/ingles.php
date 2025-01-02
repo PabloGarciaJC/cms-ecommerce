@@ -239,4 +239,13 @@ define("TEXT_NO_OLD_REVIEWS", "There are no old reviews for this product.");
 define("TEXT_REVIEW_USER", "User");
 define("TEXT_REVIEW_DATE", "Date");
 
-?>
+// Texto de Shipping
+define('TEXT_SHIPPING_TOTAL', 'Total');
+define('TEXT_SHIPPING_ADDRESS_SHIPPING', 'Shipping Address');
+define('TEXT_SHIPPING_ADDRESS', 'Address');
+define('TEXT_SHIPPING_ADDRESS_USER', 'User\'s Address');
+define('TEXT_SHIPPING_COUNTRY', 'Country');
+define('TEXT_SHIPPING_SELECT', 'Select');
+define('TEXT_SHIPPING_CITY', 'City/Region');
+define('TEXT_SHIPPING_ZIP_CODE', 'Zip Code');
+define('TEXT_SHIPPING_UPDATE_FORM', 'Update Form');
