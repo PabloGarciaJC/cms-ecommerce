@@ -328,9 +328,9 @@ class AdminController
             $productos->setNombre($nombre);
             $productos->setDescripcion($descripcion);
             $productos->setPrecio($precio);
-            $productos->setStock($stock); // Validado correctamente
+            $productos->setStock($stock);
             $productos->setEstado($estado);
-            $productos->setOferta($oferta); 
+            $productos->setOferta($oferta);
             $productos->setOfferStart($offerStart);
             $productos->setOfferExpiration($offerExpiration);
             $productos->setParentId($parentid);

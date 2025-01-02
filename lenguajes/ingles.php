@@ -225,4 +225,18 @@ define('TEXT_ELECTRO_STORE', 'Electro Store');
 define('TEXT_SEARCH_PLACEHOLDER', 'Search');
 define('TEXT_SEARCH_BUTTON', 'Search');
 define('TEXT_CART_ICON', 'Cart');
+
+// Textos para la sección de Reseñas
+define("TEXT_REVIEWS_TITLE", "User Reviews:");
+define("TEXT_LEAVE_REVIEW_TAB", "Leave Your Review");
+define("TEXT_HIGHEST_RATED_TAB", "Highest Rated");
+define("TEXT_OLDEST_TAB", "Oldest Reviews");
+define("TEXT_LEAVE_COMMENT_PLACEHOLDER", "Leave your comment");
+define("TEXT_RATING_LABEL", "Rating");
+define("TEXT_SUBMIT_REVIEW_BUTTON", "Submit Review");
+define("TEXT_NO_RATED_REVIEWS", "There are no rated reviews for this product.");
+define("TEXT_NO_OLD_REVIEWS", "There are no old reviews for this product.");
+define("TEXT_REVIEW_USER", "User");
+define("TEXT_REVIEW_DATE", "Date");
+
 ?>

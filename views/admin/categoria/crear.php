@@ -47,32 +47,33 @@
                                     <label for="descripcion-<?php echo $idioma['codigo']; ?>">Descripción (<?php echo $idioma['nombre']; ?>):</label>
                                     <textarea id="descripcion-<?php echo $idioma['codigo']; ?>" name="descripcion[<?php echo $idioma['codigo']; ?>]" class="form-control" <?php echo $buttonHidden; ?>><?php echo isset($getCategoriasId[$idioma['id']]) ? $getCategoriasId[$idioma['id']]->descripcion : ''; ?></textarea>
                                 </div>
-                                <!-- Mostrar imágenes por idioma -->
                                 <div class="form-group">
                                     <label for="categoriaImages-<?php echo $idioma['codigo']; ?>">Subir imagen de categoría (<?php echo $idioma['nombre']; ?>):</label>
                                     <input type="file" id="categoriaImages-<?php echo $idioma['codigo']; ?>" name="categoriaImages[<?php echo $idioma['codigo']; ?>][]" class="form-control" accept="image/*" <?php echo $buttonHidden; ?> multiple>
 
                                     <div id="imagePreview-<?php echo $idioma['codigo']; ?>" class="panel-admin__image-preview mt-3">
                                         <?php
-                                        // Aquí filtramos y mostramos las imágenes asociadas a cada idioma
                                         $imagenes = isset($_SESSION['form']['imagenes'][$idioma['codigo']]) ? $_SESSION['form']['imagenes'][$idioma['codigo']] : (isset($getCategoriasId[$idioma['id']]->imagenes) ? $getCategoriasId[$idioma['id']]->imagenes : '');
-                                        if (!empty($imagenes)) {
-                                            $imagenesArray = explode(',', $imagenes);
-                                            $imagenesArray = array_filter(array_map(function ($imagen) {
-                                                return trim($imagen, ' "');
-                                            }, $imagenesArray), function ($imagen) {
-                                                return !empty($imagen) && $imagen !== 'null';
-                                            });
-                                            foreach ($imagenesArray as $imagen) {
-                                                $imagenSanitizada = preg_replace('/[^a-z0-9_\-.]/i', '', $imagen);
-                                                $rutaImagen = 'uploads/images/categorias/' . $imagenSanitizada;
-                                                if (!empty($imagenSanitizada) && file_exists($rutaImagen)) {
-                                                    echo '<div class="panel-admin__image-container">';
-                                                    echo '<img src="' . BASE_URL . $rutaImagen . '" alt="Imagen de la categoría" class="panel-admin__image-thumbnail">';
-                                                    echo '</div>';
-                                                }
+                                        if (is_string($imagenes)) {
+                                            $imagenesArray = json_decode($imagenes, true);
+                                            if (json_last_error() !== JSON_ERROR_NONE) {
+                                                $imagenesArray = [];
                                             }
+                                        } elseif (is_array($imagenes)) {
+                                            $imagenesArray = $imagenes;
+                                        } else {
+                                            $imagenesArray = [];
                                         }
+                                        echo '<div class="panel-admin__image-container">';
+                                        if (!empty($imagenesArray)) {
+                                            foreach ($imagenesArray as $imagen) {
+                                                $imagenSrc = BASE_URL . 'uploads/images/categorias/' . $imagen;
+                                                echo '<img src="' . $imagenSrc . '" alt="Imagen del Producto" class="panel-admin__image-thumbnail">';
+                                            }
+                                        } else {
+                                            echo '<img src="' . BASE_URL . 'uploads/images/default.jpg" alt="Imagen de la categoria" class="panel-admin__image-thumbnail">';
+                                        }
+                                        echo '</div>';
                                         ?>
                                     </div>
                                 </div>

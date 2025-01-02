@@ -5,7 +5,11 @@
             $imagenes = trim($prod->imagenes, '"');
             $imagenes_array = json_decode($imagenes);
             ?>
-            <img src="<?php echo BASE_URL ?>uploads/images/productos/<?php echo $imagenes_array[0]; ?>">
+            <?php if (!empty($imagenes_array[0])) : ?>
+                <img src="<?php echo BASE_URL ?>uploads/images/productos/<?php echo $imagenes_array[0]; ?>" alt="Imagen producto">
+            <?php else: ?>
+                <img src="<?php echo BASE_URL ?>uploads/images/default.jpg" alt="Imagen producto">
+            <?php endif; ?>
             <div class="men-cart-pro">
                 <div class="inner-men-cart-pro">
                     <a href="<?php echo BASE_URL ?>Producto/ficha?id=<?php echo urlencode($prod->id); ?>&parent_id=<?php echo urlencode($prod->parent_id); ?>" class="link-product-add-cart"><?php echo TEXT_QUICK_VIEW; ?></a>

@@ -231,4 +231,18 @@ define('TEXT_DEJA_COMENTARIO', 'Deja un comentario');
 define('TEXT_COMENTARIO', 'Comentario');
 define('TEXT_CALIFICACION', 'Calificación');
 define('TEXT_ENVIAR_COMENTARIO', 'Enviar comentario');
+
+// Textos para la sección de Reseñas
+define("TEXT_REVIEWS_TITLE", "Reseñas de Usuarios:");
+define("TEXT_LEAVE_REVIEW_TAB", "Deja tu Reseña");
+define("TEXT_HIGHEST_RATED_TAB", "Más Valoradas");
+define("TEXT_OLDEST_TAB", "Menos Valoradas");
+define("TEXT_LEAVE_COMMENT_PLACEHOLDER", "Deja tu comentario");
+define("TEXT_RATING_LABEL", "Calificación");
+define("TEXT_SUBMIT_REVIEW_BUTTON", "Enviar Comentario");
+define("TEXT_NO_RATED_REVIEWS", "No hay comentarios valorados para este producto.");
+define("TEXT_NO_OLD_REVIEWS", "No hay comentarios antiguos para este producto.");
+define("TEXT_REVIEW_USER", "Usuario");
+define("TEXT_REVIEW_DATE", "Fecha");
+
 ?>

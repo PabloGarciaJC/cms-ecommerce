@@ -224,5 +224,19 @@ define('TEXT_ELECTRO_STORE', 'Electro Store');
 define('TEXT_SEARCH_PLACEHOLDER', 'Rechercher');
 define('TEXT_SEARCH_BUTTON', 'Rechercher');
 define('TEXT_CART_ICON', 'Panier');
+
+// Textos para la sección de Reseñas
+define("TEXT_REVIEWS_TITLE", "Avis des utilisateurs :");
+define("TEXT_LEAVE_REVIEW_TAB", "Laissez votre avis");
+define("TEXT_HIGHEST_RATED_TAB", "Les mieux notés");
+define("TEXT_OLDEST_TAB", "Avis les plus anciens");
+define("TEXT_LEAVE_COMMENT_PLACEHOLDER", "Laissez votre commentaire");
+define("TEXT_RATING_LABEL", "Note");
+define("TEXT_SUBMIT_REVIEW_BUTTON", "Envoyer l'avis");
+define("TEXT_NO_RATED_REVIEWS", "Il n'y a pas d'avis notés pour ce produit.");
+define("TEXT_NO_OLD_REVIEWS", "Il n'y a pas d'avis anciens pour ce produit.");
+define("TEXT_REVIEW_USER", "Utilisateur");
+define("TEXT_REVIEW_DATE", "Date");
+
 ?>
 

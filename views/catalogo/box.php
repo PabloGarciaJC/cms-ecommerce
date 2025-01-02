@@ -12,8 +12,10 @@
             } else {
                 $imagenesArray = [];
             }
-            if (!empty($imagenesArray) && isset($imagenesArray[0]['archivo'])) {
-                $imagenSrc = BASE_URL . 'uploads/images/categorias/' . $imagenesArray[0]['archivo'];
+            if (!empty($imagenesArray)) {
+                foreach ($imagenesArray as $imagen) {
+                    $imagenSrc = BASE_URL . 'uploads/images/categorias/' . $imagen;
+                }
             } else {
                 $imagenSrc = BASE_URL . 'uploads/images/default.jpg';
             }

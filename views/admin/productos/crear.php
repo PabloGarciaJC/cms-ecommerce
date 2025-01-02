@@ -101,22 +101,29 @@
                             <div class="form-group">
                                 <label for="productImages-<?php echo $idioma['codigo']; ?>">Imágenes del Producto (<?php echo $idioma['nombre']; ?>):</label>
                                 <input type="file" id="productImages-<?php echo $idioma['codigo']; ?>" name="productImages[<?php echo $idioma['codigo']; ?>][]" class="form-control" accept="image/*" <?php echo $buttonHidden; ?> multiple>
-
                                 <div id="imagePreview-<?php echo $idioma['codigo']; ?>" class="panel-admin__image-preview mt-3">
                                     <?php
                                     $imagenes = isset($_SESSION['form']['imagenes'][$idioma['codigo']]) ? $_SESSION['form']['imagenes'][$idioma['codigo']] : (isset($getProductosById[$idioma['id']]->imagenes) ? $getProductosById[$idioma['id']]->imagenes : '');
-                                    if (!empty($imagenes)) {
-                                        $imagenesArray = explode(',', $imagenes);
-                                        foreach ($imagenesArray as $imagen) {
-                                            $imagenSanitizada = preg_replace('/[^a-z0-9_\-.]/i', '', $imagen);
-                                            $rutaImagen = 'uploads/images/productos/' . $imagenSanitizada;
-                                            if (file_exists($rutaImagen)) {
-                                                echo '<div class="panel-admin__image-container">';
-                                                echo '<img src="' . BASE_URL . $rutaImagen . '" alt="Imagen del Producto" class="panel-admin__image-thumbnail">';
-                                                echo '</div>';
-                                            }
+                                    if (is_string($imagenes)) {
+                                        $imagenesArray = json_decode($imagenes, true);
+                                        if (json_last_error() !== JSON_ERROR_NONE) {
+                                            $imagenesArray = [];
                                         }
+                                    } elseif (is_array($imagenes)) {
+                                        $imagenesArray = $imagenes;
+                                    } else {
+                                        $imagenesArray = [];
                                     }
+                                    echo '<div class="panel-admin__image-container">';
+                                    if (!empty($imagenesArray)) {
+                                        foreach ($imagenesArray as $imagen) {
+                                            $imagenSrc = BASE_URL . 'uploads/images/productos/' . $imagen;
+                                            echo '<img src="' . $imagenSrc . '" alt="Imagen del Producto" class="panel-admin__image-thumbnail">';
+                                        }
+                                    } else {
+                                        echo '<img src="' . BASE_URL . 'uploads/images/default.jpg" alt="Imagen del Producto" class="panel-admin__image-thumbnail">';
+                                    }
+                                    echo '</div>';
                                     ?>
                                 </div>
                             </div>

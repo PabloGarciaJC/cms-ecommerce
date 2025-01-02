@@ -38,6 +38,9 @@
 							</ul>
 							<div class="clearfix"></div>
 						</div>
+
+					<?php else : ?>
+						<img src="<?php echo BASE_URL ?>uploads/images/default.jpg" alt="Imagen del Producto" class="productos-thumbnail">
 					<?php endif; ?>
 				</div>
 			</div>
@@ -142,12 +145,19 @@
 <!-- Reseñas -->
 <div class="container ficha-producto__container mb-4">
 	<div class="ficha-producto__reviews-text">
-		<h4>Reseñas de Usuarios:</h4>
+		<h4><?php echo TEXT_REVIEWS_TITLE; ?></h4>
 		<div class="ficha-producto__tabs mt-4">
-			<div class="ficha-producto__tab ficha-producto__tab--active" id="leave-review-tab">Deja tu Reseña</div>
-			<div class="ficha-producto__tab" id="highest-rated-tab">Más Valoradas</div>
-			<div class="ficha-producto__tab" id="oldest-tab">Menos Valoradas</div>
+			<div class="ficha-producto__tab ficha-producto__tab--active" id="leave-review-tab">
+				<?php echo TEXT_LEAVE_REVIEW_TAB; ?>
+			</div>
+			<div class="ficha-producto__tab" id="highest-rated-tab">
+				<?php echo TEXT_HIGHEST_RATED_TAB; ?>
+			</div>
+			<div class="ficha-producto__tab" id="oldest-tab">
+				<?php echo TEXT_OLDEST_TAB; ?>
+			</div>
 		</div>
+
 		<!-- Formulario de reseña -->
 		<div class="ficha-producto__tab-content ficha-producto__tab-content--active" id="leave-review-content">
 			<?php if (isset($_SESSION['exito'])) : ?>
@@ -177,10 +187,10 @@
 					<input type="hidden" name="producto_id" value="<?php echo $productoFicha->id; ?>" />
 					<input type="hidden" name="usuario_id" value="<?php echo $usuario->Id; ?>" />
 					<div class="ficha-producto__form-group">
-						<textarea id="comentario" name="comentario" class="ficha-producto__form-control" rows="4" placeholder="Deja tu comentario" required><?php echo isset($_SESSION['form']['comentario']) ? htmlspecialchars($_SESSION['form']['comentario'], ENT_QUOTES, 'UTF-8') : ''; ?></textarea>
+						<textarea id="comentario" name="comentario" class="ficha-producto__form-control" rows="4" placeholder="<?php echo TEXT_LEAVE_COMMENT_PLACEHOLDER; ?>" required><?php echo isset($_SESSION['form']['comentario']) ? htmlspecialchars($_SESSION['form']['comentario'], ENT_QUOTES, 'UTF-8') : ''; ?></textarea>
 					</div>
 					<div class="ficha-producto__form-group">
-						<label for="calificacion">Calificación</label>
+						<label for="calificacion"><?php echo TEXT_RATING_LABEL; ?></label>
 						<div class="ficha-producto__stars">
 							<?php for ($i = 5; $i >= 1; $i--) : ?>
 								<input type="radio" name="calificacion" value="<?php echo $i; ?>" id="star<?php echo $i; ?>"
@@ -189,7 +199,7 @@
 							<?php endfor; ?>
 						</div>
 					</div>
-					<button type="button" id="submitReview" class="ficha-producto__btn">Enviar Comentario</button>
+					<button type="button" id="submitReview" class="ficha-producto__btn"><?php echo TEXT_SUBMIT_REVIEW_BUTTON; ?></button>
 				</form>
 			</div>
 		</div>
@@ -214,7 +224,7 @@
 					</div>
 				<?php endwhile; ?>
 			<?php else : ?>
-				<p class="ficha-producto__no-reviews">No hay comentarios valorados para este producto.</p>
+				<p class="ficha-producto__no-reviews"><?php echo TEXT_NO_RATED_REVIEWS; ?></p>
 			<?php endif; ?>
 		</div>
 	</div>
@@ -237,7 +247,7 @@
 					</div>
 				<?php endwhile; ?>
 			<?php else : ?>
-				<p class="ficha-producto__no-reviews">No hay comentarios antiguos para este producto.</p>
+				<p class="ficha-producto__no-reviews"><?php echo TEXT_NO_OLD_REVIEWS; ?></p>
 			<?php endif; ?>
 		</div>
 	</div>

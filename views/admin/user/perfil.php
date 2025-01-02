@@ -14,7 +14,7 @@
                 </div>
                 <?php unset($_SESSION['exito'], $_SESSION['messageClass'], $_SESSION['icon']); ?>
             <?php endif; ?>
-            
+
             <h2 class="panel-admin__dashboard-title">Perfil de Usuario</h2>
             <form action="<?php echo BASE_URL; ?>Admin/perfilGuardar" method="POST" enctype="multipart/form-data" class="panel-admin__user-form">
                 <input type="hidden" name="id" class="form-control" value="<?php echo $usuario->Id; ?>">
@@ -58,7 +58,7 @@
                     <label>Correo Electrónico:</label>
                     <input type="email" class="form-control" placeholder="Correo electrónico" value="<?php echo isset($_SESSION['form']['email']) ? $_SESSION['form']['email'] : $usuario->Email; ?>" disabled>
                     <input type="hidden" name="email" value="<?php echo $usuario->Email; ?>">
-                    
+
                     <?php if (isset($_SESSION['errores']['email'])) : ?>
                         <div class="text-danger mt-2">
                             <i class="fas fa-exclamation-circle"></i> <?php echo $_SESSION['errores']['email']; ?>
@@ -131,10 +131,7 @@
 
                     <!-- Vista previa de la imagen cargada -->
                     <div class="panel-admin__avatar-preview mt-3">
-                        <img id="avatarPreview" class="panel-admin__avatar-thumbnail"
-                            src="<?php echo !empty($usuario->imagen) ? BASE_URL . 'uploads/images/avatar/' . $usuario->imagen : ''; ?>"
-                            alt="Avatar de Usuario"
-                            style="display:<?php echo !empty($usuario->imagen) ? 'block' : 'none'; ?>;">
+                        <img id="avatarPreview" class="panel-admin__avatar-thumbnail" src="<?php echo !empty($usuario->imagen) ? BASE_URL . 'uploads/images/avatar/' . $usuario->imagen : BASE_URL . 'uploads/images/default.jpg'; ?>" alt="Avatar de Usuario">
                     </div>
 
                     <?php if (isset($_SESSION['errores']['avatar'])) : ?>
