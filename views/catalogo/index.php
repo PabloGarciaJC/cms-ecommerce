@@ -3,7 +3,7 @@
         <nav>
             <ul class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="<?php echo BASE_URL ?>">Inicio</a>
+                    <a href="<?php echo BASE_URL ?>"><?php echo TEXT_INICIO; ?></a>
                 </li>
                 <?php if (!empty($breadcrumbs)): ?>
                     <?php foreach ($breadcrumbs as $index => $breadcrumb): ?>
@@ -25,7 +25,7 @@
             <input type="hidden" name="textoBusqueda" value="<?= $_GET['textoBusqueda'] ?? ''; ?>" />
             <input type="text" name="minPrecio" placeholder="Precio mínimo" value="<?= $_GET['minPrecio'] ?? ''; ?>" />
             <input type="text" name="maxPrecio" placeholder="Precio máximo" value="<?= $_GET['maxPrecio'] ?? ''; ?>" />
-            <button type="submit">Aplicar filtros</button>
+            <button type="submit"><?php echo TEXT_TITLE_FILTRO; ?></button>
         </form>
     </div>
 </div>
