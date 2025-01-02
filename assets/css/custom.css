@@ -1048,6 +1048,10 @@
 
   /* # ANIMACIONES
 ================================================== */
+  .animation__contn {
+      overflow: hidden;
+  }
+
   @keyframes animation__slide-right-keyframes {
       from {
           transform: translateX(100%);
@@ -1552,4 +1556,56 @@
   .productos-thumbnail {
       width: 100%;
       height: 100%;
+  }
+
+  /* # DANGER CHECKOUT
+================================================== */
+  .custom-alert-danger {
+      margin-top: 20px;
+      background-color: #f8d7da;
+      border-color: #f5c6cb;
+      padding: 15px;
+      border-radius: 5px;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+  }
+
+  .custom-alert-danger a {
+      text-decoration: underline;
+      padding: 0px;
+      background-color: #f8d7da !important;
+      color: #0056b3 !important;
+  }
+
+  .custom-alert-danger a:hover {
+      border: unset;
+  }
+
+  .custom-alert-danger p {
+      color: #000;
+      margin: 0;
+      font-size: 16px;
+  }
+
+
+  .custom-alert-checkout {
+      display: flex;
+      gap: 5px
+  }
+
+  @media (max-width: 768px) {
+      .custom-alert-danger {
+          font-size: 14px;
+          padding: 12px;
+      }
+
+      .custom-alert-checkout {
+          flex-wrap: wrap;
+      }
+
+      .custom-alert-danger i {
+          display: none;
+      }
   }

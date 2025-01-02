@@ -163,10 +163,21 @@
             <input type="hidden" id="text_oferta" value="<?php echo htmlspecialchars(OFERTA); ?>" />
             <input type="hidden" id="text_subtotal" value="<?php echo htmlspecialchars(SUBTOTAL); ?>" />
             <input type="hidden" id="text_realizar_pedido" value="<?php echo htmlspecialchars(REALIZAR_PEDIDO); ?>" />
+
             <div class="checkout-right-basket">
                 <button type="submit"><?php echo MAKE_PAYMENT; ?></button>
                 <?php if (isset($_SESSION['errores']) && count($_SESSION['errores']) > 0) : ?>
-                    <a href="<?php echo BASE_URL ?>Admin/perfil" type="button" target="_blank"><?php echo TEXT_SHIPPING_UPDATE_FORM; ?></a>
+                    <?php if (!isset($_SESSION['usuarioRegistrado'])) : ?>
+                        <div class="custom-alert-danger" role="alert">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <div class="custom-alert-checkout">
+                                <div> <?php echo TEXT_NOT_LOGGED_IN; ?> </div>
+                                <div> <?php echo TEXT_NOT_REGISTER_IN; ?></div>
+                            </div>
+                        </div>
+                    <?php else: ?>
+                        <a href="<?php echo BASE_URL ?>Admin/perfil" type="button" target="_blank"><i class="fas fa-user-cog"></i> <?php echo TEXT_SHIPPING_UPDATE_FORM; ?></a>
+                    <?php endif; ?>
                 <?php endif; ?>
             </div>
         </form>

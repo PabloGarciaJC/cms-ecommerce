@@ -1,5 +1,5 @@
 	<div class="join-w3l1 py-sm-5 py-4">
-		<div class="container py-xl-4 py-lg-2">
+		<div class="container py-xl-4 py-lg-2 animation__contn">
 			<div class="row animation__left-right">
 				<div class="col-lg-6">
 					<div class="join-agile text-left p-4 banner-wrapper">

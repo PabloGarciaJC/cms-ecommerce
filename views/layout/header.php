@@ -24,7 +24,7 @@
 						<?php endif; ?>
 					</li>
 					<li class="text-center text-white">
-						<a href="#" data-toggle="modal" data-target="#exampleModal2" class="text-white">
+						<a href="javascript:void(0)" data-toggle="modal" data-target="#exampleModal2" class="text-white">
 							<i class="fas fa-sign-out-alt mr-2"></i><?php echo TEXT_REGISTER; ?></a>
 					</li>
 				</ul>

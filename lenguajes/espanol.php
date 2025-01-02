@@ -256,3 +256,11 @@ define('TEXT_SHIPPING_SELECT', 'Seleccione');
 define('TEXT_SHIPPING_CITY', 'Ciudad/Región');
 define('TEXT_SHIPPING_ZIP_CODE', 'Código Postal');
 define('TEXT_SHIPPING_UPDATE_FORM', 'Actualizar Formulario');
+
+// Texto de danger checkout
+define('TEXT_ALERT_TITLE', '');
+define('TEXT_NOT_LOGGED_IN', '<strong>¡Atención!</strong> No has <a href="javascript:void(0)" data-toggle="modal" data-target="#exampleModal"> <i class="fas fa-sign-in-alt"></i> Iniciado sesión </a>');
+define('TEXT_NOT_REGISTER_IN', 'ó <a href="javascript:void(0)" data-toggle="modal" data-target="#exampleModal2"><i class="fas fa-user-plus"></i> Regístrate</a>');
+
+
+
