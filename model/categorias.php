@@ -310,11 +310,12 @@ class Categorias
 
   public function getBreadcrumbs()
   {
+    $idioma = empty($this->getIdioma()) ? 1 : $this->getIdioma();
     $breadcrumbs = [];
     $currentId = $this->getId();
 
     while ($currentId) {
-      $sql = "SELECT id, nombre, parent_id, grupo_id FROM categorias WHERE grupo_id = $currentId";
+      $sql = "SELECT id, nombre, parent_id, grupo_id FROM categorias WHERE grupo_id = $currentId  AND idioma_id = $idioma";
       $result = $this->db->query($sql);
 
       if ($result && $row = $result->fetch_object()) {

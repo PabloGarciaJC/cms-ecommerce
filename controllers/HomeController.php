@@ -4,39 +4,40 @@ require_once 'model/productos.php';
 require_once 'model/categorias.php';
 require_once 'controllers/ProductoController.php';
 require_once 'model/idiomas.php';
+require_once 'controllers/LanguageController.php';
 
 class HomeController
 {
+    private $languageController;
+
+    public function __construct()
+    {
+        $this->languageController = new LanguageController();
+    }
 
     private function cargarDatosComunes()
     {
         $usuario = Utils::obtenerUsuario();
         $categorias = new Categorias();
+
+        // Obtenemos los idiomas disponibles para el select del header
         $idiomas = new Idiomas();
         $getIdiomas = $idiomas->obtenerTodos();
-        $lang = isset($_POST['lenguaje']) ? $_POST['lenguaje'] : false;
 
-        if ($lang) {
-            $_SESSION['lang'] = $lang;
-        } elseif (!isset($_SESSION['lang'])) {
-            $_SESSION['lang'] = 'es';
+        // Establecemos el idioma utilizando el LanguageController
+        if (isset($_POST['lenguaje'])) {
+            $this->languageController->setIdioma($_POST['lenguaje']);
         }
 
-        // Carga el archivo del idioma según la selección
-        switch ($_SESSION['lang']) {
-            case 'en':
-                require_once 'lenguajes/ingles.php';
-                $categorias->setIdioma(2);
-                break;
-            case 'fr':
-                require_once 'lenguajes/frances.php';
-                $categorias->setIdioma(3);
-                break;
-            default:
-                require_once 'lenguajes/espanol.php';
-        }
+        // Cargar los textos según el idioma seleccionado
+        $this->languageController->cargarTextos();
 
+        // Establecemos el idioma a utilizar en Categorias
+        $categorias->setIdioma($this->languageController->getIdiomaId());
+
+        // Obtenemos las categorías con productos y subcategorías
         $categoriasConSubcategoriasYProductos = $categorias->obtenerCategoriasYProductos();
+
         return compact('usuario', 'categoriasConSubcategoriasYProductos', 'getIdiomas');
     }
 
