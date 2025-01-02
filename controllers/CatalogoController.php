@@ -51,7 +51,7 @@ class CatalogoController extends HomeController
     // Mostrar breadcrumbsFonted
     $categorias->setParentId($parentId);
     $categorias->setId($parentId);
-    $breadcrumbs = $categorias->getBreadcrumbsFontend();
+    $breadcrumbs = $categorias->getBreadcrumbs();
 
     // Obetener Productos por categorias
     $categoriaId = isset($_GET['categoriaId']) ? $_GET['categoriaId'] : false;

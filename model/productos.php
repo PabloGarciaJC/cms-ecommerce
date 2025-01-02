@@ -240,38 +240,29 @@ class Productos
 
   public function obtenerProductosPorId()
   {
-    // Obtener el idioma actual
     $idioma = empty($this->getIdioma()) ? 1 : $this->getIdioma();
 
-    // Obtener el id y parent_id del producto
     $id = $this->getId();
     $parentId = $this->getParentId();
 
-    // if (!empty($id) && !empty($parentId)) {
-      // Intentar buscar el producto por id y parent_id
       $sql = "SELECT * FROM productos WHERE id = $id AND idioma_id = $idioma AND parent_id = $parentId";
       $result = $this->db->query($sql);
 
-      // Si no se encuentra el producto por id y parent_id, intentar buscar solo por parent_id y idioma_id
       if ($result && $result->num_rows > 0) {
         return $result->fetch_object();
+
       } else {
-        // Si no se encontró, buscar solo por parent_id e idioma_id
+
         $sqlFallback = "SELECT * FROM productos WHERE idioma_id = $idioma AND parent_id = $parentId";
         $resultFallback = $this->db->query($sqlFallback);
 
-        // Verificar si se encontró el producto
         if ($resultFallback && $resultFallback->num_rows > 0) {
           return $resultFallback->fetch_object();
         }
       }
 
-      // Si no se encontró ningún producto, retornar null
       return null;
-    // }
-
   }
-
 
   public function obtenerProductosPorGrupo()
   {
@@ -286,19 +277,22 @@ class Productos
 
   public function movil()
   {
-    $sql = "SELECT p.*, (SELECT AVG(calificacion) FROM comentarios WHERE producto_id = p.id) AS promedio_calificacion FROM productos p WHERE parent_id = 192 LIMIT 3";
+    $idioma = empty($this->getIdioma()) ? 1 : $this->getIdioma();
+    $sql = "SELECT p.*, (SELECT AVG(calificacion) FROM comentarios WHERE producto_id = p.id) AS promedio_calificacion FROM productos p WHERE idioma_id = $idioma AND parent_id = 1735806505 LIMIT 3";
     return $this->db->query($sql);
   }
 
   public function tvAudios()
   {
-    $sql = "SELECT p.*, (SELECT AVG(calificacion) FROM comentarios WHERE producto_id = p.id) AS promedio_calificacion FROM productos p WHERE parent_id = 194 LIMIT 3";
+    $idioma = empty($this->getIdioma()) ? 1 : $this->getIdioma();
+    $sql = "SELECT p.*, (SELECT AVG(calificacion) FROM comentarios WHERE producto_id = p.id) AS promedio_calificacion FROM productos p WHERE idioma_id = $idioma AND parent_id = 1735801087 LIMIT 3";
     return $this->db->query($sql);
   }
 
   public function electrodomesticos()
   {
-    $sql = "SELECT p.*,(SELECT AVG(calificacion) FROM comentarios WHERE producto_id = p.id) AS promedio_calificacion FROM productos p WHERE parent_id = 196 LIMIT 3";
+    $idioma = empty($this->getIdioma()) ? 1 : $this->getIdioma();
+    $sql = "SELECT p.*,(SELECT AVG(calificacion) FROM comentarios WHERE producto_id = p.id) AS promedio_calificacion FROM productos p WHERE idioma_id = $idioma AND parent_id = 1735804773 LIMIT 3";
     return $this->db->query($sql);
   }
 

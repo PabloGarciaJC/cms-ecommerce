@@ -165,7 +165,7 @@ class Categorias
         'categorias' => $listarCategorias,
         'productos' => $listarProductos,
       ];
-      
+
     } else {
 
       // Consulta base para productos y categorías
@@ -309,29 +309,6 @@ class Categorias
   }
 
   public function getBreadcrumbs()
-  {
-    $breadcrumbs = [];
-    $currentId = $this->getId();
-
-    while ($currentId) {
-      $sql = "SELECT id, nombre, parent_id, grupo_id FROM categorias WHERE grupo_id = $currentId";
-      $result = $this->db->query($sql);
-
-      if ($result && $row = $result->fetch_object()) {
-        array_unshift($breadcrumbs, [
-          'id' => $row->id,
-          'nombre' => $row->nombre,
-          'grupo_id' => $row->grupo_id
-        ]);
-        $currentId = $row->parent_id;
-      } else {
-        break;
-      }
-    }
-    return $breadcrumbs;
-  }
-
-  public function getBreadcrumbsFontend()
   {
     $breadcrumbs = [];
     $currentId = $this->getId();

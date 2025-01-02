@@ -228,22 +228,55 @@ class ProductoController extends HomeController
 
   public function moviles()
   {
-    $probject = new Productos();
-    $productos = $probject->movil();
+    $producto = new Productos();
+
+    switch ($_SESSION['lang']) {
+      case 'en':
+        $producto->setIdioma(2);
+        break;
+      case 'fr':
+        $producto->setIdioma(3);
+        break;
+      default:
+    }
+    
+    $productos = $producto->movil();
     require 'views/producto/lista.php';
   }
 
   public function tvAudios()
   {
-    $probject = new Productos();
-    $productos = $probject->tvAudios();
+    $producto = new Productos();
+
+    switch ($_SESSION['lang']) {
+      case 'en':
+        $producto->setIdioma(2);
+        break;
+      case 'fr':
+        $producto->setIdioma(3);
+        break;
+      default:
+    }
+
+    $productos = $producto->tvAudios();
     require 'views/producto/lista.php';
   }
 
   public function electrodomesticos()
   {
-    $probject = new Productos();
-    $productos = $probject->electrodomesticos();
+    $producto = new Productos();
+
+    switch ($_SESSION['lang']) {
+      case 'en':
+        $producto->setIdioma(2);
+        break;
+      case 'fr':
+        $producto->setIdioma(3);
+        break;
+      default:
+    }
+
+    $productos = $producto->electrodomesticos();
     require 'views/producto/lista.php';
   }
 }
