@@ -73,6 +73,8 @@ class LineaPedidos
     {
         $sql = "INSERT INTO linea_pedidos (pedido_id, producto_id, cantidad, precio) 
                 VALUES ({$this->getPedido_id()}, {$this->getProducto_id()}, {$this->getCantidad()}, {$this->getPrecio()})";
+
+                var_dump($sql);
         $save = $this->db->query($sql);
         return $save;
     }
