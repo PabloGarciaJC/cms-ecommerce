@@ -262,5 +262,22 @@ define('TEXT_ALERT_TITLE', '');
 define('TEXT_NOT_LOGGED_IN', '<strong>¡Atención!</strong> No has <a href="javascript:void(0)" data-toggle="modal" data-target="#exampleModal"> <i class="fas fa-sign-in-alt"></i> Iniciado sesión </a>');
 define('TEXT_NOT_REGISTER_IN', 'ó <a href="javascript:void(0)" data-toggle="modal" data-target="#exampleModal2"><i class="fas fa-user-plus"></i> Regístrate</a>');
 
+// Mensajes de validación en checkout
+define('ERROR_DIRECCION_EMPTY', 'La Dirección no puede estar vacía');
+define('ERROR_PAIS_EMPTY', 'El País no puede estar vacío');
+define('ERROR_CIUDAD_EMPTY', 'La Ciudad no puede estar vacía');
+define('ERROR_CODIGO_POSTAL_EMPTY', 'El Código Postal no puede estar vacío');
 
 
+// Mensajes de validación
+define('ERROR_NO_PRODUCTS_FOUND', 'No se han encontrado productos');
+define('ERROR_NO_SUBCATEGORY_FOUND', 'No se han encontrado Subcategorías');
+
+// Definición de los textos para el modal de usuarios ficticios
+define('TEXT_IMPORTANT_INFO_TITLE', 'Información Importante');
+define('TEXT_IMPORTANT_INFO_DESC', 'Los usuarios proporcionados son ficticios y están destinados para realizar pruebas.');
+define('TEXT_ADMINISTRATOR', 'Administrador');
+define('TEXT_ADMIN_EMAIL', 'admin@cms.com');
+define('TEXT_SELECT_HERE', 'Selecciona AQUÍ');
+define('TEXT_TEST_CLIENT', 'Cliente de Prueba');
+define('TEXT_TEST_CLIENT_EMAIL', 'cliente@user.com');

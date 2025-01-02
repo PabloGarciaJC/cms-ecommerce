@@ -102,7 +102,7 @@
 
 											<?php else: ?>
 												<div class="col-sm-6 multi-gd-img">
-													<p class="container">No se encontraron Subcategorías</p>
+													<p class="container"><?php echo ERROR_NO_SUBCATEGORY_FOUND; ?></p>
 												</div>
 											<?php endif; ?>
 
@@ -118,7 +118,7 @@
 												</div>
 											<?php else: ?>
 												<div class="col-sm-6 multi-gd-img">
-													<p class="container">No se encontraron Productos</p>
+													<p class="container"><?php echo ERROR_NO_PRODUCTS_FOUND; ?></p>
 												</div>
 											<?php endif; ?>
 										</div>

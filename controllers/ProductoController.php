@@ -137,6 +137,24 @@ class ProductoController
 
     public function checkoutGuardar()
     {
+        // $usuario = Utils::obtenerUsuario();
+        $categorias = new Categorias();
+
+        // Obtener todos los idiomas disponibles
+        $idiomas = new Idiomas();
+        $getIdiomas = $idiomas->obtenerTodos();
+
+        // Establecer el idioma
+        if (isset($_POST['lenguaje'])) {
+            $this->languageController->setIdioma($_POST['lenguaje']);
+        }
+
+        // Cargar los textos según el idioma seleccionado
+        $this->languageController->cargarTextos();
+
+        // Establecer el idioma a utilizar en Categorias
+        $categorias->setIdioma($this->languageController->getIdiomaId());
+
         // Verificar si hay productos en el carrito
         $productos = $_SESSION['productoLista'] ?? [];
 
@@ -165,19 +183,19 @@ class ProductoController
         $errores = [];
 
         if (empty($direccion)) {
-            $errores['direccion'] = 'La Direccion no puede estar vacía';
+            $errores['direccion'] = ERROR_DIRECCION_EMPTY;
         }
 
         if (empty($pais)) {
-            $errores['pais'] = 'El pais no puede estar vacía';
+            $errores['pais'] = ERROR_PAIS_EMPTY;
         }
 
         if (empty($ciudad)) {
-            $errores['ciudad'] = 'La ciudad no puede estar vacía';
+            $errores['ciudad'] = ERROR_CIUDAD_EMPTY;
         }
 
         if (empty($codigoPostal)) {
-            $errores['codigoPostal'] = 'El codigoPostal no puede estar vacía';
+            $errores['codigoPostal'] = ERROR_CODIGO_POSTAL_EMPTY;
         }
 
         if (count($errores) > 0) {

@@ -46,7 +46,7 @@
                             <?php
                             $items = $_SESSION['productoLista'] ?? [];
                             if (empty($items)) {
-                                echo '<tr><td colspan="5">No hay productos</td></tr>';
+                                echo '<tr><td colspan="5"> ' . ERROR_NO_PRODUCTS_FOUND . ' </td></tr>';
                             } else {
                                 $total = 0;
                                 foreach ($items as $index => $item) {

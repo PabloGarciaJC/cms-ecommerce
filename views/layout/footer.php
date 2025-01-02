@@ -148,28 +148,29 @@
 				<div class="modal-body">
 					<div class="mb-3 contn-info">
 						<div class="parrafo-info">
-							<h1 class="text-center title-info">Información Importante</h1>
-							Los usuarios proporcionados son ficticios y están destinados para realizar pruebas.
+							<h1 class="text-center title-info"><?php echo TEXT_IMPORTANT_INFO_TITLE; ?></h1>
+							<p><?php echo TEXT_IMPORTANT_INFO_DESC; ?></p>
 						</div>
 						<div class="row text-center">
 							<div class="col">
 								<div class="card user-card bg-light p-2" data-email="admin@cms.com" data-password="password">
-									<p class="mb-0 user-card-parrafo"><strong>Administrador</strong><br>admin@cms.com</p>
+									<p class="mb-0 user-card-parrafo"><strong><?php echo TEXT_ADMINISTRATOR; ?></strong><br><?php echo TEXT_ADMIN_EMAIL; ?></p>
 									<p class="text-center mt-2">
-										<a href="#" class="select-action">Selecciona AQUÍ</a>
+										<a href="#" class="select-action"><?php echo TEXT_SELECT_HERE; ?></a>
 									</p>
 								</div>
 							</div>
 							<div class="col">
 								<div class="card user-card bg-light p-2" data-email="cliente@user.com" data-password="password">
-									<p class="mb-0 user-card-parrafo"><strong>Cliente de Prueba</strong><br>cliente@user.com</p>
+									<p class="mb-0 user-card-parrafo"><strong><?php echo TEXT_TEST_CLIENT; ?></strong><br><?php echo TEXT_TEST_CLIENT_EMAIL; ?></p>
 									<p class="text-center mt-2">
-										<a href="#" class="select-action">Selecciona AQUÍ</a>
+										<a href="#" class="select-action"><?php echo TEXT_SELECT_HERE; ?></a>
 									</p>
 								</div>
 							</div>
 						</div>
 					</div>
+
 
 					<form action="javascript:void(0)" id="mdFormularioIniciarSesion" method="POST">
 						<div id="respuestaPhpIniciarSesion" style="text-align: center; display: none"></div>
