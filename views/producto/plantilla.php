@@ -1,6 +1,6 @@
 <div class="col-md-4 product-men mt-5 animation__fade-in-upscale">
     <div class="men-pro-item simpleCart_shelfItem">
-        <div class="men-thumb-item text-center">
+        <a href="<?php echo BASE_URL ?>Producto/ficha?id=<?php echo urlencode($prod->id); ?>&parent_id=<?php echo urlencode($prod->parent_id); ?>" class="men-thumb-item text-center">
             <?php
             $imagenes = trim($prod->imagenes, '"');
             $imagenes_array = json_decode($imagenes);
@@ -15,7 +15,7 @@
                     <a href="<?php echo BASE_URL ?>Producto/ficha?id=<?php echo urlencode($prod->id); ?>&parent_id=<?php echo urlencode($prod->parent_id); ?>" class="link-product-add-cart"><?php echo TEXT_QUICK_VIEW; ?></a>
                 </div>
             </div>
-        </div>
+        </a>
         <div class="item-info-product text-center border-top mt-4">
             <h4 class="pt-1">
                 <a href="<?php echo BASE_URL ?>Producto/ficha?id=<?php echo urlencode($prod->id); ?>&parent_id=<?php echo urlencode($prod->parent_id); ?>"><?php echo $prod->nombre; ?></a>

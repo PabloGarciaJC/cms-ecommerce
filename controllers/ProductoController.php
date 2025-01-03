@@ -155,21 +155,23 @@ class ProductoController
         // Establecer el idioma a utilizar en Categorias
         $categorias->setIdioma($this->languageController->getIdiomaId());
 
-        // Verificar si hay productos en el carrito
-        $productos = $_SESSION['productoLista'] ?? [];
-
-        // Calcular el coste total
-        $total = 0;
-        foreach ($productos as $producto) {
-            $total += $producto['price'] * $producto['quantity'];
-        }
-
+  
         $usuarioId = isset($_POST['usuario_id']) ? trim($_POST['usuario_id']) : false;
         $direccion = isset($_POST['direccion']) ? trim($_POST['direccion']) : false;
         $pais = isset($_POST['pais']) ? trim($_POST['pais']) : false;
         $ciudad = isset($_POST['ciudad']) ? trim($_POST['ciudad']) : false;
         $codigoPostal = isset($_POST['codigoPostal']) ? trim($_POST['codigoPostal']) : false;
 
+
+        $productos = $_POST['productos'] ?? [];
+
+        $total = 0;
+        foreach ($productos as $producto) {
+            $cantidad = isset($producto['quantity']) ? (int)$producto['quantity'] : 0;
+            $precio = isset($producto['price']) ? (float)$producto['price'] : 0.0;
+            $total += $cantidad * $precio;   
+        }
+      
         // Crear una instancia del modelo Pedidos
         $pedido = new Pedidos();
         $pedido->setUsuario_id($usuarioId);
@@ -201,7 +203,7 @@ class ProductoController
         if (!isset($_SESSION['usuarioRegistrado'])) {
             $errores['usuarioRegistrado'] = "<div>" . TEXT_NOT_LOGGED_IN . "</div><div>" . TEXT_NOT_REGISTER_IN . "</div>";
         }
-        
+
         if (count($errores) > 0) {
             $_SESSION['errores'] = $errores;
             $_SESSION['form'] = $_POST;

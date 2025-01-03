@@ -10,7 +10,7 @@
                 <table class="table table-bordered">
                     <tr>
                         <th>Usuario</th>
-                        <td><?php echo $pedidoDetails->usuario_id; ?></td>
+                        <td><?php echo $pedidoDetails->nombre_usuario; ?></td>
                     </tr>
                     <tr>
                         <th>Productos</th>

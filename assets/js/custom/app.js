@@ -46,40 +46,9 @@ class App {
 
       // Función para manejar el cambio de imágenes y la vista previa
       function handleImageChange(inputSelector) {
-        // $(inputSelector).on('change', function (event) {
-        //   let files = event.target.files;
-        //   let $previewContainer = $('#imagePreview');
-        //   $previewContainer.empty();
-
-        //   // Limpiar el arreglo de archivos
-        //   imageFiles = [];
-
-        //   // Mostrar todas las imágenes seleccionadas
-        //   $.each(files, function (i, file) {
-        //     let reader = new FileReader();
-
-        //     reader.onload = function (e) {
-        //       let $imgContainer = $('<div>').addClass('panel-admin__image-container');
-        //       let $imgElement = $('<img>')
-        //         .attr('src', e.target.result)
-        //         .addClass('panel-admin__image-thumbnail');
-
-        //       // Añadir archivo al arreglo de archivos para gestión posterior
-        //       imageFiles.push(file);
-
-        //       // Añadir la imagen al contenedor
-        //       $imgContainer.append($imgElement);
-        //       $previewContainer.append($imgContainer);
-        //     };
-
-        //     reader.readAsDataURL(file);
-        //   });
-        // });
-
         $('input[type="file"]').on('change', function (event) {
           var previewContainer = $('#imagePreview-' + this.id.split('-')[1]);
-          previewContainer.empty(); // Limpia las imágenes anteriores
-
+          previewContainer.empty();
           $.each(this.files, function (index, file) {
             var reader = new FileReader();
             reader.onload = function (e) {
@@ -92,9 +61,7 @@ class App {
 
       }
 
-      // Llamamos a la función `handleImageChange` para cada selector
       handleImageChange('#productImages');
-      // handleImageChange('#categoriaImages');
     }
 
 
@@ -281,8 +248,6 @@ class App {
       });
     }
 
-
-
     // Script para llenar los campos con usuarios de prueba 
     let userCards = document.querySelectorAll('.user-card');
     let emailInput = document.getElementById('mdEmailIniciarSesion');
@@ -329,8 +294,7 @@ class App {
       });
     });
 
-
-    /* Campo de Pestaña Panel Administrativo */
+    //  Campo de Pestaña Panel Administrativo
     $('#languageTabs a').on('click', function (e) {
       e.preventDefault();
       $(this).tab('show');
@@ -349,6 +313,70 @@ class App {
           reader.readAsDataURL(file);
         });
       }
+    });
+
+    // Carrito de Compras en Checkout 
+    let buttonsIncrease = document.querySelectorAll('.btn-increase');
+    let buttonsDecrease = document.querySelectorAll('.btn-decrease');
+    let totalPriceElement = document.getElementById('total-price');
+
+    // Actualizar el total
+    function updateTotal() {
+      let total = 0;
+      document.querySelectorAll('.price-item').forEach(function (priceItem) {
+        total += parseFloat(priceItem.textContent.replace('$', '').replace(',', ''));
+      });
+      totalPriceElement.textContent = '$' + total.toFixed(2);
+    }
+
+    // Incrementar cantidad
+    buttonsIncrease.forEach(button => {
+      button.addEventListener('click', function () {
+        let index = this.getAttribute('data-index');
+        let quantitySpan = document.querySelector('.quantity-value[data-index="' + index + '"]');
+        let quantity = parseInt(quantitySpan.textContent);
+        quantity++;
+        quantitySpan.textContent = quantity;
+
+        // Actualizar valor en el input hidden
+        let hiddenQuantityInput = document.getElementById('quantity-' + index);
+        hiddenQuantityInput.value = quantity;
+
+        // Actualizar el precio por artículo
+        let pricePerItem = document.querySelector('.price-per-item[data-index="' + index + '"]');
+        let price = parseFloat(pricePerItem.value);
+        let priceItemSpan = document.querySelector('.price-item[data-index="' + index + '"]');
+        priceItemSpan.textContent = (price * quantity).toFixed(2);
+
+        // Actualizar el total
+        updateTotal();
+      });
+    });
+
+    // Decrementar cantidad
+    buttonsDecrease.forEach(button => {
+      button.addEventListener('click', function () {
+        let index = this.getAttribute('data-index');
+        let quantitySpan = document.querySelector('.quantity-value[data-index="' + index + '"]');
+        let quantity = parseInt(quantitySpan.textContent);
+        if (quantity > 1) {
+          quantity--;
+          quantitySpan.textContent = quantity;
+
+          // Actualizar valor en el input hidden
+          let hiddenQuantityInput = document.getElementById('quantity-' + index);
+          hiddenQuantityInput.value = quantity;
+
+          // Actualizar el precio por artículo
+          let pricePerItem = document.querySelector('.price-per-item[data-index="' + index + '"]');
+          let price = parseFloat(pricePerItem.value);
+          let priceItemSpan = document.querySelector('.price-item[data-index="' + index + '"]');
+          priceItemSpan.textContent = (price * quantity).toFixed(2);
+
+          // Actualizar el total
+          updateTotal();
+        }
+      });
     });
 
   }

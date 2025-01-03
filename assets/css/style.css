@@ -705,6 +705,27 @@ h3.tittle-w3l span {
     top: 81%;
 }
 
+.men-pro-item.simpleCart_shelfItem {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Mostrar la caja del carrito solo cuando se hace hover */
+.men-pro-item.simpleCart_shelfItem:hover .men-cart-pro {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Asegurar que el link de "Quick View" esté visible y encima de otros elementos */
+.men-pro-item.simpleCart_shelfItem:hover .inner-men-cart-pro .link-product-add-cart {
+    top: 40%;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    z-index: 20;
+}
+
+
 .link-product-add-cart:hover {
     background: rgba(0, 0, 0, 0.56);
     color: #fff;
