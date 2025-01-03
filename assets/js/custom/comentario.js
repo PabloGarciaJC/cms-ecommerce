@@ -53,11 +53,15 @@ class Commentario {
                     if (data.success) {
                         Swal.fire({
                             title: "Completado",
-                            text: data.message, 
+                            text: data.message,
                             icon: "success",
-                            timer: 2000,
+                            timer: 800,
                             showConfirmButton: false
-                        })
+                        });
+                        // Limpiar el textarea
+                        $('#comentario').val('');
+                        // Desmarcar las estrellas
+                        $('input[name="calificacion"]').prop('checked', false);
                     } else {
                         Swal.fire({
                             html: `<ul style="text-align: left;">${data.errors.map(error => `<li>${error}</li>`).join('')}</ul>`,

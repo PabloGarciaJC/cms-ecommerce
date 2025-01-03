@@ -29,9 +29,7 @@
                                 <th class="text-center align-middle">Total</th>
                                 <th class="text-center align-middle">Fecha</th>
                                 <th class="text-center align-middle">Estado</th>
-                                <?php if ($_SESSION['usuarioRegistrado']->rol_nombre == 'Admin'): ?>
-                                    <th class="text-center align-middle">Acciones</th>
-                                <?php endif; ?>
+                                <th class="text-center align-middle">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -58,6 +56,9 @@
                                     <?php else: ?>
                                         <td class="text-center align-middle">
                                             <?php echo $pedido->estado; ?>
+                                        </td>
+                                        <td class="align-middle">
+                                            <a href="<?php echo BASE_URL; ?>Admin/detallePedido?id=<?php echo $pedido->pedido_id; ?>&url=listaPedidos" class="btn btn-info btn-sm">Ver Detalles</a>
                                         </td>
                                     <?php endif; ?>
                                     <?php if ($_SESSION['usuarioRegistrado']->rol_nombre == 'Admin'): ?>

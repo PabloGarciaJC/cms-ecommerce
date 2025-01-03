@@ -176,17 +176,36 @@ class Pedidos
     public function obtenerPorId($id)
     {
         $result = null;
-
-        $sql = "SELECT * FROM pedidos WHERE id = {$id}";
+    
+        $sql = "SELECT pedidos.id AS pedido_id, 
+                       pedidos.usuario_id, 
+                       pedidos.direccion, 
+                       pedidos.codigoPostal, 
+                       pedidos.pais, 
+                       pedidos.ciudad, 
+                       usuarios.Usuario AS nombre_usuario, 
+                       GROUP_CONCAT(CONCAT(productos.nombre, ' <strong>(x', linea_pedidos.cantidad, ')</strong>') SEPARATOR ', ') AS productos, 
+                       pedidos.coste, 
+                       pedidos.estado, 
+                       pedidos.fecha, 
+                       pedidos.hora 
+                FROM pedidos
+                INNER JOIN usuarios ON pedidos.usuario_id = usuarios.id
+                LEFT JOIN linea_pedidos ON pedidos.id = linea_pedidos.pedido_id
+                LEFT JOIN productos ON linea_pedidos.producto_id = productos.id
+                WHERE pedidos.id = {$id}
+                GROUP BY pedidos.id";
+    
         $query = $this->db->query($sql);
-
+    
         if ($query && $query->num_rows == 1) {
             $result = $query->fetch_object();
         }
-
+    
         return $result;
     }
-
+    
+    
     public function obtenerEstados()
     {
         return ['Pendiente', 'Enviado', 'Entregado', 'Cancelado'];
@@ -252,12 +271,19 @@ class Pedidos
     {
         $result = [];
 
-        $sql = "SELECT pedidos.id AS pedido_id, usuarios.Usuario AS nombre_usuario, GROUP_CONCAT(CONCAT(productos.nombre, ' (x', linea_pedidos.cantidad, ')') SEPARATOR ', ') AS productos, pedidos.coste, pedidos.estado, pedidos.fecha, pedidos.hora FROM pedidos
+        $sql = "SELECT pedidos.id AS pedido_id, 
+                usuarios.Usuario AS nombre_usuario, 
+                GROUP_CONCAT(CONCAT(productos.nombre, ' <strong>(x', linea_pedidos.cantidad, ')</strong>') SEPARATOR ', ') AS productos, 
+                pedidos.coste, 
+                pedidos.estado, 
+                pedidos.fecha, 
+                pedidos.hora 
+                FROM pedidos
                 INNER JOIN usuarios ON pedidos.usuario_id = usuarios.id
                 LEFT JOIN linea_pedidos ON pedidos.id = linea_pedidos.pedido_id
                 LEFT JOIN productos ON linea_pedidos.producto_id = productos.id
                 GROUP BY pedidos.id";
-
+            
         $query = $this->db->query($sql);
 
         while ($row = $query->fetch_object()) {

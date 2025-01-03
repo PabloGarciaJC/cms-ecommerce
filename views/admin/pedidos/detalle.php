@@ -4,13 +4,17 @@
     <?php include __DIR__ . '../../layout/sidebar.php'; ?>
     <main class="panel-admin__main-content">
         <section class="panel-admin__dashboard">
-            <h2 class="panel-admin__dashboard-title">Detalle del Pedido #<?php echo $pedidoDetails->id; ?></h2>
+            <h2 class="panel-admin__dashboard-title">Detalle del Pedido #<?php echo $pedidoDetails->pedido_id; ?></h2>
 
             <div class="panel-admin__category-list">
                 <table class="table table-bordered">
                     <tr>
                         <th>Usuario</th>
-                        <td><?php echo $pedidoDetails->usuario_id; ?> <!-- Aquí podrías agregar un JOIN con el usuario si es necesario para mostrar el nombre --> </td>
+                        <td><?php echo $pedidoDetails->usuario_id; ?></td>
+                    </tr>
+                    <tr>
+                        <th>Productos</th>
+                        <td><?php echo $pedidoDetails->productos; ?></td>
                     </tr>
                     <tr>
                         <th>Dirección</th>
@@ -47,7 +51,7 @@
                 </table>
             </div>
 
-            <a href="<?php echo BASE_URL; ?>Admin/dashboard" class="btn btn-primary btn-sm">Volver a la lista de pedidos</a>
+            <a href="<?php echo BASE_URL; ?>Admin/<?php echo isset($_GET['url']) ? $_GET['url'] : false; ?>" class="btn btn-primary btn-sm">Volver a la lista de pedidos</a>
 
         </section>
     </main>

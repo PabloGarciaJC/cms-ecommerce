@@ -168,24 +168,12 @@
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<?php unset($_SESSION['exito'], $_SESSION['messageClass'], $_SESSION['icon']); ?>
-			<?php endif; ?>
-
-			<?php if (isset($_SESSION['errores'])) : ?>
-				<div class="alert alert-danger">
-					<ul>
-						<?php foreach ($_SESSION['errores'] as $error) : ?>
-							<li><?php echo $error; ?></li>
-						<?php endforeach; ?>
-					</ul>
-				</div>
-				<?php unset($_SESSION['errores']); ?>
 			<?php endif; ?>
 
 			<div class="ficha-producto__product-review">
 				<form action="<?php echo BASE_URL ?>Comentario/guardar" method="POST" id="reviewForm">
 					<input type="hidden" name="producto_id" value="<?php echo $productoFicha->id; ?>" />
-					<input type="hidden" name="usuario_id" value="<?php echo $usuario->Id; ?>" />
+					<input type="hidden" name="usuario_id" value="<?php echo isset($usuario->Id) ? $usuario->Id : false ?>" />
 					<div class="ficha-producto__form-group">
 						<textarea id="comentario" name="comentario" class="ficha-producto__form-control" rows="4" placeholder="<?php echo TEXT_LEAVE_COMMENT_PLACEHOLDER; ?>" required><?php echo isset($_SESSION['form']['comentario']) ? htmlspecialchars($_SESSION['form']['comentario'], ENT_QUOTES, 'UTF-8') : ''; ?></textarea>
 					</div>
@@ -203,7 +191,6 @@
 				</form>
 			</div>
 		</div>
-		<?php unset($_SESSION['form'], $_SESSION['errores']); ?>
 	</div>
 
 	<div class="ficha-producto__tab-content" id="highest-rated-content">
@@ -252,3 +239,5 @@
 		</div>
 	</div>
 </div>
+
+<?php unset($_SESSION['form'], $_SESSION['errores']); ?>

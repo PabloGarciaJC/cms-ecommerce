@@ -198,6 +198,10 @@ class ProductoController
             $errores['codigoPostal'] = ERROR_CODIGO_POSTAL_EMPTY;
         }
 
+        if (!isset($_SESSION['usuarioRegistrado'])) {
+            $errores['usuarioRegistrado'] = "<div>" . TEXT_NOT_LOGGED_IN . "</div><div>" . TEXT_NOT_REGISTER_IN . "</div>";
+        }
+        
         if (count($errores) > 0) {
             $_SESSION['errores'] = $errores;
             $_SESSION['form'] = $_POST;
