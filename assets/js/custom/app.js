@@ -283,7 +283,6 @@ class App {
         // Desactilet todas las pestañas
         document.querySelectorAll('.ficha-producto__tab').forEach(t => t.classList.remove('ficha-producto__tab--active'));
         document.querySelectorAll('.ficha-producto__tab-content').forEach(content => content.classList.remove('ficha-producto__tab-content--active'));
-
         // Actilet la pestaña seleccionada
         this.classList.add('ficha-producto__tab--active');
         document.getElementById(this.id.replace('-tab', '-content')).classList.add('ficha-producto__tab-content--active');
@@ -374,7 +373,6 @@ class App {
         }
       });
     });
-
   }
 
   // Iniciar aplicación

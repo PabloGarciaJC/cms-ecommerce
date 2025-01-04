@@ -155,14 +155,11 @@ class ProductoController
         // Establecer el idioma a utilizar en Categorias
         $categorias->setIdioma($this->languageController->getIdiomaId());
 
-  
         $usuarioId = isset($_POST['usuario_id']) ? trim($_POST['usuario_id']) : false;
         $direccion = isset($_POST['direccion']) ? trim($_POST['direccion']) : false;
         $pais = isset($_POST['pais']) ? trim($_POST['pais']) : false;
         $ciudad = isset($_POST['ciudad']) ? trim($_POST['ciudad']) : false;
         $codigoPostal = isset($_POST['codigoPostal']) ? trim($_POST['codigoPostal']) : false;
-
-
         $productos = $_POST['productos'] ?? [];
 
         $total = 0;

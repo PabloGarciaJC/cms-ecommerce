@@ -394,8 +394,6 @@ class AdminController
             'id_idioma' => isset($_POST['id_idioma']) ? $_POST['id_idioma'] : [],
         ];
 
-
-
         $editId = isset($_POST['editid']) ? $_POST['editid'] : false;
         $deleteId = isset($_POST['deleteid']) ? $_POST['deleteid'] : false;
         $parentid = isset($_POST['parentid']) ? $_POST['parentid'] : false;

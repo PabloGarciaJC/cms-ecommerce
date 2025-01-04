@@ -268,7 +268,6 @@ define('ERROR_PAIS_EMPTY', 'El País no puede estar vacío');
 define('ERROR_CIUDAD_EMPTY', 'La Ciudad no puede estar vacía');
 define('ERROR_CODIGO_POSTAL_EMPTY', 'El Código Postal no puede estar vacío');
 
-
 // Mensajes de validación
 define('ERROR_NO_PRODUCTS_FOUND', 'No se han encontrado productos');
 define('ERROR_NO_SUBCATEGORY_FOUND', 'No se han encontrado Subcategorías');
@@ -281,3 +280,10 @@ define('TEXT_ADMIN_EMAIL', 'admin@cms.com');
 define('TEXT_SELECT_HERE', 'Selecciona AQUÍ');
 define('TEXT_TEST_CLIENT', 'Cliente de Prueba');
 define('TEXT_TEST_CLIENT_EMAIL', 'cliente@user.com');
+
+// Definición de los textos Favoritos
+define('TEXT_PRODUCT_SAVE_FAVORITE', 'Guardar en Favoritos');
+
+
+
+

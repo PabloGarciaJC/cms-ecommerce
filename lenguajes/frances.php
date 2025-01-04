@@ -272,3 +272,7 @@ define('TEXT_ADMIN_EMAIL', 'admin@cms.com');
 define('TEXT_SELECT_HERE', 'Sélectionner ICI');
 define('TEXT_TEST_CLIENT', 'Client de Test');
 define('TEXT_TEST_CLIENT_EMAIL', 'cliente@user.com');
+
+// Definición de los textos Favoritos
+define('TEXT_PRODUCT_SAVE_FAVORITE', 'Enregistrer dans les Favoris');
+

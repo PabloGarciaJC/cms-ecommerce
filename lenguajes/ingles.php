@@ -265,7 +265,6 @@ define('ERROR_CODIGO_POSTAL_EMPTY', 'The Postal Code cannot be empty');
 define('ERROR_NO_PRODUCTS_FOUND', 'No products found');
 define('ERROR_NO_SUBCATEGORY_FOUND', 'No categories found');
 
-
 // Definición de los textos para el modal de usuarios ficticios
 define('TEXT_IMPORTANT_INFO_TITLE', 'Important Information');
 define('TEXT_IMPORTANT_INFO_DESC', 'The provided users are fictitious and are meant for testing purposes.');
@@ -274,3 +273,10 @@ define('TEXT_ADMIN_EMAIL', 'admin@cms.com');
 define('TEXT_SELECT_HERE', 'Select HERE');
 define('TEXT_TEST_CLIENT', 'Test Client');
 define('TEXT_TEST_CLIENT_EMAIL', 'cliente@user.com');
+
+// Definición de los textos Favoritos
+define('TEXT_PRODUCT_SAVE_FAVORITE', 'Save to Favorites');
+
+
+
+
