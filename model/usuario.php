@@ -320,7 +320,7 @@ class Usuario
 
   public function obtenerTodosLosUsuarios()
   {
-    $sql = "SELECT * FROM usuarios";
+    $sql = "SELECT u.*, r.* FROM usuarios u INNER JOIN roles r ON u.Rol = r.id";
     $resultado = $this->db->query($sql);
 
     return $resultado;

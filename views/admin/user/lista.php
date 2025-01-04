@@ -38,7 +38,7 @@
                                 <td class="text-center align-middle"><?php echo $usuario->Pais; ?></td>
                                 <td class="text-center align-middle"><?php echo $usuario->Ciudad; ?></td>
                                 <td class="text-center align-middle"><?php echo $usuario->CodigoPostal; ?></td>
-                                <td class="text-center align-middle"><?php echo $usuario->Rol; ?></td>
+                                <td class="text-center align-middle"><?php echo $usuario->nombre; ?></td>
                                 <td class="text-center align-middle">
                                     <?php if ($usuario->imagen): ?>
                                         <img src="<?php echo $usuario->imagen; ?>" alt="Imagen de Usuario" width="50">

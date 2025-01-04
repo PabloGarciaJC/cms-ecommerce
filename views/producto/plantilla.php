@@ -28,10 +28,10 @@
                     <?php
                     if (!empty($prod->oferta) && $prod->oferta > 0) {
                         $precio_con_descuento = $prod->precio - $prod->oferta;
-                        echo '<span class="item_price">' . intval($prod->precio - $prod->oferta) . '$</span>';
+                        echo '<span class="item_price">Precio: $' . intval($prod->precio - $prod->oferta) . '</span>';
                         echo '<del>' . intval($prod->precio) . '$</del>';
                     } else {
-                        echo '<span class="item_price">' . intval($prod->precio) . '$</span>';
+                        echo '<span class="item_price">Precio: $' . intval($prod->precio) . '</span>';
                     }
                     ?>
                 </div>

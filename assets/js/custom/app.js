@@ -64,7 +64,6 @@ class App {
       handleImageChange('#productImages');
     }
 
-
     changeIndividual();
     changeMulti();
   }
@@ -159,9 +158,6 @@ class App {
         if (entry.isIntersecting) {
           let index = Array.from(bannerWrappers).indexOf(entry.target);
           applyAnimation(entry.target, index); // Aplica la animación
-
-          // Mostrar el log cuando se detecta el elemento
-          console.log(`Elemento ${entry.target} detectado. Índice: ${index}`);
 
           // Marcar el elemento como animado para evitar reanimaciones
           entry.target.classList.add('animation-applied');
