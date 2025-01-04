@@ -70,8 +70,6 @@ class CatalogoController
   {
     // Extraer los datos comunes para la vista
     extract($this->cargarDatosComunes());
-
-    // Incluir las vistas necesarias para el catálogo
     require_once 'views/layout/head.php';
     require_once 'views/layout/header.php';
     require_once 'views/layout/search.php';

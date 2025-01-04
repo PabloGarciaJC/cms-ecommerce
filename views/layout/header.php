@@ -88,7 +88,6 @@
 								<div class="dropdown-menu multi-level-dropdown">
 									<div class="agile_inner_drop_nav_info p-4">
 										<div class="row">
-
 											<!-- Subcategorías -->
 											<?php if (isset($item['subcategorias']) && $item['subcategorias']->num_rows > 0) : ?>
 												<div class="col-sm-6 multi-gd-img">
@@ -99,13 +98,11 @@
 														<?php endwhile; ?>
 													</ul>
 												</div>
-
 											<?php else: ?>
 												<div class="col-sm-6 multi-gd-img">
 													<p class="container"><?php echo ERROR_NO_SUBCATEGORY_FOUND; ?></p>
 												</div>
 											<?php endif; ?>
-
 											<!-- Productos -->
 											<?php if (isset($item['productos']) && $item['productos']->num_rows > 0) : ?>
 												<div class="col-sm-6 multi-gd-img">

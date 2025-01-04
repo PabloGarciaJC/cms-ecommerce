@@ -19,15 +19,17 @@
             </ul>
         </nav>
     </div>
-    <div class="filter-container">
-        <form method="GET" action="<?= BASE_URL ?>Catalogo/index" class="d-flex w-100">
-            <input type="hidden" name="parent_id" value="<?= $_GET['parent_id'] ?? ''; ?>" />
-            <input type="hidden" name="textoBusqueda" value="<?= $_GET['textoBusqueda'] ?? ''; ?>" />
-            <input type="text" name="minPrecio" placeholder="Precio mínimo" value="<?= $_GET['minPrecio'] ?? ''; ?>" />
-            <input type="text" name="maxPrecio" placeholder="Precio máximo" value="<?= $_GET['maxPrecio'] ?? ''; ?>" />
-            <button type="submit"><?php echo TEXT_TITLE_FILTRO; ?></button>
-        </form>
-    </div>
+    <?php if (!empty($getCategorias['productos']) && $getCategorias['productos']->num_rows > 0) : ?>
+        <div class="filter-container">
+            <form method="GET" action="<?= BASE_URL ?>Catalogo/index" class="d-flex w-100">
+                <input type="hidden" name="parent_id" value="<?= $_GET['parent_id'] ?? ''; ?>" />
+                <input type="hidden" name="textoBusqueda" value="<?= $_GET['textoBusqueda'] ?? ''; ?>" />
+                <input type="text" name="minPrecio" placeholder="Precio mínimo" value="<?= $_GET['minPrecio'] ?? ''; ?>" />
+                <input type="text" name="maxPrecio" placeholder="Precio máximo" value="<?= $_GET['maxPrecio'] ?? ''; ?>" />
+                <button type="submit"><?php echo TEXT_TITLE_FILTRO; ?></button>
+            </form>
+        </div>
+    <?php endif; ?>
 </div>
 
 <!-- Componente en el Fichero de Catalogo -->
