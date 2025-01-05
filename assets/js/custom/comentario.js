@@ -52,20 +52,25 @@ class Commentario {
                     const data = JSON.parse(response);
                     if (data.success) {
                         Swal.fire({
-                            title: "Completado",
-                            text: data.message,
+                            title: data.titulo,
                             icon: "success",
-                            timer: 800,
-                            showConfirmButton: false
+                            showConfirmButton: false,
+                            confirmButtonText: data.boton,
+                            timer: 1000
                         });
                         $('#comentario').val('');
                         $('input[name="calificacion"]').prop('checked', false);
                     } else {
+                        let errorMessage = "";
+                        data.message.forEach(function (error) {
+                          errorMessage += `<p style="color: red;text-align: justify;"><i class="fa fa-times-circle"></i> ${error}</p>`;
+                        });
+                        
                         Swal.fire({
-                            title: "Errores al Comentar",
-                            html: `${data.errors.map(error => `<p style="color: red;text-align: justify;"><i class="fa fa-times-circle"></i> ${error}</p>`).join('')}`,
+                            title: data.titulo,
                             icon: "error",
-                            showConfirmButton: true
+                            html: errorMessage,
+                            confirmButtonText: data.boton
                         });
                     }
                 },

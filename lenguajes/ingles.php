@@ -302,3 +302,11 @@ define('TEXT_LOGIN_ERRORS_TITLE', 'Login Errors');
 define('TEXT_LOGIN_SUCCESS_TITLE', 'Login Successful');
 define('TEXT_EMAIL_NOT_REGISTERED', 'Email is not registered');
 define('TEXT_INCORRECT_PASSWORD', 'Password is incorrect');
+
+// Definitions of comment error texts
+define('TEXT_COMMENT_ERRORS_TITLE', 'Errors saving the comment');
+define('TEXT_COMMENT_NOT_REGISTERED', 'You must be registered to comment.');
+define('TEXT_COMMENT_REQUIRED', 'Comment is required.');
+define('TEXT_RATING_REQUIRED', 'Rating is required.');
+define('TEXT_INVALID_PRODUCT', 'The selected product is invalid.');
+define('TEXT_COMMENT_SAVE_SUCCESS', 'Comment saved successfully.');

@@ -310,6 +310,14 @@ define('TEXT_LOGIN_SUCCESS_TITLE', 'Inicio de sesión exitoso');
 define('TEXT_EMAIL_NOT_REGISTERED', 'El correo electrónico no está registrado');
 define('TEXT_INCORRECT_PASSWORD', 'La contraseña es incorrecta');
 
+// Definición de los textos errores comentarios
+define('TEXT_COMMENT_ERRORS_TITLE', 'Errores al guardar el comentario');
+define('TEXT_COMMENT_NOT_REGISTERED', 'Debes estar registrado para poder comentar.');
+define('TEXT_COMMENT_REQUIRED', 'El comentario es obligatorio.');
+define('TEXT_RATING_REQUIRED', 'La calificación es obligatoria');
+define('TEXT_INVALID_PRODUCT', 'El producto seleccionado no es válido.');
+define('TEXT_COMMENT_SAVE_SUCCESS', 'Comentario guardado exitosamente.');
+
 
 
 

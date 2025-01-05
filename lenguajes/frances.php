@@ -302,6 +302,14 @@ define('TEXT_LOGIN_SUCCESS_TITLE', 'Connexion réussie');
 define('TEXT_EMAIL_NOT_REGISTERED', 'L\'email n\'est pas enregistré');
 define('TEXT_INCORRECT_PASSWORD', 'Le mot de passe est incorrect');
 
+// Définition des textes d'erreur des commentaires
+define('TEXT_COMMENT_ERRORS_TITLE', 'Erreurs lors de l\'enregistrement du commentaire');
+define('TEXT_COMMENT_NOT_REGISTERED', 'Vous devez être enregistré pour pouvoir commenter.');
+define('TEXT_COMMENT_REQUIRED', 'Le commentaire est obligatoire.');
+define('TEXT_RATING_REQUIRED', 'La note est obligatoire.');
+define('TEXT_INVALID_PRODUCT', 'Le produit sélectionné n\'est pas valide.');
+define('TEXT_COMMENT_SAVE_SUCCESS', 'Commentaire enregistré avec succès.');
+
 
 
 
