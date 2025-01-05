@@ -2,12 +2,7 @@
 
 class Utils
 {
-  //muestro errores modal
-  public static function setearMensajeError($idMensaje, $mensajeError)
-  {
-    return "<script>document.getElementById('$idMensaje').innerHTML='<strong>Error,</strong> $mensajeError';</script>";
-  }
-
+  
   public static function accesoUsuarioRegistrado()
   {
     if (!isset($_SESSION['usuarioRegistrado'])) {

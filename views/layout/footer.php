@@ -171,18 +171,14 @@
 						</div>
 					</div>
 
-
-					<form action="javascript:void(0)" id="mdFormularioIniciarSesion" method="POST">
-						<div id="respuestaPhpIniciarSesion" style="text-align: center; display: none"></div>
+					<form action="<?php echo BASE_URL; ?>Usuario/IniciarSesion" class="formulario-iniciar-sesion" method="POST">
 						<div class="form-group">
 							<label class="col-form-label"><?php echo TEXT_MODAL_EMAIL_LABEL; ?></label>
-							<input type="text" id="mdEmailIniciarSesion" class="form-control" name="Name">
-							<div id="mdErrorEmailIniciarSesionPhp" style="color: red;"></div>
+							<input type="email" class="form-control" name="email">
 						</div>
 						<div class="form-group">
 							<label class="col-form-label"><?php echo TEXT_MODAL_PASSWORD_LABEL; ?></label>
-							<input type="password" id="mdPasswordIniciarSesion" class="form-control" name="Password">
-							<div id="mdErrorPasswordIniciarSesionPhp" style="color: red;"></div>
+							<input type="password" class="form-control" name="password">
 						</div>
 						<div class="right-w3l">
 							<input type="submit" class="form-control" value="<?php echo TEXT_MODAL_CONTINUE_BUTTON; ?>">
@@ -207,34 +203,28 @@
 					</button>
 				</div>
 				<div class="modal-body">
-					<form action="<?php echo BASE_URL; ?>" method="POST" id="mdFormularioRegistro">
-						<div id="respuestaPhpRegistro" style="text-align: center; display: none"></div>
-						<div class="form-group cErrorUsuario">
+					<form action="<?php echo BASE_URL; ?>Usuario/registro" method="POST" class="formulario-registro">
+						<div class="form-group">
 							<label class="col-form-label "><?php echo TEXT_MODAL_ALIAS_LABEL; ?></label>
-							<input type="text" class="form-control" id="mdUsuarioRegistro" name="usuario">
-							<div id="mdErrorUsuarioPhp" style="color: red;"></div>
+							<input type="text" class="form-control" name="usuario">
 						</div>
-						<div class="form-group cErrorEmail">
+						<div class="form-group">
 							<label class="col-form-label"><?php echo TEXT_MODAL_EMAIL_LABEL_REGISTER; ?></label>
-							<input type="text" class="form-control" id="mdEmailRegistro" name="email">
-							<div id="mdErrorEmailPhp" style="color: red;"></div>
+							<input type="email" class="form-control" name="email">
 						</div>
-						<div class="form-group cErrorPassword">
+						<div class="form-group">
 							<label class="col-form-label "><?php echo TEXT_MODAL_PASSWORD_LABEL_REGISTER; ?></label>
-							<input type="password" class="form-control" id="mdPasswordRegistro" name="password">
-							<div id="mdErrorPasswordPhp" style="color: red;"></div>
+							<input type="password" class="form-control" name="password">
 						</div>
-						<div class="form-group cErrorConfirmarPassword">
+						<div class="form-group">
 							<label class="col-form-label "><?php echo TEXT_MODAL_CONFIRM_PASSWORD_LABEL; ?></label>
-							<input type="password" class="form-control" id="mdConfirmarPasswordRegistro" name="confirmarPassword">
-							<div id="mdErrorConfirmarPasswordPhp" style="color: red;"></div>
+							<input type="password" class="form-control" name="confirmarPassword">
 						</div>
-						<div class="sub-w3l cErrorChecked">
-							<div class="custom-control custom-checkbox mr-sm-2 ">
+						<div class="sub-w3l">
+							<div class="custom-control custom-checkbox mr-sm-2">
 								<input type="checkbox" class="custom-control-input" id="mdCheckedRegistro" name="checked">
 								<label class="custom-control-label" for="mdCheckedRegistro"><?php echo TEXT_MODAL_TERMS_LABEL; ?></label>
 							</div>
-							<div id="mdErrorChekedPhp" style="color: red;"></div>
 						</div>
 						<div class="right-w3l">
 							<input type="submit" class="form-control" value="<?php echo TEXT_MODAL_ACCEPT_BUTTON; ?>">

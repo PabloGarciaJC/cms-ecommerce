@@ -291,6 +291,17 @@ define('TEXT_ERROR_REMOVE_FAVORITE', 'Hubo un error al eliminar el producto de f
 define('TEXT_NOT_FAVORITE', 'Este producto no está en tus favoritos.');
 define('TEXT_ERROR_NOT_REGISTERED_OR_INVALID_PRODUCT', 'No estás registrado o el producto no es válido.');
 
+// Definición de los textos errores registro
+define('ERROR_EMPTY_USERNAME', 'El nombre de usuario no puede estar vacío.');
+define('ERROR_EMPTY_EMAIL', 'El Email no puede estar vacío.');
+define('ERROR_EMPTY_PASSWORD', 'Password no puede estar vacío.');
+define('ERROR_EMPTY_CONFIRM_PASSWORD', 'Confirmar Password no puede estar vacío.');
+define('ERROR_PASSWORD_MISMATCH', 'Las contraseñas no coinciden.');
+define('ERROR_TERMS_NOT_ACCEPTED', 'Debes aceptar los términos y condiciones.');
+define('ERROR_USERNAME_EXISTS', 'El nombre de usuario ya está en uso.');
+define('ERROR_EMAIL_EXISTS', 'El correo electrónico ya está en uso.');
+define("LOGIN_SUCCESS", "Usuario logueado con éxito");
+
 
 
 

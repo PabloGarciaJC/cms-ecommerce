@@ -283,3 +283,17 @@ define('TEXT_ERROR_REMOVE_FAVORITE', 'An error occurred while removing the produ
 define('TEXT_NOT_FAVORITE', 'This product is not in your favorites.');
 define('TEXT_ERROR_NOT_REGISTERED_OR_INVALID_PRODUCT', 'You are not registered, or the product is invalid.');
 
+// Definición de los textos errores registro
+define('ERROR_EMPTY_USERNAME', "Le nom d'utilisateur ne peut pas être vide.");
+define('ERROR_EMPTY_EMAIL', "L'adresse e-mail ne peut pas être vide.");
+define('ERROR_EMPTY_PASSWORD', 'Le mot de passe ne peut pas être vide.');
+define('ERROR_EMPTY_CONFIRM_PASSWORD', 'La confirmation du mot de passe ne peut pas être vide.');
+define('ERROR_PASSWORD_MISMATCH', 'Les mots de passe ne correspondent pas.');
+define('ERROR_TERMS_NOT_ACCEPTED', 'Vous devez accepter les termes et conditions.');
+define('ERROR_USERNAME_EXISTS', "Le nom d'utilisateur est déjà utilisé.");
+define('ERROR_EMAIL_EXISTS', "L'adresse e-mail est déjà utilisée.");
+define("LOGIN_SUCCESS", "Utilisateur connecté avec succès");
+
+
+
+
