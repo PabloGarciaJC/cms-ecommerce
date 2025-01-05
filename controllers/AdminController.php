@@ -7,6 +7,7 @@ require_once 'model/roles.php';
 require_once 'model/pedidos.php';
 require_once 'model/comentario.php';
 require_once 'model/idiomas.php';
+require_once 'model/favorito.php';
 
 class AdminController
 {
@@ -747,6 +748,38 @@ class AdminController
         } else {
             // Si falta algún dato requerido
             echo json_encode(['success' => false, 'message' => 'Datos incompletos']);
+        }
+    }
+
+    public function listarFavoritos()
+    {
+        Utils::accesoUsuarioRegistrado();
+        $usuario = Utils::obtenerUsuario();
+        $favorito = new Favorito();
+        $favorito->setUsuarioId($usuario->Id);
+        $favoritos = $favorito->listarFavoritos();
+        require_once 'views/layout/head.php';
+        require_once 'views/admin/favorito/index.php';
+        require_once 'views/layout/script-footer.php';
+    }
+
+
+    public function eliminarFavoritos()
+    {
+        $id = isset($_GET['id']) ? $_GET['id'] : false;
+        Utils::accesoUsuarioRegistrado();
+        $usuario = Utils::obtenerUsuario();
+        $favorito = new Favorito();
+        $favorito->setUsuarioId($usuario->Id);
+        $favorito->setProductoId($id);
+
+        $resultado = $favorito->eliminar();
+
+        if ($resultado) {
+            echo json_encode([
+                'success' => true,
+                'message' => 'Producto eliminado de tus favoritos correctamente.'
+            ]);
         }
     }
 

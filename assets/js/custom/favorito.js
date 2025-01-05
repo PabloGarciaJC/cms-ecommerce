@@ -44,8 +44,53 @@ class Favorito {
     });
   }
 
+  borrarFavoritosAdmin() {
+    $('.borrar-favorito').on('click', function (e) {
+      e.preventDefault();
+      let $btn = $(this);
+      let url = $btn.attr('href');
+      $.ajax({
+        type: "GET",
+        url: url,
+        success: function (response) {
+          let data = JSON.parse(response);
+          if (data.success) {
+            Swal.fire({
+              title: data.message,
+              icon: "success",
+              showConfirmButton: false,
+              timer: 1000
+            });
+            $btn.closest('tr').fadeOut(function () {
+              $(this).remove();
+              if ($('.table__favoritos tbody tr').length === 0) {
+                $('.table__favoritos tbody').html('<tr><td colspan="6">No tienes productos en favoritos.</td></tr>');
+              }
+            });
+          } else {
+            Swal.fire({
+              title: 'Error',
+              text: data.message || 'Hubo un error al intentar eliminar el favorito.',
+              icon: "error",
+              showConfirmButton: true
+            });
+          }
+        },
+        error: function () {
+          Swal.fire({
+            title: 'Error',
+            text: 'Hubo un problema al procesar la solicitud.',
+            icon: "error",
+            showConfirmButton: true
+          });
+        }
+      });
+    });
+  }
+
   customFavorito() {
     this.obtenerItems();
+    this.borrarFavoritosAdmin();
   }
 
   init() {
