@@ -30,15 +30,12 @@ class UsuarioController
     public function registro()
     {
         $getIdiomas = $this->cargarConfiguracionIdioma();
-
         $usuario = isset($_POST['usuario']) ? $_POST['usuario'] : false;
         $email = isset($_POST['email']) ? $_POST['email'] : false;
         $password = isset($_POST['password']) ? $_POST['password'] : false;
         $confirmarPassword = isset($_POST['confirmarPassword']) ? $_POST['confirmarPassword'] : false;
         $checked = isset($_POST['checked']) ? $_POST['checked'] : false;
-
         $registro = new Usuario();
-
         $registro->setUsuario($usuario);
         $registro->setEmail($email);
         $registro->setRol(21);
@@ -79,8 +76,10 @@ class UsuarioController
 
         if (count($errores) > 0) {
             echo json_encode([
+                'titulo' => TEXT_REGISTRATION_ERRORS_TITLE,
                 'success' => false,
-                'message' => $errores
+                'message' => $errores,
+                'boton' => TEXT_ACCEPT_BUTTON
             ]);
             exit();
         } else {
@@ -91,8 +90,9 @@ class UsuarioController
                 $_SESSION['usuarioRegistrado'] = $sesionCompletado;
             }
             echo json_encode([
+                'titulo' => TEXT_REGISTRATION_SUCCESS_TITLE,
                 'success' => true,
-                'message' => 'Usuario registrado con éxito.'
+                'boton' => TEXT_REVIEW_BUTTON
             ]);
         }
     }
@@ -100,10 +100,8 @@ class UsuarioController
     function iniciarSesion()
     {
         $getIdiomas = $this->cargarConfiguracionIdioma();
-
         $email = isset($_POST['email']) ? $_POST['email'] : false;
         $password = isset($_POST['password']) ? $_POST['password'] : false;
-
         $iniciarSesion = new Usuario();
         $iniciarSesion->setEmail($email);
         $sesionCompletado = $iniciarSesion->iniciarSesion();
@@ -119,17 +117,19 @@ class UsuarioController
         }
 
         if (!$iniciarSesion->repetidosEmail()) {
-            $errores[] = 'Email No esta Registrado';
+            $errores[] = TEXT_EMAIL_NOT_REGISTERED;
         }
 
         if ($sesionCompletado && !password_verify($password, $sesionCompletado->Password)) {
-            $errores[] = 'contraseña es correcta';
+            $errores[] = TEXT_INCORRECT_PASSWORD;
         }
 
         if (count($errores) > 0) {
             echo json_encode([
+               'titulo' => TEXT_LOGIN_ERRORS_TITLE,
                 'success' => false,
-                'message' => $errores
+                'message' => $errores,
+                'boton' => TEXT_ACCEPT_BUTTON
             ]);
             exit();
         } else {
@@ -137,8 +137,10 @@ class UsuarioController
                 $_SESSION['usuarioRegistrado'] = $sesionCompletado;
             }
             echo json_encode([
+                'titulo' => TEXT_LOGIN_SUCCESS_TITLE,
                 'success' => true,
-                'message' => LOGIN_SUCCESS
+                'message' => LOGIN_SUCCESS,
+                'boton' => TEXT_REVIEW_BUTTON
             ]);
         }
     }

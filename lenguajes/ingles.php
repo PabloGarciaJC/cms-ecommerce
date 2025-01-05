@@ -294,12 +294,11 @@ define('ERROR_TERMS_NOT_ACCEPTED', 'You must accept the terms and conditions.');
 define('ERROR_USERNAME_EXISTS', 'The username is already in use.');
 define('ERROR_EMAIL_EXISTS', 'The email address is already in use.');
 define("LOGIN_SUCCESS", "User logged in successfully");
-
-
-
-
-
-
-
-
-
+define('TEXT_REGISTRATION_ERRORS_TITLE', 'Registration Errors');
+define('TEXT_REGISTRATION_ERRORS_MESSAGE', 'An error occurred during registration. Please review the details.');
+define('TEXT_ACCEPT_BUTTON', 'Accept');
+define('TEXT_REVIEW_BUTTON', 'Review');
+define('TEXT_LOGIN_ERRORS_TITLE', 'Login Errors');
+define('TEXT_LOGIN_SUCCESS_TITLE', 'Login Successful');
+define('TEXT_EMAIL_NOT_REGISTERED', 'Email is not registered');
+define('TEXT_INCORRECT_PASSWORD', 'Password is incorrect');

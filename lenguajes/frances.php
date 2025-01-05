@@ -293,6 +293,16 @@ define('ERROR_TERMS_NOT_ACCEPTED', 'Vous devez accepter les termes et conditions
 define('ERROR_USERNAME_EXISTS', "Le nom d'utilisateur est déjà utilisé.");
 define('ERROR_EMAIL_EXISTS', "L'adresse e-mail est déjà utilisée.");
 define("LOGIN_SUCCESS", "Utilisateur connecté avec succès");
+define('TEXT_REGISTRATION_ERRORS_TITLE', 'Erreurs d\'inscription');
+define('TEXT_REGISTRATION_ERRORS_MESSAGE', 'Une erreur est survenue lors de l\'inscription. Veuillez vérifier les détails.');
+define('TEXT_ACCEPT_BUTTON', 'Accepter');
+define('TEXT_REVIEW_BUTTON', 'Réviser');
+define('TEXT_LOGIN_ERRORS_TITLE', 'Erreurs de connexion');
+define('TEXT_LOGIN_SUCCESS_TITLE', 'Connexion réussie');
+define('TEXT_EMAIL_NOT_REGISTERED', 'L\'email n\'est pas enregistré');
+define('TEXT_INCORRECT_PASSWORD', 'Le mot de passe est incorrect');
+
+
 
 
 

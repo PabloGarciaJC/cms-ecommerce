@@ -14,7 +14,7 @@ class ComentarioController
 
         // Validaciones de datos
         if (empty($usuario_id)) {
-            $errores[] = 'Debes estar registrado en el sistema para poder comentar.';
+            $errores[] = 'Debes estar registrado para poder comentar.';
         }
         if (empty($comentarioTexto)) {
             $errores[] = 'El comentario es obligatorio.';

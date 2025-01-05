@@ -16,10 +16,10 @@ class User {
           let data = JSON.parse(response);
           if (data.success) {
             Swal.fire({
-              title: data.message,
+              title: data.titulo,
               icon: "success",
               showConfirmButton: false,
-              confirmButtonText: 'Aceptar',
+              confirmButtonText: data.boton,
               timer: 1000
             }).then(() => {
               window.location.reload();
@@ -31,10 +31,10 @@ class User {
               errorMessage += `<p style="color: red;text-align: justify;"><i class="fa fa-times-circle"></i> ${error}</p>`;
             });
             Swal.fire({
-              title: "Errores en el registro",
+              title: data.titulo,
               icon: "error",
               html: errorMessage,
-              confirmButtonText: "Revisar"
+              confirmButtonText: data.boton
             });
           }
         },
@@ -58,10 +58,10 @@ class User {
           let data = JSON.parse(response);
           if (data.success) {
             Swal.fire({
-              title: data.message,
+              title: data.titulo,
               icon: "success",
               showConfirmButton: false,
-              confirmButtonText: 'Aceptar',
+              confirmButtonText: data.boton,
               timer: 1000
             }).then(() => {
               window.location.reload();
@@ -73,10 +73,10 @@ class User {
               errorMessage += `<p style="color: red;text-align: justify;"><i class="fa fa-times-circle"></i> ${error}</p>`;
             });
             Swal.fire({
-              title: "Errores al iniciar sesión",
+              title: data.titulo,
               icon: "error",
               html: errorMessage,
-              confirmButtonText: "Revisar"
+              confirmButtonText: data.boton
             });
           }
         },

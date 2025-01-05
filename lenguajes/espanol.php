@@ -301,6 +301,16 @@ define('ERROR_TERMS_NOT_ACCEPTED', 'Debes aceptar los términos y condiciones.')
 define('ERROR_USERNAME_EXISTS', 'El nombre de usuario ya está en uso.');
 define('ERROR_EMAIL_EXISTS', 'El correo electrónico ya está en uso.');
 define("LOGIN_SUCCESS", "Usuario logueado con éxito");
+define('TEXT_REGISTRATION_ERRORS_TITLE', 'Errores en el registro');
+define('TEXT_REGISTRATION_SUCCESS_TITLE', 'Registro exitoso');
+define('TEXT_ACCEPT_BUTTON', 'Aceptar');
+define('TEXT_REVIEW_BUTTON', 'Revisar');
+define('TEXT_LOGIN_ERRORS_TITLE', 'Errores al iniciar sesión');
+define('TEXT_LOGIN_SUCCESS_TITLE', 'Inicio de sesión exitoso');
+define('TEXT_EMAIL_NOT_REGISTERED', 'El correo electrónico no está registrado');
+define('TEXT_INCORRECT_PASSWORD', 'La contraseña es incorrecta');
+
+
 
 
 
