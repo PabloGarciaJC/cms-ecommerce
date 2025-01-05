@@ -146,6 +146,7 @@
 					</button>
 				</div>
 				<div class="modal-body">
+					
 					<div class="mb-3 contn-info">
 						<div class="parrafo-info">
 							<h1 class="text-center title-info"><?php echo TEXT_IMPORTANT_INFO_TITLE; ?></h1>

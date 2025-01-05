@@ -245,37 +245,35 @@ class App {
     }
 
     // Script para llenar los campos con usuarios de prueba 
-    let userCards = document.querySelectorAll('.user-card');
-    let emailInput = document.getElementById('mdEmailIniciarSesion');
-    let passwordInput = document.getElementById('mdPasswordIniciarSesion');
+    let userCards = $('.user-card');
+    let emailInput = $('[name="email"]');
+    let passwordInput = $('[name="password"]');
 
     // Recorre las tarjetas y añade funcionalidad de clic
-    userCards.forEach(card => {
-      card.addEventListener('click', function () {
-        // Remueve la clase activa de todas las tarjetas
-        userCards.forEach(c => c.classList.remove('active'));
-        // Añade la clase activa a la tarjeta seleccionada
-        card.classList.add('active');
+    userCards.on('click', function () {
 
-        // Obtén los datos del usuario
-        let email = card.getAttribute('data-email');
-        let password = card.getAttribute('data-password');
+      // Remueve la clase activa de todas las tarjetas
+      userCards.removeClass('active');
 
-        // Rellena los campos del formulario
-        emailInput.value = email;
-        passwordInput.value = password;
+      // Añade la clase activa a la tarjeta seleccionada
+      $(this).addClass('active');
 
-        // Simula el envío del formulario
-        $("#mdFormularioIniciarSesion").submit();
-      });
+      let email = $(this).data('email');
+      let password = $(this).data('password');
 
-      // Mostrar el modal automáticamente si no se ha mostrado antes
-      let modalShown = localStorage.getItem('modalShown');
-      if (!modalShown) {
-        $('#exampleModal').modal('show');
-        localStorage.setItem('modalShown', 'true');
-      }
+      // Rellena los campos del formulario
+      emailInput.val(email);
+      passwordInput.val(password);
+
+      setTimeout(function () {
+        $('.formulario-iniciar-sesion').submit();
+      }, 300);
     });
+
+    if (!localStorage.getItem('modalShown')) {
+      $('#exampleModal').modal('show');
+      localStorage.setItem('modalShown', 'true');
+    }
 
     // Cambiar de pestaña cuando se haga clic en los Tabs de Reseña, Ficha Producto
     document.querySelectorAll('.ficha-producto__tab').forEach(tab => {
@@ -289,7 +287,7 @@ class App {
       });
     });
 
-    //  Campo de Pestaña Panel Administrativo
+    // Campo de Pestaña Panel Administrativo
     $('#languageTabs a').on('click', function (e) {
       e.preventDefault();
       $(this).tab('show');

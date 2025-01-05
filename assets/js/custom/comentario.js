@@ -58,13 +58,12 @@ class Commentario {
                             timer: 800,
                             showConfirmButton: false
                         });
-                        // Limpiar el textarea
                         $('#comentario').val('');
-                        // Desmarcar las estrellas
                         $('input[name="calificacion"]').prop('checked', false);
                     } else {
                         Swal.fire({
-                            html: `<ul style="text-align: left;">${data.errors.map(error => `<li>${error}</li>`).join('')}</ul>`,
+                            title: "Errores al Comentar",
+                            html: `${data.errors.map(error => `<p style="color: red;text-align: justify;"><i class="fa fa-times-circle"></i> ${error}</p>`).join('')}`,
                             icon: "error",
                             showConfirmButton: true
                         });

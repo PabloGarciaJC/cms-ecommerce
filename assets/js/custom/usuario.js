@@ -66,14 +66,14 @@ class User {
             }).then(() => {
               window.location.reload();
             });
-            $('.formulario-registro').trigger('reset');
+            $('.formulario-iniciar-sesion').trigger('reset');
           } else {
             let errorMessage = "";
             data.message.forEach(function (error) {
               errorMessage += `<p style="color: red;text-align: justify;"><i class="fa fa-times-circle"></i> ${error}</p>`;
             });
             Swal.fire({
-              title: "Errores en el registro",
+              title: "Errores al iniciar sesión",
               icon: "error",
               html: errorMessage,
               confirmButtonText: "Revisar"
