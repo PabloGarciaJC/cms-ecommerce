@@ -92,7 +92,6 @@ class Comentario
         return $save;
     }
 
-    // Obtener comentarios más valorados
     public function obtenerComentariosValorados($idProducto)
     {
         $sql = "SELECT comentarios.*, usuarios.Usuario AS Usuario
@@ -104,7 +103,6 @@ class Comentario
         return $result;
     }
 
-    // Obtener comentarios más antiguos
     public function obtenerComentariosMenorCalificacion($idProducto)
     {
         $sql = "SELECT comentarios.*, usuarios.Usuario AS Usuario
@@ -116,21 +114,16 @@ class Comentario
         return $result;
     }
 
-
     public function cambiarEstadoComentario()
     {
-        // Aseguramos que solo existan los valores esperados 'pendiente' o 'aprobado'
         $estado = ($this->getEstado() === 'pendiente') ? 'aprobado' : 'pendiente';
-
         $sql = "UPDATE comentarios SET estado = '{$this->getEstado()}' WHERE id = {$this->getId()}";
-
         $result = $this->db->query($sql);
         return $result;
     }
 
     public function getComentarios()
     {
-        // Consulta SQL que une los comentarios con los productos y usuarios
         $sql = "SELECT c.id, c.producto_id, c.usuario_id, c.comentario, c.calificacion, c.fecha, c.estado, u.Usuario, p.nombre AS producto_nombre
                 FROM comentarios c
                 JOIN usuarios u ON c.usuario_id = u.Id
@@ -140,7 +133,6 @@ class Comentario
         return $result;
     }
     
-
     public function obtenerPromedioCalificacion($idProducto)
     {
         $sql = "SELECT AVG(calificacion) AS promedio FROM comentarios 

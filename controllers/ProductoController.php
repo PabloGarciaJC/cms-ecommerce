@@ -238,10 +238,9 @@ class ProductoController
     public function moviles()
     {
         $producto = new Productos();
-
-        // Establecer el idioma para el producto
+        $usuario = Utils::obtenerUsuario();
+        $producto->setUsuario($usuario);
         $producto->setIdioma($this->languageController->getIdiomaId());
-
         $productos = $producto->movil();
         require 'views/producto/lista.php';
     }
@@ -249,10 +248,9 @@ class ProductoController
     public function tvAudios()
     {
         $producto = new Productos();
-
-        // Establecer el idioma para el producto
+        $usuario = Utils::obtenerUsuario();
+        $producto->setUsuario($usuario);
         $producto->setIdioma($this->languageController->getIdiomaId());
-
         $productos = $producto->tvAudios();
         require 'views/producto/lista.php';
     }
@@ -260,10 +258,9 @@ class ProductoController
     public function electrodomesticos()
     {
         $producto = new Productos();
-
-        // Establecer el idioma para el producto
+        $usuario = Utils::obtenerUsuario();
+        $producto->setUsuario($usuario);
         $producto->setIdioma($this->languageController->getIdiomaId());
-
         $productos = $producto->electrodomesticos();
         require 'views/producto/lista.php';
     }

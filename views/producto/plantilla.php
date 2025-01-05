@@ -41,7 +41,7 @@
                     <?= str_repeat('<i class="fas fa-star"></i>', round($prod->promedio_calificacion ?? 0)) . str_repeat('<i class="far fa-star"></i>', 5 - round($prod->promedio_calificacion ?? 0)); ?>
                 </span>
             </div>
-            <button class="item-btn-favorito" data-producto-id="<?php echo $prod->id; ?>">
+            <button class="item-btn-favorito <?php echo !empty($prod->favorito) ? 'favorito-activado' : false; ?>" data-producto-id="<?php echo $prod->id; ?>">
                 <i class="fas fa-heart"></i> <?php echo TEXT_PRODUCT_SAVE_FAVORITE; ?>
             </button>
             <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
