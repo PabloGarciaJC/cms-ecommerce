@@ -3,6 +3,10 @@
       width: 100%;
   }
 
+  .swal2-title {
+      color: #000
+  }
+
   /* HEader nav */
 
   @media (max-width:767px) {
@@ -1668,7 +1672,7 @@
       color: #c6d518;
   }
 
-/* # SPINNER GIRA EN EL CENTRO DE LA PANTALLA
+  /* # SPINNER GIRA EN EL CENTRO DE LA PANTALLA
 ================================================== */
   .spinner {
       position: fixed;
@@ -1688,6 +1692,7 @@
       0% {
           transform: translate(-50%, -50%) rotate(0deg);
       }
+
       100% {
           transform: translate(-50%, -50%) rotate(360deg);
       }

@@ -31,7 +31,7 @@ class Favorito {
           } else {
             Swal.fire({
               title: data.message,
-              icon: "error",
+              icon: "info",
               showConfirmButton: true,
               confirmButtonText: 'Aceptar',
             });
