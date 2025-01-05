@@ -50,7 +50,8 @@ class FavoritoController
         if (!$usuario || $productoId <= 0) {
             echo json_encode([
                 'success' => false,
-                'favorito' => false
+                'favorito' => false,
+                'message' => TEXT_NOT_LOGGED_IN . TEXT_NOT_REGISTER_IN
             ]);
             return;
         }
@@ -64,17 +65,27 @@ class FavoritoController
         if ($existe) {
             echo json_encode([
                 'success' => true,
-                'favorito' => true
+                'favorito' => true,
+                'message' => TEXT_PRODUCT_ALREADY_FAVORITE
             ]);
             return;
         }
 
         $resultado = $favorito->agregar();
 
-        echo json_encode([
-            'success' => $resultado,
-            'favorito' => $resultado
-        ]);
+        if ($resultado) {
+            echo json_encode([
+                'success' => true,
+                'favorito' => true,
+                'message' => TEXT_PRODUCT_ADDED_FAVORITE
+            ]);
+        } else {
+            echo json_encode([
+                'success' => false,
+                'favorito' => false,
+                'message' => TEXT_ERROR_ADD_FAVORITE
+            ]);
+        }
     }
 
     /**
@@ -91,7 +102,8 @@ class FavoritoController
         if (!$usuario || $productoId <= 0) {
             echo json_encode([
                 'success' => false,
-                'favorito' => false
+                'favorito' => false,
+                'message' => TEXT_ERROR_NOT_REGISTERED_OR_INVALID_PRODUCT
             ]);
             return;
         }
@@ -105,15 +117,27 @@ class FavoritoController
             echo json_encode([
                 'success' => false,
                 'favorito' => false,
+                'message' => TEXT_NOT_FAVORITE
             ]);
             return;
         }
 
         $resultado = $favorito->eliminar();
 
-        echo json_encode([
-            'success' => $resultado,
-            'favorito' => false
-        ]);
+        if ($resultado) {
+            echo json_encode([
+                'success' => true,
+                'favorito' => false,
+                'message' => TEXT_PRODUCT_REMOVED_FAVORITE
+            ]);
+        } else {
+            echo json_encode([
+                'success' => false,
+                'favorito' => false,
+                'message' => TEXT_ERROR_REMOVE_FAVORITE
+            ]);
+        }
     }
 }
+
+

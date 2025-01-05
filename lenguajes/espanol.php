@@ -283,6 +283,14 @@ define('TEXT_TEST_CLIENT_EMAIL', 'cliente@user.com');
 
 // Definición de los textos Favoritos
 define('TEXT_PRODUCT_SAVE_FAVORITE', 'Guardar en Favoritos');
+define('TEXT_PRODUCT_ALREADY_FAVORITE', 'El producto ya está en tus favoritos.');
+define('TEXT_PRODUCT_ADDED_FAVORITE', 'Producto añadido a tus favoritos correctamente.');
+define('TEXT_PRODUCT_REMOVED_FAVORITE', 'Producto eliminado de tus favoritos correctamente.');
+define('TEXT_ERROR_ADD_FAVORITE', 'Hubo un error al agregar el producto a favoritos. Inténtalo nuevamente.');
+define('TEXT_ERROR_REMOVE_FAVORITE', 'Hubo un error al eliminar el producto de favoritos. Inténtalo nuevamente.');
+define('TEXT_NOT_FAVORITE', 'Este producto no está en tus favoritos.');
+define('TEXT_ERROR_NOT_REGISTERED_OR_INVALID_PRODUCT', 'No estás registrado o el producto no es válido.');
+
 
 
 

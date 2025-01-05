@@ -18,15 +18,25 @@ class Favorito {
           if (data.success) {
             if (data.favorito) {
               botonFavorito.addClass('favorito-activado');
-            }else{
+            } else {
               botonFavorito.removeClass('favorito-activado');
             }
+            Swal.fire({
+              title: data.message,
+              icon: "success",
+              showConfirmButton: false,
+              confirmButtonText: 'Aceptar',
+              timer: 1000
+            });
           } else {
             Swal.fire({
-              title: response.message,
+              title: data.message,
               icon: "error",
-              timer: 1500,
-              showConfirmButton: false,
+              showConfirmButton: true,
+              confirmButtonText: 'Aceptar',
+            });
+            $('.swal2-title').on('click', function (e) {
+              Swal.close();
             });
           }
         },
