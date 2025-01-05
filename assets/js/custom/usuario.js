@@ -91,6 +91,37 @@ class User {
   customUser() {
     this.registro();
     this.iniciarSesion();
+
+    // Script para llenar los campos con usuarios de prueba 
+    let userCards = $('.user-card');
+    let emailInput = $('[name="email"]');
+    let passwordInput = $('[name="password"]');
+
+    // Recorre las tarjetas y añade funcionalidad de clic
+    userCards.on('click', function () {
+
+      // Remueve la clase activa de todas las tarjetas
+      userCards.removeClass('active');
+
+      // Añade la clase activa a la tarjeta seleccionada
+      $(this).addClass('active');
+
+      let email = $(this).data('email');
+      let password = $(this).data('password');
+
+      // Rellena los campos del formulario
+      emailInput.val(email);
+      passwordInput.val(password);
+
+      setTimeout(function () {
+        $('.formulario-iniciar-sesion').submit();
+      }, 300);
+    });
+
+    if (!localStorage.getItem('modalShown')) {
+      $('#exampleModal').modal('show');
+      localStorage.setItem('modalShown', 'true');
+    }
   }
 
   init() {

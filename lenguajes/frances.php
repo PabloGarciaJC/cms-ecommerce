@@ -265,7 +265,7 @@ define('ERROR_NO_PRODUCTS_FOUND', 'Aucun produit trouvé');
 define('ERROR_NO_SUBCATEGORY_FOUND', 'Aucune catégorie trouvée');
 
 // Definición de los textos para el modal de usuarios ficticios
-define('TEXT_IMPORTANT_INFO_TITLE', 'Information Importante');
+define('TEXT_IMPORTANT_INFO_TITLE', 'Information');
 define('TEXT_IMPORTANT_INFO_DESC', 'Les utilisateurs fournis sont fictifs et destinés à des fins de test.');
 define('TEXT_ADMINISTRATOR', 'Administrateur');
 define('TEXT_ADMIN_EMAIL', 'admin@cms.com');

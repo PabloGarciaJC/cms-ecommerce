@@ -169,7 +169,7 @@
             <!-- Mensaje de nota importante -->
             <div class="container contn-info">
                 <div class="parrafo-info">
-                    <h1 class="text-center title-info">Información Importante</h1>
+                    <h1 class="text-center title-info"> <i class="fas fa-exclamation-circle"></i><?php echo TEXT_IMPORTANT_INFO_TITLE; ?></h1>
                     <p class="text-center">Este proyecto está utilizando credenciales de prueba de PayPal para simular la pasarela de pago. No realice transacciones reales mientras este entorno esté activo.</p>
                 </div>
             </div>
