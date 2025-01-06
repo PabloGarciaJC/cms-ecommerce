@@ -33,8 +33,8 @@ class FavoritoController
     {
         // Obtener el usuario desde la sesión
         $usuario = isset($_SESSION['usuarioRegistrado']) ? $_SESSION['usuarioRegistrado'] : false;
-        $productoId = isset($_POST['producto_id']) ? (int)$_POST['producto_id'] : 0;
-        return ['usuario' => $usuario, 'productoId' => $productoId];
+        $grupoId = isset($_POST['grupo_id']) ? (int)$_POST['grupo_id'] : 0;
+        return ['usuario' => $usuario, 'grupoId' => $grupoId];
     }
 
     /**
@@ -45,9 +45,9 @@ class FavoritoController
         $getIdiomas = $this->cargarConfiguracionIdioma();
         $datos = $this->obtenerDatosComunes();
         $usuario = $datos['usuario'];
-        $productoId = $datos['productoId'];
+        $grupoId = $datos['grupoId'];
 
-        if (!$usuario || $productoId <= 0) {
+        if (!$usuario) {
             echo json_encode([
                 'success' => false,
                 'favorito' => false,
@@ -58,7 +58,7 @@ class FavoritoController
 
         $favorito = new Favorito();
         $favorito->setUsuarioId($usuario->Id);
-        $favorito->setProductoId($productoId);
+        $favorito->setGrupoId($grupoId);
 
         $existe = $favorito->existe();
 
@@ -97,9 +97,9 @@ class FavoritoController
 
         $datos = $this->obtenerDatosComunes();
         $usuario = $datos['usuario'];
-        $productoId = $datos['productoId'];
+        $grupoId = $datos['grupoId'];
 
-        if (!$usuario || $productoId <= 0) {
+        if (!$usuario) {
             echo json_encode([
                 'success' => false,
                 'favorito' => false,
@@ -110,7 +110,7 @@ class FavoritoController
 
         $favorito = new Favorito();
         $favorito->setUsuarioId($usuario->Id);
-        $favorito->setProductoId($productoId);
+        $favorito->setGrupoId($grupoId);
         $existe = $favorito->existe();
 
         if (!$existe) {

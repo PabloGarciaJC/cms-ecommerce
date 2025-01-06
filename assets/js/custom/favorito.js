@@ -6,13 +6,13 @@ class Favorito {
   obtenerItems() {
     $('.item-btn-favorito').on('click', function (e) {
       e.preventDefault();
-      let productoId = $(this).data('producto-id');
+      let grupoId = $(this).data('grupo-id');
       let botonFavorito = $(this);
       let yaEsFavorito = botonFavorito.hasClass('favorito-activado');
       $.ajax({
         type: "POST",
         url: baseUrl + "Favorito/" + (yaEsFavorito ? "eliminar" : "guardar"),
-        data: { producto_id: productoId },
+        data: {grupo_id: grupoId },
         success: function (response) {
           let data = JSON.parse(response);
           if (data.success) {

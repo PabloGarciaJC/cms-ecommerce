@@ -12,9 +12,10 @@
 					<li class="text-center border-right text-white">
 						<i class="fas fa-phone mr-2"></i> <?php echo TEXT_PHONE_NUMBER; ?>
 					</li>
-					<li class="text-center border-right text-white">
+					<li class="text-center  <?php echo isset($_SESSION['usuarioRegistrado']) ? '' : 'border-right' ?> text-white">
 						<?php if (isset($_SESSION['usuarioRegistrado'])) : ?>
 							<a href="<?= BASE_URL ?>Admin/dashboard" class="text-white">
+							<i class="fas fa-user mr-2"></i> 
 								<?php echo $usuario->Usuario; ?>
 							</a>
 						<?php else : ?>
@@ -23,10 +24,12 @@
 							</a>
 						<?php endif; ?>
 					</li>
-					<li class="text-center text-white">
-						<a href="javascript:void(0)" data-toggle="modal" data-target="#exampleModal2" class="text-white">
-							<i class="fas fa-sign-out-alt mr-2"></i><?php echo TEXT_REGISTER; ?></a>
-					</li>
+					<?php if (!isset($_SESSION['usuarioRegistrado'])) : ?>
+						<li class="text-center text-white">
+							<a href="javascript:void(0)" data-toggle="modal" data-target="#exampleModal2" class="text-white">
+								<i class="fas fa-sign-out-alt mr-2"></i><?php echo TEXT_REGISTER; ?></a>
+						</li>
+					<?php endif; ?>
 				</ul>
 			</div>
 		</div>
@@ -109,7 +112,7 @@
 													<h6>Productos</h6>
 													<ul class="multi-column-dropdown">
 														<?php while ($producto = $item['productos']->fetch_object()) : ?>
-															<li><a href="<?php echo BASE_URL ?>Producto/ficha?id=<?php echo urlencode($producto->id); ?>&parent_id=<?php echo urlencode($producto->parent_id); ?>"><?= $producto->nombre ?></a></li>															
+															<li><a href="<?php echo BASE_URL ?>Producto/ficha?id=<?php echo urlencode($producto->id); ?>&parent_id=<?php echo urlencode($producto->parent_id); ?>"><?= $producto->nombre ?></a></li>
 														<?php endwhile; ?>
 													</ul>
 												</div>

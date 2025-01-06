@@ -285,129 +285,65 @@ class Productos
     return $datos;
   }
 
+  public function obtenerProductos($parentId)
+  {
+      $idioma = empty($this->getIdioma()) ? 1 : $this->getIdioma();
+      $usuarioId = $this->getUsuario() ? $this->getUsuario()->Id : null;
+  
+      // Base SQL común
+      $sql = "SELECT
+                  p.id,
+                  p.nombre,
+                  p.imagenes,
+                  p.precio,
+                  p.stock,
+                  p.estado,
+                  p.oferta,
+                  p.offer_expiration,
+                  p.parent_id,
+                  p.grupo_id,
+                  co.calificacion";
+  
+      // Si el usuario está autenticado, se agrega la columna 'favorito'
+      if ($usuarioId) {
+          $sql .= ", CASE
+                      WHEN fv.id IS NOT NULL THEN 1
+                      ELSE 0
+                    END AS favorito";
+      }
+  
+      // Continuar con el SQL
+      $sql .= " FROM productos p 
+                LEFT JOIN categorias ca ON ca.grupo_id = p.parent_id 
+                LEFT JOIN comentarios co ON co.grupo_id = p.grupo_id";
+  
+      // Si el usuario está autenticado, también se une a la tabla favoritos
+      if ($usuarioId) {
+          $sql .= " LEFT JOIN favoritos fv ON fv.grupo_id = p.grupo_id";
+      }
+  
+      // Filtros por idioma y parent_id
+      $sql .= " WHERE p.idioma_id = $idioma AND ca.idioma_id = $idioma AND p.parent_id = $parentId LIMIT 3;";
+  
+      // Ejecutar consulta
+      return $this->db->query($sql);
+  }
+  
   public function movil()
   {
-    $idioma = empty($this->getIdioma()) ? 1 : $this->getIdioma();
-    $usuarioId = $this->getUsuario() ? $this->getUsuario()->Id : null;
-    if ($usuarioId) {
-      $sql = "
-              SELECT 
-                  p.*, 
-                  (SELECT AVG(calificacion) 
-                   FROM comentarios 
-                   WHERE producto_id = p.id AND estado = 1) AS promedio_calificacion,
-                  CASE 
-                      WHEN fv.id IS NOT NULL THEN 1 
-                      ELSE 0 
-                  END AS favorito
-              FROM 
-                  productos p
-              LEFT JOIN 
-                  favoritos fv ON fv.producto_id = p.id AND fv.usuario_id = $usuarioId
-              WHERE 
-                  p.idioma_id = $idioma AND p.parent_id = 1735806505
-              LIMIT 3
-          ";
-    } else {
-      $sql = "
-              SELECT 
-                  p.*, 
-                  (SELECT AVG(calificacion) 
-                   FROM comentarios 
-                   WHERE producto_id = p.id AND estado = 1) AS promedio_calificacion
-              FROM 
-                  productos p
-              WHERE 
-                  p.idioma_id = $idioma AND p.parent_id = 1735806505
-              LIMIT 3
-          ";
-    }
-    // Ejecutar y devolver los resultados
-    return $this->db->query($sql);
+      return $this->obtenerProductos(1735806505);
   }
-
+  
   public function tvAudios()
   {
-    $idioma = empty($this->getIdioma()) ? 1 : $this->getIdioma();
-    $usuarioId = $this->getUsuario() ? $this->getUsuario()->Id : null;
-
-    if ($usuarioId) {
-      $sql = "
-              SELECT 
-                  p.*, 
-                  (SELECT AVG(calificacion) 
-                   FROM comentarios 
-                   WHERE producto_id = p.id AND estado = 1) AS promedio_calificacion,
-                  CASE 
-                      WHEN fv.id IS NOT NULL THEN 1 
-                      ELSE 0 
-                  END AS favorito
-              FROM 
-                  productos p
-              LEFT JOIN 
-                  favoritos fv ON fv.producto_id = p.id AND fv.usuario_id = $usuarioId
-              WHERE 
-                  p.idioma_id = $idioma AND p.parent_id = 1735801087
-              LIMIT 3
-          ";
-    } else {
-      $sql = "
-              SELECT 
-                  p.*, 
-                  (SELECT AVG(calificacion) 
-                   FROM comentarios 
-                   WHERE producto_id = p.id AND estado = 1) AS promedio_calificacion
-              FROM 
-                  productos p
-              WHERE 
-                  p.idioma_id = $idioma AND p.parent_id = 1735801087
-              LIMIT 3
-          ";
-    }
-    return $this->db->query($sql);
+      return $this->obtenerProductos(1735801087);
   }
-
+  
   public function electrodomesticos()
   {
-    $idioma = empty($this->getIdioma()) ? 1 : $this->getIdioma();
-    $usuarioId = $this->getUsuario() ? $this->getUsuario()->Id : null;
-
-    if ($usuarioId) {
-      $sql = "
-              SELECT 
-                  p.*, 
-                  (SELECT AVG(calificacion) 
-                   FROM comentarios 
-                   WHERE producto_id = p.id AND estado = 1) AS promedio_calificacion,
-                  CASE 
-                      WHEN fv.id IS NOT NULL THEN 1 
-                      ELSE 0 
-                  END AS favorito
-              FROM 
-                  productos p
-              LEFT JOIN 
-                  favoritos fv ON fv.producto_id = p.id AND fv.usuario_id = $usuarioId
-              WHERE 
-                  p.idioma_id = $idioma AND p.parent_id = 1735804773
-              LIMIT 3
-          ";
-    } else {
-      $sql = "
-              SELECT 
-                  p.*, 
-                  (SELECT AVG(calificacion) 
-                   FROM comentarios 
-                   WHERE producto_id = p.id AND estado = 1) AS promedio_calificacion
-              FROM 
-                  productos p
-              WHERE 
-                  p.idioma_id = $idioma AND p.parent_id = 1735804773
-              LIMIT 3
-          ";
-    }
-    return $this->db->query($sql);
+      return $this->obtenerProductos(1735804773);
   }
-
+  
   public function obtenerTotalProductos()
   {
     $sql = "SELECT SUM(stock) AS total_productos FROM productos";

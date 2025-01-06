@@ -5,6 +5,7 @@ class Favorito
     private $id;
     private $usuarioId;
     private $productoId;
+    private $grupoId;
     private $db;
 
     public function __construct()
@@ -28,6 +29,11 @@ class Favorito
         return $this->productoId;
     }
 
+    public function getGrupoId()
+    {
+        return $this->grupoId;
+    }
+
     // Setters
     public function setId($id)
     {
@@ -44,6 +50,11 @@ class Favorito
         $this->productoId = $productoId;
     }
 
+    public function setGrupoId($grupoId)
+    {
+        $this->grupoId = $grupoId;
+    }
+
     // Métodos para interactuar con la base de datos
 
     /**
@@ -51,8 +62,8 @@ class Favorito
      */
     public function agregar()
     {
-        $sql = "INSERT INTO favoritos (usuario_id, producto_id) 
-                VALUES ('{$this->usuarioId}', '{$this->productoId}')";
+        $sql = "INSERT INTO favoritos (usuario_id, grupo_id) 
+                VALUES ('{$this->usuarioId}', '{$this->grupoId}') ";
         $result = $this->db->query($sql);
         return $result ? true : false;
     }
@@ -64,9 +75,8 @@ class Favorito
     {
         $sql = "DELETE FROM favoritos 
                 WHERE usuario_id = '{$this->usuarioId}' 
-                  AND producto_id = '{$this->productoId}'";
+                AND grupo_id = '{$this->grupoId}'";
         $result = $this->db->query($sql);
-
         return $result ? true : false;
     }
 
@@ -77,9 +87,8 @@ class Favorito
     {
         $sql = "SELECT * FROM favoritos 
                 WHERE usuario_id = '{$this->usuarioId}' 
-                  AND producto_id = '{$this->productoId}'";
+                AND grupo_id = '{$this->grupoId}'";     
         $result = $this->db->query($sql);
-
         return $result && $result->num_rows > 0;
     }
 

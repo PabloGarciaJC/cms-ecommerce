@@ -9,6 +9,7 @@ class Comentario
     private $calificacion;
     private $producto_id;
     private $usuario_id;
+    private $parentId;
     private $db;
 
     public function __construct()
@@ -48,6 +49,11 @@ class Comentario
         return $this->usuario_id;
     }
 
+    public function getParentId()
+    {
+        return $this->parentId;
+    }
+
     //// SETTERS ////
 
     public function setId($id)
@@ -80,12 +86,17 @@ class Comentario
         $this->usuario_id = $usuario_id;
     }
 
+    public function setParentId($parentId)
+    {
+        $this->parentId = $parentId;
+    }
+
     //// CONSULTAS //// 
 
     public function guardar()
     {
-        $sql = "INSERT INTO comentarios (comentario, calificacion, producto_id, usuario_id, estado) 
-                VALUES ('{$this->getComentario()}', {$this->getCalificacion()}, {$this->getProducto_id()}, {$this->getUsuario_id()}, 0)";
+        $sql = "INSERT INTO comentarios (comentario, calificacion, producto_id, usuario_id, estado, parent_id) 
+                VALUES ('{$this->getComentario()}', {$this->getCalificacion()}, {$this->getProducto_id()}, {$this->getUsuario_id()}, 0, {$this->getParentId()})";
 
         $save = $this->db->query($sql);
 

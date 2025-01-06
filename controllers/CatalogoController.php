@@ -24,6 +24,7 @@ class CatalogoController
     // Instanciar los modelos necesarios
     $categorias = new Categorias();
     $producto = new Productos();
+   
 
     // Obtener todos los idiomas disponibles para el selector de idioma en el header
     $idiomas = new Idiomas();
@@ -51,6 +52,7 @@ class CatalogoController
     // Obtener los breadcrumbs (migas de pan) de la categoría actual
     $categorias->setParentId($parentId);
     $categorias->setId($parentId);
+
     $breadcrumbs = $categorias->getBreadcrumbs();
 
     // Obtener los productos filtrados por categoría, búsqueda y rango de precios
@@ -59,9 +61,15 @@ class CatalogoController
     $minPrecio = isset($_GET['minPrecio']) ? $_GET['minPrecio'] : false;
     $maxPrecio = isset($_GET['maxPrecio']) ? $_GET['maxPrecio'] : false;
 
-    // Obtener categorías y productos filtrados
-    $getCategorias = $categorias->obtenerCategoriasYProductosFronted($minPrecio, $maxPrecio, $textoBusqueda);
 
+    $categorias->setMinPrecio($minPrecio);
+    $categorias->setMaxPrecio($maxPrecio);
+    $categorias->setTextoBusqueda($textoBusqueda);
+    $categorias->setUsuario($usuario);
+
+    // Obtener categorías y productos filtrados
+    $getCategorias = $categorias->obtenerCategoriasYProductosFronted($minPrecio, $maxPrecio, $textoBusqueda, isset($usuario->Id) ? $usuario->Id : null);
+   
     // Retornar los datos que serán utilizados en la vista
     return compact('usuario', 'categoriasConSubcategoriasYProductos', 'getIdiomas', 'breadcrumbs', 'getCategorias');
   }
