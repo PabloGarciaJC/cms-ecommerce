@@ -96,7 +96,6 @@
 						<?php echo Utils::obtenerEstrellas($productoFicha->grupo_id); ?>
 					</div>
 				</div>
-
 				<div class="occasion-cart">
 					<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
 						<form action="#" method="post">

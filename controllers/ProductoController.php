@@ -61,9 +61,11 @@ class ProductoController
 
         // Comentarios del producto
         $comentarios = new Comentario();
-        $comentariosValorados = $comentarios->obtenerComentariosValorados($productoFicha->id);
-        $obtenerComentariosMenorCalificacion = $comentarios->obtenerComentariosMenorCalificacion($productoFicha->id);
-        $promedioCalificacion = $comentarios->obtenerPromedioCalificacion($productoFicha->id);
+
+        var_dump($productoFicha->grupo_id);
+        $comentariosValorados = $comentarios->obtenerComentariosValorados($productoFicha->grupo_id);
+        $obtenerComentariosMenorCalificacion = $comentarios->obtenerComentariosMenosValorados($productoFicha->grupo_id);
+        $promedioCalificacion = $comentarios->obtenerPromedioCalificacion($productoFicha->grupo_id);
 
         require_once 'views/layout/head.php';
         require_once 'views/layout/header.php';

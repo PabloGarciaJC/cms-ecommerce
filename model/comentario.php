@@ -113,27 +113,32 @@ class Comentario
         return $save;
     }
 
-    public function obtenerComentariosValorados($idProducto)
+    public function obtenerComentariosValorados($idGrupo)
     {
-        $sql = "SELECT comentarios.*, usuarios.Usuario AS Usuario
+        $sql = "SELECT comentarios.*, usuarios.Usuario AS Usuario 
                 FROM comentarios
                 INNER JOIN usuarios ON comentarios.usuario_id = usuarios.Id
-                -- WHERE comentarios.producto_id = $idProducto AND comentarios.estado = 1
+                WHERE comentarios.grupo_id = $idGrupo 
+                  AND comentarios.estado = 1 
+                  AND comentarios.calificacion >= 4
                 ORDER BY comentarios.calificacion DESC";
         $result = $this->db->query($sql);
         return $result;
     }
 
-    public function obtenerComentariosMenorCalificacion($idProducto)
+    public function obtenerComentariosMenosValorados($idGrupo)
     {
-        $sql = "SELECT comentarios.*, usuarios.Usuario AS Usuario
+        $sql = "SELECT comentarios.*, usuarios.Usuario AS Usuario 
                 FROM comentarios
                 INNER JOIN usuarios ON comentarios.usuario_id = usuarios.Id
-                -- WHERE comentarios.producto_id = $idProducto AND comentarios.estado = 1
-                ORDER BY comentarios.calificacion ASC";
+                WHERE comentarios.grupo_id = $idGrupo 
+                  AND comentarios.estado = 1 
+                  AND comentarios.calificacion <= 3
+                ORDER BY comentarios.calificacion ASC";  // Orden ascendente para obtener los más bajos primero
         $result = $this->db->query($sql);
         return $result;
     }
+    
 
     public function cambiarEstadoComentario()
     {
@@ -158,13 +163,12 @@ class Comentario
                 FROM comentarios 
                 WHERE estado = 1 AND grupo_id = $idGrupo;";
         $result = $this->db->query($sql);
-    
+
         if ($result && $result->num_rows > 0) {
             $row = $result->fetch_object();
             return $row->promedio_calificacion ?? 0;
         }
-    
+
         return 0;
     }
-    
 }
