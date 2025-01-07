@@ -91,7 +91,7 @@
 					</p> -->
 				</div>
 				<div class="product-rating mb-4 text-center">
-					<h4 class="rating-title">Calificación Promedio</h4>
+					<h4 class="rating-title"><?php echo TEXT_AVERAGE_RATING; ?></h4>
 					<div class="stars">
 						<?php echo Utils::obtenerEstrellas($productoFicha->grupo_id); ?>
 					</div>

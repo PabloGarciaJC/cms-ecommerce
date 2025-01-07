@@ -156,7 +156,6 @@
             $direccion = isset($usuario->Direccion) ? $usuario->Direccion : '';
             $codigoPostal = isset($usuario->CodigoPostal) ? $usuario->CodigoPostal : '';
             ?>
-
             <input type="hidden" name="usuario_id" value="<?php echo htmlspecialchars($usuarioId); ?>" />
             <input type="hidden" name="pais" value="<?php echo htmlspecialchars($pais); ?>" />
             <input type="hidden" name="ciudad" value="<?php echo htmlspecialchars($ciudad); ?>" />
@@ -165,7 +164,6 @@
             <input type="hidden" id="text_oferta" value="<?php echo htmlspecialchars(OFERTA); ?>" />
             <input type="hidden" id="text_subtotal" value="<?php echo htmlspecialchars(SUBTOTAL); ?>" />
             <input type="hidden" id="text_realizar_pedido" value="<?php echo htmlspecialchars(REALIZAR_PEDIDO); ?>" />
-
             <!-- Mensaje de nota importante -->
             <div class="container contn-info">
                 <div class="parrafo-info">
@@ -173,22 +171,21 @@
                     <p class="text-center">Este proyecto está utilizando credenciales de prueba de PayPal para simular la pasarela de pago. No realice transacciones reales mientras este entorno esté activo.</p>
                 </div>
             </div>
-
             <div class="checkout-right-basket">
                 <button type="submit"><?php echo MAKE_PAYMENT; ?></button>
                 <?php if (isset($_SESSION['errores']) && count($_SESSION['errores']) > 0) : ?>
                     <?php if (isset($_SESSION['usuarioRegistrado'])) : ?>
                         <a href="<?php echo BASE_URL ?>Admin/perfil" type="button" target="_blank"><i class="fas fa-user-cog"></i> <?php echo TEXT_SHIPPING_UPDATE_FORM; ?></a>
-                    <?php endif; ?>
-
-                    <div class="custom-alert-danger" role="alert">
-                        <i class="fas fa-exclamation-circle"></i>
-                        <div class="custom-alert-checkout">
-                            <?php if (isset($_SESSION['errores']['usuarioRegistrado'])) : ?>
-                                <?php echo $_SESSION['errores']['usuarioRegistrado']; ?>
-                            <?php endif; ?>
+                    <?php else : ?>
+                        <div class="custom-alert-danger" role="alert">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <div class="custom-alert-checkout">
+                                <?php if (isset($_SESSION['errores']['usuarioRegistrado'])) : ?>
+                                    <?php echo $_SESSION['errores']['usuarioRegistrado']; ?>
+                                <?php endif; ?>
+                            </div>
                         </div>
-                    </div>
+                    <?php endif; ?>
                 <?php endif; ?>
             </div>
         </form>

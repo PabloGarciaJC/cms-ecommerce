@@ -310,3 +310,4 @@ define('TEXT_COMMENT_REQUIRED', 'Comment is required.');
 define('TEXT_RATING_REQUIRED', 'Rating is required.');
 define('TEXT_INVALID_PRODUCT', 'The selected product is invalid.');
 define('TEXT_COMMENT_SAVE_SUCCESS', 'Comment saved successfully.');
+define('TEXT_AVERAGE_RATING', 'Average Rating');

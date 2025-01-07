@@ -309,6 +309,7 @@ define('TEXT_COMMENT_REQUIRED', 'Le commentaire est obligatoire.');
 define('TEXT_RATING_REQUIRED', 'La note est obligatoire.');
 define('TEXT_INVALID_PRODUCT', 'Le produit sélectionné n\'est pas valide.');
 define('TEXT_COMMENT_SAVE_SUCCESS', 'Commentaire enregistré avec succès.');
+define('TEXT_AVERAGE_RATING', 'Note Moyenne');
 
 
 

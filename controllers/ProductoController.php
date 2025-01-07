@@ -62,7 +62,6 @@ class ProductoController
         // Comentarios del producto
         $comentarios = new Comentario();
 
-        var_dump($productoFicha->grupo_id);
         $comentariosValorados = $comentarios->obtenerComentariosValorados($productoFicha->grupo_id);
         $obtenerComentariosMenorCalificacion = $comentarios->obtenerComentariosMenosValorados($productoFicha->grupo_id);
         $promedioCalificacion = $comentarios->obtenerPromedioCalificacion($productoFicha->grupo_id);
