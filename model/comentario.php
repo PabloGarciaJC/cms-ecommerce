@@ -10,6 +10,7 @@ class Comentario
     private $producto_id;
     private $usuario_id;
     private $parentId;
+    private $grupoId;
     private $db;
 
     public function __construct()
@@ -54,6 +55,12 @@ class Comentario
         return $this->parentId;
     }
 
+    public function getGrupoId()
+    {
+        return $this->grupoId;
+    }
+
+
     //// SETTERS ////
 
     public function setId($id)
@@ -91,25 +98,28 @@ class Comentario
         $this->parentId = $parentId;
     }
 
+    public function setGrupoId($grupoId)
+    {
+        $this->grupoId = $grupoId;
+    }
+
     //// CONSULTAS //// 
 
     public function guardar()
     {
-        $sql = "INSERT INTO comentarios (comentario, calificacion, producto_id, usuario_id, estado, parent_id) 
-                VALUES ('{$this->getComentario()}', {$this->getCalificacion()}, {$this->getProducto_id()}, {$this->getUsuario_id()}, 0, {$this->getParentId()})";
-
+        $sql = "INSERT INTO comentarios (comentario, calificacion, usuario_id, estado, parent_id, grupo_id) 
+                VALUES ('{$this->getComentario()}', {$this->getCalificacion()}, {$this->getUsuario_id()}, 0, {$this->getParentId()}, {$this->getGrupoId()})";
         $save = $this->db->query($sql);
-
         return $save;
     }
 
     public function obtenerComentariosValorados($idProducto)
     {
         $sql = "SELECT comentarios.*, usuarios.Usuario AS Usuario
-            FROM comentarios
-            INNER JOIN usuarios ON comentarios.usuario_id = usuarios.Id
-            WHERE comentarios.producto_id = $idProducto AND comentarios.estado = 1
-            ORDER BY comentarios.calificacion DESC";
+                FROM comentarios
+                INNER JOIN usuarios ON comentarios.usuario_id = usuarios.Id
+                -- WHERE comentarios.producto_id = $idProducto AND comentarios.estado = 1
+                ORDER BY comentarios.calificacion DESC";
         $result = $this->db->query($sql);
         return $result;
     }
@@ -119,7 +129,7 @@ class Comentario
         $sql = "SELECT comentarios.*, usuarios.Usuario AS Usuario
                 FROM comentarios
                 INNER JOIN usuarios ON comentarios.usuario_id = usuarios.Id
-                WHERE comentarios.producto_id = $idProducto AND comentarios.estado = 1
+                -- WHERE comentarios.producto_id = $idProducto AND comentarios.estado = 1
                 ORDER BY comentarios.calificacion ASC";
         $result = $this->db->query($sql);
         return $result;
@@ -135,19 +145,17 @@ class Comentario
 
     public function getComentarios()
     {
-        $sql = "SELECT c.id, c.producto_id, c.usuario_id, c.comentario, c.calificacion, c.fecha, c.estado, u.Usuario, p.nombre AS producto_nombre
-                FROM comentarios c
-                JOIN usuarios u ON c.usuario_id = u.Id
-                JOIN productos p ON c.producto_id = p.id";
-    
+        $sql = "SELECT co.id, u.Id AS usuario_id, u.Usuario AS nombre_usuario, u.Email AS email_usuario, u.Nombres AS nombres, u.Apellidos AS apellidos, co.id AS comentario_id, co.comentario, co.calificacion, co.fecha, co.estado, p.nombre AS nombre_producto
+                FROM comentarios co LEFT JOIN usuarios u ON co.usuario_id = u.Id
+                LEFT JOIN productos p ON p.grupo_id = co.grupo_id WHERE p.idioma_id = 1;";
         $result = $this->db->query($sql);
         return $result;
     }
-    
+
     public function obtenerPromedioCalificacion($idProducto)
     {
-        $sql = "SELECT AVG(calificacion) AS promedio FROM comentarios 
-            WHERE producto_id = $idProducto AND estado = 1";
+        $sql = "SELECT AVG(calificacion) AS promedio FROM comentarios WHERE parent_id = $idProducto AND estado = 1";
+
         $result = $this->db->query($sql);
 
         if ($result && $result->num_rows > 0) {

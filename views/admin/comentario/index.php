@@ -19,25 +19,22 @@
                 </thead>
                 <tbody>
                     <?php
-                    // Verificar si el objeto de comentarios tiene datos
                     while ($comentario = $comentarios->fetch_object()) :
                     ?>
                         <tr id="comentario-<?php echo $comentario->id; ?>">
-                            <td><?php echo $comentario->id; ?></td>
-                            <td><?php echo htmlspecialchars($comentario->Usuario); ?></td>
+                            <td><?php echo $comentario->usuario_id; ?></td>
+                            <td><?php echo htmlspecialchars($comentario->nombre_usuario); ?></td>
                             <td><?php echo htmlspecialchars($comentario->comentario); ?></td>
                             <td>
                                 <?php
-                                // Mostrar calificación como estrellas (★) y vacías (☆)
                                 echo str_repeat('★', $comentario->calificacion) . str_repeat('☆', 5 - $comentario->calificacion);
                                 ?>
                             </td>
                             <td><?php echo date("d M Y", strtotime($comentario->fecha)); ?></td>
                             <td>
-                                <?php echo htmlspecialchars($comentario->producto_nombre); ?> <!-- Mostrar el nombre del producto -->
+                                <?php echo htmlspecialchars($comentario->nombre_producto); ?>
                             </td>
                             <td>
-                                <!-- Seleccionar estado con un select -->
                                 <select class="estado-select" data-id="<?php echo $comentario->id; ?>">
                                     <option value="1" <?php echo $comentario->estado == 1 ? 'selected' : ''; ?>>Aprobado</option>
                                     <option value="0" <?php echo $comentario->estado == 0 ? 'selected' : ''; ?>>Pendiente</option>

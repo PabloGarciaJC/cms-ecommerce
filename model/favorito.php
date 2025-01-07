@@ -6,6 +6,7 @@ class Favorito
     private $usuarioId;
     private $productoId;
     private $grupoId;
+    private $idioma;
     private $db;
 
     public function __construct()
@@ -34,6 +35,11 @@ class Favorito
         return $this->grupoId;
     }
 
+    public function getIdioma()
+    {
+        return $this->idioma;
+    }
+
     // Setters
     public function setId($id)
     {
@@ -55,59 +61,50 @@ class Favorito
         $this->grupoId = $grupoId;
     }
 
-    // Métodos para interactuar con la base de datos
+    public function setIdioma($idioma)
+    {
+        $this->idioma = $idioma;
+    }
 
-    /**
-     * Añadir un producto a los favoritos del usuario.
-     */
+    //// CONSULTAS //// 
+
     public function agregar()
     {
-        $sql = "INSERT INTO favoritos (usuario_id, grupo_id) 
-                VALUES ('{$this->usuarioId}', '{$this->grupoId}') ";
+        $sql = "INSERT INTO favoritos (usuario_id, grupo_id) VALUES ('{$this->usuarioId}', '{$this->getGrupoId()}') ";
         $result = $this->db->query($sql);
         return $result ? true : false;
     }
 
-    /**
-     * Eliminar un producto de los favoritos del usuario.
-     */
     public function eliminar()
     {
-        $sql = "DELETE FROM favoritos 
-                WHERE usuario_id = '{$this->usuarioId}' 
-                AND grupo_id = '{$this->grupoId}'";
+        $sql = "DELETE FROM favoritos WHERE id = {$this->getId()} AND usuario_id = '{$this->getUsuarioId()}'";
         $result = $this->db->query($sql);
         return $result ? true : false;
     }
 
-    /**
-     * Verificar si un producto ya está en favoritos del usuario.
-     */
+    public function eliminarFronted()
+    {
+        $sql = "DELETE FROM favoritos fv WHERE  fv.usuario_id = '{$this->getUsuarioId()}' AND  fv.grupo_id = '{$this->getGrupoId()}'";
+        $result = $this->db->query($sql);
+        return $result ? true : false;
+    }
+
     public function existe()
     {
-        $sql = "SELECT * FROM favoritos 
-                WHERE usuario_id = '{$this->usuarioId}' 
-                AND grupo_id = '{$this->grupoId}'";     
+        $sql = "SELECT * FROM favoritos fv WHERE  fv.usuario_id = '{$this->getUsuarioId()}' AND  fv.grupo_id = '{$this->getGrupoId()}'";
         $result = $this->db->query($sql);
         return $result && $result->num_rows > 0;
     }
 
-    /**
-     * Listar todos los productos favoritos de un usuario.
-     */
     public function listarFavoritos()
     {
-        $sql = "SELECT p.* 
-                FROM productos p 
-                INNER JOIN favoritos f ON p.id = f.producto_id 
-                WHERE f.usuario_id = '{$this->usuarioId}'";
+        $idioma = empty($this->getIdioma()) ? 1 : $this->getIdioma();
+        $sql = "SELECT fv.id, p.id as producto_id, p.parent_id, p.nombre, p.imagenes, p.stock, p.oferta FROM favoritos fv LEFT JOIN usuarios u ON fv.usuario_id = u.Id LEFT JOIN productos p ON p.grupo_id = fv.grupo_id WHERE p.idioma_id = $idioma";
         $result = $this->db->query($sql);
-
         $favoritos = [];
         while ($row = $result->fetch_object()) {
             $favoritos[] = $row;
         }
-
         return $favoritos;
     }
 }

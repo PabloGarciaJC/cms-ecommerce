@@ -30,11 +30,11 @@ class ComentarioController
     {
         $usuario = Utils::obtenerUsuario();
         $getIdiomas = $this->cargarConfiguracionIdioma();
-        
         $comentarioTexto = isset($_POST['comentario']) ? trim($_POST['comentario']) : '';
         $calificacion = isset($_POST['calificacion']) ? (int)$_POST['calificacion'] : 0;
         $producto_id = isset($_POST['producto_id']) ? (int)$_POST['producto_id'] : 0;
         $parentId = isset($_POST['parentid']) ? (int)$_POST['parentid'] : 0;
+        $producto_grupo_id = isset($_POST['producto_grupo_id']) ? (int)$_POST['producto_grupo_id'] : 0;
 
         $comentario = new Comentario();
         $comentario->setComentario($comentarioTexto);
@@ -42,6 +42,7 @@ class ComentarioController
         $comentario->setProducto_id($producto_id);
         $comentario->setUsuario_id($usuario->Id);
         $comentario->setParentId($parentId);
+        $comentario->setGrupoId($producto_grupo_id);
 
         $errores = [];
 

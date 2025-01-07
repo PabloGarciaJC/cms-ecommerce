@@ -3,7 +3,7 @@ class Favorito {
     this.customFavorito();
   }
 
-  obtenerItems() {
+  guardarYborrarFavoritosFronted() {
     $('.item-btn-favorito').on('click', function (e) {
       e.preventDefault();
       let grupoId = $(this).data('grupo-id');
@@ -12,7 +12,7 @@ class Favorito {
       $.ajax({
         type: "POST",
         url: baseUrl + "Favorito/" + (yaEsFavorito ? "eliminar" : "guardar"),
-        data: {grupo_id: grupoId },
+        data: {grupo_id: grupoId},
         success: function (response) {
           let data = JSON.parse(response);
           if (data.success) {
@@ -39,6 +39,7 @@ class Favorito {
               Swal.close();
             });
           }
+
         },
       });
     });
@@ -89,7 +90,7 @@ class Favorito {
   }
 
   customFavorito() {
-    this.obtenerItems();
+    this.guardarYborrarFavoritosFronted();
     this.borrarFavoritosAdmin();
   }
 

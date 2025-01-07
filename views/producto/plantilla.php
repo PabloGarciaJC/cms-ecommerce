@@ -1,7 +1,5 @@
 <div class="col-md-4 product-men mt-5 animation__fade-in-upscale">
     <div class="men-pro-item simpleCart_shelfItem">
-
-   
         <a href="<?php echo BASE_URL ?>Producto/ficha?id=<?php echo urlencode($prod->id); ?>&parent_id=<?php echo urlencode($prod->parent_id); ?>" class="men-thumb-item text-center">
             <?php
             if (is_string($prod->imagenes)) {
@@ -45,9 +43,9 @@
             <div class="product-rating-plantilla">
                 <span class="stars">
                     <?= str_repeat('<i class="fas fa-star"></i>', round($prod->calificacion ?? 0)) . str_repeat('<i class="far fa-star"></i>', 5 - round($prod->calificacion ?? 0)); ?>
-                </span> 
+                </span>
             </div>
-            <button class="item-btn-favorito <?php echo !empty($prod->favorito) ? 'favorito-activado' : false; ?>" data-grupo-id="<?php echo $prod->grupo_id; ?>">
+            <button class="item-btn-favorito <?php echo isset($prod->favorito_id) ? 'favorito-activado' : false; ?>" data-grupo-id="<?php echo $prod->grupo_id; ?>">
                 <i class="fas fa-heart"></i> <?php echo TEXT_PRODUCT_SAVE_FAVORITE; ?>
             </button>
             <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">

@@ -209,7 +209,7 @@ class Categorias
     // Continuar con el SQL
     $sqlProductos .= " FROM productos p 
                        LEFT JOIN categorias ca ON ca.grupo_id = p.parent_id  
-                       LEFT JOIN comentarios co ON co.grupo_id = p.grupo_id";
+                       LEFT JOIN comentarios co ON co.parent_id = p.grupo_id";
 
     // Si el usuario está autenticado, también se une a la tabla favoritos
     if ($usuarioId) {

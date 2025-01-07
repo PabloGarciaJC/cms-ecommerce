@@ -8,15 +8,24 @@ require_once 'model/pedidos.php';
 require_once 'model/comentario.php';
 require_once 'model/idiomas.php';
 require_once 'model/favorito.php';
+require_once 'controllers/LanguageController.php';
 
 class AdminController
 {
+    private $languageController;
+
+    public function __construct()
+    {
+        $this->languageController = new LanguageController();
+    }
 
     private function cargarDatosComunes()
     {
-        $idiomas = new Idiomas();
-        $getIdiomas = $idiomas->obtenerTodos();
-        return compact('getIdiomas');
+        if (isset($_POST['lenguaje'])) {
+            $this->languageController->setIdioma($_POST['lenguaje']);
+        }
+        $getIdiomas =  $this->languageController->getIdiomaId();
+        return $getIdiomas;
     }
 
     public function dashboard()
@@ -228,7 +237,7 @@ class AdminController
 
     public function productos()
     {
-        extract($this->cargarDatosComunes());
+        $this->cargarDatosComunes();
         Utils::accesoUsuarioRegistrado();
         $editId = isset($_GET['editid']) ? $_GET['editid'] : false;
         $deleteid = isset($_GET['deleteid']) ? $_GET['deleteid'] : false;
@@ -370,7 +379,7 @@ class AdminController
 
     public function categorias()
     {
-        extract($this->cargarDatosComunes());
+        $this->cargarDatosComunes();
         Utils::accesoUsuarioRegistrado();
         $editId = isset($_GET['editid']) ? $_GET['editid'] : false;
         $deleteid = isset($_GET['deleteid']) ? $_GET['deleteid'] : false;
@@ -757,12 +766,13 @@ class AdminController
         $usuario = Utils::obtenerUsuario();
         $favorito = new Favorito();
         $favorito->setUsuarioId($usuario->Id);
+        $favorito->setIdioma($this->cargarDatosComunes());
         $favoritos = $favorito->listarFavoritos();
+     
         require_once 'views/layout/head.php';
         require_once 'views/admin/favorito/index.php';
         require_once 'views/layout/script-footer.php';
     }
-
 
     public function eliminarFavoritos()
     {
@@ -770,8 +780,9 @@ class AdminController
         Utils::accesoUsuarioRegistrado();
         $usuario = Utils::obtenerUsuario();
         $favorito = new Favorito();
+
         $favorito->setUsuarioId($usuario->Id);
-        $favorito->setProductoId($id);
+        $favorito->setId($id);
 
         $resultado = $favorito->eliminar();
 
