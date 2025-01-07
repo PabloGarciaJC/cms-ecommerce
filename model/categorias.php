@@ -195,21 +195,19 @@ class Categorias
                             p.oferta,
                             p.offer_expiration,
                             p.parent_id,
-                            p.grupo_id,
-                            co.calificacion";
+                            p.grupo_id";
 
-    // Si el usuario está autenticado, también se une a la tabla favoritos
+    // Si el usuario está autenticado, se agrega la columna 'favorito'
     if ($usuarioId) {
-      $sqlProductos .= ", CASE
-                            WHEN fv.id IS NOT NULL THEN 1
-                            ELSE 0
-                          END AS favorito";
+      $sqlProductos .= ",fv.id as favorito_id, CASE
+                        WHEN fv.id IS NOT NULL THEN 1
+                        ELSE 0
+                        END AS favorito";
     }
 
     // Continuar con el SQL
     $sqlProductos .= " FROM productos p 
-                       LEFT JOIN categorias ca ON ca.grupo_id = p.parent_id  
-                       LEFT JOIN comentarios co ON co.parent_id = p.grupo_id";
+                       LEFT JOIN categorias ca ON ca.grupo_id = p.parent_id";
 
     // Si el usuario está autenticado, también se une a la tabla favoritos
     if ($usuarioId) {

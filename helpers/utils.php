@@ -2,7 +2,7 @@
 
 class Utils
 {
-  
+
   public static function accesoUsuarioRegistrado()
   {
     if (!isset($_SESSION['usuarioRegistrado'])) {
@@ -30,4 +30,16 @@ class Utils
     return $queryPaisActual;
   }
 
+  public static function obtenerEstrellas($idGrupo)
+    {
+        require_once 'model/comentario.php';
+        $comentario = new Comentario();
+        $promedio = $comentario->obtenerPromedioCalificacion($idGrupo);
+        $calificacion = round($promedio);
+        $html = '';
+        for ($i = 1; $i <= 5; $i++) {
+            $html .= $i <= $calificacion ? '<i class="fas fa-star"></i>' : '<i class="far fa-star"></i>';
+        }
+        return $html;
+    }
 };

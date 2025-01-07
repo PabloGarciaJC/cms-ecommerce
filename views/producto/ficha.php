@@ -90,21 +90,10 @@
 						<i class="fas fa-retweet mr-3"></i>Net banking & Credit/ Debit/ ATM card
 					</p> -->
 				</div>
-				<?php
-				// Asegúrate de que $promedioCalificacion tenga un valor válido
-				$promedioCalificacion = isset($promedioCalificacion) && is_numeric($promedioCalificacion) ? $promedioCalificacion : 0;
-				// Redondea el promedio
-				$promedioRedondeado = round($promedioCalificacion);
-				?>
 				<div class="product-rating mb-4 text-center">
 					<h4 class="rating-title">Calificación Promedio</h4>
 					<div class="stars">
-						<?php
-						// Generar las estrellas llenas y vacías
-						echo str_repeat('<i class="fas fa-star"></i>', $promedioRedondeado);
-						echo str_repeat('<i class="far fa-star"></i>', 5 - $promedioRedondeado);
-						?>
-						<span class="rating-value">(<?= number_format($promedioCalificacion, 1); ?> de 5)</span>
+						<?php echo Utils::obtenerEstrellas($productoFicha->grupo_id); ?>
 					</div>
 				</div>
 

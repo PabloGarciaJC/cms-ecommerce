@@ -152,16 +152,19 @@ class Comentario
         return $result;
     }
 
-    public function obtenerPromedioCalificacion($idProducto)
+    public function obtenerPromedioCalificacion($idGrupo)
     {
-        $sql = "SELECT AVG(calificacion) AS promedio FROM comentarios WHERE parent_id = $idProducto AND estado = 1";
-
+        $sql = "SELECT AVG(calificacion) AS promedio_calificacion 
+                FROM comentarios 
+                WHERE estado = 1 AND grupo_id = $idGrupo;";
         $result = $this->db->query($sql);
-
+    
         if ($result && $result->num_rows > 0) {
             $row = $result->fetch_object();
-            return $row->promedio;
+            return $row->promedio_calificacion ?? 0;
         }
+    
         return 0;
     }
+    
 }

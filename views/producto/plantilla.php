@@ -42,7 +42,7 @@
             <?php endif; ?>
             <div class="product-rating-plantilla">
                 <span class="stars">
-                    <?= str_repeat('<i class="fas fa-star"></i>', round($prod->calificacion ?? 0)) . str_repeat('<i class="far fa-star"></i>', 5 - round($prod->calificacion ?? 0)); ?>
+                    <?php echo Utils::obtenerEstrellas($prod->grupo_id); ?>
                 </span>
             </div>
             <button class="item-btn-favorito <?php echo isset($prod->favorito_id) ? 'favorito-activado' : false; ?>" data-grupo-id="<?php echo $prod->grupo_id; ?>">
