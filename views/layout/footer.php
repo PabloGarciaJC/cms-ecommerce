@@ -154,15 +154,15 @@
 						</div>
 						<div class="row text-center">
 							<div class="col">
-								<div class="card user-card bg-light p-2" data-email="admin@cms.com" data-password="password">
+								<div class="card user-card bg-light p-2" data-email="admin@pablogarciajc.com" data-password="password">
 									<p class="mb-0 user-card-parrafo"><strong><?php echo TEXT_ADMINISTRATOR; ?></strong><br><?php echo TEXT_ADMIN_EMAIL; ?></p>
 									<p class="text-center mt-2">
 										<a href="#" class="select-action"><?php echo TEXT_SELECT_HERE; ?></a>
 									</p>
 								</div>
 							</div>
-							<div class="col">
-								<div class="card user-card bg-light p-2" data-email="cliente@user.com" data-password="password">
+							<div class="col mt-3">
+								<div class="card user-card bg-light p-2" data-email="sofia.martinez@pablogarciajc.com" data-password="password">
 									<p class="mb-0 user-card-parrafo"><strong><?php echo TEXT_TEST_CLIENT; ?></strong><br><?php echo TEXT_TEST_CLIENT_EMAIL; ?></p>
 									<p class="text-center mt-2">
 										<a href="#" class="select-action"><?php echo TEXT_SELECT_HERE; ?></a>

@@ -135,54 +135,19 @@
 	<div class="ficha-producto__reviews-text">
 		<h4><?php echo TEXT_REVIEWS_TITLE; ?></h4>
 		<div class="ficha-producto__tabs mt-4">
-			<div class="ficha-producto__tab ficha-producto__tab--active" id="leave-review-tab">
-				<?php echo TEXT_LEAVE_REVIEW_TAB; ?>
-			</div>
-			<div class="ficha-producto__tab" id="highest-rated-tab">
+			<div class="ficha-producto__tab ficha-producto__tab--active" id="highest-rated-tab">
 				<?php echo TEXT_HIGHEST_RATED_TAB; ?>
 			</div>
 			<div class="ficha-producto__tab" id="oldest-tab">
 				<?php echo TEXT_OLDEST_TAB; ?>
 			</div>
-		</div>
-
-		<!-- Formulario de reseña -->
-		<div class="ficha-producto__tab-content ficha-producto__tab-content--active" id="leave-review-content">
-			<?php if (isset($_SESSION['exito'])) : ?>
-				<div class="alert <?php echo $_SESSION['messageClass']; ?> alert-dismissible fade show mt-2 text-center" role="alert">
-					<i class="<?php echo isset($_SESSION['icon']) ? $_SESSION['icon'] : 'fas fa-check-circle'; ?>"></i>
-					<?php echo $_SESSION['exito']; ?>
-					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-			<?php endif; ?>
-
-			<div class="ficha-producto__product-review">
-				<form action="<?php echo BASE_URL ?>Comentario/guardar" method="POST" id="reviewForm">
-					<input type="hidden" name="producto_id" value="<?php echo $productoFicha->id; ?>" />
-					<input type="hidden" name="parentid" value="<?php echo isset($_GET['parent_id']) ? $_GET['parent_id'] : false ?>" />
-					<input type="hidden" name="producto_grupo_id" value="<?php echo $productoFicha->grupo_id; ?>" />
-					<div class="ficha-producto__form-group">
-						<textarea id="comentario" name="comentario" class="ficha-producto__form-control" rows="4" placeholder="<?php echo TEXT_LEAVE_COMMENT_PLACEHOLDER; ?>" required><?php echo isset($_SESSION['form']['comentario']) ? htmlspecialchars($_SESSION['form']['comentario'], ENT_QUOTES, 'UTF-8') : ''; ?></textarea>
-					</div>
-					<div class="ficha-producto__form-group">
-						<label for="calificacion"><?php echo TEXT_RATING_LABEL; ?></label>
-						<div class="ficha-producto__stars">
-							<?php for ($i = 5; $i >= 1; $i--) : ?>
-								<input type="radio" name="calificacion" value="<?php echo $i; ?>" id="star<?php echo $i; ?>"
-									<?php echo isset($_SESSION['form']['calificacion']) && $_SESSION['form']['calificacion'] == $i ? 'checked' : ''; ?>>
-								<label for="star<?php echo $i; ?>">☆</label>
-							<?php endfor; ?>
-						</div>
-					</div>
-					<button type="button" id="submitReview" class="ficha-producto__btn"><?php echo TEXT_SUBMIT_REVIEW_BUTTON; ?></button>
-				</form>
+			<div class="ficha-producto__tab" id="leave-review-tab">
+				<?php echo TEXT_LEAVE_REVIEW_TAB; ?>
 			</div>
 		</div>
 	</div>
 
-	<div class="ficha-producto__tab-content" id="highest-rated-content">
+	<div class="ficha-producto__tab-content ficha-producto__tab-content--active" id="highest-rated-content">
 		<div class="ficha-producto__reviews-list">
 			<?php if ($comentariosValorados->num_rows > 0) : ?>
 				<?php while ($comentario = $comentariosValorados->fetch_object()) : ?>
@@ -200,7 +165,9 @@
 					</div>
 				<?php endwhile; ?>
 			<?php else : ?>
-				<p class="ficha-producto__no-reviews"><?php echo TEXT_NO_RATED_REVIEWS; ?></p>
+				<div class="ficha-producto__review-item">
+					<p class="ficha-producto__review-comment"><?php echo TEXT_NO_RATED_REVIEWS; ?></p>
+				</div>
 			<?php endif; ?>
 		</div>
 	</div>
@@ -223,8 +190,45 @@
 					</div>
 				<?php endwhile; ?>
 			<?php else : ?>
-				<p class="ficha-producto__no-reviews"><?php echo TEXT_NO_OLD_REVIEWS; ?></p>
+				<div class="ficha-producto__review-item">
+					<p class="ficha-producto__review-comment"><?php echo TEXT_NO_RATED_REVIEWS; ?></p>
+				</div>
 			<?php endif; ?>
+		</div>
+	</div>
+
+	<!-- Formulario de reseña -->
+	<div class="ficha-producto__tab-content" id="leave-review-content">
+		<?php if (isset($_SESSION['exito'])) : ?>
+			<div class="alert <?php echo $_SESSION['messageClass']; ?> alert-dismissible fade show mt-2 text-center" role="alert">
+				<i class="<?php echo isset($_SESSION['icon']) ? $_SESSION['icon'] : 'fas fa-check-circle'; ?>"></i>
+				<?php echo $_SESSION['exito']; ?>
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		<?php endif; ?>
+
+		<div class="ficha-producto__product-review">
+			<form action="<?php echo BASE_URL ?>Comentario/guardar" method="POST" id="reviewForm">
+				<input type="hidden" name="producto_id" value="<?php echo $productoFicha->id; ?>" />
+				<input type="hidden" name="parentid" value="<?php echo isset($_GET['parent_id']) ? $_GET['parent_id'] : false ?>" />
+				<input type="hidden" name="producto_grupo_id" value="<?php echo $productoFicha->grupo_id; ?>" />
+				<div class="ficha-producto__form-group">
+					<textarea id="comentario" name="comentario" class="ficha-producto__form-control" rows="4" placeholder="<?php echo TEXT_LEAVE_COMMENT_PLACEHOLDER; ?>" required><?php echo isset($_SESSION['form']['comentario']) ? htmlspecialchars($_SESSION['form']['comentario'], ENT_QUOTES, 'UTF-8') : ''; ?></textarea>
+				</div>
+				<div class="ficha-producto__form-group">
+					<label for="calificacion"><?php echo TEXT_RATING_LABEL; ?></label>
+					<div class="ficha-producto__stars">
+						<?php for ($i = 5; $i >= 1; $i--) : ?>
+							<input type="radio" name="calificacion" value="<?php echo $i; ?>" id="star<?php echo $i; ?>"
+								<?php echo isset($_SESSION['form']['calificacion']) && $_SESSION['form']['calificacion'] == $i ? 'checked' : ''; ?>>
+							<label for="star<?php echo $i; ?>">☆</label>
+						<?php endfor; ?>
+					</div>
+				</div>
+				<button type="button" id="submitReview" class="ficha-producto__btn"><?php echo TEXT_SUBMIT_REVIEW_BUTTON; ?></button>
+			</form>
 		</div>
 	</div>
 </div>

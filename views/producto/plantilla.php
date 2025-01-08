@@ -45,7 +45,7 @@
                     <?php echo Utils::obtenerEstrellas($prod->grupo_id); ?>
                 </span>
             </div>
-            <button class="item-btn-favorito <?php echo isset($prod->favorito_id) ? 'favorito-activado' : false; ?>" data-grupo-id="<?php echo $prod->grupo_id; ?>">
+            <button class="item-btn-favorito <?php echo isset($prod->favorito_id) && $usuario->Id == $prod->usuario_id ? 'favorito-activado' : false; ?>" data-grupo-id="<?php echo $prod->grupo_id; ?>">
                 <i class="fas fa-heart"></i> <?php echo TEXT_PRODUCT_SAVE_FAVORITE; ?>
             </button>
             <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">

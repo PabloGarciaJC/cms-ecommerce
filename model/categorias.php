@@ -199,7 +199,7 @@ class Categorias
 
     // Si el usuario está autenticado, se agrega la columna 'favorito'
     if ($usuarioId) {
-      $sqlProductos .= ",fv.id as favorito_id, CASE
+      $sqlProductos .= ",fv.id as favorito_id, fv.usuario_id, CASE
                         WHEN fv.id IS NOT NULL THEN 1
                         ELSE 0
                         END AS favorito";

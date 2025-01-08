@@ -268,10 +268,10 @@ define('ERROR_NO_SUBCATEGORY_FOUND', 'Aucune catégorie trouvée');
 define('TEXT_IMPORTANT_INFO_TITLE', 'Information');
 define('TEXT_IMPORTANT_INFO_DESC', 'Les utilisateurs fournis sont fictifs et destinés à des fins de test.');
 define('TEXT_ADMINISTRATOR', 'Administrateur');
-define('TEXT_ADMIN_EMAIL', 'admin@cms.com');
+define('TEXT_ADMIN_EMAIL', 'admin@pablogarciajc.com');
 define('TEXT_SELECT_HERE', 'Sélectionner ICI');
 define('TEXT_TEST_CLIENT', 'Client de Test');
-define('TEXT_TEST_CLIENT_EMAIL', 'cliente@user.com');
+define('TEXT_TEST_CLIENT_EMAIL', 'sofia.martinez@pablogarciajc.com');
 
 // Definición de los textos Favoritos
 define('TEXT_PRODUCT_SAVE_FAVORITE', 'Save to Favorites');

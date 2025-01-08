@@ -21,7 +21,6 @@
                             <th class="text-center align-middle">Ciudad</th>
                             <th class="text-center align-middle">Codigo Postal</th>
                             <th class="text-center align-middle">Rol</th>
-                            <th class="text-center align-middle">Imagen</th>
                             <th class="text-center align-middle">Accion</th>
                         </tr>
                     </thead>
@@ -39,13 +38,6 @@
                                 <td class="text-center align-middle"><?php echo $usuario->Ciudad; ?></td>
                                 <td class="text-center align-middle"><?php echo $usuario->CodigoPostal; ?></td>
                                 <td class="text-center align-middle"><?php echo $usuario->nombre; ?></td>
-                                <td class="text-center align-middle">
-                                    <?php if ($usuario->imagen): ?>
-                                        <img src="<?php echo $usuario->imagen; ?>" alt="Imagen de Usuario" width="50">
-                                    <?php else: ?>
-                                        <span>No disponible</span>
-                                    <?php endif; ?>
-                                </td>
                                 <td class="text-center align-middle">
                                     <a href="<?php echo BASE_URL; ?>Admin/detalleUsuario?id=<?php echo $usuario->Id; ?>" class="btn btn-info btn-sm">Ver Perfil</a>
                                 </td>

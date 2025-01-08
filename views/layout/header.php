@@ -15,12 +15,12 @@
 					<li class="text-center  <?php echo isset($_SESSION['usuarioRegistrado']) ? '' : 'border-right' ?> text-white">
 						<?php if (isset($_SESSION['usuarioRegistrado'])) : ?>
 							<a href="<?= BASE_URL ?>Admin/dashboard" class="text-white">
-							<i class="fas fa-user mr-2"></i> 
+							<img src="<?php echo !empty($_SESSION['usuarioRegistrado']->imagen) ? BASE_URL . 'uploads/images/avatar/' . $_SESSION['usuarioRegistrado']->imagen : BASE_URL . 'uploads/images/default.jpg'; ?>" class="user-avatar-header" alt="Avatar de Usuario">
 								<?php echo $usuario->Usuario; ?>
 							</a>
 						<?php else : ?>
 							<a href="javascript:void(0)" data-toggle="modal" data-target="#exampleModal" class="text-white">
-								<i class="fas fa-sign-in-alt mr-2"></i> <?php echo TEXT_HELLO_IDENTIFY; ?></a>
+								<i class="fas fa-sign-in-alt mr-2"></i> <?php echo TEXT_HELLO_IDENTIFY; ?>
 							</a>
 						<?php endif; ?>
 					</li>

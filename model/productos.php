@@ -305,7 +305,7 @@ class Productos
 
       // Si el usuario está autenticado, se agrega la columna 'favorito'
       if ($usuarioId) {
-          $sql .= ",fv.id as favorito_id, CASE
+          $sql .= ",fv.id as favorito_id, fv.usuario_id, CASE
                     WHEN fv.id IS NOT NULL THEN 1
                       ELSE 0
                     END AS favorito";
@@ -322,7 +322,7 @@ class Productos
   
       // Filtros por idioma y parent_id
       $sql .= " WHERE p.idioma_id = $idioma AND ca.idioma_id = $idioma AND p.parent_id = $parentId LIMIT 3;";
-  
+
       // Ejecutar consulta
       return $this->db->query($sql);
   }

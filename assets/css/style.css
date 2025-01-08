@@ -83,6 +83,17 @@ label {
     background: #0879c9;
 }
 
+.user-avatar-header {
+    height: 35px;
+    width: 35px;
+    margin-right: 5px;
+}
+
+.header-most-top {
+    display: flex;
+    align-items: center;
+}
+
 .header-most-top p {
     letter-spacing: 1px;
     font-size: 15px;
@@ -608,10 +619,18 @@ h3.tittle-w3l span {
     visibility: hidden;
 }
 
-  @keyframes parpadeo {
-    0% { opacity: 1; }
-    50% { opacity: 0; }
-    100% { opacity: 1; }
+@keyframes parpadeo {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
 
 .product-new-top {
