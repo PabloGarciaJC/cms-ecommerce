@@ -1724,3 +1724,15 @@
           transform: translate(-50%, -50%) rotate(360deg);
       }
   }
+
+  /* # PRODUCTO LISTADO
+================================================== */
+.product-sin-stock img, .product-sin-stock .pt-1, .product-sin-stock .info-product-price, .product-sin-stock .product-rating-plantilla,
+.product-ficha-sin-stock .flexslider, .product-ficha-sin-stock .mb-3, .product-ficha-sin-stock .my-3, .product-ficha-sin-stock .product-rating.mb-4, .product-ficha-sin-stock .product-new-top
+
+{opacity: 0.5;}
+
+
+
+
+

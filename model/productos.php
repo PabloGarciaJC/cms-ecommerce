@@ -287,11 +287,14 @@ class Productos
 
   public function obtenerProductos($parentId)
   {
-      $idioma = empty($this->getIdioma()) ? 1 : $this->getIdioma();
-      $usuarioId = $this->getUsuario() ? $this->getUsuario()->Id : null;
-  
-      // Base SQL común
-      $sql = "SELECT
+    // Obtener el idioma actual
+    $idioma = empty($this->getIdioma()) ? 1 : $this->getIdioma();
+
+    // Obtener el ID del usuario autenticado (si existe)
+    $usuarioId = $this->getUsuario() ? $this->getUsuario()->Id : null;
+
+    // Base SQL común
+    $sql = "SELECT
                   p.id,
                   p.nombre,
                   p.imagenes,
@@ -303,45 +306,49 @@ class Productos
                   p.parent_id,
                   p.grupo_id";
 
-      // Si el usuario está autenticado, se agrega la columna 'favorito'
-      if ($usuarioId) {
-          $sql .= ",fv.id as favorito_id, fv.usuario_id, CASE
-                    WHEN fv.id IS NOT NULL THEN 1
-                      ELSE 0
-                    END AS favorito";
-      }
-  
-      // Continuar con el SQL
-      $sql .= " FROM productos p 
-                LEFT JOIN categorias ca ON ca.grupo_id = p.parent_id";
-  
-      // Si el usuario está autenticado, también se une a la tabla favoritos
-      if ($usuarioId) {
-          $sql .= " LEFT JOIN favoritos fv ON fv.grupo_id = p.grupo_id";
-      }
-  
-      // Filtros por idioma y parent_id
-      $sql .= " WHERE p.idioma_id = $idioma AND ca.idioma_id = $idioma AND p.parent_id = $parentId LIMIT 3;";
+    // Si el usuario está autenticado, se agrega la columna 'favorito'
+    if ($usuarioId) {
+      $sql .= ", MAX(fv.id) AS favorito_id, MAX(fv.usuario_id) AS usuario_id, 
+                    CASE WHEN MAX(fv.id) IS NOT NULL THEN 1 ELSE 0 END AS favorito";
+    }
 
-      // Ejecutar consulta
-      return $this->db->query($sql);
+    // Continuar con el SQL
+    $sql .= " FROM productos p 
+                LEFT JOIN categorias ca ON ca.grupo_id = p.parent_id";
+
+    // Si el usuario está autenticado, también se une a la tabla favoritos
+    if ($usuarioId) {
+      $sql .= " LEFT JOIN favoritos fv ON fv.grupo_id = p.grupo_id";
+    }
+
+    // Filtros por idioma y parent_id
+    $sql .= " WHERE p.idioma_id = $idioma AND ca.idioma_id = $idioma AND p.parent_id = $parentId";
+
+    // Agrupación según los campos seleccionados
+    $sql .= " GROUP BY p.id, p.nombre, p.imagenes, p.precio, p.stock, p.estado, p.oferta, p.offer_expiration, p.parent_id, p.grupo_id";
+
+    // Limitar a 3 resultados (según tu código original)
+    $sql .= " LIMIT 3;";
+
+    // Ejecutar la consulta
+    return $this->db->query($sql);
   }
-  
+
   public function movil()
   {
-      return $this->obtenerProductos(1735806505);
+    return $this->obtenerProductos(1735806505);
   }
-  
+
   public function tvAudios()
   {
-      return $this->obtenerProductos(1735801087);
+    return $this->obtenerProductos(1735801087);
   }
-  
+
   public function electrodomesticos()
   {
-      return $this->obtenerProductos(1735804773);
+    return $this->obtenerProductos(1735804773);
   }
-  
+
   public function obtenerTotalProductos()
   {
     $sql = "SELECT SUM(stock) AS total_productos FROM productos";
@@ -353,5 +360,4 @@ class Productos
 
     return 0;
   }
-
 }

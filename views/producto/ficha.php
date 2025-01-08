@@ -14,11 +14,11 @@
 
 <div class="banner-bootom-w3-agileits mt-3">
 	<div class="container">
-		<div class="row">
+		<div class="row <?php echo (isset($productoFicha->stock) && $productoFicha->stock > 0) ? '' : 'product-ficha-sin-stock'; ?>">
 			<div class="col-lg-5 col-md-8 single-right-left ">
 				<div class="grid images_3_of_2">
 					<?php if (!empty($productoFicha->oferta) && $productoFicha->oferta > 0): ?>
-						<span class="product-new-top"><?php echo TEXT_OFERTA . ' ' . intval($productoFicha->oferta) . '$'; ?></span>
+						<span class="product-new-top">-<?php echo intval($productoFicha->oferta) . '$'; ?></span>
 					<?php endif; ?>
 					<?php
 					$imagenesArray = json_decode($productoFicha->imagenes);
@@ -50,8 +50,8 @@
 					<?php
 					if (!empty($productoFicha->oferta) && $productoFicha->oferta > 0) {
 						$precio_con_descuento = $productoFicha->precio - $productoFicha->oferta;
-						echo '<span class="item_price">' . intval($productoFicha->precio - $productoFicha->oferta) . '$</span>';
-						echo '<del>' . intval($productoFicha->precio) . '$</del>';
+						echo '<span class="item_price">Precio: ' . intval($productoFicha->precio - $productoFicha->oferta) . '$</span>';
+						echo '<span>Antes: <del>' . intval($productoFicha->precio) . '$</del></span>';
 					} else {
 						echo '<span class="item_price">' . PRICE . ' : ' . intval($productoFicha->precio) . '$</span>';
 					}
@@ -120,7 +120,13 @@
 								<input type="hidden" name="currency_code" value="USD" />
 								<input type="hidden" name="cancel_return" value=" " />
 								<input type="hidden" name="return" value="" />
-								<input type="submit" name="submit" value="<?php echo ADD_TO_CART; ?>" class="button btn" />
+
+								<?php if (isset($productoFicha->stock) && $productoFicha->stock > 0): ?>
+									<input type="submit" name="submit" value="<?php echo ADD_TO_CART; ?>" class="button btn" />
+								<?php else: ?>
+									<input value="SIN STOCK" class="button-sin-stock btn" />
+								<?php endif; ?>
+
 							</fieldset>
 						</form>
 					</div>

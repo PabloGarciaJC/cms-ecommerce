@@ -181,39 +181,43 @@ class Categorias
 
   public function obtenerProductos()
   {
+    // Obtener el idioma actual
     $idioma = empty($this->getIdioma()) ? 1 : $this->getIdioma();
+
+    // Obtener el ID del usuario autenticado (si existe)
     $usuarioId = $this->getUsuario() ? $this->getUsuario()->Id : null;
 
-    // Consulta base para categorías y productos
+    // Consulta base para categorías
     $sqlCategorias = "SELECT * FROM categorias WHERE idioma_id = $idioma";
+
+    // Consulta base para productos
     $sqlProductos = "SELECT p.id,
-                            p.nombre,
-                            p.imagenes,
-                            p.precio,
-                            p.stock,
-                            p.estado,
-                            p.oferta,
-                            p.offer_expiration,
-                            p.parent_id,
-                            p.grupo_id";
+                              p.nombre,
+                              p.imagenes,
+                              p.precio,
+                              p.stock,
+                              p.estado,
+                              p.oferta,
+                              p.offer_expiration,
+                              p.parent_id,
+                              p.grupo_id";
 
     // Si el usuario está autenticado, se agrega la columna 'favorito'
     if ($usuarioId) {
-      $sqlProductos .= ",fv.id as favorito_id, fv.usuario_id, CASE
-                        WHEN fv.id IS NOT NULL THEN 1
-                        ELSE 0
-                        END AS favorito";
+      $sqlProductos .= ", MAX(fv.id) AS favorito_id, MAX(fv.usuario_id) AS usuario_id, 
+                            CASE WHEN MAX(fv.id) IS NOT NULL THEN 1 ELSE 0 END AS favorito";
     }
 
-    // Continuar con el SQL
+    // Continuar con la SQL para productos
     $sqlProductos .= " FROM productos p 
-                       LEFT JOIN categorias ca ON ca.grupo_id = p.parent_id";
+                         LEFT JOIN categorias ca ON ca.grupo_id = p.parent_id";
 
     // Si el usuario está autenticado, también se une a la tabla favoritos
     if ($usuarioId) {
       $sqlProductos .= " LEFT JOIN favoritos fv ON fv.grupo_id = p.grupo_id";
     }
 
+    // Filtros comunes de idioma
     $sqlProductos .= " WHERE p.idioma_id = $idioma AND ca.idioma_id = $idioma";
 
     // Si se recibe un parentId, se agrega al filtro
@@ -238,6 +242,9 @@ class Categorias
     if (!empty($this->getMaxPrecio())) {
       $sqlProductos .= " AND p.precio <= {$this->getMaxPrecio()}";
     }
+
+    // Agrupación para productos (para evitar duplicados y usar MAX con favoritos)
+    $sqlProductos .= " GROUP BY p.id, p.nombre, p.imagenes, p.precio, p.stock, p.estado, p.oferta, p.offer_expiration, p.parent_id, p.grupo_id";
 
     // Ejecutar las consultas
     $listarCategorias = $this->db->query($sqlCategorias);

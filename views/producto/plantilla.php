@@ -1,4 +1,4 @@
-<div class="col-md-4 product-men mt-5 animation__fade-in-upscale">
+<div class="col-md-4 product-men mt-5 animation__fade-in-upscale <?php echo (isset($prod->stock) && $prod->stock > 0) ? '' : 'product-sin-stock'; ?>">
     <div class="men-pro-item simpleCart_shelfItem">
         <a href="<?php echo BASE_URL ?>Producto/ficha?id=<?php echo urlencode($prod->id); ?>&parent_id=<?php echo urlencode($prod->parent_id); ?>" class="men-thumb-item text-center">
             <?php
@@ -27,13 +27,13 @@
             <?php if (!empty($prod->precio)): ?>
                 <div class="info-product-price my-2">
                     <?php if (!empty($prod->oferta) && $prod->oferta > 0): ?>
-                        <span class="product-new-top"><?php echo TEXT_OFERTA . ' ' . intval($prod->oferta) . '$'; ?></span>
+                        <span class="product-new-top">-<?php echo intval($prod->oferta) . '$'; ?></span>
                     <?php endif; ?>
                     <?php
                     if (!empty($prod->oferta) && $prod->oferta > 0) {
                         $precio_con_descuento = $prod->precio - $prod->oferta;
-                        echo '<span class="item_price">Precio: $' . intval($prod->precio - $prod->oferta) . '</span>';
-                        echo '<del>' . intval($prod->precio) . '$</del>';
+                        echo '<span class="item_price">Precio: ' . intval($prod->precio - $prod->oferta) . '$</span>';
+                        echo '<span>Antes:<del>' . intval($prod->precio) . '$</del></span>';
                     } else {
                         echo '<span class="item_price">Precio: $' . intval($prod->precio) . '</span>';
                     }
@@ -49,6 +49,7 @@
                 <i class="fas fa-heart"></i> <?php echo TEXT_PRODUCT_SAVE_FAVORITE; ?>
             </button>
             <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
+                
                 <form action="#" method="post">
                     <fieldset>
                         <input type="hidden" name="producto_id" value="<?php echo $prod->id; ?>" />
@@ -66,7 +67,11 @@
                         <input type="hidden" name="currency_code" value="USD" />
                         <input type="hidden" name="return" value="" />
                         <input type="hidden" name="cancel_return" value=" " />
-                        <input type="submit" name="submit" value="<?php echo ADD_TO_CART; ?>" class="button btn" />
+                        <?php if (isset($prod->stock) && $prod->stock > 0): ?>
+                            <input type="submit" name="submit" value="<?php echo ADD_TO_CART; ?>" class="button btn" />
+                        <?php else: ?>
+                            <input value="SIN STOCK" class="button-sin-stock btn" />
+                        <?php endif; ?>
                     </fieldset>
                 </form>
             </div>

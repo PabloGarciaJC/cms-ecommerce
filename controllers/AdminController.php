@@ -19,7 +19,7 @@ class AdminController
         $this->languageController = new LanguageController();
     }
 
-    private function cargarDatosComunes()
+    private function obtenerIdidioma()
     {
         if (isset($_POST['lenguaje'])) {
             $this->languageController->setIdioma($_POST['lenguaje']);
@@ -237,7 +237,8 @@ class AdminController
 
     public function productos()
     {
-        $this->cargarDatosComunes();
+        $idiomas = new Idiomas();
+        $getIdiomas = $idiomas->obtenerTodos();
         Utils::accesoUsuarioRegistrado();
         $editId = isset($_GET['editid']) ? $_GET['editid'] : false;
         $deleteid = isset($_GET['deleteid']) ? $_GET['deleteid'] : false;
@@ -274,7 +275,6 @@ class AdminController
         $urlParentid = $parentid ? '?categoriaId=' . $parentid : '';
 
         $productos = new Productos();
-        $registroCreado = false;
 
         // Generación de grupo_id único
         $grupo_id = substr(str_replace('.', '', microtime(true)), 0, 6) . str_pad(rand(0, 9999), 4, '0', STR_PAD_LEFT);
@@ -324,6 +324,7 @@ class AdminController
 
         // Asignar valores a los productos y verificar validaciones
         foreach ($datos['nombres'] as $idioma => $nombre) {
+
             $descripcion = isset($datos['descripciones'][$idioma]) ? $datos['descripciones'][$idioma] : '';
             $precio = isset($datos['precios'][$idioma]) && is_numeric($datos['precios'][$idioma]) ? floatval($datos['precios'][$idioma]) : 0.0;
             $stock = isset($datos['stock'][$idioma]) && $datos['stock'][$idioma] !== '' ? intval($datos['stock'][$idioma]) : 0;
@@ -333,7 +334,7 @@ class AdminController
             $offerExpiration = isset($datos['offerExpiration'][$idioma]) ? $datos['offerExpiration'][$idioma] : null;
             $idioma_id = array_search($idioma, array_keys($datos['nombres'])) + 1;
 
-            // Asignación de datos a los productos
+            // // Asignación de datos a los productos
             $productos->setIdioma($idioma_id);
             $productos->setNombre($nombre);
             $productos->setDescripcion($descripcion);
@@ -344,6 +345,7 @@ class AdminController
             $productos->setOfferStart($offerStart);
             $productos->setOfferExpiration($offerExpiration);
             $productos->setParentId($parentid);
+
 
             // Asignar las imágenes correspondientes
             $productos->setImagenes(isset($imagenesPorIdioma[$idioma]) ? $imagenesPorIdioma[$idioma] : '[]');
@@ -366,9 +368,8 @@ class AdminController
                 $_SESSION['exito'] = 'El producto se creó correctamente.';
                 $messageClass = 'alert-primary';
             }
-
-            $registroCreado = true;
         }
+
         $_SESSION['messageClass'] = $messageClass;
         unset($_SESSION['errores']);
         unset($_SESSION['form']);
@@ -379,7 +380,8 @@ class AdminController
 
     public function categorias()
     {
-        $this->cargarDatosComunes();
+        $idiomas = new Idiomas();
+        $getIdiomas = $idiomas->obtenerTodos();
         Utils::accesoUsuarioRegistrado();
         $editId = isset($_GET['editid']) ? $_GET['editid'] : false;
         $deleteid = isset($_GET['deleteid']) ? $_GET['deleteid'] : false;
@@ -413,8 +415,6 @@ class AdminController
         // Generar un único grupo_id para todos los registros
         $grupo_id = substr(str_replace('.', '', microtime(true)), 0, 6) . str_pad(rand(0, 9999), 4, '0', STR_PAD_LEFT);
         $grupo_id = substr($grupo_id, 0, 10);
-
-        $registroCreado = false;
 
         // Manejo de imágenes subidas
         $imagenesPorIdioma = [];
@@ -497,8 +497,6 @@ class AdminController
                 $_SESSION['exito'] = 'La categoría se creó correctamente.';
                 $messageClass = 'alert-primary';
             }
-
-            $registroCreado = true;
         }
 
         $_SESSION['messageClass'] = $messageClass;
@@ -766,7 +764,7 @@ class AdminController
         $usuario = Utils::obtenerUsuario();
         $favorito = new Favorito();
         $favorito->setUsuarioId($usuario->Id);
-        $favorito->setIdioma($this->cargarDatosComunes());
+        $favorito->setIdioma($this->obtenerIdidioma());
         $favoritos = $favorito->listarFavoritos();
      
         require_once 'views/layout/head.php';

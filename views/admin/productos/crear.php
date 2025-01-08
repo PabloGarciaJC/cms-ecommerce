@@ -40,6 +40,7 @@
                 <div class="tab-content" id="languageTabsContent">
                     <?php foreach ($getIdiomas as $index => $idioma) : ?>
                         <div class="tab-pane fade <?php echo $index === 0 ? 'show active' : ''; ?>" id="form-<?php echo $idioma['codigo']; ?>" role="tabpanel" aria-labelledby="tab-<?php echo $idioma['codigo']; ?>">
+                            
                             <input type="hidden" name="id_idioma[<?php echo $idioma['id']; ?>]" value="<?php echo $idioma['id']; ?>">
 
                             <!-- Nombre del Producto -->
