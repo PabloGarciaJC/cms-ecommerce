@@ -17,7 +17,7 @@
 						<?php echo $producto->tvAudios(); ?>
 					</div>
 				</div>
-				<div class="product-sec1 product-sec2 px-sm-5 px-3 animation__left">
+				<div class="product-sec1 product-sec2 px-sm-5 px-3 animation__fade-in-upscale">
 					<div class="row">
 						<h3 class="col-md-4 effect-bg">Summer Carnival</h3>
 						<p class="w3l-nut-middle">Get Extra 10% Off</p>
