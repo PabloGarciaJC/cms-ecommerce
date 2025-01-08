@@ -5,83 +5,85 @@ class User {
   }
 
   registro() {
-    let mdFormularioRegistro = document.getElementById('mdFormularioRegistro');
-    if (mdFormularioRegistro) {
-      mdFormularioRegistro.addEventListener('submit', (e) => {
-        e.preventDefault();
-        let mdUsuarioR = $('#mdUsuarioRegistro').val();
-        let mdEmailR = $('#mdEmailRegistro').val();
-        let mdPasswordR = $('#mdPasswordRegistro').val();
-        let mdConfirmarPasswordR = $('#mdConfirmarPasswordRegistro').val();
-        let mdCheckedR = document.getElementById('mdCheckedRegistro').checked;
-        $.ajax({
-          type: 'POST',
-          url: baseUrl + 'Usuario/registro',
-          data: 'usuario=' + mdUsuarioR + '&email=' + mdEmailR + '&password=' + mdPasswordR + '&confirmarPassword=' + mdConfirmarPasswordR + '&checked=' + mdCheckedR,
-        })
-          .done(function (response) {
-            $('#mdErrorUsuarioPhp').html('');
-            $('#mdErrorEmailPhp').html('');
-            $('#mdErrorPasswordPhp').html('');
-            $('#mdErrorConfirmarPasswordPhp').html('');
-            $('#mdErrorChekedPhp').html('');
-            $("#respuestaPhpRegistro").html(response);
-            if (response == 1) {
-              Swal.fire({
-                title: "Completado",
-                icon: "success",
-                timer: 500,
-                showConfirmButton: false
-              }).then(function () {
-                window.location = baseUrl + "Admin/dashboard";
-              });
-              $('#mdFormularioRegistro').trigger('reset');
-            } else {
-              $('#respuestaPhpRegistro').html('');
-            }
-          })
+    $('.formulario-registro').on('submit', function (e) {
+      e.preventDefault();
+      let formData = $(this).serialize();
+      $.ajax({
+        type: 'POST',
+        url: baseUrl + 'Usuario/registro',
+        data: formData,
+        success: function (response) {
+          let data = JSON.parse(response);
+          if (data.success) {
+            Swal.fire({
+              title: data.titulo,
+              icon: "success",
+              showConfirmButton: false,
+              confirmButtonText: data.boton,
+              timer: 1000
+            }).then(() => {
+              window.location.reload();
+            });
+            $('.formulario-registro').trigger('reset');
+          } else {
+            let errorMessage = "";
+            data.message.forEach(function (error) {
+              errorMessage += `<p style="color: red;text-align: justify;"><i class="fa fa-times-circle"></i> ${error}</p>`;
+            });
+            Swal.fire({
+              title: data.titulo,
+              icon: "error",
+              html: errorMessage,
+              confirmButtonText: data.boton
+            });
+          }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+          console.error(textStatus, errorThrown);
+          $('#respuestaPhpRegistro').html('Ocurrió un error al enviar la solicitud.').show();
+        }
       });
-    }
+    });
   }
 
   iniciarSesion() {
-    $("#mdFormularioIniciarSesion").on("submit", function (e) {
+    $(".formulario-iniciar-sesion").on("submit", function (e) {
       e.preventDefault();
-      let mdEmailI = $("#mdEmailIniciarSesion").val();
-      let mdPasswordI = $("#mdPasswordIniciarSesion").val();
-      if (!mdEmailI || !mdPasswordI) {
-        $("#respuestaPhpIniciarSesion").html("Por favor completa todos los campos.");
-        return;
-      }
+      let formData = $(this).serialize();
       $.ajax({
-        type: "POST",
-        url: baseUrl + "Usuario/IniciarSesion",
-        data: {
-          email: mdEmailI,
-          password: mdPasswordI,
-        },
+        type: 'POST',
+        url: baseUrl + 'Usuario/IniciarSesion',
+        data: formData,
         success: function (response) {
-          if (response == 1) {
+          let data = JSON.parse(response);
+          if (data.success) {
             Swal.fire({
-              title: "Completado",
+              title: data.titulo,
               icon: "success",
-              timer: 500,
               showConfirmButton: false,
-            }).then(function () {
-              window.location = baseUrl + "Admin/dashboard";
+              confirmButtonText: data.boton,
+              timer: 1000
+            }).then(() => {
+              window.location.reload();
             });
-            $("#mdFormularioIniciarSesion").trigger("reset");
+            $('.formulario-iniciar-sesion').trigger('reset');
           } else {
-            $("#respuestaPhpIniciarSesion").html("Error al iniciar sesión. Verifica tus credenciales.");
+            let errorMessage = "";
+            data.message.forEach(function (error) {
+              errorMessage += `<p style="color: red;text-align: justify;"><i class="fa fa-times-circle"></i> ${error}</p>`;
+            });
+            Swal.fire({
+              title: data.titulo,
+              icon: "error",
+              html: errorMessage,
+              confirmButtonText: data.boton
+            });
           }
-          $("#mdErrorEmailIniciarSesionPhp").html("");
-          $("#mdErrorPasswordIniciarSesionPhp").html("");
-          $("#respuestaPhpIniciarSesion").html(response);
         },
-        error: function (xhr, status, error) {
-          console.error("Error en la solicitud AJAX:", status, error);
-          $("#respuestaPhpIniciarSesion").html("Ocurrió un error. Inténtalo nuevamente.");
-        },
+        error: function (jqXHR, textStatus, errorThrown) {
+          console.error(textStatus, errorThrown);
+          $('#respuestaPhpRegistro').html('Ocurrió un error al enviar la solicitud.').show();
+        }
       });
     });
   }
@@ -89,6 +91,37 @@ class User {
   customUser() {
     this.registro();
     this.iniciarSesion();
+
+    // Script para llenar los campos con usuarios de prueba 
+    let userCards = $('.user-card');
+    let emailInput = $('[name="email"]');
+    let passwordInput = $('[name="password"]');
+
+    // Recorre las tarjetas y añade funcionalidad de clic
+    userCards.on('click', function () {
+
+      // Remueve la clase activa de todas las tarjetas
+      userCards.removeClass('active');
+
+      // Añade la clase activa a la tarjeta seleccionada
+      $(this).addClass('active');
+
+      let email = $(this).data('email');
+      let password = $(this).data('password');
+
+      // Rellena los campos del formulario
+      emailInput.val(email);
+      passwordInput.val(password);
+
+      setTimeout(function () {
+        $('.formulario-iniciar-sesion').submit();
+      }, 300);
+    });
+
+    if (!localStorage.getItem('modalShown')) {
+      $('#exampleModal').modal('show');
+      localStorage.setItem('modalShown', 'true');
+    }
   }
 
   init() {

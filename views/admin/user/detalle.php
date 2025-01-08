@@ -8,6 +8,12 @@
             <div class="panel-admin__category-list">
                 <table class="table table-bordered">
                     <tr>
+                        <th>Avatar</th>
+                        <td>
+                            <img src="<?php echo !empty($usuarioDetails->imagen) ? BASE_URL . 'uploads/images/avatar/' . $usuarioDetails->imagen : BASE_URL . 'uploads/images/default.jpg'; ?>" class="user-avatar-header" alt="Avatar de Usuario">
+                        </td>
+                    </tr>
+                    <tr>
                         <th>Usuario</th>
                         <td><?php echo $usuarioDetails->Usuario; ?></td>
                     </tr>

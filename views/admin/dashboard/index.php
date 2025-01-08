@@ -101,7 +101,7 @@
         </div>
       </div>
       <div class="panel-admin__orders-history">
-        <h3>Historial de Pedidos</h3>
+        <h3>Resumen de los Pedidos</h3>
         <table class="table table-striped mt-4 text-center">
           <thead>
             <tr>
@@ -120,7 +120,7 @@
                 <td><?php echo $pedido['estado']; ?></td>
                 <td><?php echo $pedido['fecha']; ?></td>
                 <td class="align-middle">
-                  <a href="<?php echo BASE_URL; ?>Admin/detallePedido?id=<?php echo $pedido['id']; ?>" class="btn btn-info btn-sm">Ver Detalles</a>
+                  <a href="<?php echo BASE_URL; ?>Admin/detallePedido?id=<?php echo $pedido['id']; ?>&url=dashboard" class="btn btn-info btn-sm">Ver Detalles</a>
                 </td>
               </tr>
             <?php endforeach; ?>

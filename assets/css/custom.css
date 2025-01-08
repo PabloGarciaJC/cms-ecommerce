@@ -3,6 +3,10 @@
       width: 100%;
   }
 
+  .swal2-title {
+      color: #000
+  }
+
   /* HEader nav */
 
   @media (max-width:767px) {
@@ -937,7 +941,6 @@
   .filter-container {
       background-color: #ffffff;
       border: 1px solid #e0e0e0;
-      border-radius: 10px;
       padding: 20px;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       display: flex;
@@ -1048,6 +1051,10 @@
 
   /* # ANIMACIONES
 ================================================== */
+  .animation__contn {
+      overflow: hidden;
+  }
+
   @keyframes animation__slide-right-keyframes {
       from {
           transform: translateX(100%);
@@ -1142,17 +1149,44 @@
       display: inline-block;
   }
 
+  @media (max-width:767px) {
+      .custom-select-container {
+          margin-right: 5px;
+      }
+
+      .header-most-top {
+          justify-content: center;
+      }
+  }
+
   .custom-select {
       display: none;
   }
 
   .select-selected {
       background-color: #f1f1f1;
-      padding: 10px;
+      padding: 5px;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: space-between;
+  }
+
+  .select-selected .select-arrow {
+      margin-right: 5px;
+      font-size: 25px;
+  }
+
+  @media (max-width:767px) {
+
+      .select-selected {
+          padding: 0px;
+      }
+
+      .select-selected img {
+          margin-right: 5px;
+          margin-left: 5px;
+      }
   }
 
   .select-selected img {
@@ -1552,4 +1586,155 @@
   .productos-thumbnail {
       width: 100%;
       height: 100%;
+  }
+
+  /* # DANGER CHECKOUT
+================================================== */
+  .custom-alert-danger {
+      margin-top: 20px;
+      background-color: #f8d7da;
+      border-color: #f5c6cb;
+      padding: 15px;
+      border-radius: 5px;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+  }
+
+  .custom-alert-danger a {
+      text-decoration: underline;
+      padding: 0px;
+      background-color: #f8d7da !important;
+      color: #0056b3 !important;
+  }
+
+  .custom-alert-danger a:hover {
+      border: unset;
+  }
+
+  .custom-alert-danger p {
+      color: #000;
+      margin: 0;
+      font-size: 16px;
+  }
+
+
+  .custom-alert-checkout {
+      display: flex;
+      gap: 5px
+  }
+
+  @media (max-width: 768px) {
+      .custom-alert-danger {
+          font-size: 14px;
+          padding: 12px;
+      }
+
+      .custom-alert-checkout {
+          flex-wrap: wrap;
+      }
+
+      .custom-alert-danger i {
+          display: none;
+      }
+  }
+
+  /* #BOTONES CHECKOUT
+================================================== */
+  .quantity {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  }
+
+  .btn-decrease,
+  .btn-increase {
+      font-size: 1rem;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      border: 1px solid
+  }
+
+  button:focus {
+      outline: unset;
+  }
+
+  .quantity-value {
+      font-size: 1.3rem;
+      width: 30px;
+      text-align: center;
+      height: 30px;
+  }
+
+  /* #BOTONES FAVORITOS LISTADO DE PRODUCTOS
+================================================== */
+  .item-btn-favorito {
+      background-color: #fff;
+      color: #333;
+      border: 1px solid #ddd;
+      padding: 8px 15px;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.3s, color 0.3s;
+      margin-bottom: 10px;
+  }
+
+  .item-btn-favorito i {
+      margin-right: 5px;
+  }
+
+  .item-btn-favorito:hover,
+  .item-btn-favorito.favorito-activado {
+      background-color: #c11664;
+      color: #fff;
+  }
+
+  .item-btn-favorito:hover i,
+  .item-btn-favorito.favorito-activado i {
+      color: #c6d518;
+  }
+
+  /* # SPINNER GIRA EN EL CENTRO DE LA PANTALLA
+================================================== */
+  .spinner {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border: 8px solid #5a5d5e;
+      border-top: 8px solid #3498db;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 2s linear infinite;
+      display: none;
+  }
+
+  @keyframes spin {
+      0% {
+          transform: translate(-50%, -50%) rotate(0deg);
+      }
+
+      100% {
+          transform: translate(-50%, -50%) rotate(360deg);
+      }
+  }
+
+  /* # PRODUCTO LISTADO SIN STOCK
+================================================== */
+  .product-sin-stock img,
+  .product-sin-stock .pt-1,
+  .product-sin-stock .info-product-price,
+  .product-sin-stock .product-rating-plantilla,
+  .product-ficha-sin-stock .flexslider,
+  .product-ficha-sin-stock .mb-3,
+  .product-ficha-sin-stock .my-3,
+  .product-ficha-sin-stock .product-rating.mb-4,
+  .product-ficha-sin-stock .product-new-top {
+    opacity: 0.5;
   }

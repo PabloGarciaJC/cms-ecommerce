@@ -1,5 +1,5 @@
 	<div class="join-w3l1 py-sm-5 py-4">
-		<div class="container py-xl-4 py-lg-2">
+		<div class="container py-xl-4 py-lg-2 animation__contn">
 			<div class="row animation__left-right">
 				<div class="col-lg-6">
 					<div class="join-agile text-left p-4 banner-wrapper">
@@ -146,42 +146,40 @@
 					</button>
 				</div>
 				<div class="modal-body">
+
 					<div class="mb-3 contn-info">
 						<div class="parrafo-info">
-							<h1 class="text-center title-info">Información Importante</h1>
-							Los usuarios proporcionados son ficticios y están destinados para realizar pruebas.
+							<h1 class="text-center title-info"><i class="fas fa-exclamation-circle"></i> <?php echo TEXT_IMPORTANT_INFO_TITLE; ?></h1>
+							<p><?php echo TEXT_IMPORTANT_INFO_DESC; ?></p>
 						</div>
 						<div class="row text-center">
 							<div class="col">
-								<div class="card user-card bg-light p-2" data-email="admin@cms.com" data-password="password">
-									<p class="mb-0 user-card-parrafo"><strong>Administrador</strong><br>admin@cms.com</p>
+								<div class="card user-card bg-light p-2" data-email="admin@pablogarciajc.com" data-password="password">
+									<p class="mb-0 user-card-parrafo"><strong><?php echo TEXT_ADMINISTRATOR; ?></strong><br><?php echo TEXT_ADMIN_EMAIL; ?></p>
 									<p class="text-center mt-2">
-										<a href="#" class="select-action">Selecciona AQUÍ</a>
+										<a href="#" class="select-action"><?php echo TEXT_SELECT_HERE; ?></a>
 									</p>
 								</div>
 							</div>
-							<div class="col">
-								<div class="card user-card bg-light p-2" data-email="cliente@user.com" data-password="password">
-									<p class="mb-0 user-card-parrafo"><strong>Cliente de Prueba</strong><br>cliente@user.com</p>
+							<div class="col mt-3">
+								<div class="card user-card bg-light p-2" data-email="sofia.martinez@pablogarciajc.com" data-password="password">
+									<p class="mb-0 user-card-parrafo"><strong><?php echo TEXT_TEST_CLIENT; ?></strong><br><?php echo TEXT_TEST_CLIENT_EMAIL; ?></p>
 									<p class="text-center mt-2">
-										<a href="#" class="select-action">Selecciona AQUÍ</a>
+										<a href="#" class="select-action"><?php echo TEXT_SELECT_HERE; ?></a>
 									</p>
 								</div>
 							</div>
 						</div>
 					</div>
 
-					<form action="javascript:void(0)" id="mdFormularioIniciarSesion" method="POST">
-						<div id="respuestaPhpIniciarSesion" style="text-align: center; display: none"></div>
+					<form action="<?php echo BASE_URL; ?>Usuario/IniciarSesion" class="formulario-iniciar-sesion" method="POST">
 						<div class="form-group">
 							<label class="col-form-label"><?php echo TEXT_MODAL_EMAIL_LABEL; ?></label>
-							<input type="text" id="mdEmailIniciarSesion" class="form-control" name="Name">
-							<div id="mdErrorEmailIniciarSesionPhp" style="color: red;"></div>
+							<input type="email" class="form-control" name="email">
 						</div>
 						<div class="form-group">
 							<label class="col-form-label"><?php echo TEXT_MODAL_PASSWORD_LABEL; ?></label>
-							<input type="password" id="mdPasswordIniciarSesion" class="form-control" name="Password">
-							<div id="mdErrorPasswordIniciarSesionPhp" style="color: red;"></div>
+							<input type="password" class="form-control" name="password">
 						</div>
 						<div class="right-w3l">
 							<input type="submit" class="form-control" value="<?php echo TEXT_MODAL_CONTINUE_BUTTON; ?>">
@@ -206,34 +204,28 @@
 					</button>
 				</div>
 				<div class="modal-body">
-					<form action="<?php echo BASE_URL; ?>" method="POST" id="mdFormularioRegistro">
-						<div id="respuestaPhpRegistro" style="text-align: center; display: none"></div>
-						<div class="form-group cErrorUsuario">
+					<form action="<?php echo BASE_URL; ?>Usuario/registro" method="POST" class="formulario-registro">
+						<div class="form-group">
 							<label class="col-form-label "><?php echo TEXT_MODAL_ALIAS_LABEL; ?></label>
-							<input type="text" class="form-control" id="mdUsuarioRegistro" name="usuario">
-							<div id="mdErrorUsuarioPhp" style="color: red;"></div>
+							<input type="text" class="form-control" name="usuario">
 						</div>
-						<div class="form-group cErrorEmail">
+						<div class="form-group">
 							<label class="col-form-label"><?php echo TEXT_MODAL_EMAIL_LABEL_REGISTER; ?></label>
-							<input type="text" class="form-control" id="mdEmailRegistro" name="email">
-							<div id="mdErrorEmailPhp" style="color: red;"></div>
+							<input type="email" class="form-control" name="email">
 						</div>
-						<div class="form-group cErrorPassword">
+						<div class="form-group">
 							<label class="col-form-label "><?php echo TEXT_MODAL_PASSWORD_LABEL_REGISTER; ?></label>
-							<input type="password" class="form-control" id="mdPasswordRegistro" name="password">
-							<div id="mdErrorPasswordPhp" style="color: red;"></div>
+							<input type="password" class="form-control" name="password">
 						</div>
-						<div class="form-group cErrorConfirmarPassword">
+						<div class="form-group">
 							<label class="col-form-label "><?php echo TEXT_MODAL_CONFIRM_PASSWORD_LABEL; ?></label>
-							<input type="password" class="form-control" id="mdConfirmarPasswordRegistro" name="confirmarPassword">
-							<div id="mdErrorConfirmarPasswordPhp" style="color: red;"></div>
+							<input type="password" class="form-control" name="confirmarPassword">
 						</div>
-						<div class="sub-w3l cErrorChecked">
-							<div class="custom-control custom-checkbox mr-sm-2 ">
+						<div class="sub-w3l">
+							<div class="custom-control custom-checkbox mr-sm-2">
 								<input type="checkbox" class="custom-control-input" id="mdCheckedRegistro" name="checked">
 								<label class="custom-control-label" for="mdCheckedRegistro"><?php echo TEXT_MODAL_TERMS_LABEL; ?></label>
 							</div>
-							<div id="mdErrorChekedPhp" style="color: red;"></div>
 						</div>
 						<div class="right-w3l">
 							<input type="submit" class="form-control" value="<?php echo TEXT_MODAL_ACCEPT_BUTTON; ?>">

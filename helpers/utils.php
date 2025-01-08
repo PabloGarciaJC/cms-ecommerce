@@ -2,11 +2,6 @@
 
 class Utils
 {
-  //muestro errores modal
-  public static function setearMensajeError($idMensaje, $mensajeError)
-  {
-    return "<script>document.getElementById('$idMensaje').innerHTML='<strong>Error,</strong> $mensajeError';</script>";
-  }
 
   public static function accesoUsuarioRegistrado()
   {
@@ -35,4 +30,16 @@ class Utils
     return $queryPaisActual;
   }
 
+  public static function obtenerEstrellas($idGrupo)
+    {
+        require_once 'model/comentario.php';
+        $comentario = new Comentario();
+        $promedio = $comentario->obtenerPromedioCalificacion($idGrupo);
+        $calificacion = round($promedio);
+        $html = '';
+        for ($i = 1; $i <= 5; $i++) {
+            $html .= $i <= $calificacion ? '<i class="fas fa-star"></i>' : '<i class="far fa-star"></i>';
+        }
+        return $html;
+    }
 };

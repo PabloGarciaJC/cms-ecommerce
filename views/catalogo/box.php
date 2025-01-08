@@ -1,5 +1,5 @@
-<div class="container categorias-container">
-    <?php if (!empty($getCategorias['categorias']) && $getCategorias['categorias']->num_rows > 0) : ?>
+<?php if (!empty($getCategorias['categorias']) && $getCategorias['categorias']->num_rows > 0) : ?>
+    <div class="container categorias-container">
         <?php while ($categoria = $getCategorias['categorias']->fetch_object()) : ?>
             <?php
             if (is_string($categoria->imagenes)) {
@@ -27,5 +27,5 @@
                 </div>
             </a>
         <?php endwhile; ?>
-    <?php endif; ?>
-</div>
+    </div>
+<?php endif; ?>

@@ -12,21 +12,24 @@
 					<li class="text-center border-right text-white">
 						<i class="fas fa-phone mr-2"></i> <?php echo TEXT_PHONE_NUMBER; ?>
 					</li>
-					<li class="text-center border-right text-white">
+					<li class="text-center  <?php echo isset($_SESSION['usuarioRegistrado']) ? '' : 'border-right' ?> text-white">
 						<?php if (isset($_SESSION['usuarioRegistrado'])) : ?>
 							<a href="<?= BASE_URL ?>Admin/dashboard" class="text-white">
+							<img src="<?php echo !empty($_SESSION['usuarioRegistrado']->imagen) ? BASE_URL . 'uploads/images/avatar/' . $_SESSION['usuarioRegistrado']->imagen : BASE_URL . 'uploads/images/default.jpg'; ?>" class="user-avatar-header" alt="Avatar de Usuario">
 								<?php echo $usuario->Usuario; ?>
 							</a>
 						<?php else : ?>
 							<a href="javascript:void(0)" data-toggle="modal" data-target="#exampleModal" class="text-white">
-								<i class="fas fa-sign-in-alt mr-2"></i> <?php echo TEXT_HELLO_IDENTIFY; ?></a>
+								<i class="fas fa-sign-in-alt mr-2"></i> <?php echo TEXT_HELLO_IDENTIFY; ?>
 							</a>
 						<?php endif; ?>
 					</li>
-					<li class="text-center text-white">
-						<a href="#" data-toggle="modal" data-target="#exampleModal2" class="text-white">
-							<i class="fas fa-sign-out-alt mr-2"></i><?php echo TEXT_REGISTER; ?></a>
-					</li>
+					<?php if (!isset($_SESSION['usuarioRegistrado'])) : ?>
+						<li class="text-center text-white">
+							<a href="javascript:void(0)" data-toggle="modal" data-target="#exampleModal2" class="text-white">
+								<i class="fas fa-sign-out-alt mr-2"></i><?php echo TEXT_REGISTER; ?></a>
+						</li>
+					<?php endif; ?>
 				</ul>
 			</div>
 		</div>
@@ -88,7 +91,6 @@
 								<div class="dropdown-menu multi-level-dropdown">
 									<div class="agile_inner_drop_nav_info p-4">
 										<div class="row">
-
 											<!-- Subcategorías -->
 											<?php if (isset($item['subcategorias']) && $item['subcategorias']->num_rows > 0) : ?>
 												<div class="col-sm-6 multi-gd-img">
@@ -99,26 +101,24 @@
 														<?php endwhile; ?>
 													</ul>
 												</div>
-
 											<?php else: ?>
 												<div class="col-sm-6 multi-gd-img">
-													<p class="container">No se encontraron Subcategorías</p>
+													<p class="container"><?php echo ERROR_NO_SUBCATEGORY_FOUND; ?></p>
 												</div>
 											<?php endif; ?>
-
 											<!-- Productos -->
 											<?php if (isset($item['productos']) && $item['productos']->num_rows > 0) : ?>
 												<div class="col-sm-6 multi-gd-img">
 													<h6>Productos</h6>
 													<ul class="multi-column-dropdown">
 														<?php while ($producto = $item['productos']->fetch_object()) : ?>
-															<li><a href="<?php echo BASE_URL ?>Producto/ficha?id=<?php echo urlencode($producto->id); ?>&parent_id=<?php echo urlencode($producto->parent_id); ?>"><?= $producto->nombre ?></a></li>															
+															<li><a href="<?php echo BASE_URL ?>Producto/ficha?id=<?php echo urlencode($producto->id); ?>&parent_id=<?php echo urlencode($producto->parent_id); ?>"><?= $producto->nombre ?></a></li>
 														<?php endwhile; ?>
 													</ul>
 												</div>
 											<?php else: ?>
 												<div class="col-sm-6 multi-gd-img">
-													<p class="container">No se encontraron Productos</p>
+													<p class="container"><?php echo ERROR_NO_PRODUCTS_FOUND; ?></p>
 												</div>
 											<?php endif; ?>
 										</div>

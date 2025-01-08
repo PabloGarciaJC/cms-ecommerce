@@ -19,6 +19,7 @@ define("TEXT_TERMS", "Términos De Uso");
 define("TEXT_TERMS_PRIVACY", "Política de Privacidad");
 define("TEXT_CHECKOUT", "Verificar Compra");
 define("TEXT_FICHA", "Ficha Producto");
+define("TEXT_TITLE_FILTRO", "Aplicar filtros");
 
 // Textos para "Checkout"
 define('CART_CONTAINS', 'Tu carrito de compras contiene:');
@@ -255,3 +256,75 @@ define('TEXT_SHIPPING_SELECT', 'Seleccione');
 define('TEXT_SHIPPING_CITY', 'Ciudad/Región');
 define('TEXT_SHIPPING_ZIP_CODE', 'Código Postal');
 define('TEXT_SHIPPING_UPDATE_FORM', 'Actualizar Formulario');
+
+// Texto de danger checkout
+define('TEXT_ALERT_TITLE', '');
+define('TEXT_NOT_LOGGED_IN', '<strong>¡Atención!</strong> No has <a href="javascript:void(0)" data-toggle="modal" data-target="#exampleModal"> <i class="fas fa-sign-in-alt"></i> Iniciado sesión </a>');
+define('TEXT_NOT_REGISTER_IN', 'ó <a href="javascript:void(0)" data-toggle="modal" data-target="#exampleModal2"><i class="fas fa-user-plus"></i> Regístrate</a>');
+
+// Mensajes de validación en checkout
+define('ERROR_DIRECCION_EMPTY', 'La Dirección no puede estar vacía');
+define('ERROR_PAIS_EMPTY', 'El País no puede estar vacío');
+define('ERROR_CIUDAD_EMPTY', 'La Ciudad no puede estar vacía');
+define('ERROR_CODIGO_POSTAL_EMPTY', 'El Código Postal no puede estar vacío');
+
+// Mensajes de validación
+define('ERROR_NO_PRODUCTS_FOUND', 'No se han encontrado productos');
+define('ERROR_NO_SUBCATEGORY_FOUND', 'No se han encontrado Subcategorías');
+
+// Definición de los textos para el modal de usuarios ficticios
+define('TEXT_IMPORTANT_INFO_TITLE', 'Información');
+define('TEXT_IMPORTANT_INFO_DESC', 'Los usuarios proporcionados son ficticios y están destinados para realizar pruebas.');
+define('TEXT_ADMINISTRATOR', 'Administrador');
+define('TEXT_ADMIN_EMAIL', 'admin@pablogarciajc.com');
+define('TEXT_SELECT_HERE', 'Selecciona AQUÍ');
+define('TEXT_TEST_CLIENT', 'Cliente de Prueba');
+define('TEXT_TEST_CLIENT_EMAIL', 'sofia.martinez@pablogarciajc.com');
+
+// Definición de los textos Favoritos
+define('TEXT_PRODUCT_SAVE_FAVORITE', 'Guardar en Favoritos');
+define('TEXT_PRODUCT_ALREADY_FAVORITE', 'El producto ya está en tus favoritos.');
+define('TEXT_PRODUCT_ADDED_FAVORITE', 'Producto añadido a tus favoritos correctamente.');
+define('TEXT_PRODUCT_REMOVED_FAVORITE', 'Producto eliminado de tus favoritos correctamente.');
+define('TEXT_ERROR_ADD_FAVORITE', 'Hubo un error al agregar el producto a favoritos. Inténtalo nuevamente.');
+define('TEXT_ERROR_REMOVE_FAVORITE', 'Hubo un error al eliminar el producto de favoritos. Inténtalo nuevamente.');
+define('TEXT_NOT_FAVORITE', 'Este producto no está en tus favoritos.');
+define('TEXT_ERROR_NOT_REGISTERED_OR_INVALID_PRODUCT', 'No estás registrado o el producto no es válido.');
+
+// Definición de los textos errores registro
+define('ERROR_EMPTY_USERNAME', 'El nombre de usuario no puede estar vacío.');
+define('ERROR_EMPTY_EMAIL', 'El Email no puede estar vacío.');
+define('ERROR_EMPTY_PASSWORD', 'Password no puede estar vacío.');
+define('ERROR_EMPTY_CONFIRM_PASSWORD', 'Confirmar Password no puede estar vacío.');
+define('ERROR_PASSWORD_MISMATCH', 'Las contraseñas no coinciden.');
+define('ERROR_TERMS_NOT_ACCEPTED', 'Debes aceptar los términos y condiciones.');
+define('ERROR_USERNAME_EXISTS', 'El nombre de usuario ya está en uso.');
+define('ERROR_EMAIL_EXISTS', 'El correo electrónico ya está en uso.');
+define("LOGIN_SUCCESS", "Usuario logueado con éxito");
+define('TEXT_REGISTRATION_ERRORS_TITLE', 'Errores en el registro');
+define('TEXT_REGISTRATION_SUCCESS_TITLE', 'Registro exitoso');
+define('TEXT_ACCEPT_BUTTON', 'Aceptar');
+define('TEXT_REVIEW_BUTTON', 'Revisar');
+define('TEXT_LOGIN_ERRORS_TITLE', 'Errores al iniciar sesión');
+define('TEXT_LOGIN_SUCCESS_TITLE', 'Inicio de sesión exitoso');
+define('TEXT_EMAIL_NOT_REGISTERED', 'El correo electrónico no está registrado');
+define('TEXT_INCORRECT_PASSWORD', 'La contraseña es incorrecta');
+
+// Definición de los textos errores comentarios
+define('TEXT_COMMENT_ERRORS_TITLE', 'Errores al guardar el comentario');
+define('TEXT_COMMENT_NOT_REGISTERED', 'Debes estar registrado para poder comentar.');
+define('TEXT_COMMENT_REQUIRED', 'El comentario es obligatorio.');
+define('TEXT_RATING_REQUIRED', 'La calificación es obligatoria');
+define('TEXT_INVALID_PRODUCT', 'El producto seleccionado no es válido.');
+define('TEXT_COMMENT_SAVE_SUCCESS', 'Comentario guardado exitosamente.');
+define('TEXT_AVERAGE_RATING', 'Calificación Promedio.');
+
+
+
+
+
+
+
+
+
+

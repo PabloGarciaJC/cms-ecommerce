@@ -46,7 +46,7 @@
                             <?php
                             $items = $_SESSION['productoLista'] ?? [];
                             if (empty($items)) {
-                                echo '<tr><td colspan="5">No hay productos</td></tr>';
+                                echo '<tr><td colspan="5"> ' . ERROR_NO_PRODUCTS_FOUND . ' </td></tr>';
                             } else {
                                 $total = 0;
                                 foreach ($items as $index => $item) {
@@ -60,31 +60,32 @@
                                         </td>
                                         <td class="invert">
                                             <div class="quantity">
-                                                <div class="quantity-select">
-                                                    <div class="entry value">
-                                                        <span><?php echo $item['quantity']; ?></span>
-                                                    </div>
-                                                </div>
+                                                <button type="button" class="btn-decrease" data-index="<?php echo $index; ?>">-</button>
+                                                <span class="quantity-value" data-index="<?php echo $index; ?>"><?php echo $item['quantity']; ?></span>
+                                                <button type="button" class="btn-increase" data-index="<?php echo $index; ?>">+</button>
                                             </div>
+                                            <input type="hidden" name="productos[<?php echo $index; ?>][quantity]" id="quantity-<?php echo $index; ?>" value="<?php echo $item['quantity']; ?>" />
+                                            <!-- Aquí agregamos el precio del producto -->
+                                            <input type="hidden" name="productos[<?php echo $index; ?>][price]" value="<?php echo $item['price']; ?>" />
                                         </td>
                                         <td class="invert"><?php echo $item['name']; ?></td>
-                                        <td class="invert">$<?php echo number_format($item['price'], 2); ?></td>
+                                        <td class="invert">
+                                            $<span class="price-item" data-index="<?php echo $index; ?>"><?php echo number_format($item['price'] * $item['quantity'], 2); ?></span>
+                                            <input type="hidden" class="price-per-item" data-index="<?php echo $index; ?>" value="<?php echo number_format($item['price'], 2); ?>" readonly />
+                                        </td>
                                         <input type="hidden" name="productos[<?php echo $index; ?>][producto_id]" value="<?php echo $item['producto_id']; ?>" />
-                                        <input type="hidden" name="productos[<?php echo $index; ?>][quantity]" value="<?php echo $item['quantity']; ?>" />
                                     </tr>
                             <?php
                                 }
                             }
                             ?>
                         </tbody>
-                        <tfoot>
-                            <tr>
-                                <td colspan="4" style="text-align: right;"><strong><?php echo TEXT_SHIPPING_TOTAL; ?>:</strong></td>
-
-                                <td>$<?php echo isset($total) ? number_format($total, 2) : '0.00'; ?></td>
-                            </tr>
-                        </tfoot>
+                        <tr>
+                            <td colspan="4" style="text-align: right;">Total:</td>
+                            <td id="total-price">$<?php echo number_format($total, 2); ?></td>
+                        </tr>
                     </table>
+
                 </div>
             </div>
             <div class="checkout-left">
@@ -163,10 +164,28 @@
             <input type="hidden" id="text_oferta" value="<?php echo htmlspecialchars(OFERTA); ?>" />
             <input type="hidden" id="text_subtotal" value="<?php echo htmlspecialchars(SUBTOTAL); ?>" />
             <input type="hidden" id="text_realizar_pedido" value="<?php echo htmlspecialchars(REALIZAR_PEDIDO); ?>" />
+            <!-- Mensaje de nota importante -->
+            <div class="container contn-info">
+                <div class="parrafo-info">
+                    <h1 class="text-center title-info"> <i class="fas fa-exclamation-circle"></i><?php echo TEXT_IMPORTANT_INFO_TITLE; ?></h1>
+                    <p class="text-center">Este proyecto está utilizando credenciales de prueba de PayPal para simular la pasarela de pago. No realice transacciones reales mientras este entorno esté activo.</p>
+                </div>
+            </div>
             <div class="checkout-right-basket">
                 <button type="submit"><?php echo MAKE_PAYMENT; ?></button>
                 <?php if (isset($_SESSION['errores']) && count($_SESSION['errores']) > 0) : ?>
-                    <a href="<?php echo BASE_URL ?>Admin/perfil" type="button" target="_blank"><?php echo TEXT_SHIPPING_UPDATE_FORM; ?></a>
+                    <?php if (isset($_SESSION['usuarioRegistrado'])) : ?>
+                        <a href="<?php echo BASE_URL ?>Admin/perfil" type="button" target="_blank"><i class="fas fa-user-cog"></i> <?php echo TEXT_SHIPPING_UPDATE_FORM; ?></a>
+                    <?php else : ?>
+                        <div class="custom-alert-danger" role="alert">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <div class="custom-alert-checkout">
+                                <?php if (isset($_SESSION['errores']['usuarioRegistrado'])) : ?>
+                                    <?php echo $_SESSION['errores']['usuarioRegistrado']; ?>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    <?php endif; ?>
                 <?php endif; ?>
             </div>
         </form>

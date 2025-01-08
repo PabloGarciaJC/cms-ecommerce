@@ -194,70 +194,55 @@ class Usuario
   public function crear()
   {
     $result = false;
-
     $sql = "INSERT INTO usuarios (Usuario,
                                   Password,
-                                  Email)";
-
+                                  Email,
+                                  Rol)";
     $sql .= "VALUES ('{$this->usuario}',
                     '{$this->getPassword()}',    
-                    '{$this->email}')";
+                    '{$this->email}',
+                    {$this->getRol()})";
 
-    $save = $this->db->query($sql);
-
+    $result = $this->db->query($sql);
     return $result;
   }
 
   public function iniciarSesion()
   {
-    $resultado = false;
-
-    // Realizamos un INNER JOIN con la tabla de roles para obtener el nombre del rol
+    $usuario = false;
+    $email = $this->getEmail() ?? "";
+    $escapedEmail = $this->db->real_escape_string($email);
     $sql = "SELECT u.*, r.nombre AS rol_nombre 
               FROM usuarios u
               INNER JOIN roles r ON u.Rol = r.id
-              WHERE u.Email = '{$this->getEmail()}'";
-
-    // Ejecutamos la consulta
+              WHERE u.Email = '$escapedEmail'";
     $login = $this->db->query($sql);
-
     if ($login && $login->num_rows == 1) {
-      // Si el usuario existe, obtenemos el objeto usuario
       $usuario = $login->fetch_object();
-
-      // Verificamos la contraseña
-      $verificacion = password_verify($this->password, $usuario->Password);
-
-      if ($verificacion == 1) {
-        // Si la contraseña es correcta, retornamos el objeto usuario con el rol
-        return $usuario;
-      }
     }
-
-    return $resultado;
+    return $usuario;
   }
-
 
   public function repetidosUsuario()
   {
     $resultado = false;
     $sql = "SELECT Usuario FROM usuarios WHERE Usuario = '{$this->usuario}'";
     $repetidos = $this->db->query($sql);
-    if ($repetidos) {
+    if ($repetidos && $repetidos->num_rows > 0) {
       $resultado = true;
     }
-    return $repetidos;
+    return $resultado;
   }
 
   public function repetidosEmail()
   {
     $resultado = false;
-    $sql = "SELECT Email FROM usuarios WHERE Email = '{$this->email}' AND Id != '{$this->id}'";
+    $sql = "SELECT Email FROM usuarios WHERE Email = '{$this->email}'";
     $repetidos = $this->db->query($sql);
     if ($repetidos && $repetidos->num_rows > 0) {
       $resultado = true;
     }
-    return $repetidos;
+    return $resultado;
   }
 
   public function subirImagen()
@@ -320,7 +305,7 @@ class Usuario
 
   public function obtenerTodosLosUsuarios()
   {
-    $sql = "SELECT * FROM usuarios";
+    $sql = "SELECT u.*, r.* FROM usuarios u INNER JOIN roles r ON u.Rol = r.id";
     $resultado = $this->db->query($sql);
 
     return $resultado;

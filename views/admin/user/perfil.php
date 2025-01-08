@@ -19,6 +19,20 @@
             <form action="<?php echo BASE_URL; ?>Admin/perfilGuardar" method="POST" enctype="multipart/form-data" class="panel-admin__user-form">
                 <input type="hidden" name="id" class="form-control" value="<?php echo $usuario->Id; ?>">
                 <div class="form-group">
+                    <!-- Vista previa de la imagen cargada -->
+                    <div class="panel-admin__avatar-preview mt-3">
+                        <img id="avatarPreview" class="panel-admin__avatar-thumbnail" src="<?php echo !empty($usuario->imagen) ? BASE_URL . 'uploads/images/avatar/' . $usuario->imagen : BASE_URL . 'uploads/images/default.jpg'; ?>" alt="Avatar de Usuario">
+                    </div>
+                    <?php if (isset($_SESSION['errores']['avatar'])) : ?>
+                        <div class="text-danger mt-2">
+                            <i class="fas fa-exclamation-circle"></i> <?php echo $_SESSION['errores']['avatar']; ?>
+                        </div>
+                    <?php endif; ?>
+                    <label for="avatar">Imagen de Usuario (Avatar):</label>
+                    <input type="file" id="avatar" name="avatar" class="form-control" accept="image/*"
+                        <?php echo isset($_SESSION['form']['avatar']) ? 'value="' . $_SESSION['form']['avatar'] . '"' : ''; ?>>
+                </div>
+                <div class="form-group">
                     <label for="username">Usuario:</label>
                     <input type="text" id="username" name="usuario" class="form-control" placeholder="Nombre de usuario" value="<?php echo isset($_SESSION['form']['usuario']) ? $_SESSION['form']['usuario'] : $usuario->Usuario; ?>">
                     <?php if (isset($_SESSION['errores']['usuario'])) : ?>
@@ -121,22 +135,6 @@
                     <?php if (isset($_SESSION['errores']['codigoPostal'])) : ?>
                         <div class="text-danger mt-2">
                             <i class="fas fa-exclamation-circle"></i> <?php echo $_SESSION['errores']['codigoPostal']; ?>
-                        </div>
-                    <?php endif; ?>
-                </div>
-                <div class="form-group">
-                    <label for="avatar">Imagen de Usuario (Avatar):</label>
-                    <input type="file" id="avatar" name="avatar" class="form-control" accept="image/*"
-                        <?php echo isset($_SESSION['form']['avatar']) ? 'value="' . $_SESSION['form']['avatar'] . '"' : ''; ?>>
-
-                    <!-- Vista previa de la imagen cargada -->
-                    <div class="panel-admin__avatar-preview mt-3">
-                        <img id="avatarPreview" class="panel-admin__avatar-thumbnail" src="<?php echo !empty($usuario->imagen) ? BASE_URL . 'uploads/images/avatar/' . $usuario->imagen : BASE_URL . 'uploads/images/default.jpg'; ?>" alt="Avatar de Usuario">
-                    </div>
-
-                    <?php if (isset($_SESSION['errores']['avatar'])) : ?>
-                        <div class="text-danger mt-2">
-                            <i class="fas fa-exclamation-circle"></i> <?php echo $_SESSION['errores']['avatar']; ?>
                         </div>
                     <?php endif; ?>
                 </div>

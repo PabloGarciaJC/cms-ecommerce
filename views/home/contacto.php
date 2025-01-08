@@ -53,27 +53,29 @@
 				</div>
 			</div>
 			<!-- form -->
-			<form action="#" method="post" class="animation__up">
-				<div class="contact-grids1 w3agile-6">
-					<div class="row">
-						<div class="col-md-6 col-sm-6 contact-form1 form-group">
-							<label class="col-form-label"><?php echo TEXT_FORM_NAME_LABEL; ?></label>
-							<input type="text" class="form-control" name="Name" placeholder="" required="">
+			<div class="animation__fade-in-upscale">
+				<form action="#" method="post">
+					<div class="contact-grids1 w3agile-6">
+						<div class="row">
+							<div class="col-md-6 col-sm-6 contact-form1 form-group">
+								<label class="col-form-label"><?php echo TEXT_FORM_NAME_LABEL; ?></label>
+								<input type="text" class="form-control" name="Name" placeholder="" required="">
+							</div>
+							<div class="col-md-6 col-sm-6 contact-form1 form-group">
+								<label class="col-form-label"><?php echo TEXT_FORM_EMAIL_LABEL; ?></label>
+								<input type="email" class="form-control" name="Email" placeholder="" required="">
+							</div>
 						</div>
-						<div class="col-md-6 col-sm-6 contact-form1 form-group">
-							<label class="col-form-label"><?php echo TEXT_FORM_EMAIL_LABEL; ?></label>
-							<input type="email" class="form-control" name="Email" placeholder="" required="">
+						<div class="contact-me animated wow slideInUp form-group">
+							<label class="col-form-label"><?php echo TEXT_FORM_MESSAGE_LABEL; ?></label>
+							<textarea name="Message" class="form-control" placeholder="" required=""></textarea>
+						</div>
+						<div class="contact-form">
+							<input type="submit" value="<?php echo TEXT_FORM_SUBMIT_BUTTON; ?>">
 						</div>
 					</div>
-					<div class="contact-me animated wow slideInUp form-group">
-						<label class="col-form-label"><?php echo TEXT_FORM_MESSAGE_LABEL; ?></label>
-						<textarea name="Message" class="form-control" placeholder="" required=""></textarea>
-					</div>
-					<div class="contact-form">
-						<input type="submit" value="<?php echo TEXT_FORM_SUBMIT_BUTTON; ?>">
-					</div>
-				</div>
-			</form>
+				</form>
+			</div>
+
 		</div>
 	</div>
-	<!-- //contact --

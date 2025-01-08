@@ -19,6 +19,7 @@ define("TEXT_TERMS", "Terms Of Use");
 define("TEXT_TERMS_PRIVACY", "Privacy Policy");
 define("TEXT_CHECKOUT", "Checkout");
 define("TEXT_FICHA", "Product Sheet");
+define("TEXT_TITLE_FILTRO", "Apply filters");
 
 // Textos para "Checkout"
 define('CART_CONTAINS', 'Your shopping cart contains:');
@@ -249,3 +250,64 @@ define('TEXT_SHIPPING_SELECT', 'Select');
 define('TEXT_SHIPPING_CITY', 'City/Region');
 define('TEXT_SHIPPING_ZIP_CODE', 'Zip Code');
 define('TEXT_SHIPPING_UPDATE_FORM', 'Update Form');
+
+// Texto de danger checkout
+define('TEXT_NOT_LOGGED_IN', '<strong>Attention!</strong> You have not <a href="javascript:void(0)" data-toggle="modal" data-target="#exampleModal"> <i class="fas fa-sign-in-alt"></i> Logged in </a>');
+define('TEXT_NOT_REGISTER_IN', 'or <a href="javascript:void(0)" data-toggle="modal" data-target="#exampleModal2"><i class="fas fa-user-plus"></i> Register</a>');
+
+// Mensajes de validación en checkout
+define('ERROR_DIRECCION_EMPTY', 'The Address cannot be empty');
+define('ERROR_PAIS_EMPTY', 'The Country cannot be empty');
+define('ERROR_CIUDAD_EMPTY', 'The City cannot be empty');
+define('ERROR_CODIGO_POSTAL_EMPTY', 'The Postal Code cannot be empty');
+
+// Mensajes de validación
+define('ERROR_NO_PRODUCTS_FOUND', 'No products found');
+define('ERROR_NO_SUBCATEGORY_FOUND', 'No categories found');
+
+// Definición de los textos para el modal de usuarios ficticios
+define('TEXT_IMPORTANT_INFO_TITLE', 'Important');
+define('TEXT_IMPORTANT_INFO_DESC', 'The provided users are fictitious and are meant for testing purposes.');
+define('TEXT_ADMINISTRATOR', 'Administrator');
+define('TEXT_ADMIN_EMAIL', 'admin@pablogarciajc.com');
+define('TEXT_SELECT_HERE', 'Select HERE');
+define('TEXT_TEST_CLIENT', 'Test Client');
+define('TEXT_TEST_CLIENT_EMAIL', 'sofia.martinez@pablogarciajc.com');
+
+// Definición de los textos Favoritos
+define('TEXT_PRODUCT_SAVE_FAVORITE', 'Save to Favourites');
+define('TEXT_PRODUCT_ALREADY_FAVORITE', 'The product is already in your favourites.');
+define('TEXT_PRODUCT_ADDED_FAVORITE', 'Product successfully added to your favourites.');
+define('TEXT_PRODUCT_REMOVED_FAVORITE', 'Product successfully removed from your favourites.');
+define('TEXT_ERROR_ADD_FAVORITE', 'An error occurred while adding the product to your favourites. Please try again.');
+define('TEXT_ERROR_REMOVE_FAVORITE', 'An error occurred while removing the product from your favourites. Please try again.');
+define('TEXT_NOT_FAVORITE', 'This product is not in your favourites.');
+define('TEXT_ERROR_NOT_REGISTERED_OR_INVALID_PRODUCT', 'You are not registered, or the product is invalid.');
+
+// Definición de los textos errores registro
+define('ERROR_EMPTY_USERNAME', 'The username cannot be empty.');
+define('ERROR_EMPTY_EMAIL', 'The email cannot be empty.');
+define('ERROR_EMPTY_PASSWORD', 'Password cannot be empty.');
+define('ERROR_EMPTY_CONFIRM_PASSWORD', 'Confirm Password cannot be empty.');
+define('ERROR_PASSWORD_MISMATCH', 'Passwords do not match.');
+define('ERROR_TERMS_NOT_ACCEPTED', 'You must accept the terms and conditions.');
+define('ERROR_USERNAME_EXISTS', 'The username is already in use.');
+define('ERROR_EMAIL_EXISTS', 'The email address is already in use.');
+define("LOGIN_SUCCESS", "User logged in successfully");
+define('TEXT_REGISTRATION_ERRORS_TITLE', 'Registration Errors');
+define('TEXT_REGISTRATION_ERRORS_MESSAGE', 'An error occurred during registration. Please review the details.');
+define('TEXT_ACCEPT_BUTTON', 'Accept');
+define('TEXT_REVIEW_BUTTON', 'Review');
+define('TEXT_LOGIN_ERRORS_TITLE', 'Login Errors');
+define('TEXT_LOGIN_SUCCESS_TITLE', 'Login Successful');
+define('TEXT_EMAIL_NOT_REGISTERED', 'Email is not registered');
+define('TEXT_INCORRECT_PASSWORD', 'Password is incorrect');
+
+// Definitions of comment error texts
+define('TEXT_COMMENT_ERRORS_TITLE', 'Errors saving the comment');
+define('TEXT_COMMENT_NOT_REGISTERED', 'You must be registered to comment.');
+define('TEXT_COMMENT_REQUIRED', 'Comment is required.');
+define('TEXT_RATING_REQUIRED', 'Rating is required.');
+define('TEXT_INVALID_PRODUCT', 'The selected product is invalid.');
+define('TEXT_COMMENT_SAVE_SUCCESS', 'Comment saved successfully.');
+define('TEXT_AVERAGE_RATING', 'Average Rating');

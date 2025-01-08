@@ -18,6 +18,7 @@ define("TEXT_TERMS", "Conditions Générales d'Utilisation");
 define("TEXT_TERMS_PRIVACY", "Politique de Confidentialité");
 define("TEXT_CHECKOUT", "Valider la commande");
 define("TEXT_FICHA", "Fiche Produit");
+define("TEXT_TITLE_FILTRO", "Appliquer les filtres");
 
 // Textos para "Checkout"
 define('CART_CONTAINS', 'Votre panier contient:');
@@ -248,3 +249,70 @@ define('TEXT_SHIPPING_SELECT', 'Sélectionner');
 define('TEXT_SHIPPING_CITY', 'Ville/Région');
 define('TEXT_SHIPPING_ZIP_CODE', 'Code Postal');
 define('TEXT_SHIPPING_UPDATE_FORM', 'Mettre à jour le formulaire');
+
+// Texto de danger checkout
+define('TEXT_NOT_LOGGED_IN', '<strong>Attention !</strong> Vous n\'avez pas <a href="javascript:void(0)" data-toggle="modal" data-target="#exampleModal"> <i class="fas fa-sign-in-alt"></i> Connecté </a>');
+define('TEXT_NOT_REGISTER_IN', 'ou <a href="javascript:void(0)" data-toggle="modal" data-target="#exampleModal2"><i class="fas fa-user-plus"></i> Inscrivez-vous</a>');
+
+// Mensajes de validación en checkout
+define('ERROR_DIRECCION_EMPTY', 'L\'Adresse ne peut pas être vide');
+define('ERROR_PAIS_EMPTY', 'Le Pays ne peut pas être vide');
+define('ERROR_CIUDAD_EMPTY', 'La Ville ne peut pas être vide');
+define('ERROR_CODIGO_POSTAL_EMPTY', 'Le Code Postal ne peut pas être vide');
+
+// Mensajes de validación
+define('ERROR_NO_PRODUCTS_FOUND', 'Aucun produit trouvé');
+define('ERROR_NO_SUBCATEGORY_FOUND', 'Aucune catégorie trouvée');
+
+// Definición de los textos para el modal de usuarios ficticios
+define('TEXT_IMPORTANT_INFO_TITLE', 'Information');
+define('TEXT_IMPORTANT_INFO_DESC', 'Les utilisateurs fournis sont fictifs et destinés à des fins de test.');
+define('TEXT_ADMINISTRATOR', 'Administrateur');
+define('TEXT_ADMIN_EMAIL', 'admin@pablogarciajc.com');
+define('TEXT_SELECT_HERE', 'Sélectionner ICI');
+define('TEXT_TEST_CLIENT', 'Client de Test');
+define('TEXT_TEST_CLIENT_EMAIL', 'sofia.martinez@pablogarciajc.com');
+
+// Definición de los textos Favoritos
+define('TEXT_PRODUCT_SAVE_FAVORITE', 'Save to Favorites');
+define('TEXT_PRODUCT_ALREADY_FAVORITE', 'The product is already in your favorites.');
+define('TEXT_PRODUCT_ADDED_FAVORITE', 'Product successfully added to your favorites.');
+define('TEXT_PRODUCT_REMOVED_FAVORITE', 'Product successfully removed from your favorites.');
+define('TEXT_ERROR_ADD_FAVORITE', 'An error occurred while adding the product to your favorites. Please try again.');
+define('TEXT_ERROR_REMOVE_FAVORITE', 'An error occurred while removing the product from your favorites. Please try again.');
+define('TEXT_NOT_FAVORITE', 'This product is not in your favorites.');
+define('TEXT_ERROR_NOT_REGISTERED_OR_INVALID_PRODUCT', 'You are not registered, or the product is invalid.');
+
+// Definición de los textos errores registro
+define('ERROR_EMPTY_USERNAME', "Le nom d'utilisateur ne peut pas être vide.");
+define('ERROR_EMPTY_EMAIL', "L'adresse e-mail ne peut pas être vide.");
+define('ERROR_EMPTY_PASSWORD', 'Le mot de passe ne peut pas être vide.');
+define('ERROR_EMPTY_CONFIRM_PASSWORD', 'La confirmation du mot de passe ne peut pas être vide.');
+define('ERROR_PASSWORD_MISMATCH', 'Les mots de passe ne correspondent pas.');
+define('ERROR_TERMS_NOT_ACCEPTED', 'Vous devez accepter les termes et conditions.');
+define('ERROR_USERNAME_EXISTS', "Le nom d'utilisateur est déjà utilisé.");
+define('ERROR_EMAIL_EXISTS', "L'adresse e-mail est déjà utilisée.");
+define("LOGIN_SUCCESS", "Utilisateur connecté avec succès");
+define('TEXT_REGISTRATION_ERRORS_TITLE', 'Erreurs d\'inscription');
+define('TEXT_REGISTRATION_ERRORS_MESSAGE', 'Une erreur est survenue lors de l\'inscription. Veuillez vérifier les détails.');
+define('TEXT_ACCEPT_BUTTON', 'Accepter');
+define('TEXT_REVIEW_BUTTON', 'Réviser');
+define('TEXT_LOGIN_ERRORS_TITLE', 'Erreurs de connexion');
+define('TEXT_LOGIN_SUCCESS_TITLE', 'Connexion réussie');
+define('TEXT_EMAIL_NOT_REGISTERED', 'L\'email n\'est pas enregistré');
+define('TEXT_INCORRECT_PASSWORD', 'Le mot de passe est incorrect');
+
+// Définition des textes d'erreur des commentaires
+define('TEXT_COMMENT_ERRORS_TITLE', 'Erreurs lors de l\'enregistrement du commentaire');
+define('TEXT_COMMENT_NOT_REGISTERED', 'Vous devez être enregistré pour pouvoir commenter.');
+define('TEXT_COMMENT_REQUIRED', 'Le commentaire est obligatoire.');
+define('TEXT_RATING_REQUIRED', 'La note est obligatoire.');
+define('TEXT_INVALID_PRODUCT', 'Le produit sélectionné n\'est pas valide.');
+define('TEXT_COMMENT_SAVE_SUCCESS', 'Commentaire enregistré avec succès.');
+define('TEXT_AVERAGE_RATING', 'Note Moyenne');
+
+
+
+
+
+

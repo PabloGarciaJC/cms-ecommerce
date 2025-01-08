@@ -20,3 +20,7 @@
 <script src="<?= BASE_URL ?>assets/js/custom/usuario.js"></script>
 <script src="<?= BASE_URL ?>assets/js/custom/roles.js"></script>
 <script src="<?= BASE_URL ?>assets/js/custom/comentario.js"></script>
+<script src="<?= BASE_URL ?>assets/js/custom/favorito.js"></script>
+
+<!-- Spinner centrado en la pantalla -->
+<div id="spinner" class="spinner"></div>

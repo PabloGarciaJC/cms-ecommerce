@@ -14,11 +14,11 @@
 
 <div class="banner-bootom-w3-agileits mt-3">
 	<div class="container">
-		<div class="row">
+		<div class="row <?php echo (isset($productoFicha->stock) && $productoFicha->stock > 0) ? '' : 'product-ficha-sin-stock'; ?>">
 			<div class="col-lg-5 col-md-8 single-right-left ">
 				<div class="grid images_3_of_2">
 					<?php if (!empty($productoFicha->oferta) && $productoFicha->oferta > 0): ?>
-						<span class="product-new-top"><?php echo TEXT_OFERTA . ' ' . intval($productoFicha->oferta) . '$'; ?></span>
+						<span class="product-new-top">-<?php echo intval($productoFicha->oferta) . '$'; ?></span>
 					<?php endif; ?>
 					<?php
 					$imagenesArray = json_decode($productoFicha->imagenes);
@@ -50,8 +50,8 @@
 					<?php
 					if (!empty($productoFicha->oferta) && $productoFicha->oferta > 0) {
 						$precio_con_descuento = $productoFicha->precio - $productoFicha->oferta;
-						echo '<span class="item_price">' . intval($productoFicha->precio - $productoFicha->oferta) . '$</span>';
-						echo '<del>' . intval($productoFicha->precio) . '$</del>';
+						echo '<span class="item_price">Precio: ' . intval($productoFicha->precio - $productoFicha->oferta) . '$</span>';
+						echo '<span>Antes: <del>' . intval($productoFicha->precio) . '$</del></span>';
 					} else {
 						echo '<span class="item_price">' . PRICE . ' : ' . intval($productoFicha->precio) . '$</span>';
 					}
@@ -90,24 +90,12 @@
 						<i class="fas fa-retweet mr-3"></i>Net banking & Credit/ Debit/ ATM card
 					</p> -->
 				</div>
-				<?php
-				// Asegúrate de que $promedioCalificacion tenga un valor válido
-				$promedioCalificacion = isset($promedioCalificacion) && is_numeric($promedioCalificacion) ? $promedioCalificacion : 0;
-				// Redondea el promedio
-				$promedioRedondeado = round($promedioCalificacion);
-				?>
 				<div class="product-rating mb-4 text-center">
-					<h4 class="rating-title">Calificación Promedio</h4>
+					<h4 class="rating-title"><?php echo TEXT_AVERAGE_RATING; ?></h4>
 					<div class="stars">
-						<?php
-						// Generar las estrellas llenas y vacías
-						echo str_repeat('<i class="fas fa-star"></i>', $promedioRedondeado);
-						echo str_repeat('<i class="far fa-star"></i>', 5 - $promedioRedondeado);
-						?>
-						<span class="rating-value">(<?= number_format($promedioCalificacion, 1); ?> de 5)</span>
+						<?php echo Utils::obtenerEstrellas($productoFicha->grupo_id); ?>
 					</div>
 				</div>
-
 				<div class="occasion-cart">
 					<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
 						<form action="#" method="post">
@@ -132,7 +120,13 @@
 								<input type="hidden" name="currency_code" value="USD" />
 								<input type="hidden" name="cancel_return" value=" " />
 								<input type="hidden" name="return" value="" />
-								<input type="submit" name="submit" value="<?php echo ADD_TO_CART; ?>" class="button btn" />
+
+								<?php if (isset($productoFicha->stock) && $productoFicha->stock > 0): ?>
+									<input type="submit" name="submit" value="<?php echo ADD_TO_CART; ?>" class="button btn" />
+								<?php else: ?>
+									<input value="SIN STOCK" class="button-sin-stock btn" />
+								<?php endif; ?>
+
 							</fieldset>
 						</form>
 					</div>
@@ -147,66 +141,19 @@
 	<div class="ficha-producto__reviews-text">
 		<h4><?php echo TEXT_REVIEWS_TITLE; ?></h4>
 		<div class="ficha-producto__tabs mt-4">
-			<div class="ficha-producto__tab ficha-producto__tab--active" id="leave-review-tab">
-				<?php echo TEXT_LEAVE_REVIEW_TAB; ?>
-			</div>
-			<div class="ficha-producto__tab" id="highest-rated-tab">
+			<div class="ficha-producto__tab ficha-producto__tab--active" id="highest-rated-tab">
 				<?php echo TEXT_HIGHEST_RATED_TAB; ?>
 			</div>
 			<div class="ficha-producto__tab" id="oldest-tab">
 				<?php echo TEXT_OLDEST_TAB; ?>
 			</div>
-		</div>
-
-		<!-- Formulario de reseña -->
-		<div class="ficha-producto__tab-content ficha-producto__tab-content--active" id="leave-review-content">
-			<?php if (isset($_SESSION['exito'])) : ?>
-				<div class="alert <?php echo $_SESSION['messageClass']; ?> alert-dismissible fade show mt-2 text-center" role="alert">
-					<i class="<?php echo isset($_SESSION['icon']) ? $_SESSION['icon'] : 'fas fa-check-circle'; ?>"></i>
-					<?php echo $_SESSION['exito']; ?>
-					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<?php unset($_SESSION['exito'], $_SESSION['messageClass'], $_SESSION['icon']); ?>
-			<?php endif; ?>
-
-			<?php if (isset($_SESSION['errores'])) : ?>
-				<div class="alert alert-danger">
-					<ul>
-						<?php foreach ($_SESSION['errores'] as $error) : ?>
-							<li><?php echo $error; ?></li>
-						<?php endforeach; ?>
-					</ul>
-				</div>
-				<?php unset($_SESSION['errores']); ?>
-			<?php endif; ?>
-
-			<div class="ficha-producto__product-review">
-				<form action="<?php echo BASE_URL ?>Comentario/guardar" method="POST" id="reviewForm">
-					<input type="hidden" name="producto_id" value="<?php echo $productoFicha->id; ?>" />
-					<input type="hidden" name="usuario_id" value="<?php echo $usuario->Id; ?>" />
-					<div class="ficha-producto__form-group">
-						<textarea id="comentario" name="comentario" class="ficha-producto__form-control" rows="4" placeholder="<?php echo TEXT_LEAVE_COMMENT_PLACEHOLDER; ?>" required><?php echo isset($_SESSION['form']['comentario']) ? htmlspecialchars($_SESSION['form']['comentario'], ENT_QUOTES, 'UTF-8') : ''; ?></textarea>
-					</div>
-					<div class="ficha-producto__form-group">
-						<label for="calificacion"><?php echo TEXT_RATING_LABEL; ?></label>
-						<div class="ficha-producto__stars">
-							<?php for ($i = 5; $i >= 1; $i--) : ?>
-								<input type="radio" name="calificacion" value="<?php echo $i; ?>" id="star<?php echo $i; ?>"
-									<?php echo isset($_SESSION['form']['calificacion']) && $_SESSION['form']['calificacion'] == $i ? 'checked' : ''; ?>>
-								<label for="star<?php echo $i; ?>">☆</label>
-							<?php endfor; ?>
-						</div>
-					</div>
-					<button type="button" id="submitReview" class="ficha-producto__btn"><?php echo TEXT_SUBMIT_REVIEW_BUTTON; ?></button>
-				</form>
+			<div class="ficha-producto__tab" id="leave-review-tab">
+				<?php echo TEXT_LEAVE_REVIEW_TAB; ?>
 			</div>
 		</div>
-		<?php unset($_SESSION['form'], $_SESSION['errores']); ?>
 	</div>
 
-	<div class="ficha-producto__tab-content" id="highest-rated-content">
+	<div class="ficha-producto__tab-content ficha-producto__tab-content--active" id="highest-rated-content">
 		<div class="ficha-producto__reviews-list">
 			<?php if ($comentariosValorados->num_rows > 0) : ?>
 				<?php while ($comentario = $comentariosValorados->fetch_object()) : ?>
@@ -224,7 +171,9 @@
 					</div>
 				<?php endwhile; ?>
 			<?php else : ?>
-				<p class="ficha-producto__no-reviews"><?php echo TEXT_NO_RATED_REVIEWS; ?></p>
+				<div class="ficha-producto__review-item">
+					<p class="ficha-producto__review-comment"><?php echo TEXT_NO_RATED_REVIEWS; ?></p>
+				</div>
 			<?php endif; ?>
 		</div>
 	</div>
@@ -247,8 +196,47 @@
 					</div>
 				<?php endwhile; ?>
 			<?php else : ?>
-				<p class="ficha-producto__no-reviews"><?php echo TEXT_NO_OLD_REVIEWS; ?></p>
+				<div class="ficha-producto__review-item">
+					<p class="ficha-producto__review-comment"><?php echo TEXT_NO_RATED_REVIEWS; ?></p>
+				</div>
 			<?php endif; ?>
 		</div>
 	</div>
+
+	<!-- Formulario de reseña -->
+	<div class="ficha-producto__tab-content" id="leave-review-content">
+		<?php if (isset($_SESSION['exito'])) : ?>
+			<div class="alert <?php echo $_SESSION['messageClass']; ?> alert-dismissible fade show mt-2 text-center" role="alert">
+				<i class="<?php echo isset($_SESSION['icon']) ? $_SESSION['icon'] : 'fas fa-check-circle'; ?>"></i>
+				<?php echo $_SESSION['exito']; ?>
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		<?php endif; ?>
+
+		<div class="ficha-producto__product-review">
+			<form action="<?php echo BASE_URL ?>Comentario/guardar" method="POST" id="reviewForm">
+				<input type="hidden" name="producto_id" value="<?php echo $productoFicha->id; ?>" />
+				<input type="hidden" name="parentid" value="<?php echo isset($_GET['parent_id']) ? $_GET['parent_id'] : false ?>" />
+				<input type="hidden" name="producto_grupo_id" value="<?php echo $productoFicha->grupo_id; ?>" />
+				<div class="ficha-producto__form-group">
+					<textarea id="comentario" name="comentario" class="ficha-producto__form-control" rows="4" placeholder="<?php echo TEXT_LEAVE_COMMENT_PLACEHOLDER; ?>" required><?php echo isset($_SESSION['form']['comentario']) ? htmlspecialchars($_SESSION['form']['comentario'], ENT_QUOTES, 'UTF-8') : ''; ?></textarea>
+				</div>
+				<div class="ficha-producto__form-group">
+					<label for="calificacion"><?php echo TEXT_RATING_LABEL; ?></label>
+					<div class="ficha-producto__stars">
+						<?php for ($i = 5; $i >= 1; $i--) : ?>
+							<input type="radio" name="calificacion" value="<?php echo $i; ?>" id="star<?php echo $i; ?>"
+								<?php echo isset($_SESSION['form']['calificacion']) && $_SESSION['form']['calificacion'] == $i ? 'checked' : ''; ?>>
+							<label for="star<?php echo $i; ?>">☆</label>
+						<?php endfor; ?>
+					</div>
+				</div>
+				<button type="button" id="submitReview" class="ficha-producto__btn"><?php echo TEXT_SUBMIT_REVIEW_BUTTON; ?></button>
+			</form>
+		</div>
+	</div>
 </div>
+
+<?php unset($_SESSION['form'], $_SESSION['errores']); ?>
