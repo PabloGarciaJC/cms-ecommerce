@@ -257,7 +257,7 @@ define('TEXT_SHIPPING_SELECT', 'Sélectionner');
 define('TEXT_SHIPPING_CITY', 'Ville/Région');
 define('TEXT_SHIPPING_ZIP_CODE', 'Code Postal');
 define('TEXT_SHIPPING_UPDATE_FORM', 'Mettre à jour le formulaire');
-define('TEXT_PAYPAL_TEST_CREDENTIALS', 'Ce projet utilise des identifiants de test PayPal pour simuler la passerelle de paiement. Ne réalisez pas de transactions réelles tant que cet environnement est actif.');
+define('TEXT_PAYPAL_TEST_CREDENTIALS', 'Ce projet n\'utilise pas de passerelle de paiement, car il est destiné uniquement à des fins de portfolio.');
 
 // Texto de danger checkout
 define('TEXT_NOT_LOGGED_IN', '<strong>Attention !</strong> Vous n\'avez pas <a href="javascript:void(0)" data-toggle="modal" data-target="#exampleModal"> <i class="fas fa-sign-in-alt"></i> Connecté </a>');
@@ -320,7 +320,9 @@ define('TEXT_INVALID_PRODUCT', 'Le produit sélectionné n\'est pas valide.');
 define('TEXT_COMMENT_SAVE_SUCCESS', 'Commentaire enregistré avec succès.');
 define('TEXT_AVERAGE_RATING', 'Note Moyenne');
 
-
+// Texto informatico pagina de contacto
+define("TEXT_FORM_DISABLED_TITLE", "Formulaire Désactivé");
+define("TEXT_FORM_DISABLED_MESSAGE", "Ce formulaire n'est pas activé car il est destiné uniquement à des fins de portfolio. Aucune donnée ne sera traitée.");
 
 
 

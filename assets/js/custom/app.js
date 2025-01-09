@@ -277,6 +277,32 @@ class App {
       }
     });
 
+    // Fomurlario de Contacto
+    $('.contact-grids1 .contact-form').on('click', function (e) {
+      e.preventDefault();
+      $.ajax({
+        type: "GET",
+        url: baseUrl + 'Home/guardarFormulario',
+        data: {
+          formulario: true,
+        },
+        success: function (response) {
+          const data = JSON.parse(response);
+          if (data.success) {
+            Swal.fire({
+              title: data.titulo,
+              icon: "info",
+              html: data.message,
+              confirmButtonText: data.boton
+            });
+          }
+        },
+        error: function (xhr, status, error) {
+          console.error("Error en la solicitud:", error);
+          alert("Ocurrió un error. Inténtalo de nuevo.");
+        }
+      });
+    });
   }
 
   // Iniciar aplicación

@@ -12,6 +12,10 @@
     </div>
 </div>
 
+<style>
+
+</style>
+
 <div class="privacy py-sm-1 py-0">
     <div class="container py-lg-2">
         <h3 class="tittle-w3l text-center mb-lg-5 mb-sm-4 mb-3">
@@ -44,7 +48,7 @@
                 </div>
             </div>
 
-            <!-- Tes -->
+
             <div class="checkout-left">
                 <div class="address_form_agile mt-sm-3 mt-0">
                     <h2 class="panel-admin__dashboard-title"><?php echo TEXT_SHIPPING_ADDRESS_SHIPPING; ?></h2>
@@ -105,7 +109,6 @@
                     </div>
                 </div>
             </div>
-            <!-- tess -->
 
             <div class="container contn-info">
                 <div class="parrafo-info">
@@ -115,11 +118,6 @@
             </div>
 
             <div class="checkout-right-basket">
-                <input type="hidden" name="usuario_id" value="<?php echo htmlspecialchars($usuarioId); ?>" />
-                <input type="hidden" value="<?php echo EMPTY_CART_MESSAGE ?>" name="no-more-in-stock" class="no-more-in-stock">
-                <input type="hidden" value="<?php echo TEXT_MODAL_ACCEPT_BUTTON ?>" name="btn-aceptar" class="btn-aceptar">
-                <input type="hidden" value="<?php echo ERROR_MESSAGE ?>" name="mensaje-error" class="mensaje-error">
-                <button type="submit"><?php echo MAKE_PAYMENT; ?></button>
                 <?php if (isset($_SESSION['errores']) && count($_SESSION['errores']) > 0) : ?>
                     <?php if (isset($_SESSION['usuarioRegistrado'])) : ?>
                         <a href="<?php echo BASE_URL ?>Admin/perfil" type="button" target="_blank"><i class="fas fa-user-cog"></i> <?php echo TEXT_SHIPPING_UPDATE_FORM; ?></a>
@@ -134,6 +132,12 @@
                         </div>
                     <?php endif; ?>
                 <?php endif; ?>
+                <input type="hidden" name="usuario_id" value="<?php echo htmlspecialchars($usuarioId); ?>" />
+                <input type="hidden" value="<?php echo EMPTY_CART_MESSAGE ?>" name="no-more-in-stock" class="no-more-in-stock">
+                <input type="hidden" value="<?php echo TEXT_MODAL_ACCEPT_BUTTON ?>" name="btn-aceptar" class="btn-aceptar">
+                <input type="hidden" value="<?php echo ERROR_MESSAGE ?>" name="mensaje-error" class="mensaje-error">
+                <button type="submit"><?php echo MAKE_PAYMENT; ?></button>
+
             </div>
 
 

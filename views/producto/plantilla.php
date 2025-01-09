@@ -32,17 +32,13 @@
                         $descuento = floatval($prod->oferta); // Convertimos a float para asegurar que es numérico
                         $precio_con_descuento = $prod->precio - ($prod->precio * ($descuento / 100)); // Calculamos el precio con descuento
                         ?>
-
-                        <!-- Mostrar descuento -->
                         <span class="product-new-top badge badge-danger">-<?php echo intval($descuento); ?>%</span>
-
-                        <!-- Mostrar precios -->
                         <div class="pricing-details">
                             <span class="item_price text-success font-weight-bold"><?php echo PRICE; ?>: <?php echo round($precio_con_descuento, 2); ?>$</span>
                             <span class="text-muted small"><?php echo BEFORE; ?>: <del><?php echo intval($prod->precio); ?>$</del></span>
                         </div>
                     <?php else: ?>
-                        <span class="item_price text-dark font-weight-bold"><?php echo PRICE; ?>: <?php echo intval($prod->precio); ?>$</span>
+                        <span class="item_price text-success font-weight-bold"><?php echo PRICE; ?>: <?php echo intval($prod->precio); ?>$</span>
                     <?php endif; ?>
                 </div>
             <?php endif; ?>

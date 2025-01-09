@@ -40,7 +40,7 @@ class ComentarioController
         $comentario->setComentario($comentarioTexto);
         $comentario->setCalificacion($calificacion);
         $comentario->setProducto_id($producto_id);
-        $comentario->setUsuario_id($usuario->Id);
+
         $comentario->setParentId($parentId);
         $comentario->setGrupoId($producto_grupo_id);
 
@@ -71,13 +71,14 @@ class ComentarioController
             ]);
             return;
         } else {
-            if ($comentario->guardar()) {
-                echo json_encode([
-                    'titulo' => TEXT_COMMENT_SAVE_SUCCESS,
-                    'success' => true,
-                    'boton' => TEXT_REVIEW_BUTTON
-                ]);
-            }
+      
+            $comentario->setUsuario_id($usuario->Id);
+            $comentario->guardar();
+            echo json_encode([
+                'titulo' => TEXT_COMMENT_SAVE_SUCCESS,
+                'success' => true,
+                'boton' => TEXT_REVIEW_BUTTON
+            ]);
         }
     }
 }

@@ -1174,6 +1174,10 @@ h2.footer-top-head-w3l {
     color: #bdbdbd;
 }
 
+.footer-grids p {
+    color: #bdbdbd;
+}
+
 .footer-grids ul li a {
     color: #bdbdbd;
     -webkit-transition: .5s all;
@@ -1651,6 +1655,44 @@ table.timetable_sub {
 
 .timetable_sub td {
     border: 1px solid #CDCDCD;
+}
+
+table.timetable_sub {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table.timetable_sub th,
+table.timetable_sub td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+table.timetable_sub th {
+    font-weight: bold;
+}
+
+table.timetable_sub td {
+    text-align: center;
+}
+
+table.timetable_sub th,
+table.timetable_sub td {
+    word-wrap: break-word;
+    /* Para que el texto largo se ajuste dentro de la celda */
+}
+
+/* Ajustar automáticamente el tamaño de las columnas */
+table.timetable_sub th,
+table.timetable_sub td {
+    white-space: nowrap;
+    /* Evita que las celdas se dividan en múltiples líneas */
+}
+
+/* Asegurarse de que todas las celdas sean iguales */
+table.timetable_sub {
+    table-layout: fixed;
 }
 
 td.invert-image a img {

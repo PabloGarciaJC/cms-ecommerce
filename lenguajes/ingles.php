@@ -258,7 +258,7 @@ define('TEXT_SHIPPING_SELECT', 'Select');
 define('TEXT_SHIPPING_CITY', 'City/Region');
 define('TEXT_SHIPPING_ZIP_CODE', 'Zip Code');
 define('TEXT_SHIPPING_UPDATE_FORM', 'Update Form');
-define('TEXT_PAYPAL_TEST_CREDENTIALS', 'This project is using PayPal test credentials to simulate the payment gateway. Do not make real transactions while this environment is active.');
+define('TEXT_PAYPAL_TEST_CREDENTIALS', 'This project does not use a payment gateway, as it is for portfolio purposes only.');
 
 // Texto de danger checkout
 define('TEXT_NOT_LOGGED_IN', '<strong>Attention!</strong> You have not <a href="javascript:void(0)" data-toggle="modal" data-target="#exampleModal"> <i class="fas fa-sign-in-alt"></i> Logged in </a>');
@@ -320,3 +320,7 @@ define('TEXT_RATING_REQUIRED', 'Rating is required.');
 define('TEXT_INVALID_PRODUCT', 'The selected product is invalid.');
 define('TEXT_COMMENT_SAVE_SUCCESS', 'Comment saved successfully.');
 define('TEXT_AVERAGE_RATING', 'Average Rating');
+
+// Texto informatico pagina de contacto
+define("TEXT_FORM_DISABLED_TITLE", "Form Disabled");
+define("TEXT_FORM_DISABLED_MESSAGE", "This form is not enabled because it is for portfolio purposes only. No data will be processed.");

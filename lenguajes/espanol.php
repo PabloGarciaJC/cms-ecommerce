@@ -264,8 +264,7 @@ define('TEXT_SHIPPING_SELECT', 'Seleccione');
 define('TEXT_SHIPPING_CITY', 'Ciudad/Región');
 define('TEXT_SHIPPING_ZIP_CODE', 'Código Postal');
 define('TEXT_SHIPPING_UPDATE_FORM', 'Actualizar Formulario');
-define('TEXT_PAYPAL_TEST_CREDENTIALS', 'Este proyecto está utilizando credenciales de prueba de PayPal para simular la pasarela de pago. No realice transacciones reales mientras este entorno esté activo.');
-
+define('TEXT_PAYPAL_TEST_CREDENTIALS', 'Este proyecto no utiliza una pasarela de pago, ya que tiene fines exclusivos de portafolio.');
 
 // Texto de danger checkout
 define('TEXT_ALERT_TITLE', '');
@@ -329,11 +328,9 @@ define('TEXT_INVALID_PRODUCT', 'El producto seleccionado no es válido.');
 define('TEXT_COMMENT_SAVE_SUCCESS', 'Comentario guardado exitosamente.');
 define('TEXT_AVERAGE_RATING', 'Calificación Promedio.');
 
-
-
-
-
-
+// Texto informatico pagina de contacto
+define("TEXT_FORM_DISABLED_TITLE", "Formulario Deshabilitado");
+define("TEXT_FORM_DISABLED_MESSAGE", "Este formulario no está habilitado porque es solo un portafolio. No se procesarán datos.");
 
 
 

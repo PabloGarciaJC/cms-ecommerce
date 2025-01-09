@@ -1846,7 +1846,7 @@
   }
 
   .total-label {
-      text-align: right;
+      text-align: right !important;
       font-weight: bold;
   }
 
