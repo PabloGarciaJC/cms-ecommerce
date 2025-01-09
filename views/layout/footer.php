@@ -263,6 +263,11 @@
 					</tr>
 				</tfoot>
 			</table>
+			<!-- Mensaje cuando el carrito está vacío -->
+			<p id="empty-cart-message" style="display: none; text-align: center; font-size: 18px; color: #777;">
+				No hay productos en el carrito de compras.
+			</p>
+
 			<div style="text-align: center;">
 				<button id="btn-realizar-pedido" class="btn-realizar-pedido">
 					<i class="fas fa-shopping-cart"></i> Realizar Pedido
@@ -270,6 +275,7 @@
 			</div>
 		</div>
 	</div>
+
 
 	</body>
 

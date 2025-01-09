@@ -1810,6 +1810,7 @@
       padding: 20px;
       gap: 10px;
       border: unset;
+      border-top: 1px solid #ddd;
   }
 
   .product-qty {
