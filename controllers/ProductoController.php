@@ -74,21 +74,32 @@ class ProductoController
 
     public function checkout()
     {
-   
+
         // Extraer y cargar datos comunes
         extract($this->cargarDatosComunes());
-    
+
         // Obtener todos los países
         $paises = new Paises();
         $paisesTodos = $paises->obtenerTodosPaises();
-    
+
+        // unset($_SESSION['errores']);
+        //     unset($_SESSION['form']);
+        //     unset($_SESSION['exito']);
+
+        // if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        //     // Limpiar posibles errores o datos previos en el formulario
+        //     unset($_SESSION['errores']);
+        //     unset($_SESSION['form']);
+        //     unset($_SESSION['exito']);
+        // }
+
         // Cargar vistas
         require_once 'views/layout/head.php';
         require_once 'views/layout/header.php';
         require_once 'views/producto/checkout.php';
         require_once 'views/layout/footer.php';
     }
-    
+
     public function checkoutGuardar()
     {
         // $usuario = Utils::obtenerUsuario();
@@ -120,9 +131,9 @@ class ProductoController
         foreach ($productos as $producto) {
             $cantidad = isset($producto['quantity']) ? (int)$producto['quantity'] : 0;
             $precio = isset($producto['price']) ? (float)$producto['price'] : 0.0;
-            $total += $cantidad * $precio;   
+            $total += $cantidad * $precio;
         }
-      
+
         // Crear una instancia del modelo Pedidos
         $pedido = new Pedidos();
         $pedido->setUsuario_id($usuarioId);

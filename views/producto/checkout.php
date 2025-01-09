@@ -43,13 +43,69 @@
                     </table>
                 </div>
             </div>
+
+            <!-- Tes -->
             <div class="checkout-left">
                 <div class="address_form_agile mt-sm-3 mt-0">
                     <h2 class="panel-admin__dashboard-title"><?php echo TEXT_SHIPPING_ADDRESS_SHIPPING; ?></h2>
                     <input type="hidden" name="id" class="form-control" value="<?php echo isset($usuario->Id) ? htmlspecialchars($usuario->Id) : ''; ?>">
-                    <!-- Formulario de dirección de envío (se mantiene igual) -->
+
+                    <div class="form-group">
+                        <label><?php echo TEXT_SHIPPING_ADDRESS; ?>:</label>
+                        <input type="text" name="direccion" class="form-control" placeholder="<?php echo TEXT_SHIPPING_ADDRESS_USER; ?>" value="<?php echo isset($_SESSION['form']['direccion']) ? htmlspecialchars($_SESSION['form']['direccion']) : (isset($usuario->Direccion) ? htmlspecialchars($usuario->Direccion) : ''); ?>" disabled>
+                        <?php if (isset($_SESSION['errores']['direccion'])) : ?>
+                            <div class="text-danger mt-2">
+                                <i class="fas fa-exclamation-circle"></i> <?php echo $_SESSION['errores']['direccion']; ?>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pais"><?php echo TEXT_SHIPPING_COUNTRY; ?>:</label>
+                        <select class="form-control" id="pais" name="pais" disabled>
+                            <option value="" disabled selected><?php echo TEXT_SHIPPING_SELECT; ?>...</option>
+                            <?php while ($fila = mysqli_fetch_assoc($paisesTodos)) : ?>
+                                <option value="<?php echo $fila['Id']; ?>"
+                                    <?php echo isset($_SESSION['form']['pais']) ? ($_SESSION['form']['pais'] == $fila['Id'] ? 'selected' : '') : (isset($usuario->Pais) && $usuario->Pais == $fila['Id'] ? 'selected' : ''); ?>>
+                                    <?php echo $fila['Pais']; ?>
+                                </option>
+                            <?php endwhile; ?>
+                        </select>
+                        <?php if (isset($_SESSION['errores']['pais'])) : ?>
+                            <div class="text-danger mt-2">
+                                <i class="fas fa-exclamation-circle"></i> <?php echo $_SESSION['errores']['pais']; ?>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ciudad"><?php echo TEXT_SHIPPING_CITY; ?>:</label>
+                        <select class="form-control" id="ciudad" name="ciudad" <?php echo empty($usuario->Pais) ? 'disabled' : ''; ?> disabled>
+                            <?php if (!empty($usuario->Ciudad)) : ?>
+                                <option selected><?php echo htmlspecialchars($usuario->Ciudad); ?></option>
+                            <?php else : ?>
+                                <option value="" disabled selected><?php echo TEXT_SHIPPING_SELECT; ?>...</option>
+                            <?php endif; ?>
+                        </select>
+                        <?php if (isset($_SESSION['errores']['ciudad'])) : ?>
+                            <div class="text-danger mt-2">
+                                <i class="fas fa-exclamation-circle"></i> <?php echo $_SESSION['errores']['ciudad']; ?>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="codigoPostal"><?php echo TEXT_SHIPPING_ZIP_CODE; ?>:</label>
+                        <input type="text" id="codigoPostal" name="codigoPostal" class="form-control" value="<?php echo isset($_SESSION['form']['codigoPostal']) ? htmlspecialchars($_SESSION['form']['codigoPostal']) : (isset($usuario->CodigoPostal) ? htmlspecialchars($usuario->CodigoPostal) : ''); ?>" disabled>
+                        <?php if (isset($_SESSION['errores']['codigoPostal'])) : ?>
+                            <div class="text-danger mt-2">
+                                <i class="fas fa-exclamation-circle"></i> <?php echo $_SESSION['errores']['codigoPostal']; ?>
+                            </div>
+                        <?php endif; ?>
+                    </div>
                 </div>
             </div>
+            <!-- tess -->
 
             <div class="container contn-info">
                 <div class="parrafo-info">
@@ -57,12 +113,30 @@
                     <p class="text-center"><?php echo TEXT_PAYPAL_TEST_CREDENTIALS; ?></p>
                 </div>
             </div>
+
             <div class="checkout-right-basket">
+                <input type="hidden" name="usuario_id" value="<?php echo htmlspecialchars($usuarioId); ?>" />
                 <input type="hidden" value="<?php echo EMPTY_CART_MESSAGE ?>" name="no-more-in-stock" class="no-more-in-stock">
                 <input type="hidden" value="<?php echo TEXT_MODAL_ACCEPT_BUTTON ?>" name="btn-aceptar" class="btn-aceptar">
                 <input type="hidden" value="<?php echo ERROR_MESSAGE ?>" name="mensaje-error" class="mensaje-error">
                 <button type="submit"><?php echo MAKE_PAYMENT; ?></button>
+                <?php if (isset($_SESSION['errores']) && count($_SESSION['errores']) > 0) : ?>
+                    <?php if (isset($_SESSION['usuarioRegistrado'])) : ?>
+                        <a href="<?php echo BASE_URL ?>Admin/perfil" type="button" target="_blank"><i class="fas fa-user-cog"></i> <?php echo TEXT_SHIPPING_UPDATE_FORM; ?></a>
+                    <?php else : ?>
+                        <div class="custom-alert-danger" role="alert">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <div class="custom-alert-checkout">
+                                <?php if (isset($_SESSION['errores']['usuarioRegistrado'])) : ?>
+                                    <?php echo $_SESSION['errores']['usuarioRegistrado']; ?>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+                <?php endif; ?>
             </div>
+
+
         </form>
     </div>
 </div>
