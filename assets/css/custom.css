@@ -1736,5 +1736,170 @@
   .product-ficha-sin-stock .my-3,
   .product-ficha-sin-stock .product-rating.mb-4,
   .product-ficha-sin-stock .product-new-top {
-    opacity: 0.5;
+      opacity: 0.5;
+  }
+
+
+  /* # MODAL CARRITO DE COMPRAS
+================================================== */
+  .modal {
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.4);
+  }
+
+  .modal-content {
+      background-color: #fff;
+      margin: 10% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+      max-width: 600px;
+      text-align: left;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+  }
+
+  table th,
+  table td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: center;
+      word-wrap: break-word;
+  }
+
+  table th {
+      background-color: #f4f4f4;
+      font-weight: bold;
+  }
+
+  .btn-increase,
+  .btn-decrease,
+  .btn-remove {
+      padding: 5px 10px;
+      font-size: 14px;
+      cursor: pointer;
+  }
+
+  .btn-increase,
+  .btn-decrease {
+      background-color: #f4f4f4;
+      border: 1px solid #ddd;
+  }
+
+  .btn-remove {
+      background-color: red;
+      color: white;
+      border: none;
+  }
+
+  .product-cntn-qty {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      gap: 10px;
+      border: unset;
+  }
+
+  .product-qty {
+      width: 30%;
+      text-align: center;
+      border: 1px solid #00ed1a;
+  }
+
+  .btn-realizar-pedido {
+      width: 100%;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      text-align: center;
+      transition: transform 0.3s ease;
+  }
+
+  .btn-realizar-pedido i {
+      margin-right: 10px;
+  }
+
+  .btn-realizar-pedido:hover {
+      background-color: #45a049;
+  }
+
+  .total-label {
+      text-align: right;
+      font-weight: bold;
+  }
+
+  .total-amount {
+      font-weight: bold;
+      text-align: right;
+  }
+
+  @media (max-width: 768px) {
+
+      table {
+          font-size: 14px;
+          display: block;
+          overflow-x: auto;
+      }
+
+      table th,
+      table td {
+          padding: 8px;
+      }
+
+      .modal-content {
+          width: 95%;
+          margin: 5% auto;
+      }
+
+      .btn-realizar-pedido {
+          font-size: 14px;
+      }
+
+      .btn-realizar-pedido i {
+          margin-right: 5px;
+      }
+
+      .product-qty {
+          width: 40px;
+          height: 30px;
+      }
+  }
+
+  /* Para pantallas muy pequeñas */
+  @media (max-width: 480px) {
+
+      table th,
+      table td {
+          font-size: 12px;
+      }
+
+      .btn-realizar-pedido {
+          padding: 8px 16px;
+          font-size: 12px;
+      }
+
+      .modal-content {
+          padding: 15px;
+      }
+
+      .product-qty {
+          width: 40px;
+          height: 30px;
+      }
   }

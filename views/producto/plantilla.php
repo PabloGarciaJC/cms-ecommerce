@@ -49,8 +49,7 @@
                 <i class="fas fa-heart"></i> <?php echo TEXT_PRODUCT_SAVE_FAVORITE; ?>
             </button>
             <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-                
-                <form action="#" method="post">
+                <form action="#" method="post" class="formulario-items-productos">
                     <fieldset>
                         <input type="hidden" name="producto_id" value="<?php echo $prod->id; ?>" />
                         <input type="hidden" name="href" value="<?php echo BASE_URL ?>Producto/ficha?id=<?php echo $prod->id; ?>" />
@@ -75,6 +74,7 @@
                     </fieldset>
                 </form>
             </div>
+
         </div>
     </div>
 </div>

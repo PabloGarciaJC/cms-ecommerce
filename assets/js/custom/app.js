@@ -340,6 +340,14 @@ class App {
         }
       });
     });
+
+
+
+
+    /* JS Carrito de COmpras */
+
+
+    /* Fin de carrito de compras */
   }
 
   // Iniciar aplicación

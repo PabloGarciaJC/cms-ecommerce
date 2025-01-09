@@ -238,6 +238,39 @@
 
 	<?php include __DIR__ . '/script-footer.php'; ?>
 
+	<!-- Modal -->
+	<div id="productModal" class="modal" style="display: none;">
+		<div class="modal-content">
+			<span class="close">&times;</span>
+			<h3>Carrito de Compras</h3>
+			<table id="product-table">
+				<thead>
+					<tr>
+						<th>Producto</th>
+						<th>Precio</th>
+						<th>Cantidad</th>
+						<th>Subtotal</th>
+						<th>Acción</th>
+					</tr>
+				</thead>
+				<tbody>
+					<!-- Las filas se agregarán dinámicamente aquí -->
+				</tbody>
+				<tfoot>
+					<tr>
+						<td colspan="3" class="total-label">Total:</td>
+						<td id="cart-total" class="total-amount">0.00</td>
+					</tr>
+				</tfoot>
+			</table>
+			<div style="text-align: center;">
+				<button id="btn-realizar-pedido" class="btn-realizar-pedido">
+					<i class="fas fa-shopping-cart"></i> Realizar Pedido
+				</button>
+			</div>
+		</div>
+	</div>
+
 	</body>
 
 	</html>
