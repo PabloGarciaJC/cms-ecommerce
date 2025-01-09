@@ -31,6 +31,12 @@ define('PRODUCT_NAME', 'Product Name');
 define('PRICE', 'Price');
 define('REMOVE', 'Remove');
 define("MAKE_PAYMENT", "Finish purchase");
+define('STOCK', 'Stock');
+define('CANTIDAD', 'Quantity');
+define('ACCION', 'Action');
+define('EMPTY_CART_MESSAGE', 'No products in the shopping cart.');
+define('CART_MODAL_TITLE', 'Shopping Cart');
+define('ERROR_MESSAGE', 'Error');
 
 // Textos para "Productos Lista"
 define("TEXT_QUICK_VIEW", "Quick View");
@@ -69,6 +75,7 @@ define("TEXT_SALE_DESC", "Sale up to 25% off all in store");
 define("TEXT_PHONE_DESC", "A Bigger Phone");
 define("TEXT_SMART_PHONES_DESC", "Smart Phones 5");
 define("TEXT_FREE_SHIPPING_DESC", "Free shipping on orders over $100");
+define('NO_MORE_IN_STOCK_EN', 'You cannot add more than what is in stock.');
 
 // Textos para "Helps"
 define("TEXT_HELP_PAGE_TITLE", "<span>H</span>elp <span>P</span>age");

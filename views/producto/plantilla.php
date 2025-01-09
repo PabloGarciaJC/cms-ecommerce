@@ -44,16 +44,16 @@
                 <span class="stars">
                     <?php echo Utils::obtenerEstrellas($prod->grupo_id); ?>
                 </span>
-            </div>
+            </div>           
             <button class="item-btn-favorito <?php echo isset($prod->favorito_id) && $usuario->Id == $prod->usuario_id ? 'favorito-activado' : false; ?>" data-grupo-id="<?php echo $prod->grupo_id; ?>">
                 <i class="fas fa-heart"></i> <?php echo TEXT_PRODUCT_SAVE_FAVORITE; ?>
             </button>
             <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-                <form action="#" method="post" class="formulario-items-productos">
+                <form action="<?php BASE_URL ?>Producto/checkout" method="post" class="formulario-items-productos">
                     <fieldset>
                         <input type="hidden" name="producto_id" value="<?php echo $prod->id; ?>" />
                         <input type="hidden" name="href" value="<?php echo BASE_URL ?>Producto/ficha?id=<?php echo $prod->id; ?>" />
-                        <input type="hidden" name="image" value="<?php echo BASE_URL ?>uploads/images/productos/<?php echo $imagenes_array[0]; ?>" />
+                        <input type="hidden" name="image" value="<?php echo BASE_URL ?>uploads/images/default.jpg" />
                         <input type="hidden" id="text_oferta" value="<?php echo OFERTA; ?>" />
                         <input type="hidden" id="text_subtotal" value="<?php echo SUBTOTAL; ?>" />
                         <input type="hidden" id="text_realizar_pedido" value="<?php echo REALIZAR_PEDIDO; ?>" />
@@ -66,6 +66,7 @@
                         <input type="hidden" name="currency_code" value="USD" />
                         <input type="hidden" name="return" value="" />
                         <input type="hidden" name="cancel_return" value=" " />
+                        <input type="hidden" name="stock" value="<?php echo $prod->stock; ?>" />
                         <?php if (isset($prod->stock) && $prod->stock > 0): ?>
                             <input type="submit" name="submit" value="<?php echo ADD_TO_CART; ?>" class="button btn" />
                         <?php else: ?>

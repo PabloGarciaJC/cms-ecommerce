@@ -30,6 +30,12 @@ define('PRODUCT_NAME', 'Nom du produit');
 define('PRICE', 'Prix');
 define('REMOVE', 'Supprimer');
 define("MAKE_PAYMENT", "Terminer l'achat");
+define('STOCK', 'Stock');
+define('CANTIDAD', 'Quantité');
+define('ACCION', 'Action');
+define('EMPTY_CART_MESSAGE', 'Il n\'y a pas de produits dans le panier.');
+define('CART_MODAL_TITLE', 'Panier');
+define('ERROR_MESSAGE', 'Erreur');
 
 // Textos para "Productos Lista"
 define("TEXT_QUICK_VIEW", "Aperçu rapide");
@@ -68,6 +74,7 @@ define("TEXT_SALE_DESC", "Jusqu'à 25% de réduction sur tous les produits en ma
 define("TEXT_PHONE_DESC", "Un téléphone plus grand");
 define("TEXT_SMART_PHONES_DESC", "Smartphones 5");
 define("TEXT_FREE_SHIPPING_DESC", "Livraison gratuite pour les commandes supérieures à 100 $");
+define('NO_MORE_IN_STOCK_FR', 'Vous ne pouvez pas ajouter plus que ce qui est en stock.');
 
 // Textos para "Helps"
 define("TEXT_HELP_PAGE_TITLE", "<span>P</span>age d'<span>A</span>ide");

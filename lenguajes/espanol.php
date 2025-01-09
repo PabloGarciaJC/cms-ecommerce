@@ -31,6 +31,12 @@ define('PRODUCT_NAME', 'Nombre del Producto');
 define('PRICE', 'Precio');
 define('REMOVE', 'Eliminar');
 define("MAKE_PAYMENT", "Terminar Compra");
+define('STOCK', 'Stock');
+define('CANTIDAD', 'Cantidad');
+define('ACCION', 'Acción');
+define('EMPTY_CART_MESSAGE', 'No hay productos en el carrito de compras.');
+define('CART_MODAL_TITLE', 'Carrito de Compras');
+define('ERROR_MESSAGE', 'Error');
 
 // Textos para "Productos Lista"
 define("TEXT_QUICK_VIEW", "Vista rápida");
@@ -179,6 +185,7 @@ define("TEXT_MODAL_PASSWORD_LABEL_REGISTER", "Contraseña");
 define("TEXT_MODAL_CONFIRM_PASSWORD_LABEL", "Confirma Contraseña");
 define("TEXT_MODAL_TERMS_LABEL", "Acepto los Términos y Condiciones");
 define("TEXT_MODAL_ACCEPT_BUTTON", "Aceptar");
+define('NO_MORE_IN_STOCK', 'No puedes agregar más de lo que hay en stock.');
 
 // Textos para "Footer"
 define("TEXT_FOOTER_SHIPPING", "Envío gratis");
