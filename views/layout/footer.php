@@ -137,7 +137,7 @@
 
 	<?php include __DIR__ . '/modales.php'; ?>
 	<?php include __DIR__ . '/script-footer.php'; ?>
-
+	
 	</body>
 
 	</html>

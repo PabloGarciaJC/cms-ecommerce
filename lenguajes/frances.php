@@ -257,6 +257,7 @@ define('TEXT_SHIPPING_SELECT', 'Sélectionner');
 define('TEXT_SHIPPING_CITY', 'Ville/Région');
 define('TEXT_SHIPPING_ZIP_CODE', 'Code Postal');
 define('TEXT_SHIPPING_UPDATE_FORM', 'Mettre à jour le formulaire');
+define('TEXT_PAYPAL_TEST_CREDENTIALS', 'Ce projet utilise des identifiants de test PayPal pour simuler la passerelle de paiement. Ne réalisez pas de transactions réelles tant que cet environnement est actif.');
 
 // Texto de danger checkout
 define('TEXT_NOT_LOGGED_IN', '<strong>Attention !</strong> Vous n\'avez pas <a href="javascript:void(0)" data-toggle="modal" data-target="#exampleModal"> <i class="fas fa-sign-in-alt"></i> Connecté </a>');

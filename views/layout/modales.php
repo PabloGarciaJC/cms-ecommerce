@@ -129,13 +129,17 @@
         <p id="empty-cart-message" style="display: none; text-align: center; font-size: 18px; color: #777;">
             <?php echo EMPTY_CART_MESSAGE; ?>
         </p>
-        <input type="hidden" value="<?php echo EMPTY_CART_MESSAGE ?>" name="no-more-in-stock" class="no-more-in-stock">
-        <input type="hidden" value="<?php echo TEXT_MODAL_ACCEPT_BUTTON ?>" name="btn-aceptar" class="btn-aceptar">
-        <input type="hidden" value="<?php echo ERROR_MESSAGE ?>" name="mensaje-error" class="mensaje-error">
-        <div style="text-align: center;">
-            <button id="btn-realizar-pedido" class="btn-realizar-pedido">
-                <i class="fas fa-shopping-cart"></i> <?php echo REALIZAR_PEDIDO; ?>
-            </button>
-        </div>
+        <form id="cart-form" action="http://localhost:8081/Producto/checkout" method="POST">
+            <input type="hidden" name="productos" id="productos">
+            <input type="hidden" name="total" id="total">
+            <input type="hidden" value="<?php echo EMPTY_CART_MESSAGE ?>" name="no-more-in-stock" class="no-more-in-stock">
+            <input type="hidden" value="<?php echo TEXT_MODAL_ACCEPT_BUTTON ?>" name="btn-aceptar" class="btn-aceptar">
+            <input type="hidden" value="<?php echo ERROR_MESSAGE ?>" name="mensaje-error" class="mensaje-error">
+            <div style="text-align: center;">
+                <button type="submit" id="btn-realizar-pedido" class="btn-realizar-pedido">
+                    <i class="fas fa-shopping-cart"></i> <?php echo REALIZAR_PEDIDO; ?>
+                </button>
+            </div>
+        </form>
     </div>
 </div>

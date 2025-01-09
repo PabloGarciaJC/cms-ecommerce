@@ -27,24 +27,30 @@
             <?php if (!empty($prod->precio)): ?>
                 <div class="info-product-price my-2">
                     <?php if (!empty($prod->oferta) && $prod->oferta > 0): ?>
-                        <span class="product-new-top">-<?php echo intval($prod->oferta) . '$'; ?></span>
+                        <?php
+                        // Asegurándonos de que $prod->oferta sea un número válido
+                        $descuento = floatval($prod->oferta); // Convertimos a float para asegurar que es numérico
+                        $precio_con_descuento = $prod->precio - ($prod->precio * ($descuento / 100)); // Calculamos el precio con descuento
+                        ?>
+
+                        <!-- Mostrar descuento -->
+                        <span class="product-new-top badge badge-danger">-<?php echo intval($descuento); ?>%</span>
+
+                        <!-- Mostrar precios -->
+                        <div class="pricing-details">
+                            <span class="item_price text-success font-weight-bold"><?php echo PRICE; ?>: <?php echo round($precio_con_descuento, 2); ?>$</span>
+                            <span class="text-muted small"><?php echo BEFORE; ?>: <del><?php echo intval($prod->precio); ?>$</del></span>
+                        </div>
+                    <?php else: ?>
+                        <span class="item_price text-dark font-weight-bold"><?php echo PRICE; ?>: <?php echo intval($prod->precio); ?>$</span>
                     <?php endif; ?>
-                    <?php
-                    if (!empty($prod->oferta) && $prod->oferta > 0) {
-                        $precio_con_descuento = $prod->precio - $prod->oferta;
-                        echo '<span class="item_price">'. PRICE .' : ' . intval($prod->precio - $prod->oferta) . '$</span>';
-                        echo '<span>'. BEFORE .':<del>' . intval($prod->precio) . '$</del></span>';
-                    } else {
-                        echo '<span class="item_price">'. PRICE .' : $' . intval($prod->precio) . '</span>';
-                    }
-                    ?>
                 </div>
             <?php endif; ?>
             <div class="product-rating-plantilla">
                 <span class="stars">
                     <?php echo Utils::obtenerEstrellas($prod->grupo_id); ?>
                 </span>
-            </div>           
+            </div>
             <button class="item-btn-favorito <?php echo isset($prod->favorito_id) && $usuario->Id == $prod->usuario_id ? 'favorito-activado' : false; ?>" data-grupo-id="<?php echo $prod->grupo_id; ?>">
                 <i class="fas fa-heart"></i> <?php echo TEXT_PRODUCT_SAVE_FAVORITE; ?>
             </button>

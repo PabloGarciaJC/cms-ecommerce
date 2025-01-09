@@ -74,68 +74,21 @@ class ProductoController
 
     public function checkout()
     {
+   
+        // Extraer y cargar datos comunes
         extract($this->cargarDatosComunes());
-
+    
+        // Obtener todos los países
         $paises = new Paises();
         $paisesTodos = $paises->obtenerTodosPaises();
-
-        // Inicializar la sesión con un valor predeterminado si no existe
-        if (!isset($_SESSION['productoLista'])) {
-            $_SESSION['productoLista'] = [];
-        }
-
-        $items = [];
-        $totalAmount = 0;
-
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Recorremos todos los índices de los productos que se han enviado en el carrito
-            foreach ($_POST as $key => $value) {
-                if (strpos($key, 'item_name_') === 0) {
-                    $idx = substr($key, 10); // Extraemos el índice del producto
-                    $itemName = $_POST["item_name_$idx"];
-                    $itemNumber = isset($_POST["item_number_$idx"]) ? $_POST["item_number_$idx"] : '';
-                    $quantity = isset($_POST["quantity_$idx"]) ? $_POST["quantity_$idx"] : 0;
-                    $price = isset($_POST["amount_$idx"]) ? $_POST["amount_$idx"] : 0;
-                    $shipping = isset($_POST["shipping_$idx"]) ? $_POST["shipping_$idx"] : 0;
-                    $shipping2 = isset($_POST["shipping2_$idx"]) ? $_POST["shipping2_$idx"] : 0;
-                    $discount = isset($_POST["discount_amount_$idx"]) ? $_POST["discount_amount_$idx"] : 0;
-                    $image = isset($_POST["image_$idx"]) ? $_POST["image_$idx"] : '';
-                    $href = isset($_POST["href_$idx"]) ? $_POST["href_$idx"] : '';
-                    $producto_id = $_POST["producto_id_$idx"];
-
-                    // Almacenar cada artículo en el arreglo
-                    $items[] = [
-                        'name' => $itemName,
-                        'number' => $itemNumber,
-                        'quantity' => $quantity,
-                        'price' => $price,
-                        'shipping' => $shipping,
-                        'shipping2' => $shipping2,
-                        'discount' => $discount,
-                        'image' => $image,
-                        'href' => $href,
-                        'producto_id' => $producto_id,
-                    ];
-                    // Actualizar la sesión con los nuevos artículos
-                    $_SESSION['productoLista'] = $items;
-
-                    // Sumar el total
-                    $totalAmount += $price * $quantity;
-                }
-            }
-
-            // Limpiar posibles errores o datos previos en el formulario
-            unset($_SESSION['errores']);
-            unset($_SESSION['form']);
-            unset($_SESSION['exito']);
-        }
-
+    
+        // Cargar vistas
         require_once 'views/layout/head.php';
         require_once 'views/layout/header.php';
         require_once 'views/producto/checkout.php';
         require_once 'views/layout/footer.php';
     }
-
+    
     public function checkoutGuardar()
     {
         // $usuario = Utils::obtenerUsuario();
