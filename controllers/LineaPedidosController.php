@@ -33,7 +33,7 @@ class LineaPedidosController
         $grupoId = isset($_POST['grupo_id']) ? $_POST['grupo_id'] : false;
         $stock = isset($_POST['stock']) ? $_POST['stock'] : false;
         $nombre = isset($_POST['nombre']) ? $_POST['nombre'] : false;
-        
+
         $lineaPedido = new LineaPedidos();
         $subtotal = $precio - ($precio * $oferta / 100);
         $lineaPedido->setId(isset($usuario->Id) ? $usuario->Id : false);
@@ -107,14 +107,23 @@ class LineaPedidosController
     {
         $this->cargarTextoIdiomas();
         $usuario = Utils::obtenerUsuario();
+
         $errores = [];
+        
         if (empty($usuario)) {
             $errores[] = TEXT_NOT_LOGGED_IN . TEXT_NOT_REGISTER_IN;
         }
+
         if (count($errores) > 0) {
             echo json_encode([
                 'success' => false,
                 'message' => $errores,
+                'boton' => TEXT_ACCEPT_BUTTON
+            ]);
+        }else{
+            echo json_encode([
+                'success' => true,
+                'message' => 'Existe el Usuario',
                 'boton' => TEXT_ACCEPT_BUTTON
             ]);
         }
@@ -141,6 +150,9 @@ class LineaPedidosController
 
     public function checkout()
     {
+
+        Utils::accesoUsuarioRegistrado();
+
         // Obtener todos los países
         $paises = new Paises();
         $paisesTodos = $paises->obtenerTodosPaises();

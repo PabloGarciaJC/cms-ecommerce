@@ -1855,12 +1855,12 @@ button.submit.check_out:hover {
     letter-spacing: 1px;
     display: inline-block;
     cursor: pointer;
+    border: 1px solid;
 }
 
 .checkout-right-basket a:hover,
 .checkout-right-basket button:hover {
     background: #F45C5D;
-    border: 1px solid #F45C5D;
     transition: 0.5s all;
     -webkit-transition: 0.5s all;
     -moz-transition: 0.5s all;

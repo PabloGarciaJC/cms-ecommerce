@@ -15,26 +15,26 @@ class LineaPedido {
         // Desde el icono del Search General
         $('.formulario-icono-productos').on('submit', function (e) {
             e.preventDefault();
-
             let formData = $(this).serialize();
-
             // Primera solicitud: Asegura que el usuario Exista
             $.ajax({
                 type: "POST",
                 url: baseUrl + 'LineaPedidos/validarUsuario',
                 data: formData,
                 success: function (response) {
-                    try {
-                        const data = JSON.parse(response);
-                        if (!data.success) {
-                            Swal.fire({
-                                title: data.message,
-                                icon: "info",
-                                confirmButtonText: data.boton
-                            });
-                        }
-                    } catch (error) {
-                        false;
+                    const data = JSON.parse(response);
+                    if (!data.success) {
+                        Swal.fire({
+                            title: data.message,
+                            icon: "info",
+                            confirmButtonText: data.boton
+                        });
+                        // Cierro el modal si se abre, el Popup De Login Y registro
+                        $('.swal2-title').on('click', function (e) {
+                            Swal.close();
+                        });
+                    } else {
+                        $('#productModal').fadeIn();
                     }
                 }
             });
@@ -78,8 +78,13 @@ class LineaPedido {
                 }
             });
 
-            $('#productModal').fadeIn();
-           
+            ;
+
+            // if (modaActivo) {
+            //     $('#productModal').fadeIn();
+            // }
+
+
         });
 
         // Desde el Formulario de los Items del Listado del Productos
@@ -107,6 +112,10 @@ class LineaPedido {
                             title: data.message,
                             icon: "info",
                             confirmButtonText: data.boton
+                        });
+                        // Cierro el modal si se abre, el Popup De Login Y registro
+                        $('.swal2-title').on('click', function (e) {
+                            Swal.close();
                         });
                     }
 
