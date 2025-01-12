@@ -72,35 +72,6 @@ class ProductoController
         require_once 'views/layout/footer.php';
     }
 
-    public function checkout()
-    {
-
-        // Extraer y cargar datos comunes
-        extract($this->cargarDatosComunes());
-
-        // Obtener todos los países
-        $paises = new Paises();
-        $paisesTodos = $paises->obtenerTodosPaises();
-
-        // unset($_SESSION['errores']);
-        //     unset($_SESSION['form']);
-        //     unset($_SESSION['exito']);
-
-        // if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        //     // Limpiar posibles errores o datos previos en el formulario
-        //     unset($_SESSION['errores']);
-        //     unset($_SESSION['form']);
-        //     unset($_SESSION['exito']);
-        // }
-
-        // Cargar vistas
-        require_once 'views/layout/head.php';
-        require_once 'views/layout/header.php';
-        require_once 'views/layout/search.php';
-        require_once 'views/producto/checkout.php';
-        require_once 'views/layout/footer.php';
-    }
-
     public function moviles()
     {
         $producto = new Productos();

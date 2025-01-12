@@ -1,7 +1,9 @@
 <?php
 require_once 'model/lineaPedidos.php';
 require_once 'model/pedidos.php';
+require_once 'model/paises.php';
 require_once 'model/idiomas.php';
+require_once 'model/categorias.php';
 require_once 'controllers/LanguageController.php';
 
 class LineaPedidosController
@@ -133,6 +135,56 @@ class LineaPedidosController
                 'boton' => TEXT_ACCEPT_BUTTON
             ]);
         }
+    }
+
+    public function checkout()
+    {
+        // Obtener todos los países
+        $paises = new Paises();
+        $paisesTodos = $paises->obtenerTodosPaises();
+
+        $categorias = new Categorias();
+        $categoriasConSubcategoriasYProductos = $categorias->obtenerCategoriasYProductos();
+
+        // Obtener todos los idiomas disponibles
+        $idiomas = new Idiomas();
+        $getIdiomas = $idiomas->obtenerTodos();
+
+        // Extraer y cargar datos comunes
+        $this->cargarTextoIdiomas();
+
+        $usuario = Utils::obtenerUsuario();
+
+
+        $lineaPedido = new LineaPedidos();
+
+        $lineaPedido->setId($usuario->Id);
+        $lineaPedido->setIdioma($this->languageController->getIdiomaId());
+
+        $lineasDePedidoJSON = $lineaPedido->obtenerLineaPedidos();
+        
+        // Decodificar el JSON para convertirlo en un array PHP
+        $lineasDePedido = json_decode($lineasDePedidoJSON, true);
+
+        // var_dump($lineasDePedidoJSON);
+
+        // unset($_SESSION['errores']);
+        //     unset($_SESSION['form']);
+        //     unset($_SESSION['exito']);
+
+        // if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        //     // Limpiar posibles errores o datos previos en el formulario
+        //     unset($_SESSION['errores']);
+        //     unset($_SESSION['form']);
+        //     unset($_SESSION['exito']);
+        // }
+
+        // Cargar vistas
+        require_once 'views/layout/head.php';
+        require_once 'views/layout/header.php';
+        require_once 'views/layout/search.php';
+        require_once 'views/producto/checkout.php';
+        require_once 'views/layout/footer.php';
     }
 
     public function checkoutGuardar()

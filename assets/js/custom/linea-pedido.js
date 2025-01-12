@@ -1,7 +1,7 @@
-class CarritoCompras {
+class LineaPedido {
 
     onReady() {
-        this.customCarritoCompras();
+        this.customLineaPedido();
     }
 
     modal() {
@@ -78,11 +78,8 @@ class CarritoCompras {
                 }
             });
 
-            // Verifica si Existe usuario Logeado
-            if (usuarioId) {
-                $('#productModal').fadeIn();
-            }
-
+            $('#productModal').fadeIn();
+           
         });
 
         // Desde el Formulario de los Items del Listado del Productos
@@ -292,8 +289,8 @@ class CarritoCompras {
         });
     }
 
-    // Método customCarritoCompras
-    customCarritoCompras() {
+    // Método customLineaPedido
+    customLineaPedido() {
         this.modal();
     }
 
@@ -304,5 +301,5 @@ class CarritoCompras {
 }
 
 // Crear una nueva instancia del carrito y ejecutarlo
-let appCarritoCompras = new CarritoCompras();
-appCarritoCompras.init();
+let appLineaPedido = new LineaPedido();
+appLineaPedido.init();

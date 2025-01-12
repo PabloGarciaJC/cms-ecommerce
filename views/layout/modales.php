@@ -129,7 +129,7 @@
         <p id="empty-cart-message" style="display: none; text-align: center; font-size: 18px; color: #777;">
             <?php echo EMPTY_CART_MESSAGE; ?>
         </p>
-        <form id="cart-form" action="http://localhost:8081/Producto/checkout" method="POST">
+        <form id="cart-form" action="<?php echo BASE_URL ?>LineaPedidos/checkout" method="POST">
             <input type="hidden" name="productos" id="productos">
             <input type="hidden" name="total" id="total">
             <input type="hidden" value="<?php echo EMPTY_CART_MESSAGE ?>" name="no-more-in-stock" class="no-more-in-stock">

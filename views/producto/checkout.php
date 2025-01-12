@@ -1,21 +1,3 @@
-<div class="services-breadcrumb">
-    <div class="agile_inner_breadcrumb">
-        <div class="container">
-            <ul class="w3_short">
-                <li>
-                    <a href="<?= BASE_URL ?>"><?php echo TEXT_INICIO; ?></a>
-                    <i>|</i>
-                </li>
-                <li><?php echo TEXT_CHECKOUT; ?></li>
-            </ul>
-        </div>
-    </div>
-</div>
-
-<style>
-
-</style>
-
 <div class="privacy py-sm-1 py-0">
     <div class="container py-lg-2">
         <h3 class="tittle-w3l text-center mb-lg-5 mb-sm-4 mb-3">
@@ -23,27 +5,55 @@
         </h3>
 
         <form method="post" action="<?php echo BASE_URL ?>Producto/checkoutGuardar" class="form-checkout">
-
             <div class="checkout-right">
                 <div class="table-responsive">
-                    <table class="timetable_sub">
+                    <table class="timetable_sub table">
                         <thead>
                             <tr>
-                                <th><?php echo PRODUCT; ?></th>
-                                <th><?php echo PRICE; ?></th>
-                                <th><?php echo STOCK; ?></th>
-                                <th><?php echo CANTIDAD; ?></th>
-                                <th><?php echo OFERTA; ?></th>
-                                <th><?php echo SUBTOTAL; ?></th>
-                                <th><?php echo ACCION; ?></th>
+                                <th class="text-center"><?php echo PRODUCT; ?></th>
+                                <th class="text-center"><?php echo PRICE; ?></th>
+                                <th class="text-center"><?php echo CANTIDAD; ?></th>
+                                <th class="text-center"><?php echo OFERTA; ?></th>
+                                <th class="text-center"><?php echo SUBTOTAL; ?></th>
                             </tr>
                         </thead>
                         <tbody id="checkout-table-body">
-                            <!-- Los productos se agregarán aquí por JavaScript -->
+                            <?php if (!empty($lineasDePedido)) : ?>
+                                <?php foreach ($lineasDePedido as $producto) : ?>
+                                    <tr>
+                                        <td><?php echo htmlspecialchars($producto['linea_pedido_nombre']); ?></td>
+                                        <td><?php echo number_format($producto['linea_pedido_precio'], 2); ?>€</td>
+                                        <td><?php echo $producto['linea_pedido_cantidad']; ?></td>
+                                        <td>
+                                            <?php if ($producto['linea_pedido_oferta'] > 0) : ?>
+                                                <span class="oferta"><?php echo number_format($producto['linea_pedido_oferta'], 2); ?>%</span>
+                                            <?php else : ?>
+                                                <span class="sin-oferta">0.00%</span>
+                                            <?php endif; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo number_format($producto['linea_pedido_subtotal'], 2); ?>€
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php else : ?>
+                                <tr>
+                                    <td colspan="5"><?php echo 'TEXT_NO_PRODUCTS_IN_CART'; ?></td>
+                                </tr>
+                            <?php endif; ?>
                         </tbody>
                         <tr>
-                            <td colspan="5" style="text-align: right;"><?php echo TEXT_SHIPPING_TOTAL; ?>:</td>
-                            <td id="total-price">0.00</td>
+                            <td colspan="4" style="text-align: right; font-weight: bold;"><?php echo TEXT_SHIPPING_TOTAL; ?>:</td>
+                            <td id="total-price" style="font-weight: bold;">
+                                <?php
+                                // Calcular el total de la compra
+                                $totalPrecio = 0;
+                                foreach ($lineasDePedido as $producto) {
+                                    $totalPrecio += $producto['linea_pedido_subtotal'];
+                                }
+                                echo number_format($totalPrecio, 2) . '€';
+                                ?>
+                            </td>
                         </tr>
                     </table>
                 </div>
@@ -109,33 +119,8 @@
                     </div>
                 </div>
             </div>
- 
-            <div class="container contn-info">
-                <div class="parrafo-info">
-                    <h1 class="text-center title-info"> <i class="fas fa-exclamation-circle"></i><?php echo TEXT_IMPORTANT_INFO_TITLE; ?></h1>
-                    <p class="text-center"><?php echo TEXT_PAYPAL_TEST_CREDENTIALS; ?></p>
-                </div>
-            </div>
 
             <div class="checkout-right-basket">
-                <?php if (isset($_SESSION['errores']) && count($_SESSION['errores']) > 0) : ?>
-                    <?php if (isset($_SESSION['usuarioRegistrado'])) : ?>
-                        <a href="<?php echo BASE_URL ?>Admin/perfil" type="button" target="_blank"><i class="fas fa-user-cog"></i> <?php echo TEXT_SHIPPING_UPDATE_FORM; ?></a>
-                    <?php else : ?>
-                        <div class="custom-alert-danger" role="alert">
-                            <i class="fas fa-exclamation-circle"></i>
-                            <div class="custom-alert-checkout">
-                                <?php if (isset($_SESSION['errores']['usuarioRegistrado'])) : ?>
-                                    <?php echo $_SESSION['errores']['usuarioRegistrado']; ?>
-                                <?php endif; ?>
-                            </div>
-                        </div>
-                    <?php endif; ?>
-                <?php endif; ?>
-                <input type="hidden" name="usuario_id" value="<?php echo htmlspecialchars($usuarioId); ?>" />
-                <input type="hidden" value="<?php echo EMPTY_CART_MESSAGE ?>" name="no-more-in-stock" class="no-more-in-stock">
-                <input type="hidden" value="<?php echo TEXT_MODAL_ACCEPT_BUTTON ?>" name="btn-aceptar" class="btn-aceptar">
-                <input type="hidden" value="<?php echo ERROR_MESSAGE ?>" name="mensaje-error" class="mensaje-error">
                 <button type="submit"><?php echo MAKE_PAYMENT; ?></button>
             </div>
         </form>
