@@ -168,7 +168,6 @@ class LineaPedidos
         }
     }
 
-
     public function obtenerLineaPedidos()
     {
         $idioma = empty($this->getIdioma()) ? 1 : $this->getIdioma();
@@ -224,4 +223,13 @@ class LineaPedidos
         $result = $this->db->query($sql);
         return $result;
     }
+
+    public function eliminar()
+    {
+        $idioma = empty($this->getIdioma()) ? 1 : $this->getIdioma();
+        $sql = "DELETE FROM linea_pedidos WHERE usuario_id = {$this->getId()} AND idioma_id = $idioma AND grupo_id = '{$this->getGrupoId()}'";
+        $result = $this->db->query($sql);
+        return $result;
+    }
+
 }

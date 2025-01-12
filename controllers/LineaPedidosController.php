@@ -116,6 +116,25 @@ class LineaPedidosController
         }
     }
 
+    public function eliminar()
+    {
+        $this->cargarTextoIdiomas();
+        $usuario = Utils::obtenerUsuario();
+        $grupoId = isset($_POST['grupoId']) ? $_POST['grupoId'] : false;
+        $lineaPedido = new LineaPedidos();
+        $lineaPedido->setId($usuario->Id);
+        $lineaPedido->setIdioma($this->languageController->getIdiomaId());
+        $lineaPedido->setGrupoId($grupoId);
+        $eliminarProducto = $lineaPedido->eliminar();
+        if ($eliminarProducto) {
+            echo json_encode([
+                'success' => true,
+                'message' => 'Se ha elimando Items en el Carrito de Productos',
+                'boton' => TEXT_ACCEPT_BUTTON
+            ]);
+        }
+    }
+
     public function checkoutGuardar()
     {
 

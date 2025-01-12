@@ -55,7 +55,7 @@ class CarritoCompras {
                             }
                             let subtotal = price;
                             let newRow = `
-                                <tr data-product-id="${product.linea_pedido_producto_id}">
+                                <tr>
                                     <td>${product.linea_pedido_nombre}</td>
                                     <td class="product-price">${price.toFixed(2)}€</td>
                                     <td class="product-stock">${product.producto_stock}</td>
@@ -130,7 +130,7 @@ class CarritoCompras {
                                     }
                                     let subtotal = price;
                                     let newRow = `
-                                        <tr data-product-id="${product.linea_pedido_producto_id}">
+                                        <tr>
                                             <td>${product.linea_pedido_nombre}</td>
                                             <td class="product-price">${price.toFixed(2)}€</td>
                                             <td class="product-stock">${product.producto_stock}</td>
@@ -247,8 +247,30 @@ class CarritoCompras {
         // Eliminar producto
         $('#product-table').on('click', '.btn-remove', function () {
             let row = $(this).closest('tr');
-            let productId = row.data('product-id');
             let grupoIdInput = row.find('.product-grupo-id').val();
+
+            // Crear un objeto de datos para enviar al servidor
+            let formData = {
+                grupoId: grupoIdInput,
+            };
+
+            $.ajax({
+                type: "POST",
+                url: baseUrl + 'LineaPedidos/eliminar',
+                data: formData,
+                success: function (response) {
+                    const data = JSON.parse(response);
+                    if (data.success) {
+                        Swal.fire({
+                            title: data.message,
+                            icon: "success",
+                            showConfirmButton: false,
+                            confirmButtonText: data.boton,
+                            timer: 1000
+                        });
+                    }
+                }
+            });
 
             // Eliminar el producto de la tabla
             row.remove();
