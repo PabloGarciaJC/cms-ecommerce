@@ -23,7 +23,7 @@
                                     <tr>
                                         <td><?php echo htmlspecialchars($producto['linea_pedido_nombre']); ?></td>
                                         <td><?php echo number_format($producto['linea_pedido_precio'], 2); ?>€</td>
-                                        <td><?php echo $producto['linea_pedido_cantidad']; ?></td>
+                                        <td><?php echo empty($producto['linea_pedido_cantidad']) ? '1' : $producto['linea_pedido_cantidad']; ?></td>
                                         <td>
                                             <?php if ($producto['linea_pedido_oferta'] > 0) : ?>
                                                 <span class="oferta"><?php echo number_format($producto['linea_pedido_oferta'], 2); ?>%</span>
@@ -32,7 +32,7 @@
                                             <?php endif; ?>
                                         </td>
                                         <td>
-                                            <?php echo number_format($producto['linea_pedido_subtotal'], 2); ?>€
+                                            <?php echo empty($producto['linea_pedido_cantidad']) ? number_format($producto['linea_pedido_subtotal'], 2) . '€'  : number_format($producto['linea_pedido_subtotal'], 2) . '€' ; ?>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>

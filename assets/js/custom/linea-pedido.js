@@ -66,7 +66,7 @@ class LineaPedido {
                                         <button class="btn-increase">+</button>
                                     </td>
                                     <td class="product-offer">${product.linea_pedido_oferta || 'N/A'}</td>
-                                    <td class="product-subtotal">${subtotal.toFixed(2)}€</td>
+                                    <td class="product-subtotal">${product.linea_pedido_subtotal}€</td>
                                     <td><button class="btn-remove">X</button></td>
                                 </tr>`;
                             $('#product-table tbody').append(newRow);
@@ -94,7 +94,6 @@ class LineaPedido {
                 data: formData,
                 success: function (response) {
                     const data = JSON.parse(response);
-
                     if (data.success) {
                         Swal.fire({
                             title: data.titulo,
@@ -125,7 +124,6 @@ class LineaPedido {
                                     if (isNaN(price)) {
                                         price = 0;
                                     }
-                                    let subtotal = price;
                                     let newRow = `
                                         <tr>
                                             <td>${product.linea_pedido_nombre}</td>
@@ -138,7 +136,7 @@ class LineaPedido {
                                                 <button class="btn-increase">+</button>
                                             </td>
                                             <td class="product-offer">${product.linea_pedido_oferta || 'N/A'}</td>
-                                            <td class="product-subtotal">${subtotal.toFixed(2)}€</td>
+                                            <td class="product-subtotal">${product.linea_pedido_subtotal}€</td>
                                             <td><button class="btn-remove">X</button></td>
                                         </tr>`;
                                     $('#product-table tbody').append(newRow);

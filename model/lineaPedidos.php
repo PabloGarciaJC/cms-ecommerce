@@ -150,8 +150,8 @@ class LineaPedidos
     public function guardar()
     {
         $idioma = empty($this->getIdioma()) ? 1 : $this->getIdioma();
-        $sql = "INSERT INTO linea_pedidos (nombre, precio, oferta, stock, idioma_id, grupo_id, usuario_id) 
-        VALUES ('{$this->getNombre()}', {$this->getPrecio()}, {$this->getOferta()}, {$this->getStock()}, $idioma, '{$this->getGrupoId()}', {$this->getId()})";
+        $sql = "INSERT INTO linea_pedidos (nombre, precio, oferta, stock, idioma_id, grupo_id, usuario_id, subtotal) 
+        VALUES ('{$this->getNombre()}', {$this->getPrecio()}, {$this->getOferta()}, {$this->getStock()}, $idioma, '{$this->getGrupoId()}', {$this->getId()}, {$this->getSubtotal()})";
         $save = $this->db->query($sql);
         return $save;
     }

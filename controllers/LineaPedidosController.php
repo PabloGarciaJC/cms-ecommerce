@@ -33,14 +33,16 @@ class LineaPedidosController
         $grupoId = isset($_POST['grupo_id']) ? $_POST['grupo_id'] : false;
         $stock = isset($_POST['stock']) ? $_POST['stock'] : false;
         $nombre = isset($_POST['nombre']) ? $_POST['nombre'] : false;
-
+        
         $lineaPedido = new LineaPedidos();
+        $subtotal = $precio - ($precio * $oferta / 100);
         $lineaPedido->setId(isset($usuario->Id) ? $usuario->Id : false);
         $lineaPedido->setNombre($nombre);
         $lineaPedido->setPrecio($precio);
         $lineaPedido->setOferta($oferta);
         $lineaPedido->setGrupoId($grupoId);
         $lineaPedido->setStock($stock);
+        $lineaPedido->setSubtotal($subtotal);
         $lineaPedido->setIdioma($this->languageController->getIdiomaId());
 
         $errores = [];
@@ -162,7 +164,7 @@ class LineaPedidosController
         $lineaPedido->setIdioma($this->languageController->getIdiomaId());
 
         $lineasDePedidoJSON = $lineaPedido->obtenerLineaPedidos();
-        
+
         // Decodificar el JSON para convertirlo en un array PHP
         $lineasDePedido = json_decode($lineasDePedidoJSON, true);
 
