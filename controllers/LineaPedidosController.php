@@ -22,7 +22,7 @@ class LineaPedidosController
         return $this->languageController->cargarTextos();
     }
 
-    public function agregar()
+    public function incluir()
     {
         $this->cargarTextoIdiomas();
         $usuario = Utils::obtenerUsuario();
@@ -31,7 +31,7 @@ class LineaPedidosController
         $grupoId = isset($_POST['grupo_id']) ? $_POST['grupo_id'] : false;
         $stock = isset($_POST['stock']) ? $_POST['stock'] : false;
         $nombre = isset($_POST['nombre']) ? $_POST['nombre'] : false;
-        
+
         $lineaPedido = new LineaPedidos();
         $lineaPedido->setId(isset($usuario->Id) ? $usuario->Id : false);
         $lineaPedido->setNombre($nombre);
@@ -44,9 +44,9 @@ class LineaPedidosController
         $errores = [];
 
         if (empty($usuario)) {
-            $errores[] = 'El Usuario debe de estar Registrado';
+            $errores[] = TEXT_NOT_LOGGED_IN . TEXT_NOT_REGISTER_IN;
         } elseif ($lineaPedido->existeRegistro()) {
-            $errores[] = 'Este Producto ya existe en el carrito de compras';
+            $errores[] = TEXT_PRODUCT_ALREADY_IN_CART;
         }
 
         if (count($errores) > 0) {
@@ -60,7 +60,7 @@ class LineaPedidosController
             $lineaPedido->setId($usuario->Id);
             $lineaPedido->guardar();
             echo json_encode([
-                'titulo' => 'Se añadio Items al Carrito Compras',
+                'titulo' => TEXT_ITEMS_ADDED_TO_CART,
                 'success' => true,
                 'boton' => TEXT_ACCEPT_BUTTON
             ]);
@@ -97,6 +97,23 @@ class LineaPedidosController
         $lineaPedido->setOferta($oferta);
         $lineaPedido->setSubtotal($subtotal);
         $lineaPedido->actualizar();
+    }
+
+    public function validarUsuario()
+    {
+        $this->cargarTextoIdiomas();
+        $usuario = Utils::obtenerUsuario();
+        $errores = [];
+        if (empty($usuario)) {
+            $errores[] = TEXT_NOT_LOGGED_IN . TEXT_NOT_REGISTER_IN;
+        }
+        if (count($errores) > 0) {
+            echo json_encode([
+                'success' => false,
+                'message' => $errores,
+                'boton' => TEXT_ACCEPT_BUTTON
+            ]);
+        }
     }
 
     public function checkoutGuardar()

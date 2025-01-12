@@ -323,3 +323,5 @@ define('TEXT_AVERAGE_RATING', 'Note Moyenne');
 // Texto informatico pagina de contacto
 define("TEXT_FORM_DISABLED_TITLE", "Formulaire Désactivé");
 define("TEXT_FORM_DISABLED_MESSAGE", "Ce formulaire n'est pas activé car il est destiné uniquement à des fins de portfolio. Aucune donnée ne sera traitée.");
+define("TEXT_PRODUCT_ALREADY_IN_CART", "Ce produit existe déjà dans le panier");
+define("TEXT_ITEMS_ADDED_TO_CART", "Des articles ont été ajoutés au panier");

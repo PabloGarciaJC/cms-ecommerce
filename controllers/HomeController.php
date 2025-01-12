@@ -58,6 +58,7 @@ class HomeController
         extract($this->cargarDatosComunes());
         require_once 'views/layout/head.php';
         require_once 'views/layout/header.php';
+        require_once 'views/layout/search.php';
         require_once 'views/home/nosotros.php';
         require_once 'views/layout/footer.php';
     }
@@ -67,6 +68,7 @@ class HomeController
         extract($this->cargarDatosComunes());
         require_once 'views/layout/head.php';
         require_once 'views/layout/header.php';
+        require_once 'views/layout/search.php';
         require_once 'views/home/help.php';
         require_once 'views/layout/footer.php';
     }
@@ -76,6 +78,7 @@ class HomeController
         extract($this->cargarDatosComunes());
         require_once 'views/layout/head.php';
         require_once 'views/layout/header.php';
+        require_once 'views/layout/search.php';
         require_once 'views/home/faqs.php';
         require_once 'views/layout/footer.php';
     }
@@ -85,6 +88,7 @@ class HomeController
         extract($this->cargarDatosComunes());
         require_once 'views/layout/head.php';
         require_once 'views/layout/header.php';
+        require_once 'views/layout/search.php';
         require_once 'views/home/term.php';
         require_once 'views/layout/footer.php';
     }
@@ -94,6 +98,7 @@ class HomeController
         extract($this->cargarDatosComunes());
         require_once 'views/layout/head.php';
         require_once 'views/layout/header.php';
+        require_once 'views/layout/search.php';
         require_once 'views/home/privacy.php';
         require_once 'views/layout/footer.php';
     }
@@ -103,6 +108,7 @@ class HomeController
         extract($this->cargarDatosComunes());
         require_once 'views/layout/head.php';
         require_once 'views/layout/header.php';
+        require_once 'views/layout/search.php';
         require_once 'views/home/contacto.php';
         require_once 'views/layout/footer.php';
     }

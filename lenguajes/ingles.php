@@ -324,3 +324,5 @@ define('TEXT_AVERAGE_RATING', 'Average Rating');
 // Texto informatico pagina de contacto
 define("TEXT_FORM_DISABLED_TITLE", "Form Disabled");
 define("TEXT_FORM_DISABLED_MESSAGE", "This form is not enabled because it is for portfolio purposes only. No data will be processed.");
+define("TEXT_PRODUCT_ALREADY_IN_CART", "This product already exists in the shopping cart");
+define("TEXT_ITEMS_ADDED_TO_CART", "Items were added to the shopping cart");

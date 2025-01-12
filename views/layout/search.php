@@ -19,8 +19,7 @@
 					</div>
 					<div class="col-2 top_nav_right text-center mt-sm-0 mt-2">
 						<div class="wthreecartaits wthreecartaits2 cart cart box_1">
-							<form action="#" method="post" class="last formulario-icono-productos">
-								<input type="hidden" name="usuario_id" value="<?php echo isset($_SESSION['usuarioRegistrado']->Id) ? $_SESSION['usuarioRegistrado']->Id : false ?>" />
+							<form action="javascript:void(0)" method="POST" class="last formulario-icono-productos">
 								<button class="btn w3view-cart" type="submit" name="submit" value="">
 									<i class="fas fa-cart-arrow-down"></i>
 								</button>

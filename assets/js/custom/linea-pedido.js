@@ -5,7 +5,7 @@ class CarritoCompras {
     }
 
     modal() {
-    
+
         // Capturar los valores de los campos hidden para usar en los mensajes
         let noMoreInStockMessage = $('input[name="no-more-in-stock"]').val();
         let btnAceptarText = $('input[name="btn-aceptar"]').val();
@@ -15,30 +15,31 @@ class CarritoCompras {
         // Desde el icono del Search General
         $('.formulario-icono-productos').on('submit', function (e) {
             e.preventDefault();
+
             let formData = $(this).serialize();
 
-            if (formData) {
-                // Convertir formData a un objeto clave-valor
-                let params = new URLSearchParams(formData);
-                let isEmpty = false;
-
-                // Recorrer cada clave-valor del formulario
-                params.forEach((value, key) => {
-                    if (!value.trim()) { // Verificar si el valor está vacío
-                        isEmpty = true;
+            // Primera solicitud: Asegura que el usuario Exista
+            $.ajax({
+                type: "POST",
+                url: baseUrl + 'LineaPedidos/validarUsuario',
+                data: formData,
+                success: function (response) {
+                    try {
+                        const data = JSON.parse(response);
+                        if (!data.success) {
+                            Swal.fire({
+                                title: data.message,
+                                icon: "info",
+                                confirmButtonText: data.boton
+                            });
+                        }
+                    } catch (error) {
+                        false;
                     }
-                });
-
-                if (isEmpty) {
-                    Swal.fire({
-                        icon: "info",
-                        html: '<p style="color: red; text-align: justify;"><i class="fa fa-times-circle"></i> El Usuario debe de estar Registrado</p>',
-                        confirmButtonText: 'Aceptar',
-                    });
-
                 }
-            }
+            });
 
+            // Segunda solicitud: Obtener productos para mostrar en el modal
             $.ajax({
                 type: "POST",
                 url: baseUrl + 'LineaPedidos/obtenerProductos',
@@ -46,7 +47,6 @@ class CarritoCompras {
                 success: function (response) {
                     try {
                         let data = JSON.parse(response);
-                        // Limpiar las filas anteriores de la tabla antes de agregar las nuevas
                         $('#product-table tbody').empty();
                         data.forEach(product => {
                             let price = parseFloat(product.linea_pedido_precio);
@@ -89,14 +89,15 @@ class CarritoCompras {
         $('.formulario-items-productos').on('submit', function (e) {
             e.preventDefault();
             let formData = $(this).serialize();
+
             // Primera solicitud: Asegura que los productos se agreguen al carrito
             $.ajax({
                 type: "POST",
-                url: baseUrl + 'LineaPedidos/agregar',
+                url: baseUrl + 'LineaPedidos/incluir',
                 data: formData,
                 success: function (response) {
                     const data = JSON.parse(response);
-                    // Mostrar mensaje de éxito o error
+
                     if (data.success) {
                         Swal.fire({
                             title: data.titulo,
@@ -106,17 +107,13 @@ class CarritoCompras {
                             timer: 850
                         });
                     } else {
-                        let errorMessage = "";
-                        data.message.forEach(function (error) {
-                            errorMessage += `<p style="color: red;text-align: justify;"><i class="fa fa-times-circle"></i> ${error}</p>`;
-                        });
                         Swal.fire({
-                            title: data.titulo,
+                            title: data.message,
                             icon: "info",
-                            html: errorMessage,
                             confirmButtonText: data.boton
                         });
                     }
+
                     // Segunda solicitud: Obtener productos para mostrar en el modal
                     $.ajax({
                         type: "POST",
@@ -125,7 +122,6 @@ class CarritoCompras {
                         success: function (response) {
                             try {
                                 let data = JSON.parse(response);
-                                // Limpiar las filas anteriores de la tabla antes de agregar las nuevas
                                 $('#product-table tbody').empty();
                                 data.forEach(product => {
                                     let price = parseFloat(product.linea_pedido_precio);
@@ -169,10 +165,10 @@ class CarritoCompras {
         $('#product-table').on('click', '.btn-increase', function () {
             let row = $(this).closest('tr');
             let qtyInput = row.find('.product-qty');
-            let price = parseFloat(row.find('.product-price').text().replace('€', '').trim()); // Asegúrate de quitar el símbolo €
-            let offer = parseFloat(row.find('.product-offer').text().replace('%', '').trim()) || 0; // Obtener la oferta
+            let price = parseFloat(row.find('.product-price').text().replace('€', '').trim());
+            let offer = parseFloat(row.find('.product-offer').text().replace('%', '').trim()) || 0;
             let currentQty = parseInt(qtyInput.val());
-            let stock = parseInt(row.find('.product-stock').text()); // Obtener el stock del producto
+            let stock = parseInt(row.find('.product-stock').text());
             let grupoIdInput = row.find('.product-grupo-id').val();
 
             // Verificar si la cantidad actual es menor al stock
@@ -181,7 +177,6 @@ class CarritoCompras {
                 qtyInput.val(currentQty); // Actualizar el input de cantidad
                 updateSubtotal(row, price, offer, currentQty, grupoIdInput); // Actualizar subtotal
             } else {
-                // Mostrar mensaje de error con Swal
                 Swal.fire({
                     title: `${errorMessageText}`,
                     icon: 'error',
@@ -240,13 +235,13 @@ class CarritoCompras {
             let total = 0;
             $('#product-table tbody tr').each(function () {
                 let subtotalText = $(this).find('.product-subtotal').text();
-                let subtotal = parseFloat(subtotalText.replace('€', '').trim()); // Quitar el símbolo de euro y convertir a número
+                let subtotal = parseFloat(subtotalText.replace('€', '').trim());
                 if (!isNaN(subtotal)) {
                     total += subtotal;
                 }
             });
 
-            $('#cart-total').text(total.toFixed(2) + '€'); // Actualizar el total en el lugar correcto
+            $('#cart-total').text(total.toFixed(2) + '€');
         }
 
         // Eliminar producto
