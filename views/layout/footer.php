@@ -129,6 +129,7 @@
 			</div>
 		</div>
 	</footer>
+	
 	<div class="copy-right py-3">
 		<div class="container">
 			<p class="text-center text-white"><?php echo TEXT_FOOTER_COPYRIGHT; ?></p>

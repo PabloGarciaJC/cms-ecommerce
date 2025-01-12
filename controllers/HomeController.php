@@ -101,8 +101,6 @@ class HomeController
     public function contactanos()
     {
         extract($this->cargarDatosComunes());
-
-
         require_once 'views/layout/head.php';
         require_once 'views/layout/header.php';
         require_once 'views/home/contacto.php';

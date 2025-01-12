@@ -9,7 +9,7 @@
 <script src="<?php echo BASE_URL ?>assets/js/easyResponsiveTabs.js"></script>
 <script src="<?php echo BASE_URL ?>assets/js/imagezoom.js"></script>
 <link href="<?php echo BASE_URL ?>assets/css/flexslider.css" rel="stylesheet" type="text/css" media="all" />
-<script src="<?php echo BASE_URL ?>assets/js/minicart.js"></script>
+<script src="<?php echo BASE_URL ?>assets/js/custom/linea-pedido.js"></script>
 <script src="<?php echo BASE_URL ?>assets/js/move-top.js"></script>
 <script src="<?php echo BASE_URL ?>assets/js/scroll.js"></script>
 <script src="<?php echo BASE_URL ?>assets/js/SmoothScroll.min.js"></script>

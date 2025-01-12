@@ -67,7 +67,6 @@ class Commentario {
                         });
                         
                         Swal.fire({
-                            title: data.titulo,
                             icon: "error",
                             html: errorMessage,
                             confirmButtonText: data.boton

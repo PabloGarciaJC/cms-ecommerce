@@ -323,7 +323,3 @@ define('TEXT_AVERAGE_RATING', 'Note Moyenne');
 // Texto informatico pagina de contacto
 define("TEXT_FORM_DISABLED_TITLE", "Formulaire Désactivé");
 define("TEXT_FORM_DISABLED_MESSAGE", "Ce formulaire n'est pas activé car il est destiné uniquement à des fins de portfolio. Aucune donnée ne sera traitée.");
-
-
-
-

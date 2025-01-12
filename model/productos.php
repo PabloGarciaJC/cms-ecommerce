@@ -274,6 +274,35 @@ class Productos
     return null;
   }
 
+  public function obtenerProductosPorIdFrontend()
+  {
+    // Obtener el idioma actual
+    $idioma = empty($this->getIdioma()) ? 1 : $this->getIdioma();
+
+    // Obtener el ID del producto que se va a buscar
+    $id = $this->getId();
+
+    // Realizar la consulta para obtener el producto por su ID y el idioma actual
+    $sql = "SELECT * FROM productos WHERE id = $id";
+    $result = $this->db->query($sql);
+
+    // Si se encuentra el producto, devolverlo
+    if ($result && $result->num_rows > 0) {
+      return $result->fetch_object();
+    }
+
+    // Si no se encuentra el producto, devolver null
+    return null;
+  }
+
+  public function actualizarPorIdFrontend()
+  {
+    $idioma = empty($this->getIdioma()) ? 1 : $this->getIdioma();
+    $sql = "UPDATE productos SET stock = '{$this->getstock()}' where grupo_id = {$this->getGrupoId()} AND idioma_id = $idioma";
+    $result = $this->db->query($sql);
+    return $result;
+  }
+
   public function obtenerProductosPorGrupo()
   {
     $sql = "SELECT * FROM productos WHERE grupo_id = {$this->getGrupoId()}";
@@ -283,6 +312,27 @@ class Productos
       $datos[$row->idioma_id] = $row;
     }
     return $datos;
+  }
+
+  public function obtenerProductosPorGrupoyIdioma()
+  {
+    $idioma = empty($this->getIdioma()) ? 1 : $this->getIdioma();
+
+
+
+
+
+    // $sql = "SELECT * FROM productos WHERE grupo_id = {$this->getGrupoId()} AND idioma_id = $idioma";
+    // $result = $this->db->query($sql);
+    // $datos = [];
+    // while ($row = $result->fetch_object()) {
+    //   $datos[$row->idioma_id] = $row;
+    // }
+
+    // var_dump($datos);
+    // return json_decode($datos);
+
+  
   }
 
   public function obtenerProductos($parentId)
@@ -360,4 +410,6 @@ class Productos
 
     return 0;
   }
+
+
 }

@@ -12,6 +12,7 @@ class Pedidos
     private $estado;
     private $fecha;
     private $hora;
+    private $idioma;
     private $db;
 
     public function __construct()
@@ -24,6 +25,11 @@ class Pedidos
     public function getId()
     {
         return $this->id;
+    }
+
+    public function getIdioma()
+    {
+        return $this->idioma;
     }
 
     public function getUsuario_id()
@@ -78,6 +84,11 @@ class Pedidos
         $this->id = $id;
     }
 
+    public function setIdioma($idioma)
+    {
+        $this->idioma = $idioma;
+    }
+
     public function setUsuario_id($usuario_id)
     {
         $this->usuario_id = $usuario_id;
@@ -124,24 +135,34 @@ class Pedidos
     }
 
     //// CONSULTAS //// 
-
     public function guardar()
     {
         $result = false;
-
-        $sql = "INSERT INTO pedidos (id, usuario_id, pais, ciudad, direccion, codigoPostal, coste, estado, fecha, hora) 
-                VALUES (null, {$this->getUsuario_id()}, '{$this->getPais()}', '{$this->getCiudad()}', '{$this->getDireccion()}', '{$this->getCodigoPostal()}', {$this->getCoste()}, 'Pendiente', CURDATE(), CURTIME());";
-
+        $idioma = empty($this->getIdioma()) ? 1 : $this->getIdioma();
+    
+        // Verificar si el usuario tiene pedidos en el mismo idioma con estado distinto de 'Pagado'
+        $sqlCheck = "SELECT * FROM pedidos WHERE usuario_id = {$this->getUsuario_id()} AND idioma_id = $idioma AND estado != 'Pagado' LIMIT 1;";
+        $check = $this->db->query($sqlCheck);
+    
+        // Si existe un pedido con estado distinto de 'Pagado' en el mismo idioma, no permitir crear un nuevo pedido
+        if ($check && $check->num_rows > 0) {
+            $result = false;
+            return;
+        }
+    
+        // Si no hay pedidos pendientes en el mismo idioma, permitir la creación de un nuevo pedido
+        $sql = "INSERT INTO pedidos (id, usuario_id, pais, ciudad, direccion, codigoPostal, estado, fecha, hora, idioma_id) 
+                VALUES (null, {$this->getUsuario_id()}, '{$this->getPais()}', '{$this->getCiudad()}', '{$this->getDireccion()}', '{$this->getCodigoPostal()}', 'Pendiente', CURDATE(), CURTIME(), $idioma);";
         $save = $this->db->query($sql);
-
+    
         if ($save) {
-            $this->id = $this->db->insert_id;
+            $this->id = $this->db->insert_id; 
             $result = true;
         }
-
+    
         return $result;
     }
-
+    
     public function obtenerTodos()
     {
         $result = [];
@@ -176,7 +197,7 @@ class Pedidos
     public function obtenerPorId($id)
     {
         $result = null;
-    
+
         $sql = "SELECT pedidos.id AS pedido_id, 
                        pedidos.usuario_id, 
                        pedidos.direccion, 
@@ -195,17 +216,17 @@ class Pedidos
                 LEFT JOIN productos ON linea_pedidos.producto_id = productos.id
                 WHERE pedidos.id = {$id}
                 GROUP BY pedidos.id";
-    
+
         $query = $this->db->query($sql);
-    
+
         if ($query && $query->num_rows == 1) {
             $result = $query->fetch_object();
         }
-    
+
         return $result;
     }
-    
-    
+
+
     public function obtenerEstados()
     {
         return ['Pendiente', 'Enviado', 'Entregado', 'Cancelado'];
@@ -283,7 +304,7 @@ class Pedidos
                 LEFT JOIN linea_pedidos ON pedidos.id = linea_pedidos.pedido_id
                 LEFT JOIN productos ON linea_pedidos.producto_id = productos.id
                 GROUP BY pedidos.id";
-            
+
         $query = $this->db->query($sql);
 
         while ($row = $query->fetch_object()) {

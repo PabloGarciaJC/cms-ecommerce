@@ -331,7 +331,3 @@ define('TEXT_AVERAGE_RATING', 'Calificación Promedio.');
 // Texto informatico pagina de contacto
 define("TEXT_FORM_DISABLED_TITLE", "Formulario Deshabilitado");
 define("TEXT_FORM_DISABLED_MESSAGE", "Este formulario no está habilitado porque es solo un portafolio. No se procesarán datos.");
-
-
-
-

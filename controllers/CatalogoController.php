@@ -3,7 +3,6 @@
 require_once 'model/productos.php';
 require_once 'model/categorias.php';
 require_once 'model/pedidos.php';
-require_once 'model/lineaPedidos.php';
 require_once 'model/paises.php';
 require_once 'controllers/LanguageController.php';
 

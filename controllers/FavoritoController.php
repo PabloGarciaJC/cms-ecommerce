@@ -14,17 +14,6 @@ class FavoritoController
     }
 
     /**
-     * Función común para obtener los datos del usuario y el ID del producto
-     */
-    // private function obtenerDatosComunes()
-    // {
-    //     // Obtener el usuario desde la sesión
-
-
-    //     return ['usuario' => $usuario, 'grupoId' => $grupoId];
-    // }
-
-    /**
      * Guarda un producto en los favoritos del usuario.
      */
     public function guardar()

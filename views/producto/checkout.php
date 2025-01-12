@@ -23,6 +23,7 @@
         </h3>
 
         <form method="post" action="<?php echo BASE_URL ?>Producto/checkoutGuardar" class="form-checkout">
+
             <div class="checkout-right">
                 <div class="table-responsive">
                     <table class="timetable_sub">
@@ -47,7 +48,6 @@
                     </table>
                 </div>
             </div>
-
 
             <div class="checkout-left">
                 <div class="address_form_agile mt-sm-3 mt-0">
@@ -109,7 +109,7 @@
                     </div>
                 </div>
             </div>
-
+ 
             <div class="container contn-info">
                 <div class="parrafo-info">
                     <h1 class="text-center title-info"> <i class="fas fa-exclamation-circle"></i><?php echo TEXT_IMPORTANT_INFO_TITLE; ?></h1>
@@ -137,10 +137,7 @@
                 <input type="hidden" value="<?php echo TEXT_MODAL_ACCEPT_BUTTON ?>" name="btn-aceptar" class="btn-aceptar">
                 <input type="hidden" value="<?php echo ERROR_MESSAGE ?>" name="mensaje-error" class="mensaje-error">
                 <button type="submit"><?php echo MAKE_PAYMENT; ?></button>
-
             </div>
-
-
         </form>
     </div>
 </div>
