@@ -5,6 +5,7 @@ class CarritoCompras {
     }
 
     modal() {
+    
         // Capturar los valores de los campos hidden para usar en los mensajes
         let noMoreInStockMessage = $('input[name="no-more-in-stock"]').val();
         let btnAceptarText = $('input[name="btn-aceptar"]').val();
@@ -43,20 +44,15 @@ class CarritoCompras {
                 url: baseUrl + 'LineaPedidos/obtenerProductos',
                 data: formData,
                 success: function (response) {
-
                     try {
                         let data = JSON.parse(response);
-
                         // Limpiar las filas anteriores de la tabla antes de agregar las nuevas
                         $('#product-table tbody').empty();
-
                         data.forEach(product => {
                             let price = parseFloat(product.linea_pedido_precio);
-
                             if (isNaN(price)) {
                                 price = 0;
                             }
-
                             let subtotal = price;
                             let newRow = `
                                 <tr data-product-id="${product.linea_pedido_producto_id}">
@@ -73,11 +69,8 @@ class CarritoCompras {
                                     <td class="product-subtotal">${subtotal.toFixed(2)}€</td>
                                     <td><button class="btn-remove">X</button></td>
                                 </tr>`;
-
                             $('#product-table tbody').append(newRow);
-
                         });
-
                         calculateTotal(); // Recalcular el total general
                     } catch (error) {
                         false;
@@ -95,18 +88,14 @@ class CarritoCompras {
         // Desde el Formulario de los Items del Listado del Productos
         $('.formulario-items-productos').on('submit', function (e) {
             e.preventDefault();
-
             let formData = $(this).serialize();
-
             // Primera solicitud: Asegura que los productos se agreguen al carrito
             $.ajax({
                 type: "POST",
                 url: baseUrl + 'LineaPedidos/agregar',
                 data: formData,
                 success: function (response) {
-
                     const data = JSON.parse(response);
-
                     // Mostrar mensaje de éxito o error
                     if (data.success) {
                         Swal.fire({
@@ -128,27 +117,21 @@ class CarritoCompras {
                             confirmButtonText: data.boton
                         });
                     }
-
                     // Segunda solicitud: Obtener productos para mostrar en el modal
                     $.ajax({
                         type: "POST",
                         url: baseUrl + 'LineaPedidos/obtenerProductos',
                         data: formData,
                         success: function (response) {
-
                             try {
                                 let data = JSON.parse(response);
-
                                 // Limpiar las filas anteriores de la tabla antes de agregar las nuevas
                                 $('#product-table tbody').empty();
-
                                 data.forEach(product => {
                                     let price = parseFloat(product.linea_pedido_precio);
-
                                     if (isNaN(price)) {
                                         price = 0;
                                     }
-
                                     let subtotal = price;
                                     let newRow = `
                                         <tr data-product-id="${product.linea_pedido_producto_id}">
@@ -165,27 +148,20 @@ class CarritoCompras {
                                             <td class="product-subtotal">${subtotal.toFixed(2)}€</td>
                                             <td><button class="btn-remove">X</button></td>
                                         </tr>`;
-
                                     $('#product-table tbody').append(newRow);
-
                                 });
-
                                 calculateTotal(); // Recalcular el total general
                             } catch (error) {
                                 false;
                             }
-
                         }
                     });
-
                 }
             });
-
             // Verifica si Existe usuario Logeado
             if (usuarioId) {
                 $('#productModal').fadeIn();
             }
-
         });
 
 
