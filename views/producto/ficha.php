@@ -96,41 +96,59 @@
 						<?php echo Utils::obtenerEstrellas($productoFicha->grupo_id); ?>
 					</div>
 				</div>
+
+				<style>
+
+					.occasion-cart .item-btn-favorito {
+						width: 100%;
+					}
+
+					.producto-btn {
+						font-size: 13px;
+						color: #fff;
+						background: #0879c9;
+						text-decoration: none;
+						border: none;
+						border-radius: 0;
+						width: 100%;
+						text-transform: uppercase;
+						padding: 13px;
+						outline: none;
+						letter-spacing: 1px;
+						box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.45);
+						font-weight: 600;
+						cursor: pointer;
+						border-radius: 4px;
+						transition: 0.5s all;
+						-webkit-transition: 0.5s all;
+						-moz-transition: 0.5s all;
+						-o-transition: 0.5s all;
+						-ms-transition: 0.5s all;
+					}
+
+				</style>
+
 				<div class="occasion-cart">
-					<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-						<form action="#" method="post">
-							<fieldset>
-								<?php
-								$imagenes = trim($productoFicha->imagenes, '"');
-								$imagenes_array = json_decode($imagenes);
-								?>
-								<input type="hidden" name="producto_id" value="<?php echo $productoFicha->id; ?>" />
-								<input type="hidden" name="href" value="<?php echo BASE_URL ?>Producto/ficha?id=<?php echo $productoFicha->id; ?>" />
-								<input type="hidden" name="image" value="<?php echo BASE_URL ?>uploads/images/productos/<?php echo $imagenes_array[0]; ?>" />
-								<input type="hidden" id="text_oferta" value="<?php echo OFERTA; ?>" />
-								<input type="hidden" id="text_subtotal" value="<?php echo SUBTOTAL; ?>" />
-								<input type="hidden" id="text_realizar_pedido" value="<?php echo REALIZAR_PEDIDO; ?>" />
-								<input type="hidden" name="cmd" value="_cart" />
-								<input type="hidden" name="add" value="1" />
-								<input type="hidden" name="business" value=" " />
-								<input type="hidden" name="business" value="" />
-								<input type="hidden" name="item_name" value="<?php echo $productoFicha->nombre; ?>" />
-								<input type="hidden" name="amount" value="<?php echo $productoFicha->precio; ?>" />
-								<input type="hidden" name="discount_amount" value="<?php echo $productoFicha->oferta ?>" />
-								<input type="hidden" name="currency_code" value="USD" />
-								<input type="hidden" name="cancel_return" value=" " />
-								<input type="hidden" name="return" value="" />
-
-								<?php if (isset($productoFicha->stock) && $productoFicha->stock > 0): ?>
-									<input type="submit" name="submit" value="<?php echo ADD_TO_CART; ?>" class="button btn" />
-								<?php else: ?>
-									<input value="SIN STOCK" class="button-sin-stock btn" />
-								<?php endif; ?>
-
-							</fieldset>
-						</form>
-					</div>
+					<button class="item-btn-favorito <?php echo isset($productoFicha->favorito_id) && $usuario->Id == $productoFicha->usuario_id ? 'favorito-activado' : false; ?>" data-grupo-id="<?php echo $productoFicha->grupo_id; ?>">
+						<i class="fas fa-heart"></i> <?php echo TEXT_PRODUCT_SAVE_FAVORITE; ?>
+					</button>
+					<form action="<?php BASE_URL ?>Producto/checkout" method="post" class="formulario-items-productos">
+						<fieldset>
+							<input type="hidden" name="usuario_id" value="<?php echo isset($_SESSION['usuarioRegistrado']->Id) ? $_SESSION['usuarioRegistrado']->Id : false ?>" />
+							<input type="hidden" name="nombre" value="<?php echo $productoFicha->nombre; ?>" />
+							<input type="hidden" name="precio" value="<?php echo $productoFicha->precio; ?>" />
+							<input type="hidden" name="oferta" value="<?php echo $productoFicha->oferta; ?>" />
+							<input type="hidden" name="grupo_id" value="<?php echo $productoFicha->grupo_id; ?>" />
+							<input type="hidden" name="stock" value="<?php echo $productoFicha->stock; ?>" />
+							<?php if (isset($productoFicha->stock) && $productoFicha->stock > 0): ?>
+								<input type="submit" name="submit" value="<?php echo ADD_TO_CART; ?>" class="button btn producto-btn" />
+							<?php else: ?>
+								<input value="SIN STOCK" class="button-sin-stock btn" />
+							<?php endif; ?>
+						</fieldset>
+					</form>
 				</div>
+				
 			</div>
 		</div>
 	</div>

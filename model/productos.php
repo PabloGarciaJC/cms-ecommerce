@@ -274,27 +274,6 @@ class Productos
     return null;
   }
 
-  public function obtenerProductosPorIdFrontend()
-  {
-    // Obtener el idioma actual
-    $idioma = empty($this->getIdioma()) ? 1 : $this->getIdioma();
-
-    // Obtener el ID del producto que se va a buscar
-    $id = $this->getId();
-
-    // Realizar la consulta para obtener el producto por su ID y el idioma actual
-    $sql = "SELECT * FROM productos WHERE id = $id";
-    $result = $this->db->query($sql);
-
-    // Si se encuentra el producto, devolverlo
-    if ($result && $result->num_rows > 0) {
-      return $result->fetch_object();
-    }
-
-    // Si no se encuentra el producto, devolver null
-    return null;
-  }
-
   public function actualizarPorIdFrontend()
   {
     $idioma = empty($this->getIdioma()) ? 1 : $this->getIdioma();
