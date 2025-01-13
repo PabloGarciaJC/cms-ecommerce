@@ -326,3 +326,8 @@ define("TEXT_FORM_DISABLED_TITLE", "Form Disabled");
 define("TEXT_FORM_DISABLED_MESSAGE", "This form is not enabled because it is for portfolio purposes only. No data will be processed.");
 define("TEXT_PRODUCT_ALREADY_IN_CART", "This product already exists in the shopping cart");
 define("TEXT_ITEMS_ADDED_TO_CART", "Items were added to the shopping cart");
+
+// Texto checkout pedido end
+define("TEXT_PEDIDO_COMPLETED", "Order Completed");
+define("TEXT_THANK_YOU_PURCHASE", "Thank you for your purchase!");
+define("TEXT_VIEW_MY_ORDERS", "View my orders");

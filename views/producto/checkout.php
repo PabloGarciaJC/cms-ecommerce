@@ -38,7 +38,7 @@
                                 <?php endforeach; ?>
                             <?php else : ?>
                                 <tr>
-                                    <td colspan="5"><?php echo 'TEXT_NO_PRODUCTS_IN_CART'; ?></td>
+                                    <td colspan="5"><?php echo ERROR_NO_PRODUCTS_FOUND; ?></td>
                                 </tr>
                             <?php endif; ?>
                         </tbody>
@@ -46,13 +46,13 @@
                             <td colspan="4" style="text-align: right; font-weight: bold;"><?php echo TEXT_SHIPPING_TOTAL; ?>:</td>
                             <td id="total-price" style="font-weight: bold;">
                                 <?php
-                                // Calcular el total de la compra
                                 $totalPrecio = 0;
                                 foreach ($lineasDePedido as $producto) {
                                     $totalPrecio += $producto['linea_pedido_subtotal'];
                                 }
                                 echo number_format($totalPrecio, 2) . '€';
                                 ?>
+                                <input type="hidden" name="coste" value="<?php echo number_format($totalPrecio, 2); ?>">
                             </td>
                         </tr>
                     </table>

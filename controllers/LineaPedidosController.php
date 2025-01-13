@@ -150,7 +150,6 @@ class LineaPedidosController
 
     public function checkout()
     {
-
         Utils::accesoUsuarioRegistrado();
 
         // Obtener todos los países
@@ -166,32 +165,14 @@ class LineaPedidosController
 
         // Extraer y cargar datos comunes
         $this->cargarTextoIdiomas();
-
         $usuario = Utils::obtenerUsuario();
-
-
         $lineaPedido = new LineaPedidos();
-
         $lineaPedido->setId($usuario->Id);
         $lineaPedido->setIdioma($this->languageController->getIdiomaId());
-
         $lineasDePedidoJSON = $lineaPedido->obtenerLineaPedidos();
 
         // Decodificar el JSON para convertirlo en un array PHP
         $lineasDePedido = json_decode($lineasDePedidoJSON, true);
-
-        // var_dump($lineasDePedidoJSON);
-
-        // unset($_SESSION['errores']);
-        // unset($_SESSION['form']);
-        // unset($_SESSION['exito']);
-
-        // if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        //     // Limpiar posibles errores o datos previos en el formulario
-        //     unset($_SESSION['errores']);
-        //     unset($_SESSION['form']);
-        //     unset($_SESSION['exito']);
-        // }
 
         // Cargar vistas
         require_once 'views/layout/head.php';
@@ -218,12 +199,17 @@ class LineaPedidosController
 
         // Verificar si los productos fueron recibidos en el formulario
         $usuario = Utils::obtenerUsuario();
-
         $usuarioId = isset($usuario->Id) ? $usuario->Id : false;
         $direccion = isset($usuario->Direccion) ? trim($usuario->Direccion) : false;
         $pais = isset($usuario->Pais) ? $usuario->Pais : false;
         $ciudad = isset($usuario->Ciudad) ? $usuario->Ciudad : false;
         $codigoPostal = isset($usuario->CodigoPostal) ? $usuario->CodigoPostal : false;
+        $coste = isset($_POST['coste']) ? $_POST['coste'] : false;
+
+        // Elimina cualquier separador de miles y convierte coma decimal a punto decimal
+        $coste = str_replace(',', '', $coste); // Elimina separadores de miles
+        $coste = str_replace(',', '.', $coste); // Si hay coma decimal, cámbiala por punto
+        $coste = floatval($coste); // Convierte el resultado a un número flotante
 
         $errores = [];
 
@@ -248,14 +234,70 @@ class LineaPedidosController
         }
 
         if (count($errores) > 0) {
-
             $_SESSION['errores'] = $errores;
             $_SESSION['form'] = $_POST;
             header("Location: " . BASE_URL . "LineaPedidos/checkout");
             exit;
         } else {
+
+            $pedido = new Pedidos();
+            $pedido->setUsuario_id($usuarioId);
+            $pedido->setDireccion($direccion);
+            $pedido->setPais($pais);
+            $pedido->setCiudad($ciudad);
+            $pedido->setCodigoPostal($codigoPostal);
+            $pedido->setCoste($coste);
+            $pedido->setEstado('Pago');
+            $pedido->setIdioma($this->languageController->getIdiomaId());
+            $guardarPedido = $pedido->guardar();
+
+            if ($guardarPedido) {
+                $lineaPedido = new LineaPedidos();
+                $lineaPedido->setPedido_id($pedido->getId());
+                $lineaPedido->setId($usuario->Id);
+                $lineaPedido->setIdioma($this->languageController->getIdiomaId());
+                $lineaPedido->actualizarConPedido();
+
+                header("Location: " . BASE_URL . "LineaPedidos/checkoutEnd");
+            }
         }
     }
+
+    public function checkoutEnd()
+    {
+        Utils::accesoUsuarioRegistrado();
+    
+        // Obtener las categorías y productos (si es necesario)
+        $categorias = new Categorias();
+        $categoriasConSubcategoriasYProductos = $categorias->obtenerCategoriasYProductos();
+    
+        // Obtener todos los idiomas disponibles
+        $idiomas = new Idiomas();
+        $getIdiomas = $idiomas->obtenerTodos();
+    
+        // Extraer y cargar datos comunes
+        $this->cargarTextoIdiomas();
+    
+        // Obtener el usuario y los detalles del pedido
+        $usuario = Utils::obtenerUsuario();
+    
+        // Asegúrate de que el pedido ya está guardado y obtener su ID
+        // $pedidoId = $this->guardarPedido($usuario);
+    
+        // Aquí puedes agregar los detalles del pedido, como productos, precios, etc.
+        $lineaPedidos = new LineaPedidos();
+        $lineaPedidos->setId($usuario->Id);
+        $pedidoDetalles = $lineaPedidos->obtenerLineaPedidos();
+    
+        // Incluir las vistas
+        require_once 'views/layout/head.php';
+        require_once 'views/layout/header.php';
+        require_once 'views/layout/search.php';
+        require_once 'views/producto/checkout-end.php'; // Vista de confirmación de pedido
+        require_once 'views/layout/footer.php';
+    }
+    
+
 
 
 

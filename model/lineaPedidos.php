@@ -150,15 +150,15 @@ class LineaPedidos
     public function guardar()
     {
         $idioma = empty($this->getIdioma()) ? 1 : $this->getIdioma();
-        $sql = "INSERT INTO linea_pedidos (nombre, precio, oferta, stock, idioma_id, grupo_id, usuario_id, subtotal) 
-        VALUES ('{$this->getNombre()}', {$this->getPrecio()}, {$this->getOferta()}, {$this->getStock()}, $idioma, '{$this->getGrupoId()}', {$this->getId()}, {$this->getSubtotal()})";
+        $sql = "INSERT INTO linea_pedidos (nombre, precio, oferta, stock, idioma_id, grupo_id, usuario_id, subtotal, cantidad) 
+        VALUES ('{$this->getNombre()}', {$this->getPrecio()}, {$this->getOferta()}, {$this->getStock()}, $idioma, '{$this->getGrupoId()}', {$this->getId()}, {$this->getSubtotal()}, 1)";
         $save = $this->db->query($sql);
         return $save;
     }
 
     public function existeRegistro()
     {
-        $sql = "SELECT * FROM linea_pedidos WHERE idioma_id = {$this->getIdioma()} AND grupo_id = '{$this->getGrupoId()}' AND usuario_id = {$this->getId()} LIMIT 1";
+        $sql = "SELECT * FROM linea_pedidos WHERE idioma_id = {$this->getIdioma()} AND grupo_id = '{$this->getGrupoId()}' AND usuario_id = {$this->getId()} AND pedido_id IS NULL LIMIT 1";
         $result = $this->db->query($sql);
         // Si hay resultados, el registro ya existe
         if ($result && $result->num_rows > 0) {
@@ -173,8 +173,7 @@ class LineaPedidos
         $idioma = empty($this->getIdioma()) ? 1 : $this->getIdioma();
         $sql = "SELECT 
                 lp.id AS linea_pedido_id, 
-                lp.pedido_id AS linea_pedido_pedido_id, 
-                lp.producto_id AS linea_pedido_producto_id, 
+                lp.pedido_id AS linea_pedido_pedido_id,  
                 lp.cantidad AS linea_pedido_cantidad, 
                 lp.precio AS linea_pedido_precio, 
                 lp.oferta AS linea_pedido_oferta, 
@@ -183,8 +182,7 @@ class LineaPedidos
                 lp.idioma_id AS linea_pedido_idioma_id, 
                 lp.grupo_id AS linea_pedido_grupo_id, 
                 lp.usuario_id AS linea_pedido_usuario_id, 
-                lp.nombre AS linea_pedido_nombre, 
-                lp.estado AS linea_pedido_estado,
+                lp.nombre AS linea_pedido_nombre,
                 p.id AS producto_id, 
                 p.nombre AS producto_nombre, 
                 p.descripcion AS producto_descripcion, 
@@ -202,8 +200,9 @@ class LineaPedidos
                 LEFT JOIN productos p ON p.grupo_id = lp.grupo_id
                 WHERE lp.usuario_id = {$this->getId()} 
                 AND lp.idioma_id = $idioma 
-                AND p.idioma_id = $idioma";
-
+                AND p.idioma_id = $idioma
+                AND pedido_id IS NULL";
+                
         $result = $this->db->query($sql);
 
         // Inicializamos un array para almacenar los resultados
@@ -231,5 +230,25 @@ class LineaPedidos
         $result = $this->db->query($sql);
         return $result;
     }
+
+
+    public function actualizarConPedido()
+    {
+        $idioma = empty($this->getIdioma()) ? 1 : $this->getIdioma();
+        $pedidoId = $this->getPedido_id();
+    
+        // Construir consulta para actualizar solo cuando pedido_id es NULL
+        $sql = "UPDATE linea_pedidos 
+                SET pedido_id = $pedidoId 
+                WHERE usuario_id = {$this->getId()} 
+                AND idioma_id = $idioma 
+                AND pedido_id IS NULL";
+    
+        // Ejecutar la consulta
+        $result = $this->db->query($sql);
+    
+        return $result;
+    }
+    
 
 }

@@ -139,20 +139,10 @@ class Pedidos
     {
         $result = false;
         $idioma = empty($this->getIdioma()) ? 1 : $this->getIdioma();
-    
-        // Verificar si el usuario tiene pedidos en el mismo idioma con estado distinto de 'Pagado'
-        $sqlCheck = "SELECT * FROM pedidos WHERE usuario_id = {$this->getUsuario_id()} AND idioma_id = $idioma AND estado != 'Pagado' LIMIT 1;";
-        $check = $this->db->query($sqlCheck);
-    
-        // Si existe un pedido con estado distinto de 'Pagado' en el mismo idioma, no permitir crear un nuevo pedido
-        if ($check && $check->num_rows > 0) {
-            $result = false;
-            return;
-        }
-    
+ 
         // Si no hay pedidos pendientes en el mismo idioma, permitir la creación de un nuevo pedido
-        $sql = "INSERT INTO pedidos (id, usuario_id, pais, ciudad, direccion, codigoPostal, estado, fecha, hora, idioma_id) 
-                VALUES (null, {$this->getUsuario_id()}, '{$this->getPais()}', '{$this->getCiudad()}', '{$this->getDireccion()}', '{$this->getCodigoPostal()}', 'Pendiente', CURDATE(), CURTIME(), $idioma);";
+        $sql = "INSERT INTO pedidos (id, usuario_id, pais, ciudad, direccion, codigoPostal, coste, estado, fecha, hora, idioma_id) 
+                VALUES (null, {$this->getUsuario_id()}, '{$this->getPais()}', '{$this->getCiudad()}', '{$this->getDireccion()}', '{$this->getCodigoPostal()}', {$this->getCoste()}, '{$this->getEstado()}', CURDATE(), CURTIME(), $idioma);";
         $save = $this->db->query($sql);
     
         if ($save) {
