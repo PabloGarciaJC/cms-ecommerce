@@ -47,7 +47,7 @@
 
   .panel-admin__header-nav-link {
       color: #ecf0f1;
-      font-size: 1rem;
+      font-size: 18px;
       text-decoration: none;
       font-weight: 500;
       transition: color 0.3s ease, transform 0.2s ease;
@@ -144,7 +144,7 @@
   }
 
   .panel-admin__header-nav-link i {
-      margin-right: 8px;
+      margin-right: 3px;
   }
 
   .panel-admin__submenu {

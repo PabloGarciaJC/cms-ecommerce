@@ -260,33 +260,8 @@ class LineaPedidosController
                 $lineaPedido->setIdioma($this->languageController->getIdiomaId());
                 $lineaPedido->actualizarConPedido();
 
-                header("Location: " . BASE_URL . "LineaPedidos/checkoutEnd");
+                header("Location: " . BASE_URL . "Admin/listaPedidos");
             }
         }
-    }
-
-    public function checkoutEnd()
-    {
-        Utils::accesoUsuarioRegistrado();
-    
-        // Obtener las categorías y productos (si es necesario)
-        $categorias = new Categorias();
-        $categoriasConSubcategoriasYProductos = $categorias->obtenerCategoriasYProductos();
-    
-        // Obtener todos los idiomas disponibles
-        $idiomas = new Idiomas();
-        $getIdiomas = $idiomas->obtenerTodos();
-    
-        // Extraer y cargar datos comunes
-        $this->cargarTextoIdiomas();
-    
-        // Obtener el usuario y los detalles del pedido
-        $usuario = Utils::obtenerUsuario();
-
-        require_once 'views/layout/head.php';
-        require_once 'views/layout/header.php';
-        require_once 'views/layout/search.php';
-        require_once 'views/producto/checkout-end.php';
-        require_once 'views/layout/footer.php';
     }
 }

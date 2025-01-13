@@ -307,7 +307,6 @@ class Pedidos
         return $result;
     }
 
-    
     public function obtenerPedidosConProductosCliente()
     {
 
