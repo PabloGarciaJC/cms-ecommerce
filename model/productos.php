@@ -314,27 +314,6 @@ class Productos
     return $datos;
   }
 
-  public function obtenerProductosPorGrupoyIdioma()
-  {
-    $idioma = empty($this->getIdioma()) ? 1 : $this->getIdioma();
-
-
-
-
-
-    // $sql = "SELECT * FROM productos WHERE grupo_id = {$this->getGrupoId()} AND idioma_id = $idioma";
-    // $result = $this->db->query($sql);
-    // $datos = [];
-    // while ($row = $result->fetch_object()) {
-    //   $datos[$row->idioma_id] = $row;
-    // }
-
-    // var_dump($datos);
-    // return json_decode($datos);
-
-  
-  }
-
   public function obtenerProductos($parentId)
   {
     // Obtener el idioma actual

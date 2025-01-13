@@ -202,7 +202,7 @@ class LineaPedidos
                 AND lp.idioma_id = $idioma 
                 AND p.idioma_id = $idioma
                 AND pedido_id IS NULL";
-                
+
         $result = $this->db->query($sql);
 
         // Inicializamos un array para almacenar los resultados
@@ -236,19 +236,28 @@ class LineaPedidos
     {
         $idioma = empty($this->getIdioma()) ? 1 : $this->getIdioma();
         $pedidoId = $this->getPedido_id();
-    
+
         // Construir consulta para actualizar solo cuando pedido_id es NULL
         $sql = "UPDATE linea_pedidos 
                 SET pedido_id = $pedidoId 
                 WHERE usuario_id = {$this->getId()} 
                 AND idioma_id = $idioma 
                 AND pedido_id IS NULL";
-    
+
         // Ejecutar la consulta
         $result = $this->db->query($sql);
-    
+
         return $result;
     }
-    
 
+    public function obtenerProductosDelPedido($id)
+    {
+        $idioma = empty($this->getIdioma()) ? 1 : $this->getIdioma();
+        // Consulta para obtener los productos del pedido
+        $sql = "SELECT * FROM linea_pedidos lp WHERE lp.pedido_id = $id AND lp.idioma_id = $idioma";
+        // Ejecutar la consulta
+        $result = $this->db->query($sql);
+        // Devolver la lista de productos
+        return $result;
+    }
 }

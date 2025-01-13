@@ -4,6 +4,7 @@ require_once 'model/pedidos.php';
 require_once 'model/paises.php';
 require_once 'model/idiomas.php';
 require_once 'model/categorias.php';
+require_once 'model/productos.php';
 require_once 'controllers/LanguageController.php';
 
 class LineaPedidosController
@@ -238,7 +239,7 @@ class LineaPedidosController
             $_SESSION['form'] = $_POST;
             header("Location: " . BASE_URL . "LineaPedidos/checkout");
             exit;
-
+            
         } else {
 
             $pedido = new Pedidos();
@@ -259,6 +260,18 @@ class LineaPedidosController
                 $lineaPedido->setId($usuario->Id);
                 $lineaPedido->setIdioma($this->languageController->getIdiomaId());
                 $lineaPedido->actualizarConPedido();
+
+                // Obtener los productos del pedido
+                $productosPedido = $lineaPedido->obtenerProductosDelPedido($pedido->getId());
+              
+                // Actualizar el stock de cada producto
+                $productos = new Productos();
+                while ($row = $productosPedido->fetch_object()){
+                    $productos->setGrupoId($row->grupo_id);
+                    $productos->setIdioma($this->languageController->getIdiomaId());
+                    $productos->setStock($row->stock - $row->cantidad);
+                    $productos->actualizarPorIdFrontend();
+                }
 
                 header("Location: " . BASE_URL . "Admin/listaPedidos");
             }
