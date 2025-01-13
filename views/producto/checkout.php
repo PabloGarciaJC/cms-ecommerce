@@ -120,6 +120,17 @@
                 </div>
             </div>
 
+            <!-- Mensaje de nota importante -->
+            <div class="container contn-info">
+                <div class="parrafo-info">
+                    <h1 class="text-center title-info">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <?php echo TEXT_IMPORTANT_INFO_TITLE; ?>
+                    </h1>
+                    <p class="text-center"><?php echo TEXT_PAYPAL_TEST_CREDENTIALS; ?></p>
+                </div>
+            </div>
+
             <div class="checkout-right-basket">
                 <?php if (isset($_SESSION['errores']) && count($_SESSION['errores']) > 0) : ?>
                     <?php if (isset($_SESSION['usuarioRegistrado'])) : ?>
