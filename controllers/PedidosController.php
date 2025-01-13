@@ -21,11 +21,5 @@ class PedidosController
         return $this->languageController->cargarTextos();
     }
 
-    public function crear()
-    {
-
-        var_dump($_POST);
-    }
-
 }
 ?>
