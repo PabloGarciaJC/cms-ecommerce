@@ -13,10 +13,6 @@
 	</div>
 </div>
 
-<style>
-
-</style>
-
 <!-- Pedido Completado -->
 <div class="faqs-w3l py-sm-5 py-4">
     <div class="container">
@@ -26,7 +22,7 @@
                 <div class="image-container">
                     <img src="<?= BASE_URL ?>assets/images/enviado-pedido.png" alt="Enviado Pedido" class="img-fluid">
                 </div>
-                <a href="<?= BASE_URL ?>mi-cuenta" class="btn btn-primary"><?= TEXT_VIEW_MY_ORDERS; ?></a>
+                <a href="<?= BASE_URL ?>Admin/listaPedidos" class="btn btn-primary"><?= TEXT_VIEW_MY_ORDERS; ?></a>
             </div>
         </div>
     </div>

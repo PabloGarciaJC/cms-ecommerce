@@ -640,9 +640,18 @@ class AdminController
     public function listaPedidos()
     {
         Utils::accesoUsuarioRegistrado();
+        $usuario = Utils::obtenerUsuario();
         $pedidos = new Pedidos();
+        $pedidos->setIdioma($this->languageController->getIdiomaId());
+        $pedidos->setId($usuario->Id);
         $estados = $pedidos->obtenerEstados();
-        $listaPedidos = $pedidos->obtenerPedidosConProductos();
+
+        if($usuario->Rol == '22'){
+            $listaPedidos = $pedidos->obtenerPedidosConProductos();
+        }else {
+            $listaPedidos = $pedidos->obtenerPedidosConProductosCliente();
+        }
+
         require_once 'views/layout/head.php';
         require_once 'views/admin/pedidos/lista.php';
         require_once 'views/layout/script-footer.php';
