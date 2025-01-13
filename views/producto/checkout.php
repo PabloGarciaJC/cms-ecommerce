@@ -4,7 +4,7 @@
             <?php echo CHECKOUT; ?>
         </h3>
 
-        <form method="post" action="<?php echo BASE_URL ?>Producto/checkoutGuardar" class="form-checkout">
+        <form method="post" action="<?php echo BASE_URL ?>LineaPedidos/checkoutGuardar" class="form-checkout">
             <div class="checkout-right">
                 <div class="table-responsive">
                     <table class="timetable_sub table">
@@ -32,7 +32,7 @@
                                             <?php endif; ?>
                                         </td>
                                         <td>
-                                            <?php echo empty($producto['linea_pedido_cantidad']) ? number_format($producto['linea_pedido_subtotal'], 2) . '€'  : number_format($producto['linea_pedido_subtotal'], 2) . '€' ; ?>
+                                            <?php echo empty($producto['linea_pedido_cantidad']) ? number_format($producto['linea_pedido_subtotal'], 2) . '€'  : number_format($producto['linea_pedido_subtotal'], 2) . '€'; ?>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -121,7 +121,7 @@
             </div>
 
             <div class="checkout-right-basket">
-            <?php if (isset($_SESSION['errores']) && count($_SESSION['errores']) > 0) : ?>
+                <?php if (isset($_SESSION['errores']) && count($_SESSION['errores']) > 0) : ?>
                     <?php if (isset($_SESSION['usuarioRegistrado'])) : ?>
                         <a href="<?php echo BASE_URL ?>Admin/perfil" type="button" target="_blank"><i class="fas fa-user-cog"></i> <?php echo TEXT_SHIPPING_UPDATE_FORM; ?></a>
                     <?php else : ?>
@@ -140,3 +140,9 @@
         </form>
     </div>
 </div>
+
+<?php
+unset($_SESSION['errores']);
+unset($_SESSION['form']);
+unset($_SESSION['exito']);
+?>

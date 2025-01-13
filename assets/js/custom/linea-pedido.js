@@ -77,14 +77,6 @@ class LineaPedido {
                     }
                 }
             });
-
-            ;
-
-            // if (modaActivo) {
-            //     $('#productModal').fadeIn();
-            // }
-
-
         });
 
         // Desde el Formulario de los Items del Listado del Productos
