@@ -46,6 +46,8 @@ class ProductoController
     {
         extract($this->cargarDatosComunes());
 
+        $usuario = Utils::obtenerUsuario();
+
         $producto = new Productos();
         $idProducto = isset($_GET['parent_id']) ? $_GET['parent_id'] : false;
         $id = isset($_GET['id']) ? $_GET['id'] : false;
@@ -56,6 +58,7 @@ class ProductoController
         // Ficha de producto
         $producto->setParentId($idProducto);
         $producto->setId($id);
+        $producto->setUsuario($usuario);
         $productoFicha = $producto->obtenerProductosPorId();
 
         // Comentarios del producto

@@ -1986,3 +1986,30 @@
           font-size: 1rem;
       }
   }
+
+  .occasion-cart .item-btn-favorito {
+      width: 100%;
+  }
+
+  .producto-btn {
+      font-size: 13px;
+      color: #fff;
+      background: #0879c9;
+      text-decoration: none;
+      border: none;
+      border-radius: 0;
+      width: 100%;
+      text-transform: uppercase;
+      padding: 13px;
+      outline: none;
+      letter-spacing: 1px;
+      box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.45);
+      font-weight: 600;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: 0.5s all;
+      -webkit-transition: 0.5s all;
+      -moz-transition: 0.5s all;
+      -o-transition: 0.5s all;
+      -ms-transition: 0.5s all;
+  }

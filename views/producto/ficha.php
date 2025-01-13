@@ -96,38 +96,6 @@
 						<?php echo Utils::obtenerEstrellas($productoFicha->grupo_id); ?>
 					</div>
 				</div>
-
-				<style>
-
-					.occasion-cart .item-btn-favorito {
-						width: 100%;
-					}
-
-					.producto-btn {
-						font-size: 13px;
-						color: #fff;
-						background: #0879c9;
-						text-decoration: none;
-						border: none;
-						border-radius: 0;
-						width: 100%;
-						text-transform: uppercase;
-						padding: 13px;
-						outline: none;
-						letter-spacing: 1px;
-						box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.45);
-						font-weight: 600;
-						cursor: pointer;
-						border-radius: 4px;
-						transition: 0.5s all;
-						-webkit-transition: 0.5s all;
-						-moz-transition: 0.5s all;
-						-o-transition: 0.5s all;
-						-ms-transition: 0.5s all;
-					}
-
-				</style>
-
 				<div class="occasion-cart">
 					<button class="item-btn-favorito <?php echo isset($productoFicha->favorito_id) && $usuario->Id == $productoFicha->usuario_id ? 'favorito-activado' : false; ?>" data-grupo-id="<?php echo $productoFicha->grupo_id; ?>">
 						<i class="fas fa-heart"></i> <?php echo TEXT_PRODUCT_SAVE_FAVORITE; ?>
@@ -148,7 +116,6 @@
 						</fieldset>
 					</form>
 				</div>
-				
 			</div>
 		</div>
 	</div>
