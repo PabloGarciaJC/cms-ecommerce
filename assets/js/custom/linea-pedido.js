@@ -92,13 +92,14 @@ class LineaPedido {
                 success: function (response) {
                     const data = JSON.parse(response);
                     if (data.success) {
-                        Swal.fire({
-                            title: data.titulo,
-                            icon: "success",
-                            showConfirmButton: false,
-                            confirmButtonText: data.boton,
-                            timer: 850
-                        });
+                        true;
+                        // Swal.fire({
+                        //     title: data.titulo,
+                        //     icon: "success",
+                        //     showConfirmButton: false,
+                        //     confirmButtonText: data.boton,
+                        //     timer: 850
+                        // });
                     } else {
                         Swal.fire({
                             title: data.message,
@@ -257,13 +258,14 @@ class LineaPedido {
                 success: function (response) {
                     const data = JSON.parse(response);
                     if (data.success) {
-                        Swal.fire({
-                            title: data.message,
-                            icon: "success",
-                            showConfirmButton: false,
-                            confirmButtonText: data.boton,
-                            timer: 1000
-                        });
+                        true;
+                        // Swal.fire({
+                        //     title: data.message,
+                        //     icon: "success",
+                        //     showConfirmButton: false,
+                        //     confirmButtonText: data.boton,
+                        //     timer: 1000
+                        // });
                     }
                 }
             });
