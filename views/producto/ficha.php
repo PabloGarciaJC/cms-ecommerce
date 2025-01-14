@@ -60,33 +60,9 @@
 					<span class="item_price text-success font-weight-bold"><?php echo PRICE; ?>: <?php echo intval($productoFicha->precio); ?>$</span>
 				<?php endif; ?>
 
-				<style>
-					.product-category {
-						display: flex;
-						align-items: center;
-						gap: 10px;
-					}
-
-					.tes {
-						color: #ffffff;
-						background: #0879c9;
-						border-radius: 4px;
-						display: flex;
-						align-items: center;
-						justify-content: center;
-						padding: 2px;
-						padding-left: 5px;
-						padding-right: 5px;
-					}
-
-					.tes:hover {
-						color: #fff;
-					}
-				</style>
-
 				<div class="product-category mt-2 mb-2">
 					<strong>Categoria: </strong>
-					<a href="" class="tes">Movil</a>
+					<a href="<?php echo BASE_URL ?>Catalogo/index?parent_id=<?php echo $productoFicha->parent_id; ?>" class="producto-tag-categoria"><?php echo $productoFicha->nombre_categoria; ?></a>
 				</div>
 
 				<div class="single-infoagile">

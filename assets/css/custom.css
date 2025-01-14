@@ -1902,7 +1902,6 @@
       }
   }
 
-  /* Para pantallas muy pequeñas */
   @media (max-width: 480px) {
 
       #product-table th,
@@ -2012,4 +2011,30 @@
       -moz-transition: 0.5s all;
       -o-transition: 0.5s all;
       -ms-transition: 0.5s all;
+  }
+
+
+  /* # FICHA PRODUCTO TAG CATEGORIA
+================================================== */
+
+  .product-category {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+  }
+
+  .producto-tag-categoria {
+      color: #ffffff;
+      background: #0879c9;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2px;
+      padding-left: 5px;
+      padding-right: 5px;
+  }
+
+  .producto-tag-categoria:hover {
+      color: #fff;
   }

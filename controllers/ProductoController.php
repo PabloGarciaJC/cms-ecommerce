@@ -55,7 +55,6 @@ class ProductoController
         $producto->setIdioma($this->languageController->getIdiomaId());
 
         // Ficha de producto
-        // $producto->setId($id);
         $producto->setUsuario($usuario);
         $producto->setGrupoId($grupoId);
         $productoFicha = $producto->obtenerProductosPorId();
