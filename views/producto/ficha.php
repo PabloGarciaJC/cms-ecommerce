@@ -18,7 +18,12 @@
 			<div class="col-lg-5 col-md-8 single-right-left ">
 				<div class="grid images_3_of_2">
 					<?php if (!empty($productoFicha->oferta) && $productoFicha->oferta > 0): ?>
-						<span class="product-new-top">-<?php echo intval($productoFicha->oferta) . '$'; ?></span>
+						<?php
+						// Asegurándonos de que $prod->oferta sea un número válido
+						$descuento = floatval($productoFicha->oferta); // Convertimos a float para asegurar que es numérico
+						$precio_con_descuento = $productoFicha->precio - ($productoFicha->precio * ($descuento / 100)); // Calculamos el precio con descuento
+						?>
+						<span class="product-new-top badge badge-danger">-<?php echo intval($descuento); ?>%</span>
 					<?php endif; ?>
 					<?php
 					$imagenesArray = json_decode($productoFicha->imagenes);
@@ -46,17 +51,20 @@
 			</div>
 			<div class="col-lg-7 single-right-left simpleCart_shelfItem">
 				<h3 class="mb-3"><?php echo $productoFicha->nombre; ?></h3>
-				<p class="mb-3">
-					<?php
-					if (!empty($productoFicha->oferta) && $productoFicha->oferta > 0) {
-						$precio_con_descuento = $productoFicha->precio - $productoFicha->oferta;
-						echo '<span class="item_price">Precio: ' . intval($productoFicha->precio - $productoFicha->oferta) . '$</span>';
-						echo '<span>Antes: <del>' . intval($productoFicha->precio) . '$</del></span>';
-					} else {
-						echo '<span class="item_price">' . PRICE . ' : ' . intval($productoFicha->precio) . '$</span>';
-					}
-					?>
-				</p>
+				<?php if (!empty($productoFicha->oferta) && $productoFicha->oferta > 0): ?>
+					<div class="pricing-details">
+						<span class="item_price text-success font-weight-bold"><?php echo PRICE; ?>: <?php echo round($precio_con_descuento, 2); ?>$</span>
+						<span class="text-muted small"><?php echo BEFORE; ?>: <del><?php echo intval($productoFicha->precio); ?>$</del></span>
+					</div>
+				<?php else: ?>
+					<span class="item_price text-success font-weight-bold"><?php echo PRICE; ?>: <?php echo intval($productoFicha->precio); ?>$</span>
+				<?php endif; ?>
+				
+				<div class="product-category mt-2 mb-2">
+					<strong>Categoria: </strong>
+					<a href="">Movil</a>
+				</div>
+
 				<div class="single-infoagile">
 					<ul>
 						<li class="mb-3">
@@ -64,12 +72,10 @@
 						</li>
 					</ul>
 				</div>
+
 				<div class="product-single-w3l">
-					<p class="my-3">
-						<i class="far fa-hand-point-right mr-2"></i>
-						<?php echo TEXT_GARANTIA; ?>
-					</p>
-					<!-- <ul>
+					
+					<ul class="pt-3">
 						<li class="mb-1">
 							3 GB RAM | 16 GB ROM | Expandable Upto 256 GB
 						</li>
@@ -86,9 +92,11 @@
 							Exynos 7870 Octa Core 1.6GHz Processor
 						</li>
 					</ul>
-					<p class="my-sm-4 my-3">
-						<i class="fas fa-retweet mr-3"></i>Net banking & Credit/ Debit/ ATM card
-					</p> -->
+
+					<p class="my-3">
+						<i class="far fa-hand-point-right mr-2"></i>
+						<?php echo TEXT_GARANTIA; ?>
+					</p>
 				</div>
 				<div class="product-rating mb-4 text-center">
 					<h4 class="rating-title"><?php echo TEXT_AVERAGE_RATING; ?></h4>
