@@ -83,6 +83,7 @@
 						color: #fff;
 					}
 				</style>
+				
 				<div class="product-category mt-2 mb-2">
 					<strong>Categoria: </strong>
 					<a href="" class="tes">Movil</a>

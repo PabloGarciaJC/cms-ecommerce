@@ -21,7 +21,7 @@
                     </a>
                 <?php endif; ?>
             </div>
-            
+
             <div class="breadcrumbs">
                 <nav>
                     <ul class="breadcrumb">
@@ -92,14 +92,18 @@
                                     $urlProducto = isset($producto->parent_id) && $producto->parent_id != null ? "&categoriaId=" . $producto->parent_id : false;
                                     $editProUrl = BASE_URL . "Admin/productos?editid=" . $producto->grupo_id . $urlProducto;
                                     $deleteProUrl = BASE_URL . "Admin/productos?deleteid=" . $producto->grupo_id . $urlProducto;
+                                    $imagenes = json_decode($producto->imagenes);
+                                    $imagenProducto = (!empty($imagenes) && !empty($imagenes[0]))
+                                        ? BASE_URL . 'uploads/images/productos/' . $imagenes[0]
+                                        : BASE_URL . 'uploads/images/productos/default.jpg';
                                     ?>
                                     <td>
                                         <a href="<?= $editProUrl ?>">
-                                            <i class="fas fa-box producto-icon" style="margin-right: 5px;"></i>
+                                            <img src="<?php echo $imagenProducto; ?>" alt="Imagen del producto" style="width: 50px;">
                                             <?= $producto->nombre; ?>
                                         </a>
                                     </td>
-                                    <td>
+                                    <td class="align-middle"">
                                         <a href="<?= $editProUrl; ?>" class="btn btn-warning btn-sm">Editar</a>
                                         <a href="<?= $deleteProUrl; ?>" class="btn btn-danger btn-sm">Eliminar</a>
                                     </td>
