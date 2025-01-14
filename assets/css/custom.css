@@ -1761,7 +1761,8 @@
   .product-ficha-sin-stock .my-3,
   .product-ficha-sin-stock .product-rating.mb-4,
   .product-ficha-sin-stock .product-new-top,
-  .product-ficha-sin-stock .product-single-w3l .pt-3
+  .product-ficha-sin-stock .product-single-w3l .pt-3,
+  .product-ficha-sin-stock .pricing-details, .product-ficha-sin-stock .product-category 
   {
       opacity: 0.5;
   }
