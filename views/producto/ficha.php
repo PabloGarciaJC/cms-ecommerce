@@ -83,7 +83,7 @@
 						color: #fff;
 					}
 				</style>
-				
+
 				<div class="product-category mt-2 mb-2">
 					<strong>Categoria: </strong>
 					<a href="" class="tes">Movil</a>
@@ -96,27 +96,34 @@
 						</li>
 					</ul>
 				</div>
-
 				<div class="product-single-w3l">
-
 					<ul class="pt-3">
-						<li class="mb-1">
-							3 GB RAM | 16 GB ROM | Expandable Upto 256 GB
-						</li>
-						<li class="mb-1">
-							5.5 inch Full HD Display
-						</li>
-						<li class="mb-1">
-							13MP Rear Camera | 8MP Front Camera
-						</li>
-						<li class="mb-1">
-							3300 mAh Battery
-						</li>
-						<li class="mb-1">
-							Exynos 7870 Octa Core 1.6GHz Processor
-						</li>
+						<?php if (!empty($productoFicha->especificacion_1)): ?>
+							<li class="mb-1">
+								<?php echo $productoFicha->especificacion_1; ?>
+							</li>
+						<?php endif; ?>
+						<?php if (!empty($productoFicha->especificacion_2)): ?>
+							<li class="mb-1">
+								<?php echo $productoFicha->especificacion_2; ?>
+							</li>
+						<?php endif; ?>
+						<?php if (!empty($productoFicha->especificacion_3)): ?>
+							<li class="mb-1">
+								<?php echo $productoFicha->especificacion_3; ?>
+							</li>
+						<?php endif; ?>
+						<?php if (!empty($productoFicha->especificacion_4)): ?>
+							<li class="mb-1">
+								<?php echo $productoFicha->especificacion_4; ?>
+							</li>
+						<?php endif; ?>
+						<?php if (!empty($productoFicha->especificacion_5)): ?>
+							<li class="mb-1">
+								<?php echo $productoFicha->especificacion_5; ?>
+							</li>
+						<?php endif; ?>
 					</ul>
-
 					<p class="my-3">
 						<i class="far fa-hand-point-right mr-2"></i>
 						<?php echo TEXT_GARANTIA; ?>

@@ -50,7 +50,6 @@ class ProductoController
 
         $producto = new Productos();
         $grupoId = isset($_GET['grupo_id']) ? $_GET['grupo_id'] : false;
-        // $id = isset($_GET['id']) ? $_GET['id'] : false;
 
         // Establecer el idioma para el producto
         $producto->setIdioma($this->languageController->getIdiomaId());

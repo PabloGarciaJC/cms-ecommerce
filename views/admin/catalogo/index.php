@@ -92,6 +92,7 @@
                                     $urlProducto = isset($producto->parent_id) && $producto->parent_id != null ? "&categoriaId=" . $producto->parent_id : false;
                                     $editProUrl = BASE_URL . "Admin/productos?editid=" . $producto->grupo_id . $urlProducto;
                                     $deleteProUrl = BASE_URL . "Admin/productos?deleteid=" . $producto->grupo_id . $urlProducto;
+                                    $viewProUrl = BASE_URL . "Producto/ficha?grupo_id=" . $producto->grupo_id;
                                     $imagenes = json_decode($producto->imagenes);
                                     $imagenProducto = (!empty($imagenes) && !empty($imagenes[0]))
                                         ? BASE_URL . 'uploads/images/productos/' . $imagenes[0]
@@ -104,6 +105,7 @@
                                         </a>
                                     </td>
                                     <td class="align-middle"">
+                                        <a href="<?= $viewProUrl; ?>" class="btn btn-primary btn-sm">Ver Producto</a>
                                         <a href="<?= $editProUrl; ?>" class="btn btn-warning btn-sm">Editar</a>
                                         <a href="<?= $deleteProUrl; ?>" class="btn btn-danger btn-sm">Eliminar</a>
                                     </td>
