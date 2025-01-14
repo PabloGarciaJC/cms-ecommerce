@@ -2066,3 +2066,16 @@
   .producto-tag-categoria:hover {
       color: #fff;
   }
+
+
+
+
+@media (max-width:767px){
+
+.timetable_sub {
+    font-size: 14px;
+    display: block;
+    overflow-x: auto;
+  }
+}
+
