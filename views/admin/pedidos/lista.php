@@ -45,7 +45,7 @@
                                     <?php if ($_SESSION['usuarioRegistrado']->rol_nombre == 'Admin'): ?>
                                         <td class="text-center align-middle">
                                             <form method="POST" action="<?php echo BASE_URL; ?>Admin/actualizarPedidos">
-                                                <select name="estado" class="form-control" required>
+                                                <select name="estado" class="form-control form-select-movil" required>
                                                     <?php foreach ($estados as $estado): ?>
                                                         <option value="<?php echo $estado; ?>" <?php echo $estado == $pedido->estado ? 'selected' : ''; ?>>
                                                             <?php echo $estado; ?>

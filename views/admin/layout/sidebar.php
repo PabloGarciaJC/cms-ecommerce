@@ -68,7 +68,7 @@
       </a>
     </li>
     <li class="panel-admin__menu-item">
-      <a href="<?php echo BASE_URL ?>Producto/checkout" class="panel-admin__menu-link-init d-flex justify-content-between align-items-center">
+      <a href="<?php echo BASE_URL ?>LineaPedidos/checkout" class="panel-admin__menu-link-init d-flex justify-content-between align-items-center">
         <span>
           <i class="fas fa-shopping-cart"></i> Ver Carrito
         </span>

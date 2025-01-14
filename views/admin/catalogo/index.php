@@ -99,12 +99,12 @@
                                         : BASE_URL . 'uploads/images/productos/default.jpg';
                                     ?>
                                     <td>
-                                        <a href="<?= $editProUrl ?>">
+                                        <a href="<?= $editProUrl ?>" class="table-striped-btns table-striped-movil-center">
                                             <img src="<?php echo $imagenProducto; ?>" alt="Imagen del producto" style="width: 50px;">
                                             <?= $producto->nombre; ?>
                                         </a>
                                     </td>
-                                    <td class="align-middle"">
+                                    <td class="align-middle table-striped-btns">
                                         <a href="<?= $viewProUrl; ?>" class="btn btn-primary btn-sm">Ver Producto</a>
                                         <a href="<?= $editProUrl; ?>" class="btn btn-warning btn-sm">Editar</a>
                                         <a href="<?= $deleteProUrl; ?>" class="btn btn-danger btn-sm">Eliminar</a>
