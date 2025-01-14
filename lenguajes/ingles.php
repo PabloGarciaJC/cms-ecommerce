@@ -21,6 +21,7 @@ define("TEXT_CHECKOUT", "Checkout");
 define("TEXT_FICHA", "Product Sheet");
 define("TEXT_TITLE_FILTRO", "Apply filters");
 define('BEFORE', 'Before');
+define("TEXT_CATEGORY", "Category");
 
 // Textos para "Checkout"
 define('CART_CONTAINS', 'Your shopping cart contains:');

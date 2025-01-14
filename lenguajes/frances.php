@@ -20,6 +20,7 @@ define("TEXT_CHECKOUT", "Valider la commande");
 define("TEXT_FICHA", "Fiche Produit");
 define("TEXT_TITLE_FILTRO", "Appliquer les filtres");
 define('BEFORE', 'Avant'); 
+define("TEXT_CATEGORY", "Catégorie");
 
 // Textos para "Checkout"
 define('CART_CONTAINS', 'Votre panier contient:');

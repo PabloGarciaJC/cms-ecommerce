@@ -43,7 +43,6 @@
 							</ul>
 							<div class="clearfix"></div>
 						</div>
-
 					<?php else : ?>
 						<img src="<?php echo BASE_URL ?>uploads/images/default.jpg" alt="Imagen del Producto" class="productos-thumbnail">
 					<?php endif; ?>
@@ -60,18 +59,23 @@
 					<span class="item_price text-success font-weight-bold"><?php echo PRICE; ?>: <?php echo intval($productoFicha->precio); ?>$</span>
 				<?php endif; ?>
 
-				<div class="product-category mt-2 mb-2">
-					<strong>Categoria: </strong>
-					<a href="<?php echo BASE_URL ?>Catalogo/index?parent_id=<?php echo $productoFicha->parent_id; ?>" class="producto-tag-categoria"><?php echo $productoFicha->nombre_categoria; ?></a>
-				</div>
+				<?php if (!empty($productoFicha->nombre_categoria)): ?>
+					<div class="product-category mt-2 mb-2">
+						<strong><?php echo TEXT_CATEGORY; ?>: </strong>
+						<a href="<?php echo BASE_URL ?>Catalogo/index?parent_id=<?php echo $productoFicha->parent_id; ?>" class="producto-tag-categoria"><?php echo $productoFicha->nombre_categoria; ?></a>
+					</div>
+				<?php endif; ?>
 
-				<div class="single-infoagile">
-					<ul>
-						<li class="mb-3">
-							<?php echo $productoFicha->descripcion; ?>
-						</li>
-					</ul>
-				</div>
+				<?php if (!empty($productoFicha->descripcion)): ?>
+					<div class="single-infoagile">
+						<ul>
+							<li class="mb-3">
+								<?php echo $productoFicha->descripcion; ?>
+							</li>
+						</ul>
+					</div>
+				<?php endif; ?>
+
 				<div class="product-single-w3l">
 					<ul class="pt-3">
 						<?php if (!empty($productoFicha->especificacion_1)): ?>
