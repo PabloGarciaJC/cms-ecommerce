@@ -258,9 +258,6 @@ class Productos
     // Obtener el ID del usuario autenticado (si existe)
     $usuarioId = $this->getUsuario() ? $this->getUsuario()->Id : null;
 
-    // $sql = "SELECT * FROM productos WHERE id = {$this->getId()} AND idioma_id = $idioma AND parent_id = {$this->getParentId()}";
-
-    // Base SQL común
     $sql = "SELECT
                   p.id,
                   p.nombre,
@@ -274,41 +271,41 @@ class Productos
                   p.parent_id,
                   p.grupo_id";
 
-    // Si el usuario está autenticado, se agrega la columna 'favorito'
     if ($usuarioId) {
-      $sql .= ", MAX(fv.id) AS favorito_id, MAX(fv.usuario_id) AS usuario_id, 
-                    CASE WHEN MAX(fv.id) IS NOT NULL THEN 1 ELSE 0 END AS favorito";
+    $sql .= ", MAX(fv.id) AS favorito_id, MAX(fv.usuario_id) AS usuario_id, 
+          CASE WHEN MAX(fv.id) IS NOT NULL THEN 1 ELSE 0 END AS favorito";
     }
 
-    // Continuar con el SQL
     $sql .= " FROM productos p 
-       LEFT JOIN categorias ca ON ca.grupo_id = p.parent_id";
+      LEFT JOIN categorias ca ON ca.grupo_id = p.parent_id";
 
-    // Si el usuario está autenticado, también se une a la tabla favoritos
     if ($usuarioId) {
-      $sql .= " LEFT JOIN favoritos fv ON fv.grupo_id = p.grupo_id";
+    $sql .= " LEFT JOIN favoritos fv ON fv.grupo_id = p.grupo_id";
     }
 
     // Filtros por idioma y parent_id
-    $sql .= " WHERE p.idioma_id = $idioma AND ca.idioma_id = $idioma AND p.parent_id = {$this->getParentId()} AND p.id = {$this->getId()}";
+    $sql .= " WHERE p.idioma_id = $idioma AND ca.idioma_id = $idioma AND p.grupo_id = {$this->getGrupoId()}";
+
+    // Agregar el GROUP BY para todas las columnas no agregadas
+    $sql .= " GROUP BY 
+                      p.id, 
+                      p.nombre, 
+                      p.imagenes, 
+                      p.precio, 
+                      p.stock, 
+                      p.estado, 
+                      p.oferta, 
+                      p.descripcion, 
+                      p.offer_expiration, 
+                      p.parent_id, 
+                      p.grupo_id";
+
 
     $result = $this->db->query($sql);
 
     if ($result && $result->num_rows > 0) {
       return $result->fetch_object();
     }
-
-    // else {
-
-    //   $sqlFallback = "SELECT * FROM productos WHERE idioma_id = $idioma AND parent_id = {$this->getParentId()}";
-    //   $resultFallback = $this->db->query($sqlFallback);
-
-    //   if ($resultFallback && $resultFallback->num_rows > 0) {
-    //     return $resultFallback->fetch_object();
-    //   }
-    // }
-
-    // return null;
   }
 
   public function actualizarPorIdFrontend()

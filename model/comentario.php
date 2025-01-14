@@ -122,6 +122,7 @@ class Comentario
                   AND comentarios.estado = 1 
                   AND comentarios.calificacion >= 4
                 ORDER BY comentarios.calificacion DESC";
+
         $result = $this->db->query($sql);
         return $result;
     }

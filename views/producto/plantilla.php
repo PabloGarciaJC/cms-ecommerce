@@ -1,6 +1,6 @@
 <div class="col-md-4 product-men mt-5 animation__fade-in-upscale <?php echo (isset($prod->stock) && $prod->stock > 0) ? '' : 'product-sin-stock'; ?>">
     <div class="men-pro-item simpleCart_shelfItem">
-        <a href="<?php echo BASE_URL ?>Producto/ficha?id=<?php echo urlencode($prod->id); ?>&parent_id=<?php echo urlencode($prod->parent_id); ?>" class="men-thumb-item text-center">
+        <a href="<?php echo BASE_URL ?>Producto/ficha?grupo_id=<?php echo urlencode($prod->grupo_id); ?>" class="men-thumb-item text-center">
             <?php
             if (is_string($prod->imagenes)) {
                 $imagenesArray = json_decode($prod->imagenes, true);
@@ -16,13 +16,13 @@
             ?>
             <div class="men-cart-pro">
                 <div class="inner-men-cart-pro">
-                    <a href="<?php echo BASE_URL ?>Producto/ficha?id=<?php echo urlencode($prod->id); ?>&parent_id=<?php echo urlencode($prod->parent_id); ?>" class="link-product-add-cart"><?php echo TEXT_QUICK_VIEW; ?></a>
+                    <a href="<?php echo BASE_URL ?>Producto/ficha?grupo_id=<?php echo urlencode($prod->grupo_id); ?>" class="link-product-add-cart"><?php echo TEXT_QUICK_VIEW; ?></a>
                 </div>
             </div>
         </a>
         <div class="item-info-product text-center border-top mt-4">
             <h4 class="pt-1">
-                <a href="<?php echo BASE_URL ?>Producto/ficha?id=<?php echo urlencode($prod->id); ?>&parent_id=<?php echo urlencode($prod->parent_id); ?>"><?php echo $prod->nombre; ?></a>
+                <a href="<?php echo BASE_URL ?>Producto/ficha?grupo_id=<?php echo urlencode($prod->grupo_id); ?>"><?php echo $prod->nombre; ?></a>
             </h4>
             <?php if (!empty($prod->precio)): ?>
                 <div class="info-product-price my-2">

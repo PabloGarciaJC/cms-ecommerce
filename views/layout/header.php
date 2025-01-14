@@ -112,7 +112,7 @@
 													<h6>Productos</h6>
 													<ul class="multi-column-dropdown">
 														<?php while ($producto = $item['productos']->fetch_object()) : ?>
-															<li><a href="<?php echo BASE_URL ?>Producto/ficha?id=<?php echo urlencode($producto->id); ?>&parent_id=<?php echo urlencode($producto->parent_id); ?>"><?= $producto->nombre ?></a></li>
+															<li><a href="<?php echo BASE_URL ?>Producto/ficha?grupo_id=<?php echo urlencode($producto->grupo_id); ?>"><?= $producto->nombre ?></a></li>
 														<?php endwhile; ?>
 													</ul>
 												</div>

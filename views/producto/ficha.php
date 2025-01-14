@@ -188,7 +188,6 @@
 		</div>
 	</div>
 
-	<!-- Formulario de reseña -->
 	<div class="ficha-producto__tab-content" id="leave-review-content">
 		<?php if (isset($_SESSION['exito'])) : ?>
 			<div class="alert <?php echo $_SESSION['messageClass']; ?> alert-dismissible fade show mt-2 text-center" role="alert">

@@ -49,16 +49,16 @@ class ProductoController
         $usuario = Utils::obtenerUsuario();
 
         $producto = new Productos();
-        $idProducto = isset($_GET['parent_id']) ? $_GET['parent_id'] : false;
-        $id = isset($_GET['id']) ? $_GET['id'] : false;
+        $grupoId = isset($_GET['grupo_id']) ? $_GET['grupo_id'] : false;
+        // $id = isset($_GET['id']) ? $_GET['id'] : false;
 
         // Establecer el idioma para el producto
         $producto->setIdioma($this->languageController->getIdiomaId());
 
         // Ficha de producto
-        $producto->setParentId($idProducto);
-        $producto->setId($id);
+        // $producto->setId($id);
         $producto->setUsuario($usuario);
+        $producto->setGrupoId($grupoId);
         $productoFicha = $producto->obtenerProductosPorId();
 
         // Comentarios del producto
