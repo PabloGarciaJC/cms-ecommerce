@@ -259,9 +259,16 @@ button.w3view-cart {
     font-size: 20px;
     color: #fff;
     width: 50px;
-    height: 44px;
+    height: 48px;
     background: #000;
     border: 1px solid rgba(27, 25, 25, 0.27);
+}
+
+@media (max-width:767px){
+.agileits_search{
+    max-width: 80%;
+}
+.top_nav_right {padding: 0px;}
 }
 
 /*-- //header cart button --*/
@@ -499,7 +506,7 @@ h3.tittle-w3l span {
 }
 
 
-.snipcart-details input.button-sin-stock {
+.button-sin-stock {
     font-size: 13px;
     color: #fff;
     background: #df0202;
@@ -667,7 +674,7 @@ h3.tittle-w3l span {
     font-size: 13px;
     text-align: center;
     padding: 4px 10px;
-    /* animation: parpadeo 5s infinite; */
+    animation: parpadeo 1.5s infinite;
 }
 
 .inner-men-cart-pro {
@@ -684,7 +691,7 @@ h3.tittle-w3l span {
     position: absolute;
     top: 45%;
     width: 100%;
-    transition: all 0.5s ease-out 0s;
+    transition: all 0.4s ease-out 0s;
 }
 
 .inner-men-cart-pro .link-product-add-cart {
@@ -3181,14 +3188,14 @@ div#testimonials h4.m-title {
         font-size: 15px;
     }
 
-    .top_nav_right {
-        padding: 0;
-    }
+    /* .top_nav_right {
+        padding-right: 10px;
+    } */
 
     button.w3view-cart {
         font-size: 20px;
-        width: 43px;
-        height: 43px;
+        width: 45px;
+        height: 45px;
         padding: 0;
     }
 
