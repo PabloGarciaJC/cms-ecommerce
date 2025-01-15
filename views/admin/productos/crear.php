@@ -40,7 +40,7 @@
                 <div class="tab-content" id="languageTabsContent">
                     <?php foreach ($getIdiomas as $index => $idioma) : ?>
                         <div class="tab-pane fade <?php echo $index === 0 ? 'show active' : ''; ?>" id="form-<?php echo $idioma['codigo']; ?>" role="tabpanel" aria-labelledby="tab-<?php echo $idioma['codigo']; ?>">
-                            
+
                             <input type="hidden" name="id_idioma[<?php echo $idioma['id']; ?>]" value="<?php echo $idioma['id']; ?>">
 
                             <!-- Nombre del Producto -->
@@ -53,6 +53,36 @@
                             <div class="form-group">
                                 <label for="descripcion-<?php echo $idioma['codigo']; ?>">Descripción (<?php echo $idioma['nombre']; ?>):</label>
                                 <textarea id="descripcion-<?php echo $idioma['codigo']; ?>" name="descripcion[<?php echo $idioma['codigo']; ?>]" class="form-control" <?php echo $buttonHidden; ?> placeholder="Descripción del producto..."><?php echo isset($getProductosById[$idioma['id']]) ? $getProductosById[$idioma['id']]->descripcion : ''; ?></textarea>
+                            </div>
+
+                            <!-- Especificacion_1 -->
+                            <div class="form-group">
+                                <label for="especificacion_1-<?php echo $idioma['codigo']; ?>">Especificacion 1 (<?php echo $idioma['nombre']; ?>):</label>
+                                <textarea id="especificacion_1-<?php echo $idioma['codigo']; ?>" name="especificacion_1[<?php echo $idioma['codigo']; ?>]" class="form-control" <?php echo $buttonHidden; ?> placeholder="especificacion 1"><?php echo isset($getProductosById[$idioma['id']]) ? $getProductosById[$idioma['id']]->especificacion_1 : ''; ?></textarea>
+                            </div>
+
+                            <!-- Especificacion_2 -->
+                            <div class="form-group">
+                                <label for="especificacion_2-<?php echo $idioma['codigo']; ?>">Especificacion 2 (<?php echo $idioma['nombre']; ?>):</label>
+                                <textarea id="especificacion_2-<?php echo $idioma['codigo']; ?>" name="especificacion_2[<?php echo $idioma['codigo']; ?>]" class="form-control" <?php echo $buttonHidden; ?> placeholder="especificacion 2"><?php echo isset($getProductosById[$idioma['id']]) ? $getProductosById[$idioma['id']]->especificacion_2 : ''; ?></textarea>
+                            </div>
+
+                            <!-- Especificacion_3 -->
+                            <div class="form-group">
+                                <label for="especificacion_3-<?php echo $idioma['codigo']; ?>">Especificacion 3 (<?php echo $idioma['nombre']; ?>):</label>
+                                <textarea id="especificacion_3-<?php echo $idioma['codigo']; ?>" name="especificacion_3[<?php echo $idioma['codigo']; ?>]" class="form-control" <?php echo $buttonHidden; ?> placeholder="especificacion 3"><?php echo isset($getProductosById[$idioma['id']]) ? $getProductosById[$idioma['id']]->especificacion_3 : ''; ?></textarea>
+                            </div>
+
+                            <!-- Especificacion_4 -->
+                            <div class="form-group">
+                                <label for="especificacion_4-<?php echo $idioma['codigo']; ?>">Especificacion 4 (<?php echo $idioma['nombre']; ?>):</label>
+                                <textarea id="especificacion_4-<?php echo $idioma['codigo']; ?>" name="especificacion_4[<?php echo $idioma['codigo']; ?>]" class="form-control" <?php echo $buttonHidden; ?> placeholder="especificacion 4"><?php echo isset($getProductosById[$idioma['id']]) ? $getProductosById[$idioma['id']]->especificacion_4 : ''; ?></textarea>
+                            </div>
+
+                             <!-- Especificacion_5 -->
+                             <div class="form-group">
+                                <label for="especificacion_5-<?php echo $idioma['codigo']; ?>">Especificacion 5 (<?php echo $idioma['nombre']; ?>):</label>
+                                <textarea id="especificacion_5-<?php echo $idioma['codigo']; ?>" name="especificacion_5[<?php echo $idioma['codigo']; ?>]" class="form-control" <?php echo $buttonHidden; ?> placeholder="especificacion 5"><?php echo isset($getProductosById[$idioma['id']]) ? $getProductosById[$idioma['id']]->especificacion_5 : ''; ?></textarea>
                             </div>
 
                             <!-- Precio -->

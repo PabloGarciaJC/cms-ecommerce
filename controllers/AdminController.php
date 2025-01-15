@@ -260,6 +260,11 @@ class AdminController
         $datos = [
             'nombres' => isset($_POST['nombre']) ? $_POST['nombre'] : [],
             'descripciones' => isset($_POST['descripcion']) ? $_POST['descripcion'] : [],
+            'especificacion_1' => isset($_POST['especificacion_1']) ? $_POST['especificacion_1'] : [],
+            'especificacion_2' => isset($_POST['especificacion_2']) ? $_POST['especificacion_2'] : [],
+            'especificacion_3' => isset($_POST['especificacion_3']) ? $_POST['especificacion_3'] : [],
+            'especificacion_4' => isset($_POST['especificacion_4']) ? $_POST['especificacion_4'] : [],
+            'especificacion_5' => isset($_POST['especificacion_5']) ? $_POST['especificacion_5'] : [],
             'precios' => isset($_POST['precio']) ? $_POST['precio'] : [],
             'stock' => isset($_POST['stock']) ? $_POST['stock'] : [],
             'estado' => isset($_POST['estado']) ? $_POST['estado'] : [],
@@ -326,6 +331,11 @@ class AdminController
         foreach ($datos['nombres'] as $idioma => $nombre) {
 
             $descripcion = isset($datos['descripciones'][$idioma]) ? $datos['descripciones'][$idioma] : '';
+            $especificacion1 = isset($datos['especificacion_1'][$idioma]) ? $datos['especificacion_1'][$idioma] : '';
+            $especificacion2 = isset($datos['especificacion_2'][$idioma]) ? $datos['especificacion_2'][$idioma] : '';
+            $especificacion3 = isset($datos['especificacion_3'][$idioma]) ? $datos['especificacion_3'][$idioma] : '';
+            $especificacion4 = isset($datos['especificacion_4'][$idioma]) ? $datos['especificacion_4'][$idioma] : '';
+            $especificacion5 = isset($datos['especificacion_5'][$idioma]) ? $datos['especificacion_5'][$idioma] : '';
             $precio = isset($datos['precios'][$idioma]) && is_numeric($datos['precios'][$idioma]) ? floatval($datos['precios'][$idioma]) : 0.0;
             $stock = isset($datos['stock'][$idioma]) && $datos['stock'][$idioma] !== '' ? intval($datos['stock'][$idioma]) : 0;
             $estado = isset($datos['estado'][$idioma]) ? $datos['estado'][$idioma] : '';
@@ -338,6 +348,11 @@ class AdminController
             $productos->setIdioma($idioma_id);
             $productos->setNombre($nombre);
             $productos->setDescripcion($descripcion);
+            $productos->setEspecificacion1($especificacion1);
+            $productos->setEspecificacion2($especificacion2);
+            $productos->setEspecificacion3($especificacion3);
+            $productos->setEspecificacion4($especificacion4);
+            $productos->setEspecificacion5($especificacion5);
             $productos->setPrecio($precio);
             $productos->setStock($stock);
             $productos->setEstado($estado);
@@ -345,7 +360,6 @@ class AdminController
             $productos->setOfferStart($offerStart);
             $productos->setOfferExpiration($offerExpiration);
             $productos->setParentId($parentid);
-
 
             // Asignar las imágenes correspondientes
             $productos->setImagenes(isset($imagenesPorIdioma[$idioma]) ? $imagenesPorIdioma[$idioma] : '[]');
@@ -640,9 +654,18 @@ class AdminController
     public function listaPedidos()
     {
         Utils::accesoUsuarioRegistrado();
+        $usuario = Utils::obtenerUsuario();
         $pedidos = new Pedidos();
+        $pedidos->setIdioma($this->languageController->getIdiomaId());
+        $pedidos->setId($usuario->Id);
         $estados = $pedidos->obtenerEstados();
-        $listaPedidos = $pedidos->obtenerPedidosConProductos();
+
+        if ($usuario->Rol == '22') {
+            $listaPedidos = $pedidos->obtenerPedidosConProductos();
+        } else {
+            $listaPedidos = $pedidos->obtenerPedidosConProductosCliente();
+        }
+
         require_once 'views/layout/head.php';
         require_once 'views/admin/pedidos/lista.php';
         require_once 'views/layout/script-footer.php';
@@ -766,7 +789,7 @@ class AdminController
         $favorito->setUsuarioId($usuario->Id);
         $favorito->setIdioma($this->obtenerIdidioma());
         $favoritos = $favorito->listarFavoritos();
-     
+
         require_once 'views/layout/head.php';
         require_once 'views/admin/favorito/index.php';
         require_once 'views/layout/script-footer.php';

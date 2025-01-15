@@ -18,7 +18,7 @@
 			<?php echo TEXT_SOBRE_TITULO_0; ?>
 			<?php echo TEXT_SOBRE_TITULO_1; ?>
 		</h3>
-		<div class="row">
+		<div class="row container-nosotros">
 			<div class="col-lg-6 welcome-left animation__left">
 				<h3><?php echo TEXT_BIENVENIDOS; ?></h3>
 				<h4 class="my-sm-3 my-2">

@@ -277,66 +277,29 @@ class App {
       }
     });
 
-    // Carrito de Compras en Checkout 
-    let buttonsIncrease = document.querySelectorAll('.btn-increase');
-    let buttonsDecrease = document.querySelectorAll('.btn-decrease');
-    let totalPriceElement = document.getElementById('total-price');
-
-    // Actualizar el total
-    function updateTotal() {
-      let total = 0;
-      document.querySelectorAll('.price-item').forEach(function (priceItem) {
-        total += parseFloat(priceItem.textContent.replace('$', '').replace(',', ''));
-      });
-      totalPriceElement.textContent = '$' + total.toFixed(2);
-    }
-
-    // Incrementar cantidad
-    buttonsIncrease.forEach(button => {
-      button.addEventListener('click', function () {
-        let index = this.getAttribute('data-index');
-        let quantitySpan = document.querySelector('.quantity-value[data-index="' + index + '"]');
-        let quantity = parseInt(quantitySpan.textContent);
-        quantity++;
-        quantitySpan.textContent = quantity;
-
-        // Actualizar valor en el input hidden
-        let hiddenQuantityInput = document.getElementById('quantity-' + index);
-        hiddenQuantityInput.value = quantity;
-
-        // Actualizar el precio por artículo
-        let pricePerItem = document.querySelector('.price-per-item[data-index="' + index + '"]');
-        let price = parseFloat(pricePerItem.value);
-        let priceItemSpan = document.querySelector('.price-item[data-index="' + index + '"]');
-        priceItemSpan.textContent = (price * quantity).toFixed(2);
-
-        // Actualizar el total
-        updateTotal();
-      });
-    });
-
-    // Decrementar cantidad
-    buttonsDecrease.forEach(button => {
-      button.addEventListener('click', function () {
-        let index = this.getAttribute('data-index');
-        let quantitySpan = document.querySelector('.quantity-value[data-index="' + index + '"]');
-        let quantity = parseInt(quantitySpan.textContent);
-        if (quantity > 1) {
-          quantity--;
-          quantitySpan.textContent = quantity;
-
-          // Actualizar valor en el input hidden
-          let hiddenQuantityInput = document.getElementById('quantity-' + index);
-          hiddenQuantityInput.value = quantity;
-
-          // Actualizar el precio por artículo
-          let pricePerItem = document.querySelector('.price-per-item[data-index="' + index + '"]');
-          let price = parseFloat(pricePerItem.value);
-          let priceItemSpan = document.querySelector('.price-item[data-index="' + index + '"]');
-          priceItemSpan.textContent = (price * quantity).toFixed(2);
-
-          // Actualizar el total
-          updateTotal();
+    // Fomurlario de Contacto
+    $('.contact-grids1 .contact-form').on('click', function (e) {
+      e.preventDefault();
+      $.ajax({
+        type: "GET",
+        url: baseUrl + 'Home/guardarFormulario',
+        data: {
+          formulario: true,
+        },
+        success: function (response) {
+          const data = JSON.parse(response);
+          if (data.success) {
+            Swal.fire({
+              title: data.titulo,
+              icon: "info",
+              html: data.message,
+              confirmButtonText: data.boton
+            });
+          }
+        },
+        error: function (xhr, status, error) {
+          console.error("Error en la solicitud:", error);
+          alert("Ocurrió un error. Inténtalo de nuevo.");
         }
       });
     });

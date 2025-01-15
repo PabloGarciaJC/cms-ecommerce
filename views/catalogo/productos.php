@@ -1,6 +1,6 @@
 <div class="container py-xl-4">
     <div class="product-sec1 container">
-        <div class="row">
+        <div class="row pb-5">
             <?php if (!empty($getCategorias['productos']) && $getCategorias['productos']->num_rows > 0) : ?>
                 <?php while ($prod = $getCategorias['productos']->fetch_object()) : ?>
                     <?php include __DIR__ . '../../producto/plantilla.php'; ?>

@@ -19,6 +19,8 @@ define("TEXT_TERMS_PRIVACY", "Politique de Confidentialité");
 define("TEXT_CHECKOUT", "Valider la commande");
 define("TEXT_FICHA", "Fiche Produit");
 define("TEXT_TITLE_FILTRO", "Appliquer les filtres");
+define('BEFORE', 'Avant'); 
+define("TEXT_CATEGORY", "Catégorie");
 
 // Textos para "Checkout"
 define('CART_CONTAINS', 'Votre panier contient:');
@@ -30,6 +32,12 @@ define('PRODUCT_NAME', 'Nom du produit');
 define('PRICE', 'Prix');
 define('REMOVE', 'Supprimer');
 define("MAKE_PAYMENT", "Terminer l'achat");
+define('STOCK', 'Stock');
+define('CANTIDAD', 'Quantité');
+define('ACCION', 'Action');
+define('EMPTY_CART_MESSAGE', 'Il n\'y a pas de produits dans le panier.');
+define('CART_MODAL_TITLE', 'Panier');
+define('ERROR_MESSAGE', 'Erreur');
 
 // Textos para "Productos Lista"
 define("TEXT_QUICK_VIEW", "Aperçu rapide");
@@ -68,6 +76,7 @@ define("TEXT_SALE_DESC", "Jusqu'à 25% de réduction sur tous les produits en ma
 define("TEXT_PHONE_DESC", "Un téléphone plus grand");
 define("TEXT_SMART_PHONES_DESC", "Smartphones 5");
 define("TEXT_FREE_SHIPPING_DESC", "Livraison gratuite pour les commandes supérieures à 100 $");
+define('NO_MORE_IN_STOCK_FR', 'Vous ne pouvez pas ajouter plus que ce qui est en stock.');
 
 // Textos para "Helps"
 define("TEXT_HELP_PAGE_TITLE", "<span>P</span>age d'<span>A</span>ide");
@@ -249,6 +258,7 @@ define('TEXT_SHIPPING_SELECT', 'Sélectionner');
 define('TEXT_SHIPPING_CITY', 'Ville/Région');
 define('TEXT_SHIPPING_ZIP_CODE', 'Code Postal');
 define('TEXT_SHIPPING_UPDATE_FORM', 'Mettre à jour le formulaire');
+define('TEXT_PAYPAL_TEST_CREDENTIALS', 'Ce projet n\'utilise pas de passerelle de paiement, car il est destiné uniquement à des fins de portfolio.');
 
 // Texto de danger checkout
 define('TEXT_NOT_LOGGED_IN', '<strong>Attention !</strong> Vous n\'avez pas <a href="javascript:void(0)" data-toggle="modal" data-target="#exampleModal"> <i class="fas fa-sign-in-alt"></i> Connecté </a>');
@@ -311,8 +321,13 @@ define('TEXT_INVALID_PRODUCT', 'Le produit sélectionné n\'est pas valide.');
 define('TEXT_COMMENT_SAVE_SUCCESS', 'Commentaire enregistré avec succès.');
 define('TEXT_AVERAGE_RATING', 'Note Moyenne');
 
+// Texto informatico pagina de contacto
+define("TEXT_FORM_DISABLED_TITLE", "Formulaire Désactivé");
+define("TEXT_FORM_DISABLED_MESSAGE", "Ce formulaire n'est pas activé car il est destiné uniquement à des fins de portfolio. Aucune donnée ne sera traitée.");
+define("TEXT_PRODUCT_ALREADY_IN_CART", "Ce produit existe déjà dans le panier");
+define("TEXT_ITEMS_ADDED_TO_CART", "Des articles ont été ajoutés au panier");
 
-
-
-
-
+// Texto checkout pedido end
+define("TEXT_PEDIDO_COMPLETED", "Commande Terminée");
+define("TEXT_THANK_YOU_PURCHASE", "Merci pour votre achat !");
+define("TEXT_VIEW_MY_ORDERS", "Voir mes commandes");

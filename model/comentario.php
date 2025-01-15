@@ -122,6 +122,7 @@ class Comentario
                   AND comentarios.estado = 1 
                   AND comentarios.calificacion >= 4
                 ORDER BY comentarios.calificacion DESC";
+
         $result = $this->db->query($sql);
         return $result;
     }
@@ -134,7 +135,7 @@ class Comentario
                 WHERE comentarios.grupo_id = $idGrupo 
                   AND comentarios.estado = 1 
                   AND comentarios.calificacion <= 3
-                ORDER BY comentarios.calificacion ASC";  // Orden ascendente para obtener los más bajos primero
+                ORDER BY comentarios.calificacion ASC";
         $result = $this->db->query($sql);
         return $result;
     }

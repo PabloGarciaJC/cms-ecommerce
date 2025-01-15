@@ -5,6 +5,11 @@ class Productos
   private $id;
   private $nombre;
   private $descripcion;
+  private $especificacion1;
+  private $especificacion2;
+  private $especificacion3;
+  private $especificacion4;
+  private $especificacion5;
   private $precio;
   private $stock;
   private $estado;
@@ -43,6 +48,31 @@ class Productos
   public function getDescripcion()
   {
     return $this->descripcion;
+  }
+
+  public function getEspecificacion1()
+  {
+    return $this->especificacion1;
+  }
+
+  public function getEspecificacion2()
+  {
+    return $this->especificacion2;
+  }
+
+  public function getEspecificacion3()
+  {
+    return $this->especificacion3;
+  }
+
+  public function getEspecificacion4()
+  {
+    return $this->especificacion4;
+  }
+
+  public function getEspecificacion5()
+  {
+    return $this->especificacion5;
   }
 
   public function getPrecio()
@@ -112,6 +142,31 @@ class Productos
     $this->descripcion = $descripcion;
   }
 
+  public function setEspecificacion1($especificacion1)
+  {
+    $this->especificacion1 = $especificacion1;
+  }
+
+  public function setEspecificacion2($especificacion2)
+  {
+    $this->especificacion2 = $especificacion2;
+  }
+
+  public function setEspecificacion3($especificacion3)
+  {
+    $this->especificacion3 = $especificacion3;
+  }
+
+  public function setEspecificacion4($especificacion4)
+  {
+    $this->especificacion4 = $especificacion4;
+  }
+
+  public function setEspecificacion5($especificacion5)
+  {
+    $this->especificacion5 = $especificacion5;
+  }
+
   public function setPrecio($precio)
   {
     $this->precio = $precio;
@@ -172,6 +227,11 @@ class Productos
   {
     $nombre = $this->db->real_escape_string($this->getNombre() ?? "");
     $descripcion = $this->db->real_escape_string($this->getDescripcion() ?? "");
+    $especificacion1 = $this->db->real_escape_string($this->getEspecificacion1() ?? "");
+    $especificacion2 = $this->db->real_escape_string($this->getEspecificacion2() ?? "");
+    $especificacion3 = $this->db->real_escape_string($this->getEspecificacion3() ?? "");
+    $especificacion4 = $this->db->real_escape_string($this->getEspecificacion4() ?? "");
+    $especificacion5 = $this->db->real_escape_string($this->getEspecificacion5() ?? "");
     $precio = floatval($this->db->real_escape_string($this->getPrecio() ?? 0));
     $stock = intval($this->getStock() ?? 0);
     $estado = $this->db->real_escape_string($this->getEstado() ?? "");
@@ -187,8 +247,9 @@ class Productos
     $parent_id_sql = $this->getParentId() == false ? 'NULL' : $this->getParentId();
     $grupo_id = $this->db->real_escape_string($this->getGrupoId());
     $imagenes = $this->getImagenes();
-    $sql = "INSERT INTO productos (nombre, descripcion, precio, stock, estado, oferta, offer_start, offer_expiration, parent_id, idioma_id, grupo_id, imagenes) 
-                VALUES ('$nombre', '$descripcion', '$precio', '$stock', '$estado', '$oferta', " . ($offer_start ? "'$offer_start'" : 'NULL') . ", " . ($offer_expiration ? "'$offer_expiration'" : 'NULL') . ", $parent_id_sql, {$this->getIdioma()}, '$grupo_id', '$imagenes')";
+    $sql = "INSERT INTO productos (nombre, descripcion, precio, stock, estado, oferta, offer_start, offer_expiration, parent_id, idioma_id, grupo_id, imagenes, especificacion_1, especificacion_2, especificacion_3, especificacion_4, especificacion_5 ) 
+            VALUES ('$nombre', '$descripcion', '$precio', '$stock', '$estado', '$oferta', " . ($offer_start ? "'$offer_start'" : 'NULL') . ", " . ($offer_expiration ? "'$offer_expiration'" : 'NULL') . ", $parent_id_sql, {$this->getIdioma()}, '$grupo_id', '$imagenes', '$especificacion1', '$especificacion2', '$especificacion3', '$especificacion4', '$especificacion5')";
+
     return $this->db->query($sql);
   }
 
@@ -196,6 +257,11 @@ class Productos
   {
     $nombre = $this->db->real_escape_string($this->getNombre() ?? "");
     $descripcion = $this->db->real_escape_string($this->getDescripcion() ?? "");
+    $especificacion1 = $this->db->real_escape_string($this->getEspecificacion1() ?? "");
+    $especificacion2 = $this->db->real_escape_string($this->getEspecificacion2() ?? "");
+    $especificacion3 = $this->db->real_escape_string($this->getEspecificacion3() ?? "");
+    $especificacion4 = $this->db->real_escape_string($this->getEspecificacion4() ?? "");
+    $especificacion5 = $this->db->real_escape_string($this->getEspecificacion5() ?? "");
     $precio = floatval($this->db->real_escape_string($this->getPrecio() ?? 0));
     $stock = intval($this->getStock() ?? 0);
     $estado = $this->db->real_escape_string($this->getEstado() ?? "");
@@ -230,14 +296,18 @@ class Productos
               offer_start = " . ($offer_start ? "'$offer_start'" : 'NULL') . ", 
               offer_expiration = " . ($offer_expiration ? "'$offer_expiration'" : 'NULL') . ", 
               parent_id = $parent_id_sql, 
-              grupo_id = '$grupo_id'";
-
+              grupo_id = '$grupo_id',
+              especificacion_1 = '$especificacion1',
+              especificacion_2 = '$especificacion2',
+              especificacion_3 = '$especificacion3',
+              especificacion_4 = '$especificacion4',
+              especificacion_5 = '$especificacion5'";
+              
     if ($imagenesValidas) {
       $sql .= ", imagenes = '$imagenesJSON'";
     }
 
     $sql .= " WHERE grupo_id = '$grupo_id' AND idioma_id = {$this->getIdioma()}";
-
 
     return $this->db->query($sql);
   }
@@ -251,27 +321,80 @@ class Productos
 
   public function obtenerProductosPorId()
   {
+
+    // Obtener el idioma actual
     $idioma = empty($this->getIdioma()) ? 1 : $this->getIdioma();
 
-    $id = $this->getId();
-    $parentId = $this->getParentId();
+    // Obtener el ID del usuario autenticado (si existe)
+    $usuarioId = $this->getUsuario() ? $this->getUsuario()->Id : null;
 
-    $sql = "SELECT * FROM productos WHERE id = $id AND idioma_id = $idioma AND parent_id = $parentId";
+    $sql = "SELECT
+                  p.id,
+                  p.nombre,
+                  p.imagenes,
+                  p.precio,
+                  p.stock,
+                  p.estado,
+                  p.oferta,
+                  ca.nombre AS nombre_categoria,
+                  p.descripcion,
+                  p.offer_expiration,
+                  p.parent_id,
+                  p.grupo_id,
+                  p.especificacion_1,
+                  p.especificacion_2,
+                  p.especificacion_3,
+                  p.especificacion_4,
+                  p.especificacion_5";
+
+    if ($usuarioId) {
+    $sql .= ", MAX(fv.id) AS favorito_id, MAX(fv.usuario_id) AS usuario_id, 
+          CASE WHEN MAX(fv.id) IS NOT NULL THEN 1 ELSE 0 END AS favorito";
+    }
+
+    $sql .= " FROM productos p 
+      LEFT JOIN categorias ca ON ca.grupo_id = p.parent_id";
+
+    if ($usuarioId) {
+    $sql .= " LEFT JOIN favoritos fv ON fv.grupo_id = p.grupo_id";
+    }
+
+    // Filtros por idioma y parent_id
+    $sql .= " WHERE p.idioma_id = $idioma AND ca.idioma_id = $idioma AND p.grupo_id = {$this->getGrupoId()}";
+
+    // Agregar el GROUP BY para todas las columnas no agregadas
+    $sql .= " GROUP BY 
+                      p.id, 
+                      p.nombre, 
+                      p.imagenes, 
+                      p.precio, 
+                      p.stock, 
+                      p.estado, 
+                      p.oferta, 
+                      nombre_categoria,
+                      p.descripcion, 
+                      p.offer_expiration, 
+                      p.parent_id, 
+                      p.grupo_id,
+                      p.especificacion_1,
+                      p.especificacion_2,
+                      p.especificacion_3,
+                      p.especificacion_4,
+                      p.especificacion_5";
+
     $result = $this->db->query($sql);
 
     if ($result && $result->num_rows > 0) {
       return $result->fetch_object();
-    } else {
-
-      $sqlFallback = "SELECT * FROM productos WHERE idioma_id = $idioma AND parent_id = $parentId";
-      $resultFallback = $this->db->query($sqlFallback);
-
-      if ($resultFallback && $resultFallback->num_rows > 0) {
-        return $resultFallback->fetch_object();
-      }
     }
+  }
 
-    return null;
+  public function actualizarPorIdFrontend()
+  {
+    $idioma = empty($this->getIdioma()) ? 1 : $this->getIdioma();
+    $sql = "UPDATE productos SET stock = '{$this->getstock()}' where grupo_id = {$this->getGrupoId()} AND idioma_id = $idioma";
+    $result = $this->db->query($sql);
+    return $result;
   }
 
   public function obtenerProductosPorGrupo()

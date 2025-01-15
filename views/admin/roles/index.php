@@ -39,7 +39,7 @@
                             <tr>
                                 <td><?php echo $rol->nombre; ?></td>
                                 <td><?php echo $rol->descripcion; ?></td>
-                                <td>
+                                <td class="table-striped-btns">
                                     <a href="<?php echo BASE_URL; ?>Admin/crearRoles?editid=<?php echo $rol->id; ?>" class="btn btn-warning btn-sm">Editar</a>
                                     <a href="<?php echo BASE_URL; ?>Admin/crearRoles?deleteid=<?php echo $rol->id; ?>" class="btn btn-danger btn-sm">Eliminar</a>
                                 </td>

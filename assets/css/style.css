@@ -259,9 +259,16 @@ button.w3view-cart {
     font-size: 20px;
     color: #fff;
     width: 50px;
-    height: 44px;
+    height: 48px;
     background: #000;
     border: 1px solid rgba(27, 25, 25, 0.27);
+}
+
+@media (max-width:767px){
+.agileits_search{
+    max-width: 80%;
+}
+.top_nav_right {padding: 0px;}
 }
 
 /*-- //header cart button --*/
@@ -499,7 +506,7 @@ h3.tittle-w3l span {
 }
 
 
-.snipcart-details input.button-sin-stock {
+.button-sin-stock {
     font-size: 13px;
     color: #fff;
     background: #df0202;
@@ -667,7 +674,7 @@ h3.tittle-w3l span {
     font-size: 13px;
     text-align: center;
     padding: 4px 10px;
-    /* animation: parpadeo 5s infinite; */
+    animation: parpadeo 1.5s infinite;
 }
 
 .inner-men-cart-pro {
@@ -684,7 +691,7 @@ h3.tittle-w3l span {
     position: absolute;
     top: 45%;
     width: 100%;
-    transition: all 0.5s ease-out 0s;
+    transition: all 0.4s ease-out 0s;
 }
 
 .inner-men-cart-pro .link-product-add-cart {
@@ -1174,6 +1181,10 @@ h2.footer-top-head-w3l {
     color: #bdbdbd;
 }
 
+.footer-grids p {
+    color: #bdbdbd;
+}
+
 .footer-grids ul li a {
     color: #bdbdbd;
     -webkit-transition: .5s all;
@@ -1653,6 +1664,44 @@ table.timetable_sub {
     border: 1px solid #CDCDCD;
 }
 
+table.timetable_sub {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table.timetable_sub th,
+table.timetable_sub td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+table.timetable_sub th {
+    font-weight: bold;
+}
+
+table.timetable_sub td {
+    text-align: center;
+}
+
+table.timetable_sub th,
+table.timetable_sub td {
+    word-wrap: break-word;
+    /* Para que el texto largo se ajuste dentro de la celda */
+}
+
+/* Ajustar automáticamente el tamaño de las columnas */
+table.timetable_sub th,
+table.timetable_sub td {
+    white-space: nowrap;
+    /* Evita que las celdas se dividan en múltiples líneas */
+}
+
+/* Asegurarse de que todas las celdas sean iguales */
+table.timetable_sub {
+    table-layout: fixed;
+}
+
 td.invert-image a img {
     width: 90px;
     max-width: 90px;
@@ -1813,12 +1862,12 @@ button.submit.check_out:hover {
     letter-spacing: 1px;
     display: inline-block;
     cursor: pointer;
+    border: 1px solid;
 }
 
 .checkout-right-basket a:hover,
 .checkout-right-basket button:hover {
     background: #F45C5D;
-    border: 1px solid #F45C5D;
     transition: 0.5s all;
     -webkit-transition: 0.5s all;
     -moz-transition: 0.5s all;
@@ -3139,14 +3188,14 @@ div#testimonials h4.m-title {
         font-size: 15px;
     }
 
-    .top_nav_right {
-        padding: 0;
-    }
+    /* .top_nav_right {
+        padding-right: 10px;
+    } */
 
     button.w3view-cart {
         font-size: 20px;
-        width: 43px;
-        height: 43px;
+        width: 45px;
+        height: 41px;
         padding: 0;
     }
 

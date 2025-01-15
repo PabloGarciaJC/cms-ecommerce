@@ -12,6 +12,7 @@ class Pedidos
     private $estado;
     private $fecha;
     private $hora;
+    private $idioma;
     private $db;
 
     public function __construct()
@@ -24,6 +25,11 @@ class Pedidos
     public function getId()
     {
         return $this->id;
+    }
+
+    public function getIdioma()
+    {
+        return $this->idioma;
     }
 
     public function getUsuario_id()
@@ -78,6 +84,11 @@ class Pedidos
         $this->id = $id;
     }
 
+    public function setIdioma($idioma)
+    {
+        $this->idioma = $idioma;
+    }
+
     public function setUsuario_id($usuario_id)
     {
         $this->usuario_id = $usuario_id;
@@ -124,14 +135,14 @@ class Pedidos
     }
 
     //// CONSULTAS //// 
-
     public function guardar()
     {
         $result = false;
+        $idioma = empty($this->getIdioma()) ? 1 : $this->getIdioma();
 
-        $sql = "INSERT INTO pedidos (id, usuario_id, pais, ciudad, direccion, codigoPostal, coste, estado, fecha, hora) 
-                VALUES (null, {$this->getUsuario_id()}, '{$this->getPais()}', '{$this->getCiudad()}', '{$this->getDireccion()}', '{$this->getCodigoPostal()}', {$this->getCoste()}, 'Pendiente', CURDATE(), CURTIME());";
-
+        // Si no hay pedidos pendientes en el mismo idioma, permitir la creación de un nuevo pedido
+        $sql = "INSERT INTO pedidos (id, usuario_id, pais, ciudad, direccion, codigoPostal, coste, estado, fecha, hora, idioma_id) 
+                VALUES (null, {$this->getUsuario_id()}, '{$this->getPais()}', '{$this->getCiudad()}', '{$this->getDireccion()}', '{$this->getCodigoPostal()}', {$this->getCoste()}, '{$this->getEstado()}', CURDATE(), CURTIME(), $idioma);";
         $save = $this->db->query($sql);
 
         if ($save) {
@@ -176,39 +187,39 @@ class Pedidos
     public function obtenerPorId($id)
     {
         $result = null;
-    
-        $sql = "SELECT pedidos.id AS pedido_id, 
-                       pedidos.usuario_id, 
-                       pedidos.direccion, 
-                       pedidos.codigoPostal, 
-                       pedidos.pais, 
-                       pedidos.ciudad, 
-                       usuarios.Usuario AS nombre_usuario, 
-                       GROUP_CONCAT(CONCAT(productos.nombre, ' <strong>(x', linea_pedidos.cantidad, ')</strong>') SEPARATOR ', ') AS productos, 
-                       pedidos.coste, 
-                       pedidos.estado, 
-                       pedidos.fecha, 
-                       pedidos.hora 
-                FROM pedidos
-                INNER JOIN usuarios ON pedidos.usuario_id = usuarios.id
-                LEFT JOIN linea_pedidos ON pedidos.id = linea_pedidos.pedido_id
-                LEFT JOIN productos ON linea_pedidos.producto_id = productos.id
-                WHERE pedidos.id = {$id}
-                GROUP BY pedidos.id";
-    
+
+        $sql = "SELECT pd.id AS pedido_id, 
+                       pd.usuario_id, 
+                       pd.direccion, 
+                       pd.codigoPostal, 
+                       pd.pais, 
+                       pd.ciudad, 
+                       u.Usuario AS nombre_usuario, 
+                       GROUP_CONCAT(CONCAT(p.nombre, ' <strong>(x', lp.cantidad, ')</strong>') SEPARATOR ', ') AS productos, 
+                       pd.coste, 
+                       pd.estado, 
+                       pd.fecha, 
+                       pd.hora 
+                FROM pedidos pd
+                INNER JOIN usuarios u ON pd.usuario_id = u.id
+                INNER JOIN linea_pedidos lp ON lp.pedido_id = pd.id
+                INNER JOIN productos p ON p.grupo_id = lp.grupo_id
+                WHERE pedido_id = {$id}
+                GROUP BY pedido_id";
+
         $query = $this->db->query($sql);
-    
+
         if ($query && $query->num_rows == 1) {
             $result = $query->fetch_object();
         }
-    
+
         return $result;
     }
-    
-    
+
+
     public function obtenerEstados()
     {
-        return ['Pendiente', 'Enviado', 'Entregado', 'Cancelado'];
+        return ['Pagado', 'Enviado', 'Entregado'];
     }
 
     public function actualizarEstado($id, $nuevoEstado)
@@ -269,21 +280,24 @@ class Pedidos
 
     public function obtenerPedidosConProductos()
     {
+
+        $idioma = empty($this->getIdioma()) ? 1 : $this->getIdioma();
         $result = [];
 
-        $sql = "SELECT pedidos.id AS pedido_id, 
-                usuarios.Usuario AS nombre_usuario, 
-                GROUP_CONCAT(CONCAT(productos.nombre, ' <strong>(x', linea_pedidos.cantidad, ')</strong>') SEPARATOR ', ') AS productos, 
-                pedidos.coste, 
-                pedidos.estado, 
-                pedidos.fecha, 
-                pedidos.hora 
-                FROM pedidos
-                INNER JOIN usuarios ON pedidos.usuario_id = usuarios.id
-                LEFT JOIN linea_pedidos ON pedidos.id = linea_pedidos.pedido_id
-                LEFT JOIN productos ON linea_pedidos.producto_id = productos.id
-                GROUP BY pedidos.id";
-            
+        $sql = "SELECT
+                pd.id AS pedido_id, 
+                u.Usuario AS nombre_usuario,
+                pd.coste, 
+                pd.estado, 
+                pd.fecha, 
+                pd.hora,
+                GROUP_CONCAT(CONCAT(p.nombre, ' <strong>(x', lp.cantidad, ')</strong>') SEPARATOR ', ') AS productos 
+                FROM pedidos pd
+                INNER JOIN usuarios u ON pd.usuario_id = u.id
+                INNER JOIN linea_pedidos lp ON lp.pedido_id = pd.id
+                INNER JOIN productos p ON p.grupo_id = lp.grupo_id
+                WHERE p.idioma_id = $idioma GROUP BY pd.id ORDER BY pedido_id DESC;";
+
         $query = $this->db->query($sql);
 
         while ($row = $query->fetch_object()) {
@@ -292,6 +306,35 @@ class Pedidos
 
         return $result;
     }
+
+    public function obtenerPedidosConProductosCliente()
+    {
+
+        $idioma = empty($this->getIdioma()) ? 1 : $this->getIdioma();
+        $result = [];
+
+        $sql = "SELECT
+                pd.id AS pedido_id, 
+                u.Usuario AS nombre_usuario,
+                pd.coste, 
+                pd.estado, 
+                pd.fecha, 
+                pd.hora,
+                GROUP_CONCAT(CONCAT(p.nombre, ' <strong>(x', lp.cantidad, ')</strong>') SEPARATOR ', ') AS productos 
+                FROM pedidos pd
+                INNER JOIN usuarios u ON pd.usuario_id = u.id
+                INNER JOIN linea_pedidos lp ON lp.pedido_id = pd.id
+                INNER JOIN productos p ON p.grupo_id = lp.grupo_id WHERE p.idioma_id = $idioma AND lp.usuario_id = {$this->getId()} GROUP BY pd.id ORDER BY pedido_id DESC;";
+
+        $query = $this->db->query($sql);
+
+        while ($row = $query->fetch_object()) {
+            $result[] = $row;
+        }
+
+        return $result;
+    }
+
 
     public function contarPedidosPendientes()
     {

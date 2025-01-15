@@ -18,7 +18,12 @@
 			<div class="col-lg-5 col-md-8 single-right-left ">
 				<div class="grid images_3_of_2">
 					<?php if (!empty($productoFicha->oferta) && $productoFicha->oferta > 0): ?>
-						<span class="product-new-top">-<?php echo intval($productoFicha->oferta) . '$'; ?></span>
+						<?php
+						// Asegurándonos de que $prod->oferta sea un número válido
+						$descuento = floatval($productoFicha->oferta); // Convertimos a float para asegurar que es numérico
+						$precio_con_descuento = $productoFicha->precio - ($productoFicha->precio * ($descuento / 100)); // Calculamos el precio con descuento
+						?>
+						<span class="product-new-top badge badge-danger">-<?php echo intval($descuento); ?>%</span>
 					<?php endif; ?>
 					<?php
 					$imagenesArray = json_decode($productoFicha->imagenes);
@@ -38,7 +43,6 @@
 							</ul>
 							<div class="clearfix"></div>
 						</div>
-
 					<?php else : ?>
 						<img src="<?php echo BASE_URL ?>uploads/images/default.jpg" alt="Imagen del Producto" class="productos-thumbnail">
 					<?php endif; ?>
@@ -46,49 +50,64 @@
 			</div>
 			<div class="col-lg-7 single-right-left simpleCart_shelfItem">
 				<h3 class="mb-3"><?php echo $productoFicha->nombre; ?></h3>
-				<p class="mb-3">
-					<?php
-					if (!empty($productoFicha->oferta) && $productoFicha->oferta > 0) {
-						$precio_con_descuento = $productoFicha->precio - $productoFicha->oferta;
-						echo '<span class="item_price">Precio: ' . intval($productoFicha->precio - $productoFicha->oferta) . '$</span>';
-						echo '<span>Antes: <del>' . intval($productoFicha->precio) . '$</del></span>';
-					} else {
-						echo '<span class="item_price">' . PRICE . ' : ' . intval($productoFicha->precio) . '$</span>';
-					}
-					?>
-				</p>
-				<div class="single-infoagile">
-					<ul>
-						<li class="mb-3">
-							<?php echo $productoFicha->descripcion; ?>
-						</li>
-					</ul>
-				</div>
+				<?php if (!empty($productoFicha->oferta) && $productoFicha->oferta > 0): ?>
+					<div class="pricing-details">
+						<span class="item_price text-success font-weight-bold"><?php echo PRICE; ?>: <?php echo round($precio_con_descuento, 2); ?>$</span>
+						<span class="text-muted small"><?php echo BEFORE; ?>: <del><?php echo intval($productoFicha->precio); ?>$</del></span>
+					</div>
+				<?php else: ?>
+					<span class="item_price text-success font-weight-bold"><?php echo PRICE; ?>: <?php echo intval($productoFicha->precio); ?>$</span>
+				<?php endif; ?>
+
+				<?php if (!empty($productoFicha->nombre_categoria)): ?>
+					<div class="product-category mt-2 mb-2">
+						<strong><?php echo TEXT_CATEGORY; ?>: </strong>
+						<a href="<?php echo BASE_URL ?>Catalogo/index?parent_id=<?php echo $productoFicha->parent_id; ?>" class="producto-tag-categoria"><?php echo $productoFicha->nombre_categoria; ?></a>
+					</div>
+				<?php endif; ?>
+
+				<?php if (!empty($productoFicha->descripcion)): ?>
+					<div class="single-infoagile">
+						<ul>
+							<li class="mb-3">
+								<?php echo $productoFicha->descripcion; ?>
+							</li>
+						</ul>
+					</div>
+				<?php endif; ?>
+
 				<div class="product-single-w3l">
+					<ul class="pt-3">
+						<?php if (!empty($productoFicha->especificacion_1)): ?>
+							<li class="mb-1">
+								<?php echo $productoFicha->especificacion_1; ?>
+							</li>
+						<?php endif; ?>
+						<?php if (!empty($productoFicha->especificacion_2)): ?>
+							<li class="mb-1">
+								<?php echo $productoFicha->especificacion_2; ?>
+							</li>
+						<?php endif; ?>
+						<?php if (!empty($productoFicha->especificacion_3)): ?>
+							<li class="mb-1">
+								<?php echo $productoFicha->especificacion_3; ?>
+							</li>
+						<?php endif; ?>
+						<?php if (!empty($productoFicha->especificacion_4)): ?>
+							<li class="mb-1">
+								<?php echo $productoFicha->especificacion_4; ?>
+							</li>
+						<?php endif; ?>
+						<?php if (!empty($productoFicha->especificacion_5)): ?>
+							<li class="mb-1">
+								<?php echo $productoFicha->especificacion_5; ?>
+							</li>
+						<?php endif; ?>
+					</ul>
 					<p class="my-3">
 						<i class="far fa-hand-point-right mr-2"></i>
 						<?php echo TEXT_GARANTIA; ?>
 					</p>
-					<!-- <ul>
-						<li class="mb-1">
-							3 GB RAM | 16 GB ROM | Expandable Upto 256 GB
-						</li>
-						<li class="mb-1">
-							5.5 inch Full HD Display
-						</li>
-						<li class="mb-1">
-							13MP Rear Camera | 8MP Front Camera
-						</li>
-						<li class="mb-1">
-							3300 mAh Battery
-						</li>
-						<li class="mb-1">
-							Exynos 7870 Octa Core 1.6GHz Processor
-						</li>
-					</ul>
-					<p class="my-sm-4 my-3">
-						<i class="fas fa-retweet mr-3"></i>Net banking & Credit/ Debit/ ATM card
-					</p> -->
 				</div>
 				<div class="product-rating mb-4 text-center">
 					<h4 class="rating-title"><?php echo TEXT_AVERAGE_RATING; ?></h4>
@@ -97,39 +116,24 @@
 					</div>
 				</div>
 				<div class="occasion-cart">
-					<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-						<form action="#" method="post">
-							<fieldset>
-								<?php
-								$imagenes = trim($productoFicha->imagenes, '"');
-								$imagenes_array = json_decode($imagenes);
-								?>
-								<input type="hidden" name="producto_id" value="<?php echo $productoFicha->id; ?>" />
-								<input type="hidden" name="href" value="<?php echo BASE_URL ?>Producto/ficha?id=<?php echo $productoFicha->id; ?>" />
-								<input type="hidden" name="image" value="<?php echo BASE_URL ?>uploads/images/productos/<?php echo $imagenes_array[0]; ?>" />
-								<input type="hidden" id="text_oferta" value="<?php echo OFERTA; ?>" />
-								<input type="hidden" id="text_subtotal" value="<?php echo SUBTOTAL; ?>" />
-								<input type="hidden" id="text_realizar_pedido" value="<?php echo REALIZAR_PEDIDO; ?>" />
-								<input type="hidden" name="cmd" value="_cart" />
-								<input type="hidden" name="add" value="1" />
-								<input type="hidden" name="business" value=" " />
-								<input type="hidden" name="business" value="" />
-								<input type="hidden" name="item_name" value="<?php echo $productoFicha->nombre; ?>" />
-								<input type="hidden" name="amount" value="<?php echo $productoFicha->precio; ?>" />
-								<input type="hidden" name="discount_amount" value="<?php echo $productoFicha->oferta ?>" />
-								<input type="hidden" name="currency_code" value="USD" />
-								<input type="hidden" name="cancel_return" value=" " />
-								<input type="hidden" name="return" value="" />
-
-								<?php if (isset($productoFicha->stock) && $productoFicha->stock > 0): ?>
-									<input type="submit" name="submit" value="<?php echo ADD_TO_CART; ?>" class="button btn" />
-								<?php else: ?>
-									<input value="SIN STOCK" class="button-sin-stock btn" />
-								<?php endif; ?>
-
-							</fieldset>
-						</form>
-					</div>
+					<button class="item-btn-favorito <?php echo isset($productoFicha->favorito_id) && $usuario->Id == $productoFicha->usuario_id ? 'favorito-activado' : false; ?>" data-grupo-id="<?php echo $productoFicha->grupo_id; ?>">
+						<i class="fas fa-heart"></i> <?php echo TEXT_PRODUCT_SAVE_FAVORITE; ?>
+					</button>
+					<form action="<?php BASE_URL ?>Producto/checkout" method="post" class="formulario-items-productos">
+						<fieldset>
+							<input type="hidden" name="usuario_id" value="<?php echo isset($_SESSION['usuarioRegistrado']->Id) ? $_SESSION['usuarioRegistrado']->Id : false ?>" />
+							<input type="hidden" name="nombre" value="<?php echo $productoFicha->nombre; ?>" />
+							<input type="hidden" name="precio" value="<?php echo $productoFicha->precio; ?>" />
+							<input type="hidden" name="oferta" value="<?php echo $productoFicha->oferta; ?>" />
+							<input type="hidden" name="grupo_id" value="<?php echo $productoFicha->grupo_id; ?>" />
+							<input type="hidden" name="stock" value="<?php echo $productoFicha->stock; ?>" />
+							<?php if (isset($productoFicha->stock) && $productoFicha->stock > 0): ?>
+								<input type="submit" name="submit" value="<?php echo ADD_TO_CART; ?>" class="button btn producto-btn" />
+							<?php else: ?>
+								<input value="SIN STOCK" class="button-sin-stock btn" />
+							<?php endif; ?>
+						</fieldset>
+					</form>
 				</div>
 			</div>
 		</div>
@@ -203,7 +207,6 @@
 		</div>
 	</div>
 
-	<!-- Formulario de reseña -->
 	<div class="ficha-producto__tab-content" id="leave-review-content">
 		<?php if (isset($_SESSION['exito'])) : ?>
 			<div class="alert <?php echo $_SESSION['messageClass']; ?> alert-dismissible fade show mt-2 text-center" role="alert">

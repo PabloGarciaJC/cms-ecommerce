@@ -20,6 +20,8 @@ define("TEXT_TERMS_PRIVACY", "Privacy Policy");
 define("TEXT_CHECKOUT", "Checkout");
 define("TEXT_FICHA", "Product Sheet");
 define("TEXT_TITLE_FILTRO", "Apply filters");
+define('BEFORE', 'Before');
+define("TEXT_CATEGORY", "Category");
 
 // Textos para "Checkout"
 define('CART_CONTAINS', 'Your shopping cart contains:');
@@ -31,6 +33,12 @@ define('PRODUCT_NAME', 'Product Name');
 define('PRICE', 'Price');
 define('REMOVE', 'Remove');
 define("MAKE_PAYMENT", "Finish purchase");
+define('STOCK', 'Stock');
+define('CANTIDAD', 'Quantity');
+define('ACCION', 'Action');
+define('EMPTY_CART_MESSAGE', 'No products in the shopping cart.');
+define('CART_MODAL_TITLE', 'Shopping Cart');
+define('ERROR_MESSAGE', 'Error');
 
 // Textos para "Productos Lista"
 define("TEXT_QUICK_VIEW", "Quick View");
@@ -69,6 +77,7 @@ define("TEXT_SALE_DESC", "Sale up to 25% off all in store");
 define("TEXT_PHONE_DESC", "A Bigger Phone");
 define("TEXT_SMART_PHONES_DESC", "Smart Phones 5");
 define("TEXT_FREE_SHIPPING_DESC", "Free shipping on orders over $100");
+define('NO_MORE_IN_STOCK_EN', 'You cannot add more than what is in stock.');
 
 // Textos para "Helps"
 define("TEXT_HELP_PAGE_TITLE", "<span>H</span>elp <span>P</span>age");
@@ -250,6 +259,7 @@ define('TEXT_SHIPPING_SELECT', 'Select');
 define('TEXT_SHIPPING_CITY', 'City/Region');
 define('TEXT_SHIPPING_ZIP_CODE', 'Zip Code');
 define('TEXT_SHIPPING_UPDATE_FORM', 'Update Form');
+define('TEXT_PAYPAL_TEST_CREDENTIALS', 'This project does not use a payment gateway, as it is for portfolio purposes only.');
 
 // Texto de danger checkout
 define('TEXT_NOT_LOGGED_IN', '<strong>Attention!</strong> You have not <a href="javascript:void(0)" data-toggle="modal" data-target="#exampleModal"> <i class="fas fa-sign-in-alt"></i> Logged in </a>');
@@ -311,3 +321,14 @@ define('TEXT_RATING_REQUIRED', 'Rating is required.');
 define('TEXT_INVALID_PRODUCT', 'The selected product is invalid.');
 define('TEXT_COMMENT_SAVE_SUCCESS', 'Comment saved successfully.');
 define('TEXT_AVERAGE_RATING', 'Average Rating');
+
+// Texto informatico pagina de contacto
+define("TEXT_FORM_DISABLED_TITLE", "Form Disabled");
+define("TEXT_FORM_DISABLED_MESSAGE", "This form is not enabled because it is for portfolio purposes only. No data will be processed.");
+define("TEXT_PRODUCT_ALREADY_IN_CART", "This product already exists in the shopping cart");
+define("TEXT_ITEMS_ADDED_TO_CART", "Items were added to the shopping cart");
+
+// Texto checkout pedido end
+define("TEXT_PEDIDO_COMPLETED", "Order Completed");
+define("TEXT_THANK_YOU_PURCHASE", "Thank you for your purchase!");
+define("TEXT_VIEW_MY_ORDERS", "View my orders");

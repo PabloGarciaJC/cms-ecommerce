@@ -1,93 +1,64 @@
-<div class="services-breadcrumb">
-    <div class="agile_inner_breadcrumb">
-        <div class="container">
-            <ul class="w3_short">
-                <li>
-                    <a href="<?= BASE_URL ?>"><?php echo TEXT_INICIO; ?></a>
-                    <i>|</i>
-                </li>
-                <li><?php echo TEXT_CHECKOUT; ?></li>
-            </ul>
-        </div>
-    </div>
-</div>
-
 <div class="privacy py-sm-1 py-0">
     <div class="container py-lg-2">
         <h3 class="tittle-w3l text-center mb-lg-5 mb-sm-4 mb-3">
             <?php echo CHECKOUT; ?>
         </h3>
 
-        <?php if (isset($_SESSION['exito'])) : ?>
-            <div class="alert <?php echo $_SESSION['messageClass']; ?> alert-dismissible fade show mt-2 text-center" role="alert">
-                <i class="<?php echo isset($_SESSION['icon']) ? $_SESSION['icon'] : 'fas fa-check-circle'; ?>"></i>
-                <?php echo $_SESSION['exito']; ?>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <?php unset($_SESSION['exito'], $_SESSION['messageClass'], $_SESSION['icon']); ?>
-        <?php endif; ?>
-
-        <form method="post" action="<?php echo BASE_URL ?>Producto/checkoutGuardar" class="form-checkout">
+        <form method="post" action="<?php echo BASE_URL ?>LineaPedidos/checkoutGuardar" class="form-checkout">
             <div class="checkout-right">
                 <div class="table-responsive">
-                    <table class="timetable_sub">
+                    <table class="timetable_sub table">
                         <thead>
                             <tr>
-                                <th><?php echo SL_NO; ?></th>
-                                <th><?php echo PRODUCT; ?></th>
-                                <th><?php echo QUALITY; ?></th>
-                                <th><?php echo PRODUCT_NAME; ?></th>
-                                <th><?php echo PRICE; ?></th>
+                                <th class="text-center"><?php echo PRODUCT; ?></th>
+                                <th class="text-center"><?php echo PRICE; ?></th>
+                                <th class="text-center"><?php echo CANTIDAD; ?></th>
+                                <th class="text-center"><?php echo OFERTA; ?></th>
+                                <th class="text-center"><?php echo SUBTOTAL; ?></th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <?php
-                            $items = $_SESSION['productoLista'] ?? [];
-                            if (empty($items)) {
-                                echo '<tr><td colspan="5"> ' . ERROR_NO_PRODUCTS_FOUND . ' </td></tr>';
-                            } else {
-                                $total = 0;
-                                foreach ($items as $index => $item) {
-                                    $total += $item['price'] * $item['quantity']; ?>
-                                    <tr class="rem<?php echo $index + 1; ?>">
-                                        <td class="invert"><?php echo $index + 1; ?></td>
-                                        <td class="invert-image invert-img-table">
-                                            <a href="<?php echo $item['href']; ?>">
-                                                <img src="<?php echo $item['image']; ?>" alt=" " class="img-responsive">
-                                            </a>
+                        <tbody id="checkout-table-body">
+                            <?php if (!empty($lineasDePedido)) : ?>
+                                <?php foreach ($lineasDePedido as $producto) : ?>
+                                    <tr>
+                                        <td><?php echo htmlspecialchars($producto['linea_pedido_nombre']); ?></td>
+                                        <td><?php echo number_format($producto['linea_pedido_precio'], 2); ?>€</td>
+                                        <td><?php echo empty($producto['linea_pedido_cantidad']) ? '1' : $producto['linea_pedido_cantidad']; ?></td>
+                                        <td>
+                                            <?php if ($producto['linea_pedido_oferta'] > 0) : ?>
+                                                <span class="oferta"><?php echo number_format($producto['linea_pedido_oferta'], 2); ?>%</span>
+                                            <?php else : ?>
+                                                <span class="sin-oferta">0.00%</span>
+                                            <?php endif; ?>
                                         </td>
-                                        <td class="invert">
-                                            <div class="quantity">
-                                                <button type="button" class="btn-decrease" data-index="<?php echo $index; ?>">-</button>
-                                                <span class="quantity-value" data-index="<?php echo $index; ?>"><?php echo $item['quantity']; ?></span>
-                                                <button type="button" class="btn-increase" data-index="<?php echo $index; ?>">+</button>
-                                            </div>
-                                            <input type="hidden" name="productos[<?php echo $index; ?>][quantity]" id="quantity-<?php echo $index; ?>" value="<?php echo $item['quantity']; ?>" />
-                                            <!-- Aquí agregamos el precio del producto -->
-                                            <input type="hidden" name="productos[<?php echo $index; ?>][price]" value="<?php echo $item['price']; ?>" />
+                                        <td>
+                                            <?php echo empty($producto['linea_pedido_cantidad']) ? number_format($producto['linea_pedido_subtotal'], 2) . '€'  : number_format($producto['linea_pedido_subtotal'], 2) . '€'; ?>
                                         </td>
-                                        <td class="invert"><?php echo $item['name']; ?></td>
-                                        <td class="invert">
-                                            $<span class="price-item" data-index="<?php echo $index; ?>"><?php echo number_format($item['price'] * $item['quantity'], 2); ?></span>
-                                            <input type="hidden" class="price-per-item" data-index="<?php echo $index; ?>" value="<?php echo number_format($item['price'], 2); ?>" readonly />
-                                        </td>
-                                        <input type="hidden" name="productos[<?php echo $index; ?>][producto_id]" value="<?php echo $item['producto_id']; ?>" />
                                     </tr>
-                            <?php
-                                }
-                            }
-                            ?>
+                                <?php endforeach; ?>
+                            <?php else : ?>
+                                <tr>
+                                    <td colspan="5"><?php echo ERROR_NO_PRODUCTS_FOUND; ?></td>
+                                </tr>
+                            <?php endif; ?>
                         </tbody>
                         <tr>
-                            <td colspan="4" style="text-align: right;">Total:</td>
-                            <td id="total-price">$<?php echo number_format($total, 2); ?></td>
+                            <td colspan="4" style="text-align: right; font-weight: bold;"><?php echo TEXT_SHIPPING_TOTAL; ?>:</td>
+                            <td id="total-price" style="font-weight: bold;">
+                                <?php
+                                $totalPrecio = 0;
+                                foreach ($lineasDePedido as $producto) {
+                                    $totalPrecio += $producto['linea_pedido_subtotal'];
+                                }
+                                echo number_format($totalPrecio, 2) . '€';
+                                ?>
+                                <input type="hidden" name="coste" value="<?php echo number_format($totalPrecio, 2); ?>">
+                            </td>
                         </tr>
                     </table>
-
                 </div>
             </div>
+
             <div class="checkout-left">
                 <div class="address_form_agile mt-sm-3 mt-0">
                     <h2 class="panel-admin__dashboard-title"><?php echo TEXT_SHIPPING_ADDRESS_SHIPPING; ?></h2>
@@ -149,30 +120,18 @@
                 </div>
             </div>
 
-            <?php
-            $usuarioId = isset($usuario->Id) ? $usuario->Id : '';
-            $pais = isset($usuario->Pais) ? $usuario->Pais : '';
-            $ciudad = isset($usuario->Ciudad) ? $usuario->Ciudad : '';
-            $direccion = isset($usuario->Direccion) ? $usuario->Direccion : '';
-            $codigoPostal = isset($usuario->CodigoPostal) ? $usuario->CodigoPostal : '';
-            ?>
-            <input type="hidden" name="usuario_id" value="<?php echo htmlspecialchars($usuarioId); ?>" />
-            <input type="hidden" name="pais" value="<?php echo htmlspecialchars($pais); ?>" />
-            <input type="hidden" name="ciudad" value="<?php echo htmlspecialchars($ciudad); ?>" />
-            <input type="hidden" name="direccion" value="<?php echo htmlspecialchars($direccion); ?>" />
-            <input type="hidden" name="codigoPostal" value="<?php echo htmlspecialchars($codigoPostal); ?>" />
-            <input type="hidden" id="text_oferta" value="<?php echo htmlspecialchars(OFERTA); ?>" />
-            <input type="hidden" id="text_subtotal" value="<?php echo htmlspecialchars(SUBTOTAL); ?>" />
-            <input type="hidden" id="text_realizar_pedido" value="<?php echo htmlspecialchars(REALIZAR_PEDIDO); ?>" />
             <!-- Mensaje de nota importante -->
             <div class="container contn-info">
                 <div class="parrafo-info">
-                    <h1 class="text-center title-info"> <i class="fas fa-exclamation-circle"></i><?php echo TEXT_IMPORTANT_INFO_TITLE; ?></h1>
-                    <p class="text-center">Este proyecto está utilizando credenciales de prueba de PayPal para simular la pasarela de pago. No realice transacciones reales mientras este entorno esté activo.</p>
+                    <h1 class="text-center title-info">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <?php echo TEXT_IMPORTANT_INFO_TITLE; ?>
+                    </h1>
+                    <p class="text-center"><?php echo TEXT_PAYPAL_TEST_CREDENTIALS; ?></p>
                 </div>
             </div>
+
             <div class="checkout-right-basket">
-                <button type="submit"><?php echo MAKE_PAYMENT; ?></button>
                 <?php if (isset($_SESSION['errores']) && count($_SESSION['errores']) > 0) : ?>
                     <?php if (isset($_SESSION['usuarioRegistrado'])) : ?>
                         <a href="<?php echo BASE_URL ?>Admin/perfil" type="button" target="_blank"><i class="fas fa-user-cog"></i> <?php echo TEXT_SHIPPING_UPDATE_FORM; ?></a>
@@ -187,7 +146,14 @@
                         </div>
                     <?php endif; ?>
                 <?php endif; ?>
+                <button type="submit"><?php echo MAKE_PAYMENT; ?></button>
             </div>
         </form>
     </div>
 </div>
+
+<?php
+unset($_SESSION['errores']);
+unset($_SESSION['form']);
+unset($_SESSION['exito']);
+?>
