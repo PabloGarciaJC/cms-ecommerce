@@ -249,7 +249,6 @@
             </div>
             <h2 class="panel-admin__dashboard-title">Usuarios Ficticios para Pruebas</h2>
             <div class="row">
-
                 <div class="col-12 col-md-4 mb-4">
                     <div class="card info-card feature-card h-100 shadow-sm bg-light border-light">
                         <div class="card-header">
@@ -258,6 +257,7 @@
                         <div class="card-body-info p-4">
                             <p><strong>Correo:</strong> admin@cms.com</p>
                             <p><strong>Contraseña:</strong> password</p>
+                            <p><strong>Rol:</strong> Administrador</p>
                         </div>
                     </div>
                 </div>
@@ -270,6 +270,7 @@
                         <div class="card-body-info p-4">
                             <p><strong>Correo:</strong> luis.ramos@pablogarciajc.com</p>
                             <p><strong>Contraseña:</strong> password</p>
+                            <p><strong>Rol:</strong> Cliente</p>
                         </div>
                     </div>
                 </div>
@@ -282,6 +283,7 @@
                         <div class="card-body-info p-4">
                             <p><strong>Correo:</strong> santis@pablogarciajc.com</p>
                             <p><strong>Contraseña:</strong> password</p>
+                            <p><strong>Rol:</strong> Cliente</p>
                         </div>
                     </div>
                 </div>
@@ -294,6 +296,7 @@
                         <div class="card-body-info p-4">
                             <p><strong>Correo:</strong> juan.perez@pablogarciajc.com</p>
                             <p><strong>Contraseña:</strong> password</p>
+                            <p><strong>Rol:</strong> Cliente</p>
                         </div>
                     </div>
                 </div>
@@ -306,6 +309,7 @@
                         <div class="card-body-info p-4">
                             <p><strong>Correo:</strong> ana.lopez@pablogarciajc.com</p>
                             <p><strong>Contraseña:</strong> password</p>
+                            <p><strong>Rol:</strong> Cliente</p>
                         </div>
                     </div>
                 </div>
@@ -318,6 +322,7 @@
                         <div class="card-body-info p-4">
                             <p><strong>Correo:</strong> carlos.rodriguez@pablogarciajc.com</p>
                             <p><strong>Contraseña:</strong> password</p>
+                            <p><strong>Rol:</strong> Cliente</p>
                         </div>
                     </div>
                 </div>
@@ -330,6 +335,7 @@
                         <div class="card-body-info p-4">
                             <p><strong>Correo:</strong> lucia.mendoza@pablogarciajc.com</p>
                             <p><strong>Contraseña:</strong> password</p>
+                            <p><strong>Rol:</strong> Cliente</p>
                         </div>
                     </div>
                 </div>
@@ -342,6 +348,7 @@
                         <div class="card-body-info p-4">
                             <p><strong>Correo:</strong> pedro.gomez@pablogarciajc.com</p>
                             <p><strong>Contraseña:</strong> password</p>
+                            <p><strong>Rol:</strong> Cliente</p>
                         </div>
                     </div>
                 </div>
@@ -354,6 +361,7 @@
                         <div class="card-body-info p-4">
                             <p><strong>Correo:</strong> sofia.martinez@pablogarciajc.com</p>
                             <p><strong>Contraseña:</strong> password</p>
+                            <p><strong>Rol:</strong> Cliente</p>
                         </div>
                     </div>
                 </div>
@@ -366,6 +374,7 @@
                         <div class="card-body-info p-4">
                             <p><strong>Correo:</strong> diego.herrera@pablogarciajc.com</p>
                             <p><strong>Contraseña:</strong> password</p>
+                            <p><strong>Rol:</strong> Cliente</p>
                         </div>
                     </div>
                 </div>
@@ -378,6 +387,7 @@
                         <div class="card-body-info p-4">
                             <p><strong>Correo:</strong> maria.gonzalez@pablogarciajc.com</p>
                             <p><strong>Contraseña:</strong> password</p>
+                            <p><strong>Rol:</strong> Cliente</p>
                         </div>
                     </div>
                 </div>
@@ -390,6 +400,7 @@
                         <div class="card-body-info p-4">
                             <p><strong>Correo:</strong> javier.ortiz@pablogarciajc.com</p>
                             <p><strong>Contraseña:</strong> password</p>
+                            <p><strong>Rol:</strong> Cliente</p>
                         </div>
                     </div>
                 </div>
@@ -402,11 +413,12 @@
                         <div class="card-body-info p-4">
                             <p><strong>Correo:</strong> laura.vega@pablogarciajc.com</p>
                             <p><strong>Contraseña:</strong> password</p>
+                            <p><strong>Rol:</strong> Cliente</p>
                         </div>
                     </div>
                 </div>
-                
             </div>
+
             <h2 class="panel-admin__dashboard-title">Contáctame / Sígueme en mis redes sociales</h2>
             <div class="row">
                 <div class="col-12 col-md-4 mb-4">

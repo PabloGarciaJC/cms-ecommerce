@@ -1,63 +1,111 @@
+# Documentación del Proyecto: Aplicación Web Ecommerce
 
-# Aplicación Web Ecommerce
+La **Aplicación Web Ecommerce** es un sistema seguro y escalable diseñado para ofrecer una experiencia óptima a compradores y vendedores. Su enfoque es garantizar la eficiencia y adaptabilidad, utilizando buenas prácticas de desarrollo y actualizaciones constantes.
 
-La **Aplicación Web Ecommerce**, es desarrollado como un sistema intuitivo, seguro y escalable que brinde una experiencia satisfactoria a compradores y vendedores. Como desarrollador web, mi misión es aplicar esta visión mediante el uso de buenas prácticas de desarrollo para lograr un sistema eficiente. **Mi objetivo** es mantener la relevancia y eficacia del proyecto adaptándolo cuando sea necesario en el mercado. Si estás interesado en trabajar juntos o tienes alguna pregunta, no dudes en contactarme. O si prefieres, envíame un mensaje a mi [WhatsApp](https://api.whatsapp.com/send?phone=672354875) para una respuesta más rápida. 
-Demo: [https://ecommerce.pablogarciajc.com/](https://ecommerce.pablogarciajc.com/)
+¿Tienes preguntas o quieres colaborar? Contáctame directamente en mi [WhatsApp](https://api.whatsapp.com/send?phone=672354875).
 
-</br>
+### Demo del Proyecto  
+[https://ecommerce.pablogarciajc.com/](https://ecommerce.pablogarciajc.com/)
 
-| ![GestionHogar_1](https://pablogarciajc.com/wp-content/uploads/2024/03/pablogarciajc-aplicacion-web-ecommerce-img1.webp) | ![GestionHogar_2](https://pablogarciajc.com/wp-content/uploads/2024/03/pablogarciajc-aplicacion-web-ecommerce-img2.webp) |
+| ![Imagen 1](https://pablogarciajc.com/wp-content/uploads/2024/03/pablogarciajc-aplicacion-web-ecommerce-img1.webp) | ![Imagen 2](https://pablogarciajc.com/wp-content/uploads/2024/03/pablogarciajc-aplicacion-web-ecommerce-img2.webp) |
 |-----------|-----------|
 
+---
 
-## Funcionaliades
+## Funcionalidades Principales
 
-La aplicación cuenta con **cuatro módulos:**
+La plataforma cuenta con **cuatro módulos principales** que optimizan la experiencia de usuario y administración:
 
-**Autenticación y Gestión de Usuarios:**
+- **Dashboard**: Visualiza métricas clave.
+- **Registro y Login**: Gestión de cuentas de usuario.
+- **Cuenta**: Administración de perfil y contraseñas.
+- **Usuarios**: Gestión de usuarios y roles.
+- **Roles**: Asigna permisos específicos a los usuarios.
+- **Catálogo**: Administración de productos y servicios.
+- **Pedidos**: Consulta y gestión de pedidos.
+- **Carrito de Compras**: Gestión de productos en el carrito.
+- **Favoritos**: Guarda productos o recursos favoritos para acceso rápido.
+- **Comentarios**: Deja tus comentarios sobre la plataforma.
+- **Conoce la Plataforma**: Acceso a documentación técnica.
+- **Cerrar Sesión**: Logout seguro.
 
-* Este módulo permite a los usuarios registrarse y iniciar sesión en la plataforma de e-commerce. Además, también permite a los usuarios editar su información personal y configuraciones de cuenta.
+### Roles de Usuario Iniciales
 
-**Gestión de Productos y Categorías:**
+El sistema está diseñado inicialmente con **dos roles**:
 
-* Este módulo muestra la lista de productos disponibles para la compra, con opciones de filtrado y búsqueda.
-* También muestra información detallada sobre un producto individual para ayudar a los usuarios a tomar una decisión de compra. Además, los administradores pueden gestionar productos y categorías.
+1. **Administrador**: Tiene acceso completo a todas las funcionalidades y módulos de la plataforma. El administrador puede gestionar usuarios, roles, productos, pedidos, entre otros.
+2. **Cliente Normal**: Accede principalmente a funcionalidades relacionadas con la compra de productos, visualización de su cuenta, carrito de compras, y favoritos.
 
-**Carrito de Compras:**
+---
 
-* Este módulo permite a los usuarios agregar productos a su carrito y verificar el total de la compra. También permite a los usuarios confirmar su compra y proporcionar información de envío y pago.
+## Usuarios Ficticios para Pruebas
 
-**Gestión de Pedidos:**
+| **Nombre**                     | **Correo**                        | **Contraseña** | **Rol**         |
+|---------------------------------|-----------------------------------|----------------|-----------------|
+| Administrador                   | admin@cms.com                     | password       | Administrador   |
+| Luis Fernando Ramos             | luis.ramos@pablogarciajc.com       | password       | Cliente         |
+| Marco Antonio Santis            | santis@pablogarciajc.com          | password       | Cliente         |
+| Juan Carlos Pérez               | juan.perez@pablogarciajc.com      | password       | Cliente         |
+| Ana María López                 | ana.lopez@pablogarciajc.com       | password       | Cliente         |
+| Carlos Alberto Rodríguez        | carlos.rodriguez@pablogarciajc.com| password       | Cliente         |
+| Lucía Fernanda Mendoza          | lucia.mendoza@pablogarciajc.com   | password       | Cliente         |
+| Pedro Luis Gómez                | pedro.gomez@pablogarciajc.com     | password       | Cliente         |
+| Sofía Alejandra Martínez        | sofia.martinez@pablogarciajc.com  | password       | Cliente         |
+| Diego Armando Herrera           | diego.herrera@pablogarciajc.com   | password       | Cliente         |
+| María Isabel González           | maria.gonzalez@pablogarciajc.com  | password       | Cliente         |
+| Javier Ernesto Ortiz            | javier.ortiz@pablogarciajc.com    | password       | Cliente         |
+| Laura Patricia Vega             | laura.vega@pablogarciajc.com      | password       | Cliente         |
 
-* Este módulo permite a los usuarios ver un historial de sus compras y a los administradores gestionar las ordenes realizadas. Los administradores también pueden ver una lista de todas las órdenes realizadas y cambiar su estado.
+---
 
-* Además, **la aplicación cuenta con una función de Validación de Datos**, que verifica la validez de los datos ingresados por los usuarios y los productos, para garantizar un proceso de compra correcto y seguro.
+## Tecnologías Usadas
 
-## Tecnologías
+| **Tecnología**           | **Descripción**                                                                                                                                                                                                                                  |
+|--------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **PHP**                  | Lenguaje de programación para backend y bases de datos.                                                                                                           |
+| **Logging**              | Herramienta para registrar eventos y errores del sistema.                                                                                                      |
+| **Testing**              | Pruebas unitarias y de integración para asegurar la funcionalidad.                                                                 |
+| **Composer**             | Gestor de dependencias en PHP.                                                                                                                                                                     |
+| **Docker (con WSL)**     | Plataforma para contenerización y escalabilidad.                                                                                                                                               |
+| **Docker Compose**       | Herramienta para definir y ejecutar aplicaciones multi-contenedor.                                                                 |
+| **Make**                 | Automatiza tareas repetitivas del proyecto.                                                                                                                                                                   |
 
-**Front-end:**
+---
 
-* HTML | CSS | JavaScript | Jquery | Flexbox | Grid
+## Créditos
 
-**Back-end:**
-
-* PHP | POO | MVC (Modelo Vista Controlador)
-
-**Tecnologías de Desarrollo:**
-
-* Git | GitHub | Visual Studio Code | Windows | Dockers
+| **Recurso**                        | **Descripción**                                                                                               | **Enlace**                                              |
+|------------------------------------|---------------------------------------------------------------------------------------------------------------|---------------------------------------------------------|
+| **Plantilla de la aplicación**     | Plantilla utilizada para la interfaz de usuario.                                                              | [W3Layouts](http://w3layouts.com)                        |
+| **Licencia de la plantilla**       | Licencia de la plantilla bajo Creative Commons Attribution 3.0 Unported.                                      | [Creative Commons License](http://creativecommons.org/licenses/by/3.0/) |
+| **Imágenes de productos**          | Imágenes de productos obtenidas de Amazon.                                                                     | [Amazon](https://www.amazon.com)                         |
+---
 
 ## Instalación
 
-**Requisitos:**
+### Requisitos Previos
 
-* Clonar Proyecto en GitHub.
-* Docker y Docker Compose.
-* Makefile (Opcional).
+- Tener **Docker** y **Docker Compose** instalados.
+- **Make**: Utilizado para automatizar procesos y gestionar contenedores de manera más eficiente.
 
-**Acceso a la Aplicación.**
-* Aplicación Web: http://localhost:8081/
-* PhpMyAdmin: http://localhost:8082/
+### Pasos de Instalación
+
+1. Clona el repositorio desde GitHub.
+2. Dentro del repositorio, encontrarás un archivo **Makefile** que contiene los comandos necesarios para iniciar y gestionar tu aplicación.
+3. Usa los siguientes comandos de **Make** para interactuar con la aplicación:
+
+   - **`make init-app`**: Inicializa los contenedores y configura la aplicación.
+   - **`make up`**: Levanta la aplicación y sus contenedores asociados.
+   - **`make down`**: Detiene los contenedores y apaga la aplicación.
+   - **`make shell`**: Ingresa al contenedor para interactuar directamente con el sistema en su entorno de ejecución.
+
+4. Además de estos comandos, dentro del archivo **Makefile** puedes encontrar otros comandos que te permitirán interactuar de manera más específica con los contenedores y los diferentes servicios que conforman la aplicación.
+
+5. Accede a los siguientes endpoints:
+   - **Aplicación Web**: [http://localhost:8081/](http://localhost:8081/)
+   - **PhpMyAdmin**: [http://localhost:8082/](http://localhost:8082/)
+
+---
 
 ## Contáctame para más información o preguntas
 
@@ -67,5 +115,4 @@ La aplicación cuenta con **cuatro módulos:**
 | ![Facebook](https://pablogarciajc.com/wp-content/uploads/2024/04/facebook.png) | **[@pablogarciajc](https://www.facebook.com/PabloGarciaJC)** |
 | ![LinkedIn](https://pablogarciajc.com/wp-content/uploads/2024/04/linkedin.png) | **[@pablogarciajc](https://www.linkedin.com/in/pablogarciajc/)** |
 
-"El buen trabajo es la solución de hoy.
-Para construir el futuro del mañana"
+> _"El buen trabajo es la solución de hoy, para construir el futuro del mañana."_
