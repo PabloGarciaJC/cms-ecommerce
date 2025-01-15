@@ -18,51 +18,53 @@ class FavoritoController
      */
     public function guardar()
     {
-        $this->languageController->cargarTextos();
-        $usuario = Utils::obtenerUsuario();
-        $grupoId = isset($_POST['grupo_id']) ? $_POST['grupo_id'] : false;
 
-        if (!$usuario) {
+        var_dump($_POST);
+        // $this->languageController->cargarTextos();
+        // $usuario = Utils::obtenerUsuario();
+        // $grupoId = isset($_POST['grupo_id']) ? $_POST['grupo_id'] : false;
 
-            echo json_encode([
-                'success' => false,
-                'favorito' => false,
-                'message' => TEXT_NOT_LOGGED_IN . TEXT_NOT_REGISTER_IN
-            ]);
-            return;
+        // if (!$usuario) {
 
-        } else {
+        //     echo json_encode([
+        //         'success' => false,
+        //         'favorito' => false,
+        //         'message' => TEXT_NOT_LOGGED_IN . TEXT_NOT_REGISTER_IN
+        //     ]);
+        //     return;
 
-            $favorito = new Favorito();
-            $favorito->setUsuarioId($usuario->Id);
-            $favorito->setGrupoId($grupoId);
-            $existe = $favorito->existe();
+        // } else {
 
-            if ($existe) {
-                echo json_encode([
-                    'success' => true,
-                    'favorito' => true,
-                    'message' => TEXT_PRODUCT_ALREADY_FAVORITE
-                ]);
-                return;
-            }
+        //     $favorito = new Favorito();
+        //     $favorito->setUsuarioId($usuario->Id);
+        //     $favorito->setGrupoId($grupoId);
+        //     $existe = $favorito->existe();
 
-            $resultado = $favorito->agregar();
+        //     if ($existe) {
+        //         echo json_encode([
+        //             'success' => true,
+        //             'favorito' => true,
+        //             'message' => TEXT_PRODUCT_ALREADY_FAVORITE
+        //         ]);
+        //         return;
+        //     }
 
-            if ($resultado) {
-                echo json_encode([
-                    'success' => true,
-                    'favorito' => true,
-                    'message' => TEXT_PRODUCT_ADDED_FAVORITE
-                ]);
-            } else {
-                echo json_encode([
-                    'success' => false,
-                    'favorito' => false,
-                    'message' => TEXT_ERROR_ADD_FAVORITE
-                ]);
-            }
-        }
+        //     $resultado = $favorito->agregar();
+
+        //     if ($resultado) {
+        //         echo json_encode([
+        //             'success' => true,
+        //             'favorito' => true,
+        //             'message' => TEXT_PRODUCT_ADDED_FAVORITE
+        //         ]);
+        //     } else {
+        //         echo json_encode([
+        //             'success' => false,
+        //             'favorito' => false,
+        //             'message' => TEXT_ERROR_ADD_FAVORITE
+        //         ]);
+        //     }
+        // }
     }
 
     /**
