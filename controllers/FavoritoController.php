@@ -23,13 +23,16 @@ class FavoritoController
         $grupoId = isset($_POST['grupo_id']) ? $_POST['grupo_id'] : false;
 
         if (!$usuario) {
+
             echo json_encode([
                 'success' => false,
                 'favorito' => false,
                 'message' => TEXT_NOT_LOGGED_IN . TEXT_NOT_REGISTER_IN
             ]);
             return;
+
         } else {
+
             $favorito = new Favorito();
             $favorito->setUsuarioId($usuario->Id);
             $favorito->setGrupoId($grupoId);
@@ -67,6 +70,7 @@ class FavoritoController
      */
     public function eliminar()
     {
+
         $this->languageController->cargarTextos();
         $usuario = Utils::obtenerUsuario();
         $grupoId = isset($_POST['grupo_id']) ? $_POST['grupo_id'] : false;
@@ -85,43 +89,30 @@ class FavoritoController
         $favorito->setGrupoId($grupoId);
         $existe = $favorito->existe();
 
-        echo json_encode([
-                    'tes' => $existe
-                ]);
+        if (!$existe) {
+            echo json_encode([
+                'success' => true,
+                'favorito' => true,
+                'message' => TEXT_PRODUCT_ALREADY_FAVORITE
+            ]);
+            return;
+        }
 
+        $resultado = $favorito->eliminarFronted();
 
-        // if (!$existe) {
-        //     echo json_encode([
-        //         'success' => true,
-        //         'favorito' => true,
-        //         'message' => TEXT_PRODUCT_ALREADY_FAVORITE
-        //     ]);
-        //     return;
-        // }
+        if ($resultado) {
+            echo json_encode([
+                'success' => true,
+                'favorito' => false,
+                'message' => TEXT_PRODUCT_REMOVED_FAVORITE
+            ]);
+        } else {
+            echo json_encode([
+                'success' => false,
+                'favorito' => false,
+                'message' => TEXT_ERROR_REMOVE_FAVORITE
+            ]);
+        }
 
-        // if (!$existe) {
-        //     echo json_encode([
-        //         'success' => false,
-        //         'favorito' => false,
-        //         'message' => 'TEXT_NOT_FAVORITE'
-        //     ]);
-        //     return;
-        // }
-
-        // $resultado = $favorito->eliminarFronted();
-
-        // if ($resultado) {
-        //     echo json_encode([
-        //         'success' => true,
-        //         'favorito' => false,
-        //         'message' => TEXT_PRODUCT_REMOVED_FAVORITE
-        //     ]);
-        // } else {
-        //     echo json_encode([
-        //         'success' => false,
-        //         'favorito' => false,
-        //         'message' => TEXT_ERROR_REMOVE_FAVORITE
-        //     ]);
-        // }
     }
 }
