@@ -89,14 +89,14 @@ class FavoritoController
         $favorito->setGrupoId($grupoId);
         $existe = $favorito->existe();
 
-        // if (!$existe) {
-        //     echo json_encode([
-        //         'success' => true,
-        //         'favorito' => true,
-        //         'message' => TEXT_PRODUCT_ALREADY_FAVORITE
-        //     ]);
-        //     return;
-        // }
+        if (!$existe) {
+            echo json_encode([
+                'success' => true,
+                'favorito' => true,
+                'message' => TEXT_PRODUCT_ALREADY_FAVORITE
+            ]);
+            return;
+        }
 
         var_dump($existe);
         // $resultado = $favorito->eliminarFronted();
