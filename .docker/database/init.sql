@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: mysql
--- Tiempo de generación: 15-01-2025 a las 01:37:54
--- Versión del servidor: 9.1.0
--- Versión de PHP: 8.2.8
+-- Servidor: 127.0.0.1:3306
+-- Tiempo de generación: 15-01-2025 a las 11:51:31
+-- Versión del servidor: 10.11.11-MariaDB
+-- Versión de PHP: 7.2.34
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `ecommerce_pablogarciajc`
+-- Base de datos: `u498565300_ecbdpjgc`
 --
 
 -- --------------------------------------------------------
@@ -28,13 +28,13 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `categorias` (
-  `id` int NOT NULL,
-  `nombre` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `descripcion` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
-  `parent_id` int DEFAULT NULL,
-  `imagenes` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
-  `idioma_id` int NOT NULL DEFAULT '1',
-  `grupo_id` int DEFAULT NULL
+  `id` int(11) NOT NULL,
+  `nombre` varchar(255) DEFAULT NULL,
+  `descripcion` text DEFAULT NULL,
+  `parent_id` int(11) DEFAULT NULL,
+  `imagenes` text DEFAULT NULL,
+  `idioma_id` int(11) NOT NULL DEFAULT 1,
+  `grupo_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -68,9 +68,9 @@ INSERT INTO `categorias` (`id`, `nombre`, `descripcion`, `parent_id`, `imagenes`
 --
 
 CREATE TABLE `ciudades` (
-  `Id` int NOT NULL,
+  `Id` int(11) NOT NULL,
   `Id_Pais` varchar(2) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `Ciudad` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL
+  `Ciudad` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -166,15 +166,15 @@ INSERT INTO `ciudades` (`Id`, `Id_Pais`, `Ciudad`) VALUES
 --
 
 CREATE TABLE `comentarios` (
-  `id` int NOT NULL,
-  `usuario_id` int NOT NULL,
-  `comentario` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `calificacion` int NOT NULL,
-  `fecha` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `estado` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0 = Pendiente, 1 = Aprobado',
-  `idioma_id` int NOT NULL DEFAULT '1',
-  `parent_id` int DEFAULT NULL,
-  `grupo_id` int DEFAULT NULL
+  `id` int(11) NOT NULL,
+  `usuario_id` int(11) NOT NULL,
+  `comentario` text NOT NULL,
+  `calificacion` int(11) NOT NULL,
+  `fecha` timestamp NULL DEFAULT current_timestamp(),
+  `estado` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0 = Pendiente, 1 = Aprobado',
+  `idioma_id` int(11) NOT NULL DEFAULT 1,
+  `parent_id` int(11) DEFAULT NULL,
+  `grupo_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -384,10 +384,10 @@ INSERT INTO `comentarios` (`id`, `usuario_id`, `comentario`, `calificacion`, `fe
 --
 
 CREATE TABLE `favoritos` (
-  `id` int NOT NULL,
-  `usuario_id` int NOT NULL,
-  `creado_en` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `grupo_id` int DEFAULT NULL
+  `id` int(11) NOT NULL,
+  `usuario_id` int(11) NOT NULL,
+  `creado_en` timestamp NULL DEFAULT current_timestamp(),
+  `grupo_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -395,13 +395,10 @@ CREATE TABLE `favoritos` (
 --
 
 INSERT INTO `favoritos` (`id`, `usuario_id`, `creado_en`, `grupo_id`) VALUES
-(395, 39, '2025-01-13 23:09:40', 1735806215),
-(396, 39, '2025-01-13 23:09:52', 1735807685),
-(397, 39, '2025-01-13 23:30:03', 1735805306),
-(398, 39, '2025-01-13 23:33:00', 1735808134),
-(402, 39, '2025-01-14 00:12:33', 1735804735),
-(409, 39, '2025-01-15 01:34:28', 1736901979),
-(410, 39, '2025-01-15 01:34:57', 1735807954);
+(431, 39, '2025-01-15 09:59:45', 1735805306),
+(432, 39, '2025-01-15 10:02:10', 1735800547),
+(437, 39, '2025-01-15 10:40:04', 1736901979),
+(438, 39, '2025-01-15 11:38:36', 1735805506);
 
 -- --------------------------------------------------------
 
@@ -410,9 +407,9 @@ INSERT INTO `favoritos` (`id`, `usuario_id`, `creado_en`, `grupo_id`) VALUES
 --
 
 CREATE TABLE `idiomas` (
-  `id` int NOT NULL,
-  `codigo` varchar(5) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `nombre` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
+  `id` int(11) NOT NULL,
+  `codigo` varchar(5) NOT NULL,
+  `nombre` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -431,33 +428,18 @@ INSERT INTO `idiomas` (`id`, `codigo`, `nombre`) VALUES
 --
 
 CREATE TABLE `linea_pedidos` (
-  `id` int NOT NULL,
-  `pedido_id` int DEFAULT NULL,
-  `cantidad` int DEFAULT NULL,
+  `id` int(11) NOT NULL,
+  `pedido_id` int(11) DEFAULT NULL,
+  `cantidad` int(11) DEFAULT NULL,
   `precio` decimal(10,2) DEFAULT NULL,
-  `oferta` decimal(5,2) DEFAULT '0.00',
-  `subtotal` decimal(10,2) DEFAULT '0.00',
-  `stock` int DEFAULT NULL,
-  `idioma_id` int DEFAULT NULL,
-  `grupo_id` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `usuario_id` int NOT NULL DEFAULT '0',
-  `nombre` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL
+  `oferta` decimal(5,2) DEFAULT 0.00,
+  `subtotal` decimal(10,2) DEFAULT 0.00,
+  `stock` int(11) DEFAULT NULL,
+  `idioma_id` int(11) DEFAULT NULL,
+  `grupo_id` varchar(10) DEFAULT NULL,
+  `usuario_id` int(11) NOT NULL DEFAULT 0,
+  `nombre` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `linea_pedidos`
---
-
-INSERT INTO `linea_pedidos` (`id`, `pedido_id`, `cantidad`, `precio`, `oferta`, `subtotal`, `stock`, `idioma_id`, `grupo_id`, `usuario_id`, `nombre`) VALUES
-(534, 286, 3, 999.99, 20.00, 2399.98, 13, 1, '1735807954', 61, 'Apple iPhone X'),
-(536, 283, 3, 999.99, 20.00, 2399.98, 13, 1, '1735807954', 39, 'Apple iPhone X'),
-(537, NULL, 3, 29.99, 0.00, 89.97, 12, 2, '1735808134', 39, 'Dry Iron'),
-(540, 283, 1, 89.99, 0.00, 89.99, 6, 1, '1735806984', 39, 'Philips Speakers'),
-(542, 284, 3, 999.99, 20.00, 2399.98, 4, 1, '1735807954', 39, 'Apple iPhone X'),
-(543, 284, 10, 549.99, 0.00, 5499.90, 13, 1, '1735805306', 39, 'Lenovo Laptop'),
-(545, 285, 10, 549.99, 0.00, 5499.90, 10, 1, '1735805306', 39, 'Lenovo Laptop'),
-(546, 285, 1, 999.99, 20.00, 799.99, 1, 1, '1735807954', 39, 'Apple iPhone X'),
-(555, NULL, 1, 999.99, 20.00, 799.99, 10, 1, '1735807954', 39, 'Apple iPhone X');
 
 -- --------------------------------------------------------
 
@@ -466,8 +448,8 @@ INSERT INTO `linea_pedidos` (`id`, `pedido_id`, `cantidad`, `precio`, `oferta`, 
 --
 
 CREATE TABLE `paises` (
-  `Id` varchar(2) COLLATE utf8mb4_general_ci NOT NULL,
-  `Pais` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL
+  `Id` varchar(2) NOT NULL,
+  `Pais` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -494,28 +476,18 @@ INSERT INTO `paises` (`Id`, `Pais`) VALUES
 --
 
 CREATE TABLE `pedidos` (
-  `id` int NOT NULL,
-  `usuario_id` int DEFAULT NULL,
-  `pais` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `ciudad` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `direccion` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `codigoPostal` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `id` int(11) NOT NULL,
+  `usuario_id` int(11) DEFAULT NULL,
+  `pais` varchar(100) DEFAULT NULL,
+  `ciudad` varchar(100) DEFAULT NULL,
+  `direccion` varchar(255) DEFAULT NULL,
+  `codigoPostal` varchar(20) DEFAULT NULL,
   `coste` float(200,2) DEFAULT NULL,
-  `estado` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `estado` varchar(50) DEFAULT NULL,
   `fecha` date DEFAULT NULL,
   `hora` time DEFAULT NULL,
-  `idioma_id` int DEFAULT NULL
+  `idioma_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `pedidos`
---
-
-INSERT INTO `pedidos` (`id`, `usuario_id`, `pais`, `ciudad`, `direccion`, `codigoPostal`, `coste`, `estado`, `fecha`, `hora`, `idioma_id`) VALUES
-(283, 39, 'MX', 'Guadalajara', 'malaga', '29009', 14189.86, 'Pagado', '2025-01-14', '01:12:54', 1),
-(284, 39, 'MX', 'Guadalajara', 'malaga', '29009', 6149.95, 'Pagado', '2025-01-14', '10:23:58', 1),
-(285, 39, 'MX', 'Guadalajara', 'malaga', '29009', 6299.89, 'Pagado', '2025-01-14', '11:53:42', 1),
-(286, 61, 'BR', 'Río', 'Via Roma 21', '00184', 2399.98, 'Entregado', '2025-01-14', '14:48:23', 1);
 
 -- --------------------------------------------------------
 
@@ -524,24 +496,24 @@ INSERT INTO `pedidos` (`id`, `usuario_id`, `pais`, `ciudad`, `direccion`, `codig
 --
 
 CREATE TABLE `productos` (
-  `id` int NOT NULL,
-  `nombre` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `descripcion` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `id` int(11) NOT NULL,
+  `nombre` varchar(255) DEFAULT NULL,
+  `descripcion` text DEFAULT NULL,
   `precio` decimal(10,2) NOT NULL,
-  `stock` int NOT NULL,
-  `estado` enum('available','out_of_stock','discontinued') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `stock` int(11) NOT NULL,
+  `estado` enum('available','out_of_stock','discontinued') NOT NULL,
   `oferta` decimal(10,2) DEFAULT NULL,
   `offer_expiration` date DEFAULT NULL,
-  `imagenes` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
-  `parent_id` int DEFAULT NULL,
-  `idioma_id` int NOT NULL DEFAULT '1',
-  `grupo_id` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `imagenes` text DEFAULT NULL,
+  `parent_id` int(11) DEFAULT NULL,
+  `idioma_id` int(11) NOT NULL DEFAULT 1,
+  `grupo_id` varchar(10) NOT NULL,
   `offer_start` date DEFAULT NULL,
-  `especificacion_1` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `especificacion_2` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `especificacion_3` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `especificacion_4` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `especificacion_5` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL
+  `especificacion_1` varchar(255) DEFAULT NULL,
+  `especificacion_2` varchar(255) DEFAULT NULL,
+  `especificacion_3` varchar(255) DEFAULT NULL,
+  `especificacion_4` varchar(255) DEFAULT NULL,
+  `especificacion_5` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -549,15 +521,15 @@ CREATE TABLE `productos` (
 --
 
 INSERT INTO `productos` (`id`, `nombre`, `descripcion`, `precio`, `stock`, `estado`, `oferta`, `offer_expiration`, `imagenes`, `parent_id`, `idioma_id`, `grupo_id`, `offer_start`, `especificacion_1`, `especificacion_2`, `especificacion_3`, `especificacion_4`, `especificacion_5`) VALUES
-(333, 'Samsung Galaxy J7', 'El Samsung Galaxy J7 es un smartphone con una pantalla grande de 5.5 pulgadas, ideal para ver contenido multimedia y navegar de forma cómoda. Equipado con una cámara de 13 MP para capturar fotos nítidas y una batería de larga duración, es perfecto para aquellos que buscan un teléfono confiable y accesible.', 350.00, 0, 'available', 30.00, NULL, '[\"1735824549_SamsungGalaxyJ7-1.jpg\",\"1735824549_SamsungGalaxyJ7-2.jpg\",\"1735824549_SamsungGalaxyJ7-3.jpg\"]', 1735806505, 1, '1735805506', NULL, '3 GB RAM | 16 GB ROM | Expandible hasta 256 GB', 'Pantalla Full HD de 5.5 pulgadas', 'Cámara trasera de 13 MP | Cámara frontal de 8 MP', 'Batería de 3300 mAh', 'Procesador Exynos 7870 Octa Core 1.6GHz'),
-(334, 'Samsung Galaxy J7', 'The Samsung Galaxy J7 is a smartphone with a large 5.5-inch screen, perfect for comfortably watching multimedia content and browsing. Equipped with a 13 MP camera for capturing sharp photos and a long-lasting battery, it’s ideal for those seeking a reliable and affordable phone.', 350.00, 0, 'available', 30.00, NULL, '[\"1735824549_SamsungGalaxyJ7-1.jpg\",\"1735824549_SamsungGalaxyJ7-2.jpg\",\"1735824549_SamsungGalaxyJ7-3.jpg\"]', 1735806505, 2, '1735805506', NULL, '3 GB RAM | 16 GB ROM | Expandable up to 256 GB', '5.5-inch Full HD Display', '13MP Rear Camera | 8MP Front Camera', '3300 mAh Battery', 'Exynos 7870 Octa Core 1.6GHz Processor'),
-(335, 'Samsung Galaxy J7', 'Le Samsung Galaxy J7 est un smartphone avec un grand écran de 5,5 pouces, idéal pour regarder du contenu multimédia et naviguer confortablement. Équipé d\'une caméra de 13 MP pour capturer des photos nettes et d\'une batterie longue durée, il est parfait pour ceux qui recherchent un téléphone fiable et abordable.', 350.00, 0, 'available', 30.00, NULL, '[\"1735824549_SamsungGalaxyJ7-1.jpg\",\"1735824549_SamsungGalaxyJ7-2.jpg\",\"1735824549_SamsungGalaxyJ7-3.jpg\"]', 1735806505, 3, '1735805506', NULL, '3 Go de RAM | 16 Go de ROM | Extensible jusqu\'à 256 Go', 'Écran Full HD de 5,5 pouces', 'Appareil photo arrière 13 MP | Appareil photo avant 8 MP', 'Batterie de 3300 mAh', 'Processeur Exynos 7870 Octa Core 1,6 GHz'),
-(339, 'Apple iPhone X', 'El Apple iPhone X es un smartphone premium con una pantalla OLED de 5.8 pulgadas que ofrece colores vibrantes y detalles impresionantes. Con su innovador sistema de reconocimiento facial, cámara de 12 MP y un rendimiento excepcional gracias al chip A11 Bionic, el iPhone X es ideal para quienes buscan un dispositivo elegante y potente.', 999.99, 10, 'available', 20.00, NULL, '[\"1735815622_iphonex-1.png\",\"1735815622_iphonex-2.png\"]', 1735806505, 1, '1735807954', NULL, 'Pantalla Super Retina HD de 5.8 pulgadas', 'Procesador A11 Bionic con Neural Engine', 'Cámara trasera de 12 MP (dual) | Cámara frontal de 7 MP', 'Face ID (Reconocimiento facial avanzado)', 'Batería de 2716 mAh (carga rápida y carga inalámbrica)'),
+(333, 'Samsung Galaxy J7', 'El Samsung Galaxy J7 es un smartphone con una pantalla grande de 5.5 pulgadas, ideal para ver contenido multimedia y navegar de forma cómoda. Equipado con una cámara de 13 MP para capturar fotos nítidas y una batería de larga duración, es perfecto para aquellos que buscan un teléfono confiable y accesible.', 350.00, 5, 'available', 0.00, NULL, '[\"1735824549_SamsungGalaxyJ7-1.jpg\",\"1735824549_SamsungGalaxyJ7-2.jpg\",\"1735824549_SamsungGalaxyJ7-3.jpg\"]', 1735806505, 1, '1735805506', NULL, '3 GB RAM | 16 GB ROM | Expandible hasta 256 GB', 'Pantalla Full HD de 5.5 pulgadas', 'Cámara trasera de 13 MP | Cámara frontal de 8 MP', 'Batería de 3300 mAh', 'Procesador Exynos 7870 Octa Core 1.6GHz'),
+(334, 'Samsung Galaxy J7', 'The Samsung Galaxy J7 is a smartphone with a large 5.5-inch screen, perfect for comfortably watching multimedia content and browsing. Equipped with a 13 MP camera for capturing sharp photos and a long-lasting battery, it’s ideal for those seeking a reliable and affordable phone.', 350.00, 10, 'available', 30.00, NULL, '[\"1735824549_SamsungGalaxyJ7-1.jpg\",\"1735824549_SamsungGalaxyJ7-2.jpg\",\"1735824549_SamsungGalaxyJ7-3.jpg\"]', 1735806505, 2, '1735805506', NULL, '3 GB RAM | 16 GB ROM | Expandable up to 256 GB', '5.5-inch Full HD Display', '13MP Rear Camera | 8MP Front Camera', '3300 mAh Battery', 'Exynos 7870 Octa Core 1.6GHz Processor'),
+(335, 'Samsung Galaxy J7', 'Le Samsung Galaxy J7 est un smartphone avec un grand écran de 5,5 pouces, idéal pour regarder du contenu multimédia et naviguer confortablement. Équipé d\'une caméra de 13 MP pour capturer des photos nettes et d\'une batterie longue durée, il est parfait pour ceux qui recherchent un téléphone fiable et abordable.', 350.00, 10, 'available', 30.00, NULL, '[\"1735824549_SamsungGalaxyJ7-1.jpg\",\"1735824549_SamsungGalaxyJ7-2.jpg\",\"1735824549_SamsungGalaxyJ7-3.jpg\"]', 1735806505, 3, '1735805506', NULL, '3 Go de RAM | 16 Go de ROM | Extensible jusqu\'à 256 Go', 'Écran Full HD de 5,5 pouces', 'Appareil photo arrière 13 MP | Appareil photo avant 8 MP', 'Batterie de 3300 mAh', 'Processeur Exynos 7870 Octa Core 1,6 GHz'),
+(339, 'Apple iPhone X', 'El Apple iPhone X es un smartphone premium con una pantalla OLED de 5.8 pulgadas que ofrece colores vibrantes y detalles impresionantes. Con su innovador sistema de reconocimiento facial, cámara de 12 MP y un rendimiento excepcional gracias al chip A11 Bionic, el iPhone X es ideal para quienes buscan un dispositivo elegante y potente.', 999.99, 0, 'available', 20.00, NULL, '[\"1735815622_iphonex-1.png\",\"1735815622_iphonex-2.png\"]', 1735806505, 1, '1735807954', NULL, 'Pantalla Super Retina HD de 5.8 pulgadas', 'Procesador A11 Bionic con Neural Engine', 'Cámara trasera de 12 MP (dual) | Cámara frontal de 7 MP', 'Face ID (Reconocimiento facial avanzado)', 'Batería de 2716 mAh (carga rápida y carga inalámbrica)'),
 (340, 'Apple iPhone X', 'The Apple iPhone X is a premium smartphone with a 5.8-inch OLED display that delivers vibrant colors and stunning detail. With its innovative facial recognition system, 12 MP camera, and exceptional performance thanks to the A11 Bionic chip, the iPhone X is perfect for those seeking an elegant and powerful device.', 999.99, 13, 'available', 20.00, NULL, '[\"1735824745_iphonex-1.png\",\"1735824745_iphonex-2.png\"]', 1735806505, 2, '1735807954', NULL, 'Pantalla Super Retina HD de 5.8 pulgadas', 'Procesador A11 Bionic con Neural Engine', 'Cámara trasera de 12 MP (dual) | Cámara frontal de 7 MP', 'Face ID (Reconocimiento facial avanzado)', 'Batería de 2716 mAh (carga rápida y carga inalámbrica)'),
 (341, 'Apple iPhone X', 'L\'Apple iPhone X est un smartphone premium avec un écran OLED de 5,8 pouces offrant des couleurs vives et des détails impressionnants. Avec son système innovant de reconnaissance faciale, son appareil photo de 12 MP et des performances exceptionnelles grâce à la puce A11 Bionic, l\'iPhone X est parfait pour ceux qui recherchent un appareil élégant et puissant.', 999.99, 13, 'available', 20.00, NULL, '[\"1735824745_iphonex-1.png\",\"1735824745_iphonex-2.png\"]', 1735806505, 3, '1735807954', NULL, 'Pantalla Super Retina HD de 5.8 pulgadas', 'Procesador A11 Bionic con Neural Engine', 'Cámara trasera de 12 MP (dual) | Cámara frontal de 7 MP', 'Face ID (Reconocimiento facial avanzado)', 'Batería de 2716 mAh (carga rápida y carga inalámbrica)'),
-(342, 'Infinix Hot S3', 'El Infinix Hot S3 es un smartphone asequible con una pantalla de 5.65 pulgadas, ideal para quienes buscan un dispositivo con buena calidad de imagen y un rendimiento fluido. Equipado con una cámara de 13 MP y una batería de 4000 mAh, ofrece una experiencia satisfactoria para el uso diario.', 149.99, 9, 'available', 50.00, NULL, '[\"1735815641_InfinixHotS3-1.png\",\"1735815641_InfinixHotS3-2.png\"]', 1735806505, 1, '1735806215', NULL, 'Pantalla HD+ de 5.65 pulgadas', 'Procesador Qualcomm Snapdragon 430', 'Cámara trasera de 13 MP | Cámara frontal de 20 MP', 'Batería de 4000 mAh', '3 GB de RAM | 32 GB de almacenamiento interno (expandible hasta 128 GB)'),
-(343, 'Infinix Hot S3', 'The Infinix Hot S3 is an affordable smartphone with a 5.65-inch display, perfect for those looking for a device with good image quality and smooth performance. Equipped with a 13 MP camera and a 4000 mAh battery, it offers a satisfying experience for daily use.', 149.99, 9, 'available', 50.00, NULL, '[\"1735815641_InfinixHotS3-1.png\",\"1735815641_InfinixHotS3-2.png\"]', 1735806505, 2, '1735806215', NULL, 'Pantalla HD+ de 5.65 pulgadas', 'Procesador Qualcomm Snapdragon 430', 'Cámara trasera de 13 MP | Cámara frontal de 20 MP', 'Batería de 4000 mAh', '3 GB de RAM | 32 GB de almacenamiento interno (expandible hasta 128 GB)'),
-(344, 'Infinix Hot S3', 'L\'Infinix Hot S3 est un smartphone abordable avec un écran de 5,65 pouces, idéal pour ceux qui recherchent un appareil avec une bonne qualité d\'image et des performances fluides. Équipé d\'un appareil photo de 13 MP et d\'une batterie de 4000 mAh, il offre une expérience satisfaisante pour une utilisation quotidienne.', 149.99, 9, 'available', 50.00, NULL, '[\"1735815641_InfinixHotS3-1.png\",\"1735815641_InfinixHotS3-2.png\"]', 1735806505, 3, '1735806215', NULL, 'Pantalla HD+ de 5.65 pulgadas', 'Procesador Qualcomm Snapdragon 430', 'Cámara trasera de 13 MP | Cámara frontal de 20 MP', 'Batería de 4000 mAh', '3 GB de RAM | 32 GB de almacenamiento interno (expandible hasta 128 GB)'),
+(342, 'Infinix Hot S3', 'El Infinix Hot S3 es un smartphone asequible con una pantalla de 5.65 pulgadas, ideal para quienes buscan un dispositivo con buena calidad de imagen y un rendimiento fluido. Equipado con una cámara de 13 MP y una batería de 4000 mAh, ofrece una experiencia satisfactoria para el uso diario.', 149.99, 7, 'available', 0.00, NULL, '[\"1735815641_InfinixHotS3-1.png\",\"1735815641_InfinixHotS3-2.png\"]', 1735806505, 1, '1735806215', NULL, 'Pantalla HD+ de 5.65 pulgadas', 'Procesador Qualcomm Snapdragon 430', 'Cámara trasera de 13 MP | Cámara frontal de 20 MP', 'Batería de 4000 mAh', '3 GB de RAM | 32 GB de almacenamiento interno (expandible hasta 128 GB)'),
+(343, 'Infinix Hot S3', 'The Infinix Hot S3 is an affordable smartphone with a 5.65-inch display, perfect for those looking for a device with good image quality and smooth performance. Equipped with a 13 MP camera and a 4000 mAh battery, it offers a satisfying experience for daily use.', 149.99, 10, 'available', 0.00, NULL, '[\"1735815641_InfinixHotS3-1.png\",\"1735815641_InfinixHotS3-2.png\"]', 1735806505, 2, '1735806215', NULL, 'Pantalla HD+ de 5.65 pulgadas', 'Procesador Qualcomm Snapdragon 430', 'Cámara trasera de 13 MP | Cámara frontal de 20 MP', 'Batería de 4000 mAh', '3 GB de RAM | 32 GB de almacenamiento interno (expandible hasta 128 GB)'),
+(344, 'Infinix Hot S3', 'L\'Infinix Hot S3 est un smartphone abordable avec un écran de 5,65 pouces, idéal pour ceux qui recherchent un appareil avec une bonne qualité d\'image et des performances fluides. Équipé d\'un appareil photo de 13 MP et d\'une batterie de 4000 mAh, il offre une expérience satisfaisante pour une utilisation quotidienne.', 149.99, 10, 'available', 0.00, NULL, '[\"1735815641_InfinixHotS3-1.png\",\"1735815641_InfinixHotS3-2.png\"]', 1735806505, 3, '1735806215', NULL, 'Pantalla HD+ de 5.65 pulgadas', 'Procesador Qualcomm Snapdragon 430', 'Cámara trasera de 13 MP | Cámara frontal de 20 MP', 'Batería de 4000 mAh', '3 GB de RAM | 32 GB de almacenamiento interno (expandible hasta 128 GB)'),
 (345, 'Moto X4 (6 GB)', 'El Moto X4 con 6 GB de RAM es un smartphone de alto rendimiento, ideal para quienes buscan velocidad y capacidad multitarea. Con una pantalla de 5.2 pulgadas, procesador Snapdragon 630 y cámaras de 12 MP y 16 MP, es perfecto para capturar fotos nítidas y disfrutar de un rendimiento fluido en todas tus aplicaciones y juegos.', 349.99, 13, 'available', 0.00, NULL, '[\"1735815730_motorolax4-1.png\",\"1735815730_motorolax4-2.png\"]', 1735806505, 1, '1735807019', NULL, 'Pantalla Full HD de 5.2 pulgadas', 'Procesador Qualcomm Snapdragon 630', 'Cámara trasera de 12 MP | Cámara frontal de 16 MP', 'Batería de 3000 mAh con carga rápida TurboPower', '6 GB de RAM | 64 GB de almacenamiento interno (expandible hasta 2 TB)'),
 (346, 'Moto X4 (6 GB)', 'The Moto X4 with 6 GB of RAM is a high-performance smartphone, perfect for those seeking speed and multitasking capabilities. With a 5.2-inch display, Snapdragon 630 processor, and 12 MP and 16 MP cameras, it’s ideal for capturing sharp photos and enjoying smooth performance across apps and games.', 349.99, 13, 'available', 0.00, NULL, '[\"1735815730_motorolax4-1.png\",\"1735815730_motorolax4-2.png\"]', 1735806505, 2, '1735807019', NULL, 'Pantalla Full HD de 5.2 pulgadas', 'Procesador Qualcomm Snapdragon 630', 'Cámara trasera de 12 MP | Cámara frontal de 16 MP', 'Batería de 3000 mAh con carga rápida TurboPower', '6 GB de RAM | 64 GB de almacenamiento interno (expandible hasta 2 TB)'),
 (347, 'Moto X4 (6 GB)', 'Le Moto X4 avec 6 Go de RAM est un smartphone haute performance, idéal pour ceux qui recherchent de la vitesse et des capacités multitâches. Avec un écran de 5,2 pouces, un processeur Snapdragon 630 et des caméras de 12 MP et 16 MP, il est parfait pour capturer des photos nettes et profiter de performances fluides dans toutes vos applications et jeux.', 349.99, 13, 'available', 0.00, NULL, '[\"1735815730_motorolax4-1.png\",\"1735815730_motorolax4-2.png\"]', 1735806505, 3, '1735807019', NULL, 'Pantalla Full HD de 5.2 pulgadas', 'Procesador Qualcomm Snapdragon 630', 'Cámara trasera de 12 MP | Cámara frontal de 16 MP', 'Batería de 3000 mAh con carga rápida TurboPower', '6 GB de RAM | 64 GB de almacenamiento interno (expandible hasta 2 TB)'),
@@ -579,15 +551,15 @@ INSERT INTO `productos` (`id`, `nombre`, `descripcion`, `precio`, `stock`, `esta
 (363, 'Sony 80 cm (32 inches)', 'El televisor Sony de 80 cm (32 pulgadas) ofrece una excelente calidad de imagen y sonido en un diseño compacto y elegante. Con resolución HD, es ideal para habitaciones pequeñas o para aquellos que buscan un dispositivo accesible y con la calidad de marca Sony. Su conectividad HDMI y USB te permite disfrutar de contenido en alta definición desde diferentes dispositivos.', 249.99, 9, 'available', 0.00, NULL, '[\"1735826277_tv-sony-1.png\",\"1735826277_tv-sony-2.png\",\"1735826277_tv-sony-3.png\"]', 1735804773, 1, '1735800547', NULL, 'Pantalla LED de 32 pulgadas', 'Resolución HD (1366 x 768)', 'Conectividad HDMI, USB', 'Audio DTS Surround', 'Smart TV'),
 (364, 'Sony 80 cm (32 inches)', 'The Sony 80 cm (32 inches) TV offers excellent picture and sound quality in a compact and sleek design. With HD resolution, it is ideal for small rooms or those looking for an affordable device with Sony\'s renowned quality. Its HDMI and USB connectivity lets you enjoy high-definition content from various devices.', 249.99, 9, 'available', 0.00, NULL, '[\"1735826277_tv-sony-1.png\",\"1735826277_tv-sony-2.png\",\"1735826277_tv-sony-3.png\"]', 1735804773, 2, '1735800547', NULL, 'Pantalla LED de 32 pulgadas', 'Resolución HD (1366 x 768)', 'Conectividad HDMI, USB', 'Audio DTS Surround', 'Smart TV'),
 (365, 'Sony 80 cm (32 pouces)', 'Le téléviseur Sony de 80 cm (32 pouces) offre une excellente qualité d\'image et de son dans un design compact et élégant. Avec une résolution HD, il est idéal pour les petites pièces ou pour ceux qui recherchent un appareil abordable avec la qualité de la marque Sony. Sa connectivité HDMI et USB vous permet de profiter de contenu en haute définition à partir de différents appareils.', 249.99, 9, 'available', 0.00, NULL, '[\"1735826277_tv-sony-1.png\",\"1735826277_tv-sony-2.png\",\"1735826277_tv-sony-3.png\"]', 1735804773, 3, '1735800547', NULL, 'Pantalla LED de 32 pulgadas', 'Resolución HD (1366 x 768)', 'Conectividad HDMI, USB', 'Audio DTS Surround', 'Smart TV'),
-(366, 'Artis Speaker', 'Sonido estéreo envolvente, controles simples y flexibles, diseño industrial refinado, integración de servicios de música y Alexa, feedback visual de la información, presets programables, sincronización multiroom', 69.99, 5, 'available', 0.00, NULL, '[\"1735826733_speaker-1.png\",\"1735826733_speaker-2.png\"]', 1735804773, 1, '1735804735', NULL, 'Sonido estéreo envolvente', 'Controles simples y flexibles', 'Conectividad Bluetooth 4.2', 'Batería de 10 horas de duración', 'Diseño compacto y portátil'),
+(366, 'Artis Speaker', 'Sonido estéreo envolvente, controles simples y flexibles, diseño industrial refinado, integración de servicios de música y Alexa, feedback visual de la información, presets programables, sincronización multiroom', 69.99, 0, 'available', 0.00, NULL, '[\"1735826733_speaker-1.png\",\"1735826733_speaker-2.png\"]', 1735804773, 1, '1735804735', NULL, 'Sonido estéreo envolvente', 'Controles simples y flexibles', 'Conectividad Bluetooth 4.2', 'Batería de 10 horas de duración', 'Diseño compacto y portátil'),
 (367, 'Artis Speaker', 'Immersive stereo sound, simple and flexible controls, refined industrial design, integration of music services and Alexa, visual feedback of information, programmable presets, multi-room synchronization', 69.99, 5, 'available', 0.00, NULL, '[\"1735826733_speaker-1.png\",\"1735826733_speaker-2.png\"]', 1735804773, 2, '1735804735', NULL, 'Sonido estéreo envolvente', 'Controles simples y flexibles', 'Conectividad Bluetooth 4.2', 'Batería de 10 horas de duración', 'Diseño compacto y portátil'),
 (368, 'Artis Speaker', 'Son stéréo immersif, commandes simples et flexibles, design industriel raffiné, intégration de musique et de services Alexa, retour d\'informations visuelles, préréglages programmables, synchronisation multi-pièces', 69.99, 5, 'available', 0.00, NULL, '[\"1735826733_speaker-1.png\",\"1735826733_speaker-2.png\"]', 1735804773, 3, '1735804735', NULL, 'Sonido estéreo envolvente', 'Controles simples y flexibles', 'Conectividad Bluetooth 4.2', 'Batería de 10 horas de duración', 'Diseño compacto y portátil'),
 (369, 'Philips Speakers', 'Los Philips Speakers son altavoces de alta calidad diseñados para ofrecer un sonido claro y potente. Con conectividad Bluetooth y un diseño elegante, estos altavoces son perfectos para disfrutar de música en cualquier lugar. Su batería de larga duración y su fácil transporte hacen de ellos una opción ideal para quienes buscan un dispositivo portátil para escuchar música, podcasts o hacer llamadas.', 89.99, 5, 'available', 0.00, NULL, '[\"1735827315_philipsspeakers-1.png\",\"1735827315_philipsspeakers-2.png\"]', 1735804773, 1, '1735806984', NULL, 'High-quality stereo sound', 'Bluetooth 4.2 connectivity', '12 hours of battery life', 'Waterproof (IPX5)', 'Portable and sleek design'),
 (370, 'Philips Speakers', 'Philips Speakers are high-quality speakers designed to deliver clear and powerful sound. With Bluetooth connectivity and a sleek design, these speakers are perfect for enjoying music anywhere. Their long-lasting battery and easy portability make them an ideal choice for those looking for a portable device to listen to music, podcasts, or make calls.', 89.99, 6, 'available', 0.00, NULL, '[\"1735827315_philipsspeakers-1.png\",\"1735827315_philipsspeakers-2.png\"]', 1735804773, 2, '1735806984', NULL, 'High-quality stereo sound', 'Bluetooth 4.2 connectivity', '12 hours of battery life', 'Waterproof (IPX5)', 'Portable and sleek design'),
 (371, 'Philips Speakers', 'Les enceintes Philips sont des haut-parleurs de haute qualité conçus pour offrir un son clair et puissant. Avec la connectivité Bluetooth et un design élégant, ces enceintes sont parfaites pour écouter de la musique partout. Leur batterie longue durée et leur facilité de transport en font un choix idéal pour ceux qui recherchent un appareil portable pour écouter de la musique, des podcasts ou passer des appels.', 89.99, 6, 'available', 0.00, NULL, '[\"1735827315_philipsspeakers-1.png\",\"1735827315_philipsspeakers-2.png\"]', 1735804773, 3, '1735806984', NULL, 'High-quality stereo sound', 'Bluetooth 4.2 connectivity', '12 hours of battery life', 'Waterproof (IPX5)', 'Portable and sleek design'),
-(372, 'boAt Rockerz Headset', 'Los boAt Rockerz Headset son unos auriculares inalámbricos de alta calidad, diseñados para ofrecer una experiencia de sonido inmersiva. Con tecnología Bluetooth, su sonido nítido y potente es ideal para escuchar música, hacer llamadas o disfrutar de tus podcasts favoritos. Su diseño ergonómico y cómodo, junto con una batería de larga duración, los convierte en la opción perfecta para quienes buscan un headset de alto rendimiento.', 59.99, 5, 'available', 0.00, NULL, '[\"1735828341_mm1.jpg\"]', 1735804773, 1, '1735803214', NULL, 'High-quality wireless headphones', 'Bluetooth 5.0 technology', '20 hours of battery life', 'Noise-canceling microphone', 'Comfortable over-ear design'),
-(373, 'boAt Rockerz Headset', 'The boAt Rockerz Headset is a high-quality wireless headset designed to deliver an immersive sound experience. With Bluetooth technology, its clear and powerful sound is perfect for listening to music, making calls, or enjoying your favorite podcasts. Its ergonomic and comfortable design, along with long-lasting battery life, makes it the perfect choice for those looking for a high-performance headset.', 59.99, 5, 'available', 0.00, NULL, '[\"1735828341_mm1.jpg\"]', 1735804773, 2, '1735803214', NULL, 'High-quality wireless headphones', 'Bluetooth 5.0 technology', '20 hours of battery life', 'Noise-canceling microphone', 'Comfortable over-ear design'),
-(374, 'boAt Rockerz Headset', 'Le casque boAt Rockerz est un casque sans fil de haute qualité, conçu pour offrir une expérience sonore immersive. Grâce à la technologie Bluetooth, son son clair et puissant est parfait pour écouter de la musique, passer des appels ou profiter de vos podcasts préférés. Son design ergonomique et confortable, ainsi que sa batterie longue durée, en font le choix idéal pour ceux qui recherchent un casque haute performance.', 59.99, 5, 'available', 0.00, NULL, '[\"1735828341_mm1.jpg\"]', 1735804773, 3, '1735803214', NULL, 'High-quality wireless headphones', 'Bluetooth 5.0 technology', '20 hours of battery life', 'Noise-canceling microphone', 'Comfortable over-ear design'),
+(372, 'boAt Rockerz Headset', 'Los boAt Rockerz Headset son unos auriculares inalámbricos de alta calidad, diseñados para ofrecer una experiencia de sonido inmersiva. Con tecnología Bluetooth, su sonido nítido y potente es ideal para escuchar música, hacer llamadas o disfrutar de tus podcasts favoritos. Su diseño ergonómico y cómodo, junto con una batería de larga duración, los convierte en la opción perfecta para quienes buscan un headset de alto rendimiento.', 59.99, 5, 'available', 0.00, NULL, '[\"1736941814_audifonos_1.png\",\"1736941814_audifonos_2.png\"]', 1735804773, 1, '1735803214', NULL, 'High-quality wireless headphones', 'Bluetooth 5.0 technology', '20 hours of battery life', 'Noise-canceling microphone', 'Comfortable over-ear design'),
+(373, 'boAt Rockerz Headset', 'The boAt Rockerz Headset is a high-quality wireless headset designed to deliver an immersive sound experience. With Bluetooth technology, its clear and powerful sound is perfect for listening to music, making calls, or enjoying your favorite podcasts. Its ergonomic and comfortable design, along with long-lasting battery life, makes it the perfect choice for those looking for a high-performance headset.', 59.99, 5, 'available', 0.00, NULL, '[\"1736941814_audifonos_1.png\",\"1736941814_audifonos_2.png\"]', 1735804773, 2, '1735803214', NULL, 'High-quality wireless headphones', 'Bluetooth 5.0 technology', '20 hours of battery life', 'Noise-canceling microphone', 'Comfortable over-ear design'),
+(374, 'boAt Rockerz Headset', 'Le casque boAt Rockerz est un casque sans fil de haute qualité, conçu pour offrir une expérience sonore immersive. Grâce à la technologie Bluetooth, son son clair et puissant est parfait pour écouter de la musique, passer des appels ou profiter de vos podcasts préférés. Son design ergonomique et confortable, ainsi que sa batterie longue durée, en font le choix idéal pour ceux qui recherchent un casque haute performance.', 59.99, 5, 'available', 0.00, NULL, '[\"1736941814_audifonos_1.png\",\"1736941814_audifonos_2.png\"]', 1735804773, 3, '1735803214', NULL, 'High-quality wireless headphones', 'Bluetooth 5.0 technology', '20 hours of battery life', 'Noise-canceling microphone', 'Comfortable over-ear design'),
 (375, 'LG Boom Blast Speaker', 'El LG Boom Blast Speaker es un altavoz portátil de gran potencia diseñado para ofrecer un sonido envolvente y de alta calidad. Con conectividad Bluetooth, es ideal para llevar la fiesta a cualquier lugar, proporcionando un sonido nítido y unos graves profundos. Su diseño compacto, resistente al agua y su batería de larga duración lo hacen perfecto para usar al aire libre o en cualquier momento de entretenimiento.', 129.99, 90, 'available', 0.00, NULL, '[\"1735828403_m6.jpg\"]', 1735804773, 1, '1735802622', NULL, 'High-powered portable speaker with deep bass', 'Bluetooth 5.0 connectivity', '30 hours of battery life', 'IPX7 water resistance', '360° surround sound'),
 (376, 'LG Boom Blast Speaker', 'The LG Boom Blast Speaker is a high-powered portable speaker designed to deliver immersive, high-quality sound. With Bluetooth connectivity, it is perfect for bringing the party anywhere, providing clear sound and deep bass. Its compact, water-resistant design and long-lasting battery make it ideal for outdoor use or any entertainment occasion.', 129.99, 90, 'available', 0.00, NULL, '[\"1735828403_m6.jpg\"]', 1735804773, 2, '1735802622', NULL, 'High-powered portable speaker with deep bass', 'Bluetooth 5.0 connectivity', '30 hours of battery life', 'IPX7 water resistance', '360° surround sound'),
 (377, 'Enceinte LG Boom Blast', 'L\'enceinte LG Boom Blast est un haut-parleur portable de haute puissance conçu pour offrir un son immersif et de haute qualité. Grâce à la connectivité Bluetooth, il est parfait pour emmener la fête partout, offrant un son clair et des basses profondes. Son design compact, résistant à l\'eau et sa batterie longue durée en font un choix idéal pour une utilisation en extérieur ou pour toute occasion de divertissement.', 129.99, 90, 'available', 0.00, NULL, '[\"1735828403_m6.jpg\"]', 1735804773, 3, '1735802622', NULL, 'High-powered portable speaker with deep bass', 'Bluetooth 5.0 connectivity', '30 hours of battery life', 'IPX7 water resistance', '360° surround sound'),
@@ -605,7 +577,10 @@ INSERT INTO `productos` (`id`, `nombre`, `descripcion`, `precio`, `stock`, `esta
 (423, ' OPPO A37f', 'L’OPPO A37f est un smartphone au design élégant et compact, parfait pour les utilisateurs recherchant performance et style. Il dispose d’un écran HD de 5 pouces, d’un processeur quad-core pour un fonctionnement fluide et d’un appareil photo principal de 8 MP qui capture des images nettes même en faible luminosité. Sa batterie de 2630 mAh garantit une utilisation tout au long de la journée. Idéal pour ceux qui apprécient la qualité au meilleur prix !', 199.99, 6, 'available', 0.00, NULL, '[\"1736902290_OPPO_1.png\",\"1736902290_OPPO_2.png\",\"1736902290_OPPO_3.png\"]', 1735806505, 3, '1736340350', NULL, '5.0-inch HD display for crisp visuals', '13 MP rear camera for high-quality photos', '3GB RAM and 16GB internal storage', 'Qualcomm Snapdragon processor for fast performance', 'Long-lasting battery with quick charge technology'),
 (442, 'JOREST 38Pcs Destornilladores Precision Kit', 'El kit de destornilladores de precisión JOREST de 38 piezas es la solución definitiva para tus necesidades de reparación y mantenimiento. Diseñado para trabajos de alta precisión, este completo set incluye puntas magnéticas y herramientas de calidad premium para dispositivos electrónicos, relojes, gafas, teléfonos móviles, consolas de videojuegos y más. Compacto y portátil, este kit es ideal tanto para profesionales como para aficionados al bricolaje.', 29.99, 10, 'available', 0.00, NULL, '[\"1736904564_electronica_1-removebg-preview.png\",\"1736904564_Screenshot_2-removebg-preview.png\"]', 1735808038, 1, '1736901979', NULL, 'Incluye 38 herramientas de precisión con puntas magnéticas.', 'Material resistente y duradero, fabricado con acero inoxidable de alta calidad.', 'Diseño ergonómico para un agarre cómodo y fácil manipulación.', 'Estuche compacto y organizado para transporte y almacenamiento sencillo.', 'Compatible con múltiples dispositivos electrónicos y productos delicados.'),
 (443, 'JOREST 38Pcs Precision Screwdriver Kit', 'The JOREST 38-piece Precision Screwdriver Kit is the ultimate solution for your repair and maintenance needs. Designed for high-precision tasks, this comprehensive set includes magnetic tips and premium-quality tools, perfect for electronic devices, watches, glasses, mobile phones, gaming consoles, and more. Compact and portable, this kit is ideal for both professionals and DIY enthusiasts.', 29.99, 10, 'available', 0.00, NULL, '[\"1736904746_electronica_1-removebg-preview.png\",\"1736904746_Screenshot_2-removebg-preview.png\"]', 1735808038, 2, '1736901979', NULL, 'Includes 38 precision tools with magnetic tips.', 'Durable and resistant material made with high-quality stainless steel.', 'Ergonomic design for comfortable grip and easy handling', 'Compact and organized case for easy transport and storage.', 'Compatible with a variety of electronic devices and delicate products.'),
-(444, 'JOREST 38Pcs Kit de Tournevis de Précision', 'Le kit de tournevis de précision JOREST de 38 pièces est la solution idéale pour vos besoins de réparation et d\'entretien. Conçu pour des travaux de haute précision, cet ensemble complet comprend des embouts magnétiques et des outils de qualité supérieure, parfaits pour les appareils électroniques, les montres, les lunettes, les téléphones portables, les consoles de jeux et bien plus encore. Compact et portable, ce kit est idéal pour les professionnels comme pour les amateurs de bricolage.', 29.99, 10, 'available', 0.00, NULL, '[\"1736904746_electronica_1-removebg-preview.png\",\"1736904746_Screenshot_2-removebg-preview.png\"]', 1735808038, 3, '1736901979', NULL, 'Comprend 38 outils de précision avec embouts magnétiques.', 'Matériau résistant et durable, fabriqué en acier inoxydable de haute qualité.', 'Design ergonomique pour une prise en main confortable et une manipulation facile.', 'Étui compact et organisé pour un transport et un rangement pratiques.', 'Compatible avec une variété d\'appareils électroniques et de produits délicats.');
+(444, 'JOREST 38Pcs Kit de Tournevis de Précision', 'Le kit de tournevis de précision JOREST de 38 pièces est la solution idéale pour vos besoins de réparation et d\'entretien. Conçu pour des travaux de haute précision, cet ensemble complet comprend des embouts magnétiques et des outils de qualité supérieure, parfaits pour les appareils électroniques, les montres, les lunettes, les téléphones portables, les consoles de jeux et bien plus encore. Compact et portable, ce kit est idéal pour les professionnels comme pour les amateurs de bricolage.', 29.99, 10, 'available', 0.00, NULL, '[\"1736904746_electronica_1-removebg-preview.png\",\"1736904746_Screenshot_2-removebg-preview.png\"]', 1735808038, 3, '1736901979', NULL, 'Comprend 38 outils de précision avec embouts magnétiques.', 'Matériau résistant et durable, fabriqué en acier inoxydable de haute qualité.', 'Design ergonomique pour une prise en main confortable et une manipulation facile.', 'Étui compact et organisé pour un transport et un rangement pratiques.', 'Compatible avec une variété d\'appareils électroniques et de produits délicats.'),
+(448, 'Multifuncional Cortador de Verdura Espiralizador', 'El cortador multifuncional espiralizador es una herramienta de cocina perfecta para cortar y esparcir verduras en formas espirales. Ideal para hacer ensaladas, guarniciones, y platos saludables. Cuenta con 3 tipos de cuchillas intercambiables para crear espirales finos, gruesos y en tiras.', 29.99, 10, 'available', 0.00, NULL, '[\"1736941026_cortador_1.png\",\"1736941026_cortador_2.png\"]', 1735801724, 1, '1736945215', NULL, 'Hecho de acero inoxidable de alta calidad.', '3 cuchillas intercambiables: fina, gruesa y en tiras.', 'Mango ergonómico antideslizante para un uso cómodo y seguro.', 'Fácil de limpiar, apto para lavavajillas.', 'Tamaño compacto, ideal para almacenar en espacios pequeños.'),
+(449, 'Multifunctional Vegetable Spiralizer Cutter', 'The multifunctional spiralizer cutter is a kitchen tool perfect for cutting and spiraling vegetables. Ideal for making salads, side dishes, and healthy meals. It features 3 interchangeable blades to create fine, thick spirals, and strips.', 29.99, 10, 'available', 0.00, NULL, '[\"1736941026_cortador_1.png\",\"1736941026_cortador_2.png\"]', 1735801724, 2, '1736945215', NULL, 'Made of high-quality stainless steel.', '3 interchangeable blades: fine, thick, and strips.', 'Ergonomic, non-slip handle for comfortable and safe use.', 'Easy to clean, dishwasher-safe.', 'Compact size, perfect for storing in small spaces.'),
+(450, 'Coupe-légumes multifonction spiraleur', 'Le coupe-légumes multifonction spiraleur est un outil de cuisine parfait pour couper et faire des spirales avec des légumes. Idéal pour préparer des salades, des accompagnements et des repas sains. Il dispose de 3 lames interchangeables pour créer des spirales fines, épaisses et des bandes.', 29.99, 10, 'available', 0.00, NULL, '[\"1736941026_cortador_1.png\",\"1736941026_cortador_2.png\"]', 1735801724, 3, '1736945215', NULL, 'Fabriqué en acier inoxydable de haute qualité.', '3 lames interchangeables : fine, épaisse et en bandes.', 'Poignée ergonomique antidérapante pour un usage confortable et sécurisé.', 'Facile à nettoyer, compatible avec le lave-vaisselle.', 'Taille compacte, idéale pour un rangement facile.');
 
 -- --------------------------------------------------------
 
@@ -614,9 +589,9 @@ INSERT INTO `productos` (`id`, `nombre`, `descripcion`, `precio`, `stock`, `esta
 --
 
 CREATE TABLE `roles` (
-  `id` int NOT NULL,
-  `nombre` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `descripcion` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `id` int(11) NOT NULL,
+  `nombre` varchar(255) DEFAULT NULL,
+  `descripcion` varchar(255) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   `updated` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -636,20 +611,20 @@ INSERT INTO `roles` (`id`, `nombre`, `descripcion`, `created`, `updated`) VALUES
 --
 
 CREATE TABLE `usuarios` (
-  `Id` int NOT NULL,
-  `Usuario` varchar(55) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `Password` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `NumeroDocumento` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `Nombres` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `Apellidos` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `Email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `NroTelefono` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `Direccion` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `Pais` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `Ciudad` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `CodigoPostal` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `Rol` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `imagen` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL
+  `Id` int(11) NOT NULL,
+  `Usuario` varchar(55) DEFAULT NULL,
+  `Password` varchar(200) DEFAULT NULL,
+  `NumeroDocumento` varchar(20) DEFAULT NULL,
+  `Nombres` varchar(100) DEFAULT NULL,
+  `Apellidos` varchar(100) DEFAULT NULL,
+  `Email` varchar(100) DEFAULT NULL,
+  `NroTelefono` varchar(30) DEFAULT NULL,
+  `Direccion` varchar(250) DEFAULT NULL,
+  `Pais` varchar(100) DEFAULT NULL,
+  `Ciudad` varchar(100) DEFAULT NULL,
+  `CodigoPostal` varchar(10) DEFAULT NULL,
+  `Rol` varchar(30) DEFAULT NULL,
+  `imagen` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -658,7 +633,7 @@ CREATE TABLE `usuarios` (
 
 INSERT INTO `usuarios` (`Id`, `Usuario`, `Password`, `NumeroDocumento`, `Nombres`, `Apellidos`, `Email`, `NroTelefono`, `Direccion`, `Pais`, `Ciudad`, `CodigoPostal`, `Rol`, `imagen`) VALUES
 (38, 'LuisRamos2023', '$2y$10$Q0BzAPmKSwyrwcdrFBntyO94KG1i1m9HA503.FLY3vtT.7H2kdGZC', '17399711', 'Luis Fernando', 'Ramos Lara', 'luis.ramos@pablogarciajc.com', '5555555555', 'malaga', 'EC', 'Pichincha', '29009', '21', '1736330934_19.png'),
-(39, 'Admin CMS', '$2y$04$OwnL4OM83Lvu29SVhZ9kvOeQFdWUdbTFv0jP4nci2Nmbeh62FOrne', 'y6005812C', 'Administrador', 'CMS', 'admin@pablogarciajc.com', '372354875', 'malaga', 'MX', 'Guadalajara', '29009', '22', '1736330863_19.png'),
+(39, 'Admin CMS', '$2y$10$oeLFSmdgXtOJcsxHt1v4f.XD8kpxKGitaJzRdQBzsl2QuJnX1ICYS', 'y6005812C', 'Administrador', 'CMS', 'admin@pablogarciajc.com', '372354875', 'malaga', 'ES', 'Madrid', '29009', '22', '1736330863_19.png'),
 (55, 'Santis', '$2y$04$XKlCE0QadX1Y4hdzFSjikuJalBaASdHSxQH/b3xoYNRa3f.HrvXZ.', '98765432', 'Marco Antonio', 'Santis Gómez', 'santis@pablogarciajc.com', '+34 654 789 123', 'Calle Ficticia 123, Piso 4, Departamento B', 'ES', 'Madrid', '28001', '21', '1736330972_19.png'),
 (56, 'JuanPerez123', '$2y$04$TcZBSlnP7Vkrtz9EoN.kYOoj/jQZ6ByHR8NehDaWwSyvRpjRIVi1q', '11223344', 'Juan Carlos', 'Pérez López', 'juan.perez@pablogarciajc.com', ' +52 5523456789', 'Calle Principal 456, Colonia Centro', 'MX', 'Ciudad', '06700', '21', '1736330997_19.png'),
 (57, 'AnaLopez88', '$2y$04$k72Y6lWTp4NZQSCS1W6ogOGoVwDrmVU5O8zkGfc9e6eyA7nSEj2RC', '22446688', 'Ana María', 'López Gómez', 'ana.lopez@pablogarciajc.com', '+34 612345678', 'Avenida del Sol 789, 2ºA', 'FR', 'París', '08025', '21', '1736328846_16.png'),
@@ -760,61 +735,61 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `categorias`
 --
 ALTER TABLE `categorias`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=631;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=631;
 
 --
 -- AUTO_INCREMENT de la tabla `ciudades`
 --
 ALTER TABLE `ciudades`
-  MODIFY `Id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
 
 --
 -- AUTO_INCREMENT de la tabla `comentarios`
 --
 ALTER TABLE `comentarios`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=314;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=314;
 
 --
 -- AUTO_INCREMENT de la tabla `favoritos`
 --
 ALTER TABLE `favoritos`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=411;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=439;
 
 --
 -- AUTO_INCREMENT de la tabla `idiomas`
 --
 ALTER TABLE `idiomas`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `linea_pedidos`
 --
 ALTER TABLE `linea_pedidos`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=556;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=569;
 
 --
 -- AUTO_INCREMENT de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=287;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=295;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=445;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=451;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `Id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 
 --
 -- Restricciones para tablas volcadas
