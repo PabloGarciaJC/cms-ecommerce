@@ -2,8 +2,6 @@
 
 La **Aplicación Web Ecommerce** es un sistema seguro y escalable diseñado para ofrecer una experiencia óptima a compradores y vendedores. Su enfoque es garantizar la eficiencia y adaptabilidad, utilizando buenas prácticas de desarrollo y actualizaciones constantes.
 
-¿Tienes preguntas o quieres colaborar? Contáctame directamente en mi [WhatsApp](https://api.whatsapp.com/send?phone=672354875).
-
 ### Demo del Proyecto  
 [https://ecommerce.pablogarciajc.com/](https://ecommerce.pablogarciajc.com/)
 
