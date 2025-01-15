@@ -15,16 +15,16 @@ class Favorito {
         data: {grupo_id: grupoId},
         success: function (response) {
 
-          let data = JSON.parse(response);
+          // let data = JSON.parse(response);
 
-          console.log(data);
+          console.log(response);
 
-          if (data.success) {
-            if (data.favorito) {
-              botonFavorito.addClass('favorito-activado');
-            } else {
-              botonFavorito.removeClass('favorito-activado');
-            }
+          // if (data.success) {
+            // if (data.favorito) {
+            //   botonFavorito.addClass('favorito-activado');
+            // } else {
+            //   botonFavorito.removeClass('favorito-activado');
+            // }
             // Swal.fire({
             //   title: data.message,
             //   icon: "success",
@@ -32,7 +32,7 @@ class Favorito {
             //   confirmButtonText: 'Aceptar',
             //   timer: 1000
             // });
-          } else {
+          // } else {
             // Swal.fire({
             //   title: data.message,
             //   icon: "info",
@@ -42,7 +42,7 @@ class Favorito {
             // $('.swal2-title').on('click', function (e) {
             //   Swal.close();
             // });
-          }
+          // }
 
         },
       });
