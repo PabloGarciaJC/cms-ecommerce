@@ -30,9 +30,8 @@ class FavoritoController
                 'message' => TEXT_NOT_LOGGED_IN . TEXT_NOT_REGISTER_IN
             ]);
             return;
-
         } else {
-
+            var_dump($usuario->Id);
             $favorito = new Favorito();
             $favorito->setUsuarioId($usuario->Id);
             $favorito->setGrupoId($grupoId);
@@ -122,6 +121,5 @@ class FavoritoController
                 'message' => TEXT_ERROR_REMOVE_FAVORITE
             ]);
         }
-
     }
 }
