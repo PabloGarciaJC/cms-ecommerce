@@ -34,28 +34,6 @@ El sistema está diseñado inicialmente con **dos roles**:
 1. **Administrador**: Tiene acceso completo a todas las funcionalidades y módulos de la plataforma. El administrador puede gestionar usuarios, roles, productos, pedidos, entre otros.
 2. **Cliente Normal**: Accede principalmente a funcionalidades relacionadas con la compra de productos, visualización de su cuenta, carrito de compras, y favoritos.
 
----
-
-## Usuarios Ficticios para Pruebas
-
-| **Nombre**                     | **Correo**                        | **Contraseña** | **Rol**         |
-|---------------------------------|-----------------------------------|----------------|-----------------|
-| Administrador                   | admin@cms.com                     | password       | Administrador   |
-| Luis Fernando Ramos             | luis.ramos@pablogarciajc.com       | password       | Cliente         |
-| Marco Antonio Santis            | santis@pablogarciajc.com          | password       | Cliente         |
-| Juan Carlos Pérez               | juan.perez@pablogarciajc.com      | password       | Cliente         |
-| Ana María López                 | ana.lopez@pablogarciajc.com       | password       | Cliente         |
-| Carlos Alberto Rodríguez        | carlos.rodriguez@pablogarciajc.com| password       | Cliente         |
-| Lucía Fernanda Mendoza          | lucia.mendoza@pablogarciajc.com   | password       | Cliente         |
-| Pedro Luis Gómez                | pedro.gomez@pablogarciajc.com     | password       | Cliente         |
-| Sofía Alejandra Martínez        | sofia.martinez@pablogarciajc.com  | password       | Cliente         |
-| Diego Armando Herrera           | diego.herrera@pablogarciajc.com   | password       | Cliente         |
-| María Isabel González           | maria.gonzalez@pablogarciajc.com  | password       | Cliente         |
-| Javier Ernesto Ortiz            | javier.ortiz@pablogarciajc.com    | password       | Cliente         |
-| Laura Patricia Vega             | laura.vega@pablogarciajc.com      | password       | Cliente         |
-
----
-
 ## Tecnologías Usadas
 
 | **Tecnología**           | **Descripción**                                                                                                                                                                                                                                  |
@@ -77,6 +55,26 @@ El sistema está diseñado inicialmente con **dos roles**:
 | **Plantilla de la aplicación**     | Plantilla utilizada para la interfaz de usuario.                                                              | [W3Layouts](http://w3layouts.com)                        |
 | **Licencia de la plantilla**       | Licencia de la plantilla bajo Creative Commons Attribution 3.0 Unported.                                      | [Creative Commons License](http://creativecommons.org/licenses/by/3.0/) |
 | **Imágenes de productos**          | Imágenes de productos obtenidas de Amazon.                                                                     | [Amazon](https://www.amazon.com)                         |
+---
+
+## Usuarios Ficticios para Pruebas
+
+| **Nombre**                     | **Correo**                        | **Contraseña** | **Rol**         |
+|---------------------------------|-----------------------------------|----------------|-----------------|
+| Administrador                   | admin@cms.com                     | password       | Administrador   |
+| Luis Fernando Ramos             | luis.ramos@pablogarciajc.com       | password       | Cliente         |
+| Marco Antonio Santis            | santis@pablogarciajc.com          | password       | Cliente         |
+| Juan Carlos Pérez               | juan.perez@pablogarciajc.com      | password       | Cliente         |
+| Ana María López                 | ana.lopez@pablogarciajc.com       | password       | Cliente         |
+| Carlos Alberto Rodríguez        | carlos.rodriguez@pablogarciajc.com| password       | Cliente         |
+| Lucía Fernanda Mendoza          | lucia.mendoza@pablogarciajc.com   | password       | Cliente         |
+| Pedro Luis Gómez                | pedro.gomez@pablogarciajc.com     | password       | Cliente         |
+| Sofía Alejandra Martínez        | sofia.martinez@pablogarciajc.com  | password       | Cliente         |
+| Diego Armando Herrera           | diego.herrera@pablogarciajc.com   | password       | Cliente         |
+| María Isabel González           | maria.gonzalez@pablogarciajc.com  | password       | Cliente         |
+| Javier Ernesto Ortiz            | javier.ortiz@pablogarciajc.com    | password       | Cliente         |
+| Laura Patricia Vega             | laura.vega@pablogarciajc.com      | password       | Cliente         |
+
 ---
 
 ## Instalación
