@@ -30,7 +30,6 @@ class FavoritoController
             ]);
             return;
         } else {
-            var_dump($usuario->Id);
             $favorito = new Favorito();
             $favorito->setUsuarioId($usuario->Id);
             $favorito->setGrupoId($grupoId);
