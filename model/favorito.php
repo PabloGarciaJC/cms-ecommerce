@@ -84,7 +84,7 @@ class Favorito
 
     public function eliminarFronted()
     {
-        $sql = "DELETE FROM favoritos fv WHERE  fv.usuario_id = '{$this->getUsuarioId()}' AND  fv.grupo_id = '{$this->getGrupoId()}'";
+        $sql = "DELETE FROM favoritos fv WHERE  fv.usuario_id = {$this->getUsuarioId()} AND  fv.grupo_id = {$this->getGrupoId()}";
         var_dump($sql);
         die();
         $result = $this->db->query($sql);
