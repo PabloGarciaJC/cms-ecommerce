@@ -68,43 +68,49 @@ class FavoritoController
     public function eliminar()
     {
 
-        $this->languageController->cargarTextos();
-        $usuario = Utils::obtenerUsuario();
-        $grupoId = isset($_POST['grupo_id']) ? $_POST['grupo_id'] : false;
+        echo json_encode([
+                    'success' => false,
+                    'favorito' => false,
+                    'message' => 'TEXT_ERROR_NOT_REGISTERED_OR_INVALID_PRODUCT'
+                ]);
 
-        if (!$usuario) {
-            echo json_encode([
-                'success' => false,
-                'favorito' => false,
-                'message' => TEXT_ERROR_NOT_REGISTERED_OR_INVALID_PRODUCT
-            ]);
-            return;
-        }
+        // $this->languageController->cargarTextos();
+        // $usuario = Utils::obtenerUsuario();
+        // $grupoId = isset($_POST['grupo_id']) ? $_POST['grupo_id'] : false;
 
-        $favorito = new Favorito();
-        $favorito->setUsuarioId($usuario->Id);
-        $favorito->setGrupoId($grupoId);
-        $existe = $favorito->existe();
+        // if (!$usuario) {
+        //     echo json_encode([
+        //         'success' => false,
+        //         'favorito' => false,
+        //         'message' => 'TEXT_ERROR_NOT_REGISTERED_OR_INVALID_PRODUCT'
+        //     ]);
+        //     return;
+        // }
 
-        if (!$existe) {
-            echo json_encode([
-                'success' => true,
-                'favorito' => true,
-                'message' => TEXT_PRODUCT_ALREADY_FAVORITE
-            ]);
-            return;
-        }
+        // $favorito = new Favorito();
+        // $favorito->setUsuarioId($usuario->Id);
+        // $favorito->setGrupoId($grupoId);
+        // $existe = $favorito->existe();
 
-        if (!$existe) {
-            echo json_encode([
-                'success' => false,
-                'favorito' => false,
-                'message' => TEXT_NOT_FAVORITE
-            ]);
-            return;
-        }
+        // if (!$existe) {
+        //     echo json_encode([
+        //         'success' => true,
+        //         'favorito' => true,
+        //         'message' => 'TEXT_PRODUCT_ALREADY_FAVORITE'
+        //     ]);
+        //     return;
+        // }
 
-        $resultado = $favorito->eliminarFronted();
+        // if (!$existe) {
+        //     echo json_encode([
+        //         'success' => false,
+        //         'favorito' => false,
+        //         'message' => 'TEXT_NOT_FAVORITE'
+        //     ]);
+        //     return;
+        // }
+
+        // $resultado = $favorito->eliminarFronted();
 
         // if ($resultado) {
         //     echo json_encode([

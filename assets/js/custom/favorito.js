@@ -16,6 +16,9 @@ class Favorito {
         success: function (response) {
 
           let data = JSON.parse(response);
+
+          console.log(data);
+
           if (data.success) {
             if (data.favorito) {
               botonFavorito.addClass('favorito-activado');
@@ -30,15 +33,15 @@ class Favorito {
             //   timer: 1000
             // });
           } else {
-            Swal.fire({
-              title: data.message,
-              icon: "info",
-              showConfirmButton: true,
-              confirmButtonText: 'Aceptar',
-            });
-            $('.swal2-title').on('click', function (e) {
-              Swal.close();
-            });
+            // Swal.fire({
+            //   title: data.message,
+            //   icon: "info",
+            //   showConfirmButton: true,
+            //   confirmButtonText: 'Aceptar',
+            // });
+            // $('.swal2-title').on('click', function (e) {
+            //   Swal.close();
+            // });
           }
 
         },
