@@ -84,7 +84,7 @@
     <li class="panel-admin__menu-item">
       <a href="<?php echo BASE_URL ?>Admin/documentacion" class="panel-admin__menu-link-init d-flex justify-content-between align-items-center">
         <span>
-          <i class="fas fa-book me-2"></i> Documentación
+          <i class="fas fa-book me-2"></i> Conoce la Plataforma
         </span>
       </a>
     </li>

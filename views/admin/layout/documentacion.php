@@ -95,6 +95,30 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="col-12 col-md-4 mb-4">
+                    <div class="card info-card feature-card h-100 shadow-sm bg-light border-light">
+                        <div class="card-header">
+                            <h3><i class="fas fa-comment"></i> Comentarios</h3>
+                        </div>
+                        <div class="card-body-info p-4">
+                            <p>Deja tus comentarios y sugerencias sobre la plataforma.</p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-12 col-md-4 mb-4">
+                    <div class="card info-card feature-card h-100 shadow-sm bg-light border-light">
+                        <div class="card-header">
+                            <h3><i class="fas fa-heart"></i> Favoritos</h3>
+                        </div>
+                        <div class="card-body-info p-4">
+                            <p>Añade tus recursos preferidos a esta sección para tener acceso rápido.</p>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="col-12 col-md-4 mb-4">
                     <div class="card info-card feature-card h-100 shadow-sm bg-light border-light">
                         <div class="card-header">
@@ -115,6 +139,33 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <h2 class="panel-admin__dashboard-title">Creditos</h2>
+            <div class="row">
+                <div class="col-12 col-md-4 mb-4">
+                    <div class="card info-card feature-card h-100 shadow-sm bg-light border-light">
+                        <div class="card-header">
+                            <h3><i class="fas fa-code"></i> Plantilla</h3>
+                        </div>
+                        <div class="card-body-info p-4">
+                            <p>Author URL: <a href="http://w3layouts.com" target="_blank" class="btn btn-link p-0">http://w3layouts.com</a></p>
+                            <p>License: Creative Commons Attribution 3.0 Unported</p>
+                            <p>License URL: <a href="http://creativecommons.org/licenses/by/3.0/" target="_blank" class="btn btn-link p-0">licenses</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4 mb-4">
+                    <div class="card info-card feature-card h-100 shadow-sm bg-light border-light">
+                        <div class="card-header">
+                            <h3><i class="fas fa-image"></i> Imágenes de Amazon</h3>
+                        </div>
+                        <div class="card-body-info p-4">
+                            <p>Aquí puedes ver algunas de las imágenes destacadas de productos en Amazon.</p>
+                            <p><a href="https://www.amazon.com" target="_blank" class="btn btn-link p-0">Visitar Amazon</a></p>
+                        </div>
+                    </div>
+                </div>
+
             </div>
             <h2 class="panel-admin__dashboard-title">Tecnologías Empleadas para el Desarrollo</h2>
             <div class="row">
