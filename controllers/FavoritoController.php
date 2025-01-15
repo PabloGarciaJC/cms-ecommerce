@@ -98,8 +98,8 @@ class FavoritoController
             return;
         }
 
-        var_dump($existe);
-        // $resultado = $favorito->eliminarFronted();
+      
+        $resultado = $favorito->eliminarFronted();
 
         // if ($resultado) {
         //     echo json_encode([

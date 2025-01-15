@@ -100,6 +100,9 @@ class Favorito
     {
         $idioma = empty($this->getIdioma()) ? 1 : $this->getIdioma();
         $sql = "SELECT fv.id, p.id as producto_id, p.parent_id, p.nombre, p.imagenes, p.stock, p.oferta FROM favoritos fv LEFT JOIN usuarios u ON fv.usuario_id = u.Id LEFT JOIN productos p ON p.grupo_id = fv.grupo_id WHERE p.idioma_id = $idioma";
+        
+        var_dump($sql);
+        die();
         $result = $this->db->query($sql);
         $favoritos = [];
         while ($row = $result->fetch_object()) {
