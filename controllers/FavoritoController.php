@@ -67,14 +67,14 @@ class FavoritoController
      */
     public function eliminar()
     {
-
+        $this->languageController->cargarTextos();
         echo json_encode([
-                    'success' => false,
-                    'favorito' => false,
-                    'message' => 'TEXT_ERROR_NOT_REGISTERED_OR_INVALID_PRODUCT'
-                ]);
+            'success' => false,
+            'favorito' => false,
+            'message' => TEXT_ERROR_NOT_REGISTERED_OR_INVALID_PRODUCT
+        ]);
 
-        // $this->languageController->cargarTextos();
+
         // $usuario = Utils::obtenerUsuario();
         // $grupoId = isset($_POST['grupo_id']) ? $_POST['grupo_id'] : false;
 
