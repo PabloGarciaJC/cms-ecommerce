@@ -106,18 +106,18 @@ class FavoritoController
 
         $resultado = $favorito->eliminarFronted();
 
-        if ($resultado) {
-            echo json_encode([
-                'success' => true,
-                'favorito' => false,
-                'message' => TEXT_PRODUCT_REMOVED_FAVORITE
-            ]);
-        } else {
-            echo json_encode([
-                'success' => false,
-                'favorito' => false,
-                'message' => TEXT_ERROR_REMOVE_FAVORITE
-            ]);
-        }
+        // if ($resultado) {
+        //     echo json_encode([
+        //         'success' => true,
+        //         'favorito' => false,
+        //         'message' => TEXT_PRODUCT_REMOVED_FAVORITE
+        //     ]);
+        // } else {
+        //     echo json_encode([
+        //         'success' => false,
+        //         'favorito' => false,
+        //         'message' => TEXT_ERROR_REMOVE_FAVORITE
+        //     ]);
+        // }
     }
 }

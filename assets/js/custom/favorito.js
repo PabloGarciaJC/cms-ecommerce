@@ -22,13 +22,13 @@ class Favorito {
             } else {
               botonFavorito.removeClass('favorito-activado');
             }
-            Swal.fire({
-              title: data.message,
-              icon: "success",
-              showConfirmButton: false,
-              confirmButtonText: 'Aceptar',
-              timer: 1000
-            });
+            // Swal.fire({
+            //   title: data.message,
+            //   icon: "success",
+            //   showConfirmButton: false,
+            //   confirmButtonText: 'Aceptar',
+            //   timer: 1000
+            // });
           } else {
             Swal.fire({
               title: data.message,
