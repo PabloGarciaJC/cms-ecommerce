@@ -70,7 +70,7 @@ class FavoritoController
      */
     public function eliminar()
     {
-
+        
         $this->languageController->cargarTextos();
         $usuario = Utils::obtenerUsuario();
         $grupoId = isset($_POST['grupo_id']) ? $_POST['grupo_id'] : false;
@@ -98,22 +98,21 @@ class FavoritoController
             return;
         }
 
-      
         $resultado = $favorito->eliminarFronted();
 
-        // if ($resultado) {
-        //     echo json_encode([
-        //         'success' => true,
-        //         'favorito' => false,
-        //         'message' => TEXT_PRODUCT_REMOVED_FAVORITE
-        //     ]);
-        // } else {
-        //     echo json_encode([
-        //         'success' => false,
-        //         'favorito' => false,
-        //         'message' => TEXT_ERROR_REMOVE_FAVORITE
-        //     ]);
-        // }
+        if ($resultado) {
+            echo json_encode([
+                'success' => true,
+                'favorito' => false,
+                'message' => TEXT_PRODUCT_REMOVED_FAVORITE
+            ]);
+        } else {
+            echo json_encode([
+                'success' => false,
+                'favorito' => false,
+                'message' => TEXT_ERROR_REMOVE_FAVORITE
+            ]);
+        }
 
     }
 }

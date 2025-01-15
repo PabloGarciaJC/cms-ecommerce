@@ -14,36 +14,31 @@ class Favorito {
         url: baseUrl + "Favorito/" + (yaEsFavorito ? "eliminar" : "guardar"),
         data: {grupo_id: grupoId},
         success: function (response) {
-
-          // let data = JSON.parse(response);
-
-          console.log(response);
-
-          // if (data.success) {
-            // if (data.favorito) {
-            //   botonFavorito.addClass('favorito-activado');
-            // } else {
-            //   botonFavorito.removeClass('favorito-activado');
-            // }
-            // Swal.fire({
-            //   title: data.message,
-            //   icon: "success",
-            //   showConfirmButton: false,
-            //   confirmButtonText: 'Aceptar',
-            //   timer: 1000
-            // });
-          // } else {
-            // Swal.fire({
-            //   title: data.message,
-            //   icon: "info",
-            //   showConfirmButton: true,
-            //   confirmButtonText: 'Aceptar',
-            // });
-            // $('.swal2-title').on('click', function (e) {
-            //   Swal.close();
-            // });
-          // }
-
+          let data = JSON.parse(response);
+          if (data.success) {
+            if (data.favorito) {
+              botonFavorito.addClass('favorito-activado');
+            } else {
+              botonFavorito.removeClass('favorito-activado');
+            }
+            Swal.fire({
+              title: data.message,
+              icon: "success",
+              showConfirmButton: false,
+              confirmButtonText: 'Aceptar',
+              timer: 1000
+            });
+          } else {
+            Swal.fire({
+              title: data.message,
+              icon: "info",
+              showConfirmButton: true,
+              confirmButtonText: 'Aceptar',
+            });
+            $('.swal2-title').on('click', function (e) {
+              Swal.close();
+            });
+          }
         },
       });
     });
