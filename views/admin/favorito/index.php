@@ -61,7 +61,7 @@
                                         <?php endif; ?>
                                     </td>
                                     <td class="table-btns-striped">
-                                        <a href="<?php echo BASE_URL; ?>Producto/ficha?id=<?php echo $producto->producto_id; ?>&parent_id=<?php echo urlencode($producto->parent_id); ?>" class="btn btn-info btn-sm">Ver Producto</a>
+                                        <a href="<?php echo BASE_URL; ?>Producto/ficha?grupo_id=<?php echo urlencode($producto->grupo_id); ?>" class="btn btn-info btn-sm">Ver Producto</a>
                                         <a href="<?php echo BASE_URL; ?>Admin/eliminarFavoritos?id=<?php echo $producto->id; ?>" class="btn btn-danger btn-sm borrar-favorito">Eliminar</a>
                                     </td>
                                 </tr>
