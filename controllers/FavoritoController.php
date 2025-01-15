@@ -23,7 +23,6 @@ class FavoritoController
         $grupoId = isset($_POST['grupo_id']) ? $_POST['grupo_id'] : false;
 
         if (!$usuario) {
-
             echo json_encode([
                 'success' => false,
                 'favorito' => false,
