@@ -2068,6 +2068,10 @@
       color: #fff;
   }
 
+
+  /* # TABLAS GENERALES MOVIL
+================================================== */
+
   @media (max-width:767px) {
 
       .timetable_sub,
@@ -2076,7 +2080,6 @@
       .table-striped,
       .panel-admin__dashboard {
           font-size: 14px;
-          /* display: block; */
           overflow-x: auto;
       }
 
@@ -2091,6 +2094,7 @@
           align-items: center;
       }
 
-
-      .form-select-movil {width: 90px;}
+      .form-select-movil {
+          width: 90px;
+      }
   }

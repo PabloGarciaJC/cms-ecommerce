@@ -229,7 +229,6 @@ class Categorias
     // Si hay texto de búsqueda, agregar condición LIKE
     if (!empty($this->getTextoBusqueda())) {
       $textoBusquedaEscapado = $this->db->real_escape_string($this->getTextoBusqueda());
-      $sqlCategorias .= " AND nombre LIKE '%{$textoBusquedaEscapado}%'";
       $sqlProductos .= " AND p.nombre LIKE '%{$textoBusquedaEscapado}%'";
     }
 
