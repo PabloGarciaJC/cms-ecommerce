@@ -2071,13 +2071,19 @@
 
   /* # TABLAS GENERALES MOVIL
 ================================================== */
+.table.table-striped{
+    font-size: 14px;
+    overflow-x: auto;
+}
+
+
 
   @media (max-width:767px) {
 
       .timetable_sub,
       .panel-admin__main-content,
       .table__favoritos,
-      .table-striped,
+      .table-striped, 
       .panel-admin__dashboard {
           font-size: 14px;
           overflow-x: auto;
@@ -2098,5 +2104,7 @@
           width: 90px;
       }
 
-      .table-movil-pedidos {display: block;}
+      .table-movil-pedidos {
+          display: block;
+      }
   }
