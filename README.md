@@ -14,6 +14,7 @@ La **Aplicación Web Ecommerce** es un sistema seguro y escalable diseñado para
 
 La plataforma cuenta con **cuatro módulos principales** que optimizan la experiencia de usuario y administración:
 
+- **Multilenguaje**: Soporte para múltiples idiomas.
 - **Dashboard**: Visualiza métricas clave.
 - **Registro y Login**: Gestión de cuentas de usuario.
 - **Cuenta**: Administración de perfil y contraseñas.
