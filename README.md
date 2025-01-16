@@ -14,6 +14,7 @@ La **Aplicación Web Ecommerce** es un **CMS** especializado en comercio electr�
 
 La plataforma cuenta con **cuatro módulos principales** que optimizan la experiencia de usuario y administración:
 
+- **Diseño Adaptado a Móviles**: Experiencia optimizada para dispositivos móviles
 - **Multilenguaje**: Soporte para múltiples idiomas.
 - **Dashboard**: Visualiza métricas clave.
 - **Registro y Login**: Gestión de cuentas de usuario.
