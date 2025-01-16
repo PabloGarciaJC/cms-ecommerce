@@ -1,6 +1,6 @@
 # Documentación del Proyecto: Aplicación Web Ecommerce
 
-La **Aplicación Web Ecommerce** es un sistema seguro y escalable diseñado para ofrecer una experiencia óptima a compradores y vendedores. Su enfoque es garantizar la eficiencia y adaptabilidad, utilizando buenas prácticas de desarrollo y actualizaciones constantes.
+La **Aplicación Web Ecommerce** es un **CMS** especializado en comercio electrónico, diseñado para ser seguro, escalable y altamente funcional. Combina la gestión de contenido con herramientas avanzadas de tienda en línea, ofreciendo una experiencia intuitiva y adaptable. Su desarrollo se basa en buenas prácticas y actualizaciones constantes, garantizando eficiencia tanto para compradores como para vendedores.
 
 ### Demo del Proyecto  
 [https://ecommerce.pablogarciajc.com/](https://ecommerce.pablogarciajc.com/)
