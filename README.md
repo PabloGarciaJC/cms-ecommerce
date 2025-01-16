@@ -1,4 +1,4 @@
-# Documentación del Proyecto: Aplicación Web Ecommerce
+# Aplicación Web Ecommerce - CMS
 
 La **Aplicación Web Ecommerce** es un **CMS** especializado en comercio electrónico, diseñado para ser seguro, escalable y altamente funcional. Combina la gestión de contenido con herramientas avanzadas de tienda en línea, ofreciendo una experiencia intuitiva y adaptable. Su desarrollo se basa en buenas prácticas y actualizaciones constantes, garantizando eficiencia tanto para compradores como para vendedores.
 
@@ -98,7 +98,7 @@ El sistema está diseñado inicialmente con **dos roles**:
 
 4. Además de estos comandos, dentro del archivo **Makefile** puedes encontrar otros comandos que te permitirán interactuar de manera más específica con los contenedores y los diferentes servicios que conforman la aplicación.
 
-5. Accede a los siguientes endpoints:
+5. Accede a los siguientes URL:
    - **Aplicación Web**: [http://localhost:8081/](http://localhost:8081/)
    - **PhpMyAdmin**: [http://localhost:8082/](http://localhost:8082/)
 
