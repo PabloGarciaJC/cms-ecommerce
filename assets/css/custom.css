@@ -2097,4 +2097,6 @@
       .form-select-movil {
           width: 90px;
       }
+
+      .table-movil-pedidos {display: block;}
   }

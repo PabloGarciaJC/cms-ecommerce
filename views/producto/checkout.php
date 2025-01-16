@@ -7,7 +7,7 @@
         <form method="post" action="<?php echo BASE_URL ?>LineaPedidos/checkoutGuardar" class="form-checkout">
             <div class="checkout-right">
                 <div class="table-responsive">
-                    <table class="timetable_sub table">
+                    <table class="timetable_sub table table-movil-pedidos">
                         <thead>
                             <tr>
                                 <th class="text-center"><?php echo PRODUCT; ?></th>
