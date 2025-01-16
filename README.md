@@ -5,7 +5,7 @@ La **Aplicaci√≥n Web Ecommerce** es un **CMS** especializado en comercio electr√
 ### Demo del Proyecto  
 [https://ecommerce.pablogarciajc.com/](https://ecommerce.pablogarciajc.com/)
 
-| ![Imagen 1](https://pablogarciajc.com/wp-content/uploads/2024/03/pablogarciajc-aplicacion-web-ecommerce-img1.webp) | ![Imagen 2](https://pablogarciajc.com/wp-content/uploads/2024/03/pablogarciajc-aplicacion-web-ecommerce-img2.webp) |
+| ![Imagen 1](https://pablogarciajc.com/wp-content/uploads/2025/01/ecommerce_1_webp.png) | ![Imagen 2](https://pablogarciajc.com/wp-content/uploads/2025/01/ecommerce_6_webp.png) |
 |-----------|-----------|
 
 ---
