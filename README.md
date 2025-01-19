@@ -40,7 +40,7 @@ El sistema está diseñado inicialmente con **dos roles**:
 
 | **Tecnología**           | **Descripción**                                                                                                                                                                                                                                  |
 |--------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **PHP**                  | Lenguaje de programación para backend y bases de datos.                                                                                                           |
+| **PHP Y SQL**                  | Lenguaje de programación para backend y bases de datos.                                                                                                           |
 | **Logging**              | Herramienta para registrar eventos y errores del sistema.                                                                                                      |
 | **Testing**              | Pruebas unitarias y de integración para asegurar la funcionalidad.                                                                 |
 | **Composer**             | Gestor de dependencias en PHP.                                                                                                                                                                     |
