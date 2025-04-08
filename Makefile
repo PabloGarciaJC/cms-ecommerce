@@ -2,7 +2,7 @@
 ## Comando base para docker-compose
 ## ---------------------------------------------------------
 
-DOCKER_COMPOSE = docker-compose -f ./.docker/docker-compose.yml
+DOCKER_COMPOSE = docker compose -f ./.docker/docker-compose.yml
 
 ## ---------------------------------------------------------
 ## Inicialización de la Aplicación
