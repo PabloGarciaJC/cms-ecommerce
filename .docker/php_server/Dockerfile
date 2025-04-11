@@ -21,27 +21,18 @@ RUN set -eux && \
     groupadd -g ${NEW_GID} -r ${MY_GROUP} && \
     useradd -u ${NEW_UID} -m -s /bin/bash -g ${MY_GROUP} ${MY_USER} && \
     apt-get update && apt-get install -y \
-    nano \
-    libicu-dev \
-    libmariadb-dev \
-    unzip \
-    zip \
-    zlib1g-dev \
-    libjpeg-dev \
-    libfreetype6-dev \
-    libjpeg62-turbo-dev \
-    libpng-dev \
-    git \
-    libzip-dev \
     tzdata \
+    nano \
+    git \
+    zlib1g-dev \
     && ln -fs /usr/share/zoneinfo/Europe/Madrid /etc/localtime && \
     dpkg-reconfigure -f noninteractive tzdata && \
-    docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg && \
-    docker-php-ext-install -j$(nproc) gd mysqli pdo_mysql gettext intl && \
+    docker-php-ext-install -j$(nproc) mysqli pdo_mysql && \
     docker-php-ext-enable mysqli pdo_mysql && \
     a2enmod rewrite && \
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
+
 
 ## ---------------------------------------------------------
 ## Copiar el contenido de la aplicación
@@ -51,6 +42,8 @@ COPY . /var/www/html
 
 ## ---------------------------------------------------------
 ## Configurar bash
+# Configuración personalizada del entorno de la terminal para usuario y root.
+# Incluye alias, variables de entorno y configuración de sudo sin contraseña.
 ## ---------------------------------------------------------
 
 RUN echo ". /etc/terminal" | tee -a /home/${MY_USER}/.bashrc /root/.bashrc && \
@@ -68,6 +61,7 @@ RUN a2dissite 000-default.conf
     
 ## ---------------------------------------------------------
 ## Agregar ServerName a la configuración global de Apache
+# Añade 'ServerName localhost' a la configuración global de Apache para evitar un warning al iniciar Apache.
 ## ---------------------------------------------------------
 
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
@@ -80,6 +74,7 @@ EXPOSE 80
 
 ## ---------------------------------------------------------
 ## Comando por defecto
+# 'docker-php-entrypoint' inicializa el entorno PHP y 'apache2-foreground' ejecuta Apache en primer plano.
 ## ---------------------------------------------------------
 
 ENTRYPOINT ["docker-php-entrypoint"]
