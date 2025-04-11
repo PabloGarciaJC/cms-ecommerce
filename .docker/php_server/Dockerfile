@@ -1,38 +1,49 @@
-## ---------------------------------------------------------
-## Utilizar una imagen base de PHP con Apache
-## ---------------------------------------------------------
-
-FROM php:8.2-apache
+ARG PHP_VERSION=8.2
+FROM php:${PHP_VERSION}-apache
 
 ## ---------------------------------------------------------
-## Argumentos
+## Argumentos fijos (reemplazamos las variables por valores fijos)
 ## ---------------------------------------------------------
 
+# Definir los valores que provienen del archivo .env
 ARG NEW_UID
 ARG NEW_GID
 ARG MY_USER
 ARG MY_GROUP
+ARG PHPUNIT_VERSION=11
 
 ## ---------------------------------------------------------
 ## Habilitar e instalar extensiones y librerías necesarias
 ## ---------------------------------------------------------
 
 RUN set -eux && \
-    groupadd -g ${NEW_GID} -r ${MY_GROUP} && \
-    useradd -u ${NEW_UID} -m -s /bin/bash -g ${MY_GROUP} ${MY_USER} && \
-    apt-get update && apt-get install -y \
+groupadd -g ${NEW_GID} -r ${MY_GROUP} && \
+useradd -u ${NEW_UID} -m -s /bin/bash -g ${MY_GROUP} ${MY_USER} && \
+apt-get update && \
+apt-get install -y \
+    unzip \
+    git \
+    libxml2-dev \
     tzdata \
     nano \
-    git \
     zlib1g-dev \
-    && ln -fs /usr/share/zoneinfo/Europe/Madrid /etc/localtime && \
-    dpkg-reconfigure -f noninteractive tzdata && \
-    docker-php-ext-install -j$(nproc) mysqli pdo_mysql && \
-    docker-php-ext-enable mysqli pdo_mysql && \
-    a2enmod rewrite && \
-    apt-get clean && rm -rf /var/lib/apt/lists/* && \
-    curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
+    wget && \
+ln -fs /usr/share/zoneinfo/Europe/Madrid /etc/localtime && \
+dpkg-reconfigure -f noninteractive tzdata && \
+docker-php-ext-install -j$(nproc) mysqli pdo_mysql && \
+docker-php-ext-enable mysqli pdo_mysql && \
+a2enmod rewrite && \
+apt-get clean && \
+rm -rf /var/lib/apt/lists/* && \
+curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
 
+## ---------------------------------------------------------
+## Instalar PHPUnit utilizando la versión desde .env
+## ---------------------------------------------------------
+
+RUN wget https://phar.phpunit.de/phpunit-${PHPUNIT_VERSION}.phar -O /usr/local/bin/phpunit && \
+    chmod +x /usr/local/bin/phpunit && \
+    phpunit --version
 
 ## ---------------------------------------------------------
 ## Copiar el contenido de la aplicación
@@ -42,8 +53,6 @@ COPY . /var/www/html
 
 ## ---------------------------------------------------------
 ## Configurar bash
-# Configuración personalizada del entorno de la terminal para usuario y root.
-# Incluye alias, variables de entorno y configuración de sudo sin contraseña.
 ## ---------------------------------------------------------
 
 RUN echo ". /etc/terminal" | tee -a /home/${MY_USER}/.bashrc /root/.bashrc && \
@@ -61,7 +70,6 @@ RUN a2dissite 000-default.conf
     
 ## ---------------------------------------------------------
 ## Agregar ServerName a la configuración global de Apache
-# Añade 'ServerName localhost' a la configuración global de Apache para evitar un warning al iniciar Apache.
 ## ---------------------------------------------------------
 
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
@@ -74,7 +82,6 @@ EXPOSE 80
 
 ## ---------------------------------------------------------
 ## Comando por defecto
-# 'docker-php-entrypoint' inicializa el entorno PHP y 'apache2-foreground' ejecuta Apache en primer plano.
 ## ---------------------------------------------------------
 
 ENTRYPOINT ["docker-php-entrypoint"]

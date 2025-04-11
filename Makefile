@@ -61,6 +61,18 @@ build:
 stop:
 	$(DOCKER_COMPOSE) stop
 
+.PHONY: clean-all
+clean-all:
+	sudo docker rmi -f $$(sudo docker images -q) || true
+	sudo docker volume rm $$(sudo docker volume ls -q) || true
+	sudo docker network prune -f || true
+
+.PHONY: clean-specific
+clean-specific:
+	sudo docker rmi mysql:latest || true
+	sudo docker volume rm docker_persistent-ecommerce || true
+	sudo docker network rm network_ecommerce || true
+
 .PHONY: shell
 shell:
 	$(DOCKER_COMPOSE) exec --user pablogarciajc php_apache_ecommerce  /bin/sh -c "cd /var/www/html/; exec bash -l"

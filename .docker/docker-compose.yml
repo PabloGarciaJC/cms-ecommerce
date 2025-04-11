@@ -1,4 +1,3 @@
-
 services:
   php_apache_ecommerce:
     build:
@@ -48,8 +47,23 @@ services:
     networks:
       - network_ecommerce
 
+  phpunit:
+    build:
+      context: .
+      dockerfile: ./php_server/Dockerfile
+      args:
+        NEW_UID: ${NEW_UID}
+        NEW_GID: ${NEW_GID}
+        MY_USER: ${MY_USER}
+        MY_GROUP: ${MY_GROUP}
+    volumes:
+      - .:/app
+    networks:
+      - network_ecommerce
+    entrypoint: ["phpunit", "--configuration", "/app/phpunit.xml"]
+
 networks:
-  network_ecommerce:  
+  network_ecommerce:
     name: network_ecommerce
 
 volumes:
