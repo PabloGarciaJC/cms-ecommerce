@@ -27,6 +27,11 @@ class UsuarioController
         return $getIdiomas;
     }
 
+    public function saludar($nombre)
+    {
+        return "Hola, " . $nombre;
+    }
+
     public function registro()
     {
         $getIdiomas = $this->cargarConfiguracionIdioma();

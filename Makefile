@@ -61,6 +61,16 @@ build:
 stop:
 	$(DOCKER_COMPOSE) stop
 
+.PHONY: init-test
+init-test:
+	mkdir -p tests/Controllers tests/Models tests/Views tests/Helpers
+	$(DOCKER_COMPOSE) exec php_apache_ecommerce mv /usr/local/bin/phpunit /var/www/html/tests/phpunit.phar
+	$(DOCKER_COMPOSE) exec php_apache_ecommerce ls -l /var/www/html/tests/phpunit.phar
+	touch tests/Controllers/ExampleControllerTest.php
+	touch tests/Models/ExampleUserModelTest.php
+	touch tests/Views/ExampleHomeViewTest.php
+	touch tests/Helpers/ExampleStringHelperTest.php
+
 .PHONY: clean-all
 clean-all:
 	sudo docker rmi -f $$(sudo docker images -q) || true
