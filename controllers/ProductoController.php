@@ -1,11 +1,15 @@
 <?php
 
-require_once 'model/productos.php';
-require_once 'model/categorias.php';
-require_once 'model/pedidos.php';
-require_once 'model/paises.php';
-require_once 'model/comentario.php';
-require_once 'controllers/LanguageController.php';
+namespace controllers;
+
+use model\Productos;
+use model\Categorias;
+use model\Pedidos;
+use model\Paises;
+use model\Comentario;
+use model\Idiomas;
+use helpers\Utils;
+use controllers\LanguageController;
 
 class ProductoController
 {

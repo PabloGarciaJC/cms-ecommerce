@@ -1,3 +1,5 @@
+
+<?php use helpers\Utils;  ?>
 <div class="col-md-4 product-men mt-5 animation__fade-in-upscale <?php echo (isset($prod->stock) && $prod->stock > 0) ? '' : 'product-sin-stock'; ?>">
     <div class="men-pro-item simpleCart_shelfItem">
         <a href="<?php echo BASE_URL ?>Producto/ficha?grupo_id=<?php echo urlencode($prod->grupo_id); ?>" class="men-thumb-item text-center">

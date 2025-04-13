@@ -1,7 +1,10 @@
 <?php
-require_once 'model/usuario.php';
-require_once 'model/idiomas.php';
-require_once 'controllers/LanguageController.php';
+
+namespace controllers;
+
+use model\Usuario;
+use model\Idiomas;
+use controllers\LanguageController;
 
 class UsuarioController
 {

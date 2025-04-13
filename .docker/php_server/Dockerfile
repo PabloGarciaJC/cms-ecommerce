@@ -38,12 +38,12 @@ rm -rf /var/lib/apt/lists/* && \
 curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
 
 ## ---------------------------------------------------------
-## Instalar PHPUnit utilizando la versión desde .env
+## Instalar PHPUnit
 ## ---------------------------------------------------------
 
 RUN wget https://phar.phpunit.de/phpunit-${PHPUNIT_VERSION}.phar -O /usr/local/bin/phpunit && \
-    chmod +x /usr/local/bin/phpunit && \
-    phpunit --version
+chmod +x /usr/local/bin/phpunit && \
+phpunit --version
 
 ## ---------------------------------------------------------
 ## Copiar el contenido de la aplicación

@@ -1,6 +1,8 @@
 <?php
-// LanguageController.php
-require_once 'model/idiomas.php';
+
+namespace controllers;
+
+use model\Idiomas;
 
 class LanguageController
 {

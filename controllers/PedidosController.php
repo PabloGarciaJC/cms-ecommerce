@@ -1,7 +1,10 @@
 <?php
-require_once 'model/pedidos.php';
-require_once 'model/idiomas.php';
-require_once 'controllers/LanguageController.php';
+
+namespace controllers;
+
+use model\Pedidos;
+use model\Idiomas;
+use controllers\LanguageController;
 
 class PedidosController
 {

@@ -63,13 +63,11 @@ stop:
 
 .PHONY: init-test
 init-test:
-	mkdir -p tests/Controllers tests/Models tests/Views tests/Helpers
+	$(DOCKER_COMPOSE) exec php_apache_ecommerce git config --global --add safe.directory /var/www/html
+	$(DOCKER_COMPOSE) exec php_apache_ecommerce composer require --dev phpunit/phpunit ^11
 	$(DOCKER_COMPOSE) exec php_apache_ecommerce mv /usr/local/bin/phpunit /var/www/html/tests/phpunit.phar
-	$(DOCKER_COMPOSE) exec php_apache_ecommerce ls -l /var/www/html/tests/phpunit.phar
-	touch tests/Controllers/ExampleControllerTest.php
-	touch tests/Models/ExampleUserModelTest.php
-	touch tests/Views/ExampleHomeViewTest.php
-	touch tests/Helpers/ExampleStringHelperTest.php
+	$(DOCKER_COMPOSE) exec php_apache_ecommerce chmod +x /var/www/html/tests/phpunit.phar
+	$(DOCKER_COMPOSE) exec php_apache_ecommerce chown -R 1000:1000 /var/www/html/tests
 
 .PHONY: clean-all
 clean-all:
