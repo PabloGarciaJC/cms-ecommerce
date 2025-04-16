@@ -69,7 +69,7 @@ init-test:
 	$(DOCKER_COMPOSE) exec php_apache_ecommerce chmod +x /var/www/html/tests/phpunit.phar
 	$(DOCKER_COMPOSE) exec php_apache_ecommerce chown -R 1000:1000 /var/www/html/tests
 
-.PHONY: clean-all
+.PHONY: clean-docker-all
 clean-all:
 	sudo docker rmi -f $$(sudo docker images -q) || true
 	sudo docker volume rm $$(sudo docker volume ls -q) || true
@@ -84,3 +84,17 @@ clean-specific:
 .PHONY: shell
 shell:
 	$(DOCKER_COMPOSE) exec --user pablogarciajc php_apache_ecommerce  /bin/sh -c "cd /var/www/html/; exec bash -l"
+
+.PHONY: test-usuario-controllers
+test-usuario-controllers:
+	$(DOCKER_COMPOSE) exec php_apache_ecommerce php /var/www/html/tests/phpunit.phar tests/Controllers/UsuarioControllersTest.php
+
+.PHONY: test
+test:
+	$(DOCKER_COMPOSE) exec php_apache_ecommerce sh -c "\
+		mkdir -p /var/www/html/reportes && \
+		php /var/www/html/tests/phpunit.phar \
+	"
+
+
+

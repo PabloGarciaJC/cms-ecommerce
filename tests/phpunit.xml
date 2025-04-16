@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/11.0/phpunit.xsd" bootstrap="../vendor/autoload.php" colors="true" verbose="true">
+    <testsuites>
+        <testsuite name="unit">
+            <directory phpVersion="8.2.0" phpVersionOperator=">=">unit</directory>
+        </testsuite>
+        <testsuite name="integration">
+            <directory phpVersion="8.2.0" phpVersionOperator=">=">integration</directory>
+        </testsuite>
+    </testsuites>
+    <logging>
+        <testdoxHtml outputFile="report/testdox.html"/>
+        <testdoxText outputFile="report/testdox.txt"/>
+    </logging>
+</phpunit>
