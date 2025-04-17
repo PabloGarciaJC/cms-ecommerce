@@ -20,7 +20,7 @@ define("TEXT_TERMS_PRIVACY", "Política de Privacidad");
 define("TEXT_CHECKOUT", "Verificar Compra");
 define("TEXT_FICHA", "Ficha Producto");
 define("TEXT_TITLE_FILTRO", "Aplicar filtros");
-define('BEFORE', 'Antes');
+define(constant_name: 'BEFORE', value: 'Antes');
 define("TEXT_CATEGORY", "Categoría");
 
 // Textos para "Checkout"

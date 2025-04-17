@@ -30,14 +30,9 @@ class UsuarioController
         return $getIdiomas;
     }
 
-    public function saludar($nombre)
-    {
-        return "Hola, " . $nombre;
-    }
-
     public function registro()
     {
-        $getIdiomas = $this->cargarConfiguracionIdioma();
+        $this->cargarConfiguracionIdioma();
         $usuario = isset($_POST['usuario']) ? $_POST['usuario'] : false;
         $email = isset($_POST['email']) ? $_POST['email'] : false;
         $password = isset($_POST['password']) ? $_POST['password'] : false;
@@ -107,7 +102,7 @@ class UsuarioController
     
     function iniciarSesion()
     {
-        $getIdiomas = $this->cargarConfiguracionIdioma();
+        $this->cargarConfiguracionIdioma();
         $email = isset($_POST['email']) ? $_POST['email'] : false;
         $password = isset($_POST['password']) ? $_POST['password'] : false;
         $iniciarSesion = new Usuario();

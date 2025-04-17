@@ -1,6 +1,4 @@
-Stack
- [x] Suma de dos numeros enteros with data set "data set 1"
- [x] Suma de dos numeros enteros with data set "data set 2"
- [x] Suma de dos numeros enteros with data set "data set 3"
- [ ] Suma de dos numeros enteros with data set "data set 4"
+Database
+ [x] testConexionPorObjetoMysql
+ [x] testConexionPorMock
 

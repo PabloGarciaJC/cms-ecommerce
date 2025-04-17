@@ -1,7 +1,9 @@
 <?php
+
 namespace config;
 
 use Dotenv\Dotenv;
+use mysqli;
 
 ## ---------------------------------------------------------
 ## Mostrar todos los errores para depuración
@@ -15,18 +17,41 @@ error_reporting(E_ALL);
 ## Clase para la Conexión a la base de datos
 ## ---------------------------------------------------------
 
-class Database {
-    static public function connect() {
+class Database
+{
+    private $conexion;
 
+    public function __construct(?mysqli $conexion = null)
+    {
+        if ($conexion) {
+            $this->conexion = $conexion;
+        } else {
+            $this->conexion = self::connect();
+        }
+    }
 
-       // Cargar las variables desde .env (si no están ya cargadas)
+    // Método para TEST
+    public function getConexion()
+    {
+        return $this->conexion;
+    }
+
+     // Método por DEFECTO
+    public static function connect()
+    {
+        // Cargar variables de entorno si no están cargadas
         if (!getenv('DB_SERVER_NAME')) {
             $dotenv = Dotenv::createImmutable(__DIR__ . '/../');
             $dotenv->load();
         }
-        
-        // Conexión a la base de datos usando mysqli
-        $db = new \mysqli($_ENV['DB_SERVER_NAME'], $_ENV['MYSQL_USER'], $_ENV['MYSQL_PASSWORD'], $_ENV['DB_DATABASE'], $_ENV['MYSQL_PORT']);  
+
+        $db = new mysqli(
+            $_ENV['DB_SERVER_NAME'],
+            $_ENV['MYSQL_USER'],
+            $_ENV['MYSQL_PASSWORD'],
+            $_ENV['DB_DATABASE'],
+            $_ENV['MYSQL_PORT']
+        );
 
         if ($db->connect_error) {
             die("Error de conexión: " . $db->connect_error);
@@ -37,12 +62,5 @@ class Database {
         return $db;
     }
 }
-
-
 // Solo se debe ejecutar la conexión cuando lo necesites, no en el archivo de la clase.
 // Database::connect();
-
-?>
-
-
-
