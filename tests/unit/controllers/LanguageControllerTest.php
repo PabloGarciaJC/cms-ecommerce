@@ -3,13 +3,41 @@
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
+use controllers\LanguageController;
 
 final class LanguageControllerTest extends TestCase
 {
-    #[Test]
-    #[TestDox('Suma de dos números enteros')]
-    public function sumar()
+    protected function setUp(): void
     {
-        $this->assertTrue(true);
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+    }
+
+    #[Test]
+    #[TestDox('Prueba de obtener idioma desde la sesión Idioma Inglés')]
+    public function testGetIdiomaFromSessionIngles()
+    {
+        $_SESSION['lang'] = 'en';
+        $languageController = new LanguageController();
+        $this->assertEquals('en', $languageController->getIdioma());
+    }
+
+    #[Test]
+    #[TestDox('Prueba de obtener idioma desde la sesión Idioma Español')]
+    public function testGetIdiomaFromSessionEspanol()
+    {
+        $_SESSION['lang'] = 'es';
+        $languageController = new LanguageController();
+        $this->assertEquals('es', $languageController->getIdioma());
+    }
+
+    #[Test]
+    #[TestDox('Prueba de obtener idioma desde la sesión Idioma Francés')]
+    public function testGetIdiomaFromSessionFrances()
+    {
+        $_SESSION['lang'] = 'fr';
+        $languageController = new LanguageController();
+        $this->assertEquals('fr', $languageController->getIdioma());
     }
 }

@@ -1,7 +1,9 @@
 Database
- [x] testConexionPorObjetoMysql
- [x] testConexionPorMock
+ [x] Debe devolver una instancia de mysqli cuando se inyecta el objeto manualmente
+ [x] Debe simular la conexión utilizando un mock del método connect()
 
 Language Controller
- [x] Suma de dos números enteros
+ [x] Prueba de obtener idioma desde la sesión Idioma Inglés
+ [x] Prueba de obtener idioma desde la sesión Idioma Español
+ [x] Prueba de obtener idioma desde la sesión Idioma Francés
 

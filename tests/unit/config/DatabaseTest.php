@@ -1,4 +1,5 @@
 <?php
+
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
@@ -8,35 +9,35 @@ use mysqli;
 class DatabaseTest extends TestCase
 {
     #[Test]
-    #[TestDox('testConexionPorObjetoMysql')]
+    #[TestDox('Debe devolver una instancia de mysqli cuando se inyecta el objeto manualmente')]
     public function testConexionPorObjetoMysql()
     {
         // Creamos un mock de la clase mysqli
         $mockMysqli = $this->createMock(mysqli::class);
         
-        // Inyectamos el mock en la clase Database
+        // Inyectamos el mock directamente al constructor de Database
         $db = new Database($mockMysqli);
         
-        // Comprobamos que el objeto devuelto por getConexion() es el mock de mysqli
+        // Comprobamos que el objeto devuelto sea una instancia de mysqli
         $this->assertInstanceOf(mysqli::class, $db->getConexion());
     }
 
     #[Test]
-    #[TestDox('testConexionPorMock')]
+    #[TestDox('Debe simular la conexión utilizando un mock del método connect()')]
     public function testConexionPorMock()
     {
-        // Creamos un mock de mysqli para simular la conexión
+        // Creamos un mock de mysqli
         $mockMysqli = $this->createMock(mysqli::class);
         
-        // Mock del método connect para que devuelva el mock de mysqli
+        // Creamos un mock parcial de la clase Database para simular el método connect
         $db = $this->getMockBuilder(Database::class)
                    ->onlyMethods(['connect'])
                    ->getMock();
          
-        // Se invoca el metodo ficticio y se pasa por parametro el mysqli para simular la logica 
+        // Simulamos que el método connect devuelve el mock de mysqli
         $db->method('connect')->willReturn($mockMysqli);
         
-        // Verificamos que la conexión predeterminada devuelve una instancia de mysqli
+        // Verificamos que getConexion() retorne un objeto mysqli simulado
         $this->assertInstanceOf(mysqli::class, $db->getConexion());
     }
 }

@@ -2,8 +2,6 @@
 
 namespace controllers;
 
-use model\Idiomas;
-
 class LanguageController
 {
     private $idiomas;
