@@ -7,3 +7,6 @@ Language Controller
  [x] Prueba de obtener idioma desde la sesión Idioma Español
  [x] Prueba de obtener idioma desde la sesión Idioma Francés
 
+Usuario Controller
+ [x] Registro exitoso
+
