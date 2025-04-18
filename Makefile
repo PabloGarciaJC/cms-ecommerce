@@ -61,8 +61,8 @@ build:
 stop:
 	$(DOCKER_COMPOSE) stop
 
-.PHONY: init-test
-init-test:
+.PHONY: init-config-test
+init-config-test:
 	$(DOCKER_COMPOSE) exec php_apache_ecommerce git config --global --add safe.directory /var/www/html
 	$(DOCKER_COMPOSE) exec php_apache_ecommerce composer require --dev phpunit/phpunit ^11
 	$(DOCKER_COMPOSE) exec php_apache_ecommerce mv /usr/local/bin/phpunit /var/www/html/tests/phpunit.phar
@@ -85,16 +85,13 @@ clean-specific:
 shell:
 	$(DOCKER_COMPOSE) exec --user pablogarciajc php_apache_ecommerce  /bin/sh -c "cd /var/www/html/; exec bash -l"
 
-.PHONY: test-usuario-controllers
-test-usuario-controllers:
-	$(DOCKER_COMPOSE) exec php_apache_ecommerce php /var/www/html/tests/phpunit.phar tests/Controllers/UsuarioControllersTest.php
+.PHONY: init-unit-tes-all
+init-unit-tes-all:
+	$(DOCKER_COMPOSE) exec php_apache_ecommerce ./tests/phpunit.phar --configuration ./tests/phpunit.xml --testdox
 
-.PHONY: test
-test:
-	$(DOCKER_COMPOSE) exec php_apache_ecommerce sh -c "\
-		mkdir -p /var/www/html/reportes && \
-		php /var/www/html/tests/phpunit.phar \
-	"
+
+
+
 
 
 
