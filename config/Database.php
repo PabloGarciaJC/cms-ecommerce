@@ -23,11 +23,7 @@ class Database
 
     public function __construct(?mysqli $conexion = null)
     {
-        if ($conexion) {
-            $this->conexion = $conexion;
-        } else {
-            $this->conexion = self::connect();
-        }
+        $this->conexion = ($conexion ? $conexion : self::connect());
     }
 
     // Método para TEST

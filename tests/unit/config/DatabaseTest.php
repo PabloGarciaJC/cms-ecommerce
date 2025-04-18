@@ -1,5 +1,5 @@
 <?php
-
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use config\Database;
@@ -7,7 +7,7 @@ use mysqli;
 
 class DatabaseTest extends TestCase
 {
-
+    #[Test]
     #[TestDox('testConexionPorObjetoMysql')]
     public function testConexionPorObjetoMysql()
     {
@@ -21,6 +21,7 @@ class DatabaseTest extends TestCase
         $this->assertInstanceOf(mysqli::class, $db->getConexion());
     }
 
+    #[Test]
     #[TestDox('testConexionPorMock')]
     public function testConexionPorMock()
     {

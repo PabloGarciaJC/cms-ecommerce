@@ -2,3 +2,6 @@ Database
  [x] testConexionPorObjetoMysql
  [x] testConexionPorMock
 
+Language Controller
+ [x] Suma de dos números enteros
+

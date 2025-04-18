@@ -85,8 +85,8 @@ clean-specific:
 shell:
 	$(DOCKER_COMPOSE) exec --user pablogarciajc php_apache_ecommerce  /bin/sh -c "cd /var/www/html/; exec bash -l"
 
-.PHONY: init-unit-tes-all
-init-unit-tes-all:
+.PHONY: init-tes-unit-all
+init-tes-unit-all:
 	$(DOCKER_COMPOSE) exec php_apache_ecommerce ./tests/phpunit.phar --configuration ./tests/phpunit.xml --testdox
 
 
