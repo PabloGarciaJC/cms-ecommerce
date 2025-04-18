@@ -35,23 +35,22 @@ class UsuarioController
     }
 
     // Registro de usuario
-    public function registro(?Usuario $registro = null) {
+    public function registro(?Usuario $registro = null)
+    {
 
         $this->cargarConfiguracionIdioma();
-    
         $usuario = $_POST['usuario'] ?? false;
         $email = $_POST['email'] ?? false;
         $password = $_POST['password'] ?? false;
         $confirmarPassword = $_POST['confirmarPassword'] ?? false;
         $checked = $_POST['checked'] ?? false;
-    
         $registro = $registro ?? new Usuario();
         $registro->setUsuario($usuario);
         $registro->setEmail($email);
         $registro->setRol(21);
-    
+
         $errores = [];
-    
+
         if (empty($usuario)) $errores[] = ERROR_EMPTY_USERNAME;
         if (empty($email)) $errores[] = ERROR_EMPTY_EMAIL;
         if (empty($password)) $errores[] = ERROR_EMPTY_PASSWORD;
@@ -60,7 +59,7 @@ class UsuarioController
         if (empty($checked)) $errores[] = ERROR_TERMS_NOT_ACCEPTED;
         if ($registro->repetidosUsuario()) $errores[] = ERROR_USERNAME_EXISTS;
         if ($registro->repetidosEmail()) $errores[] = ERROR_EMAIL_EXISTS;
-    
+
         if (count($errores) > 0) {
             echo json_encode([
                 'titulo' => TEXT_REGISTRATION_ERRORS_TITLE,
@@ -70,50 +69,39 @@ class UsuarioController
             ]);
             exit();
         }
-    
+
         $registro->setPassword($confirmarPassword);
         $registro->crear();
         $sesionCompletado = $registro->iniciarSesion();
-    
+
         if ($sesionCompletado && is_object($sesionCompletado)) {
             $_SESSION['usuarioRegistrado'] = $sesionCompletado;
         }
-    
+
         echo json_encode([
             'titulo' => TEXT_REGISTRATION_SUCCESS_TITLE,
             'success' => true,
             'boton' => TEXT_REVIEW_BUTTON
         ]);
     }
-    
+
     // Iniciar sesión de usuario
-    public function iniciarSesion()
+    public function iniciarSesion(?Usuario $registro = null)
     {
         $this->cargarConfiguracionIdioma();
         $email = isset($_POST['email']) ? $_POST['email'] : false;
         $password = isset($_POST['password']) ? $_POST['password'] : false;
-        $iniciarSesion = new Usuario();
-        $iniciarSesion->setEmail($email);
-        $sesionCompletado = $iniciarSesion->iniciarSesion();
+        $usuario = $registro ?? new Usuario();
+        $usuario->setEmail($email);
+        $sesionCompletado = $usuario->iniciarSesion();
 
         $errores = [];
 
-        if (empty($email)) {
-            $errores[] = ERROR_EMPTY_EMAIL;
-        }
-
-        if (empty($password)) {
-            $errores[] = ERROR_EMPTY_PASSWORD;
-        }
-
-        if (!$iniciarSesion->repetidosEmail()) {
-            $errores[] = TEXT_EMAIL_NOT_REGISTERED;
-        }
-
-        if ($sesionCompletado && !password_verify($password, $sesionCompletado->Password)) {
-            $errores[] = TEXT_INCORRECT_PASSWORD;
-        }
-
+        if (empty($email)) $errores[] = ERROR_EMPTY_EMAIL;
+        if (empty($password)) $errores[] = ERROR_EMPTY_PASSWORD;
+        if (!$usuario->repetidosEmail()) $errores[] = TEXT_EMAIL_NOT_REGISTERED;
+        (!empty($sesionCompletado) && !password_verify($password, $sesionCompletado->Password)) ? $errores[] = TEXT_INCORRECT_PASSWORD : null;
+    
         if (count($errores) > 0) {
             echo json_encode([
                 'titulo' => TEXT_LOGIN_ERRORS_TITLE,
