@@ -1,4 +1,5 @@
 <?php
+
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
@@ -10,7 +11,7 @@ use controllers\LanguageController;
 class ProductoControllerTest extends TestCase
 {
     #[Test]
-    #[TestDox('Renderiza la ficha del producto con información y comentarios')]
+    #[TestDox('Ficha PRoducto')]
     public function testFichaMuestraProductoCorrectamente()
     {
         // Definir constante para evitar cargar vistas

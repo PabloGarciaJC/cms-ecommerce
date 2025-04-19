@@ -11,7 +11,7 @@
 						<?php echo $producto->moviles(); ?>
 					</div>
 				</div>
-				<!-- <div class="product-sec1 px-sm-4 px-3 py-sm-5  py-3 mb-4">
+				<div class="product-sec1 px-sm-4 px-3 py-sm-5  py-3 mb-4">
 					<h3 class="heading-tittle text-center font-italic"><?php echo TEXT_PORTATILES; ?></h3>
 					<div class="row">
 						<?php echo $producto->tvAudios(); ?>
@@ -31,7 +31,7 @@
 					<div class="row">
 						<?php echo $producto->electrodomesticos(); ?>
 					</div>
-				</div> -->
+				</div>
 			</div>
 		</div>
 	</div>

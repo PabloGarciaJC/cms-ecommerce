@@ -26,7 +26,7 @@ class ProductoController
         $categorias = new Categorias();
 
         // Obtener todos los idiomas disponibles
-        $idiomas = new Idiomas();
+        $idiomas = $this->idiomas;
         $getIdiomas = $idiomas->obtenerTodos();
 
         // Establecer el idioma

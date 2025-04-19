@@ -1,13 +1,17 @@
 Database
- [x] Database: simulación de conexión BD
+ [x] Se inyecta Mysqli en el objeto manualmente
+ [x] Debe simular Conexión BD
 
 Language Controller
  [x] Obtener idioma Inglés
  [x] Obtener idioma Español
  [x] Obtener idioma Francés
 
+Linea Pedidos Controller
+ [x] Prueba Exitosa para checkout guardar
+
 Producto Controller
- [x] Renderiza la ficha del producto con información y comentarios
+ [x] Ficha PRoducto
 
 Usuario Controller
  [x] Registra un nuevo usuario exitosamente
