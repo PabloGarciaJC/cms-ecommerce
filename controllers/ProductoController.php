@@ -63,7 +63,6 @@ class ProductoController
         $obtenerComentariosMenorCalificacion = $comentarios->obtenerComentariosMenosValorados($productoFicha->grupo_id);
         $promedioCalificacion = $comentarios->obtenerPromedioCalificacion($productoFicha->grupo_id);
 
-        // Si no estamos en el entorno de testing, cargar las vistas
         if (!defined('PHPUNIT_RUNNING')) {
             require_once 'views/layout/head.php';
             require_once 'views/layout/header.php';

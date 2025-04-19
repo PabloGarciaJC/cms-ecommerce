@@ -1,5 +1,6 @@
 <?php
-
+use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use controllers\ProductoController;
 use model\Productos;
@@ -8,24 +9,20 @@ use controllers\LanguageController;
 
 class ProductoControllerTest extends TestCase
 {
-
+    #[Test]
+    #[TestDox('Renderiza la ficha del producto con información y comentarios')]
     public function testFichaMuestraProductoCorrectamente()
     {
         // Definir constante para evitar cargar vistas
         define('PHPUNIT_RUNNING', true);
 
         // Cargo Idiomas
-        $languageController = $this->getMockBuilder(LanguageController::class)
-            ->onlyMethods(['cargarTextos', 'getIdiomaId'])
-            ->getMock();
+        $languageController = $this->getMockBuilder(LanguageController::class)->onlyMethods(['cargarTextos', 'getIdiomaId'])->getMock();
         $languageController->method('cargarTextos')->willReturn(null);
         $languageController->method('getIdiomaId')->willReturn(1);
 
-        // Cargo Modelo de Productos Mock
-        $productoMock = $this->getMockBuilder(Productos::class)
-            ->onlyMethods(['setIdioma', 'setUsuario', 'setGrupoId', 'obtenerProductosPorId'])
-            ->getMock();
-
+        // Creo un mock del modelo Productos y simulo sus métodos
+        $productoMock = $this->getMockBuilder(Productos::class)->onlyMethods(['setIdioma', 'setUsuario', 'setGrupoId', 'obtenerProductosPorId'])->getMock();
         $productoMock->method('setIdioma')->willReturn(1);
         $productoMock->method('setUsuario')->willReturn(1);
         $productoMock->method('setGrupoId')->willReturn(123);
@@ -55,27 +52,10 @@ class ProductoControllerTest extends TestCase
             ]
         );
 
-        // Cargo Modelo de Comentario Mock
-        $comentarioMock = $this->getMockBuilder(Comentario::class)
-            ->onlyMethods(['obtenerComentariosValorados', 'obtenerComentariosMenosValorados', 'obtenerPromedioCalificacion'])
-            ->getMock();
-
-        $comentarioMock->method('obtenerComentariosValorados')->willReturn([
-            (object)[
-                'usuario' => 'TestUser1',
-                'comentario' => 'Muy bueno',
-                'valoracion' => 5
-            ]
-        ]);
-
-        $comentarioMock->method('obtenerComentariosMenosValorados')->willReturn([
-            (object)[
-                'usuario' => 'TestUser2',
-                'comentario' => 'No muy bueno',
-                'valoracion' => 1
-            ]
-        ]);
-
+        // Creo un mock del modelo Comentarios y simulo sus métodos
+        $comentarioMock = $this->getMockBuilder(Comentario::class)->onlyMethods(['obtenerComentariosValorados', 'obtenerComentariosMenosValorados', 'obtenerPromedioCalificacion'])->getMock();
+        $comentarioMock->method('obtenerComentariosValorados')->willReturn([(object)['usuario' => 'TestUser1', 'comentario' => 'Muy bueno', 'valoracion' => 5]]);
+        $comentarioMock->method('obtenerComentariosMenosValorados')->willReturn([(object)['usuario' => 'TestUser2', 'comentario' => 'No muy bueno', 'valoracion' => 1]]);
         $comentarioMock->method('obtenerPromedioCalificacion')->willReturn(4.5);
 
         // Cargo Clase
@@ -84,7 +64,7 @@ class ProductoControllerTest extends TestCase
         // Cargo Metodo
         ob_start();
         $productoController->ficha($productoMock, $comentarioMock);
-        $output = ob_get_clean() ?? '';
+        ob_get_clean();
 
         // Assert de Productos
         $producto = $productoMock->obtenerProductosPorId();
@@ -93,10 +73,8 @@ class ProductoControllerTest extends TestCase
         // Assert de comentarios
         $obtenerComentariosValorados = $comentarioMock->obtenerComentariosValorados($producto->grupo_id);
         $this->assertEquals('TestUser1', $obtenerComentariosValorados[0]->usuario);
-
         $obtenerComentariosMenosValorados = $comentarioMock->obtenerComentariosMenosValorados($producto->grupo_id);
         $this->assertEquals('TestUser2', $obtenerComentariosMenosValorados[0]->usuario);
-
         $obtenerPromedioCalificacion = $comentarioMock->obtenerPromedioCalificacion($producto->grupo_id);
         $this->assertEquals('4.5', $obtenerPromedioCalificacion);
 

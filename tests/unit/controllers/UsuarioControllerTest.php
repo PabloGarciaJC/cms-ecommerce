@@ -1,11 +1,14 @@
 <?php
-
+use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use controllers\UsuarioController;
 use model\Usuario;
 
 class UsuarioControllerTest extends TestCase
 {
+    #[Test]
+    #[TestDox('Registra un nuevo usuario exitosamente')]
     public function testRegistroExitoso()
     {
         $_POST = [
@@ -47,6 +50,8 @@ class UsuarioControllerTest extends TestCase
         $this->assertArrayHasKey('boton', $response);
     }
 
+    #[Test]
+    #[TestDox('Inicia sesión correctamente con credenciales válidas')]
     public function testLoginExitoso()
     {
         $_POST = [

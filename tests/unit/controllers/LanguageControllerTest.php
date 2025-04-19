@@ -1,5 +1,4 @@
 <?php
-
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
@@ -15,7 +14,7 @@ final class LanguageControllerTest extends TestCase
     }
 
     #[Test]
-    #[TestDox('Prueba de obtener idioma desde la sesión Idioma Inglés')]
+    #[TestDox('Obtener idioma Inglés')]
     public function testGetIdiomaFromSessionIngles()
     {
         $_SESSION['lang'] = 'en';
@@ -24,7 +23,7 @@ final class LanguageControllerTest extends TestCase
     }
 
     #[Test]
-    #[TestDox('Prueba de obtener idioma desde la sesión Idioma Español')]
+    #[TestDox('Obtener idioma Español')]
     public function testGetIdiomaFromSessionEspanol()
     {
         $_SESSION['lang'] = 'es';
@@ -33,7 +32,7 @@ final class LanguageControllerTest extends TestCase
     }
 
     #[Test]
-    #[TestDox('Prueba de obtener idioma desde la sesión Idioma Francés')]
+    #[TestDox('Obtener idioma Francés')]
     public function testGetIdiomaFromSessionFrances()
     {
         $_SESSION['lang'] = 'fr';
