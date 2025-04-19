@@ -11,16 +11,13 @@ class UsuarioController
     private $languageController;
     private $idiomas;
 
-    // Constructor con inyección de dependencias
     public function __construct(?LanguageController $languageController = null, ?Idiomas $idiomas = null)
     {
         $this->languageController = $languageController ?? new LanguageController();
         $this->idiomas = $idiomas ?? new Idiomas();
     }
 
-    /**
-     * Función común para cargar la configuración del idioma
-     */
+    // Configuración del idioma
     private function cargarConfiguracionIdioma()
     {
         $getIdiomas = $this->idiomas->obtenerTodos();

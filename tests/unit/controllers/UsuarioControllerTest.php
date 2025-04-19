@@ -4,7 +4,6 @@ use PHPUnit\Framework\TestCase;
 use controllers\UsuarioController;
 use model\Usuario;
 
-
 class UsuarioControllerTest extends TestCase
 {
     public function testRegistroExitoso()
