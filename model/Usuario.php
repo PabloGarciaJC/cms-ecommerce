@@ -1,6 +1,7 @@
 <?php
 
 namespace model;
+
 use config\Database;
 
 class Usuario
@@ -207,6 +208,11 @@ class Usuario
                     {$this->getRol()})";
 
     $result = $this->db->query($sql);
+
+    if ($result) {
+      $this->id = $this->db->insert_id;
+    }
+
     return $result;
   }
 
@@ -273,6 +279,7 @@ class Usuario
               Ciudad = '{$this->ciudad}', 
               CodigoPostal = '{$this->codigoPostal}' 
             WHERE Id = {$this->id}";
+
     $actualizar = $this->db->query($sql);
     if ($actualizar) {
       $resultado = true;

@@ -32,19 +32,18 @@ class UsuarioController
     }
 
     // Registro de usuario
-    public function registro(?Usuario $registro = null)
+    public function registro(?Usuario $ObjUsuario = null)
     {
-
         $this->cargarConfiguracionIdioma();
         $usuario = $_POST['usuario'] ?? false;
         $email = $_POST['email'] ?? false;
         $password = $_POST['password'] ?? false;
         $confirmarPassword = $_POST['confirmarPassword'] ?? false;
         $checked = $_POST['checked'] ?? false;
-        $registro = $registro ?? new Usuario();
-        $registro->setUsuario($usuario);
-        $registro->setEmail($email);
-        $registro->setRol(21);
+        $ObjUsuario = $ObjUsuario ?? new Usuario();
+        $ObjUsuario->setUsuario($usuario);
+        $ObjUsuario->setEmail($email);
+        $ObjUsuario->setRol(21);
 
         $errores = [];
 
@@ -54,8 +53,8 @@ class UsuarioController
         if (empty($confirmarPassword)) $errores[] = ERROR_EMPTY_CONFIRM_PASSWORD;
         if ($password !== $confirmarPassword) $errores[] = ERROR_PASSWORD_MISMATCH;
         if (empty($checked)) $errores[] = ERROR_TERMS_NOT_ACCEPTED;
-        if ($registro->repetidosUsuario()) $errores[] = ERROR_USERNAME_EXISTS;
-        if ($registro->repetidosEmail()) $errores[] = ERROR_EMAIL_EXISTS;
+        if ($ObjUsuario->repetidosUsuario()) $errores[] = ERROR_USERNAME_EXISTS;
+        if ($ObjUsuario->repetidosEmail()) $errores[] = ERROR_EMAIL_EXISTS;
 
         if (count($errores) > 0) {
             echo json_encode([
@@ -67,9 +66,9 @@ class UsuarioController
             exit();
         }
 
-        $registro->setPassword($confirmarPassword);
-        $registro->crear();
-        $sesionCompletado = $registro->iniciarSesion();
+        $ObjUsuario->setPassword($confirmarPassword);
+        $ObjUsuario->crear();
+        $sesionCompletado = $ObjUsuario->iniciarSesion();
 
         if ($sesionCompletado && is_object($sesionCompletado)) {
             $_SESSION['usuarioRegistrado'] = $sesionCompletado;

@@ -10,10 +10,9 @@ class App {
         let pais = $("#pais").val();
         $.ajax({
           type: "POST",
-          url: baseUrl + "ciudad/obtenerTodos",
+          url: baseUrl + "Ciudad/obtenerTodos",
           data: "pais=" + pais,
-        })
-          .done(function (response) {
+        }).done(function (response) {
             $("#ciudad").attr("disabled", false);
             $("#ciudad").html(response);
           })

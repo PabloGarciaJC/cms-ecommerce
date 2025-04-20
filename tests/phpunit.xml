@@ -4,9 +4,17 @@
         <testsuite name="unit">
             <directory phpVersion="8.2.0" phpVersionOperator=">=">unit</directory>
         </testsuite>
+       <!--
+        Suite de pruebas de integración:
+        Comentada porque estas pruebas interactúan con la base de datos.
+        Asegúrate de ejecutar las pruebas de integración en un entorno controlado,
+        ya que pueden modificar la base de datos y pueden tener efectos secundarios.
+        -->
+        <!-- 
         <testsuite name="integration">
             <directory phpVersion="8.2.0" phpVersionOperator=">=">integration</directory>
         </testsuite>
+        -->
     </testsuites>
     <logging>
         <testdoxHtml outputFile="report/testdox.html"/>
