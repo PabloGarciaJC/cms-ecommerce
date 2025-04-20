@@ -1,14 +1,18 @@
 <?php
-require_once 'model/usuario.php';
-require_once 'model/categorias.php';
-require_once 'model/paises.php';
-require_once 'model/productos.php';
-require_once 'model/roles.php';
-require_once 'model/pedidos.php';
-require_once 'model/comentario.php';
-require_once 'model/idiomas.php';
-require_once 'model/favorito.php';
-require_once 'controllers/LanguageController.php';
+
+namespace controllers;
+
+use model\Usuario;
+use model\Categorias;
+use model\Paises;
+use model\Productos;
+use model\Roles;
+use model\Pedidos;
+use model\Comentario;
+use model\Favorito;
+use controllers\LanguageController;
+use helpers\Utils;
+use model\Idiomas;
 
 class AdminController
 {
@@ -523,7 +527,7 @@ class AdminController
     public function asignarRoles()
     {
         Utils::accesoUsuarioRegistrado();
-        $roles = new Rol();
+        $roles = new Roles();
         $obtenerRoles = $roles->obtenerTodos();
         $usuarios = new Usuario();
         $obtenerUsuarios = $usuarios->obtenerTodosLosUsuarios();
@@ -573,7 +577,7 @@ class AdminController
     public function roles()
     {
         Utils::accesoUsuarioRegistrado();
-        $rol = new Rol();
+        $rol = new Roles();
         unset($_SESSION['errores']);
         unset($_SESSION['form']);
         unset($_SESSION['exito']);
@@ -587,7 +591,7 @@ class AdminController
     {
         $editId = isset($_GET['editid']) ? $_GET['editid'] : false;
         $deleteid = isset($_GET['deleteid']) ? $_GET['deleteid'] : false;
-        $rol = new Rol();
+        $rol = new Roles();
         if ($editId || $deleteid) {
             $rol->setId($editId ?: $deleteid);
             $obtenerRoles = $rol->obtenerPorId();
@@ -604,7 +608,7 @@ class AdminController
         $descripcion = isset($_POST['descripcion']) ? $_POST['descripcion'] : false;
         $editId = isset($_POST['editid']) ? $_POST['editid'] : false;
         $deleteid = isset($_POST['deleteid']) ? $_POST['deleteid'] : false;
-        $rol = new Rol();
+        $rol = new Roles();
         $rol->setNombre($name);
         $rol->setDescripcion($descripcion);
 

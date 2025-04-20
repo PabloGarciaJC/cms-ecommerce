@@ -183,6 +183,30 @@
                 <div class="col-12 col-md-4 mb-4">
                     <div class="card info-card feature-card h-100 shadow-sm bg-light border-light">
                         <div class="card-header">
+                            <h3><i class="fas fa-vial"></i> Testing Unitario</h3>
+                        </div>
+                        <div class="card-body-info p-4">
+                            <p>El testing unitario permite verificar que cada unidad de código (funciones, métodos o clases) funcione de manera individual y según lo esperado.</p>
+                            <p>Es esencial para detectar errores de forma temprana y facilitar el mantenimiento del software.</p>
+                            <p><a href="https://docs.phpunit.de/en/11.5/index.html" target="_blank" class="btn btn-link p-0">Testing unitarios con PHPUnit</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4 mb-4">
+                    <div class="card info-card feature-card h-100 shadow-sm bg-light border-light">
+                        <div class="card-header">
+                            <h3><i class="fas fa-project-diagram"></i> Testing de Integración</h3>
+                        </div>
+                        <div class="card-body-info p-4">
+                            <p>El testing de integración verifica que los diferentes módulos del sistema trabajen en conjunto correctamente, detectando errores en la interacción entre componentes.</p>
+                            <p>Es crucial para asegurar que los flujos completos de la aplicación funcionen como se espera.</p>
+                            <p><a href="https://docs.phpunit.de/en/11.5/index.html" target="_blank" class="btn btn-link p-0">Testing de integración con PHPUnit</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4 mb-4">
+                    <div class="card info-card feature-card h-100 shadow-sm bg-light border-light">
+                        <div class="card-header">
                             <h3><i class="fas fa-file-alt"></i> Logging</h3>
                         </div>
                         <div class="card-body-info p-4">

@@ -1,10 +1,13 @@
 <?php
 
-require_once 'model/productos.php';
-require_once 'model/categorias.php';
-require_once 'controllers/ProductoController.php';
-require_once 'model/idiomas.php';
-require_once 'controllers/LanguageController.php';
+namespace controllers;
+
+use model\Productos;
+use model\Categorias;
+use controllers\ProductoController;
+use model\Idiomas;
+use controllers\LanguageController;
+use helpers\Utils;
 
 class HomeController
 {

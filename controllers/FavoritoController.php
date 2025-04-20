@@ -1,8 +1,12 @@
 <?php
-require_once 'model/favorito.php';
-require_once 'model/usuario.php';
-require_once 'model/idiomas.php';
-require_once 'controllers/LanguageController.php';
+
+namespace controllers;
+
+use model\Favorito;
+use model\Usuario;
+use model\Idiomas;
+use controllers\LanguageController;
+use helpers\Utils;
 
 class FavoritoController
 {

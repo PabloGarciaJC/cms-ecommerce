@@ -1,47 +1,49 @@
-## ---------------------------------------------------------
-## Utilizar una imagen base de PHP con Apache
-## ---------------------------------------------------------
-
-FROM php:8.2-apache
+ARG PHP_VERSION=8.2
+FROM php:${PHP_VERSION}-apache
 
 ## ---------------------------------------------------------
-## Argumentos
+## Argumentos fijos (reemplazamos las variables por valores fijos)
 ## ---------------------------------------------------------
 
+# Definir los valores que provienen del archivo .env
 ARG NEW_UID
 ARG NEW_GID
 ARG MY_USER
 ARG MY_GROUP
+ARG PHPUNIT_VERSION=11
 
 ## ---------------------------------------------------------
 ## Habilitar e instalar extensiones y librerías necesarias
 ## ---------------------------------------------------------
 
 RUN set -eux && \
-    groupadd -g ${NEW_GID} -r ${MY_GROUP} && \
-    useradd -u ${NEW_UID} -m -s /bin/bash -g ${MY_GROUP} ${MY_USER} && \
-    apt-get update && apt-get install -y \
-    nano \
-    libicu-dev \
-    libmariadb-dev \
+groupadd -g ${NEW_GID} -r ${MY_GROUP} && \
+useradd -u ${NEW_UID} -m -s /bin/bash -g ${MY_GROUP} ${MY_USER} && \
+apt-get update && \
+apt-get install -y \
     unzip \
-    zip \
-    zlib1g-dev \
-    libjpeg-dev \
-    libfreetype6-dev \
-    libjpeg62-turbo-dev \
-    libpng-dev \
     git \
-    libzip-dev \
+    libxml2-dev \
     tzdata \
-    && ln -fs /usr/share/zoneinfo/Europe/Madrid /etc/localtime && \
-    dpkg-reconfigure -f noninteractive tzdata && \
-    docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg && \
-    docker-php-ext-install -j$(nproc) gd mysqli pdo_mysql gettext intl && \
-    docker-php-ext-enable mysqli pdo_mysql && \
-    a2enmod rewrite && \
-    apt-get clean && rm -rf /var/lib/apt/lists/* && \
-    curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
+    nano \
+    zlib1g-dev \
+    wget && \
+ln -fs /usr/share/zoneinfo/Europe/Madrid /etc/localtime && \
+dpkg-reconfigure -f noninteractive tzdata && \
+docker-php-ext-install -j$(nproc) mysqli pdo_mysql && \
+docker-php-ext-enable mysqli pdo_mysql && \
+a2enmod rewrite && \
+apt-get clean && \
+rm -rf /var/lib/apt/lists/* && \
+curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
+
+## ---------------------------------------------------------
+## Instalar PHPUnit
+## ---------------------------------------------------------
+
+RUN wget https://phar.phpunit.de/phpunit-${PHPUNIT_VERSION}.phar -O /usr/local/bin/phpunit && \
+chmod +x /usr/local/bin/phpunit && \
+phpunit --version
 
 ## ---------------------------------------------------------
 ## Copiar el contenido de la aplicación

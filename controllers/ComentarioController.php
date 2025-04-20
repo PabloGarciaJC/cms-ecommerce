@@ -1,7 +1,10 @@
 <?php
-require_once 'model/comentario.php';
-require_once 'model/idiomas.php';
-require_once 'controllers/LanguageController.php';
+namespace controllers;
+
+use model\Comentario;
+use model\Idiomas;
+use controllers\LanguageController;
+use helpers\Utils;
 
 class ComentarioController
 {

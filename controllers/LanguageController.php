@@ -1,29 +1,41 @@
 <?php
-// LanguageController.php
-require_once 'model/idiomas.php';
+
+namespace controllers;
 
 class LanguageController
 {
     private $idiomas;
 
-    public function __construct()
+    public function __construct($idiomas = null)
     {
-        $this->idiomas = new Idiomas();
+        $this->setIdiomas($idiomas ? $idiomas : self::getIdioma());
     }
 
-    // Establece el idioma en la sesión
+    public function setIdiomas($idiomas)
+    {
+        $this->idiomas = $idiomas;
+    }
+
     public function setIdioma($codigo)
     {
         $_SESSION['lang'] = $codigo;
     }
 
-    // Obtiene el idioma actual de la sesión
+    public function setIdiomaSession($codigo)
+    {
+        $this->setIdioma($codigo);
+    }
+
+    public function getIdiomas()
+    {
+        return $this->idiomas;
+    }
+
     public function getIdioma()
     {
         return isset($_SESSION['lang']) ? $_SESSION['lang'] : 'es';
     }
 
-    // Obtiene el id del idioma actual
     public function getIdiomaId()
     {
         $idioma = $this->getIdioma();
@@ -38,7 +50,6 @@ class LanguageController
         }
     }
 
-    // Carga los textos del idioma seleccionado
     public function cargarTextos()
     {
         $idioma = $this->getIdioma();
@@ -55,4 +66,3 @@ class LanguageController
         }
     }
 }
-?>

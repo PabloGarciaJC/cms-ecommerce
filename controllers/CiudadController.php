@@ -1,5 +1,8 @@
 <?php
-require_once 'model/ciudades.php';
+
+namespace controllers;
+
+use model\Ciudades;
 
 class CiudadController
 {
