@@ -156,7 +156,7 @@ class Comentario
     {
         $sql = "SELECT co.id, u.Id AS usuario_id, u.Usuario AS nombre_usuario, u.Email AS email_usuario, u.Nombres AS nombres, u.Apellidos AS apellidos, co.id AS comentario_id, co.comentario, co.calificacion, co.fecha, co.estado, p.nombre AS nombre_producto
                 FROM comentarios co LEFT JOIN usuarios u ON co.usuario_id = u.Id
-                LEFT JOIN productos p ON p.grupo_id = co.grupo_id WHERE p.idioma_id = 1;";
+                LEFT JOIN productos p ON p.grupo_id = co.grupo_id WHERE p.idioma_id = 1 ORDER BY co.fecha DESC;";
         $result = $this->db->query($sql);
         return $result;
     }
