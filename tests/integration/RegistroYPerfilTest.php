@@ -1,8 +1,6 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use controllers\UsuarioController;
-use controllers\AdminController;
 use model\Usuario;
 
 class RegistroYPerfilTest extends TestCase

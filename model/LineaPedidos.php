@@ -256,11 +256,8 @@ class LineaPedidos
     public function obtenerProductosDelPedido($id)
     {
         $idioma = empty($this->getIdioma()) ? 1 : $this->getIdioma();
-        // Consulta para obtener los productos del pedido
         $sql = "SELECT * FROM linea_pedidos lp WHERE lp.pedido_id = $id AND lp.idioma_id = $idioma";
-        // Ejecutar la consulta
         $result = $this->db->query($sql);
-        // Devolver la lista de productos
         return $result;
     }
 }

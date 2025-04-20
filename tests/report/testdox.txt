@@ -8,7 +8,7 @@ Language Controller
  [x] Obtener idioma Francés
 
 Linea Pedidos Controller
- [ ] Prueba Exitosa para checkout guardar
+ [x] Prueba Exitosa para checkout guardar
 
 Producto Controller
  [x] Ficha PRoducto

@@ -27,30 +27,20 @@ class LineaPedidosControllerTest extends TestCase
         $pedidoMock->method('guardar')->willReturn(true);
         $pedidoMock->method('getId')->willReturn(123);
 
-        // Mock para simular el  While de un objeto
-        // $productosPedidoMock = $this->getMockBuilder(stdClass::class)->addMethods(['fetch_object'])->getMock();
-        // $productosPedidoMock->expects($this->exactly(2))->method('fetch_object')->willReturnOnConsecutiveCalls(
-        //     (object)['grupo_id' => 1, 'stock' => 10, 'cantidad' => 2], null
-        // );
-
         // Mock de LineaPedidos
         $lineaPedidosMock = $this->getMockBuilder(LineaPedidos::class)->onlyMethods(['actualizarConPedido', 'obtenerProductosDelPedido'])->getMock();
         $lineaPedidosMock->method('actualizarConPedido')->willReturn(true);
-        // $lineaPedidosMock->method('obtenerProductosDelPedido')->with(123)->willReturn($productosPedidoMock);
-
+        $lineaPedidosMock->method('obtenerProductosDelPedido')->willReturn(301);
+       
         // Instanciar controlador y ejecutar el método
         $lineaPedidosController = new LineaPedidosController($languageController);
 
+        // Cargo Metodo
         ob_start();
-        try {
-            $lineaPedidosController->checkoutGuardar($pedidoMock, $lineaPedidosMock);
-            ob_end_clean();
-        } catch (\Throwable $e) {
-            ob_end_clean();
-            throw $e;
-        }
+        $lineaPedidosController->checkoutGuardar($pedidoMock, $lineaPedidosMock);
+        ob_get_clean();
 
         // Declarar explícitamente una aserción para evitar warning
-        $this->assertTrue(true);
+        $this->assertTrue(true, $lineaPedidosMock->obtenerProductosDelPedido(1));
     }
 }

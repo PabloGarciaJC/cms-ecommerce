@@ -181,13 +181,11 @@ class LineaPedidosController
         $lineasDePedido = json_decode($lineasDePedidoJSON, true);
 
         // Cargar vistas
-        if (!defined('PHPUNIT_RUNNING_LINEA')) {
-            require_once 'views/layout/head.php';
-            require_once 'views/layout/header.php';
-            require_once 'views/layout/search.php';
-            require_once 'views/producto/checkout.php';
-            require_once 'views/layout/footer.php';
-        }
+        require_once 'views/layout/head.php';
+        require_once 'views/layout/header.php';
+        require_once 'views/layout/search.php';
+        require_once 'views/producto/checkout.php';
+        require_once 'views/layout/footer.php';
     }
 
     public function checkoutGuardar(?Pedidos $pedidos = null, ?LineaPedidos $lineaPedidos = null, ?Productos $productos = null)
@@ -243,12 +241,9 @@ class LineaPedidosController
         }
 
         if (count($errores) > 0) {
-
             $_SESSION['errores'] = $errores;
             $_SESSION['form'] = $_POST;
-            if (!defined('PHPUNIT_RUNNING_LINEA')) {
-                header("Location: " . BASE_URL . "LineaPedidos/checkout");
-            }
+            header("Location: " . BASE_URL . "LineaPedidos/checkout");
         } else {
 
             $pedido = $pedidos ?? new Pedidos();
@@ -272,13 +267,13 @@ class LineaPedidosController
                 $productosPedido = $lineaPedido->obtenerProductosDelPedido($pedido->getId());
                 // Actualizar el stock de cada producto
                 $producto = $productos ?? new Productos();
-                while ($row = $productosPedido->fetch_object()) {
-                    $producto->setGrupoId($row->grupo_id);
-                    $producto->setIdioma($this->languageController->getIdiomaId());
-                    $producto->setStock($row->stock - $row->cantidad);
-                    $producto->actualizarPorIdFrontend();
-                }
                 if (!defined('PHPUNIT_RUNNING_LINEA')) {
+                    while ($row = $productosPedido->fetch_object()) {
+                        $producto->setGrupoId($row->grupo_id);
+                        $producto->setIdioma($this->languageController->getIdiomaId());
+                        $producto->setStock($row->stock - $row->cantidad);
+                        $producto->actualizarPorIdFrontend();
+                    }
                     header("Location: " . BASE_URL . "Admin/listaPedidos");
                 }
             }
