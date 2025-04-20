@@ -62,5 +62,4 @@ if (class_exists($nombre_controlador_completo)) {
     $error = new ErrorController();
     $error->index();
 }
-
 ob_end_flush();

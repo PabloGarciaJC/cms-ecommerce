@@ -9,7 +9,7 @@ DOCKER_COMPOSE = docker compose -f ./.docker/docker-compose.yml
 ## ---------------------------------------------------------
 
 .PHONY: init-app
-init-app: | copy-env set-permissions create-symlink up print-urls
+init-app: | copy-env set-permissions create-symlink up install-dependencies print-urls
 
 .PHONY: copy-env
 copy-env:
@@ -61,35 +61,38 @@ build:
 stop:
 	$(DOCKER_COMPOSE) stop
 
-.PHONY: init-config-test
-init-config-test:
+.PHONY: install-dependencies
+install-dependencies:
 	$(DOCKER_COMPOSE) exec php_apache_ecommerce git config --global --add safe.directory /var/www/html
+	$(DOCKER_COMPOSE) exec php_apache_ecommerce composer require monolog/monolog
 	$(DOCKER_COMPOSE) exec php_apache_ecommerce composer require --dev phpunit/phpunit ^11
+
+.PHONY: prepare-tests
+prepare-tests:
 	$(DOCKER_COMPOSE) exec php_apache_ecommerce mv /usr/local/bin/phpunit /var/www/html/tests/phpunit.phar
 	$(DOCKER_COMPOSE) exec php_apache_ecommerce chmod +x /var/www/html/tests/phpunit.phar
 	$(DOCKER_COMPOSE) exec php_apache_ecommerce chown -R 1000:1000 /var/www/html/tests
 
-.PHONY: clean-docker-all
-clean-all:
+.PHONY: clean-docker
+clean-docker:
 	sudo docker rmi -f $$(sudo docker images -q) || true
 	sudo docker volume rm $$(sudo docker volume ls -q) || true
 	sudo docker network prune -f || true
 
-.PHONY: clean-specific
-clean-specific:
+.PHONY: clean-docker-ecommerce
+clean-docker-ecommerce:
 	sudo docker rmi mysql:latest || true
 	sudo docker volume rm docker_persistent-ecommerce || true
 	sudo docker network rm network_ecommerce || true
 
+.PHONY: init-tes
+init-tes:
+	$(DOCKER_COMPOSE) exec php_apache_ecommerce git config --global --add safe.directory /var/www/html
+	$(DOCKER_COMPOSE) exec php_apache_ecommerce ./tests/phpunit.phar --configuration ./tests/phpunit.xml --testdox
+
 .PHONY: shell
 shell:
 	$(DOCKER_COMPOSE) exec --user pablogarciajc php_apache_ecommerce  /bin/sh -c "cd /var/www/html/; exec bash -l"
-
-.PHONY: init-tes-all
-init-tes-all:
-	$(DOCKER_COMPOSE) exec php_apache_ecommerce ./tests/phpunit.phar --configuration ./tests/phpunit.xml --testdox
-
-
 
 
 

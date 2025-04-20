@@ -5,6 +5,7 @@ namespace controllers;
 use model\Usuario;
 use model\Idiomas;
 use controllers\LanguageController;
+use logger\LoggerWrapper;
 
 class UsuarioController
 {
@@ -64,21 +65,25 @@ class UsuarioController
                 'boton' => TEXT_ACCEPT_BUTTON
             ]);
             exit();
+        } else {
+            $ObjUsuario->setPassword($confirmarPassword);
+            $ObjUsuario->crear();
+            $sesionCompletado = $ObjUsuario->iniciarSesion();
+
+            if ($sesionCompletado && is_object($sesionCompletado)) {
+                $_SESSION['usuarioRegistrado'] = $sesionCompletado;
+            }
+            //  Log de éxito de registro
+            $logger = LoggerWrapper::getInstance();
+            if ($logger) {
+                $logger->info('Usuario Registrado');
+            }
+            echo json_encode([
+                'titulo' => TEXT_REGISTRATION_SUCCESS_TITLE,
+                'success' => true,
+                'boton' => TEXT_REVIEW_BUTTON
+            ]);
         }
-
-        $ObjUsuario->setPassword($confirmarPassword);
-        $ObjUsuario->crear();
-        $sesionCompletado = $ObjUsuario->iniciarSesion();
-
-        if ($sesionCompletado && is_object($sesionCompletado)) {
-            $_SESSION['usuarioRegistrado'] = $sesionCompletado;
-        }
-
-        echo json_encode([
-            'titulo' => TEXT_REGISTRATION_SUCCESS_TITLE,
-            'success' => true,
-            'boton' => TEXT_REVIEW_BUTTON
-        ]);
     }
 
     // Iniciar sesión de usuario
@@ -97,7 +102,7 @@ class UsuarioController
         if (empty($password)) $errores[] = ERROR_EMPTY_PASSWORD;
         if (!$usuario->repetidosEmail()) $errores[] = TEXT_EMAIL_NOT_REGISTERED;
         (!empty($sesionCompletado) && !password_verify($password, $sesionCompletado->Password)) ? $errores[] = TEXT_INCORRECT_PASSWORD : null;
-    
+
         if (count($errores) > 0) {
             echo json_encode([
                 'titulo' => TEXT_LOGIN_ERRORS_TITLE,
@@ -110,6 +115,13 @@ class UsuarioController
             if ($sesionCompletado && is_object($sesionCompletado)) {
                 $_SESSION['usuarioRegistrado'] = $sesionCompletado;
             }
+
+            //  Log de éxito de Login
+            $logger = LoggerWrapper::getInstance();
+            if ($logger) {
+                $logger->info('Usuario Loegado');
+            }
+
             echo json_encode([
                 'titulo' => TEXT_LOGIN_SUCCESS_TITLE,
                 'success' => true,

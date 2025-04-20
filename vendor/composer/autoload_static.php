@@ -23,6 +23,10 @@ class ComposerStaticInit084553bdafe58f4e64e7e9976915005e
         array (
             'model\\' => 6,
         ),
+        'l' => 
+        array (
+            'logger\\' => 7,
+        ),
         'h' => 
         array (
             'helpers\\' => 8,
@@ -40,8 +44,13 @@ class ComposerStaticInit084553bdafe58f4e64e7e9976915005e
         ),
         'P' => 
         array (
+            'Psr\\Log\\' => 8,
             'PhpParser\\' => 10,
             'PhpOption\\' => 10,
+        ),
+        'M' => 
+        array (
+            'Monolog\\' => 8,
         ),
         'G' => 
         array (
@@ -62,6 +71,10 @@ class ComposerStaticInit084553bdafe58f4e64e7e9976915005e
         'model\\' => 
         array (
             0 => __DIR__ . '/../..' . '/model',
+        ),
+        'logger\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/logger',
         ),
         'helpers\\' => 
         array (
@@ -87,6 +100,10 @@ class ComposerStaticInit084553bdafe58f4e64e7e9976915005e
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
         ),
+        'Psr\\Log\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/log/src',
+        ),
         'PhpParser\\' => 
         array (
             0 => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser',
@@ -94,6 +111,10 @@ class ComposerStaticInit084553bdafe58f4e64e7e9976915005e
         'PhpOption\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpoption/phpoption/src/PhpOption',
+        ),
+        'Monolog\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
         ),
         'GrahamCampbell\\ResultType\\' => 
         array (
