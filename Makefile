@@ -17,8 +17,8 @@ copy-env:
 
 .PHONY: set-permissions
 set-permissions:
-	@chmod -R 777 ./config/.log
-	@chmod g+s ./config/.log
+	@chmod -R 777 ./logger/.log
+	@chmod g+s ./logger/.log
 
 .PHONY: create-symlink
 create-symlink:

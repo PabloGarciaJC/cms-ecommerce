@@ -165,7 +165,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
             <h2 class="panel-admin__dashboard-title">Tecnologías Empleadas para el Desarrollo</h2>
             <div class="row">

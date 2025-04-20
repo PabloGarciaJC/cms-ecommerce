@@ -38,15 +38,16 @@ El sistema está diseñado inicialmente con **dos roles**:
 
 ## Tecnologías Usadas
 
-| **Tecnología**           | **Descripción**                                                                                                                                                                                                                                  |
-|--------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **PHP Y SQL**                  | Lenguaje de programación para backend y bases de datos.                                                                                                           |
-| **Logging**              | Herramienta para registrar eventos y errores del sistema.                                                                                                      |
-| **Testing**              | Pruebas unitarias y de integración para asegurar la funcionalidad.                                                                 |
-| **Composer**             | Gestor de dependencias en PHP.                                                                                                                                                                     |
-| **Docker (con WSL)**     | Plataforma para contenerización y escalabilidad.                                                                                                                                               |
-| **Docker Compose**       | Herramienta para definir y ejecutar aplicaciones multi-contenedor.                                                                 |
-| **Make**                 | Automatiza tareas repetitivas del proyecto.                                                                                                                                                                   |
+| **Tecnología**             | **Descripción**                                                                                                                                                   |
+|----------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **PHP y SQL**              | Lenguaje de programación para backend y bases de datos.                                                                                                           |
+| **Logging**                | Herramienta para registrar eventos, errores y el estado del sistema en tiempo real.                                                                               |
+| **Testing Unitario**       | Verifica que unidades individuales de código funcionen correctamente y de forma aislada.                                                                          |
+| **Testing de Integración** | Asegura que los distintos módulos o servicios del sistema interactúan correctamente entre sí.                                                                    |
+| **Composer**               | Gestor de dependencias en PHP.                                                                                                                                    |
+| **Docker (con WSL)**       | Plataforma para contenerización y escalabilidad, con soporte para entornos Linux en Windows mediante WSL2.                                                       |
+| **Docker Compose**         | Herramienta para definir y ejecutar aplicaciones multi-contenedor, facilitando la gestión de entornos complejos.                                                 |
+| **Make**                   | Automatiza tareas repetitivas como pruebas, despliegues y gestión de contenedores, optimizando el flujo de trabajo.                                              |
 
 ---
 
