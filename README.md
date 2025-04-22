@@ -97,6 +97,8 @@ El sistema está diseñado inicialmente con **dos roles**:
    - **`make up`**: Levanta la aplicación y sus contenedores asociados.
    - **`make down`**: Detiene los contenedores y apaga la aplicación.
    - **`make shell`**: Ingresa al contenedor para interactuar directamente con el sistema en su entorno de ejecución.
+   - **`make install-dependencies`**: Instala todas las dependencias necesarias para disponer del sistema de logs y ejecutar pruebas.
+   - **`make init-test`**: Ejecuta las pruebas unitarias y de integración.
 
 4. Además de estos comandos, dentro del archivo **Makefile** puedes encontrar otros comandos que te permitirán interactuar de manera más específica con los contenedores y los diferentes servicios que conforman la aplicación.
 
