@@ -108,12 +108,16 @@ El sistema está diseñado inicialmente con **dos roles**:
 
 ---
 
-## Contáctame para más información o preguntas
+## Contáctame / Sígueme en mis redes sociales
 
-| Redes Sociales  | Desarrollador de Aplicaciones Web |
-| ------------- | ------------- |
-| ![Web Icono](https://pablogarciajc.com/wp-content/uploads/2024/04/web.png) | **[www.pablogarciajc.com](https://pablogarciajc.com/)** |
-| ![Facebook](https://pablogarciajc.com/wp-content/uploads/2024/04/facebook.png) | **[@pablogarciajc](https://www.facebook.com/PabloGarciaJC)** |
-| ![LinkedIn](https://pablogarciajc.com/wp-content/uploads/2024/04/linkedin.png) | **[@pablogarciajc](https://www.linkedin.com/in/pablogarciajc/)** |
+| Red Social   | Descripción                                              | Enlace                   |
+|--------------|----------------------------------------------------------|--------------------------|
+| **Facebook** | Conéctate y mantente al tanto de mis actualizaciones.    | [Presiona aquí](https://facebook.com/tu-usuario) |
+| **YouTube**  | Fundamentos de la programación, tutoriales y noticias.   | [Presiona aquí](https://youtube.com/tu-canal)     |
+| **Página Web** | Más información sobre mis proyectos y servicios.        | [Presiona aquí](https://tusitio.com)              |
+| **LinkedIn** | Sigue mi carrera profesional y establece conexiones.     | [Presiona aquí](https://linkedin.com/in/tu-usuario) |
+| **Instagram**| Fotos, proyectos y contenido relacionado.                 | [Presiona aquí](https://instagram.com/tu-usuario) |
+| **Twitter**  | Proyectos, pensamientos y actualizaciones.                | [Presiona aquí](https://twitter.com/tu-usuario)   |
 
-> _"El buen trabajo es la solución de hoy, para construir el futuro del mañana."_
+---
+> _"El buen manejo de tus finanzas hoy construye la seguridad del mañana."_
