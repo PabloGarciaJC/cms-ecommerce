@@ -1,6 +1,6 @@
-# Aplicación Web Ecommerce - CMS
+# CMS Ecommerce
 
-La **Aplicación Web Ecommerce** es un **CMS** especializado en comercio electrónico, diseñado para ser seguro y escalable. Combina la gestión de contenido con herramientas avanzadas de tienda en línea, ofreciendo una experiencia intuitiva y adaptable. Su desarrollo se basa en buenas prácticas y actualizaciones constantes, garantizando eficiencia tanto para compradores como para vendedores.
+**CMS Ecommerce**, especializado en comercio electrónico, diseñado para ofrecer seguridad y escalabilidad. Integra la gestión de contenidos con potentes herramientas de tienda en línea, brindando una experiencia intuitiva y adaptable. Desarrollado siguiendo buenas prácticas y con actualizaciones constantes, garantiza eficiencia y rendimiento tanto para compradores como para vendedores.
 
 ### Demo del Proyecto  
 [https://ecommerce.pablogarciajc.com/](https://ecommerce.pablogarciajc.com/)
