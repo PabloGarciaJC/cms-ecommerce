@@ -25,6 +25,7 @@ $dotenv->load();
 define("ACTION_DEFAULT", "index"); 
 define("BASE_URL", $_ENV['BASE_URL_PROJECT']); 
 define("CONTROLLER_DEFAULT", "HomeController");
+define("PROTECTION_LAYER", TRUE);
 
 ## ---------------------------------------------------------
 ## Verificar el controlador y la acción a ejecutar (Dinamico)

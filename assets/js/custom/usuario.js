@@ -109,23 +109,25 @@ class User {
       let email = $(this).data('email');
       let password = $(this).data('password');
 
-      if (email === 'admin@pablogarciajc.com') {
-        Swal.fire({
-          icon: 'warning',
-          title: 'Acceso Restringido',
-          html: `Para ingresar al panel administrativo, Puede contactarme fácilmente a través de este enlace: `,
-          showCancelButton: true,
-          confirmButtonText: 'Contactar en LinkedIn',
-          cancelButtonText: 'Cerrar',
-          reverseButtons: true,
-        }).then((result) => {
-          if (result.isConfirmed) {
-            window.open('https://www.linkedin.com/in/pablogarciajc/', '_blank');
-          }
-        });
-        return;
+      let protectionLayer = $('#protection-layer').text().trim();
+      if (protectionLayer === '1' && email === 'admin@pablogarciajc.com') {
+        if (email === 'admin@pablogarciajc.com') {
+          Swal.fire({
+            icon: 'warning',
+            title: 'Acceso Restringido',
+            html: `Para ingresar al panel administrativo, Puede contactarme fácilmente a través de este enlace: `,
+            showCancelButton: true,
+            confirmButtonText: 'Contactar en LinkedIn',
+            cancelButtonText: 'Cerrar',
+            reverseButtons: true,
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.open('https://www.linkedin.com/in/pablogarciajc/', '_blank');
+            }
+          });
+          return;
+        }
       }
-
 
       // Rellena los campos del formulario
       emailInput.val(email);
