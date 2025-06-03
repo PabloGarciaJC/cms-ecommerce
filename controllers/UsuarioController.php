@@ -117,7 +117,6 @@ class UsuarioController
         }
 
         if ($sesionCompletado && is_object($sesionCompletado)) {
-            // Obtener permisos antes de guardar sesión
             $permissions = property_exists($sesionCompletado, 'permissions') ? $sesionCompletado->permissions : [];
             $onlyRead = count($permissions) === 1 && in_array('read', $permissions);
 
@@ -132,8 +131,7 @@ class UsuarioController
                 ]);
                 exit();
             }
-
-            // Tiene permisos de escritura: guardar en sesión y continuar login
+            
             $_SESSION['usuarioRegistrado'] = $sesionCompletado;
 
             $logger = \logger\LoggerWrapper::getInstance();

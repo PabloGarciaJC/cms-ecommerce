@@ -232,7 +232,6 @@ class Usuario
     if ($login && $login->num_rows == 1) {
       $usuario = $login->fetch_object();
 
-      // 2. Obtener permisos asociados al rol
       $roleId = $usuario->Rol;
       $sqlPermisos = "SELECT permission FROM permissions WHERE role_id = $roleId";
       $resultPermisos = $this->db->query($sqlPermisos);
@@ -244,7 +243,6 @@ class Usuario
         }
       }
 
-      // 3. Agregar permisos al objeto usuario
       $usuario->permissions = $permissions;
     }
 
