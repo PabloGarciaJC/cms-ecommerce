@@ -6,6 +6,7 @@ use model\Usuario;
 use model\Idiomas;
 use controllers\LanguageController;
 use logger\LoggerWrapper;
+use model\Permission;
 
 class UsuarioController
 {
@@ -90,8 +91,8 @@ class UsuarioController
     public function iniciarSesion(?Usuario $registro = null)
     {
         $this->cargarConfiguracionIdioma();
-        $email = isset($_POST['email']) ? $_POST['email'] : false;
-        $password = isset($_POST['password']) ? $_POST['password'] : false;
+        $email = $_POST['email'] ?? false;
+        $password = $_POST['password'] ?? false;
         $usuario = $registro ?? new Usuario();
         $usuario->setEmail($email);
         $sesionCompletado = $usuario->iniciarSesion();
@@ -101,7 +102,9 @@ class UsuarioController
         if (empty($email)) $errores[] = ERROR_EMPTY_EMAIL;
         if (empty($password)) $errores[] = ERROR_EMPTY_PASSWORD;
         if (!$usuario->repetidosEmail()) $errores[] = TEXT_EMAIL_NOT_REGISTERED;
-        (!empty($sesionCompletado) && !password_verify($password, $sesionCompletado->Password)) ? $errores[] = TEXT_INCORRECT_PASSWORD : null;
+        if (!empty($sesionCompletado) && !password_verify($password, $sesionCompletado->Password)) {
+            $errores[] = TEXT_INCORRECT_PASSWORD;
+        }
 
         if (count($errores) > 0) {
             echo json_encode([
@@ -111,23 +114,47 @@ class UsuarioController
                 'boton' => TEXT_ACCEPT_BUTTON
             ]);
             exit();
-        } else {
-            if ($sesionCompletado && is_object($sesionCompletado)) {
-                $_SESSION['usuarioRegistrado'] = $sesionCompletado;
+        }
+
+        if ($sesionCompletado && is_object($sesionCompletado)) {
+            // Obtener permisos antes de guardar sesión
+            $permissions = property_exists($sesionCompletado, 'permissions') ? $sesionCompletado->permissions : [];
+            $onlyRead = count($permissions) === 1 && in_array('read', $permissions);
+
+            if ($onlyRead) {
+                echo json_encode([
+                    'success' => true,
+                    'onlyRead' => true,
+                    'permissions' => $permissions,
+                    'protectionTitle' => PROTECTION_LAYER_TITLE,
+                    'protectionMessage' => PROTECTION_LAYER_MESSAGE,
+                    'protectionBtnText' => PROTECTION_LAYER_BTN
+                ]);
+                exit();
             }
 
-            //  Log de éxito de Login
-            $logger = LoggerWrapper::getInstance();
+            // Tiene permisos de escritura: guardar en sesión y continuar login
+            $_SESSION['usuarioRegistrado'] = $sesionCompletado;
+
+            $logger = \logger\LoggerWrapper::getInstance();
             if ($logger) {
-                $logger->info('Usuario Loegado');
+                $logger->info('Usuario logeado con permisos de escritura');
             }
 
             echo json_encode([
                 'titulo' => TEXT_LOGIN_SUCCESS_TITLE,
                 'success' => true,
                 'message' => LOGIN_SUCCESS,
-                'boton' => TEXT_REVIEW_BUTTON
+                'boton' => TEXT_REVIEW_BUTTON,
+                'permissions' => $permissions
             ]);
+            exit();
+        } else {
+            echo json_encode([
+                'success' => false,
+                'message' => [TEXT_LOGIN_FAILURE]
+            ]);
+            exit();
         }
     }
 }
