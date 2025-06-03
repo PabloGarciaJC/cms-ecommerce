@@ -7,42 +7,61 @@ class User {
   registro() {
     $('.formulario-registro').on('submit', function (e) {
       e.preventDefault();
-      let formData = $(this).serialize();
-      $.ajax({
-        type: 'POST',
-        url: baseUrl + 'Usuario/registro',
-        data: formData,
-        success: function (response) {
-          let data = JSON.parse(response);
-          if (data.success) {
-            Swal.fire({
-              title: data.titulo,
-              icon: "success",
-              showConfirmButton: false,
-              confirmButtonText: data.boton,
-              timer: 1000
-            }).then(() => {
-              window.location.reload();
-            });
-            $('.formulario-registro').trigger('reset');
-          } else {
-            let errorMessage = "";
-            data.message.forEach(function (error) {
-              errorMessage += `<p style="color: red;text-align: justify;"><i class="fa fa-times-circle"></i> ${error}</p>`;
-            });
-            Swal.fire({
-              title: data.titulo,
-              icon: "error",
-              html: errorMessage,
-              confirmButtonText: data.boton
-            });
+      let protectionLayer = $('#protection-layer').text().trim();
+      if (protectionLayer === '1') {
+        Swal.fire({
+          icon: "info",
+          title: 'Acceso Restringido',
+          html: `
+                <p class="contact-message"> El acceso está restringido. Si necesitas autorización para ingresar o gestionar los módulos del sistema, no dudes en contactarme a través de mis redes sociales.</p>
+                  <div class="social-links">
+                      <a href="https://www.facebook.com/PabloGarciaJC" target="_blank" title="Facebook"><i class="emoji-48"></i></a>
+                      <a href="https://www.instagram.com/pablogarciajc" target="_blank" title="Instagram"><i class="emoji-49"></i></a>
+                      <a href="https://www.linkedin.com/in/pablogarciajc" target="_blank" title="LinkedIn"><i class="emoji-50"></i></a>
+                      <a href="https://www.youtube.com/channel/UC5I4oY7BeNwT4gBu1ZKsEhw" target="_blank" title="YouTube"><i class="emoji-52"></i></a>
+                  </div>
+                `,
+          confirmButtonText: 'Cerrar'
+        });
+        return;
+      } else {
+        let formData = $(this).serialize();
+        $.ajax({
+          type: 'POST',
+          url: baseUrl + 'Usuario/registro',
+          data: formData,
+          success: function (response) {
+            let data = JSON.parse(response);
+            if (data.success) {
+              Swal.fire({
+                title: data.titulo,
+                icon: "success",
+                showConfirmButton: false,
+                confirmButtonText: data.boton,
+                timer: 1000
+              }).then(() => {
+                window.location.reload();
+              });
+              $('.formulario-registro').trigger('reset');
+            } else {
+              let errorMessage = "";
+              data.message.forEach(function (error) {
+                errorMessage += `<p style="color: red;text-align: justify;"><i class="fa fa-times-circle"></i> ${error}</p>`;
+              });
+              Swal.fire({
+                title: data.titulo,
+                icon: "error",
+                html: errorMessage,
+                confirmButtonText: data.boton
+              });
+            }
+          },
+          error: function (jqXHR, textStatus, errorThrown) {
+            console.error(textStatus, errorThrown);
+            $('#respuestaPhpRegistro').html('Ocurrió un error al enviar la solicitud.').show();
           }
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-          console.error(textStatus, errorThrown);
-          $('#respuestaPhpRegistro').html('Ocurrió un error al enviar la solicitud.').show();
-        }
-      });
+        });
+      }
     });
   }
 
@@ -108,26 +127,6 @@ class User {
 
       let email = $(this).data('email');
       let password = $(this).data('password');
-
-      let protectionLayer = $('#protection-layer').text().trim();
-      if (protectionLayer === '1' && email === 'admin@pablogarciajc.com') {
-        if (email === 'admin@pablogarciajc.com') {
-          Swal.fire({
-            icon: 'warning',
-            title: 'Acceso Restringido',
-            html: `Para ingresar al panel administrativo, Puede contactarme fácilmente a través de este enlace: `,
-            showCancelButton: true,
-            confirmButtonText: 'Contactar en LinkedIn',
-            cancelButtonText: 'Cerrar',
-            reverseButtons: true,
-          }).then((result) => {
-            if (result.isConfirmed) {
-              window.open('https://www.linkedin.com/in/pablogarciajc/', '_blank');
-            }
-          });
-          return;
-        }
-      }
 
       // Rellena los campos del formulario
       emailInput.val(email);

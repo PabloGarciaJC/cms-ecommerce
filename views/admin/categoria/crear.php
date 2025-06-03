@@ -21,7 +21,7 @@
         <section class="panel-admin__dashboard panel-admin__dashboard--categorias">
             <div class="panel-admin__category-form">
                 <h2 class="panel-admin__dashboard-title"><?php echo $titleText; ?> Categoría</h2>
-                <form action="<?php echo BASE_URL ?>Admin/guardarCategorias" method="POST" enctype="multipart/form-data">
+                <form action="<?php echo BASE_URL ?>Admin/guardarCategorias" method="POST" enctype="multipart/form-data" class="protection__layer">
                     <input type="hidden" name="editid" value="<?php echo $editId; ?>">
                     <input type="hidden" name="deleteid" value="<?php echo $deleteid; ?>">
                     <input type="hidden" name="parentid" value="<?php echo $categoriaId; ?>">

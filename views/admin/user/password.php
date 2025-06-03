@@ -13,7 +13,7 @@
                 <?php unset($_SESSION['exito']); ?>
             <?php endif; ?>
             <h2 class="panel-admin__dashboard-title">Editar de Contraseña</h2>
-            <form action="<?php echo BASE_URL; ?>Admin/cambioPassword" method="POST" enctype="multipart/form-data" class="panel-admin__user-form">
+            <form action="<?php echo BASE_URL; ?>Admin/cambioPassword" method="POST" enctype="multipart/form-data" class="panel-admin__user-form protection__layer">
                 <input type="hidden" name="id" value="<?php echo $usuario->Id; ?>">
                 <div class="form-group">
                     <label for="new_password">Nueva Contraseña:</label>

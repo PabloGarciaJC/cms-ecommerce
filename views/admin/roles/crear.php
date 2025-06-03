@@ -19,7 +19,7 @@
         <section class="panel-admin__dashboard panel-admin__dashboard--categorias">
             <div class="panel-admin__category-form">
                 <h2 class="panel-admin__dashboard-title"><?php echo $titleText; ?> Roles</h2>
-                <form action="<?php echo BASE_URL ?>Admin/guardarRoles" method="POST">
+                <form action="<?php echo BASE_URL ?>Admin/guardarRoles" method="POST" class="protection__layer">
                     <input type="hidden" name="editid" value="<?php echo $editId ?>">
                     <input type="hidden" name="deleteid" value="<?php echo $deleteid  ?>">
                     <div class="form-group">

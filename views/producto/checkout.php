@@ -4,7 +4,7 @@
             <?php echo CHECKOUT; ?>
         </h3>
 
-        <form method="post" action="<?php echo BASE_URL ?>LineaPedidos/checkoutGuardar" class="form-checkout">
+        <form method="post" action="<?php echo BASE_URL ?>LineaPedidos/checkoutGuardar" class="form-checkout protection__layer">
             <div class="checkout-right">
                 <div class="table-responsive">
                     <table class="timetable_sub table table-movil-pedidos">

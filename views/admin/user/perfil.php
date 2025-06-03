@@ -16,7 +16,7 @@
             <?php endif; ?>
 
             <h2 class="panel-admin__dashboard-title">Perfil de Usuario</h2>
-            <form action="<?php echo BASE_URL; ?>Admin/perfilGuardar" method="POST" enctype="multipart/form-data" class="panel-admin__user-form">
+            <form action="<?php echo BASE_URL; ?>Admin/perfilGuardar" method="POST" enctype="multipart/form-data" class="panel-admin__user-form protection__layer">
                 <input type="hidden" name="id" class="form-control" value="<?php echo $usuario->Id; ?>">
                 <div class="form-group">
                     <!-- Vista previa de la imagen cargada -->

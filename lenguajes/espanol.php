@@ -331,7 +331,7 @@ define('TEXT_AVERAGE_RATING', 'Calificación Promedio.');
 
 // Texto informatico pagina de contacto
 define("TEXT_FORM_DISABLED_TITLE", "Formulario Deshabilitado");
-define("TEXT_FORM_DISABLED_MESSAGE", "Este formulario no está habilitado porque es solo un portafolio. No se procesarán datos.");
+define("TEXT_FORM_DISABLED_MESSAGE", "No se procesarán datos.");
 define("TEXT_PRODUCT_ALREADY_IN_CART", "Este Producto ya existe en el carrito de compras");
 define("TEXT_ITEMS_ADDED_TO_CART", "Se añadió Items al Carrito Compras");
 

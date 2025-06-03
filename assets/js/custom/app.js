@@ -13,9 +13,9 @@ class App {
           url: baseUrl + "Ciudad/obtenerTodos",
           data: "pais=" + pais,
         }).done(function (response) {
-            $("#ciudad").attr("disabled", false);
-            $("#ciudad").html(response);
-          })
+          $("#ciudad").attr("disabled", false);
+          $("#ciudad").html(response);
+        })
       });
     }
     mostrarCodigoPaises();
@@ -178,13 +178,39 @@ class App {
     container.classList.add('animations-applied');
   };
 
+  protectionLayer = function () {
+    $('.protection__layer').on('submit', function (e) {
+      let protectionLayer = $('#protection-layer').text().trim();
+      if (protectionLayer === '1') {
+        e.preventDefault();
+        Swal.fire({
+          icon: "info",
+          title: 'Acceso Restringido',
+          html: `
+            <p class="contact-message">El acceso al panel administrativo está restringido. Si necesitas autorización para ingresar o gestionar los módulos del sistema, no dudes en contactarme a través de mis redes sociales.</p>
+            <div class="social-links">
+            <a href="https://www.facebook.com/PabloGarciaJC" target="_blank" title="Facebook"><i class="emoji-48"></i></a>
+            <a href="https://www.instagram.com/pablogarciajc" target="_blank" title="Instagram"><i class="emoji-49"></i></a>
+            <a href="https://www.linkedin.com/in/pablogarciajc" target="_blank" title="LinkedIn"><i class="emoji-50"></i></a>
+            <a href="https://www.youtube.com/channel/UC5I4oY7BeNwT4gBu1ZKsEhw" target="_blank" title="YouTube"><i class="emoji-52"></i></a>
+            </div>
+                `,
+          confirmButtonText: 'Cerrar',
+        });
+        return;
+      } else {
+        this.submit();
+      }
+    });
+  }
+
   // Método customApp
   customApp() {
     this.avatarVistaPrevia();
     this.mostrarCiudades();
     this.mostrarPassword();
     this.autoHideAlert();
-    // this.select2();
+    this.protectionLayer();
 
     // Menu Desplegable en version Movil para el Panel Administrativo
     let abierto = false;

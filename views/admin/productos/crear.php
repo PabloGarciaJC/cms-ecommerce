@@ -21,7 +21,7 @@
     <main class="panel-admin__main-content">
         <section class="panel-admin__dashboard">
             <h2 class="panel-admin__dashboard-title"><?php echo $titleText; ?> Producto</h2>
-            <form action="<?php echo BASE_URL; ?>Admin/guardarProductos" method="POST" enctype="multipart/form-data">
+            <form action="<?php echo BASE_URL; ?>Admin/guardarProductos" method="POST" enctype="multipart/form-data" class="protection__layer">
                 <input type="hidden" name="editid" value="<?php echo $editId; ?>">
                 <input type="hidden" name="deleteid" value="<?php echo $deleteid; ?>">
                 <input type="hidden" name="parentid" value="<?php echo $categoriaId; ?>">

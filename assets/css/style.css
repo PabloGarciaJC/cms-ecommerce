@@ -5,6 +5,47 @@ License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 --*/
 
+.emoji-48 {
+    background-image: url('../images/emojis-svg/emoji-48.svg');
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+    background-size: cover;
+}
+
+.emoji-49 {
+    background-image: url('../images/emojis-svg/emoji-49.svg');
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+    background-size: cover;
+}
+
+.emoji-50 {
+    background-image: url('../images/emojis-svg/emoji-50.svg');
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+    background-size: cover;
+}
+
+.emoji-51 {
+    background-image: url('../images/emojis-svg/emoji-51.svg');
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+    background-size: cover;
+}
+
+.emoji-52 {
+    background-image: url('../images/emojis-svg/emoji-52.svg');
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+    background-size: cover;
+}
+
+
 html,
 body {
     margin: 0;
@@ -264,11 +305,14 @@ button.w3view-cart {
     border: 1px solid rgba(27, 25, 25, 0.27);
 }
 
-@media (max-width:767px){
-.agileits_search{
-    max-width: 80%;
-}
-.top_nav_right {padding: 0px;}
+@media (max-width:767px) {
+    .agileits_search {
+        max-width: 80%;
+    }
+
+    .top_nav_right {
+        padding: 0px;
+    }
 }
 
 /*-- //header cart button --*/
@@ -3524,4 +3568,29 @@ div#testimonials h4.m-title {
     .occasion-cart .snipcart-details {
         width: 45%;
     }
+}
+
+/*--------------------------------------------------------------
+# CAPA DE PROTECCION
+--------------------------------------------------------------*/
+
+.contact-message {
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: 16px;
+    line-height: 1.5;
+}
+.social-links {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.social-links a {
+    display: inline-block;
+    transition: transform 0.2s ease-in-out;
+}
+
+.social-links a:hover {
+    transform: scale(1.1);
 }
