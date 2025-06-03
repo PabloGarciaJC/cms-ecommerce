@@ -22,9 +22,3 @@
 <script src="<?= BASE_URL ?>assets/js/custom/favorito.js"></script>
 <script src="<?php echo BASE_URL ?>assets/js/custom/linea-pedido.js"></script>
 <div id="spinner" class="spinner"></div>
-<div id="protection-layer"
-    data-title="<?= htmlspecialchars(defined('PROTECTION_LAYER_TITLE') && PROTECTION_LAYER_TITLE ? PROTECTION_LAYER_TITLE : 'Acceso Restringido', ENT_QUOTES, 'UTF-8') ?>"
-    data-message="<?= htmlspecialchars(defined('PROTECTION_LAYER_MESSAGE') && PROTECTION_LAYER_MESSAGE ? PROTECTION_LAYER_MESSAGE : 'El acceso al panel administrativo está restringido. Si necesitas autorización para ingresar o gestionar los módulos del sistema, no dudes en contactarme a través de mis redes sociales.', ENT_QUOTES, 'UTF-8') ?>"
-    data-close="<?= htmlspecialchars(defined('PROTECTION_LAYER_BTN') && PROTECTION_LAYER_BTN ? PROTECTION_LAYER_BTN : 'Cerrar', ENT_QUOTES, 'UTF-8') ?>">
-    <?= defined('PROTECTION_LAYER') ? PROTECTION_LAYER : '' ?>
-</div>
