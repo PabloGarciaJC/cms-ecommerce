@@ -332,3 +332,8 @@ define("TEXT_ITEMS_ADDED_TO_CART", "Items were added to the shopping cart");
 define("TEXT_PEDIDO_COMPLETED", "Order Completed");
 define("TEXT_THANK_YOU_PURCHASE", "Thank you for your purchase!");
 define("TEXT_VIEW_MY_ORDERS", "View my orders");
+
+// Texto de Capa de Proteccion
+define("PROTECTION_LAYER_TITLE", "Restricted Access");
+define("PROTECTION_LAYER_MESSAGE", "Access to the admin panel is restricted. If you need authorization to enter or manage system modules, feel free to contact me through my social networks.");
+define("PROTECTION_LAYER_BTN", "Close");
