@@ -344,4 +344,6 @@ define("TEXT_VIEW_MY_ORDERS", "Ver mis pedidos");
 define("PROTECTION_LAYER_TITLE", "Acceso Restringido");
 define("PROTECTION_LAYER_MESSAGE", "El acceso al panel administrativo está restringido. Si necesitas autorización para ingresar o gestionar los módulos del sistema, no dudes en contactarme a través de mis redes sociales.");
 define("PROTECTION_LAYER_BTN", "Cerrar");
+define("TEXT_LOGIN_FAILURE", "No se pudo completar el inicio de sesión. Intenta nuevamente más tarde.");
+
 

@@ -7,7 +7,7 @@ class Permission
 {
     private $id;
     private $role_id;
-    private $permission; // 'read' o 'write'
+    private $permission;
     private $db;
 
     public function __construct()

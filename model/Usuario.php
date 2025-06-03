@@ -221,14 +221,33 @@ class Usuario
     $usuario = false;
     $email = $this->getEmail() ?? "";
     $escapedEmail = $this->db->real_escape_string($email);
+
+    // 1. Obtener usuario y rol
     $sql = "SELECT u.*, r.nombre AS rol_nombre 
-              FROM usuarios u
-              INNER JOIN roles r ON u.Rol = r.id
-              WHERE u.Email = '$escapedEmail'";
+            FROM usuarios u
+            INNER JOIN roles r ON u.Rol = r.id
+            WHERE u.Email = '$escapedEmail'";
     $login = $this->db->query($sql);
+
     if ($login && $login->num_rows == 1) {
       $usuario = $login->fetch_object();
+
+      // 2. Obtener permisos asociados al rol
+      $roleId = $usuario->Rol;
+      $sqlPermisos = "SELECT permission FROM permissions WHERE role_id = $roleId";
+      $resultPermisos = $this->db->query($sqlPermisos);
+
+      $permissions = [];
+      if ($resultPermisos) {
+        while ($perm = $resultPermisos->fetch_assoc()) {
+          $permissions[] = $perm['permission'];
+        }
+      }
+
+      // 3. Agregar permisos al objeto usuario
+      $usuario->permissions = $permissions;
     }
+
     return $usuario;
   }
 

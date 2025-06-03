@@ -336,3 +336,4 @@ define("TEXT_VIEW_MY_ORDERS", "Voir mes commandes");
 define("PROTECTION_LAYER_TITLE", "Accès Restreint");
 define("PROTECTION_LAYER_MESSAGE", "L'accès au panneau d'administration est restreint. Si vous avez besoin d'autorisation pour entrer ou gérer les modules du système, n'hésitez pas à me contacter via mes réseaux sociaux.");
 define("PROTECTION_LAYER_BTN", "Fermer");
+define("TEXT_LOGIN_FAILURE", "La connexion n'a pas pu être effectuée. Veuillez réessayer plus tard.");

@@ -7,7 +7,7 @@ class User {
   registro() {
     $('.formulario-registro').on('submit', function (e) {
       e.preventDefault();
-      
+
       let formData = $(this).serialize();
       $.ajax({
         type: 'POST',
@@ -57,18 +57,40 @@ class User {
         url: baseUrl + 'Usuario/IniciarSesion',
         data: formData,
         success: function (response) {
-          let data = JSON.parse(response);
+          let data = typeof response === "string" ? JSON.parse(response) : response;
+
           if (data.success) {
+            const perms = data.permissions || [];
+            const onlyRead = perms.length === 1 && perms.includes('read');
+            if (onlyRead) {
+              Swal.fire({
+                icon: "info",
+                title: data.protectionTitle,
+                html: `
+                  <p class="contact-message">${data.protectionMessage}</p>
+                  <div class="social-links">
+                    <a href="https://www.facebook.com/PabloGarciaJC" target="_blank" title="Facebook"><i class="emoji-48"></i></a>
+                    <a href="https://www.instagram.com/pablogarciajc" target="_blank" title="Instagram"><i class="emoji-49"></i></a>
+                    <a href="https://www.linkedin.com/in/pablogarciajc" target="_blank" title="LinkedIn"><i class="emoji-50"></i></a>
+                    <a href="https://www.youtube.com/channel/UC5I4oY7BeNwT4gBu1ZKsEhw" target="_blank" title="YouTube"><i class="emoji-52"></i></a>
+                  </div>
+                `,
+                confirmButtonText: data.protectionBtnText,
+              });
+              return;
+            }
+
             Swal.fire({
               title: data.titulo,
               icon: "success",
               showConfirmButton: false,
-              confirmButtonText: data.boton,
               timer: 1000
             }).then(() => {
               window.location.reload();
             });
+
             $('.formulario-iniciar-sesion').trigger('reset');
+
           } else {
             let errorMessage = "";
             data.message.forEach(function (error) {
@@ -89,6 +111,7 @@ class User {
       });
     });
   }
+
 
   customUser() {
     this.registro();

@@ -337,3 +337,5 @@ define("TEXT_VIEW_MY_ORDERS", "View my orders");
 define("PROTECTION_LAYER_TITLE", "Restricted Access");
 define("PROTECTION_LAYER_MESSAGE", "Access to the admin panel is restricted. If you need authorization to enter or manage system modules, feel free to contact me through my social networks.");
 define("PROTECTION_LAYER_BTN", "Close");
+define("TEXT_LOGIN_FAILURE", "Login could not be completed. Please try again later.");
+
