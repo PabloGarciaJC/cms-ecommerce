@@ -10,7 +10,6 @@ class Commentario {
 
             if (protectionLayer === '1') {
                 e.preventDefault();
-
                 Swal.fire({
                     icon: "info",
                     title: 'Acceso Restringido',
@@ -27,7 +26,6 @@ class Commentario {
                 `,
                     confirmButtonText: 'Cerrar'
                 });
-
                 return;
             }
 
