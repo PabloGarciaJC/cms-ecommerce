@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.2
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 15-01-2025 a las 11:51:31
--- Versión del servidor: 10.11.11-MariaDB
--- Versión de PHP: 7.2.34
+-- Servidor: mysql
+-- Tiempo de generación: 03-06-2025 a las 18:48:35
+-- Versión del servidor: 9.3.0
+-- Versión de PHP: 8.2.27
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `u498565300_ecbdpjgc`
+-- Base de datos: `ecommerce_pablogarciajc`
 --
 
 -- --------------------------------------------------------
@@ -28,13 +28,13 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `categorias` (
-  `id` int(11) NOT NULL,
-  `nombre` varchar(255) DEFAULT NULL,
-  `descripcion` text DEFAULT NULL,
-  `parent_id` int(11) DEFAULT NULL,
-  `imagenes` text DEFAULT NULL,
-  `idioma_id` int(11) NOT NULL DEFAULT 1,
-  `grupo_id` int(11) DEFAULT NULL
+  `id` int NOT NULL,
+  `nombre` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `descripcion` text COLLATE utf8mb4_general_ci,
+  `parent_id` int DEFAULT NULL,
+  `imagenes` text COLLATE utf8mb4_general_ci,
+  `idioma_id` int NOT NULL DEFAULT '1',
+  `grupo_id` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -68,9 +68,9 @@ INSERT INTO `categorias` (`id`, `nombre`, `descripcion`, `parent_id`, `imagenes`
 --
 
 CREATE TABLE `ciudades` (
-  `Id` int(11) NOT NULL,
+  `Id` int NOT NULL,
   `Id_Pais` varchar(2) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `Ciudad` varchar(255) DEFAULT NULL
+  `Ciudad` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -166,15 +166,15 @@ INSERT INTO `ciudades` (`Id`, `Id_Pais`, `Ciudad`) VALUES
 --
 
 CREATE TABLE `comentarios` (
-  `id` int(11) NOT NULL,
-  `usuario_id` int(11) NOT NULL,
-  `comentario` text NOT NULL,
-  `calificacion` int(11) NOT NULL,
-  `fecha` timestamp NULL DEFAULT current_timestamp(),
-  `estado` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0 = Pendiente, 1 = Aprobado',
-  `idioma_id` int(11) NOT NULL DEFAULT 1,
-  `parent_id` int(11) DEFAULT NULL,
-  `grupo_id` int(11) DEFAULT NULL
+  `id` int NOT NULL,
+  `usuario_id` int NOT NULL,
+  `comentario` text COLLATE utf8mb4_general_ci NOT NULL,
+  `calificacion` int NOT NULL,
+  `fecha` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `estado` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0 = Pendiente, 1 = Aprobado',
+  `idioma_id` int NOT NULL DEFAULT '1',
+  `parent_id` int DEFAULT NULL,
+  `grupo_id` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -384,10 +384,10 @@ INSERT INTO `comentarios` (`id`, `usuario_id`, `comentario`, `calificacion`, `fe
 --
 
 CREATE TABLE `favoritos` (
-  `id` int(11) NOT NULL,
-  `usuario_id` int(11) NOT NULL,
-  `creado_en` timestamp NULL DEFAULT current_timestamp(),
-  `grupo_id` int(11) DEFAULT NULL
+  `id` int NOT NULL,
+  `usuario_id` int NOT NULL,
+  `creado_en` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `grupo_id` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -395,10 +395,7 @@ CREATE TABLE `favoritos` (
 --
 
 INSERT INTO `favoritos` (`id`, `usuario_id`, `creado_en`, `grupo_id`) VALUES
-(431, 39, '2025-01-15 09:59:45', 1735805306),
-(432, 39, '2025-01-15 10:02:10', 1735800547),
-(437, 39, '2025-01-15 10:40:04', 1736901979),
-(438, 39, '2025-01-15 11:38:36', 1735805506);
+(432, 39, '2025-01-15 10:02:10', 1735800547);
 
 -- --------------------------------------------------------
 
@@ -407,9 +404,9 @@ INSERT INTO `favoritos` (`id`, `usuario_id`, `creado_en`, `grupo_id`) VALUES
 --
 
 CREATE TABLE `idiomas` (
-  `id` int(11) NOT NULL,
-  `codigo` varchar(5) NOT NULL,
-  `nombre` varchar(50) NOT NULL
+  `id` int NOT NULL,
+  `codigo` varchar(5) COLLATE utf8mb4_general_ci NOT NULL,
+  `nombre` varchar(50) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -428,18 +425,25 @@ INSERT INTO `idiomas` (`id`, `codigo`, `nombre`) VALUES
 --
 
 CREATE TABLE `linea_pedidos` (
-  `id` int(11) NOT NULL,
-  `pedido_id` int(11) DEFAULT NULL,
-  `cantidad` int(11) DEFAULT NULL,
+  `id` int NOT NULL,
+  `pedido_id` int DEFAULT NULL,
+  `cantidad` int DEFAULT NULL,
   `precio` decimal(10,2) DEFAULT NULL,
-  `oferta` decimal(5,2) DEFAULT 0.00,
-  `subtotal` decimal(10,2) DEFAULT 0.00,
-  `stock` int(11) DEFAULT NULL,
-  `idioma_id` int(11) DEFAULT NULL,
-  `grupo_id` varchar(10) DEFAULT NULL,
-  `usuario_id` int(11) NOT NULL DEFAULT 0,
-  `nombre` varchar(255) DEFAULT NULL
+  `oferta` decimal(5,2) DEFAULT '0.00',
+  `subtotal` decimal(10,2) DEFAULT '0.00',
+  `stock` int DEFAULT NULL,
+  `idioma_id` int DEFAULT NULL,
+  `grupo_id` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `usuario_id` int NOT NULL DEFAULT '0',
+  `nombre` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `linea_pedidos`
+--
+
+INSERT INTO `linea_pedidos` (`id`, `pedido_id`, `cantidad`, `precio`, `oferta`, `subtotal`, `stock`, `idioma_id`, `grupo_id`, `usuario_id`, `nombre`) VALUES
+(583, NULL, 1, 999.99, 20.00, 799.99, 13, 2, '1735807954', 39, 'Apple iPhone X');
 
 -- --------------------------------------------------------
 
@@ -448,8 +452,8 @@ CREATE TABLE `linea_pedidos` (
 --
 
 CREATE TABLE `paises` (
-  `Id` varchar(2) NOT NULL,
-  `Pais` varchar(255) DEFAULT NULL
+  `Id` varchar(2) COLLATE utf8mb4_general_ci NOT NULL,
+  `Pais` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -476,18 +480,45 @@ INSERT INTO `paises` (`Id`, `Pais`) VALUES
 --
 
 CREATE TABLE `pedidos` (
-  `id` int(11) NOT NULL,
-  `usuario_id` int(11) DEFAULT NULL,
-  `pais` varchar(100) DEFAULT NULL,
-  `ciudad` varchar(100) DEFAULT NULL,
-  `direccion` varchar(255) DEFAULT NULL,
-  `codigoPostal` varchar(20) DEFAULT NULL,
+  `id` int NOT NULL,
+  `usuario_id` int DEFAULT NULL,
+  `pais` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `ciudad` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `direccion` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `codigoPostal` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `coste` float(200,2) DEFAULT NULL,
-  `estado` varchar(50) DEFAULT NULL,
+  `estado` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `fecha` date DEFAULT NULL,
   `hora` time DEFAULT NULL,
-  `idioma_id` int(11) DEFAULT NULL
+  `idioma_id` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `pedidos`
+--
+
+INSERT INTO `pedidos` (`id`, `usuario_id`, `pais`, `ciudad`, `direccion`, `codigoPostal`, `coste`, `estado`, `fecha`, `hora`, `idioma_id`) VALUES
+(295, 39, 'ES', 'Madrid', 'malaga', '29009', 0.00, 'Pagado', '2025-06-03', '01:02:14', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `permissions`
+--
+
+CREATE TABLE `permissions` (
+  `id` int NOT NULL,
+  `role_id` int NOT NULL,
+  `permission` enum('read','write') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `permissions`
+--
+
+INSERT INTO `permissions` (`id`, `role_id`, `permission`) VALUES
+(1, 22, 'read'),
+(3, 21, 'write');
 
 -- --------------------------------------------------------
 
@@ -496,24 +527,24 @@ CREATE TABLE `pedidos` (
 --
 
 CREATE TABLE `productos` (
-  `id` int(11) NOT NULL,
-  `nombre` varchar(255) DEFAULT NULL,
-  `descripcion` text DEFAULT NULL,
+  `id` int NOT NULL,
+  `nombre` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `descripcion` text COLLATE utf8mb4_general_ci,
   `precio` decimal(10,2) NOT NULL,
-  `stock` int(11) NOT NULL,
-  `estado` enum('available','out_of_stock','discontinued') NOT NULL,
+  `stock` int NOT NULL,
+  `estado` enum('available','out_of_stock','discontinued') COLLATE utf8mb4_general_ci NOT NULL,
   `oferta` decimal(10,2) DEFAULT NULL,
   `offer_expiration` date DEFAULT NULL,
-  `imagenes` text DEFAULT NULL,
-  `parent_id` int(11) DEFAULT NULL,
-  `idioma_id` int(11) NOT NULL DEFAULT 1,
-  `grupo_id` varchar(10) NOT NULL,
+  `imagenes` text COLLATE utf8mb4_general_ci,
+  `parent_id` int DEFAULT NULL,
+  `idioma_id` int NOT NULL DEFAULT '1',
+  `grupo_id` varchar(10) COLLATE utf8mb4_general_ci NOT NULL,
   `offer_start` date DEFAULT NULL,
-  `especificacion_1` varchar(255) DEFAULT NULL,
-  `especificacion_2` varchar(255) DEFAULT NULL,
-  `especificacion_3` varchar(255) DEFAULT NULL,
-  `especificacion_4` varchar(255) DEFAULT NULL,
-  `especificacion_5` varchar(255) DEFAULT NULL
+  `especificacion_1` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `especificacion_2` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `especificacion_3` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `especificacion_4` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `especificacion_5` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -548,9 +579,6 @@ INSERT INTO `productos` (`id`, `nombre`, `descripcion`, `precio`, `stock`, `esta
 (360, 'Lenovo Laptop', 'La Lenovo Laptop es una opción confiable y de alto rendimiento para quienes buscan un equilibrio entre productividad y entretenimiento. Equipado con un procesador Intel Core i5, 8 GB de RAM y una pantalla de 15.6 pulgadas, este dispositivo es ideal para tareas multitarea, navegar por internet y ver películas. Su diseño elegante, combinado con una batería de larga duración, la convierte en una excelente opción para usuarios que necesitan versatilidad en su día a día.', 549.99, 0, 'available', 0.00, NULL, '[\"1735824952_Lenovo-1.png\",\"1735824952_Lenovo-2.png\",\"1735824952_Lenovo-3.png\"]', 1735801087, 1, '1735805306', NULL, 'Pantalla de 15.6 pulgadas Full HD', 'Procesador Intel Core i5', '8 GB de RAM | 1 TB HDD', 'Gráficos Intel UHD 620', 'Batería de 45 Wh'),
 (361, 'Lenovo Laptop', 'The Lenovo Laptop is a reliable, high-performance option for those looking for a balance between productivity and entertainment. Equipped with an Intel Core i5 processor, 8 GB of RAM, and a 15.6-inch display, this device is perfect for multitasking, browsing the web, and watching movies. Its sleek design, combined with a long-lasting battery, makes it an excellent choice for users who need versatility in their daily activities.', 549.99, 13, 'available', 0.00, NULL, '[\"1735824981_Lenovo-1.png\",\"1735824981_Lenovo-2.png\",\"1735824981_Lenovo-3.png\"]', 1735801087, 2, '1735805306', NULL, 'Pantalla de 15.6 pulgadas Full HD', 'Procesador Intel Core i5', '8 GB de RAM | 1 TB HDD', 'Gráficos Intel UHD 620', 'Batería de 45 Wh'),
 (362, 'Lenovo Laptop', 'L\'ordinateur portable Lenovo est une option fiable et haute performance pour ceux qui recherchent un équilibre entre productivité et divertissement. Équipé d\'un processeur Intel Core i5, 8 Go de RAM et un écran de 15,6 pouces, cet appareil est parfait pour le multitâche, la navigation sur Internet et la visualisation de films. Son design élégant, combiné à une batterie longue durée, en fait un excellent choix pour les utilisateurs qui ont besoin de polyvalence dans leurs activités quotidiennes.', 549.99, 13, 'available', 0.00, NULL, '[\"1735824981_Lenovo-1.png\",\"1735824981_Lenovo-2.png\",\"1735824981_Lenovo-3.png\"]', 1735801087, 3, '1735805306', NULL, 'Pantalla de 15.6 pulgadas Full HD', 'Procesador Intel Core i5', '8 GB de RAM | 1 TB HDD', 'Gráficos Intel UHD 620', 'Batería de 45 Wh'),
-(363, 'Sony 80 cm (32 inches)', 'El televisor Sony de 80 cm (32 pulgadas) ofrece una excelente calidad de imagen y sonido en un diseño compacto y elegante. Con resolución HD, es ideal para habitaciones pequeñas o para aquellos que buscan un dispositivo accesible y con la calidad de marca Sony. Su conectividad HDMI y USB te permite disfrutar de contenido en alta definición desde diferentes dispositivos.', 249.99, 9, 'available', 0.00, NULL, '[\"1735826277_tv-sony-1.png\",\"1735826277_tv-sony-2.png\",\"1735826277_tv-sony-3.png\"]', 1735804773, 1, '1735800547', NULL, 'Pantalla LED de 32 pulgadas', 'Resolución HD (1366 x 768)', 'Conectividad HDMI, USB', 'Audio DTS Surround', 'Smart TV'),
-(364, 'Sony 80 cm (32 inches)', 'The Sony 80 cm (32 inches) TV offers excellent picture and sound quality in a compact and sleek design. With HD resolution, it is ideal for small rooms or those looking for an affordable device with Sony\'s renowned quality. Its HDMI and USB connectivity lets you enjoy high-definition content from various devices.', 249.99, 9, 'available', 0.00, NULL, '[\"1735826277_tv-sony-1.png\",\"1735826277_tv-sony-2.png\",\"1735826277_tv-sony-3.png\"]', 1735804773, 2, '1735800547', NULL, 'Pantalla LED de 32 pulgadas', 'Resolución HD (1366 x 768)', 'Conectividad HDMI, USB', 'Audio DTS Surround', 'Smart TV'),
-(365, 'Sony 80 cm (32 pouces)', 'Le téléviseur Sony de 80 cm (32 pouces) offre une excellente qualité d\'image et de son dans un design compact et élégant. Avec une résolution HD, il est idéal pour les petites pièces ou pour ceux qui recherchent un appareil abordable avec la qualité de la marque Sony. Sa connectivité HDMI et USB vous permet de profiter de contenu en haute définition à partir de différents appareils.', 249.99, 9, 'available', 0.00, NULL, '[\"1735826277_tv-sony-1.png\",\"1735826277_tv-sony-2.png\",\"1735826277_tv-sony-3.png\"]', 1735804773, 3, '1735800547', NULL, 'Pantalla LED de 32 pulgadas', 'Resolución HD (1366 x 768)', 'Conectividad HDMI, USB', 'Audio DTS Surround', 'Smart TV'),
 (366, 'Artis Speaker', 'Sonido estéreo envolvente, controles simples y flexibles, diseño industrial refinado, integración de servicios de música y Alexa, feedback visual de la información, presets programables, sincronización multiroom', 69.99, 0, 'available', 0.00, NULL, '[\"1735826733_speaker-1.png\",\"1735826733_speaker-2.png\"]', 1735804773, 1, '1735804735', NULL, 'Sonido estéreo envolvente', 'Controles simples y flexibles', 'Conectividad Bluetooth 4.2', 'Batería de 10 horas de duración', 'Diseño compacto y portátil'),
 (367, 'Artis Speaker', 'Immersive stereo sound, simple and flexible controls, refined industrial design, integration of music services and Alexa, visual feedback of information, programmable presets, multi-room synchronization', 69.99, 5, 'available', 0.00, NULL, '[\"1735826733_speaker-1.png\",\"1735826733_speaker-2.png\"]', 1735804773, 2, '1735804735', NULL, 'Sonido estéreo envolvente', 'Controles simples y flexibles', 'Conectividad Bluetooth 4.2', 'Batería de 10 horas de duración', 'Diseño compacto y portátil'),
 (368, 'Artis Speaker', 'Son stéréo immersif, commandes simples et flexibles, design industriel raffiné, intégration de musique et de services Alexa, retour d\'informations visuelles, préréglages programmables, synchronisation multi-pièces', 69.99, 5, 'available', 0.00, NULL, '[\"1735826733_speaker-1.png\",\"1735826733_speaker-2.png\"]', 1735804773, 3, '1735804735', NULL, 'Sonido estéreo envolvente', 'Controles simples y flexibles', 'Conectividad Bluetooth 4.2', 'Batería de 10 horas de duración', 'Diseño compacto y portátil'),
@@ -589,9 +617,9 @@ INSERT INTO `productos` (`id`, `nombre`, `descripcion`, `precio`, `stock`, `esta
 --
 
 CREATE TABLE `roles` (
-  `id` int(11) NOT NULL,
-  `nombre` varchar(255) DEFAULT NULL,
-  `descripcion` varchar(255) DEFAULT NULL,
+  `id` int NOT NULL,
+  `nombre` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `descripcion` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   `updated` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -611,20 +639,20 @@ INSERT INTO `roles` (`id`, `nombre`, `descripcion`, `created`, `updated`) VALUES
 --
 
 CREATE TABLE `usuarios` (
-  `Id` int(11) NOT NULL,
-  `Usuario` varchar(55) DEFAULT NULL,
-  `Password` varchar(200) DEFAULT NULL,
-  `NumeroDocumento` varchar(20) DEFAULT NULL,
-  `Nombres` varchar(100) DEFAULT NULL,
-  `Apellidos` varchar(100) DEFAULT NULL,
-  `Email` varchar(100) DEFAULT NULL,
-  `NroTelefono` varchar(30) DEFAULT NULL,
-  `Direccion` varchar(250) DEFAULT NULL,
-  `Pais` varchar(100) DEFAULT NULL,
-  `Ciudad` varchar(100) DEFAULT NULL,
-  `CodigoPostal` varchar(10) DEFAULT NULL,
-  `Rol` varchar(30) DEFAULT NULL,
-  `imagen` varchar(200) DEFAULT NULL
+  `Id` int NOT NULL,
+  `Usuario` varchar(55) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `Password` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `NumeroDocumento` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `Nombres` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `Apellidos` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `Email` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `NroTelefono` varchar(30) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `Direccion` varchar(250) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `Pais` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `Ciudad` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `CodigoPostal` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `Rol` varchar(30) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `imagen` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -644,7 +672,8 @@ INSERT INTO `usuarios` (`Id`, `Usuario`, `Password`, `NumeroDocumento`, `Nombres
 (62, ' DiegoHerrera', '$2y$04$e.X/qec/y.9vdFN/ed6GcuiOB9fC1rNWySfQjMnAKrwA6OD7Wqd/K', '77889900', 'Diego Armando', 'Herrera Díaz', 'diego.herrera@pablogarciajc.com', '+54 91123456789', 'Calle Florida 123, Piso 3', 'BR', 'Río', 'C1000', '21', '1736331058_19.png'),
 (63, 'MariaGonzalez', '$2y$04$W9cjqXzhFKkwKZrnPswG/eQ.nFI.dWt487WOIcZT17AF2wSUi64VK', '88990011', 'María Isabel', 'González Ruiz', 'maria.gonzalez@pablogarciajc.com', '+34 699876543', 'Calle de Alcalá 456', 'EC', 'Quito', '41001', '21', '1736329005_16.png'),
 (64, 'JavierOrtiz', '$2y$04$8hp32E8z3Pm07WA/hs8SfuF3SXFKmn0aMr7dmCS8/0SjPB3awkzL2', ' 99001122', 'Javier Ernesto', 'Ortiz Velasco', 'javier.ortiz@pablogarciajc.com', '+49 1723456789', 'Hauptstraße 12', 'DE', 'Berlín', '10115', '21', '1736331081_19.png'),
-(65, 'LauraVega', '$2y$04$3TgMXDPsGyeAUczoOYVov.Z0r8tWqcP/PXEBNaRW/ER0pbgwv1zrq', '11112233', 'Laura Patricia', 'Vega Torres', 'laura.vega@pablogarciajc.com', '+61 412345678', '123 Queen St', 'IT', 'Roma', '2000', '21', '1736329054_16.png');
+(65, 'LauraVega', '$2y$04$3TgMXDPsGyeAUczoOYVov.Z0r8tWqcP/PXEBNaRW/ER0pbgwv1zrq', '11112233', 'Laura Patricia', 'Vega Torres', 'laura.vega@pablogarciajc.com', '+61 412345678', '123 Queen St', 'IT', 'Roma', '2000', '21', '1736329054_16.png'),
+(67, 'sss', '$2y$04$KSmhQuCh0IkuW8NhuEU49.cxtidotEXM.cxYpFsOXVBHjcH13vmle', NULL, NULL, NULL, 'pablogarciajcbd@hgg.com', NULL, NULL, NULL, NULL, NULL, '21', NULL);
 
 --
 -- Índices para tablas volcadas
@@ -707,6 +736,13 @@ ALTER TABLE `pedidos`
   ADD KEY `fk_pedido_usuario` (`usuario_id`);
 
 --
+-- Indices de la tabla `permissions`
+--
+ALTER TABLE `permissions`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `role_id` (`role_id`);
+
+--
 -- Indices de la tabla `productos`
 --
 ALTER TABLE `productos`
@@ -735,61 +771,67 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `categorias`
 --
 ALTER TABLE `categorias`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=631;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=634;
 
 --
 -- AUTO_INCREMENT de la tabla `ciudades`
 --
 ALTER TABLE `ciudades`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
+  MODIFY `Id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
 
 --
 -- AUTO_INCREMENT de la tabla `comentarios`
 --
 ALTER TABLE `comentarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=314;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=314;
 
 --
 -- AUTO_INCREMENT de la tabla `favoritos`
 --
 ALTER TABLE `favoritos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=439;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=441;
 
 --
 -- AUTO_INCREMENT de la tabla `idiomas`
 --
 ALTER TABLE `idiomas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `linea_pedidos`
 --
 ALTER TABLE `linea_pedidos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=569;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=584;
 
 --
 -- AUTO_INCREMENT de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=295;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=296;
+
+--
+-- AUTO_INCREMENT de la tabla `permissions`
+--
+ALTER TABLE `permissions`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=451;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=451;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+  MODIFY `Id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
 -- Restricciones para tablas volcadas
@@ -825,6 +867,12 @@ ALTER TABLE `linea_pedidos`
 --
 ALTER TABLE `pedidos`
   ADD CONSTRAINT `fk_pedido_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`Id`) ON DELETE CASCADE;
+
+--
+-- Filtros para la tabla `permissions`
+--
+ALTER TABLE `permissions`
+  ADD CONSTRAINT `permissions_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`);
 
 --
 -- Filtros para la tabla `productos`
