@@ -2,13 +2,12 @@
 
 **CMS Ecommerce**, especializado en comercio electrónico, diseñado para ofrecer seguridad y escalabilidad. Integra la gestión de contenidos con potentes herramientas de tienda en línea, brindando una experiencia intuitiva y adaptable. Desarrollado siguiendo buenas prácticas y con actualizaciones constantes, garantiza eficiencia y rendimiento tanto para compradores como para vendedores.
 
-### Demo del Proyecto  
+## Demo del Proyecto
+
 [https://ecommerce.pablogarciajc.com/](https://ecommerce.pablogarciajc.com/)
 
 | ![Imagen 1](https://pablogarciajc.com/wp-content/uploads/2025/01/ecommerce_1_webp.png) | ![Imagen 2](https://pablogarciajc.com/wp-content/uploads/2025/01/ecommerce_6_webp.png) |
 |-----------|-----------|
-
----
 
 ## Funcionalidades Principales
 
