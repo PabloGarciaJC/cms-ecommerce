@@ -27,17 +27,18 @@
                     <tbody>
                         <?php while ($usuario = $usuarios->fetch_object()): ?>
                             <tr>
-                                <td class="text-center align-middle"><?php echo $usuario->Id; ?></td>
-                                <td class="text-center align-middle"><?php echo $usuario->Usuario; ?></td>
-                                <td class="text-center align-middle"><?php echo $usuario->Nombres; ?></td>
-                                <td class="text-center align-middle"><?php echo $usuario->Apellidos; ?></td>
-                                <td class="text-center align-middle"><?php echo $usuario->Email; ?></td>
-                                <td class="text-center align-middle"><?php echo $usuario->NroTelefono; ?></td>
-                                <td class="text-center align-middle"><?php echo $usuario->Direccion; ?></td>
-                                <td class="text-center align-middle"><?php echo $usuario->Pais; ?></td>
-                                <td class="text-center align-middle"><?php echo $usuario->Ciudad; ?></td>
-                                <td class="text-center align-middle"><?php echo $usuario->CodigoPostal; ?></td>
-                                <td class="text-center align-middle"><?php echo $usuario->nombre; ?></td>
+                                <td class="text-center align-middle"><?php echo $usuario->usuario_id; ?></td>
+                                <td class="text-center align-middle"><?php echo $usuario->usuario_alias; ?></td>
+                                <td class="text-center align-middle"><?php echo $usuario->usuario_nombres; ?></td>
+                                <td class="text-center align-middle"><?php echo $usuario->usuario_apellidos; ?></td>
+                                <td class="text-center align-middle"><?php echo $usuario->usuario_email; ?></td>
+                                <td class="text-center align-middle"><?php echo $usuario->usuario_telefono; ?></td>
+                                <td><?php echo $usuario->usuario_direccion; ?></td>
+                                <td><?php echo $usuario->usuario_pais; ?></td>
+                                <td><?php echo $usuario->usuario_ciudad; ?></td>
+                                <td><?php echo $usuario->usuario_codigo_postal; ?></td>
+                                <td><?php echo $usuario->rol_nombre; ?></td>
+
                                 <td class="text-center align-middle">
                                     <a href="<?php echo BASE_URL; ?>Admin/detalleUsuario?id=<?php echo $usuario->Id; ?>" class="btn btn-info btn-sm">Ver Perfil</a>
                                 </td>

@@ -1,6 +1,7 @@
 <?php
 
 namespace model;
+
 use config\Database;
 
 class Roles
@@ -71,7 +72,7 @@ class Roles
         $this->updated = $updated;
     }
 
-   //// CONSULTAS //// 
+    //// CONSULTAS //// 
 
     public function obtenerTodos()
     {
@@ -118,5 +119,5 @@ class Roles
         $result = $this->db->query($sql);
         return $result;
     }
+
 }
-?>

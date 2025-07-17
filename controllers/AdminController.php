@@ -541,33 +541,41 @@ class AdminController
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty(file_get_contents('php://input'))) {
             $datos = json_decode(file_get_contents('php://input'), true);
 
-            $id = $datos['id'];
-            $nuevoRol = $datos['rol'];
+            $id = $datos['id'] ?? null;
+            $nuevoRol = $datos['rol'] ?? null;
+            $nuevoStatus = $datos['status'] ?? null;
 
-            // Validar los datos
-            if (empty($id) || empty($nuevoRol)) {
+            // Validar datos
+            if (empty($id) || empty($nuevoRol) || empty($nuevoStatus)) {
                 echo json_encode(['success' => false, 'message' => 'Datos inválidos']);
                 return;
             }
 
-            // Verificar si el nuevo rol es Admin (id = 22)
-            if ($nuevoRol == 22) {
+            // Verificar restricción de único Admin
+            if ($nuevoRol == 2) {
                 $usuario = new Usuario();
                 if ($usuario->existeUsuarioConRolAdmin() && !$usuario->esRolActualAdmin($id)) {
-                    echo json_encode(['success' => false, 'message' => 'Solo un usuario puede tener el rol de Admin.']);
+                    echo json_encode([
+                        'success' => false,
+                        'message' => 'Solo un usuario puede tener el rol de Admin.'
+                    ]);
                     return;
                 }
             }
 
-            // Actualizar el rol en la base de datos
+            // Actualizar rol y status
             $usuario = new Usuario();
             $usuario->setId($id);
             $usuario->setRol($nuevoRol);
+            $usuario->setStatus($nuevoStatus);
 
-            if ($usuario->actualizarRol()) {
+            if ($usuario->actualizarRolYStatus()) {
                 echo json_encode(['success' => true]);
             } else {
-                echo json_encode(['success' => false, 'message' => 'No se pudo actualizar el rol.']);
+                echo json_encode([
+                    'success' => false,
+                    'message' => 'No se pudo actualizar el rol o estado.'
+                ]);
             }
         } else {
             echo json_encode(['success' => false, 'message' => 'Método no permitido.']);

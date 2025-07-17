@@ -6,43 +6,63 @@ class Roles {
 
   cambiarRol() {
     $('.btn-rol-change').on('click', function (e) {
+      e.preventDefault();
 
-      let dataUrl = $(this).data('url');
-      let userId = $(this).data('user-id');
-      let newRole = $(this).closest('tr').find('.custom-select-roles').val();
+      let btn = $(this);
+      let dataUrl = btn.data('url');
+      let userId = btn.data('user-id');
+      let row = btn.closest('tr');
+      let newRole = row.find('.custom-select-roles').val();
+      let newStatus = row.find('.custom-select-status').val();
+
+      if (!newRole || !newStatus) {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Campos incompletos',
+          text: 'Debe seleccionar un rol y un estado.',
+        });
+        return;
+      }
+
       $.ajax({
         url: dataUrl,
         type: 'POST',
         data: JSON.stringify({
           id: userId,
-          rol: newRole
+          rol: newRole,
+          status: newStatus
         }),
         contentType: 'application/json',
+        dataType: 'json',
         success: function (response) {
-          const data = JSON.parse(response);
-          if (data.success) {
+          if (response.success) {
             Swal.fire({
               title: "Completado",
-              text: "El rol se ha actualizado correctamente.",
+              text: "El rol y estado se han actualizado correctamente.",
               icon: "success",
               timer: 2000,
               showConfirmButton: false
-            })
+            });
           } else {
             Swal.fire({
-              text: "Solo puede haber un ROL administrador en el sistema",
               icon: "error",
-              showConfirmButton: true,  // Muestra el botón para cerrar
-              confirmButtonText: 'Cerrar',  // Texto del botón
+              title: "Error",
+              text: response.message || "Hubo un problema al actualizar el rol o estado.",
             });
           }
         },
-        error: function () {
-          alert('Hubo un error al realizar la solicitud.');
+        error: function (xhr, status, error) {
+          console.error(error);
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Hubo un error en la solicitud AJAX.',
+          });
         }
       });
     });
   }
+
 
   // Método customRoles
   customRoles() {
@@ -55,5 +75,5 @@ class Roles {
   }
 }
 
-const appRoles = new Roles();
+let appRoles = new Roles();
 appRoles.init();

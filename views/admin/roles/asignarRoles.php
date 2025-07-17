@@ -10,26 +10,39 @@
                         <tr>
                             <th>Nombre</th>
                             <th>Rol</th>
+                            <th>Estado</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody class="custom-table-cell">
                         <?php while ($usuario = $obtenerUsuarios->fetch_object()): ?>
                             <tr>
-                                <td><?php echo $usuario->Usuario ?></td>
+                                <td><?php echo htmlspecialchars($usuario->usuario_nombres . ' ' . $usuario->usuario_apellidos) ?></td>
                                 <td>
                                     <select class="custom-select-roles estado-select">
                                         <?php
-                                        $obtenerRoles->data_seek(0); // Reinicia el cursor del resultado de obtenerRoles
+                                        $obtenerRoles->data_seek(0);
                                         while ($rol = $obtenerRoles->fetch_object()):
-                                            $selected = ($usuario->Rol == $rol->id) ? 'selected' : '';
+                                            $selected = ($usuario->rol_id == $rol->id) ? 'selected' : '';
                                         ?>
-                                            <option value="<?php echo $rol->id ?>" <?php echo $selected ?>><?php echo $rol->nombre ?></option>
+                                            <option value="<?php echo $rol->id ?>" <?php echo $selected ?>>
+                                                <?php echo htmlspecialchars($rol->nombre) ?>
+                                            </option>
                                         <?php endwhile; ?>
                                     </select>
                                 </td>
                                 <td>
-                                    <button class="btn btn-warning btn-sm btn-rol-change" data-url="<?php echo BASE_URL ?>Admin/cambiarRol" data-user-id="<?php echo $usuario->Id ?>">Editar</button>
+                                    <select class="custom-select-status estado-select">
+                                        <option value="active" <?php echo ($usuario->usuario_status == 'active') ? 'selected' : '' ?>>Activo</option>
+                                        <option value="inactive" <?php echo ($usuario->usuario_status == 'inactive') ? 'selected' : '' ?>>Inactivo</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <button class="btn btn-warning btn-sm btn-rol-change"
+                                        data-url="<?php echo BASE_URL ?>Admin/cambiarRol"
+                                        data-user-id="<?php echo $usuario->usuario_id ?>">
+                                        Editar
+                                    </button>
                                 </td>
                             </tr>
                         <?php endwhile; ?>

@@ -454,24 +454,24 @@
   }
 
   /* Tabla de Roles */
-  .custom-select-roles {
+  .custom-select-roles, .custom-select-status {
       font-size: 1rem;
       padding: 5px;
       background-color: #f9f9f9;
       transition: all 0.3s ease-in-out;
   }
 
-  .custom-select-roles:hover {
+  .custom-select-roles:hover, .custom-select-status:hover {
       background-color: #e8f0fe;
   }
 
-  .custom-select-roles:focus,
-  .custom-select-roles:focus-visible {
+  .custom-select-roles:focus, .custom-select-status:focus,
+  .custom-select-roles:focus-visible, .custom-select-status:focus-visible {
       border-color: #007bff !important;
       background-color: #ffffff;
   }
 
-  .custom-select-roles:disabled {
+  .custom-select-roles:disabled, .custom-select-status:disabled {
       background-color: #e9ecef;
       cursor: not-allowed;
   }

@@ -22,6 +22,7 @@ class Usuario
   private $imagen;
   private $url_Documento;
   private $rol;
+  private $status;
   private $db;
 
   public function __construct()
@@ -111,6 +112,11 @@ class Usuario
     return $this->rol;
   }
 
+  public function getStatus()
+  {
+    return $this->status;
+  }
+
   //// SETTER //// 
 
   public function setId($id)
@@ -193,22 +199,19 @@ class Usuario
     $this->rol = $rol;
   }
 
+  public function setStatus($status)
+  {
+    $this->status = $this->db->real_escape_string($status);
+  }
+
   //// CONSULTAS ////
 
   public function crear()
   {
     $result = false;
-    $sql = "INSERT INTO usuarios (Usuario,
-                                  Password,
-                                  Email,
-                                  Rol)";
-    $sql .= "VALUES ('{$this->usuario}',
-                    '{$this->getPassword()}',    
-                    '{$this->email}',
-                    {$this->getRol()})";
-
+    $sql = "INSERT INTO usuarios (Usuario, Password, Email, Rol)";
+    $sql .= "VALUES ('{$this->usuario}', '{$this->getPassword()}', '{$this->email}', {$this->getRol()})";
     $result = $this->db->query($sql);
-
     if ($result) {
       $this->id = $this->db->insert_id;
     }
@@ -222,11 +225,7 @@ class Usuario
     $email = $this->getEmail() ?? "";
     $escapedEmail = $this->db->real_escape_string($email);
 
-    // 1. Obtener usuario y rol
-    $sql = "SELECT u.*, r.nombre AS rol_nombre 
-            FROM usuarios u
-            INNER JOIN roles r ON u.Rol = r.id
-            WHERE u.Email = '$escapedEmail'";
+    $sql = "SELECT u.*, r.nombre AS rol_nombre FROM usuarios u INNER JOIN roles r ON u.Rol = r.id WHERE u.Email = '$escapedEmail'";
     $login = $this->db->query($sql);
 
     if ($login && $login->num_rows == 1) {
@@ -285,18 +284,7 @@ class Usuario
   public function actualizar()
   {
     $resultado = false;
-    $sql = "UPDATE usuarios SET 
-              Usuario = '{$this->usuario}',
-              NumeroDocumento = '{$this->numeroDocumento}', 
-              Nombres = '{$this->nombres}', 
-              Apellidos = '{$this->apellidos}', 
-              NroTelefono = '{$this->nroTelefono}', 
-              Direccion = '{$this->direccion}', 
-              Pais = '{$this->pais}', 
-              Ciudad = '{$this->ciudad}', 
-              CodigoPostal = '{$this->codigoPostal}' 
-            WHERE Id = {$this->id}";
-
+    $sql = "UPDATE usuarios SET Usuario = '{$this->usuario}', NumeroDocumento = '{$this->numeroDocumento}', Nombres = '{$this->nombres}',  Apellidos = '{$this->apellidos}', NroTelefono = '{$this->nroTelefono}', Direccion = '{$this->direccion}', Pais = '{$this->pais}',  Ciudad = '{$this->ciudad}', CodigoPostal = '{$this->codigoPostal}' WHERE Id = {$this->id}";
     $actualizar = $this->db->query($sql);
     if ($actualizar) {
       $resultado = true;
@@ -306,15 +294,10 @@ class Usuario
 
   public function obtenerTodosPorId()
   {
-    $sql = "SELECT u.*, r.nombre AS rol_nombre, r.descripcion AS rol_descripcion 
-              FROM usuarios u
-              INNER JOIN roles r ON u.Rol = r.id
-              WHERE u.Id = {$this->id}";
-
+    $sql = "SELECT u.*, r.nombre AS rol_nombre, r.descripcion AS rol_descripcion FROM usuarios u INNER JOIN roles r ON u.Rol = r.id WHERE u.Id = {$this->id}";
     $obtenerTodos = $this->db->query($sql);
     return $obtenerTodos->fetch_object();
   }
-
 
   public function actualizarPassword()
   {
@@ -332,15 +315,13 @@ class Usuario
 
   public function obtenerTodosLosUsuarios()
   {
-    $sql = "SELECT u.*, r.* FROM usuarios u INNER JOIN roles r ON u.Rol = r.id";
-    $resultado = $this->db->query($sql);
-
-    return $resultado;
+    $sql = "SELECT u.Id AS usuario_id, u.Usuario AS usuario_alias, u.NumeroDocumento AS usuario_numero_documento, u.Nombres AS usuario_nombres, u.Apellidos AS usuario_apellidos, u.Email AS usuario_email, u.NroTelefono AS usuario_telefono, u.Direccion AS usuario_direccion, u.Pais AS usuario_pais, u.Ciudad AS usuario_ciudad, u.CodigoPostal AS usuario_codigo_postal, u.Rol AS usuario_rol, u.status AS usuario_status, u.imagen AS usuario_imagen, r.id AS rol_id, r.nombre AS rol_nombre FROM usuarios u INNER JOIN roles r ON u.Rol = r.id";
+    return $this->db->query($sql);
   }
 
   public function existeUsuarioConRolAdmin()
   {
-    $sql = "SELECT COUNT(*) AS count FROM usuarios WHERE Rol = 22";
+    $sql = "SELECT COUNT(*) AS count FROM usuarios WHERE Rol = 2";
     $result = $this->db->query($sql);
     $data = $result->fetch_object();
     return $data->count > 0;
@@ -351,7 +332,13 @@ class Usuario
     $sql = "SELECT Rol FROM usuarios WHERE Id = {$id}";
     $result = $this->db->query($sql);
     $data = $result->fetch_object();
-    return isset($data->Rol) && $data->Rol == 22;
+    return isset($data->Rol) && $data->Rol == 2;
+  }
+
+  public function actualizarRolYStatus()
+  {
+    $sql = "UPDATE usuarios SET Rol = '{$this->rol}', status = '{$this->status}' WHERE Id = {$this->id}";
+    return $this->db->query($sql);
   }
 
   public function obtenerTotalClientes()

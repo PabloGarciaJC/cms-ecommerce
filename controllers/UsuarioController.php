@@ -45,10 +45,10 @@ class UsuarioController
         $ObjUsuario = $ObjUsuario ?? new Usuario();
         $ObjUsuario->setUsuario($usuario);
         $ObjUsuario->setEmail($email);
-        $ObjUsuario->setRol(3);
+        $ObjUsuario->setRol(1);
 
         $errores = [];
-        
+
         if (empty($usuario)) $errores[] = ERROR_EMPTY_USERNAME;
         if (empty($email)) $errores[] = ERROR_EMPTY_EMAIL;
         if (empty($password)) $errores[] = ERROR_EMPTY_PASSWORD;
@@ -118,34 +118,30 @@ class UsuarioController
 
         if ($sesionCompletado && is_object($sesionCompletado)) {
             $permissions = property_exists($sesionCompletado, 'permissions') ? $sesionCompletado->permissions : [];
-            $onlyRead = count($permissions) === 1 && in_array('write', $permissions);
-
-            if ($onlyRead) {
+            $onlyWrite = count($permissions) === 1 && in_array('write', $permissions);
+            if ($sesionCompletado->status === 'active' && $onlyWrite) {
                 echo json_encode([
                     'success' => true,
-                    'onlyRead' => true,
-                    'permissions' => $permissions,
-                    'protectionTitle' => PROTECTION_LAYER_TITLE,
-                    'protectionMessage' => PROTECTION_LAYER_MESSAGE,
-                    'protectionBtnText' => PROTECTION_LAYER_BTN
+                    'status' => false,
+                    'titulo' => PROTECTION_LAYER_TITLE,
+                    'message' => PROTECTION_LAYER_MESSAGE,
+                    'boton' => PROTECTION_LAYER_BTN
                 ]);
                 exit();
+            } else {
+                $_SESSION['usuarioRegistrado'] = $sesionCompletado;
+                $logger = \logger\LoggerWrapper::getInstance();
+                if ($logger) {
+                    $logger->info('Usuario logeado con permisos de cliente');
+                }
+                echo json_encode([
+                    'success' => true,
+                    'status' => true,
+                    'titulo' => TEXT_LOGIN_SUCCESS_TITLE,
+                    'message' => LOGIN_SUCCESS,
+                    'boton' => TEXT_REVIEW_BUTTON,
+                ]);
             }
-            
-            $_SESSION['usuarioRegistrado'] = $sesionCompletado;
-
-            $logger = \logger\LoggerWrapper::getInstance();
-            if ($logger) {
-                $logger->info('Usuario logeado con permisos de escritura');
-            }
-
-            echo json_encode([
-                'titulo' => TEXT_LOGIN_SUCCESS_TITLE,
-                'success' => true,
-                'message' => LOGIN_SUCCESS,
-                'boton' => TEXT_REVIEW_BUTTON,
-                'permissions' => $permissions
-            ]);
             exit();
         } else {
             echo json_encode([
