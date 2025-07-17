@@ -21,7 +21,7 @@
       </ul>
     </li>
     <!-- Mostrar solo si el usuario tiene rol de Admin -->
-    <?php if ($_SESSION['usuarioRegistrado']->rol_nombre == 'Admin' || $_SESSION['usuarioRegistrado']->rol_nombre == 'SuperAdmin'): ?>
+    <?php if ($_SESSION['usuarioRegistrado']->rol_nombre == 'Admin' || $_SESSION['usuarioRegistrado']->rol_nombre == 'Super'): ?>
       <li class="panel-admin__menu-item">
         <a href="<?php echo BASE_URL ?>Admin/listaUsuario" class="panel-admin__menu-link-init d-flex justify-content-between align-items-center">
           <span>
@@ -40,7 +40,7 @@
           <li class="panel-admin__submenu-item">
             <a href="<?php echo BASE_URL ?>Admin/roles" class="panel-admin__submenu-link">Gestionar</a>
           </li>
-          <?php if ($_SESSION['usuarioRegistrado']->rol_nombre == 'SuperAdmin'): ?>
+          <?php if ($_SESSION['usuarioRegistrado']->rol_nombre == 'Super'): ?>
             <li class="panel-admin__submenu-item">
               <a href="<?php echo BASE_URL ?>Admin/asignarRoles" class="panel-admin__submenu-link">Asignar</a>
             </li>

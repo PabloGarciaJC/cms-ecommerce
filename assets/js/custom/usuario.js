@@ -55,6 +55,7 @@ class User {
         url: baseUrl + 'Usuario/IniciarSesion',
         data: formData,
         success: function (response) {
+
           let data = typeof response === "string" ? JSON.parse(response) : response;
           if (data.success) {
             if (data.status) {

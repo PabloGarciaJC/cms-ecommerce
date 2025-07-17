@@ -45,7 +45,7 @@ class UsuarioController
         $ObjUsuario = $ObjUsuario ?? new Usuario();
         $ObjUsuario->setUsuario($usuario);
         $ObjUsuario->setEmail($email);
-        $ObjUsuario->setRol(1);
+        $ObjUsuario->setRol(3);
 
         $errores = [];
 
@@ -146,7 +146,8 @@ class UsuarioController
         } else {
             echo json_encode([
                 'success' => false,
-                'message' => [TEXT_LOGIN_FAILURE]
+                'message' => [TEXT_LOGIN_FAILURE],
+                'boton' => TEXT_REVIEW_BUTTON,
             ]);
             exit();
         }

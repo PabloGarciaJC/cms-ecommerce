@@ -224,7 +224,6 @@ class Usuario
     $usuario = false;
     $email = $this->getEmail() ?? "";
     $escapedEmail = $this->db->real_escape_string($email);
-
     $sql = "SELECT u.*, r.nombre AS rol_nombre FROM usuarios u INNER JOIN roles r ON u.Rol = r.id WHERE u.Email = '$escapedEmail'";
     $login = $this->db->query($sql);
 

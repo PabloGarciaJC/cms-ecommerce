@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: mysql
--- Tiempo de generación: 03-06-2025 a las 18:48:35
+-- Tiempo de generación: 17-07-2025 a las 15:52:44
 -- Versión del servidor: 9.3.0
 -- Versión de PHP: 8.2.27
 
@@ -29,10 +29,10 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `categorias` (
   `id` int NOT NULL,
-  `nombre` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `descripcion` text COLLATE utf8mb4_general_ci,
+  `nombre` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `descripcion` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `parent_id` int DEFAULT NULL,
-  `imagenes` text COLLATE utf8mb4_general_ci,
+  `imagenes` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `idioma_id` int NOT NULL DEFAULT '1',
   `grupo_id` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -70,7 +70,7 @@ INSERT INTO `categorias` (`id`, `nombre`, `descripcion`, `parent_id`, `imagenes`
 CREATE TABLE `ciudades` (
   `Id` int NOT NULL,
   `Id_Pais` varchar(2) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `Ciudad` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL
+  `Ciudad` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -168,7 +168,7 @@ INSERT INTO `ciudades` (`Id`, `Id_Pais`, `Ciudad`) VALUES
 CREATE TABLE `comentarios` (
   `id` int NOT NULL,
   `usuario_id` int NOT NULL,
-  `comentario` text COLLATE utf8mb4_general_ci NOT NULL,
+  `comentario` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `calificacion` int NOT NULL,
   `fecha` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `estado` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0 = Pendiente, 1 = Aprobado',
@@ -405,8 +405,8 @@ INSERT INTO `favoritos` (`id`, `usuario_id`, `creado_en`, `grupo_id`) VALUES
 
 CREATE TABLE `idiomas` (
   `id` int NOT NULL,
-  `codigo` varchar(5) COLLATE utf8mb4_general_ci NOT NULL,
-  `nombre` varchar(50) COLLATE utf8mb4_general_ci NOT NULL
+  `codigo` varchar(5) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `nombre` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -433,9 +433,9 @@ CREATE TABLE `linea_pedidos` (
   `subtotal` decimal(10,2) DEFAULT '0.00',
   `stock` int DEFAULT NULL,
   `idioma_id` int DEFAULT NULL,
-  `grupo_id` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `grupo_id` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `usuario_id` int NOT NULL DEFAULT '0',
-  `nombre` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL
+  `nombre` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -452,8 +452,8 @@ INSERT INTO `linea_pedidos` (`id`, `pedido_id`, `cantidad`, `precio`, `oferta`, 
 --
 
 CREATE TABLE `paises` (
-  `Id` varchar(2) COLLATE utf8mb4_general_ci NOT NULL,
-  `Pais` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL
+  `Id` varchar(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `Pais` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -482,12 +482,12 @@ INSERT INTO `paises` (`Id`, `Pais`) VALUES
 CREATE TABLE `pedidos` (
   `id` int NOT NULL,
   `usuario_id` int DEFAULT NULL,
-  `pais` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `ciudad` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `direccion` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `codigoPostal` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `pais` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `ciudad` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `direccion` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `codigoPostal` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `coste` float(200,2) DEFAULT NULL,
-  `estado` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `estado` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `fecha` date DEFAULT NULL,
   `hora` time DEFAULT NULL,
   `idioma_id` int DEFAULT NULL
@@ -509,7 +509,7 @@ INSERT INTO `pedidos` (`id`, `usuario_id`, `pais`, `ciudad`, `direccion`, `codig
 CREATE TABLE `permissions` (
   `id` int NOT NULL,
   `role_id` int NOT NULL,
-  `permission` enum('read','write') NOT NULL
+  `permission` enum('read','write','super') COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -518,7 +518,8 @@ CREATE TABLE `permissions` (
 
 INSERT INTO `permissions` (`id`, `role_id`, `permission`) VALUES
 (1, 1, 'read'),
-(3, 2, 'write');
+(2, 2, 'write'),
+(3, 3, 'super');
 
 -- --------------------------------------------------------
 
@@ -528,23 +529,23 @@ INSERT INTO `permissions` (`id`, `role_id`, `permission`) VALUES
 
 CREATE TABLE `productos` (
   `id` int NOT NULL,
-  `nombre` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `descripcion` text COLLATE utf8mb4_general_ci,
+  `nombre` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `descripcion` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `precio` decimal(10,2) NOT NULL,
   `stock` int NOT NULL,
-  `estado` enum('available','out_of_stock','discontinued') COLLATE utf8mb4_general_ci NOT NULL,
+  `estado` enum('available','out_of_stock','discontinued') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `oferta` decimal(10,2) DEFAULT NULL,
   `offer_expiration` date DEFAULT NULL,
-  `imagenes` text COLLATE utf8mb4_general_ci,
+  `imagenes` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `parent_id` int DEFAULT NULL,
   `idioma_id` int NOT NULL DEFAULT '1',
-  `grupo_id` varchar(10) COLLATE utf8mb4_general_ci NOT NULL,
+  `grupo_id` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `offer_start` date DEFAULT NULL,
-  `especificacion_1` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `especificacion_2` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `especificacion_3` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `especificacion_4` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `especificacion_5` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL
+  `especificacion_1` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `especificacion_2` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `especificacion_3` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `especificacion_4` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `especificacion_5` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -618,8 +619,8 @@ INSERT INTO `productos` (`id`, `nombre`, `descripcion`, `precio`, `stock`, `esta
 
 CREATE TABLE `roles` (
   `id` int NOT NULL,
-  `nombre` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `descripcion` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `nombre` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `descripcion` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   `updated` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -630,7 +631,8 @@ CREATE TABLE `roles` (
 
 INSERT INTO `roles` (`id`, `nombre`, `descripcion`, `created`, `updated`) VALUES
 (1, 'Cliente', 'Rol para usuarios que realizan compras y gestionan su perfil sin acceso a funciones administrativas.', '2024-12-24 10:26:46', '2024-12-24 10:26:46'),
-(2, 'Admin', 'Rol con acceso completo a todas las funciones del sistema, incluyendo la gestión de usuarios, productos y configuraciones.', '2024-12-24 10:27:08', '2024-12-24 10:27:08');
+(2, 'Admin', 'Rol con acceso completo a todas las funciones del sistema, incluyendo la gestión de usuarios, productos y configuraciones.', '2024-12-24 10:27:08', '2024-12-24 10:27:08'),
+(3, 'Super', 'Rol con todos los permisos y acceso total al sistema', '2025-07-17 15:33:55', '2025-07-17 15:33:55');
 
 -- --------------------------------------------------------
 
@@ -640,40 +642,41 @@ INSERT INTO `roles` (`id`, `nombre`, `descripcion`, `created`, `updated`) VALUES
 
 CREATE TABLE `usuarios` (
   `Id` int NOT NULL,
-  `Usuario` varchar(55) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `Password` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `NumeroDocumento` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `Nombres` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `Apellidos` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `Email` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `NroTelefono` varchar(30) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `Direccion` varchar(250) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `Pais` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `Ciudad` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `CodigoPostal` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `Rol` varchar(30) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `imagen` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL
+  `Usuario` varchar(55) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `Password` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `NumeroDocumento` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `Nombres` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `Apellidos` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `Email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `NroTelefono` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `Direccion` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `Pais` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `Ciudad` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `CodigoPostal` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `Rol` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `imagen` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `status` enum('active','inactive') COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'active'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`Id`, `Usuario`, `Password`, `NumeroDocumento`, `Nombres`, `Apellidos`, `Email`, `NroTelefono`, `Direccion`, `Pais`, `Ciudad`, `CodigoPostal`, `Rol`, `imagen`) VALUES
-(38, 'LuisRamos2023', '$2y$10$Q0BzAPmKSwyrwcdrFBntyO94KG1i1m9HA503.FLY3vtT.7H2kdGZC', '17399711', 'Luis Fernando', 'Ramos Lara', 'luis.ramos@pablogarciajc.com', '5555555555', 'malaga', 'EC', 'Pichincha', '29009', '21', '1736330934_19.png'),
-(39, 'Admin CMS', '$2y$10$oeLFSmdgXtOJcsxHt1v4f.XD8kpxKGitaJzRdQBzsl2QuJnX1ICYS', 'y6005812C', 'Administrador', 'CMS', 'admin@pablogarciajc.com', '372354875', 'malaga', 'ES', 'Madrid', '29009', '22', '1736330863_19.png'),
-(55, 'Santis', '$2y$04$XKlCE0QadX1Y4hdzFSjikuJalBaASdHSxQH/b3xoYNRa3f.HrvXZ.', '98765432', 'Marco Antonio', 'Santis Gómez', 'santis@pablogarciajc.com', '+34 654 789 123', 'Calle Ficticia 123, Piso 4, Departamento B', 'ES', 'Madrid', '28001', '21', '1736330972_19.png'),
-(56, 'JuanPerez123', '$2y$04$TcZBSlnP7Vkrtz9EoN.kYOoj/jQZ6ByHR8NehDaWwSyvRpjRIVi1q', '11223344', 'Juan Carlos', 'Pérez López', 'juan.perez@pablogarciajc.com', ' +52 5523456789', 'Calle Principal 456, Colonia Centro', 'MX', 'Ciudad', '06700', '21', '1736330997_19.png'),
-(57, 'AnaLopez88', '$2y$04$k72Y6lWTp4NZQSCS1W6ogOGoVwDrmVU5O8zkGfc9e6eyA7nSEj2RC', '22446688', 'Ana María', 'López Gómez', 'ana.lopez@pablogarciajc.com', '+34 612345678', 'Avenida del Sol 789, 2ºA', 'FR', 'París', '08025', '21', '1736328846_16.png'),
-(58, 'CarlosRguez', '$2y$04$pUsm6yl1gdHNebG2DgOileywlRR74BZk8vI0YSmtsFJXkOj9PKNfa', '33445566', 'Carlos Alberto', 'Rodríguez Torres', 'carlos.rodriguez@pablogarciajc.com', ' +1 3051234567', '1234 NW 5th Ave, Apt 1B', 'UK', 'Londres', '33101', '21', '1736331020_19.png'),
-(59, 'LuciaMendoza', '$2y$04$6UCwlgelrfr8w5gCH.E2RuiFF/8xExFXt2cJJD2r7ta9Zo7Tr3Dfy', '44556677', 'Lucía Fernanda', 'Mendoza Pérez', 'lucia.mendoza@pablogarciajc.com', '+57 3012345678', 'Carrera 10 #20-30', 'DE', 'Berlín', '110111', '21', '1736328911_16.png'),
-(60, 'PedroGomez', '$2y$04$0yUieZtrLXU9/aeZca2qtuo.9TA8F2QKojeZWq4tMyxRbWycF6j1q', '55667788', 'Pedro Luis', 'Gómez Ramírez', 'pedro.gomez@pablogarciajc.com', '+33 612345678', '15 Rue de la Paix', 'AR', 'Buenos', '75001', '21', '1736331039_19.png'),
-(61, 'SofiaMartinez', '$2y$04$KZ3aiMZYGaRvaLeC2h.v7O8YAVwjXSvY1P2g/6991gCNZ3pdJmeMq', '66778899', 'Sofía Alejandra', 'Martínez Soto', 'sofia.martinez@pablogarciajc.com', '+39 321654987', 'Via Roma 21', 'BR', 'Río', '00184', '21', '1736328959_16.png'),
-(62, ' DiegoHerrera', '$2y$04$e.X/qec/y.9vdFN/ed6GcuiOB9fC1rNWySfQjMnAKrwA6OD7Wqd/K', '77889900', 'Diego Armando', 'Herrera Díaz', 'diego.herrera@pablogarciajc.com', '+54 91123456789', 'Calle Florida 123, Piso 3', 'BR', 'Río', 'C1000', '21', '1736331058_19.png'),
-(63, 'MariaGonzalez', '$2y$04$W9cjqXzhFKkwKZrnPswG/eQ.nFI.dWt487WOIcZT17AF2wSUi64VK', '88990011', 'María Isabel', 'González Ruiz', 'maria.gonzalez@pablogarciajc.com', '+34 699876543', 'Calle de Alcalá 456', 'EC', 'Quito', '41001', '21', '1736329005_16.png'),
-(64, 'JavierOrtiz', '$2y$04$8hp32E8z3Pm07WA/hs8SfuF3SXFKmn0aMr7dmCS8/0SjPB3awkzL2', ' 99001122', 'Javier Ernesto', 'Ortiz Velasco', 'javier.ortiz@pablogarciajc.com', '+49 1723456789', 'Hauptstraße 12', 'DE', 'Berlín', '10115', '21', '1736331081_19.png'),
-(65, 'LauraVega', '$2y$04$3TgMXDPsGyeAUczoOYVov.Z0r8tWqcP/PXEBNaRW/ER0pbgwv1zrq', '11112233', 'Laura Patricia', 'Vega Torres', 'laura.vega@pablogarciajc.com', '+61 412345678', '123 Queen St', 'IT', 'Roma', '2000', '21', '1736329054_16.png'),
-(67, 'sss', '$2y$04$KSmhQuCh0IkuW8NhuEU49.cxtidotEXM.cxYpFsOXVBHjcH13vmle', NULL, NULL, NULL, 'pablogarciajcbd@hgg.com', NULL, NULL, NULL, NULL, NULL, '21', NULL);
+INSERT INTO `usuarios` (`Id`, `Usuario`, `Password`, `NumeroDocumento`, `Nombres`, `Apellidos`, `Email`, `NroTelefono`, `Direccion`, `Pais`, `Ciudad`, `CodigoPostal`, `Rol`, `imagen`, `status`) VALUES
+(38, 'LuisRamos2023', '$2y$10$Q0BzAPmKSwyrwcdrFBntyO94KG1i1m9HA503.FLY3vtT.7H2kdGZC', '17399711', 'Luis Fernando', 'Ramos Lara', 'luis.ramos@pablogarciajc.com', '5555555555', 'malaga', 'EC', 'Pichincha', '29009', '1', '1736330934_19.png', 'active'),
+(39, 'Admin CMS', '$2y$10$oeLFSmdgXtOJcsxHt1v4f.XD8kpxKGitaJzRdQBzsl2QuJnX1ICYS', 'y6005812C', 'Administrador', 'CMS', 'admin@pablogarciajc.com', '372354875', 'malaga', 'ES', 'Madrid', '29009', '2', '1736330863_19.png', 'active'),
+(55, 'Santis', '$2y$04$XKlCE0QadX1Y4hdzFSjikuJalBaASdHSxQH/b3xoYNRa3f.HrvXZ.', '98765432', 'Marco Antonio', 'Santis Gómez', 'santis@pablogarciajc.com', '+34 654 789 123', 'Calle Ficticia 123, Piso 4, Departamento B', 'ES', 'Madrid', '28001', '1', '1736330972_19.png', 'active'),
+(56, 'JuanPerez123', '$2y$04$TcZBSlnP7Vkrtz9EoN.kYOoj/jQZ6ByHR8NehDaWwSyvRpjRIVi1q', '11223344', 'Juan Carlos', 'Pérez López', 'juan.perez@pablogarciajc.com', ' +52 5523456789', 'Calle Principal 456, Colonia Centro', 'MX', 'Ciudad', '06700', '1', '1736330997_19.png', 'active'),
+(57, 'AnaLopez88', '$2y$04$k72Y6lWTp4NZQSCS1W6ogOGoVwDrmVU5O8zkGfc9e6eyA7nSEj2RC', '22446688', 'Ana María', 'López Gómez', 'ana.lopez@pablogarciajc.com', '+34 612345678', 'Avenida del Sol 789, 2ºA', 'FR', 'París', '08025', '1', '1736328846_16.png', 'active'),
+(58, 'CarlosRguez', '$2y$04$pUsm6yl1gdHNebG2DgOileywlRR74BZk8vI0YSmtsFJXkOj9PKNfa', '33445566', 'Carlos Alberto', 'Rodríguez Torres', 'carlos.rodriguez@pablogarciajc.com', ' +1 3051234567', '1234 NW 5th Ave, Apt 1B', 'UK', 'Londres', '33101', '1', '1736331020_19.png', 'active'),
+(59, 'LuciaMendoza', '$2y$04$6UCwlgelrfr8w5gCH.E2RuiFF/8xExFXt2cJJD2r7ta9Zo7Tr3Dfy', '44556677', 'Lucía Fernanda', 'Mendoza Pérez', 'lucia.mendoza@pablogarciajc.com', '+57 3012345678', 'Carrera 10 #20-30', 'DE', 'Berlín', '110111', '1', '1736328911_16.png', 'active'),
+(60, 'PedroGomez', '$2y$04$0yUieZtrLXU9/aeZca2qtuo.9TA8F2QKojeZWq4tMyxRbWycF6j1q', '55667788', 'Pedro Luis', 'Gómez Ramírez', 'pedro.gomez@pablogarciajc.com', '+33 612345678', '15 Rue de la Paix', 'AR', 'Buenos', '75001', '1', '1736331039_19.png', 'active'),
+(61, 'SofiaMartinez', '$2y$04$KZ3aiMZYGaRvaLeC2h.v7O8YAVwjXSvY1P2g/6991gCNZ3pdJmeMq', '66778899', 'Sofía Alejandra', 'Martínez Soto', 'sofia.martinez@pablogarciajc.com', '+39 321654987', 'Via Roma 21', 'BR', 'Río', '00184', '1', '1736328959_16.png', 'active'),
+(62, ' DiegoHerrera', '$2y$04$e.X/qec/y.9vdFN/ed6GcuiOB9fC1rNWySfQjMnAKrwA6OD7Wqd/K', '77889900', 'Diego Armando', 'Herrera Díaz', 'diego.herrera@pablogarciajc.com', '+54 91123456789', 'Calle Florida 123, Piso 3', 'BR', 'Río', 'C1000', '1', '1736331058_19.png', 'active'),
+(63, 'MariaGonzalez', '$2y$04$W9cjqXzhFKkwKZrnPswG/eQ.nFI.dWt487WOIcZT17AF2wSUi64VK', '88990011', 'María Isabel', 'González Ruiz', 'maria.gonzalez@pablogarciajc.com', '+34 699876543', 'Calle de Alcalá 456', 'EC', 'Quito', '41001', '1', '1736329005_16.png', 'active'),
+(64, 'JavierOrtiz', '$2y$04$8hp32E8z3Pm07WA/hs8SfuF3SXFKmn0aMr7dmCS8/0SjPB3awkzL2', ' 99001122', 'Javier Ernesto', 'Ortiz Velasco', 'javier.ortiz@pablogarciajc.com', '+49 1723456789', 'Hauptstraße 12', 'DE', 'Berlín', '10115', '1', '1736331081_19.png', 'active'),
+(65, 'LauraVega', '$2y$04$3TgMXDPsGyeAUczoOYVov.Z0r8tWqcP/PXEBNaRW/ER0pbgwv1zrq', '11112233', 'Laura Patricia', 'Vega Torres', 'laura.vega@pablogarciajc.com', '+61 412345678', '123 Queen St', 'IT', 'Roma', '2000', '1', '1736329054_16.png', 'active'),
+(69, 'superadmin', '$2y$04$Rsy3JUlx60B7tlQgWgUApeVO6waiBLDC5GJ0n7E7KbTqOmMCDhRJK', NULL, NULL, NULL, 'superadmin@superadmin.com', NULL, NULL, NULL, NULL, NULL, '3', NULL, 'active');
 
 --
 -- Índices para tablas volcadas
@@ -831,7 +834,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `Id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+  MODIFY `Id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
 
 --
 -- Restricciones para tablas volcadas
