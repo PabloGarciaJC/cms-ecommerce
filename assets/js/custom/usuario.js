@@ -82,7 +82,6 @@ class User {
                 confirmButtonText: data.boton,
               });
             }
-            // $('.formulario-iniciar-sesion').trigger('reset');
           } else {
             let errorMessage = "";
             data.message.forEach(function (error) {
