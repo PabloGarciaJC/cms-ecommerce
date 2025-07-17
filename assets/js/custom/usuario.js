@@ -7,7 +7,6 @@ class User {
   registro() {
     $('.formulario-registro').on('submit', function (e) {
       e.preventDefault();
-
       let formData = $(this).serialize();
       $.ajax({
         type: 'POST',
@@ -25,7 +24,6 @@ class User {
             }).then(() => {
               window.location.reload();
             });
-            $('.formulario-registro').trigger('reset');
           } else {
             let errorMessage = "";
             data.message.forEach(function (error) {
@@ -62,7 +60,7 @@ class User {
 
           if (data.success) {
             const perms = data.permissions || [];
-            const onlyRead = perms.length === 1 && perms.includes('read');
+            const onlyRead = perms.length === 1 && perms.includes('write');
             if (onlyRead) {
               Swal.fire({
                 icon: "info",

@@ -517,8 +517,8 @@ CREATE TABLE `permissions` (
 --
 
 INSERT INTO `permissions` (`id`, `role_id`, `permission`) VALUES
-(1, 22, 'read'),
-(3, 21, 'write');
+(1, 1, 'read'),
+(3, 2, 'write');
 
 -- --------------------------------------------------------
 
@@ -629,8 +629,8 @@ CREATE TABLE `roles` (
 --
 
 INSERT INTO `roles` (`id`, `nombre`, `descripcion`, `created`, `updated`) VALUES
-(21, 'Cliente', 'Rol para usuarios que realizan compras y gestionan su perfil sin acceso a funciones administrativas.', '2024-12-24 10:26:46', '2024-12-24 10:26:46'),
-(22, 'Admin', 'Rol con acceso completo a todas las funciones del sistema, incluyendo la gestión de usuarios, productos y configuraciones.', '2024-12-24 10:27:08', '2024-12-24 10:27:08');
+(1, 'Cliente', 'Rol para usuarios que realizan compras y gestionan su perfil sin acceso a funciones administrativas.', '2024-12-24 10:26:46', '2024-12-24 10:26:46'),
+(2, 'Admin', 'Rol con acceso completo a todas las funciones del sistema, incluyendo la gestión de usuarios, productos y configuraciones.', '2024-12-24 10:27:08', '2024-12-24 10:27:08');
 
 -- --------------------------------------------------------
 

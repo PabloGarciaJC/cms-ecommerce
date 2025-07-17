@@ -45,10 +45,10 @@ class UsuarioController
         $ObjUsuario = $ObjUsuario ?? new Usuario();
         $ObjUsuario->setUsuario($usuario);
         $ObjUsuario->setEmail($email);
-        $ObjUsuario->setRol(21);
+        $ObjUsuario->setRol(3);
 
         $errores = [];
-
+        
         if (empty($usuario)) $errores[] = ERROR_EMPTY_USERNAME;
         if (empty($email)) $errores[] = ERROR_EMPTY_EMAIL;
         if (empty($password)) $errores[] = ERROR_EMPTY_PASSWORD;
@@ -118,7 +118,7 @@ class UsuarioController
 
         if ($sesionCompletado && is_object($sesionCompletado)) {
             $permissions = property_exists($sesionCompletado, 'permissions') ? $sesionCompletado->permissions : [];
-            $onlyRead = count($permissions) === 1 && in_array('read', $permissions);
+            $onlyRead = count($permissions) === 1 && in_array('write', $permissions);
 
             if ($onlyRead) {
                 echo json_encode([
