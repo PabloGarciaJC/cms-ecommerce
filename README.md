@@ -4,7 +4,7 @@
 
 ## Demo del Proyecto
 
-[https://ecommerce.pablogarciajc.com/](https://ecommerce.pablogarciajc.com/)
+[https://ecommerce.com/](https://ecommerce.pablogarciajc.com/)
 
 | ![Imagen 1](https://pablogarciajc.com/wp-content/uploads/2025/01/ecommerce_1_webp.png) | ![Imagen 2](https://pablogarciajc.com/wp-content/uploads/2025/01/ecommerce_6_webp.png) |
 |-----------|-----------|
